@@ -1,10 +1,6 @@
-package client
+package dtos
 
-import (
-	"encoding/json"
-	"fmt"
-	"io"
-)
+import "io"
 
 type State struct {
 	ActiveSlaves              int
@@ -20,32 +16,23 @@ type HostState struct {
 	Master                                           bool
 }
 
-func (client *Client) GetState() (ss *State, err error) {
-	ss = &State{}
-	err = client.APIGet("state", ss)
-	return
+type APIClient interface {
+	APIGet(string, DTO) error
+}
+
+func (ss *State) Get(client APIClient) (err error) {
+	return client.APIGet("state", ss)
 }
 
 func (ss *State) Populate(jsonReader io.ReadCloser) (err error) {
-	data := make([]byte, 0, 1024)
-	chunk := make([]byte, 1024)
-	for {
-		var count int
-		count, err = jsonReader.Read(chunk)
-		data = append(data, chunk[:count]...)
-		if err == io.EOF {
-			jsonReader.Close()
-			break
-		}
-		if err != nil {
-			return
-		}
-	}
-
-	err = json.Unmarshal(data, ss)
+	err = ReadPopulate(jsonReader, ss)
 	return
 }
 
 func (ss *State) FormatText() string {
-	return fmt.Sprintf("%+v", ss)
+	return FormatText(ss)
+}
+
+func (ss *State) FormatJSON() string {
+	return FormatJSON(ss)
 }
