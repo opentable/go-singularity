@@ -2,28 +2,37 @@ package client
 
 import (
 	"encoding/json"
+	"fmt"
 	"io"
 )
 
-type SingularityState struct {
+type State struct {
+	ActiveSlaves              int
+	ActiveRacks               int
+	AuthDatastoreHealthy      bool
+	OverProvisionedRequestIds []string
+	HostStates                []HostState
 }
 
-func (client *Client) GetState() (ss SingularityState, err error) {
-	ss = SingularityState{}
-	response, err := client.APIGet("state")
-	if err != nil {
-		return
-	}
-	ss.Populate(response)
+type HostState struct {
+	HostAddress, HostName, DriverStatus, MesosMaster string
+	Uptime, MillisSinceLastOffer                     int64
+	Master                                           bool
+}
+
+func (client *Client) GetState() (ss *State, err error) {
+	ss = &State{}
+	err = client.APIGet("state", ss)
 	return
 }
 
-func (ss *SingularityState) Populate(jsonReader io.ReadCloser) (err error) {
-	data := make([]byte, 1024)
+func (ss *State) Populate(jsonReader io.ReadCloser) (err error) {
+	data := make([]byte, 0, 1024)
 	chunk := make([]byte, 1024)
 	for {
-		_, err = jsonReader.Read(chunk)
-		data = append(data, chunk...)
+		var count int
+		count, err = jsonReader.Read(chunk)
+		data = append(data, chunk[:count]...)
 		if err == io.EOF {
 			jsonReader.Close()
 			break
@@ -37,6 +46,6 @@ func (ss *SingularityState) Populate(jsonReader io.ReadCloser) (err error) {
 	return
 }
 
-func (ss *SingularityState) FormatText() string {
-	return "California. Uber alles."
+func (ss *State) FormatText() string {
+	return fmt.Sprintf("%+v", ss)
 }
