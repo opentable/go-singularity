@@ -1,0 +1,357 @@
+{
+  "path": "/api/history/request/{requestId}/deploy/{deployId}",
+  "operations": [
+    {
+      "method": "GET",
+      "summary": "Retrieve the history for a specific deploy.",
+      "notes": "",
+      "type": "SingularityDeployHistory",
+      "nickname": "getDeploy",
+      "parameters": [
+        {
+          "name": "requestId",
+          "description": "Request ID for deploy",
+          "required": true,
+          "type": "string",
+          "paramType": "path",
+          "allowMultiple": false
+        },
+        {
+          "name": "deployId",
+          "description": "Deploy ID",
+          "required": true,
+          "type": "string",
+          "paramType": "path",
+          "allowMultiple": false
+        }
+      ]
+    }
+  ]
+}
+{
+  "path": "/api/history/task/{taskId}",
+  "operations": [
+    {
+      "method": "GET",
+      "summary": "Retrieve the history for a specific task.",
+      "notes": "",
+      "type": "SingularityTaskHistory",
+      "nickname": "getHistoryForTask",
+      "parameters": [
+        {
+          "name": "taskId",
+          "description": "Task ID to look up",
+          "required": true,
+          "type": "string",
+          "paramType": "path",
+          "allowMultiple": false
+        }
+      ]
+    }
+  ]
+}
+{
+  "path": "/api/history/request/{requestId}/tasks",
+  "operations": [
+    {
+      "method": "GET",
+      "summary": "Retrieve the history for all tasks of a specific request.",
+      "notes": "",
+      "type": "array",
+      "items": {
+        "$ref": "SingularityTaskIdHistory"
+      },
+      "nickname": "getTaskHistoryForRequest",
+      "parameters": [
+        {
+          "name": "requestId",
+          "description": "Request ID to look up",
+          "required": true,
+          "type": "string",
+          "paramType": "path",
+          "allowMultiple": false
+        },
+        {
+          "name": "count",
+          "description": "Maximum number of items to return",
+          "required": false,
+          "type": "integer",
+          "format": "int32",
+          "paramType": "query",
+          "allowMultiple": false
+        },
+        {
+          "name": "page",
+          "description": "Which page of items to view",
+          "required": false,
+          "type": "integer",
+          "format": "int32",
+          "paramType": "query",
+          "allowMultiple": false
+        }
+      ]
+    }
+  ]
+}
+{
+  "method": "GET",
+  "summary": "Retrieve the history for a task by runId",
+  "notes": "",
+  "type": "SingularityTaskIdHistory",
+  "nickname": "getTaskHistoryForRequestRun",
+  "parameters": [
+    {
+      "name": "requestId",
+      "description": "Request ID to look up",
+      "required": true,
+      "type": "string",
+      "paramType": "path",
+      "allowMultiple": false
+    },
+    {
+      "name": "runId",
+      "description": "runId to look up",
+      "required": true,
+      "type": "string",
+      "paramType": "path",
+      "allowMultiple": false
+    }
+  ]
+}
+{
+  "path": "/api/history/request/{requestId}/tasks/active",
+  "operations": [
+    {
+      "method": "GET",
+      "summary": "Retrieve the history for all active tasks of a specific request.",
+      "notes": "",
+      "type": "array",
+      "items": {
+        "$ref": "SingularityTaskIdHistory"
+      },
+      "nickname": "getTaskHistoryForRequest",
+      "parameters": [
+        {
+          "name": "requestId",
+          "description": "Request ID to look up",
+          "required": true,
+          "type": "string",
+          "paramType": "path",
+          "allowMultiple": false
+        }
+      ]
+    }
+  ]
+}
+{
+  "path": "/api/history/request/{requestId}/deploy/{deployId}/tasks/active",
+  "operations": [
+    {
+      "method": "GET",
+      "summary": "Retrieve the task history for a specific deploy.",
+      "notes": "",
+      "type": "array",
+      "items": {
+        "$ref": "SingularityTaskIdHistory"
+      },
+      "nickname": "getActiveDeployTasks",
+      "parameters": [
+        {
+          "name": "requestId",
+          "description": "Request ID for deploy",
+          "required": true,
+          "type": "string",
+          "paramType": "path",
+          "allowMultiple": false
+        },
+        {
+          "name": "deployId",
+          "description": "Deploy ID",
+          "required": true,
+          "type": "string",
+          "paramType": "path",
+          "allowMultiple": false
+        }
+      ]
+    }
+  ]
+}
+{
+  "path": "/api/history/request/{requestId}/deploy/{deployId}/tasks/inactive",
+  "operations": [
+    {
+      "method": "GET",
+      "summary": "Retrieve the task history for a specific deploy.",
+      "notes": "",
+      "type": "array",
+      "items": {
+        "$ref": "SingularityTaskIdHistory"
+      },
+      "nickname": "getInactiveDeployTasks",
+      "parameters": [
+        {
+          "name": "requestId",
+          "description": "Request ID for deploy",
+          "required": true,
+          "type": "string",
+          "paramType": "path",
+          "allowMultiple": false
+        },
+        {
+          "name": "deployId",
+          "description": "Deploy ID",
+          "required": true,
+          "type": "string",
+          "paramType": "path",
+          "allowMultiple": false
+        },
+        {
+          "name": "count",
+          "description": "Maximum number of items to return",
+          "required": false,
+          "type": "integer",
+          "format": "int32",
+          "paramType": "query",
+          "allowMultiple": false
+        },
+        {
+          "name": "page",
+          "description": "Which page of items to view",
+          "required": false,
+          "type": "integer",
+          "format": "int32",
+          "paramType": "query",
+          "allowMultiple": false
+        }
+      ]
+    }
+  ]
+}
+{
+  "path": "/api/history/request/{requestId}/deploys",
+  "operations": [
+    {
+      "method": "GET",
+      "summary": "",
+      "notes": "",
+      "type": "array",
+      "items": {
+        "$ref": "SingularityDeployHistory"
+      },
+      "nickname": "getDeploys",
+      "parameters": [
+        {
+          "name": "requestId",
+          "description": "Request ID to look up",
+          "required": true,
+          "type": "string",
+          "paramType": "path",
+          "allowMultiple": false
+        },
+        {
+          "name": "count",
+          "description": "Maximum number of items to return",
+          "required": false,
+          "type": "integer",
+          "format": "int32",
+          "paramType": "query",
+          "allowMultiple": false
+        },
+        {
+          "name": "page",
+          "description": "Which page of items to view",
+          "required": false,
+          "type": "integer",
+          "format": "int32",
+          "paramType": "query",
+          "allowMultiple": false
+        }
+      ]
+    }
+  ]
+}
+{
+  "path": "/api/history/request/{requestId}/requests",
+  "operations": [
+    {
+      "method": "GET",
+      "summary": "",
+      "notes": "",
+      "type": "array",
+      "items": {
+        "$ref": "SingularityRequestHistory"
+      },
+      "nickname": "getRequestHistoryForRequest",
+      "parameters": [
+        {
+          "name": "requestId",
+          "description": "Request ID to look up",
+          "required": true,
+          "type": "string",
+          "paramType": "path",
+          "allowMultiple": false
+        },
+        {
+          "name": "count",
+          "description": "Naximum number of items to return",
+          "required": false,
+          "type": "integer",
+          "format": "int32",
+          "paramType": "query",
+          "allowMultiple": false
+        },
+        {
+          "name": "page",
+          "description": "Which page of items to view",
+          "required": false,
+          "type": "integer",
+          "format": "int32",
+          "paramType": "query",
+          "allowMultiple": false
+        }
+      ]
+    }
+  ]
+}
+{
+  "path": "/api/history/requests/search",
+  "operations": [
+    {
+      "method": "GET",
+      "summary": "Search for requests.",
+      "notes": "",
+      "items": {
+        "type": "string"
+      },
+      "nickname": "getRequestHistoryForRequestLike",
+      "parameters": [
+        {
+          "name": "requestIdLike",
+          "description": "Request ID prefix to search for",
+          "required": false,
+          "type": "string",
+          "paramType": "query",
+          "allowMultiple": false
+        },
+        {
+          "name": "count",
+          "description": "Maximum number of items to return",
+          "required": false,
+          "type": "integer",
+          "format": "int32",
+          "paramType": "query",
+          "allowMultiple": false
+        },
+        {
+          "name": "page",
+          "description": "Which page of items to view",
+          "required": false,
+          "type": "integer",
+          "format": "int32",
+          "paramType": "query",
+          "allowMultiple": false
+        }
+      ]
+    }
+  ]
+}

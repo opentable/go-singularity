@@ -3,7 +3,7 @@ package dtos
 import "io"
 
 type ByteString struct {
-	Empty bool
+	Empty     bool
 	ValidUtf8 bool
 }
 

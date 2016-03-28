@@ -3,16 +3,16 @@ package dtos
 import "io"
 
 type TaskID struct {
-//	AllFields Map[FieldDescriptor,Object]
-	DefaultInstanceForType TaskID
-	DescriptorForType Descriptor
+	//	AllFields *Map[FieldDescriptor,Object]
+	DefaultInstanceForType    *TaskID
+	DescriptorForType         *Descriptor
 	InitializationErrorString string
-	Initialized bool
-//	ParserForType com.google.protobuf.Parser&lt;org.apache.mesos.Protos$TaskID&gt;
+	Initialized               bool
+	//	ParserForType *com.google.protobuf.Parser&lt;org.apache.mesos.Protos$TaskID&gt;
 	SerializedSize int32
-	UnknownFields UnknownFieldSet
-	Value string
-	ValueBytes ByteString
+	UnknownFields  *UnknownFieldSet
+	Value          string
+	ValueBytes     *ByteString
 }
 
 func (self *TaskID) Populate(jsonReader io.ReadCloser) (err error) {

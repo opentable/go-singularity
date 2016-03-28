@@ -1,0 +1,9 @@
+.apis[] | if .path == "/api/history/request/{requestId}/run/{runId}" then
+  .operations[] | if .nickname == "getTaskHistoryForRequest" then
+    .nickname = "getTaskHistoryForRequestRun"
+    else
+      .
+    end
+  else
+    .
+  end

@@ -1,0 +1,114 @@
+{
+  "apiVersion" : "0.4.12-SNAPSHOT",
+  "swaggerVersion" : "1.2",
+  "basePath" : null,
+  "resourcePath" : "/api/logs",
+  "produces" : [ "application/json" ],
+  "apis" : [ {
+    "path" : "/api/logs/task/{taskId}",
+    "operations" : [ {
+      "method" : "GET",
+      "summary" : "Retrieve the list of logs stored in S3 for a specific task.",
+      "notes" : "",
+      "type" : "List[SingularityS3Log]",
+      "nickname" : "getS3LogsForTask",
+      "parameters" : [ {
+        "name" : "taskId",
+        "description" : "The task ID to search for",
+        "required" : true,
+        "type" : "string",
+        "paramType" : "path",
+        "allowMultiple" : false
+      }, {
+        "name" : "start",
+        "description" : "Start timestamp (millis, 13 digit)",
+        "required" : false,
+        "type" : "integer",
+        "format" : "int64",
+        "paramType" : "query",
+        "allowMultiple" : false
+      }, {
+        "name" : "end",
+        "description" : "End timestamp (mills, 13 digit)",
+        "required" : false,
+        "type" : "integer",
+        "format" : "int64",
+        "paramType" : "query",
+        "allowMultiple" : false
+      } ]
+    } ]
+  }, {
+    "path" : "/api/logs/request/{requestId}",
+    "operations" : [ {
+      "method" : "GET",
+      "summary" : "Retrieve the list of logs stored in S3 for a specific request.",
+      "notes" : "",
+      "type" : "List[SingularityS3Log]",
+      "nickname" : "getS3LogsForRequest",
+      "parameters" : [ {
+        "name" : "requestId",
+        "description" : "The request ID to search for",
+        "required" : true,
+        "type" : "string",
+        "paramType" : "path",
+        "allowMultiple" : false
+      }, {
+        "name" : "start",
+        "description" : "Start timestamp (millis, 13 digit)",
+        "required" : false,
+        "type" : "integer",
+        "format" : "int64",
+        "paramType" : "query",
+        "allowMultiple" : false
+      }, {
+        "name" : "end",
+        "description" : "End timestamp (mills, 13 digit)",
+        "required" : false,
+        "type" : "integer",
+        "format" : "int64",
+        "paramType" : "query",
+        "allowMultiple" : false
+      } ]
+    } ]
+  }, {
+    "path" : "/api/logs/request/{requestId}/deploy/{deployId}",
+    "operations" : [ {
+      "method" : "GET",
+      "summary" : "Retrieve the list of logs stored in S3 for a specific deploy.",
+      "notes" : "",
+      "type" : "List[SingularityS3Log]",
+      "nickname" : "getS3LogsForDeploy",
+      "parameters" : [ {
+        "name" : "requestId",
+        "description" : "The request ID to search for",
+        "required" : true,
+        "type" : "string",
+        "paramType" : "path",
+        "allowMultiple" : false
+      }, {
+        "name" : "deployId",
+        "description" : "The deploy ID to search for",
+        "required" : true,
+        "type" : "string",
+        "paramType" : "path",
+        "allowMultiple" : false
+      }, {
+        "name" : "start",
+        "description" : "Start timestamp (millis, 13 digit)",
+        "required" : false,
+        "type" : "integer",
+        "format" : "int64",
+        "paramType" : "query",
+        "allowMultiple" : false
+      }, {
+        "name" : "end",
+        "description" : "End timestamp (mills, 13 digit)",
+        "required" : false,
+        "type" : "integer",
+        "format" : "int64",
+        "paramType" : "query",
+        "allowMultiple" : false
+      } ]
+    } ]
+  } ]
+}

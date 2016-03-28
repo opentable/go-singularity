@@ -3,11 +3,11 @@ package dtos
 import "io"
 
 type HTTPOrBuilder struct {
-	Path string
-	PathBytes ByteString
-	Port int32
+	Path          string
+	PathBytes     *ByteString
+	Port          int32
 	StatusesCount int32
-	StatusesList []int32
+	StatusesList  int32
 }
 
 func (self *HTTPOrBuilder) Populate(jsonReader io.ReadCloser) (err error) {

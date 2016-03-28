@@ -4,8 +4,8 @@ import "io"
 
 type LoadBalancerRequestId struct {
 	AttemptNumber int32
-	Id string
-//	RequestType LoadBalancerRequestType
+	Id            string
+	//	RequestType *LoadBalancerRequestType
 }
 
 func (self *LoadBalancerRequestId) Populate(jsonReader io.ReadCloser) (err error) {

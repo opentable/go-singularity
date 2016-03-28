@@ -14,9 +14,9 @@ func main() {
 	serviceSource := os.Args[1]
 	renderTarget := os.Args[2]
 
-	ingester := swaggering.NewIngester(serviceSource)
-	renderer := swaggering.NewRenderer(renderTarget)
+	context := swaggering.NewContext()
 
-	ingester.ProcessService()
-	renderer.RenderService(ingester)
+	swaggering.ProcessService(serviceSource, context)
+	swaggering.ResolveService(context)
+	swaggering.RenderService(renderTarget, context)
 }

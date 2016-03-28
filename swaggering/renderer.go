@@ -7,6 +7,8 @@ import (
 	"os"
 	"path/filepath"
 	"regexp"
+
+	"golang.org/x/tools/imports"
 )
 
 const (
@@ -18,7 +20,8 @@ import "io"
 
 type {{.GoName}} struct {
 {{range $name, $prop := .Properties}}
-{{- if $prop.GoTypeInvalid}}//{{end}}	{{$prop.GoName}} {{$prop.GoType}}
+{{- if $prop.GoTypeInvalid}}//{{end}}	{{$prop.GoName}} {{ if $prop.GoModel -}}*{{- end -}}
+{{$prop.GoType}}
 {{end}}}
 
 func (self *{{.GoName}}) Populate(jsonReader io.ReadCloser) (err error) {
@@ -39,10 +42,14 @@ func (self *{{.GoName}}) FormatJSON() string {
 {{- /**/ -}}
 package client
 
+import "github.com/opentable/sous-singularity/client/dtos"
+
 {{range .Operations}}
-func (client *client.Client){{.Nickname}}(
-	{{- range .Parameters}}{{.Name}} {{.GoType}}, {{end -}}
-) (response *Something) {
+{{- if not .GoTypeInvalid -}}
+func (client *Client) {{.Nickname}}(
+	{{- range .Parameters}}{{.Name}} {{if .GoModel}}* dtos.{{end -}}{{.GoType}}, {{end -}}
+) ({{ if not (eq .GoType "") }}response {{if .GoModel}}* dtos.{{end -}}
+{{.GoType}}, {{end}} err error) {
 	pathParamMap := map[string]interface{}{
 		{{range .Parameters -}}
 		{{if eq "path" .ParamType -}}
@@ -57,8 +64,30 @@ func (client *client.Client){{.Nickname}}(
 	  {{- end }}
 		{{- end }}
 	}
-	client.Request({{.Method}}, pathParamMap, queryParamMap, body)
+
+	{{if .GoModel -}}
+	response = new(dtos.{{.GoType}})
+	err = client.DTORequest(response, "{{.Method}}", "{{.Path}}", pathParamMap, queryParamMap
+	{{- if .HasBody -}}
+	, body
+  {{- end -}})
+	{{else if (eq .GoType "")}}
+	_, err = client.Request("{{.Method}}", "{{.Path}}", pathParamMap, queryParamMap
+	{{- if .HasBody -}}
+	, body
+  {{- end -}})
+	{{else if eq .GoType "string"}}
+	resBody, err := client.Request("{{.Method}}", "{{.Path}}", pathParamMap, queryParamMap
+	{{- if .HasBody -}}
+	, body
+  {{- end -}})
+	readBuf := bytes.Buffer{}
+	readBuf.ReadFrom(resBody)
+	response = string(readBuf.Bytes())
+	{{- end}}
+	return
 }
+{{end}}
 {{end}}
 {{- /**/ -}}
 	`
@@ -77,11 +106,13 @@ func NewRenderer(tgt string) (renderer *Renderer) {
 	return
 }
 
-func (self *Renderer) RenderService(ingester *Ingester) {
+func RenderService(target string, ingester *Context) {
 	defer log.SetFlags(log.Flags())
 	log.SetFlags(log.Flags() | log.Lshortfile)
+	self := NewRenderer(target)
 	for _, model := range ingester.models {
 		if model.GoUses {
+			log.Print("Model: ", model.GoName)
 			path := filepath.Join("dtos", snakeCase(model.GoName))
 			self.renderModel(path, model)
 		}
@@ -94,9 +125,11 @@ func (self *Renderer) RenderService(ingester *Ingester) {
 
 func apiPath(urlPath string) string {
 	slashes := regexp.MustCompile("/+")
-	unders := regexp.MustCompile("_+")
+	unders := regexp.MustCompile("^_+")
+	brackets := regexp.MustCompile("[}{]")
 	urlPath = slashes.ReplaceAllString(urlPath, "_")
-	urlPath = unders.ReplaceAllString(urlPath, "_")
+	urlPath = unders.ReplaceAllString(urlPath, "")
+	urlPath = brackets.ReplaceAllString(urlPath, "")
 	return urlPath
 }
 
@@ -130,15 +163,30 @@ func (self *Renderer) renderApi(path string, api *Api) {
 	renderCode(self.targetDir, path, self.apiTmpl, api)
 }
 
-func renderCode(dir, path string, tmpl *template.Template, context interface{}) {
+func renderCode(dir, path string, tmpl *template.Template, context interface{}) (err error) {
 	fullpath := filepath.Join(dir, path) + ".go"
 	log.Print("Rendering to ", fullpath)
-	targetFile, err := os.Create(fullpath)
+	targetBuf := bytes.Buffer{}
+
+	err = tmpl.Execute(&targetBuf, context)
 	if err != nil {
-		log.Fatal("Problem rendering ", tmpl.Name, " to ", targetFile, ": ", err)
+		log.Fatal("Problem rendering ", tmpl.Name, " to ", fullpath, ": ", err)
 	}
-	err = tmpl.Execute(targetFile, context)
+
+	formattedBytes, err := imports.Process(fullpath, targetBuf.Bytes(), nil)
 	if err != nil {
-		log.Fatal("Problem rendering ", tmpl.Name, " to ", targetFile, ": ", err)
+		log.Print("Problem formatting ", tmpl.Name, " to ", fullpath, ": ", err)
+		formattedBytes = targetBuf.Bytes()
 	}
+	if len(formattedBytes) > 0 {
+		targetFile, err := os.Create(fullpath)
+		defer targetFile.Close()
+		if err != nil {
+			log.Fatal("Problem creating file ", fullpath, " to render ", tmpl.Name, "into: ", err)
+		}
+
+		targetFile.Write(formattedBytes)
+	}
+
+	return
 }

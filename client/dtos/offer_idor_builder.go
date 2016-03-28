@@ -3,8 +3,8 @@ package dtos
 import "io"
 
 type OfferIDOrBuilder struct {
-	Value string
-	ValueBytes ByteString
+	Value      string
+	ValueBytes *ByteString
 }
 
 func (self *OfferIDOrBuilder) Populate(jsonReader io.ReadCloser) (err error) {

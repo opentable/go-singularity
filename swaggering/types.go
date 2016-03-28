@@ -2,14 +2,15 @@ package swaggering
 
 type (
 	DataType struct {
-		GoType        string
-		GoTypeInvalid bool
-		Type, Format  string
-		Ref           string `json:"$ref"`
-		Enum          []string
+		GoType                 string
+		GoTypeInvalid, GoModel bool
+		Type, Format           string
+		Ref                    string `json:"$ref"`
+		Enum                   []string
 	}
 
 	Collection struct {
+		DataType
 		Items       DataType
 		UniqueItems bool
 	}
@@ -26,17 +27,16 @@ type (
 	}
 
 	Operation struct {
-		Method, Nickname, Deprecated string
-		Parameters                   []*Parameter
-		ResponseMessages             []*ResponseMessage
-		DataType
+		Nickname, Method, Path, Deprecated string
+		HasBody                            bool
+		Parameters                         []*Parameter
+		ResponseMessages                   []*ResponseMessage
 		Collection
 	}
 
 	Parameter struct {
 		ParamType, Name         string
 		Required, AllowMultiple bool
-		DataType
 		Collection
 	}
 
@@ -56,7 +56,6 @@ type (
 
 	Property struct {
 		GoName string
-		DataType
 		Collection
 	}
 )

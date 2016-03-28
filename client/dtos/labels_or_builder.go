@@ -4,8 +4,8 @@ import "io"
 
 type LabelsOrBuilder struct {
 	LabelsCount int32
-//	LabelsList List[Label]
-//	LabelsOrBuilderList List[? extends org.apache.mesos.Protos$LabelOrBuilder]
+	//	LabelsList *List[Label]
+	//	LabelsOrBuilderList *List[? extends org.apache.mesos.Protos$LabelOrBuilder]
 }
 
 func (self *LabelsOrBuilder) Populate(jsonReader io.ReadCloser) (err error) {

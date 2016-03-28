@@ -3,23 +3,23 @@ package dtos
 import "io"
 
 type ExecutorData struct {
-	Cmd string
-	EmbeddedArtifacts []
-	ExternalArtifacts []
-	ExtraCmdLineArgs []string
-//	LoggingExtraFields Map[string,string]
-	LoggingS3Bucket string
-	LoggingTag string
-	MaxOpenFiles int32
-	MaxTaskThreads int32
+	Cmd               string
+	EmbeddedArtifacts *EmbeddedArtifact
+	ExternalArtifacts *ExternalArtifact
+	ExtraCmdLineArgs  string
+	//	LoggingExtraFields *Map[string,string]
+	LoggingS3Bucket                string
+	LoggingTag                     string
+	MaxOpenFiles                   int32
+	MaxTaskThreads                 int32
 	PreserveTaskSandboxAfterFinish bool
-	RunningSentinel string
-	S3ArtifactSignatures []
-	S3Artifacts []
-	SigKillProcessesAfterMillis int64
-	SkipLogrotateAndCompress bool
-	SuccessfulExitCodes []int32
-	User string
+	RunningSentinel                string
+	S3ArtifactSignatures           *S3ArtifactSignature
+	S3Artifacts                    *S3Artifact
+	SigKillProcessesAfterMillis    int64
+	SkipLogrotateAndCompress       bool
+	SuccessfulExitCodes            int32
+	User                           string
 }
 
 func (self *ExecutorData) Populate(jsonReader io.ReadCloser) (err error) {

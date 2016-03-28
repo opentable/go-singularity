@@ -4,15 +4,15 @@ import "io"
 
 type DockerInfoOrBuilder struct {
 	ForcePullImage bool
-	Image string
-	ImageBytes ByteString
-//	Network Network
+	Image          string
+	ImageBytes     *ByteString
+	//	Network *Network
 	ParametersCount int32
-//	ParametersList List[Parameter]
-//	ParametersOrBuilderList List[? extends org.apache.mesos.Protos$ParameterOrBuilder]
+	//	ParametersList *List[Parameter]
+	//	ParametersOrBuilderList *List[? extends org.apache.mesos.Protos$ParameterOrBuilder]
 	PortMappingsCount int32
-//	PortMappingsList List[PortMapping]
-//	PortMappingsOrBuilderList List[? extends org.apache.mesos.Protos$ContainerInfo$DockerInfo$PortMappingOrBuilder]
+	//	PortMappingsList *List[PortMapping]
+	//	PortMappingsOrBuilderList *List[? extends org.apache.mesos.Protos$ContainerInfo$DockerInfo$PortMappingOrBuilder]
 	Privileged bool
 }
 

@@ -3,36 +3,36 @@ package dtos
 import "io"
 
 type TaskInfo struct {
-//	AllFields Map[FieldDescriptor,Object]
-	Command CommandInfo
-	CommandOrBuilder CommandInfoOrBuilder
-	Container ContainerInfo
-	ContainerOrBuilder ContainerInfoOrBuilder
-	Data ByteString
-	DefaultInstanceForType TaskInfo
-	DescriptorForType Descriptor
-	Discovery DiscoveryInfo
-	DiscoveryOrBuilder DiscoveryInfoOrBuilder
-	Executor ExecutorInfo
-	ExecutorOrBuilder ExecutorInfoOrBuilder
-	HealthCheck HealthCheck
-	HealthCheckOrBuilder HealthCheckOrBuilder
+	//	AllFields *Map[FieldDescriptor,Object]
+	Command                   *CommandInfo
+	CommandOrBuilder          *CommandInfoOrBuilder
+	Container                 *ContainerInfo
+	ContainerOrBuilder        *ContainerInfoOrBuilder
+	Data                      *ByteString
+	DefaultInstanceForType    *TaskInfo
+	DescriptorForType         *Descriptor
+	Discovery                 *DiscoveryInfo
+	DiscoveryOrBuilder        *DiscoveryInfoOrBuilder
+	Executor                  *ExecutorInfo
+	ExecutorOrBuilder         *ExecutorInfoOrBuilder
+	HealthCheck               *HealthCheck
+	HealthCheckOrBuilder      *HealthCheckOrBuilder
 	InitializationErrorString string
-	Initialized bool
-	Labels Labels
-	LabelsOrBuilder LabelsOrBuilder
-	Name string
-	NameBytes ByteString
-//	ParserForType com.google.protobuf.Parser&lt;org.apache.mesos.Protos$TaskInfo&gt;
+	Initialized               bool
+	Labels                    *Labels
+	LabelsOrBuilder           *LabelsOrBuilder
+	Name                      string
+	NameBytes                 *ByteString
+	//	ParserForType *com.google.protobuf.Parser&lt;org.apache.mesos.Protos$TaskInfo&gt;
 	ResourcesCount int32
-//	ResourcesList List[Resource]
-//	ResourcesOrBuilderList List[? extends org.apache.mesos.Protos$ResourceOrBuilder]
-	SerializedSize int32
-	SlaveId SlaveID
-	SlaveIdOrBuilder SlaveIDOrBuilder
-	TaskId TaskID
-	TaskIdOrBuilder TaskIDOrBuilder
-	UnknownFields UnknownFieldSet
+	//	ResourcesList *List[Resource]
+	//	ResourcesOrBuilderList *List[? extends org.apache.mesos.Protos$ResourceOrBuilder]
+	SerializedSize   int32
+	SlaveId          *SlaveID
+	SlaveIdOrBuilder *SlaveIDOrBuilder
+	TaskId           *TaskID
+	TaskIdOrBuilder  *TaskIDOrBuilder
+	UnknownFields    *UnknownFieldSet
 }
 
 func (self *TaskInfo) Populate(jsonReader io.ReadCloser) (err error) {

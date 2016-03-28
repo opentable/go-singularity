@@ -1,0 +1,2630 @@
+{
+  "apiVersion" : "0.4.12-SNAPSHOT",
+  "swaggerVersion" : "1.2",
+  "basePath" : null,
+  "resourcePath" : "/api/tasks",
+  "produces" : [ "application/json" ],
+  "apis" : [ {
+    "path" : "/api/tasks/task/{taskId}",
+    "operations" : [ {
+      "method" : "DELETE",
+      "summary" : "Attempt to kill task, optionally overriding an existing cleanup request (that may be waiting for replacement tasks to become healthy)",
+      "notes" : "",
+      "type" : "SingularityTaskCleanup",
+      "nickname" : "killTask",
+      "consumes" : [ "application/json" ],
+      "parameters" : [ {
+        "name" : "taskId",
+        "required" : true,
+        "type" : "string",
+        "paramType" : "path",
+        "allowMultiple" : false
+      }, {
+        "name" : "body",
+        "required" : false,
+        "type" : "SingularityKillTaskRequest",
+        "paramType" : "body",
+        "allowMultiple" : false
+      } ],
+      "responseMessages" : [ {
+        "code" : 409,
+        "message" : "Task already has a cleanup request (can be overridden with override=true)"
+      } ]
+    }, {
+      "method" : "GET",
+      "summary" : "Retrieve information about a specific active task.",
+      "notes" : "",
+      "type" : "SingularityTask",
+      "nickname" : "getActiveTask",
+      "parameters" : [ {
+        "name" : "taskId",
+        "required" : true,
+        "type" : "string",
+        "paramType" : "path",
+        "allowMultiple" : false
+      } ]
+    } ]
+  }, {
+    "path" : "/api/tasks/scheduled",
+    "operations" : [ {
+      "method" : "GET",
+      "summary" : "Retrieve list of scheduled tasks.",
+      "notes" : "",
+      "type" : "array",
+      "items" : {
+        "$ref" : "SingularityTaskRequest"
+      },
+      "nickname" : "getScheduledTasks",
+      "parameters" : [ ]
+    } ]
+  }, {
+    "path" : "/api/tasks/scheduled/ids",
+    "operations" : [ {
+      "method" : "GET",
+      "summary" : "Retrieve list of scheduled task IDs.",
+      "notes" : "",
+      "items" : {
+        "$ref" : "SingularityPendingTaskId"
+      },
+      "nickname" : "getScheduledTaskIds",
+      "parameters" : [ ]
+    } ]
+  }, {
+    "path" : "/api/tasks/scheduled/task/{pendingTaskId}",
+    "operations" : [ {
+      "method" : "GET",
+      "summary" : "Retrieve information about a pending task.",
+      "notes" : "",
+      "type" : "SingularityTaskRequest",
+      "nickname" : "getPendingTask",
+      "parameters" : [ {
+        "name" : "pendingTaskId",
+        "required" : true,
+        "type" : "string",
+        "paramType" : "path",
+        "allowMultiple" : false
+      } ]
+    } ]
+  }, {
+    "path" : "/api/tasks/scheduled/request/{requestId}",
+    "operations" : [ {
+      "method" : "GET",
+      "summary" : "Retrieve list of scheduled tasks for a specific request.",
+      "notes" : "",
+      "type" : "array",
+      "items" : {
+        "$ref" : "SingularityTaskRequest"
+      },
+      "nickname" : "getScheduledTasksForRequest",
+      "parameters" : [ {
+        "name" : "requestId",
+        "required" : true,
+        "type" : "string",
+        "paramType" : "path",
+        "allowMultiple" : false
+      } ]
+    } ]
+  }, {
+    "path" : "/api/tasks/active/slave/{slaveId}",
+    "operations" : [ {
+      "method" : "GET",
+      "summary" : "Retrieve list of active tasks on a specific slave.",
+      "notes" : "",
+      "items" : {
+        "$ref" : "SingularityTask"
+      },
+      "nickname" : "getTasksForSlave",
+      "parameters" : [ {
+        "name" : "slaveId",
+        "required" : true,
+        "type" : "string",
+        "paramType" : "path",
+        "allowMultiple" : false
+      } ]
+    } ]
+  }, {
+    "path" : "/api/tasks/active",
+    "operations" : [ {
+      "method" : "GET",
+      "summary" : "Retrieve the list of active tasks.",
+      "notes" : "",
+      "items" : {
+        "$ref" : "SingularityTask"
+      },
+      "nickname" : "getActiveTasks",
+      "parameters" : [ ]
+    } ]
+  }, {
+    "path" : "/api/tasks/cleaning",
+    "operations" : [ {
+      "method" : "GET",
+      "summary" : "Retrieve the list of cleaning tasks.",
+      "notes" : "",
+      "items" : {
+        "$ref" : "SingularityTaskCleanup"
+      },
+      "nickname" : "getCleaningTasks",
+      "parameters" : [ ]
+    } ]
+  }, {
+    "path" : "/api/tasks/killed",
+    "operations" : [ {
+      "method" : "GET",
+      "summary" : "Retrieve the list of killed tasks.",
+      "notes" : "",
+      "items" : {
+        "$ref" : "SingularityKilledTaskIdRecord"
+      },
+      "nickname" : "getKilledTasks",
+      "parameters" : [ ]
+    } ]
+  }, {
+    "path" : "/api/tasks/lbcleanup",
+    "operations" : [ {
+      "method" : "GET",
+      "summary" : "Retrieve the list of tasks being cleaned from load balancers.",
+      "notes" : "",
+      "items" : {
+        "$ref" : "SingularityTaskId"
+      },
+      "nickname" : "getLbCleanupTasks",
+      "parameters" : [ ]
+    } ]
+  }, {
+    "path" : "/api/tasks/task/{taskId}/statistics",
+    "operations" : [ {
+      "method" : "GET",
+      "summary" : "Retrieve statistics about a specific active task.",
+      "notes" : "",
+      "type" : "MesosTaskStatisticsObject",
+      "nickname" : "getTaskStatistics",
+      "parameters" : [ {
+        "name" : "taskId",
+        "required" : true,
+        "type" : "string",
+        "paramType" : "path",
+        "allowMultiple" : false
+      } ]
+    } ]
+  }, {
+    "path" : "/api/tasks/task/{taskId}/cleanup",
+    "operations" : [ {
+      "method" : "GET",
+      "summary" : "Get the cleanup object for the task, if it exists",
+      "notes" : "",
+      "type" : "SingularityTaskCleanup",
+      "nickname" : "getTaskCleanup",
+      "parameters" : [ {
+        "name" : "taskId",
+        "required" : true,
+        "type" : "string",
+        "paramType" : "path",
+        "allowMultiple" : false
+      } ]
+    } ]
+  }, {
+    "path" : "/api/tasks/task/{taskId}/command",
+    "operations" : [ {
+      "method" : "POST",
+      "summary" : "Run a configured shell command against the given task",
+      "notes" : "",
+      "type" : "SingularityTaskShellCommandRequest",
+      "nickname" : "runShellCommand",
+      "consumes" : [ "application/json" ],
+      "parameters" : [ {
+        "name" : "taskId",
+        "required" : true,
+        "type" : "string",
+        "paramType" : "path",
+        "allowMultiple" : false
+      }, {
+        "name" : "body",
+        "required" : false,
+        "type" : "SingularityShellCommand",
+        "paramType" : "body",
+        "allowMultiple" : false
+      } ],
+      "responseMessages" : [ {
+        "code" : 400,
+        "message" : "Given shell command option doesn't exist"
+      }, {
+        "code" : 403,
+        "message" : "Given shell command doesn't exist"
+      } ]
+    } ]
+  } ],
+  "models" : {
+    "UnknownFieldSet" : {
+      "id" : "UnknownFieldSet",
+      "properties" : {
+        "initialized" : {
+          "type" : "boolean"
+        },
+        "defaultInstanceForType" : {
+          "$ref" : "UnknownFieldSet"
+        },
+        "parserForType" : {
+          "$ref" : "Parser"
+        },
+        "serializedSize" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "serializedSizeAsMessageSet" : {
+          "type" : "integer",
+          "format" : "int32"
+        }
+      }
+    },
+    "HealthCheck" : {
+      "id" : "HealthCheck",
+      "properties" : {
+        "unknownFields" : {
+          "$ref" : "UnknownFieldSet"
+        },
+        "initialized" : {
+          "type" : "boolean"
+        },
+        "command" : {
+          "$ref" : "CommandInfo"
+        },
+        "defaultInstanceForType" : {
+          "$ref" : "HealthCheck"
+        },
+        "parserForType" : {
+          "$ref" : "com.google.protobuf.Parser<org.apache.mesos.Protos$HealthCheck>"
+        },
+        "commandOrBuilder" : {
+          "$ref" : "CommandInfoOrBuilder"
+        },
+        "serializedSize" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "http" : {
+          "$ref" : "HTTP"
+        },
+        "httpOrBuilder" : {
+          "$ref" : "HTTPOrBuilder"
+        },
+        "timeoutSeconds" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "consecutiveFailures" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "gracePeriodSeconds" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "delaySeconds" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "intervalSeconds" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "allFields" : {
+          "$ref" : "Map[FieldDescriptor,Object]"
+        },
+        "descriptorForType" : {
+          "$ref" : "Descriptor"
+        },
+        "initializationErrorString" : {
+          "type" : "string"
+        }
+      }
+    },
+    "SingularityTaskRequest" : {
+      "id" : "SingularityTaskRequest",
+      "properties" : {
+        "request" : {
+          "$ref" : "SingularityRequest"
+        },
+        "deploy" : {
+          "$ref" : "SingularityDeploy"
+        },
+        "pendingTask" : {
+          "$ref" : "SingularityPendingTask"
+        }
+      }
+    },
+    "MesosTaskStatisticsObject" : {
+      "id" : "MesosTaskStatisticsObject",
+      "properties" : {
+        "cpusLimit" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "cpusNrPeriods" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "cpusNrThrottled" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "cpusSystemTimeSecs" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "cpusThrottledTimeSecs" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "cpusUserTimeSecs" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "memAnonBytes" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "memFileBytes" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "memLimitBytes" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "memMappedFileBytes" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "memRssBytes" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "timestamp" : {
+          "type" : "number",
+          "format" : "double"
+        }
+      }
+    },
+    "Resources" : {
+      "id" : "Resources",
+      "properties" : {
+        "cpus" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "memoryMb" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "numPorts" : {
+          "type" : "integer",
+          "format" : "int32"
+        }
+      }
+    },
+    "Environment" : {
+      "id" : "Environment",
+      "properties" : {
+        "unknownFields" : {
+          "$ref" : "UnknownFieldSet"
+        },
+        "initialized" : {
+          "type" : "boolean"
+        },
+        "defaultInstanceForType" : {
+          "$ref" : "Environment"
+        },
+        "parserForType" : {
+          "$ref" : "com.google.protobuf.Parser<org.apache.mesos.Protos$Environment>"
+        },
+        "serializedSize" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "variablesList" : {
+          "$ref" : "List[Variable]"
+        },
+        "variablesOrBuilderList" : {
+          "$ref" : "List[? extends org.apache.mesos.Protos$Environment$VariableOrBuilder]"
+        },
+        "variablesCount" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "allFields" : {
+          "$ref" : "Map[FieldDescriptor,Object]"
+        },
+        "descriptorForType" : {
+          "$ref" : "Descriptor"
+        },
+        "initializationErrorString" : {
+          "type" : "string"
+        }
+      }
+    },
+    "FileOptions" : {
+      "id" : "FileOptions",
+      "properties" : {
+        "unknownFields" : {
+          "$ref" : "UnknownFieldSet"
+        },
+        "initialized" : {
+          "type" : "boolean"
+        },
+        "defaultInstanceForType" : {
+          "$ref" : "FileOptions"
+        },
+        "parserForType" : {
+          "$ref" : "com.google.protobuf.Parser<com.google.protobuf.DescriptorProtos$FileOptions>"
+        },
+        "serializedSize" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "javaPackage" : {
+          "type" : "string"
+        },
+        "javaPackageBytes" : {
+          "$ref" : "ByteString"
+        },
+        "javaOuterClassname" : {
+          "type" : "string"
+        },
+        "javaOuterClassnameBytes" : {
+          "$ref" : "ByteString"
+        },
+        "javaMultipleFiles" : {
+          "type" : "boolean"
+        },
+        "javaGenerateEqualsAndHash" : {
+          "type" : "boolean"
+        },
+        "optimizeFor" : {
+          "$ref" : "OptimizeMode",
+          "enum" : [ "SPEED", "CODE_SIZE", "LITE_RUNTIME" ]
+        },
+        "goPackage" : {
+          "type" : "string"
+        },
+        "goPackageBytes" : {
+          "$ref" : "ByteString"
+        },
+        "ccGenericServices" : {
+          "type" : "boolean"
+        },
+        "javaGenericServices" : {
+          "type" : "boolean"
+        },
+        "pyGenericServices" : {
+          "type" : "boolean"
+        },
+        "uninterpretedOptionList" : {
+          "$ref" : "List[UninterpretedOption]"
+        },
+        "uninterpretedOptionOrBuilderList" : {
+          "$ref" : "List[? extends com.google.protobuf.DescriptorProtos$UninterpretedOptionOrBuilder]"
+        },
+        "uninterpretedOptionCount" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "allFields" : {
+          "$ref" : "Map[FieldDescriptor,Object]"
+        },
+        "descriptorForType" : {
+          "$ref" : "Descriptor"
+        },
+        "initializationErrorString" : {
+          "type" : "string"
+        }
+      }
+    },
+    "TaskInfo" : {
+      "id" : "TaskInfo",
+      "properties" : {
+        "unknownFields" : {
+          "$ref" : "UnknownFieldSet"
+        },
+        "name" : {
+          "type" : "string"
+        },
+        "initialized" : {
+          "type" : "boolean"
+        },
+        "labels" : {
+          "$ref" : "Labels"
+        },
+        "container" : {
+          "$ref" : "ContainerInfo"
+        },
+        "executor" : {
+          "$ref" : "ExecutorInfo"
+        },
+        "data" : {
+          "$ref" : "ByteString"
+        },
+        "resourcesList" : {
+          "$ref" : "List[Resource]"
+        },
+        "slaveId" : {
+          "$ref" : "SlaveID"
+        },
+        "command" : {
+          "$ref" : "CommandInfo"
+        },
+        "taskId" : {
+          "$ref" : "TaskID"
+        },
+        "defaultInstanceForType" : {
+          "$ref" : "TaskInfo"
+        },
+        "parserForType" : {
+          "$ref" : "com.google.protobuf.Parser<org.apache.mesos.Protos$TaskInfo>"
+        },
+        "nameBytes" : {
+          "$ref" : "ByteString"
+        },
+        "taskIdOrBuilder" : {
+          "$ref" : "TaskIDOrBuilder"
+        },
+        "slaveIdOrBuilder" : {
+          "$ref" : "SlaveIDOrBuilder"
+        },
+        "resourcesOrBuilderList" : {
+          "$ref" : "List[? extends org.apache.mesos.Protos$ResourceOrBuilder]"
+        },
+        "resourcesCount" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "executorOrBuilder" : {
+          "$ref" : "ExecutorInfoOrBuilder"
+        },
+        "commandOrBuilder" : {
+          "$ref" : "CommandInfoOrBuilder"
+        },
+        "containerOrBuilder" : {
+          "$ref" : "ContainerInfoOrBuilder"
+        },
+        "healthCheck" : {
+          "$ref" : "HealthCheck"
+        },
+        "healthCheckOrBuilder" : {
+          "$ref" : "HealthCheckOrBuilder"
+        },
+        "labelsOrBuilder" : {
+          "$ref" : "LabelsOrBuilder"
+        },
+        "discovery" : {
+          "$ref" : "DiscoveryInfo"
+        },
+        "discoveryOrBuilder" : {
+          "$ref" : "DiscoveryInfoOrBuilder"
+        },
+        "serializedSize" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "allFields" : {
+          "$ref" : "Map[FieldDescriptor,Object]"
+        },
+        "descriptorForType" : {
+          "$ref" : "Descriptor"
+        },
+        "initializationErrorString" : {
+          "type" : "string"
+        }
+      }
+    },
+    "HTTP" : {
+      "id" : "HTTP",
+      "properties" : {
+        "unknownFields" : {
+          "$ref" : "UnknownFieldSet"
+        },
+        "path" : {
+          "type" : "string"
+        },
+        "port" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "initialized" : {
+          "type" : "boolean"
+        },
+        "pathBytes" : {
+          "$ref" : "ByteString"
+        },
+        "statusesList" : {
+          "type" : "array",
+          "items" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        },
+        "statusesCount" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "defaultInstanceForType" : {
+          "$ref" : "HTTP"
+        },
+        "parserForType" : {
+          "$ref" : "com.google.protobuf.Parser<org.apache.mesos.Protos$HealthCheck$HTTP>"
+        },
+        "serializedSize" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "allFields" : {
+          "$ref" : "Map[FieldDescriptor,Object]"
+        },
+        "descriptorForType" : {
+          "$ref" : "Descriptor"
+        },
+        "initializationErrorString" : {
+          "type" : "string"
+        }
+      }
+    },
+    "OfferIDOrBuilder" : {
+      "id" : "OfferIDOrBuilder",
+      "properties" : {
+        "value" : {
+          "type" : "string"
+        },
+        "valueBytes" : {
+          "$ref" : "ByteString"
+        }
+      }
+    },
+    "SingularityShellCommand" : {
+      "id" : "SingularityShellCommand",
+      "properties" : {
+        "name" : {
+          "type" : "string"
+        },
+        "options" : {
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "user" : {
+          "type" : "string"
+        },
+        "logfileName" : {
+          "type" : "string"
+        }
+      }
+    },
+    "HealthCheckOrBuilder" : {
+      "id" : "HealthCheckOrBuilder",
+      "properties" : {
+        "command" : {
+          "$ref" : "CommandInfo"
+        },
+        "commandOrBuilder" : {
+          "$ref" : "CommandInfoOrBuilder"
+        },
+        "http" : {
+          "$ref" : "HTTP"
+        },
+        "httpOrBuilder" : {
+          "$ref" : "HTTPOrBuilder"
+        },
+        "timeoutSeconds" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "consecutiveFailures" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "gracePeriodSeconds" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "delaySeconds" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "intervalSeconds" : {
+          "type" : "number",
+          "format" : "double"
+        }
+      }
+    },
+    "ContainerInfo" : {
+      "id" : "ContainerInfo",
+      "properties" : {
+        "unknownFields" : {
+          "$ref" : "UnknownFieldSet"
+        },
+        "type" : {
+          "$ref" : "Type",
+          "enum" : [ "DOCKER", "MESOS" ]
+        },
+        "initialized" : {
+          "type" : "boolean"
+        },
+        "hostname" : {
+          "type" : "string"
+        },
+        "docker" : {
+          "$ref" : "DockerInfo"
+        },
+        "defaultInstanceForType" : {
+          "$ref" : "ContainerInfo"
+        },
+        "parserForType" : {
+          "$ref" : "com.google.protobuf.Parser<org.apache.mesos.Protos$ContainerInfo>"
+        },
+        "serializedSize" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "hostnameBytes" : {
+          "$ref" : "ByteString"
+        },
+        "volumesList" : {
+          "$ref" : "List[Volume]"
+        },
+        "volumesOrBuilderList" : {
+          "$ref" : "List[? extends org.apache.mesos.Protos$VolumeOrBuilder]"
+        },
+        "volumesCount" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "dockerOrBuilder" : {
+          "$ref" : "DockerInfoOrBuilder"
+        },
+        "allFields" : {
+          "$ref" : "Map[FieldDescriptor,Object]"
+        },
+        "descriptorForType" : {
+          "$ref" : "Descriptor"
+        },
+        "initializationErrorString" : {
+          "type" : "string"
+        }
+      }
+    },
+    "SingularityDockerPortMapping" : {
+      "id" : "SingularityDockerPortMapping",
+      "properties" : {
+        "containerPortType" : {
+          "$ref" : "SingularityPortMappingType",
+          "enum" : [ "LITERAL", "FROM_OFFER" ]
+        },
+        "hostPortType" : {
+          "$ref" : "SingularityPortMappingType",
+          "enum" : [ "LITERAL", "FROM_OFFER" ]
+        },
+        "containerPort" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "hostPort" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "protocol" : {
+          "type" : "string"
+        }
+      }
+    },
+    "FrameworkIDOrBuilder" : {
+      "id" : "FrameworkIDOrBuilder",
+      "properties" : {
+        "value" : {
+          "type" : "string"
+        },
+        "valueBytes" : {
+          "$ref" : "ByteString"
+        }
+      }
+    },
+    "SingularityKillTaskRequest" : {
+      "id" : "SingularityKillTaskRequest",
+      "properties" : {
+        "message" : {
+          "type" : "string",
+          "description" : "A message to show to users about why this action was taken"
+        },
+        "override" : {
+          "type" : "boolean",
+          "description" : "If set to true, instructs the executor to attempt to immediately kill the task, rather than waiting gracefully"
+        },
+        "actionId" : {
+          "type" : "string",
+          "description" : "An id to associate with this action for metadata purposes"
+        },
+        "waitForReplacementTask" : {
+          "type" : "boolean",
+          "description" : "If set to true, treats this task kill as a bounce - launching another task and waiting for it to become healthy"
+        }
+      }
+    },
+    "S3Artifact" : {
+      "id" : "S3Artifact",
+      "properties" : {
+        "s3Bucket" : {
+          "type" : "string"
+        },
+        "s3ObjectKey" : {
+          "type" : "string"
+        },
+        "filesize" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "name" : {
+          "type" : "string"
+        },
+        "filename" : {
+          "type" : "string"
+        },
+        "md5sum" : {
+          "type" : "string"
+        },
+        "targetFolderRelativeToTask" : {
+          "type" : "string"
+        }
+      }
+    },
+    "SingularityPendingTaskId" : {
+      "id" : "SingularityPendingTaskId",
+      "properties" : {
+        "requestId" : {
+          "type" : "string"
+        },
+        "deployId" : {
+          "type" : "string"
+        },
+        "nextRunAt" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "createdAt" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "instanceNo" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "pendingType" : {
+          "$ref" : "PendingType",
+          "enum" : [ "IMMEDIATE", "ONEOFF", "BOUNCE", "NEW_DEPLOY", "NEXT_DEPLOY_STEP", "UNPAUSED", "RETRY", "UPDATED_REQUEST", "DECOMISSIONED_SLAVE_OR_RACK", "TASK_DONE", "STARTUP", "CANCEL_BOUNCE", "TASK_BOUNCE", "DEPLOY_CANCELLED" ]
+        },
+        "id" : {
+          "type" : "string"
+        }
+      }
+    },
+    "SingularityTaskCleanup" : {
+      "id" : "SingularityTaskCleanup",
+      "properties" : {
+        "user" : {
+          "type" : "string"
+        },
+        "cleanupType" : {
+          "$ref" : "TaskCleanupType",
+          "enum" : [ "USER_REQUESTED", "USER_REQUESTED_TASK_BOUNCE", "DECOMISSIONING", "SCALING_DOWN", "BOUNCING", "INCREMENTAL_BOUNCE", "DEPLOY_FAILED", "NEW_DEPLOY_SUCCEEDED", "DEPLOY_STEP_FINISHED", "DEPLOY_CANCELED", "UNHEALTHY_NEW_TASK", "OVERDUE_NEW_TASK" ]
+        },
+        "timestamp" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "taskId" : {
+          "$ref" : "SingularityTaskId"
+        },
+        "message" : {
+          "type" : "string"
+        },
+        "actionId" : {
+          "type" : "string"
+        }
+      }
+    },
+    "ExecutorData" : {
+      "id" : "ExecutorData",
+      "properties" : {
+        "cmd" : {
+          "type" : "string"
+        },
+        "embeddedArtifacts" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "EmbeddedArtifact"
+          }
+        },
+        "externalArtifacts" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "ExternalArtifact"
+          }
+        },
+        "s3Artifacts" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "S3Artifact"
+          }
+        },
+        "successfulExitCodes" : {
+          "type" : "array",
+          "items" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        },
+        "runningSentinel" : {
+          "type" : "string"
+        },
+        "user" : {
+          "type" : "string"
+        },
+        "extraCmdLineArgs" : {
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "loggingTag" : {
+          "type" : "string"
+        },
+        "loggingExtraFields" : {
+          "$ref" : "Map[string,string]"
+        },
+        "sigKillProcessesAfterMillis" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "maxTaskThreads" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "preserveTaskSandboxAfterFinish" : {
+          "type" : "boolean"
+        },
+        "loggingS3Bucket" : {
+          "type" : "string"
+        },
+        "maxOpenFiles" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "skipLogrotateAndCompress" : {
+          "type" : "boolean"
+        },
+        "s3ArtifactSignatures" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "S3ArtifactSignature"
+          }
+        }
+      }
+    },
+    "OfferID" : {
+      "id" : "OfferID",
+      "properties" : {
+        "unknownFields" : {
+          "$ref" : "UnknownFieldSet"
+        },
+        "value" : {
+          "type" : "string"
+        },
+        "initialized" : {
+          "type" : "boolean"
+        },
+        "defaultInstanceForType" : {
+          "$ref" : "OfferID"
+        },
+        "parserForType" : {
+          "$ref" : "com.google.protobuf.Parser<org.apache.mesos.Protos$OfferID>"
+        },
+        "serializedSize" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "valueBytes" : {
+          "$ref" : "ByteString"
+        },
+        "allFields" : {
+          "$ref" : "Map[FieldDescriptor,Object]"
+        },
+        "descriptorForType" : {
+          "$ref" : "Descriptor"
+        },
+        "initializationErrorString" : {
+          "type" : "string"
+        }
+      }
+    },
+    "MessageOptions" : {
+      "id" : "MessageOptions",
+      "properties" : {
+        "unknownFields" : {
+          "$ref" : "UnknownFieldSet"
+        },
+        "initialized" : {
+          "type" : "boolean"
+        },
+        "defaultInstanceForType" : {
+          "$ref" : "MessageOptions"
+        },
+        "parserForType" : {
+          "$ref" : "com.google.protobuf.Parser<com.google.protobuf.DescriptorProtos$MessageOptions>"
+        },
+        "serializedSize" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "messageSetWireFormat" : {
+          "type" : "boolean"
+        },
+        "noStandardDescriptorAccessor" : {
+          "type" : "boolean"
+        },
+        "uninterpretedOptionList" : {
+          "$ref" : "List[UninterpretedOption]"
+        },
+        "uninterpretedOptionOrBuilderList" : {
+          "$ref" : "List[? extends com.google.protobuf.DescriptorProtos$UninterpretedOptionOrBuilder]"
+        },
+        "uninterpretedOptionCount" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "allFields" : {
+          "$ref" : "Map[FieldDescriptor,Object]"
+        },
+        "descriptorForType" : {
+          "$ref" : "Descriptor"
+        },
+        "initializationErrorString" : {
+          "type" : "string"
+        }
+      }
+    },
+    "FileDescriptor" : {
+      "id" : "FileDescriptor",
+      "properties" : {
+        "messageTypes" : {
+          "$ref" : "List[Descriptor]"
+        },
+        "enumTypes" : {
+          "$ref" : "List[EnumDescriptor]"
+        },
+        "services" : {
+          "$ref" : "List[ServiceDescriptor]"
+        },
+        "extensions" : {
+          "$ref" : "List[FieldDescriptor]"
+        },
+        "dependencies" : {
+          "$ref" : "List[FileDescriptor]"
+        },
+        "publicDependencies" : {
+          "$ref" : "List[FileDescriptor]"
+        },
+        "name" : {
+          "type" : "string"
+        },
+        "package" : {
+          "type" : "string"
+        },
+        "options" : {
+          "$ref" : "FileOptions"
+        }
+      }
+    },
+    "DiscoveryInfoOrBuilder" : {
+      "id" : "DiscoveryInfoOrBuilder",
+      "properties" : {
+        "name" : {
+          "type" : "string"
+        },
+        "location" : {
+          "type" : "string"
+        },
+        "labels" : {
+          "$ref" : "Labels"
+        },
+        "version" : {
+          "type" : "string"
+        },
+        "environment" : {
+          "type" : "string"
+        },
+        "nameBytes" : {
+          "$ref" : "ByteString"
+        },
+        "labelsOrBuilder" : {
+          "$ref" : "LabelsOrBuilder"
+        },
+        "visibility" : {
+          "$ref" : "Visibility",
+          "enum" : [ "FRAMEWORK", "CLUSTER", "EXTERNAL" ]
+        },
+        "environmentBytes" : {
+          "$ref" : "ByteString"
+        },
+        "locationBytes" : {
+          "$ref" : "ByteString"
+        },
+        "versionBytes" : {
+          "$ref" : "ByteString"
+        },
+        "ports" : {
+          "$ref" : "Ports"
+        },
+        "portsOrBuilder" : {
+          "$ref" : "PortsOrBuilder"
+        }
+      }
+    },
+    "SingularityTaskShellCommandRequest" : {
+      "id" : "SingularityTaskShellCommandRequest",
+      "properties" : {
+        "taskId" : {
+          "$ref" : "SingularityTaskId"
+        },
+        "user" : {
+          "type" : "string"
+        },
+        "shellCommand" : {
+          "$ref" : "SingularityShellCommand"
+        },
+        "timestamp" : {
+          "type" : "integer",
+          "format" : "int64"
+        }
+      }
+    },
+    "SingularityRequest" : {
+      "id" : "SingularityRequest",
+      "properties" : {
+        "id" : {
+          "type" : "string"
+        },
+        "requestType" : {
+          "$ref" : "RequestType",
+          "enum" : [ "SERVICE", "WORKER", "SCHEDULED", "ON_DEMAND", "RUN_ONCE" ]
+        },
+        "owners" : {
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "numRetriesOnFailure" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "schedule" : {
+          "type" : "string"
+        },
+        "quartzSchedule" : {
+          "type" : "string"
+        },
+        "scheduleType" : {
+          "$ref" : "ScheduleType"
+        },
+        "killOldNonLongRunningTasksAfterMillis" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "scheduledExpectedRuntimeMillis" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "waitAtLeastMillisAfterTaskFinishesForReschedule" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "instances" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "skipHealthchecks" : {
+          "type" : "boolean"
+        },
+        "rackSensitive" : {
+          "type" : "boolean"
+        },
+        "rackAffinity" : {
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "slavePlacement" : {
+          "$ref" : "SlavePlacement"
+        },
+        "requiredSlaveAttributes" : {
+          "$ref" : "Map[string,string]"
+        },
+        "allowedSlaveAttributes" : {
+          "$ref" : "Map[string,string]"
+        },
+        "loadBalanced" : {
+          "type" : "boolean"
+        },
+        "group" : {
+          "type" : "string"
+        },
+        "readOnlyGroups" : {
+          "type" : "array",
+          "uniqueItems" : true,
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "bounceAfterScale" : {
+          "type" : "boolean"
+        },
+        "emailConfigurationOverrides" : {
+          "$ref" : "Map[SingularityEmailType,List[SingularityEmailDestination]]"
+        }
+      }
+    },
+    "ContainerInfoOrBuilder" : {
+      "id" : "ContainerInfoOrBuilder",
+      "properties" : {
+        "type" : {
+          "$ref" : "Type",
+          "enum" : [ "DOCKER", "MESOS" ]
+        },
+        "hostname" : {
+          "type" : "string"
+        },
+        "docker" : {
+          "$ref" : "DockerInfo"
+        },
+        "hostnameBytes" : {
+          "$ref" : "ByteString"
+        },
+        "volumesList" : {
+          "$ref" : "List[Volume]"
+        },
+        "volumesOrBuilderList" : {
+          "$ref" : "List[? extends org.apache.mesos.Protos$VolumeOrBuilder]"
+        },
+        "volumesCount" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "dockerOrBuilder" : {
+          "$ref" : "DockerInfoOrBuilder"
+        }
+      }
+    },
+    "S3ArtifactSignature" : {
+      "id" : "S3ArtifactSignature",
+      "properties" : {
+        "artifactFilename" : {
+          "type" : "string"
+        },
+        "s3ObjectKey" : {
+          "type" : "string"
+        },
+        "s3Bucket" : {
+          "type" : "string"
+        },
+        "filesize" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "name" : {
+          "type" : "string"
+        },
+        "filename" : {
+          "type" : "string"
+        },
+        "md5sum" : {
+          "type" : "string"
+        },
+        "targetFolderRelativeToTask" : {
+          "type" : "string"
+        }
+      }
+    },
+    "Offer" : {
+      "id" : "Offer",
+      "properties" : {
+        "unknownFields" : {
+          "$ref" : "UnknownFieldSet"
+        },
+        "id" : {
+          "$ref" : "OfferID"
+        },
+        "initialized" : {
+          "type" : "boolean"
+        },
+        "resourcesList" : {
+          "$ref" : "List[Resource]"
+        },
+        "hostname" : {
+          "type" : "string"
+        },
+        "slaveId" : {
+          "$ref" : "SlaveID"
+        },
+        "defaultInstanceForType" : {
+          "$ref" : "Offer"
+        },
+        "parserForType" : {
+          "$ref" : "com.google.protobuf.Parser<org.apache.mesos.Protos$Offer>"
+        },
+        "slaveIdOrBuilder" : {
+          "$ref" : "SlaveIDOrBuilder"
+        },
+        "resourcesOrBuilderList" : {
+          "$ref" : "List[? extends org.apache.mesos.Protos$ResourceOrBuilder]"
+        },
+        "resourcesCount" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "serializedSize" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "idOrBuilder" : {
+          "$ref" : "OfferIDOrBuilder"
+        },
+        "frameworkId" : {
+          "$ref" : "FrameworkID"
+        },
+        "frameworkIdOrBuilder" : {
+          "$ref" : "FrameworkIDOrBuilder"
+        },
+        "hostnameBytes" : {
+          "$ref" : "ByteString"
+        },
+        "attributesList" : {
+          "$ref" : "List[Attribute]"
+        },
+        "attributesOrBuilderList" : {
+          "$ref" : "List[? extends org.apache.mesos.Protos$AttributeOrBuilder]"
+        },
+        "attributesCount" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "executorIdsList" : {
+          "$ref" : "List[ExecutorID]"
+        },
+        "executorIdsOrBuilderList" : {
+          "$ref" : "List[? extends org.apache.mesos.Protos$ExecutorIDOrBuilder]"
+        },
+        "executorIdsCount" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "allFields" : {
+          "$ref" : "Map[FieldDescriptor,Object]"
+        },
+        "descriptorForType" : {
+          "$ref" : "Descriptor"
+        },
+        "initializationErrorString" : {
+          "type" : "string"
+        }
+      }
+    },
+    "Descriptor" : {
+      "id" : "Descriptor",
+      "properties" : {
+        "index" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "fullName" : {
+          "type" : "string"
+        },
+        "file" : {
+          "$ref" : "FileDescriptor"
+        },
+        "containingType" : {
+          "$ref" : "Descriptor"
+        },
+        "nestedTypes" : {
+          "$ref" : "List[Descriptor]"
+        },
+        "enumTypes" : {
+          "$ref" : "List[EnumDescriptor]"
+        },
+        "fields" : {
+          "$ref" : "List[FieldDescriptor]"
+        },
+        "extensions" : {
+          "$ref" : "List[FieldDescriptor]"
+        },
+        "name" : {
+          "type" : "string"
+        },
+        "options" : {
+          "$ref" : "MessageOptions"
+        }
+      }
+    },
+    "Ports" : {
+      "id" : "Ports",
+      "properties" : {
+        "unknownFields" : {
+          "$ref" : "UnknownFieldSet"
+        },
+        "initialized" : {
+          "type" : "boolean"
+        },
+        "defaultInstanceForType" : {
+          "$ref" : "Ports"
+        },
+        "parserForType" : {
+          "$ref" : "com.google.protobuf.Parser<org.apache.mesos.Protos$Ports>"
+        },
+        "serializedSize" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "portsOrBuilderList" : {
+          "$ref" : "List[? extends org.apache.mesos.Protos$PortOrBuilder]"
+        },
+        "portsList" : {
+          "$ref" : "List[Port]"
+        },
+        "portsCount" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "allFields" : {
+          "$ref" : "Map[FieldDescriptor,Object]"
+        },
+        "descriptorForType" : {
+          "$ref" : "Descriptor"
+        },
+        "initializationErrorString" : {
+          "type" : "string"
+        }
+      }
+    },
+    "SingularityDeploy" : {
+      "id" : "SingularityDeploy",
+      "required" : [ "requestId", "id" ],
+      "properties" : {
+        "requestId" : {
+          "type" : "string",
+          "description" : "Singularity Request Id which is associated with this deploy."
+        },
+        "id" : {
+          "type" : "string",
+          "description" : "Singularity deploy id."
+        },
+        "version" : {
+          "type" : "string",
+          "description" : "Deploy version"
+        },
+        "timestamp" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "Deploy timestamp."
+        },
+        "metadata" : {
+          "$ref" : "Map[string,string]",
+          "description" : "Map of metadata key/value pairs associated with the deployment."
+        },
+        "containerInfo" : {
+          "$ref" : "SingularityContainerInfo",
+          "description" : "Container information for deployment into a container."
+        },
+        "customExecutorCmd" : {
+          "type" : "string",
+          "description" : "Custom Mesos executor"
+        },
+        "customExecutorId" : {
+          "type" : "string",
+          "description" : "Custom Mesos executor id."
+        },
+        "customExecutorSource" : {
+          "type" : "string",
+          "description" : "Custom Mesos executor source."
+        },
+        "customExecutorResources" : {
+          "$ref" : "Resources",
+          "description" : "Resources to allocate for custom mesos executor"
+        },
+        "customExecutorUser" : {
+          "type" : "string",
+          "description" : "User to run custom executor as"
+        },
+        "resources" : {
+          "$ref" : "com.hubspot.mesos.Resources",
+          "description" : "Resources required for this deploy."
+        },
+        "command" : {
+          "type" : "string",
+          "description" : "Command to execute for this deployment."
+        },
+        "arguments" : {
+          "type" : "array",
+          "description" : "Command arguments.",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "env" : {
+          "$ref" : "Map[string,string]",
+          "description" : "Map of environment variable definitions."
+        },
+        "uris" : {
+          "type" : "array",
+          "description" : "List of URIs to download before executing the deploy command.",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "executorData" : {
+          "$ref" : "ExecutorData",
+          "description" : "Executor specific information"
+        },
+        "labels" : {
+          "$ref" : "Map[string,string]",
+          "description" : "Labels for tasks associated with this deploy"
+        },
+        "healthcheckUri" : {
+          "type" : "string",
+          "description" : "Deployment Healthcheck URI, if specified will be called after TASK_RUNNING."
+        },
+        "healthcheckIntervalSeconds" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "Time to wait after a failed healthcheck to try again in seconds."
+        },
+        "healthcheckTimeoutSeconds" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "Single healthcheck HTTP timeout in seconds."
+        },
+        "healthcheckPortIndex" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "Perform healthcheck on this dynamically allocated port (e.g. 0 for first port), defaults to first port"
+        },
+        "skipHealthchecksOnDeploy" : {
+          "type" : "boolean",
+          "description" : "Allows skipping of health checks when deploying."
+        },
+        "healthcheckProtocol" : {
+          "$ref" : "HealthcheckProtocol",
+          "description" : "Healthcheck protocol - HTTP or HTTPS"
+        },
+        "healthcheckMaxRetries" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "Maximum number of times to retry an individual healthcheck before failing the deploy."
+        },
+        "healthcheckMaxTotalTimeoutSeconds" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "Maximum amount of time to wait before failing a deploy for healthchecks to pass."
+        },
+        "deployHealthTimeoutSeconds" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "Number of seconds that Singularity waits for this service to become healthy (for it to download artifacts, start running, and optionally pass healthchecks.)"
+        },
+        "considerHealthyAfterRunningForSeconds" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "Number of seconds that a service must be healthy to consider the deployment to be successful."
+        },
+        "serviceBasePath" : {
+          "type" : "string",
+          "description" : "The base path for the API exposed by the deploy. Used in conjunction with the Load balancer API."
+        },
+        "loadBalancerGroups" : {
+          "type" : "array",
+          "uniqueItems" : true,
+          "description" : "List of load balancer groups associated with this deployment.",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "loadBalancerPortIndex" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "Send this port to the load balancer api (e.g. 0 for first port), defaults to first port"
+        },
+        "loadBalancerOptions" : {
+          "$ref" : "Map[string,Object]",
+          "description" : "Map (Key/Value) of options for the load balancer."
+        },
+        "deployInstanceCountPerStep" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "deploy this many instances at a time"
+        },
+        "deployStepWaitTimeMs" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "wait this long between deploy steps"
+        },
+        "autoAdvanceDeploySteps" : {
+          "type" : "boolean",
+          "description" : "automatically advance to the next target instance count after `deployStepWaitTimeMs` seconds"
+        },
+        "maxTaskRetries" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "allowed at most this many failed tasks to be retried before failing the deploy"
+        }
+      }
+    },
+    "SingularityPendingTask" : {
+      "id" : "SingularityPendingTask",
+      "properties" : {
+        "pendingTaskId" : {
+          "$ref" : "SingularityPendingTaskId"
+        },
+        "cmdLineArgsList" : {
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "user" : {
+          "type" : "string"
+        },
+        "runId" : {
+          "type" : "string"
+        },
+        "skipHealthchecks" : {
+          "type" : "boolean"
+        },
+        "message" : {
+          "type" : "string"
+        }
+      }
+    },
+    "FrameworkID" : {
+      "id" : "FrameworkID",
+      "properties" : {
+        "unknownFields" : {
+          "$ref" : "UnknownFieldSet"
+        },
+        "value" : {
+          "type" : "string"
+        },
+        "initialized" : {
+          "type" : "boolean"
+        },
+        "defaultInstanceForType" : {
+          "$ref" : "FrameworkID"
+        },
+        "parserForType" : {
+          "$ref" : "com.google.protobuf.Parser<org.apache.mesos.Protos$FrameworkID>"
+        },
+        "serializedSize" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "valueBytes" : {
+          "$ref" : "ByteString"
+        },
+        "allFields" : {
+          "$ref" : "Map[FieldDescriptor,Object]"
+        },
+        "descriptorForType" : {
+          "$ref" : "Descriptor"
+        },
+        "initializationErrorString" : {
+          "type" : "string"
+        }
+      }
+    },
+    "ByteString" : {
+      "id" : "ByteString",
+      "properties" : {
+        "empty" : {
+          "type" : "boolean"
+        },
+        "validUtf8" : {
+          "type" : "boolean"
+        }
+      }
+    },
+    "ExecutorInfo" : {
+      "id" : "ExecutorInfo",
+      "properties" : {
+        "unknownFields" : {
+          "$ref" : "UnknownFieldSet"
+        },
+        "name" : {
+          "type" : "string"
+        },
+        "source" : {
+          "type" : "string"
+        },
+        "initialized" : {
+          "type" : "boolean"
+        },
+        "container" : {
+          "$ref" : "ContainerInfo"
+        },
+        "data" : {
+          "$ref" : "ByteString"
+        },
+        "resourcesList" : {
+          "$ref" : "List[Resource]"
+        },
+        "command" : {
+          "$ref" : "CommandInfo"
+        },
+        "executorId" : {
+          "$ref" : "ExecutorID"
+        },
+        "defaultInstanceForType" : {
+          "$ref" : "ExecutorInfo"
+        },
+        "parserForType" : {
+          "$ref" : "com.google.protobuf.Parser<org.apache.mesos.Protos$ExecutorInfo>"
+        },
+        "nameBytes" : {
+          "$ref" : "ByteString"
+        },
+        "resourcesOrBuilderList" : {
+          "$ref" : "List[? extends org.apache.mesos.Protos$ResourceOrBuilder]"
+        },
+        "resourcesCount" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "commandOrBuilder" : {
+          "$ref" : "CommandInfoOrBuilder"
+        },
+        "containerOrBuilder" : {
+          "$ref" : "ContainerInfoOrBuilder"
+        },
+        "discovery" : {
+          "$ref" : "DiscoveryInfo"
+        },
+        "discoveryOrBuilder" : {
+          "$ref" : "DiscoveryInfoOrBuilder"
+        },
+        "serializedSize" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "frameworkId" : {
+          "$ref" : "FrameworkID"
+        },
+        "frameworkIdOrBuilder" : {
+          "$ref" : "FrameworkIDOrBuilder"
+        },
+        "sourceBytes" : {
+          "$ref" : "ByteString"
+        },
+        "executorIdOrBuilder" : {
+          "$ref" : "ExecutorIDOrBuilder"
+        },
+        "allFields" : {
+          "$ref" : "Map[FieldDescriptor,Object]"
+        },
+        "descriptorForType" : {
+          "$ref" : "Descriptor"
+        },
+        "initializationErrorString" : {
+          "type" : "string"
+        }
+      }
+    },
+    "PortsOrBuilder" : {
+      "id" : "PortsOrBuilder",
+      "properties" : {
+        "portsOrBuilderList" : {
+          "$ref" : "List[? extends org.apache.mesos.Protos$PortOrBuilder]"
+        },
+        "portsList" : {
+          "$ref" : "List[Port]"
+        },
+        "portsCount" : {
+          "type" : "integer",
+          "format" : "int32"
+        }
+      }
+    },
+    "EmbeddedArtifact" : {
+      "id" : "EmbeddedArtifact",
+      "properties" : {
+        "content" : {
+          "type" : "array",
+          "items" : {
+            "type" : "string",
+            "format" : "byte"
+          }
+        },
+        "name" : {
+          "type" : "string"
+        },
+        "filename" : {
+          "type" : "string"
+        },
+        "md5sum" : {
+          "type" : "string"
+        },
+        "targetFolderRelativeToTask" : {
+          "type" : "string"
+        }
+      }
+    },
+    "SingularityTaskId" : {
+      "id" : "SingularityTaskId",
+      "properties" : {
+        "requestId" : {
+          "type" : "string"
+        },
+        "deployId" : {
+          "type" : "string"
+        },
+        "startedAt" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "instanceNo" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "sanitizedHost" : {
+          "type" : "string"
+        },
+        "sanitizedRackId" : {
+          "type" : "string"
+        },
+        "id" : {
+          "type" : "string"
+        },
+        "host" : {
+          "type" : "string"
+        },
+        "rackId" : {
+          "type" : "string"
+        }
+      }
+    },
+    "TaskIDOrBuilder" : {
+      "id" : "TaskIDOrBuilder",
+      "properties" : {
+        "value" : {
+          "type" : "string"
+        },
+        "valueBytes" : {
+          "$ref" : "ByteString"
+        }
+      }
+    },
+    "ExecutorIDOrBuilder" : {
+      "id" : "ExecutorIDOrBuilder",
+      "properties" : {
+        "value" : {
+          "type" : "string"
+        },
+        "valueBytes" : {
+          "$ref" : "ByteString"
+        }
+      }
+    },
+    "SingularityTask" : {
+      "id" : "SingularityTask",
+      "properties" : {
+        "taskRequest" : {
+          "$ref" : "SingularityTaskRequest"
+        },
+        "offer" : {
+          "$ref" : "Offer"
+        },
+        "mesosTask" : {
+          "$ref" : "TaskInfo"
+        },
+        "rackId" : {
+          "type" : "string"
+        },
+        "taskId" : {
+          "$ref" : "SingularityTaskId"
+        }
+      }
+    },
+    "LabelsOrBuilder" : {
+      "id" : "LabelsOrBuilder",
+      "properties" : {
+        "labelsList" : {
+          "$ref" : "List[Label]"
+        },
+        "labelsOrBuilderList" : {
+          "$ref" : "List[? extends org.apache.mesos.Protos$LabelOrBuilder]"
+        },
+        "labelsCount" : {
+          "type" : "integer",
+          "format" : "int32"
+        }
+      }
+    },
+    "ExternalArtifact" : {
+      "id" : "ExternalArtifact",
+      "properties" : {
+        "url" : {
+          "type" : "string"
+        },
+        "filesize" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "name" : {
+          "type" : "string"
+        },
+        "filename" : {
+          "type" : "string"
+        },
+        "md5sum" : {
+          "type" : "string"
+        },
+        "targetFolderRelativeToTask" : {
+          "type" : "string"
+        }
+      }
+    },
+    "DockerInfo" : {
+      "id" : "DockerInfo",
+      "properties" : {
+        "unknownFields" : {
+          "$ref" : "UnknownFieldSet"
+        },
+        "initialized" : {
+          "type" : "boolean"
+        },
+        "image" : {
+          "type" : "string"
+        },
+        "network" : {
+          "$ref" : "Network",
+          "enum" : [ "HOST", "BRIDGE", "NONE" ]
+        },
+        "defaultInstanceForType" : {
+          "$ref" : "DockerInfo"
+        },
+        "parserForType" : {
+          "$ref" : "com.google.protobuf.Parser<org.apache.mesos.Protos$ContainerInfo$DockerInfo>"
+        },
+        "serializedSize" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "portMappingsCount" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "imageBytes" : {
+          "$ref" : "ByteString"
+        },
+        "portMappingsList" : {
+          "$ref" : "List[PortMapping]"
+        },
+        "portMappingsOrBuilderList" : {
+          "$ref" : "List[? extends org.apache.mesos.Protos$ContainerInfo$DockerInfo$PortMappingOrBuilder]"
+        },
+        "privileged" : {
+          "type" : "boolean"
+        },
+        "parametersList" : {
+          "$ref" : "List[Parameter]"
+        },
+        "parametersCount" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "parametersOrBuilderList" : {
+          "$ref" : "List[? extends org.apache.mesos.Protos$ParameterOrBuilder]"
+        },
+        "forcePullImage" : {
+          "type" : "boolean"
+        },
+        "allFields" : {
+          "$ref" : "Map[FieldDescriptor,Object]"
+        },
+        "descriptorForType" : {
+          "$ref" : "Descriptor"
+        },
+        "initializationErrorString" : {
+          "type" : "string"
+        }
+      }
+    },
+    "SingularityContainerInfo" : {
+      "id" : "SingularityContainerInfo",
+      "properties" : {
+        "type" : {
+          "$ref" : "SingularityContainerType",
+          "enum" : [ "MESOS", "DOCKER" ]
+        },
+        "volumes" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "SingularityVolume"
+          }
+        },
+        "docker" : {
+          "$ref" : "SingularityDockerInfo"
+        }
+      }
+    },
+    "SingularityVolume" : {
+      "id" : "SingularityVolume",
+      "properties" : {
+        "containerPath" : {
+          "type" : "string"
+        },
+        "hostPath" : {
+          "type" : "string"
+        },
+        "mode" : {
+          "$ref" : "SingularityDockerVolumeMode"
+        }
+      }
+    },
+    "HTTPOrBuilder" : {
+      "id" : "HTTPOrBuilder",
+      "properties" : {
+        "path" : {
+          "type" : "string"
+        },
+        "port" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "pathBytes" : {
+          "$ref" : "ByteString"
+        },
+        "statusesList" : {
+          "type" : "array",
+          "items" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        },
+        "statusesCount" : {
+          "type" : "integer",
+          "format" : "int32"
+        }
+      }
+    },
+    "Labels" : {
+      "id" : "Labels",
+      "properties" : {
+        "unknownFields" : {
+          "$ref" : "UnknownFieldSet"
+        },
+        "initialized" : {
+          "type" : "boolean"
+        },
+        "defaultInstanceForType" : {
+          "$ref" : "Labels"
+        },
+        "parserForType" : {
+          "$ref" : "com.google.protobuf.Parser<org.apache.mesos.Protos$Labels>"
+        },
+        "serializedSize" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "labelsList" : {
+          "$ref" : "List[Label]"
+        },
+        "labelsOrBuilderList" : {
+          "$ref" : "List[? extends org.apache.mesos.Protos$LabelOrBuilder]"
+        },
+        "labelsCount" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "allFields" : {
+          "$ref" : "Map[FieldDescriptor,Object]"
+        },
+        "descriptorForType" : {
+          "$ref" : "Descriptor"
+        },
+        "initializationErrorString" : {
+          "type" : "string"
+        }
+      }
+    },
+    "EnvironmentOrBuilder" : {
+      "id" : "EnvironmentOrBuilder",
+      "properties" : {
+        "variablesList" : {
+          "$ref" : "List[Variable]"
+        },
+        "variablesOrBuilderList" : {
+          "$ref" : "List[? extends org.apache.mesos.Protos$Environment$VariableOrBuilder]"
+        },
+        "variablesCount" : {
+          "type" : "integer",
+          "format" : "int32"
+        }
+      }
+    },
+    "ExecutorID" : {
+      "id" : "ExecutorID",
+      "properties" : {
+        "unknownFields" : {
+          "$ref" : "UnknownFieldSet"
+        },
+        "value" : {
+          "type" : "string"
+        },
+        "initialized" : {
+          "type" : "boolean"
+        },
+        "defaultInstanceForType" : {
+          "$ref" : "ExecutorID"
+        },
+        "parserForType" : {
+          "$ref" : "com.google.protobuf.Parser<org.apache.mesos.Protos$ExecutorID>"
+        },
+        "serializedSize" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "valueBytes" : {
+          "$ref" : "ByteString"
+        },
+        "allFields" : {
+          "$ref" : "Map[FieldDescriptor,Object]"
+        },
+        "descriptorForType" : {
+          "$ref" : "Descriptor"
+        },
+        "initializationErrorString" : {
+          "type" : "string"
+        }
+      }
+    },
+    "SlaveIDOrBuilder" : {
+      "id" : "SlaveIDOrBuilder",
+      "properties" : {
+        "value" : {
+          "type" : "string"
+        },
+        "valueBytes" : {
+          "$ref" : "ByteString"
+        }
+      }
+    },
+    "SingularityKilledTaskIdRecord" : {
+      "id" : "SingularityKilledTaskIdRecord",
+      "properties" : {
+        "taskId" : {
+          "$ref" : "SingularityTaskId"
+        },
+        "originalTimestamp" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "timestamp" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "requestCleanupType" : {
+          "$ref" : "RequestCleanupType"
+        },
+        "taskCleanupType" : {
+          "$ref" : "TaskCleanupType"
+        },
+        "retries" : {
+          "type" : "integer",
+          "format" : "int32"
+        }
+      }
+    },
+    "DiscoveryInfo" : {
+      "id" : "DiscoveryInfo",
+      "properties" : {
+        "unknownFields" : {
+          "$ref" : "UnknownFieldSet"
+        },
+        "name" : {
+          "type" : "string"
+        },
+        "location" : {
+          "type" : "string"
+        },
+        "initialized" : {
+          "type" : "boolean"
+        },
+        "labels" : {
+          "$ref" : "Labels"
+        },
+        "version" : {
+          "type" : "string"
+        },
+        "environment" : {
+          "type" : "string"
+        },
+        "defaultInstanceForType" : {
+          "$ref" : "DiscoveryInfo"
+        },
+        "parserForType" : {
+          "$ref" : "com.google.protobuf.Parser<org.apache.mesos.Protos$DiscoveryInfo>"
+        },
+        "nameBytes" : {
+          "$ref" : "ByteString"
+        },
+        "labelsOrBuilder" : {
+          "$ref" : "LabelsOrBuilder"
+        },
+        "serializedSize" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "visibility" : {
+          "$ref" : "Visibility",
+          "enum" : [ "FRAMEWORK", "CLUSTER", "EXTERNAL" ]
+        },
+        "environmentBytes" : {
+          "$ref" : "ByteString"
+        },
+        "locationBytes" : {
+          "$ref" : "ByteString"
+        },
+        "versionBytes" : {
+          "$ref" : "ByteString"
+        },
+        "ports" : {
+          "$ref" : "Ports"
+        },
+        "portsOrBuilder" : {
+          "$ref" : "PortsOrBuilder"
+        },
+        "allFields" : {
+          "$ref" : "Map[FieldDescriptor,Object]"
+        },
+        "descriptorForType" : {
+          "$ref" : "Descriptor"
+        },
+        "initializationErrorString" : {
+          "type" : "string"
+        }
+      }
+    },
+    "DockerInfoOrBuilder" : {
+      "id" : "DockerInfoOrBuilder",
+      "properties" : {
+        "image" : {
+          "type" : "string"
+        },
+        "network" : {
+          "$ref" : "Network",
+          "enum" : [ "HOST", "BRIDGE", "NONE" ]
+        },
+        "portMappingsCount" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "imageBytes" : {
+          "$ref" : "ByteString"
+        },
+        "portMappingsList" : {
+          "$ref" : "List[PortMapping]"
+        },
+        "portMappingsOrBuilderList" : {
+          "$ref" : "List[? extends org.apache.mesos.Protos$ContainerInfo$DockerInfo$PortMappingOrBuilder]"
+        },
+        "privileged" : {
+          "type" : "boolean"
+        },
+        "parametersList" : {
+          "$ref" : "List[Parameter]"
+        },
+        "parametersCount" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "parametersOrBuilderList" : {
+          "$ref" : "List[? extends org.apache.mesos.Protos$ParameterOrBuilder]"
+        },
+        "forcePullImage" : {
+          "type" : "boolean"
+        }
+      }
+    },
+    "CommandInfoOrBuilder" : {
+      "id" : "CommandInfoOrBuilder",
+      "properties" : {
+        "value" : {
+          "type" : "string"
+        },
+        "container" : {
+          "$ref" : "ContainerInfo"
+        },
+        "shell" : {
+          "type" : "boolean"
+        },
+        "environment" : {
+          "$ref" : "Environment"
+        },
+        "user" : {
+          "type" : "string"
+        },
+        "containerOrBuilder" : {
+          "$ref" : "ContainerInfoOrBuilder"
+        },
+        "urisCount" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "urisOrBuilderList" : {
+          "$ref" : "List[? extends org.apache.mesos.Protos$CommandInfo$URIOrBuilder]"
+        },
+        "environmentOrBuilder" : {
+          "$ref" : "EnvironmentOrBuilder"
+        },
+        "argumentsList" : {
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "argumentsCount" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "userBytes" : {
+          "$ref" : "ByteString"
+        },
+        "urisList" : {
+          "$ref" : "List[URI]"
+        },
+        "valueBytes" : {
+          "$ref" : "ByteString"
+        }
+      }
+    },
+    "CommandInfo" : {
+      "id" : "CommandInfo",
+      "properties" : {
+        "unknownFields" : {
+          "$ref" : "UnknownFieldSet"
+        },
+        "value" : {
+          "type" : "string"
+        },
+        "initialized" : {
+          "type" : "boolean"
+        },
+        "container" : {
+          "$ref" : "ContainerInfo"
+        },
+        "shell" : {
+          "type" : "boolean"
+        },
+        "environment" : {
+          "$ref" : "Environment"
+        },
+        "user" : {
+          "type" : "string"
+        },
+        "defaultInstanceForType" : {
+          "$ref" : "CommandInfo"
+        },
+        "parserForType" : {
+          "$ref" : "com.google.protobuf.Parser<org.apache.mesos.Protos$CommandInfo>"
+        },
+        "containerOrBuilder" : {
+          "$ref" : "ContainerInfoOrBuilder"
+        },
+        "serializedSize" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "urisCount" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "urisOrBuilderList" : {
+          "$ref" : "List[? extends org.apache.mesos.Protos$CommandInfo$URIOrBuilder]"
+        },
+        "environmentOrBuilder" : {
+          "$ref" : "EnvironmentOrBuilder"
+        },
+        "argumentsList" : {
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "argumentsCount" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "userBytes" : {
+          "$ref" : "ByteString"
+        },
+        "urisList" : {
+          "$ref" : "List[URI]"
+        },
+        "valueBytes" : {
+          "$ref" : "ByteString"
+        },
+        "allFields" : {
+          "$ref" : "Map[FieldDescriptor,Object]"
+        },
+        "descriptorForType" : {
+          "$ref" : "Descriptor"
+        },
+        "initializationErrorString" : {
+          "type" : "string"
+        }
+      }
+    },
+    "SingularityDockerInfo" : {
+      "id" : "SingularityDockerInfo",
+      "properties" : {
+        "image" : {
+          "type" : "string"
+        },
+        "privileged" : {
+          "type" : "boolean"
+        },
+        "network" : {
+          "$ref" : "SingularityDockerNetworkType"
+        },
+        "portMappings" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "SingularityDockerPortMapping"
+          }
+        },
+        "forcePullImage" : {
+          "type" : "boolean"
+        },
+        "parameters" : {
+          "$ref" : "Map[string,string]"
+        }
+      }
+    },
+    "TaskID" : {
+      "id" : "TaskID",
+      "properties" : {
+        "unknownFields" : {
+          "$ref" : "UnknownFieldSet"
+        },
+        "value" : {
+          "type" : "string"
+        },
+        "initialized" : {
+          "type" : "boolean"
+        },
+        "defaultInstanceForType" : {
+          "$ref" : "TaskID"
+        },
+        "parserForType" : {
+          "$ref" : "com.google.protobuf.Parser<org.apache.mesos.Protos$TaskID>"
+        },
+        "serializedSize" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "valueBytes" : {
+          "$ref" : "ByteString"
+        },
+        "allFields" : {
+          "$ref" : "Map[FieldDescriptor,Object]"
+        },
+        "descriptorForType" : {
+          "$ref" : "Descriptor"
+        },
+        "initializationErrorString" : {
+          "type" : "string"
+        }
+      }
+    },
+    "ExecutorInfoOrBuilder" : {
+      "id" : "ExecutorInfoOrBuilder",
+      "properties" : {
+        "name" : {
+          "type" : "string"
+        },
+        "source" : {
+          "type" : "string"
+        },
+        "container" : {
+          "$ref" : "ContainerInfo"
+        },
+        "data" : {
+          "$ref" : "ByteString"
+        },
+        "resourcesList" : {
+          "$ref" : "List[Resource]"
+        },
+        "command" : {
+          "$ref" : "CommandInfo"
+        },
+        "executorId" : {
+          "$ref" : "ExecutorID"
+        },
+        "nameBytes" : {
+          "$ref" : "ByteString"
+        },
+        "resourcesOrBuilderList" : {
+          "$ref" : "List[? extends org.apache.mesos.Protos$ResourceOrBuilder]"
+        },
+        "resourcesCount" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "commandOrBuilder" : {
+          "$ref" : "CommandInfoOrBuilder"
+        },
+        "containerOrBuilder" : {
+          "$ref" : "ContainerInfoOrBuilder"
+        },
+        "discovery" : {
+          "$ref" : "DiscoveryInfo"
+        },
+        "discoveryOrBuilder" : {
+          "$ref" : "DiscoveryInfoOrBuilder"
+        },
+        "frameworkId" : {
+          "$ref" : "FrameworkID"
+        },
+        "frameworkIdOrBuilder" : {
+          "$ref" : "FrameworkIDOrBuilder"
+        },
+        "sourceBytes" : {
+          "$ref" : "ByteString"
+        },
+        "executorIdOrBuilder" : {
+          "$ref" : "ExecutorIDOrBuilder"
+        }
+      }
+    },
+    "SlaveID" : {
+      "id" : "SlaveID",
+      "properties" : {
+        "unknownFields" : {
+          "$ref" : "UnknownFieldSet"
+        },
+        "value" : {
+          "type" : "string"
+        },
+        "initialized" : {
+          "type" : "boolean"
+        },
+        "defaultInstanceForType" : {
+          "$ref" : "SlaveID"
+        },
+        "parserForType" : {
+          "$ref" : "com.google.protobuf.Parser<org.apache.mesos.Protos$SlaveID>"
+        },
+        "serializedSize" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "valueBytes" : {
+          "$ref" : "ByteString"
+        },
+        "allFields" : {
+          "$ref" : "Map[FieldDescriptor,Object]"
+        },
+        "descriptorForType" : {
+          "$ref" : "Descriptor"
+        },
+        "initializationErrorString" : {
+          "type" : "string"
+        }
+      }
+    }
+  }
+}

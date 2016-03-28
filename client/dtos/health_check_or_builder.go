@@ -3,15 +3,15 @@ package dtos
 import "io"
 
 type HealthCheckOrBuilder struct {
-	Command CommandInfo
-	CommandOrBuilder CommandInfoOrBuilder
+	Command             *CommandInfo
+	CommandOrBuilder    *CommandInfoOrBuilder
 	ConsecutiveFailures int32
-	DelaySeconds float64
-	GracePeriodSeconds float64
-	Http HTTP
-	HttpOrBuilder HTTPOrBuilder
-	IntervalSeconds float64
-	TimeoutSeconds float64
+	DelaySeconds        float64
+	GracePeriodSeconds  float64
+	Http                *HTTP
+	HttpOrBuilder       *HTTPOrBuilder
+	IntervalSeconds     float64
+	TimeoutSeconds      float64
 }
 
 func (self *HealthCheckOrBuilder) Populate(jsonReader io.ReadCloser) (err error) {

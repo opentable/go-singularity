@@ -3,7 +3,7 @@ package dtos
 import "io"
 
 type Resources struct {
-	Cpus float64
+	Cpus     float64
 	MemoryMb float64
 	NumPorts int32
 }

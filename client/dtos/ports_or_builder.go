@@ -4,8 +4,8 @@ import "io"
 
 type PortsOrBuilder struct {
 	PortsCount int32
-//	PortsList List[Port]
-//	PortsOrBuilderList List[? extends org.apache.mesos.Protos$PortOrBuilder]
+	//	PortsList *List[Port]
+	//	PortsOrBuilderList *List[? extends org.apache.mesos.Protos$PortOrBuilder]
 }
 
 func (self *PortsOrBuilder) Populate(jsonReader io.ReadCloser) (err error) {

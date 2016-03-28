@@ -2,7 +2,6 @@ package swaggering
 
 import (
 	"fmt"
-	"log"
 	"regexp"
 	"strings"
 )
@@ -20,28 +19,6 @@ var badTypes = []string{
 	"Type",
 }
 
-func goify(swagger *Swagger) {
-
-	for name, model := range swagger.Models {
-		model.GoName = goName(model.Id)
-		for name, property := range model.Properties {
-			property.GoName = capitalize(name)
-			property.goType()
-			/*
-				for _, bad := range badTypes {
-					if strings.Index(property.goType, bad) != -1 {
-						property.goTypeInvalid = true
-						break
-					}
-				}
-			*/
-
-			model.Properties[name] = property
-		}
-		swagger.Models[name] = model
-	}
-}
-
 func capitalize(word string) string {
 	firstRE := regexp.MustCompile(`^.`)
 	return firstRE.ReplaceAllStringFunc(word, func(match string) string {
@@ -53,8 +30,7 @@ func goName(name string) string {
 	if name == "Object" {
 		return "interface{}"
 	}
-	singRE := regexp.MustCompile("^Singularity")
-	return singRE.ReplaceAllString(name, "")
+	return name
 }
 
 func isAggregate(kind string) bool {
@@ -63,29 +39,62 @@ func isAggregate(kind string) bool {
 	return mapRE.FindStringSubmatch(kind) != nil || listRE.FindStringSubmatch(kind) != nil
 }
 
-func goAggregates(kind string) string {
-	listRE := regexp.MustCompile(`^List\[([^,]*)]`)
-	mapRE := regexp.MustCompile(`^Map\[([^,]*),([^,]*)]`)
-
-	maps := mapRE.FindStringSubmatch(kind)
-	if maps == nil {
-		lists := listRE.FindStringSubmatch(kind)
-		if lists == nil {
-			return goName(kind)
-		}
-		return fmt.Sprintf("[]%s", goName(lists[1]))
-	}
-	return fmt.Sprintf("map[%s]%s", goName(maps[1]), goAggregates(maps[2]))
+func (self *DataType) findModel(context *Context) (err error) {
+	return context.modelFor(self.Type, self)
 }
 
-func goType(kind string) string {
-	log.Print(kind)
-	switch kind {
-	case "boolean":
-		return "bool"
-	default:
-		return goAggregates(kind)
+func (self *Parameter) findGoType(context *Context) (err error) {
+	if self.ParamType == "body" {
+		err = self.findModel(context)
+	} else {
+		err = self.DataType.findGoType(context)
 	}
+
+	return
+}
+
+func (self *Operation) findGoType(context *Context) (err error) {
+	switch self.Type {
+	case "void":
+		self.GoType = ""
+	case "array":
+		self.Collection.findGoType(context)
+	case "":
+		/* Singularity's swagger has some bugs... */
+		self.Type = "array"
+		self.Collection.findGoType(context)
+	case "string", "bool", "integer", "number":
+		typeName, err := self.goPrimitiveType()
+		self.setGoType(typeName, err)
+	default:
+		self.findModel(context)
+	}
+
+	return
+}
+
+func (self *Collection) findGoType(context *Context) (err error) {
+	if self.Type == "array" {
+		return findGoType(context, &self.Items, &self.DataType)
+	} else {
+		return findGoType(context, &self.DataType, &self.DataType)
+	}
+}
+
+func (self *DataType) findGoType(context *Context) (err error) {
+	return findGoType(context, self, self)
+}
+
+func findGoType(context *Context, from, to *DataType) (err error) {
+	var typeName string
+
+	if from.Type == "" {
+		err = context.modelFor(from.Ref, to)
+	} else {
+		typeName, err = from.goPrimitiveType()
+		to.setGoType(typeName, err)
+	}
+	return
 }
 
 func (self *DataType) goPrimitiveType() (t string, err error) {
@@ -116,24 +125,9 @@ func (self *DataType) goPrimitiveType() (t string, err error) {
 	return
 }
 
-func (property *Property) goType() {
-	switch property.Type {
-	case "integer":
-		property.DataType.GoType = "u" + property.Format
-	case "array":
-		if property.Items.Type != "" {
-			property.DataType.GoType = fmt.Sprintf("[]%s", property.Items.Type)
-		} else {
-			property.DataType.GoType = fmt.Sprintf("[]%s", goName(property.Items.Ref))
-		}
-	case "":
-		if isAggregate(property.Ref) {
-			property.GoTypeInvalid = true
-			property.DataType.GoType = property.Ref
-			return
-		}
-		property.DataType.GoType = goName(property.Ref)
-	default:
-		property.DataType.GoType = goType(property.Type)
+func (self *DataType) setGoType(typeName string, err error) {
+	if err != nil {
+		self.GoTypeInvalid = true
 	}
+	self.GoType = typeName
 }

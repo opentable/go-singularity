@@ -3,14 +3,14 @@ package dtos
 import "io"
 
 type ContainerInfoOrBuilder struct {
-	Docker DockerInfo
-	DockerOrBuilder DockerInfoOrBuilder
-	Hostname string
-	HostnameBytes ByteString
-//	Type Type
+	Docker          *DockerInfo
+	DockerOrBuilder *DockerInfoOrBuilder
+	Hostname        string
+	HostnameBytes   *ByteString
+	//	Type *Type
 	VolumesCount int32
-//	VolumesList List[Volume]
-//	VolumesOrBuilderList List[? extends org.apache.mesos.Protos$VolumeOrBuilder]
+	//	VolumesList *List[Volume]
+	//	VolumesOrBuilderList *List[? extends org.apache.mesos.Protos$VolumeOrBuilder]
 }
 
 func (self *ContainerInfoOrBuilder) Populate(jsonReader io.ReadCloser) (err error) {

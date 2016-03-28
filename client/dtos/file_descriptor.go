@@ -3,15 +3,15 @@ package dtos
 import "io"
 
 type FileDescriptor struct {
-//	Dependencies List[FileDescriptor]
-//	EnumTypes List[EnumDescriptor]
-//	Extensions List[FieldDescriptor]
-//	MessageTypes List[Descriptor]
-	Name string
-	Options FileOptions
+	//	Dependencies *List[FileDescriptor]
+	//	EnumTypes *List[EnumDescriptor]
+	//	Extensions *List[FieldDescriptor]
+	//	MessageTypes *List[Descriptor]
+	Name    string
+	Options *FileOptions
 	Package string
-//	PublicDependencies List[FileDescriptor]
-//	Services List[ServiceDescriptor]
+	//	PublicDependencies *List[FileDescriptor]
+	//	Services *List[ServiceDescriptor]
 }
 
 func (self *FileDescriptor) Populate(jsonReader io.ReadCloser) (err error) {

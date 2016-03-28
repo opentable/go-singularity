@@ -3,12 +3,12 @@ package dtos
 import "io"
 
 type S3Artifact struct {
-	Filename string
-	Filesize int64
-	Md5sum string
-	Name string
-	S3Bucket string
-	S3ObjectKey string
+	Filename                   string
+	Filesize                   int64
+	Md5sum                     string
+	Name                       string
+	S3Bucket                   string
+	S3ObjectKey                string
 	TargetFolderRelativeToTask string
 }
 

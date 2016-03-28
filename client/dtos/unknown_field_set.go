@@ -3,10 +3,10 @@ package dtos
 import "io"
 
 type UnknownFieldSet struct {
-	DefaultInstanceForType UnknownFieldSet
-	Initialized bool
-//	ParserForType Parser
-	SerializedSize int32
+	DefaultInstanceForType *UnknownFieldSet
+	Initialized            bool
+	//	ParserForType *Parser
+	SerializedSize             int32
 	SerializedSizeAsMessageSet int32
 }
 

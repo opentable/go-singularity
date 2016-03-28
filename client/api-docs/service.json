@@ -1,0 +1,42 @@
+{
+  "apiVersion" : "0.4.12-SNAPSHOT",
+  "swaggerVersion" : "1.2",
+  "apis" : [ {
+    "path" : "/api_webhooks.{format}",
+    "description" : "Manages Singularity webhooks."
+  }, {
+    "path" : "/api_tasks.{format}",
+    "description" : "Manages Singularity tasks."
+  }, {
+    "path" : "/api_slaves.{format}",
+    "description" : "Manages Singularity slaves."
+  }, {
+    "path" : "/api_test.{format}",
+    "description" : "Misc testing endpoints."
+  }, {
+    "path" : "/api_history.{format}",
+    "description" : "Manages historical data for tasks, requests, and deploys."
+  }, {
+    "path" : "/api_state.{format}",
+    "description" : "Provides information about the current state of Singularity."
+  }, {
+    "path" : "/api_sandbox.{format}",
+    "description" : "Provides a proxy to Mesos sandboxes."
+  }, {
+    "path" : "/api_logs.{format}",
+    "description" : "Manages Singularity task logs stored in S3."
+  }, {
+    "path" : "/api_racks.{format}",
+    "description" : "Manages Singularity racks."
+  }, {
+    "path" : "/api_requests.{format}",
+    "description" : "Manages Singularity Requests, the parent object for any deployed task"
+  }, {
+    "path" : "/api_deploys.{format}",
+    "description" : "Manages Singularity Deploys for existing requests"
+  } ],
+  "info" : {
+    "title" : "Singularity REST API",
+    "description" : "Singularity Mesos Framework API"
+  }
+}

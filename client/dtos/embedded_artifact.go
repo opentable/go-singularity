@@ -3,10 +3,10 @@ package dtos
 import "io"
 
 type EmbeddedArtifact struct {
-	Content []string
-	Filename string
-	Md5sum string
-	Name string
+	Content                    string
+	Filename                   string
+	Md5sum                     string
+	Name                       string
 	TargetFolderRelativeToTask string
 }
 
