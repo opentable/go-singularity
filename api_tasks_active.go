@@ -1,6 +1,6 @@
 package client
 
-import "github.com/opentable/sous-singularity/client/dtos"
+import "github.com/opentable/singularity/dtos"
 
 func (client *Client) GetActiveTasks() (response dtos.SingularityTaskList, err error) {
 	pathParamMap := map[string]interface{}{}

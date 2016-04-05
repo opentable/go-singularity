@@ -1,6 +1,6 @@
 package client
 
-import "github.com/opentable/sous-singularity/client/dtos"
+import "github.com/opentable/singularity/dtos"
 
 func (client *Client) GetQueuedDeployUpdates(webhookId string) (response dtos.SingularityDeployUpdateList, err error) {
 	pathParamMap := map[string]interface{}{
