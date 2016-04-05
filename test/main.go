@@ -11,8 +11,8 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/opentable/sous-singularity/client"
-	"github.com/opentable/sous-singularity/client/dtos"
+	"github.com/opentable/singularity/client"
+	"github.com/opentable/singularity/dtos"
 )
 
 func dockerMachine(args ...string) (stdoutStr, stderrStr string, err error) {

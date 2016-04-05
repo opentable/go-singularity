@@ -11,7 +11,7 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/opentable/sous-singularity/client/dtos"
+	"github.com/opentable/singularity/dtos"
 )
 
 type Client struct {
