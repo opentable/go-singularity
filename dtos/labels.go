@@ -31,19 +31,19 @@ func (self *Labels) FormatJSON() string {
 
 type LabelsList []*Labels
 
-func (list LabelsList) Populate(jsonReader io.ReadCloser) (err error) {
+func (list *LabelsList) Populate(jsonReader io.ReadCloser) (err error) {
 	return ReadPopulate(jsonReader, list)
 }
 
-func (list LabelsList) FormatText() string {
+func (list *LabelsList) FormatText() string {
 	text := []byte{}
-	for _, dto := range list {
+	for _, dto := range *list {
 		text = append(text, (*dto).FormatText()...)
 		text = append(text, "\n"...)
 	}
 	return string(text)
 }
 
-func (list LabelsList) FormatJSON() string {
+func (list *LabelsList) FormatJSON() string {
 	return FormatJSON(list)
 }

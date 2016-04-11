@@ -23,19 +23,19 @@ func (self *Resources) FormatJSON() string {
 
 type ResourcesList []*Resources
 
-func (list ResourcesList) Populate(jsonReader io.ReadCloser) (err error) {
+func (list *ResourcesList) Populate(jsonReader io.ReadCloser) (err error) {
 	return ReadPopulate(jsonReader, list)
 }
 
-func (list ResourcesList) FormatText() string {
+func (list *ResourcesList) FormatText() string {
 	text := []byte{}
-	for _, dto := range list {
+	for _, dto := range *list {
 		text = append(text, (*dto).FormatText()...)
 		text = append(text, "\n"...)
 	}
 	return string(text)
 }
 
-func (list ResourcesList) FormatJSON() string {
+func (list *ResourcesList) FormatJSON() string {
 	return FormatJSON(list)
 }

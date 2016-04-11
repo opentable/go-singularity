@@ -30,19 +30,19 @@ func (self *SingularityPendingRequest) FormatJSON() string {
 
 type SingularityPendingRequestList []*SingularityPendingRequest
 
-func (list SingularityPendingRequestList) Populate(jsonReader io.ReadCloser) (err error) {
+func (list *SingularityPendingRequestList) Populate(jsonReader io.ReadCloser) (err error) {
 	return ReadPopulate(jsonReader, list)
 }
 
-func (list SingularityPendingRequestList) FormatText() string {
+func (list *SingularityPendingRequestList) FormatText() string {
 	text := []byte{}
-	for _, dto := range list {
+	for _, dto := range *list {
 		text = append(text, (*dto).FormatText()...)
 		text = append(text, "\n"...)
 	}
 	return string(text)
 }
 
-func (list SingularityPendingRequestList) FormatJSON() string {
+func (list *SingularityPendingRequestList) FormatJSON() string {
 	return FormatJSON(list)
 }

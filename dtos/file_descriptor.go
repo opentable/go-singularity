@@ -29,19 +29,19 @@ func (self *FileDescriptor) FormatJSON() string {
 
 type FileDescriptorList []*FileDescriptor
 
-func (list FileDescriptorList) Populate(jsonReader io.ReadCloser) (err error) {
+func (list *FileDescriptorList) Populate(jsonReader io.ReadCloser) (err error) {
 	return ReadPopulate(jsonReader, list)
 }
 
-func (list FileDescriptorList) FormatText() string {
+func (list *FileDescriptorList) FormatText() string {
 	text := []byte{}
-	for _, dto := range list {
+	for _, dto := range *list {
 		text = append(text, (*dto).FormatText()...)
 		text = append(text, "\n"...)
 	}
 	return string(text)
 }
 
-func (list FileDescriptorList) FormatJSON() string {
+func (list *FileDescriptorList) FormatJSON() string {
 	return FormatJSON(list)
 }

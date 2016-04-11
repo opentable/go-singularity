@@ -24,19 +24,19 @@ func (self *SingularitySandboxFile) FormatJSON() string {
 
 type SingularitySandboxFileList []*SingularitySandboxFile
 
-func (list SingularitySandboxFileList) Populate(jsonReader io.ReadCloser) (err error) {
+func (list *SingularitySandboxFileList) Populate(jsonReader io.ReadCloser) (err error) {
 	return ReadPopulate(jsonReader, list)
 }
 
-func (list SingularitySandboxFileList) FormatText() string {
+func (list *SingularitySandboxFileList) FormatText() string {
 	text := []byte{}
-	for _, dto := range list {
+	for _, dto := range *list {
 		text = append(text, (*dto).FormatText()...)
 		text = append(text, "\n"...)
 	}
 	return string(text)
 }
 
-func (list SingularitySandboxFileList) FormatJSON() string {
+func (list *SingularitySandboxFileList) FormatJSON() string {
 	return FormatJSON(list)
 }

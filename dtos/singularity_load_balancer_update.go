@@ -26,19 +26,19 @@ func (self *SingularityLoadBalancerUpdate) FormatJSON() string {
 
 type SingularityLoadBalancerUpdateList []*SingularityLoadBalancerUpdate
 
-func (list SingularityLoadBalancerUpdateList) Populate(jsonReader io.ReadCloser) (err error) {
+func (list *SingularityLoadBalancerUpdateList) Populate(jsonReader io.ReadCloser) (err error) {
 	return ReadPopulate(jsonReader, list)
 }
 
-func (list SingularityLoadBalancerUpdateList) FormatText() string {
+func (list *SingularityLoadBalancerUpdateList) FormatText() string {
 	text := []byte{}
-	for _, dto := range list {
+	for _, dto := range *list {
 		text = append(text, (*dto).FormatText()...)
 		text = append(text, "\n"...)
 	}
 	return string(text)
 }
 
-func (list SingularityLoadBalancerUpdateList) FormatJSON() string {
+func (list *SingularityLoadBalancerUpdateList) FormatJSON() string {
 	return FormatJSON(list)
 }

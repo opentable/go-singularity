@@ -31,19 +31,19 @@ func (self *Ports) FormatJSON() string {
 
 type PortsList []*Ports
 
-func (list PortsList) Populate(jsonReader io.ReadCloser) (err error) {
+func (list *PortsList) Populate(jsonReader io.ReadCloser) (err error) {
 	return ReadPopulate(jsonReader, list)
 }
 
-func (list PortsList) FormatText() string {
+func (list *PortsList) FormatText() string {
 	text := []byte{}
-	for _, dto := range list {
+	for _, dto := range *list {
 		text = append(text, (*dto).FormatText()...)
 		text = append(text, "\n"...)
 	}
 	return string(text)
 }
 
-func (list PortsList) FormatJSON() string {
+func (list *PortsList) FormatJSON() string {
 	return FormatJSON(list)
 }

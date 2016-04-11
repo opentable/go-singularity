@@ -1,4 +1,4 @@
-package client
+package singularity
 
 func (client *Client) StatusUpdate(taskId string, taskState string) (err error) {
 	pathParamMap := map[string]interface{}{

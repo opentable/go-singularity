@@ -30,19 +30,19 @@ func (self *FrameworkID) FormatJSON() string {
 
 type FrameworkIDList []*FrameworkID
 
-func (list FrameworkIDList) Populate(jsonReader io.ReadCloser) (err error) {
+func (list *FrameworkIDList) Populate(jsonReader io.ReadCloser) (err error) {
 	return ReadPopulate(jsonReader, list)
 }
 
-func (list FrameworkIDList) FormatText() string {
+func (list *FrameworkIDList) FormatText() string {
 	text := []byte{}
-	for _, dto := range list {
+	for _, dto := range *list {
 		text = append(text, (*dto).FormatText()...)
 		text = append(text, "\n"...)
 	}
 	return string(text)
 }
 
-func (list FrameworkIDList) FormatJSON() string {
+func (list *FrameworkIDList) FormatJSON() string {
 	return FormatJSON(list)
 }

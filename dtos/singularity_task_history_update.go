@@ -25,19 +25,19 @@ func (self *SingularityTaskHistoryUpdate) FormatJSON() string {
 
 type SingularityTaskHistoryUpdateList []*SingularityTaskHistoryUpdate
 
-func (list SingularityTaskHistoryUpdateList) Populate(jsonReader io.ReadCloser) (err error) {
+func (list *SingularityTaskHistoryUpdateList) Populate(jsonReader io.ReadCloser) (err error) {
 	return ReadPopulate(jsonReader, list)
 }
 
-func (list SingularityTaskHistoryUpdateList) FormatText() string {
+func (list *SingularityTaskHistoryUpdateList) FormatText() string {
 	text := []byte{}
-	for _, dto := range list {
+	for _, dto := range *list {
 		text = append(text, (*dto).FormatText()...)
 		text = append(text, "\n"...)
 	}
 	return string(text)
 }
 
-func (list SingularityTaskHistoryUpdateList) FormatJSON() string {
+func (list *SingularityTaskHistoryUpdateList) FormatJSON() string {
 	return FormatJSON(list)
 }

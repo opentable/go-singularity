@@ -24,19 +24,19 @@ func (self *SingularityPauseRequest) FormatJSON() string {
 
 type SingularityPauseRequestList []*SingularityPauseRequest
 
-func (list SingularityPauseRequestList) Populate(jsonReader io.ReadCloser) (err error) {
+func (list *SingularityPauseRequestList) Populate(jsonReader io.ReadCloser) (err error) {
 	return ReadPopulate(jsonReader, list)
 }
 
-func (list SingularityPauseRequestList) FormatText() string {
+func (list *SingularityPauseRequestList) FormatText() string {
 	text := []byte{}
-	for _, dto := range list {
+	for _, dto := range *list {
 		text = append(text, (*dto).FormatText()...)
 		text = append(text, "\n"...)
 	}
 	return string(text)
 }
 
-func (list SingularityPauseRequestList) FormatJSON() string {
+func (list *SingularityPauseRequestList) FormatJSON() string {
 	return FormatJSON(list)
 }

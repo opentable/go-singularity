@@ -33,19 +33,19 @@ func (self *HTTP) FormatJSON() string {
 
 type HTTPList []*HTTP
 
-func (list HTTPList) Populate(jsonReader io.ReadCloser) (err error) {
+func (list *HTTPList) Populate(jsonReader io.ReadCloser) (err error) {
 	return ReadPopulate(jsonReader, list)
 }
 
-func (list HTTPList) FormatText() string {
+func (list *HTTPList) FormatText() string {
 	text := []byte{}
-	for _, dto := range list {
+	for _, dto := range *list {
 		text = append(text, (*dto).FormatText()...)
 		text = append(text, "\n"...)
 	}
 	return string(text)
 }
 
-func (list HTTPList) FormatJSON() string {
+func (list *HTTPList) FormatJSON() string {
 	return FormatJSON(list)
 }

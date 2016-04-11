@@ -22,19 +22,19 @@ func (self *ByteString) FormatJSON() string {
 
 type ByteStringList []*ByteString
 
-func (list ByteStringList) Populate(jsonReader io.ReadCloser) (err error) {
+func (list *ByteStringList) Populate(jsonReader io.ReadCloser) (err error) {
 	return ReadPopulate(jsonReader, list)
 }
 
-func (list ByteStringList) FormatText() string {
+func (list *ByteStringList) FormatText() string {
 	text := []byte{}
-	for _, dto := range list {
+	for _, dto := range *list {
 		text = append(text, (*dto).FormatText()...)
 		text = append(text, "\n"...)
 	}
 	return string(text)
 }
 
-func (list ByteStringList) FormatJSON() string {
+func (list *ByteStringList) FormatJSON() string {
 	return FormatJSON(list)
 }

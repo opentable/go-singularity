@@ -39,19 +39,19 @@ func (self *DockerInfo) FormatJSON() string {
 
 type DockerInfoList []*DockerInfo
 
-func (list DockerInfoList) Populate(jsonReader io.ReadCloser) (err error) {
+func (list *DockerInfoList) Populate(jsonReader io.ReadCloser) (err error) {
 	return ReadPopulate(jsonReader, list)
 }
 
-func (list DockerInfoList) FormatText() string {
+func (list *DockerInfoList) FormatText() string {
 	text := []byte{}
-	for _, dto := range list {
+	for _, dto := range *list {
 		text = append(text, (*dto).FormatText()...)
 		text = append(text, "\n"...)
 	}
 	return string(text)
 }
 
-func (list DockerInfoList) FormatJSON() string {
+func (list *DockerInfoList) FormatJSON() string {
 	return FormatJSON(list)
 }

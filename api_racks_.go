@@ -1,6 +1,6 @@
-package client
+package singularity
 
-import "github.com/opentable/sous-singularity/client/dtos"
+import "github.com/opentable/singularity/dtos"
 
 func (client *Client) GetRacks(state string) (response dtos.SingularityRackList, err error) {
 	pathParamMap := map[string]interface{}{}
@@ -9,7 +9,7 @@ func (client *Client) GetRacks(state string) (response dtos.SingularityRackList,
 	}
 
 	response = make(dtos.SingularityRackList, 0)
-	err = client.DTORequest(response, "GET", "/api/racks/", pathParamMap, queryParamMap)
+	err = client.DTORequest(&response, "GET", "/api/racks/", pathParamMap, queryParamMap)
 
 	return
 }

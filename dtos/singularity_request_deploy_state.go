@@ -23,19 +23,19 @@ func (self *SingularityRequestDeployState) FormatJSON() string {
 
 type SingularityRequestDeployStateList []*SingularityRequestDeployState
 
-func (list SingularityRequestDeployStateList) Populate(jsonReader io.ReadCloser) (err error) {
+func (list *SingularityRequestDeployStateList) Populate(jsonReader io.ReadCloser) (err error) {
 	return ReadPopulate(jsonReader, list)
 }
 
-func (list SingularityRequestDeployStateList) FormatText() string {
+func (list *SingularityRequestDeployStateList) FormatText() string {
 	text := []byte{}
-	for _, dto := range list {
+	for _, dto := range *list {
 		text = append(text, (*dto).FormatText()...)
 		text = append(text, "\n"...)
 	}
 	return string(text)
 }
 
-func (list SingularityRequestDeployStateList) FormatJSON() string {
+func (list *SingularityRequestDeployStateList) FormatJSON() string {
 	return FormatJSON(list)
 }

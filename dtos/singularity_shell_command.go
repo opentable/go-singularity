@@ -24,19 +24,19 @@ func (self *SingularityShellCommand) FormatJSON() string {
 
 type SingularityShellCommandList []*SingularityShellCommand
 
-func (list SingularityShellCommandList) Populate(jsonReader io.ReadCloser) (err error) {
+func (list *SingularityShellCommandList) Populate(jsonReader io.ReadCloser) (err error) {
 	return ReadPopulate(jsonReader, list)
 }
 
-func (list SingularityShellCommandList) FormatText() string {
+func (list *SingularityShellCommandList) FormatText() string {
 	text := []byte{}
-	for _, dto := range list {
+	for _, dto := range *list {
 		text = append(text, (*dto).FormatText()...)
 		text = append(text, "\n"...)
 	}
 	return string(text)
 }
 
-func (list SingularityShellCommandList) FormatJSON() string {
+func (list *SingularityShellCommandList) FormatJSON() string {
 	return FormatJSON(list)
 }

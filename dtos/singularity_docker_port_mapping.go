@@ -25,19 +25,19 @@ func (self *SingularityDockerPortMapping) FormatJSON() string {
 
 type SingularityDockerPortMappingList []*SingularityDockerPortMapping
 
-func (list SingularityDockerPortMappingList) Populate(jsonReader io.ReadCloser) (err error) {
+func (list *SingularityDockerPortMappingList) Populate(jsonReader io.ReadCloser) (err error) {
 	return ReadPopulate(jsonReader, list)
 }
 
-func (list SingularityDockerPortMappingList) FormatText() string {
+func (list *SingularityDockerPortMappingList) FormatText() string {
 	text := []byte{}
-	for _, dto := range list {
+	for _, dto := range *list {
 		text = append(text, (*dto).FormatText()...)
 		text = append(text, "\n"...)
 	}
 	return string(text)
 }
 
-func (list SingularityDockerPortMappingList) FormatJSON() string {
+func (list *SingularityDockerPortMappingList) FormatJSON() string {
 	return FormatJSON(list)
 }

@@ -25,19 +25,19 @@ func (self *EmbeddedArtifact) FormatJSON() string {
 
 type EmbeddedArtifactList []*EmbeddedArtifact
 
-func (list EmbeddedArtifactList) Populate(jsonReader io.ReadCloser) (err error) {
+func (list *EmbeddedArtifactList) Populate(jsonReader io.ReadCloser) (err error) {
 	return ReadPopulate(jsonReader, list)
 }
 
-func (list EmbeddedArtifactList) FormatText() string {
+func (list *EmbeddedArtifactList) FormatText() string {
 	text := []byte{}
-	for _, dto := range list {
+	for _, dto := range *list {
 		text = append(text, (*dto).FormatText()...)
 		text = append(text, "\n"...)
 	}
 	return string(text)
 }
 
-func (list EmbeddedArtifactList) FormatJSON() string {
+func (list *EmbeddedArtifactList) FormatJSON() string {
 	return FormatJSON(list)
 }

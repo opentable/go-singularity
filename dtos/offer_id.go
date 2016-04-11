@@ -30,19 +30,19 @@ func (self *OfferID) FormatJSON() string {
 
 type OfferIDList []*OfferID
 
-func (list OfferIDList) Populate(jsonReader io.ReadCloser) (err error) {
+func (list *OfferIDList) Populate(jsonReader io.ReadCloser) (err error) {
 	return ReadPopulate(jsonReader, list)
 }
 
-func (list OfferIDList) FormatText() string {
+func (list *OfferIDList) FormatText() string {
 	text := []byte{}
-	for _, dto := range list {
+	for _, dto := range *list {
 		text = append(text, (*dto).FormatText()...)
 		text = append(text, "\n"...)
 	}
 	return string(text)
 }
 
-func (list OfferIDList) FormatJSON() string {
+func (list *OfferIDList) FormatJSON() string {
 	return FormatJSON(list)
 }

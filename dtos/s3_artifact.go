@@ -27,19 +27,19 @@ func (self *S3Artifact) FormatJSON() string {
 
 type S3ArtifactList []*S3Artifact
 
-func (list S3ArtifactList) Populate(jsonReader io.ReadCloser) (err error) {
+func (list *S3ArtifactList) Populate(jsonReader io.ReadCloser) (err error) {
 	return ReadPopulate(jsonReader, list)
 }
 
-func (list S3ArtifactList) FormatText() string {
+func (list *S3ArtifactList) FormatText() string {
 	text := []byte{}
-	for _, dto := range list {
+	for _, dto := range *list {
 		text = append(text, (*dto).FormatText()...)
 		text = append(text, "\n"...)
 	}
 	return string(text)
 }
 
-func (list S3ArtifactList) FormatJSON() string {
+func (list *S3ArtifactList) FormatJSON() string {
 	return FormatJSON(list)
 }

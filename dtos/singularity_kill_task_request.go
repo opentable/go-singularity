@@ -24,19 +24,19 @@ func (self *SingularityKillTaskRequest) FormatJSON() string {
 
 type SingularityKillTaskRequestList []*SingularityKillTaskRequest
 
-func (list SingularityKillTaskRequestList) Populate(jsonReader io.ReadCloser) (err error) {
+func (list *SingularityKillTaskRequestList) Populate(jsonReader io.ReadCloser) (err error) {
 	return ReadPopulate(jsonReader, list)
 }
 
-func (list SingularityKillTaskRequestList) FormatText() string {
+func (list *SingularityKillTaskRequestList) FormatText() string {
 	text := []byte{}
-	for _, dto := range list {
+	for _, dto := range *list {
 		text = append(text, (*dto).FormatText()...)
 		text = append(text, "\n"...)
 	}
 	return string(text)
 }
 
-func (list SingularityKillTaskRequestList) FormatJSON() string {
+func (list *SingularityKillTaskRequestList) FormatJSON() string {
 	return FormatJSON(list)
 }

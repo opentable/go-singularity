@@ -37,19 +37,19 @@ func (self *HealthCheck) FormatJSON() string {
 
 type HealthCheckList []*HealthCheck
 
-func (list HealthCheckList) Populate(jsonReader io.ReadCloser) (err error) {
+func (list *HealthCheckList) Populate(jsonReader io.ReadCloser) (err error) {
 	return ReadPopulate(jsonReader, list)
 }
 
-func (list HealthCheckList) FormatText() string {
+func (list *HealthCheckList) FormatText() string {
 	text := []byte{}
-	for _, dto := range list {
+	for _, dto := range *list {
 		text = append(text, (*dto).FormatText()...)
 		text = append(text, "\n"...)
 	}
 	return string(text)
 }
 
-func (list HealthCheckList) FormatJSON() string {
+func (list *HealthCheckList) FormatJSON() string {
 	return FormatJSON(list)
 }

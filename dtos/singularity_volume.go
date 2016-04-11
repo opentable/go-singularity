@@ -23,19 +23,19 @@ func (self *SingularityVolume) FormatJSON() string {
 
 type SingularityVolumeList []*SingularityVolume
 
-func (list SingularityVolumeList) Populate(jsonReader io.ReadCloser) (err error) {
+func (list *SingularityVolumeList) Populate(jsonReader io.ReadCloser) (err error) {
 	return ReadPopulate(jsonReader, list)
 }
 
-func (list SingularityVolumeList) FormatText() string {
+func (list *SingularityVolumeList) FormatText() string {
 	text := []byte{}
-	for _, dto := range list {
+	for _, dto := range *list {
 		text = append(text, (*dto).FormatText()...)
 		text = append(text, "\n"...)
 	}
 	return string(text)
 }
 
-func (list SingularityVolumeList) FormatJSON() string {
+func (list *SingularityVolumeList) FormatJSON() string {
 	return FormatJSON(list)
 }

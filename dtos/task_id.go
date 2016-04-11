@@ -30,19 +30,19 @@ func (self *TaskID) FormatJSON() string {
 
 type TaskIDList []*TaskID
 
-func (list TaskIDList) Populate(jsonReader io.ReadCloser) (err error) {
+func (list *TaskIDList) Populate(jsonReader io.ReadCloser) (err error) {
 	return ReadPopulate(jsonReader, list)
 }
 
-func (list TaskIDList) FormatText() string {
+func (list *TaskIDList) FormatText() string {
 	text := []byte{}
-	for _, dto := range list {
+	for _, dto := range *list {
 		text = append(text, (*dto).FormatText()...)
 		text = append(text, "\n"...)
 	}
 	return string(text)
 }
 
-func (list TaskIDList) FormatJSON() string {
+func (list *TaskIDList) FormatJSON() string {
 	return FormatJSON(list)
 }

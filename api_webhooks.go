@@ -1,9 +1,9 @@
-package client
+package singularity
 
 import (
 	"bytes"
 
-	"github.com/opentable/sous-singularity/client/dtos"
+	"github.com/opentable/singularity/dtos"
 )
 
 func (client *Client) GetActiveWebhooks() (response dtos.SingularityWebhookList, err error) {
@@ -11,7 +11,7 @@ func (client *Client) GetActiveWebhooks() (response dtos.SingularityWebhookList,
 	queryParamMap := map[string]interface{}{}
 
 	response = make(dtos.SingularityWebhookList, 0)
-	err = client.DTORequest(response, "GET", "/api/webhooks", pathParamMap, queryParamMap)
+	err = client.DTORequest(&response, "GET", "/api/webhooks", pathParamMap, queryParamMap)
 
 	return
 }

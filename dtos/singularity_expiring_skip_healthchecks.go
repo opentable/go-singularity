@@ -26,19 +26,19 @@ func (self *SingularityExpiringSkipHealthchecks) FormatJSON() string {
 
 type SingularityExpiringSkipHealthchecksList []*SingularityExpiringSkipHealthchecks
 
-func (list SingularityExpiringSkipHealthchecksList) Populate(jsonReader io.ReadCloser) (err error) {
+func (list *SingularityExpiringSkipHealthchecksList) Populate(jsonReader io.ReadCloser) (err error) {
 	return ReadPopulate(jsonReader, list)
 }
 
-func (list SingularityExpiringSkipHealthchecksList) FormatText() string {
+func (list *SingularityExpiringSkipHealthchecksList) FormatText() string {
 	text := []byte{}
-	for _, dto := range list {
+	for _, dto := range *list {
 		text = append(text, (*dto).FormatText()...)
 		text = append(text, "\n"...)
 	}
 	return string(text)
 }
 
-func (list SingularityExpiringSkipHealthchecksList) FormatJSON() string {
+func (list *SingularityExpiringSkipHealthchecksList) FormatJSON() string {
 	return FormatJSON(list)
 }

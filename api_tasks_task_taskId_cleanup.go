@@ -1,6 +1,6 @@
-package client
+package singularity
 
-import "github.com/opentable/sous-singularity/client/dtos"
+import "github.com/opentable/singularity/dtos"
 
 func (client *Client) GetTaskCleanup(taskId string) (response *dtos.SingularityTaskCleanup, err error) {
 	pathParamMap := map[string]interface{}{

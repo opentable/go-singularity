@@ -1,6 +1,6 @@
-package client
+package singularity
 
-import "github.com/opentable/sous-singularity/client/dtos"
+import "github.com/opentable/singularity/dtos"
 
 func (client *Client) GetOverProvisionedRequestIds(skipCache bool) (response dtos.StringList, err error) {
 	pathParamMap := map[string]interface{}{}
@@ -9,7 +9,7 @@ func (client *Client) GetOverProvisionedRequestIds(skipCache bool) (response dto
 	}
 
 	response = make(dtos.StringList, 0)
-	err = client.DTORequest(response, "GET", "/api/state/requests/over-provisioned", pathParamMap, queryParamMap)
+	err = client.DTORequest(&response, "GET", "/api/state/requests/over-provisioned", pathParamMap, queryParamMap)
 
 	return
 }

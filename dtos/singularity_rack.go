@@ -23,19 +23,19 @@ func (self *SingularityRack) FormatJSON() string {
 
 type SingularityRackList []*SingularityRack
 
-func (list SingularityRackList) Populate(jsonReader io.ReadCloser) (err error) {
+func (list *SingularityRackList) Populate(jsonReader io.ReadCloser) (err error) {
 	return ReadPopulate(jsonReader, list)
 }
 
-func (list SingularityRackList) FormatText() string {
+func (list *SingularityRackList) FormatText() string {
 	text := []byte{}
-	for _, dto := range list {
+	for _, dto := range *list {
 		text = append(text, (*dto).FormatText()...)
 		text = append(text, "\n"...)
 	}
 	return string(text)
 }
 
-func (list SingularityRackList) FormatJSON() string {
+func (list *SingularityRackList) FormatJSON() string {
 	return FormatJSON(list)
 }

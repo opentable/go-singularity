@@ -1,6 +1,6 @@
-package client
+package singularity
 
-import "github.com/opentable/sous-singularity/client/dtos"
+import "github.com/opentable/singularity/dtos"
 
 func (client *Client) GetQueuedDeployUpdates(webhookId string) (response dtos.SingularityDeployUpdateList, err error) {
 	pathParamMap := map[string]interface{}{
@@ -9,7 +9,7 @@ func (client *Client) GetQueuedDeployUpdates(webhookId string) (response dtos.Si
 	queryParamMap := map[string]interface{}{}
 
 	response = make(dtos.SingularityDeployUpdateList, 0)
-	err = client.DTORequest(response, "GET", "/api/webhooks/deploy/{webhookId}", pathParamMap, queryParamMap)
+	err = client.DTORequest(&response, "GET", "/api/webhooks/deploy/{webhookId}", pathParamMap, queryParamMap)
 
 	return
 }

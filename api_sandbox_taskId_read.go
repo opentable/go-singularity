@@ -1,6 +1,6 @@
-package client
+package singularity
 
-import "github.com/opentable/sous-singularity/client/dtos"
+import "github.com/opentable/singularity/dtos"
 
 func (client *Client) Read(taskId string, path string, grep string, offset int64, length int64) (response *dtos.MesosFileChunkObject, err error) {
 	pathParamMap := map[string]interface{}{

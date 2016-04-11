@@ -31,19 +31,19 @@ func (self *Environment) FormatJSON() string {
 
 type EnvironmentList []*Environment
 
-func (list EnvironmentList) Populate(jsonReader io.ReadCloser) (err error) {
+func (list *EnvironmentList) Populate(jsonReader io.ReadCloser) (err error) {
 	return ReadPopulate(jsonReader, list)
 }
 
-func (list EnvironmentList) FormatText() string {
+func (list *EnvironmentList) FormatText() string {
 	text := []byte{}
-	for _, dto := range list {
+	for _, dto := range *list {
 		text = append(text, (*dto).FormatText()...)
 		text = append(text, "\n"...)
 	}
 	return string(text)
 }
 
-func (list EnvironmentList) FormatJSON() string {
+func (list *EnvironmentList) FormatJSON() string {
 	return FormatJSON(list)
 }

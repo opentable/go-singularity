@@ -23,19 +23,19 @@ func (self *EnvironmentOrBuilder) FormatJSON() string {
 
 type EnvironmentOrBuilderList []*EnvironmentOrBuilder
 
-func (list EnvironmentOrBuilderList) Populate(jsonReader io.ReadCloser) (err error) {
+func (list *EnvironmentOrBuilderList) Populate(jsonReader io.ReadCloser) (err error) {
 	return ReadPopulate(jsonReader, list)
 }
 
-func (list EnvironmentOrBuilderList) FormatText() string {
+func (list *EnvironmentOrBuilderList) FormatText() string {
 	text := []byte{}
-	for _, dto := range list {
+	for _, dto := range *list {
 		text = append(text, (*dto).FormatText()...)
 		text = append(text, "\n"...)
 	}
 	return string(text)
 }
 
-func (list EnvironmentOrBuilderList) FormatJSON() string {
+func (list *EnvironmentOrBuilderList) FormatJSON() string {
 	return FormatJSON(list)
 }

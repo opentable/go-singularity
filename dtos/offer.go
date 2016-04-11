@@ -45,19 +45,19 @@ func (self *Offer) FormatJSON() string {
 
 type OfferList []*Offer
 
-func (list OfferList) Populate(jsonReader io.ReadCloser) (err error) {
+func (list *OfferList) Populate(jsonReader io.ReadCloser) (err error) {
 	return ReadPopulate(jsonReader, list)
 }
 
-func (list OfferList) FormatText() string {
+func (list *OfferList) FormatText() string {
 	text := []byte{}
-	for _, dto := range list {
+	for _, dto := range *list {
 		text = append(text, (*dto).FormatText()...)
 		text = append(text, "\n"...)
 	}
 	return string(text)
 }
 
-func (list OfferList) FormatJSON() string {
+func (list *OfferList) FormatJSON() string {
 	return FormatJSON(list)
 }

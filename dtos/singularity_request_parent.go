@@ -30,19 +30,19 @@ func (self *SingularityRequestParent) FormatJSON() string {
 
 type SingularityRequestParentList []*SingularityRequestParent
 
-func (list SingularityRequestParentList) Populate(jsonReader io.ReadCloser) (err error) {
+func (list *SingularityRequestParentList) Populate(jsonReader io.ReadCloser) (err error) {
 	return ReadPopulate(jsonReader, list)
 }
 
-func (list SingularityRequestParentList) FormatText() string {
+func (list *SingularityRequestParentList) FormatText() string {
 	text := []byte{}
-	for _, dto := range list {
+	for _, dto := range *list {
 		text = append(text, (*dto).FormatText()...)
 		text = append(text, "\n"...)
 	}
 	return string(text)
 }
 
-func (list SingularityRequestParentList) FormatJSON() string {
+func (list *SingularityRequestParentList) FormatJSON() string {
 	return FormatJSON(list)
 }

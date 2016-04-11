@@ -25,19 +25,19 @@ func (self *HTTPOrBuilder) FormatJSON() string {
 
 type HTTPOrBuilderList []*HTTPOrBuilder
 
-func (list HTTPOrBuilderList) Populate(jsonReader io.ReadCloser) (err error) {
+func (list *HTTPOrBuilderList) Populate(jsonReader io.ReadCloser) (err error) {
 	return ReadPopulate(jsonReader, list)
 }
 
-func (list HTTPOrBuilderList) FormatText() string {
+func (list *HTTPOrBuilderList) FormatText() string {
 	text := []byte{}
-	for _, dto := range list {
+	for _, dto := range *list {
 		text = append(text, (*dto).FormatText()...)
 		text = append(text, "\n"...)
 	}
 	return string(text)
 }
 
-func (list HTTPOrBuilderList) FormatJSON() string {
+func (list *HTTPOrBuilderList) FormatJSON() string {
 	return FormatJSON(list)
 }

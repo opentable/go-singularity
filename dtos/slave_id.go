@@ -30,19 +30,19 @@ func (self *SlaveID) FormatJSON() string {
 
 type SlaveIDList []*SlaveID
 
-func (list SlaveIDList) Populate(jsonReader io.ReadCloser) (err error) {
+func (list *SlaveIDList) Populate(jsonReader io.ReadCloser) (err error) {
 	return ReadPopulate(jsonReader, list)
 }
 
-func (list SlaveIDList) FormatText() string {
+func (list *SlaveIDList) FormatText() string {
 	text := []byte{}
-	for _, dto := range list {
+	for _, dto := range *list {
 		text = append(text, (*dto).FormatText()...)
 		text = append(text, "\n"...)
 	}
 	return string(text)
 }
 
-func (list SlaveIDList) FormatJSON() string {
+func (list *SlaveIDList) FormatJSON() string {
 	return FormatJSON(list)
 }

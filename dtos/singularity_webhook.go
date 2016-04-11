@@ -25,19 +25,19 @@ func (self *SingularityWebhook) FormatJSON() string {
 
 type SingularityWebhookList []*SingularityWebhook
 
-func (list SingularityWebhookList) Populate(jsonReader io.ReadCloser) (err error) {
+func (list *SingularityWebhookList) Populate(jsonReader io.ReadCloser) (err error) {
 	return ReadPopulate(jsonReader, list)
 }
 
-func (list SingularityWebhookList) FormatText() string {
+func (list *SingularityWebhookList) FormatText() string {
 	text := []byte{}
-	for _, dto := range list {
+	for _, dto := range *list {
 		text = append(text, (*dto).FormatText()...)
 		text = append(text, "\n"...)
 	}
 	return string(text)
 }
 
-func (list SingularityWebhookList) FormatJSON() string {
+func (list *SingularityWebhookList) FormatJSON() string {
 	return FormatJSON(list)
 }

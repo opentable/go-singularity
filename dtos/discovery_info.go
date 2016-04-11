@@ -41,19 +41,19 @@ func (self *DiscoveryInfo) FormatJSON() string {
 
 type DiscoveryInfoList []*DiscoveryInfo
 
-func (list DiscoveryInfoList) Populate(jsonReader io.ReadCloser) (err error) {
+func (list *DiscoveryInfoList) Populate(jsonReader io.ReadCloser) (err error) {
 	return ReadPopulate(jsonReader, list)
 }
 
-func (list DiscoveryInfoList) FormatText() string {
+func (list *DiscoveryInfoList) FormatText() string {
 	text := []byte{}
-	for _, dto := range list {
+	for _, dto := range *list {
 		text = append(text, (*dto).FormatText()...)
 		text = append(text, "\n"...)
 	}
 	return string(text)
 }
 
-func (list DiscoveryInfoList) FormatJSON() string {
+func (list *DiscoveryInfoList) FormatJSON() string {
 	return FormatJSON(list)
 }

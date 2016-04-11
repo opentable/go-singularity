@@ -28,19 +28,19 @@ func (self *S3ArtifactSignature) FormatJSON() string {
 
 type S3ArtifactSignatureList []*S3ArtifactSignature
 
-func (list S3ArtifactSignatureList) Populate(jsonReader io.ReadCloser) (err error) {
+func (list *S3ArtifactSignatureList) Populate(jsonReader io.ReadCloser) (err error) {
 	return ReadPopulate(jsonReader, list)
 }
 
-func (list S3ArtifactSignatureList) FormatText() string {
+func (list *S3ArtifactSignatureList) FormatText() string {
 	text := []byte{}
-	for _, dto := range list {
+	for _, dto := range *list {
 		text = append(text, (*dto).FormatText()...)
 		text = append(text, "\n"...)
 	}
 	return string(text)
 }
 
-func (list S3ArtifactSignatureList) FormatJSON() string {
+func (list *S3ArtifactSignatureList) FormatJSON() string {
 	return FormatJSON(list)
 }

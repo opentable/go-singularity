@@ -1,6 +1,6 @@
-package client
+package singularity
 
-import "github.com/opentable/sous-singularity/client/dtos"
+import "github.com/opentable/singularity/dtos"
 
 func (client *Client) getRequestHistoryForRequest(requestId string, count int32, page int32) (response *dtos.SingularityRequestHistory, err error) {
 	pathParamMap := map[string]interface{}{

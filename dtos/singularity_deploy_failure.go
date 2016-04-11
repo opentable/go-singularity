@@ -23,19 +23,19 @@ func (self *SingularityDeployFailure) FormatJSON() string {
 
 type SingularityDeployFailureList []*SingularityDeployFailure
 
-func (list SingularityDeployFailureList) Populate(jsonReader io.ReadCloser) (err error) {
+func (list *SingularityDeployFailureList) Populate(jsonReader io.ReadCloser) (err error) {
 	return ReadPopulate(jsonReader, list)
 }
 
-func (list SingularityDeployFailureList) FormatText() string {
+func (list *SingularityDeployFailureList) FormatText() string {
 	text := []byte{}
-	for _, dto := range list {
+	for _, dto := range *list {
 		text = append(text, (*dto).FormatText()...)
 		text = append(text, "\n"...)
 	}
 	return string(text)
 }
 
-func (list SingularityDeployFailureList) FormatJSON() string {
+func (list *SingularityDeployFailureList) FormatJSON() string {
 	return FormatJSON(list)
 }

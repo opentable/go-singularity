@@ -22,19 +22,19 @@ func (self *ExecutorIDOrBuilder) FormatJSON() string {
 
 type ExecutorIDOrBuilderList []*ExecutorIDOrBuilder
 
-func (list ExecutorIDOrBuilderList) Populate(jsonReader io.ReadCloser) (err error) {
+func (list *ExecutorIDOrBuilderList) Populate(jsonReader io.ReadCloser) (err error) {
 	return ReadPopulate(jsonReader, list)
 }
 
-func (list ExecutorIDOrBuilderList) FormatText() string {
+func (list *ExecutorIDOrBuilderList) FormatText() string {
 	text := []byte{}
-	for _, dto := range list {
+	for _, dto := range *list {
 		text = append(text, (*dto).FormatText()...)
 		text = append(text, "\n"...)
 	}
 	return string(text)
 }
 
-func (list ExecutorIDOrBuilderList) FormatJSON() string {
+func (list *ExecutorIDOrBuilderList) FormatJSON() string {
 	return FormatJSON(list)
 }

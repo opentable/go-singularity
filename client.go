@@ -1,4 +1,4 @@
-package client
+package singularity
 
 import (
 	"bytes"
@@ -11,7 +11,7 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/opentable/sous-singularity/client/dtos"
+	"github.com/opentable/singularity/dtos"
 )
 
 type Client struct {
@@ -19,7 +19,7 @@ type Client struct {
 	http    http.Client
 }
 
-func New(apiBase string) (client *Client) {
+func NewClient(apiBase string) (client *Client) {
 	return &Client{apiBase, http.Client{}}
 }
 

@@ -27,19 +27,19 @@ func (self *SingularityDeployProgress) FormatJSON() string {
 
 type SingularityDeployProgressList []*SingularityDeployProgress
 
-func (list SingularityDeployProgressList) Populate(jsonReader io.ReadCloser) (err error) {
+func (list *SingularityDeployProgressList) Populate(jsonReader io.ReadCloser) (err error) {
 	return ReadPopulate(jsonReader, list)
 }
 
-func (list SingularityDeployProgressList) FormatText() string {
+func (list *SingularityDeployProgressList) FormatText() string {
 	text := []byte{}
-	for _, dto := range list {
+	for _, dto := range *list {
 		text = append(text, (*dto).FormatText()...)
 		text = append(text, "\n"...)
 	}
 	return string(text)
 }
 
-func (list SingularityDeployProgressList) FormatJSON() string {
+func (list *SingularityDeployProgressList) FormatJSON() string {
 	return FormatJSON(list)
 }

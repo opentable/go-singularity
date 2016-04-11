@@ -1,4 +1,4 @@
-package client
+package singularity
 
 func (client *Client) ThrowException(message string) (err error) {
 	pathParamMap := map[string]interface{}{}

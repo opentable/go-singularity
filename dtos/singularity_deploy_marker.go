@@ -25,19 +25,19 @@ func (self *SingularityDeployMarker) FormatJSON() string {
 
 type SingularityDeployMarkerList []*SingularityDeployMarker
 
-func (list SingularityDeployMarkerList) Populate(jsonReader io.ReadCloser) (err error) {
+func (list *SingularityDeployMarkerList) Populate(jsonReader io.ReadCloser) (err error) {
 	return ReadPopulate(jsonReader, list)
 }
 
-func (list SingularityDeployMarkerList) FormatText() string {
+func (list *SingularityDeployMarkerList) FormatText() string {
 	text := []byte{}
-	for _, dto := range list {
+	for _, dto := range *list {
 		text = append(text, (*dto).FormatText()...)
 		text = append(text, "\n"...)
 	}
 	return string(text)
 }
 
-func (list SingularityDeployMarkerList) FormatJSON() string {
+func (list *SingularityDeployMarkerList) FormatJSON() string {
 	return FormatJSON(list)
 }

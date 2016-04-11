@@ -26,19 +26,19 @@ func (self *ExternalArtifact) FormatJSON() string {
 
 type ExternalArtifactList []*ExternalArtifact
 
-func (list ExternalArtifactList) Populate(jsonReader io.ReadCloser) (err error) {
+func (list *ExternalArtifactList) Populate(jsonReader io.ReadCloser) (err error) {
 	return ReadPopulate(jsonReader, list)
 }
 
-func (list ExternalArtifactList) FormatText() string {
+func (list *ExternalArtifactList) FormatText() string {
 	text := []byte{}
-	for _, dto := range list {
+	for _, dto := range *list {
 		text = append(text, (*dto).FormatText()...)
 		text = append(text, "\n"...)
 	}
 	return string(text)
 }
 
-func (list ExternalArtifactList) FormatJSON() string {
+func (list *ExternalArtifactList) FormatJSON() string {
 	return FormatJSON(list)
 }

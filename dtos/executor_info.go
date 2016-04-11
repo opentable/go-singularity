@@ -46,19 +46,19 @@ func (self *ExecutorInfo) FormatJSON() string {
 
 type ExecutorInfoList []*ExecutorInfo
 
-func (list ExecutorInfoList) Populate(jsonReader io.ReadCloser) (err error) {
+func (list *ExecutorInfoList) Populate(jsonReader io.ReadCloser) (err error) {
 	return ReadPopulate(jsonReader, list)
 }
 
-func (list ExecutorInfoList) FormatText() string {
+func (list *ExecutorInfoList) FormatText() string {
 	text := []byte{}
-	for _, dto := range list {
+	for _, dto := range *list {
 		text = append(text, (*dto).FormatText()...)
 		text = append(text, "\n"...)
 	}
 	return string(text)
 }
 
-func (list ExecutorInfoList) FormatJSON() string {
+func (list *ExecutorInfoList) FormatJSON() string {
 	return FormatJSON(list)
 }

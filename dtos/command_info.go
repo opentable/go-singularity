@@ -42,19 +42,19 @@ func (self *CommandInfo) FormatJSON() string {
 
 type CommandInfoList []*CommandInfo
 
-func (list CommandInfoList) Populate(jsonReader io.ReadCloser) (err error) {
+func (list *CommandInfoList) Populate(jsonReader io.ReadCloser) (err error) {
 	return ReadPopulate(jsonReader, list)
 }
 
-func (list CommandInfoList) FormatText() string {
+func (list *CommandInfoList) FormatText() string {
 	text := []byte{}
-	for _, dto := range list {
+	for _, dto := range *list {
 		text = append(text, (*dto).FormatText()...)
 		text = append(text, "\n"...)
 	}
 	return string(text)
 }
 
-func (list CommandInfoList) FormatJSON() string {
+func (list *CommandInfoList) FormatJSON() string {
 	return FormatJSON(list)
 }

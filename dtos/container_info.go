@@ -36,19 +36,19 @@ func (self *ContainerInfo) FormatJSON() string {
 
 type ContainerInfoList []*ContainerInfo
 
-func (list ContainerInfoList) Populate(jsonReader io.ReadCloser) (err error) {
+func (list *ContainerInfoList) Populate(jsonReader io.ReadCloser) (err error) {
 	return ReadPopulate(jsonReader, list)
 }
 
-func (list ContainerInfoList) FormatText() string {
+func (list *ContainerInfoList) FormatText() string {
 	text := []byte{}
-	for _, dto := range list {
+	for _, dto := range *list {
 		text = append(text, (*dto).FormatText()...)
 		text = append(text, "\n"...)
 	}
 	return string(text)
 }
 
-func (list ContainerInfoList) FormatJSON() string {
+func (list *ContainerInfoList) FormatJSON() string {
 	return FormatJSON(list)
 }

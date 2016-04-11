@@ -1,4 +1,4 @@
-package client
+package singularity
 
 func (client *Client) Abort() (err error) {
 	pathParamMap := map[string]interface{}{}

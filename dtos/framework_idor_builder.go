@@ -22,19 +22,19 @@ func (self *FrameworkIDOrBuilder) FormatJSON() string {
 
 type FrameworkIDOrBuilderList []*FrameworkIDOrBuilder
 
-func (list FrameworkIDOrBuilderList) Populate(jsonReader io.ReadCloser) (err error) {
+func (list *FrameworkIDOrBuilderList) Populate(jsonReader io.ReadCloser) (err error) {
 	return ReadPopulate(jsonReader, list)
 }
 
-func (list FrameworkIDOrBuilderList) FormatText() string {
+func (list *FrameworkIDOrBuilderList) FormatText() string {
 	text := []byte{}
-	for _, dto := range list {
+	for _, dto := range *list {
 		text = append(text, (*dto).FormatText()...)
 		text = append(text, "\n"...)
 	}
 	return string(text)
 }
 
-func (list FrameworkIDOrBuilderList) FormatJSON() string {
+func (list *FrameworkIDOrBuilderList) FormatJSON() string {
 	return FormatJSON(list)
 }

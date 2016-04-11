@@ -22,19 +22,19 @@ func (self *SlaveIDOrBuilder) FormatJSON() string {
 
 type SlaveIDOrBuilderList []*SlaveIDOrBuilder
 
-func (list SlaveIDOrBuilderList) Populate(jsonReader io.ReadCloser) (err error) {
+func (list *SlaveIDOrBuilderList) Populate(jsonReader io.ReadCloser) (err error) {
 	return ReadPopulate(jsonReader, list)
 }
 
-func (list SlaveIDOrBuilderList) FormatText() string {
+func (list *SlaveIDOrBuilderList) FormatText() string {
 	text := []byte{}
-	for _, dto := range list {
+	for _, dto := range *list {
 		text = append(text, (*dto).FormatText()...)
 		text = append(text, "\n"...)
 	}
 	return string(text)
 }
 
-func (list SlaveIDOrBuilderList) FormatJSON() string {
+func (list *SlaveIDOrBuilderList) FormatJSON() string {
 	return FormatJSON(list)
 }
