@@ -14,6 +14,10 @@ var ip string
 var client *singularity.Client
 
 func TestMain(m *testing.M) {
+	os.Exit(wrapCompose(m))
+}
+
+func wrapCompose(m *testing.M) int {
 	log.SetFlags(log.Flags() | log.Lshortfile)
 
 	singDir := os.Getenv("SINGULARITY_DIR")
@@ -24,7 +28,12 @@ func TestMain(m *testing.M) {
 		os.Exit(1)
 	}
 
-	ip, err := test_with_docker.ComposeServices("default", singDir, map[string]uint{"Singularity": 7099})
+	ip, started, err := test_with_docker.ComposeServices("default", singDir, map[string]uint{"Singularity": 7099})
+	if started != nil {
+		log.Print("deferring shutdown of services")
+		defer test_with_docker.Shutdown(started)
+
+	}
 	if err != nil {
 		log.Panic(err)
 	}
@@ -33,7 +42,7 @@ func TestMain(m *testing.M) {
 
 	client = singularity.NewClient("http://" + ip + ":7099/singularity")
 
-	os.Exit(m.Run())
+	return m.Run()
 }
 
 func TestGetState(t *testing.T) {

@@ -2,9 +2,6 @@
 	"ImportPath": "github.com/opentable/singularity",
 	"GoVersion": "go1.6",
 	"GodepVersion": "v62",
-	"Packages": [
-		"./..."
-	],
 	"Deps": [
 		{
 			"ImportPath": "github.com/opentable/test_with_docker",
