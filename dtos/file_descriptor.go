@@ -3,14 +3,14 @@ package dtos
 import "io"
 
 type FileDescriptor struct {
-	//	Dependencies *List[FileDescriptor]
+	Dependencies FileDescriptorList
 	//	EnumTypes *List[EnumDescriptor]
 	//	Extensions *List[FieldDescriptor]
-	//	MessageTypes *List[Descriptor]
-	Name    string
-	Options *FileOptions
-	Package string
-	//	PublicDependencies *List[FileDescriptor]
+	MessageTypes       DescriptorList
+	Name               string
+	Options            *FileOptions
+	Package            string
+	PublicDependencies FileDescriptorList
 	//	Services *List[ServiceDescriptor]
 }
 

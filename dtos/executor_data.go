@@ -3,11 +3,11 @@ package dtos
 import "io"
 
 type ExecutorData struct {
-	Cmd               string
-	EmbeddedArtifacts EmbeddedArtifactList
-	ExternalArtifacts ExternalArtifactList
-	ExtraCmdLineArgs  StringList
-	//	LoggingExtraFields *Map[string,string]
+	Cmd                            string
+	EmbeddedArtifacts              EmbeddedArtifactList
+	ExternalArtifacts              ExternalArtifactList
+	ExtraCmdLineArgs               StringList
+	LoggingExtraFields             map[string]string
 	LoggingS3Bucket                string
 	LoggingTag                     string
 	MaxOpenFiles                   int32

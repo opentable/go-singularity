@@ -16,23 +16,23 @@ type SingularityDeploy struct {
 	DeployHealthTimeoutSeconds            int64
 	DeployInstanceCountPerStep            int32
 	DeployStepWaitTimeMs                  int32
-	//	Env *Map[string,string]
-	ExecutorData                      *ExecutorData
-	HealthcheckIntervalSeconds        int64
-	HealthcheckMaxRetries             int32
-	HealthcheckMaxTotalTimeoutSeconds int64
-	HealthcheckPortIndex              int32
+	Env                                   map[string]string
+	ExecutorData                          *ExecutorData
+	HealthcheckIntervalSeconds            int64
+	HealthcheckMaxRetries                 int32
+	HealthcheckMaxTotalTimeoutSeconds     int64
+	HealthcheckPortIndex                  int32
 	//	HealthcheckProtocol *HealthcheckProtocol
 	HealthcheckTimeoutSeconds int64
 	HealthcheckUri            string
 	Id                        string
-	//	Labels *Map[string,string]
-	LoadBalancerGroups StringList
+	Labels                    map[string]string
+	LoadBalancerGroups        StringList
 	//	LoadBalancerOptions *Map[string,Object]
 	LoadBalancerPortIndex int32
 	MaxTaskRetries        int32
-	//	Metadata *Map[string,string]
-	RequestId string
+	Metadata              map[string]string
+	RequestId             string
 	//	Resources *com.hubspot.mesos.Resources
 	ServiceBasePath          string
 	SkipHealthchecksOnDeploy bool

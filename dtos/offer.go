@@ -10,7 +10,7 @@ type Offer struct {
 	DefaultInstanceForType *Offer
 	DescriptorForType      *Descriptor
 	ExecutorIdsCount       int32
-	//	ExecutorIdsList *List[ExecutorID]
+	ExecutorIdsList        ExecutorIDList
 	//	ExecutorIdsOrBuilderList *List[? extends org.apache.mesos.Protos$ExecutorIDOrBuilder]
 	FrameworkId               *FrameworkID
 	FrameworkIdOrBuilder      *FrameworkIDOrBuilder

@@ -6,7 +6,7 @@ type SingularityDockerInfo struct {
 	ForcePullImage bool
 	Image          string
 	//	Network *SingularityDockerNetworkType
-	//	Parameters *Map[string,string]
+	Parameters   map[string]string
 	PortMappings SingularityDockerPortMappingList
 	Privileged   bool
 }

@@ -3,8 +3,8 @@ package dtos
 import "io"
 
 type SingularityRequest struct {
-	//	AllowedSlaveAttributes *Map[string,string]
-	BounceAfterScale bool
+	AllowedSlaveAttributes map[string]string
+	BounceAfterScale       bool
 	//	EmailConfigurationOverrides *Map[SingularityEmailType,List[SingularityEmailDestination]]
 	Group                                 string
 	Id                                    string
@@ -18,8 +18,8 @@ type SingularityRequest struct {
 	RackSensitive                         bool
 	ReadOnlyGroups                        StringList
 	//	RequestType *RequestType
-	//	RequiredSlaveAttributes *Map[string,string]
-	Schedule string
+	RequiredSlaveAttributes map[string]string
+	Schedule                string
 	//	ScheduleType *ScheduleType
 	ScheduledExpectedRuntimeMillis int64
 	SkipHealthchecks               bool

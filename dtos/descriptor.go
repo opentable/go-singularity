@@ -7,12 +7,12 @@ type Descriptor struct {
 	//	EnumTypes *List[EnumDescriptor]
 	//	Extensions *List[FieldDescriptor]
 	//	Fields *List[FieldDescriptor]
-	File     *FileDescriptor
-	FullName string
-	Index    int32
-	Name     string
-	//	NestedTypes *List[Descriptor]
-	Options *MessageOptions
+	File        *FileDescriptor
+	FullName    string
+	Index       int32
+	Name        string
+	NestedTypes DescriptorList
+	Options     *MessageOptions
 }
 
 func (self *Descriptor) Populate(jsonReader io.ReadCloser) (err error) {
