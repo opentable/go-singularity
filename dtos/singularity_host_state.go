@@ -3,13 +3,13 @@ package dtos
 import "io"
 
 type SingularityHostState struct {
-	DriverStatus         string
-	HostAddress          string
-	Hostname             string
-	Master               bool
-	MesosMaster          string
-	MillisSinceLastOffer int64
-	Uptime               int64
+	DriverStatus         string `json:"driverStatus"`
+	HostAddress          string `json:"hostAddress"`
+	Hostname             string `json:"hostname"`
+	Master               bool   `json:"master"`
+	MesosMaster          string `json:"mesosMaster"`
+	MillisSinceLastOffer int64  `json:"millisSinceLastOffer"`
+	Uptime               int64  `json:"uptime"`
 }
 
 func (self *SingularityHostState) Populate(jsonReader io.ReadCloser) (err error) {

@@ -3,12 +3,12 @@ package dtos
 import "io"
 
 type SingularityDockerInfo struct {
-	ForcePullImage bool
-	Image          string
-	//	Network *SingularityDockerNetworkType
-	Parameters   map[string]string
-	PortMappings SingularityDockerPortMappingList
-	Privileged   bool
+	ForcePullImage bool   `json:"forcePullImage"`
+	Image          string `json:"image"`
+	//	Network *SingularityDockerNetworkType `json:"network"`
+	Parameters   map[string]string                `json:"parameters"`
+	PortMappings SingularityDockerPortMappingList `json:"portMappings"`
+	Privileged   bool                             `json:"privileged"`
 }
 
 func (self *SingularityDockerInfo) Populate(jsonReader io.ReadCloser) (err error) {

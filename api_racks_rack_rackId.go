@@ -6,6 +6,7 @@ func (client *Client) GetRackHistory(rackId string) (response dtos.SingularityMa
 	pathParamMap := map[string]interface{}{
 		"rackId": rackId,
 	}
+
 	queryParamMap := map[string]interface{}{}
 
 	response = make(dtos.SingularityMachineStateHistoryUpdateList, 0)
@@ -18,6 +19,7 @@ func (client *Client) RemoveRack(rackId string) (err error) {
 	pathParamMap := map[string]interface{}{
 		"rackId": rackId,
 	}
+
 	queryParamMap := map[string]interface{}{}
 
 	_, err = client.Request("DELETE", "/api/racks/rack/{rackId}", pathParamMap, queryParamMap)

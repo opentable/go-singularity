@@ -3,9 +3,9 @@ package dtos
 import "io"
 
 type SingularityExitCooldownRequest struct {
-	ActionId         string
-	Message          string
-	SkipHealthchecks bool
+	ActionId         string `json:"actionId"`
+	Message          string `json:"message"`
+	SkipHealthchecks bool   `json:"skipHealthchecks"`
 }
 
 func (self *SingularityExitCooldownRequest) Populate(jsonReader io.ReadCloser) (err error) {

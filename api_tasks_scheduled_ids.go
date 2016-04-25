@@ -4,6 +4,7 @@ import "github.com/opentable/singularity/dtos"
 
 func (client *Client) GetScheduledTaskIds() (response dtos.SingularityPendingTaskIdList, err error) {
 	pathParamMap := map[string]interface{}{}
+
 	queryParamMap := map[string]interface{}{}
 
 	response = make(dtos.SingularityPendingTaskIdList, 0)

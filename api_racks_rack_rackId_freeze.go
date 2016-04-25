@@ -6,6 +6,7 @@ func (client *Client) FreezeRack(rackId string, body *dtos.SingularityMachineCha
 	pathParamMap := map[string]interface{}{
 		"rackId": rackId,
 	}
+
 	queryParamMap := map[string]interface{}{}
 
 	_, err = client.Request("POST", "/api/racks/rack/{rackId}/freeze", pathParamMap, queryParamMap, body)

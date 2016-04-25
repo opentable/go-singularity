@@ -3,9 +3,10 @@ package dtos
 import "io"
 
 type EnvironmentOrBuilder struct {
-	VariablesCount int32
-	//	VariablesList *List[Variable]
-	//	VariablesOrBuilderList *List[? extends org.apache.mesos.Protos$Environment$VariableOrBuilder]
+	VariablesCount int32 `json:"variablesCount"`
+	//	VariablesList *List[Variable] `json:"variablesList"`
+	//	VariablesOrBuilderList *List[? extends org.apache.mesos.Protos$Environment$VariableOrBuilder] `json:"variablesOrBuilderList"`
+
 }
 
 func (self *EnvironmentOrBuilder) Populate(jsonReader io.ReadCloser) (err error) {

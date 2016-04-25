@@ -8,6 +8,7 @@ import (
 
 func (client *Client) GetActiveWebhooks() (response dtos.SingularityWebhookList, err error) {
 	pathParamMap := map[string]interface{}{}
+
 	queryParamMap := map[string]interface{}{}
 
 	response = make(dtos.SingularityWebhookList, 0)
@@ -18,6 +19,7 @@ func (client *Client) GetActiveWebhooks() (response dtos.SingularityWebhookList,
 
 func (client *Client) AddWebhook(body *dtos.SingularityWebhook) (response string, err error) {
 	pathParamMap := map[string]interface{}{}
+
 	queryParamMap := map[string]interface{}{}
 
 	resBody, err := client.Request("POST", "/api/webhooks", pathParamMap, queryParamMap, body)

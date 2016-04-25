@@ -3,11 +3,11 @@ package dtos
 import "io"
 
 type SingularityDeployMarker struct {
-	DeployId  string
-	Message   string
-	RequestId string
-	Timestamp int64
-	User      string
+	DeployId  string `json:"deployId"`
+	Message   string `json:"message"`
+	RequestId string `json:"requestId"`
+	Timestamp int64  `json:"timestamp"`
+	User      string `json:"user"`
 }
 
 func (self *SingularityDeployMarker) Populate(jsonReader io.ReadCloser) (err error) {

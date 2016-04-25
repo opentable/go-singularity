@@ -3,12 +3,12 @@ package dtos
 import "io"
 
 type ExternalArtifact struct {
-	Filename                   string
-	Filesize                   int64
-	Md5sum                     string
-	Name                       string
-	TargetFolderRelativeToTask string
-	Url                        string
+	Filename                   string `json:"filename"`
+	Filesize                   int64  `json:"filesize"`
+	Md5sum                     string `json:"md5sum"`
+	Name                       string `json:"name"`
+	TargetFolderRelativeToTask string `json:"targetFolderRelativeToTask"`
+	Url                        string `json:"url"`
 }
 
 func (self *ExternalArtifact) Populate(jsonReader io.ReadCloser) (err error) {

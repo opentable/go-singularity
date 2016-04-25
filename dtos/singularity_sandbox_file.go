@@ -3,10 +3,10 @@ package dtos
 import "io"
 
 type SingularitySandboxFile struct {
-	Mode  string
-	Mtime int64
-	Name  string
-	Size  int64
+	Mode  string `json:"mode"`
+	Mtime int64  `json:"mtime"`
+	Name  string `json:"name"`
+	Size  int64  `json:"size"`
 }
 
 func (self *SingularitySandboxFile) Populate(jsonReader io.ReadCloser) (err error) {

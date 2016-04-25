@@ -6,6 +6,7 @@ func (client *Client) GetTasksForSlave(slaveId string) (response dtos.Singularit
 	pathParamMap := map[string]interface{}{
 		"slaveId": slaveId,
 	}
+
 	queryParamMap := map[string]interface{}{}
 
 	response = make(dtos.SingularityTaskList, 0)

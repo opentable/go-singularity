@@ -3,13 +3,13 @@ package dtos
 import "io"
 
 type SingularityDeployProgress struct {
-	AutoAdvanceDeploySteps     bool
-	DeployInstanceCountPerStep int32
-	DeployStepWaitTimeMs       int64
-	FailedDeployTasks          SingularityTaskIdList
-	StepComplete               bool
-	TargetActiveInstances      int32
-	Timestamp                  int64
+	AutoAdvanceDeploySteps     bool                  `json:"autoAdvanceDeploySteps"`
+	DeployInstanceCountPerStep int32                 `json:"deployInstanceCountPerStep"`
+	DeployStepWaitTimeMs       int64                 `json:"deployStepWaitTimeMs"`
+	FailedDeployTasks          SingularityTaskIdList `json:"failedDeployTasks"`
+	StepComplete               bool                  `json:"stepComplete"`
+	TargetActiveInstances      int32                 `json:"targetActiveInstances"`
+	Timestamp                  int64                 `json:"timestamp"`
 }
 
 func (self *SingularityDeployProgress) Populate(jsonReader io.ReadCloser) (err error) {

@@ -2,20 +2,28 @@ package dtos
 
 import "io"
 
+type DiscoveryInfoOrBuilderVisibility string
+
+const (
+	DiscoveryInfoOrBuilderVisibilityFRAMEWORK DiscoveryInfoOrBuilderVisibility = "FRAMEWORK"
+	DiscoveryInfoOrBuilderVisibilityCLUSTER   DiscoveryInfoOrBuilderVisibility = "CLUSTER"
+	DiscoveryInfoOrBuilderVisibilityEXTERNAL  DiscoveryInfoOrBuilderVisibility = "EXTERNAL"
+)
+
 type DiscoveryInfoOrBuilder struct {
-	Environment      string
-	EnvironmentBytes *ByteString
-	Labels           *Labels
-	LabelsOrBuilder  *LabelsOrBuilder
-	Location         string
-	LocationBytes    *ByteString
-	Name             string
-	NameBytes        *ByteString
-	Ports            *Ports
-	PortsOrBuilder   *PortsOrBuilder
-	Version          string
-	VersionBytes     *ByteString
-	//	Visibility *Visibility
+	Environment      string                           `json:"environment"`
+	EnvironmentBytes *ByteString                      `json:"environmentBytes"`
+	Labels           *Labels                          `json:"labels"`
+	LabelsOrBuilder  *LabelsOrBuilder                 `json:"labelsOrBuilder"`
+	Location         string                           `json:"location"`
+	LocationBytes    *ByteString                      `json:"locationBytes"`
+	Name             string                           `json:"name"`
+	NameBytes        *ByteString                      `json:"nameBytes"`
+	Ports            *Ports                           `json:"ports"`
+	PortsOrBuilder   *PortsOrBuilder                  `json:"portsOrBuilder"`
+	Version          string                           `json:"version"`
+	VersionBytes     *ByteString                      `json:"versionBytes"`
+	Visibility       DiscoveryInfoOrBuilderVisibility `json:"visibility"`
 }
 
 func (self *DiscoveryInfoOrBuilder) Populate(jsonReader io.ReadCloser) (err error) {

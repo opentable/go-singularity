@@ -3,8 +3,8 @@ package dtos
 import "io"
 
 type ByteString struct {
-	Empty     bool
-	ValidUtf8 bool
+	Empty     bool `json:"empty"`
+	ValidUtf8 bool `json:"validUtf8"`
 }
 
 func (self *ByteString) Populate(jsonReader io.ReadCloser) (err error) {

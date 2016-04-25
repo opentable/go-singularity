@@ -2,15 +2,23 @@ package dtos
 
 import "io"
 
+type ContainerInfoOrBuilderType string
+
+const (
+	ContainerInfoOrBuilderTypeDOCKER ContainerInfoOrBuilderType = "DOCKER"
+	ContainerInfoOrBuilderTypeMESOS  ContainerInfoOrBuilderType = "MESOS"
+)
+
 type ContainerInfoOrBuilder struct {
-	Docker          *DockerInfo
-	DockerOrBuilder *DockerInfoOrBuilder
-	Hostname        string
-	HostnameBytes   *ByteString
-	//	Type *Type
-	VolumesCount int32
-	//	VolumesList *List[Volume]
-	//	VolumesOrBuilderList *List[? extends org.apache.mesos.Protos$VolumeOrBuilder]
+	Docker          *DockerInfo                `json:"docker"`
+	DockerOrBuilder *DockerInfoOrBuilder       `json:"dockerOrBuilder"`
+	Hostname        string                     `json:"hostname"`
+	HostnameBytes   *ByteString                `json:"hostnameBytes"`
+	Type            ContainerInfoOrBuilderType `json:"type"`
+	VolumesCount    int32                      `json:"volumesCount"`
+	//	VolumesList *List[Volume] `json:"volumesList"`
+	//	VolumesOrBuilderList *List[? extends org.apache.mesos.Protos$VolumeOrBuilder] `json:"volumesOrBuilderList"`
+
 }
 
 func (self *ContainerInfoOrBuilder) Populate(jsonReader io.ReadCloser) (err error) {

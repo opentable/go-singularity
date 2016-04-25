@@ -6,6 +6,7 @@ func (client *Client) ActivateSlave(rackId string, body *dtos.SingularityMachine
 	pathParamMap := map[string]interface{}{
 		"rackId": rackId,
 	}
+
 	queryParamMap := map[string]interface{}{}
 
 	_, err = client.Request("POST", "/api/racks/rack/{rackId}/activate", pathParamMap, queryParamMap, body)

@@ -4,6 +4,7 @@ import "github.com/opentable/singularity/dtos"
 
 func (client *Client) GetState(skipCache bool, includeRequestIds bool) (response *dtos.SingularityState, err error) {
 	pathParamMap := map[string]interface{}{}
+
 	queryParamMap := map[string]interface{}{
 		"skipCache": skipCache, "includeRequestIds": includeRequestIds,
 	}

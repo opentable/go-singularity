@@ -6,6 +6,7 @@ func (client *Client) GetScheduledTasksForRequest(requestId string) (response dt
 	pathParamMap := map[string]interface{}{
 		"requestId": requestId,
 	}
+
 	queryParamMap := map[string]interface{}{}
 
 	response = make(dtos.SingularityTaskRequestList, 0)

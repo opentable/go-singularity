@@ -3,9 +3,9 @@ package dtos
 import "io"
 
 type SingularityUnpauseRequest struct {
-	ActionId         string
-	Message          string
-	SkipHealthchecks bool
+	ActionId         string `json:"actionId"`
+	Message          string `json:"message"`
+	SkipHealthchecks bool   `json:"skipHealthchecks"`
 }
 
 func (self *SingularityUnpauseRequest) Populate(jsonReader io.ReadCloser) (err error) {

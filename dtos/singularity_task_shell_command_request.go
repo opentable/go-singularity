@@ -3,10 +3,10 @@ package dtos
 import "io"
 
 type SingularityTaskShellCommandRequest struct {
-	ShellCommand *SingularityShellCommand
-	TaskId       *SingularityTaskId
-	Timestamp    int64
-	User         string
+	ShellCommand *SingularityShellCommand `json:"shellCommand"`
+	TaskId       *SingularityTaskId       `json:"taskId"`
+	Timestamp    int64                    `json:"timestamp"`
+	User         string                   `json:"user"`
 }
 
 func (self *SingularityTaskShellCommandRequest) Populate(jsonReader io.ReadCloser) (err error) {

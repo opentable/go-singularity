@@ -4,6 +4,7 @@ import "github.com/opentable/singularity/dtos"
 
 func (client *Client) GetActiveTasks() (response dtos.SingularityTaskList, err error) {
 	pathParamMap := map[string]interface{}{}
+
 	queryParamMap := map[string]interface{}{}
 
 	response = make(dtos.SingularityTaskList, 0)

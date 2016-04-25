@@ -4,6 +4,7 @@ import "github.com/opentable/singularity/dtos"
 
 func (client *Client) GetActiveRequests() (response dtos.SingularityRequestParentList, err error) {
 	pathParamMap := map[string]interface{}{}
+
 	queryParamMap := map[string]interface{}{}
 
 	response = make(dtos.SingularityRequestParentList, 0)

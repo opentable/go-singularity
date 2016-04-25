@@ -3,16 +3,16 @@ package dtos
 import "io"
 
 type ExecutorID struct {
-	//	AllFields *Map[FieldDescriptor,Object]
-	DefaultInstanceForType    *ExecutorID
-	DescriptorForType         *Descriptor
-	InitializationErrorString string
-	Initialized               bool
-	//	ParserForType *com.google.protobuf.Parser&lt;org.apache.mesos.Protos$ExecutorID&gt;
-	SerializedSize int32
-	UnknownFields  *UnknownFieldSet
-	Value          string
-	ValueBytes     *ByteString
+	//	AllFields *Map[FieldDescriptor,Object] `json:"allFields"`
+	DefaultInstanceForType    *ExecutorID `json:"defaultInstanceForType"`
+	DescriptorForType         *Descriptor `json:"descriptorForType"`
+	InitializationErrorString string      `json:"initializationErrorString"`
+	Initialized               bool        `json:"initialized"`
+	//	ParserForType *com.google.protobuf.Parser&lt;org.apache.mesos.Protos$ExecutorID&gt; `json:"parserForType"`
+	SerializedSize int32            `json:"serializedSize"`
+	UnknownFields  *UnknownFieldSet `json:"unknownFields"`
+	Value          string           `json:"value"`
+	ValueBytes     *ByteString      `json:"valueBytes"`
 }
 
 func (self *ExecutorID) Populate(jsonReader io.ReadCloser) (err error) {

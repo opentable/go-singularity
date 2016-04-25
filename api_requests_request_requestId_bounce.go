@@ -6,6 +6,7 @@ func (client *Client) Bounce(requestId string, body *dtos.SingularityBounceReque
 	pathParamMap := map[string]interface{}{
 		"requestId": requestId,
 	}
+
 	queryParamMap := map[string]interface{}{}
 
 	response = new(dtos.SingularityRequestParent)
@@ -18,6 +19,7 @@ func (client *Client) DeleteExpiringBounce(requestId string) (response *dtos.Sin
 	pathParamMap := map[string]interface{}{
 		"requestId": requestId,
 	}
+
 	queryParamMap := map[string]interface{}{}
 
 	response = new(dtos.SingularityRequestParent)

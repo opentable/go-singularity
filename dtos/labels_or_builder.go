@@ -3,9 +3,10 @@ package dtos
 import "io"
 
 type LabelsOrBuilder struct {
-	LabelsCount int32
-	//	LabelsList *List[Label]
-	//	LabelsOrBuilderList *List[? extends org.apache.mesos.Protos$LabelOrBuilder]
+	LabelsCount int32 `json:"labelsCount"`
+	//	LabelsList *List[Label] `json:"labelsList"`
+	//	LabelsOrBuilderList *List[? extends org.apache.mesos.Protos$LabelOrBuilder] `json:"labelsOrBuilderList"`
+
 }
 
 func (self *LabelsOrBuilder) Populate(jsonReader io.ReadCloser) (err error) {

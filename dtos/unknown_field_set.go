@@ -3,11 +3,11 @@ package dtos
 import "io"
 
 type UnknownFieldSet struct {
-	DefaultInstanceForType *UnknownFieldSet
-	Initialized            bool
-	//	ParserForType *Parser
-	SerializedSize             int32
-	SerializedSizeAsMessageSet int32
+	DefaultInstanceForType *UnknownFieldSet `json:"defaultInstanceForType"`
+	Initialized            bool             `json:"initialized"`
+	//	ParserForType *Parser `json:"parserForType"`
+	SerializedSize             int32 `json:"serializedSize"`
+	SerializedSizeAsMessageSet int32 `json:"serializedSizeAsMessageSet"`
 }
 
 func (self *UnknownFieldSet) Populate(jsonReader io.ReadCloser) (err error) {

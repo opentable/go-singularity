@@ -3,11 +3,11 @@ package dtos
 import "io"
 
 type SingularityTask struct {
-	MesosTask   *TaskInfo
-	Offer       *Offer
-	RackId      string
-	TaskId      *SingularityTaskId
-	TaskRequest *SingularityTaskRequest
+	MesosTask   *TaskInfo               `json:"mesosTask"`
+	Offer       *Offer                  `json:"offer"`
+	RackId      string                  `json:"rackId"`
+	TaskId      *SingularityTaskId      `json:"taskId"`
+	TaskRequest *SingularityTaskRequest `json:"taskRequest"`
 }
 
 func (self *SingularityTask) Populate(jsonReader io.ReadCloser) (err error) {

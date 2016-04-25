@@ -6,6 +6,7 @@ func (client *Client) ExitCooldown(requestId string, body *dtos.SingularityExitC
 	pathParamMap := map[string]interface{}{
 		"requestId": requestId,
 	}
+
 	queryParamMap := map[string]interface{}{}
 
 	response = new(dtos.SingularityRequestParent)

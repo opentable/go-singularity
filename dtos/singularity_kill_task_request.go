@@ -3,10 +3,10 @@ package dtos
 import "io"
 
 type SingularityKillTaskRequest struct {
-	ActionId               string
-	Message                string
-	Override               bool
-	WaitForReplacementTask bool
+	ActionId               string `json:"actionId"`
+	Message                string `json:"message"`
+	Override               bool   `json:"override"`
+	WaitForReplacementTask bool   `json:"waitForReplacementTask"`
 }
 
 func (self *SingularityKillTaskRequest) Populate(jsonReader io.ReadCloser) (err error) {

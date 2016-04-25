@@ -3,12 +3,12 @@ package dtos
 import "io"
 
 type SingularityKilledTaskIdRecord struct {
-	OriginalTimestamp int64
-	//	RequestCleanupType *RequestCleanupType
-	Retries int32
-	//	TaskCleanupType *TaskCleanupType
-	TaskId    *SingularityTaskId
-	Timestamp int64
+	OriginalTimestamp int64 `json:"originalTimestamp"`
+	//	RequestCleanupType *RequestCleanupType `json:"requestCleanupType"`
+	Retries int32 `json:"retries"`
+	//	TaskCleanupType *TaskCleanupType `json:"taskCleanupType"`
+	TaskId    *SingularityTaskId `json:"taskId"`
+	Timestamp int64              `json:"timestamp"`
 }
 
 func (self *SingularityKilledTaskIdRecord) Populate(jsonReader io.ReadCloser) (err error) {

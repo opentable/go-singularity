@@ -2,30 +2,38 @@ package dtos
 
 import "io"
 
+type FileOptionsOptimizeMode string
+
+const (
+	FileOptionsOptimizeModeSPEED        FileOptionsOptimizeMode = "SPEED"
+	FileOptionsOptimizeModeCODE_SIZE    FileOptionsOptimizeMode = "CODE_SIZE"
+	FileOptionsOptimizeModeLITE_RUNTIME FileOptionsOptimizeMode = "LITE_RUNTIME"
+)
+
 type FileOptions struct {
-	//	AllFields *Map[FieldDescriptor,Object]
-	CcGenericServices         bool
-	DefaultInstanceForType    *FileOptions
-	DescriptorForType         *Descriptor
-	GoPackage                 string
-	GoPackageBytes            *ByteString
-	InitializationErrorString string
-	Initialized               bool
-	JavaGenerateEqualsAndHash bool
-	JavaGenericServices       bool
-	JavaMultipleFiles         bool
-	JavaOuterClassname        string
-	JavaOuterClassnameBytes   *ByteString
-	JavaPackage               string
-	JavaPackageBytes          *ByteString
-	//	OptimizeFor *OptimizeMode
-	//	ParserForType *com.google.protobuf.Parser&lt;com.google.protobuf.DescriptorProtos$FileOptions&gt;
-	PyGenericServices        bool
-	SerializedSize           int32
-	UninterpretedOptionCount int32
-	//	UninterpretedOptionList *List[UninterpretedOption]
-	//	UninterpretedOptionOrBuilderList *List[? extends com.google.protobuf.DescriptorProtos$UninterpretedOptionOrBuilder]
-	UnknownFields *UnknownFieldSet
+	//	AllFields *Map[FieldDescriptor,Object] `json:"allFields"`
+	CcGenericServices         bool                    `json:"ccGenericServices"`
+	DefaultInstanceForType    *FileOptions            `json:"defaultInstanceForType"`
+	DescriptorForType         *Descriptor             `json:"descriptorForType"`
+	GoPackage                 string                  `json:"goPackage"`
+	GoPackageBytes            *ByteString             `json:"goPackageBytes"`
+	InitializationErrorString string                  `json:"initializationErrorString"`
+	Initialized               bool                    `json:"initialized"`
+	JavaGenerateEqualsAndHash bool                    `json:"javaGenerateEqualsAndHash"`
+	JavaGenericServices       bool                    `json:"javaGenericServices"`
+	JavaMultipleFiles         bool                    `json:"javaMultipleFiles"`
+	JavaOuterClassname        string                  `json:"javaOuterClassname"`
+	JavaOuterClassnameBytes   *ByteString             `json:"javaOuterClassnameBytes"`
+	JavaPackage               string                  `json:"javaPackage"`
+	JavaPackageBytes          *ByteString             `json:"javaPackageBytes"`
+	OptimizeFor               FileOptionsOptimizeMode `json:"optimizeFor"`
+	//	ParserForType *com.google.protobuf.Parser&lt;com.google.protobuf.DescriptorProtos$FileOptions&gt; `json:"parserForType"`
+	PyGenericServices        bool  `json:"pyGenericServices"`
+	SerializedSize           int32 `json:"serializedSize"`
+	UninterpretedOptionCount int32 `json:"uninterpretedOptionCount"`
+	//	UninterpretedOptionList *List[UninterpretedOption] `json:"uninterpretedOptionList"`
+	//	UninterpretedOptionOrBuilderList *List[? extends com.google.protobuf.DescriptorProtos$UninterpretedOptionOrBuilder] `json:"uninterpretedOptionOrBuilderList"`
+	UnknownFields *UnknownFieldSet `json:"unknownFields"`
 }
 
 func (self *FileOptions) Populate(jsonReader io.ReadCloser) (err error) {

@@ -6,6 +6,7 @@ func (client *Client) RunShellCommand(taskId string, body *dtos.SingularityShell
 	pathParamMap := map[string]interface{}{
 		"taskId": taskId,
 	}
+
 	queryParamMap := map[string]interface{}{}
 
 	response = new(dtos.SingularityTaskShellCommandRequest)

@@ -3,9 +3,10 @@ package dtos
 import "io"
 
 type PortsOrBuilder struct {
-	PortsCount int32
-	//	PortsList *List[Port]
-	//	PortsOrBuilderList *List[? extends org.apache.mesos.Protos$PortOrBuilder]
+	PortsCount int32 `json:"portsCount"`
+	//	PortsList *List[Port] `json:"portsList"`
+	//	PortsOrBuilderList *List[? extends org.apache.mesos.Protos$PortOrBuilder] `json:"portsOrBuilderList"`
+
 }
 
 func (self *PortsOrBuilder) Populate(jsonReader io.ReadCloser) (err error) {

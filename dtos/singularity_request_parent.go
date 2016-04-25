@@ -2,17 +2,28 @@ package dtos
 
 import "io"
 
+type SingularityRequestParentRequestState string
+
+const (
+	SingularityRequestParentRequestStateACTIVE               SingularityRequestParentRequestState = "ACTIVE"
+	SingularityRequestParentRequestStateDELETED              SingularityRequestParentRequestState = "DELETED"
+	SingularityRequestParentRequestStatePAUSED               SingularityRequestParentRequestState = "PAUSED"
+	SingularityRequestParentRequestStateSYSTEM_COOLDOWN      SingularityRequestParentRequestState = "SYSTEM_COOLDOWN"
+	SingularityRequestParentRequestStateFINISHED             SingularityRequestParentRequestState = "FINISHED"
+	SingularityRequestParentRequestStateDEPLOYING_TO_UNPAUSE SingularityRequestParentRequestState = "DEPLOYING_TO_UNPAUSE"
+)
+
 type SingularityRequestParent struct {
-	ActiveDeploy             *SingularityDeploy
-	ExpiringBounce           *SingularityExpiringBounce
-	ExpiringPause            *SingularityExpiringPause
-	ExpiringScale            *SingularityExpiringScale
-	ExpiringSkipHealthchecks *SingularityExpiringSkipHealthchecks
-	PendingDeploy            *SingularityDeploy
-	PendingDeployState       *SingularityPendingDeploy
-	Request                  *SingularityRequest
-	RequestDeployState       *SingularityRequestDeployState
-	//	State *RequestState
+	ActiveDeploy             *SingularityDeploy                   `json:"activeDeploy"`
+	ExpiringBounce           *SingularityExpiringBounce           `json:"expiringBounce"`
+	ExpiringPause            *SingularityExpiringPause            `json:"expiringPause"`
+	ExpiringScale            *SingularityExpiringScale            `json:"expiringScale"`
+	ExpiringSkipHealthchecks *SingularityExpiringSkipHealthchecks `json:"expiringSkipHealthchecks"`
+	PendingDeploy            *SingularityDeploy                   `json:"pendingDeploy"`
+	PendingDeployState       *SingularityPendingDeploy            `json:"pendingDeployState"`
+	Request                  *SingularityRequest                  `json:"request"`
+	RequestDeployState       *SingularityRequestDeployState       `json:"requestDeployState"`
+	State                    SingularityRequestParentRequestState `json:"state"`
 }
 
 func (self *SingularityRequestParent) Populate(jsonReader io.ReadCloser) (err error) {

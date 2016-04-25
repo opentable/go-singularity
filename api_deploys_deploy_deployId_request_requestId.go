@@ -6,6 +6,7 @@ func (client *Client) CancelDeploy(requestId string, deployId string) (response 
 	pathParamMap := map[string]interface{}{
 		"requestId": requestId, "deployId": deployId,
 	}
+
 	queryParamMap := map[string]interface{}{}
 
 	response = new(dtos.SingularityRequestParent)

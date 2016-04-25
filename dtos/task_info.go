@@ -3,36 +3,36 @@ package dtos
 import "io"
 
 type TaskInfo struct {
-	//	AllFields *Map[FieldDescriptor,Object]
-	Command                   *CommandInfo
-	CommandOrBuilder          *CommandInfoOrBuilder
-	Container                 *ContainerInfo
-	ContainerOrBuilder        *ContainerInfoOrBuilder
-	Data                      *ByteString
-	DefaultInstanceForType    *TaskInfo
-	DescriptorForType         *Descriptor
-	Discovery                 *DiscoveryInfo
-	DiscoveryOrBuilder        *DiscoveryInfoOrBuilder
-	Executor                  *ExecutorInfo
-	ExecutorOrBuilder         *ExecutorInfoOrBuilder
-	HealthCheck               *HealthCheck
-	HealthCheckOrBuilder      *HealthCheckOrBuilder
-	InitializationErrorString string
-	Initialized               bool
-	Labels                    *Labels
-	LabelsOrBuilder           *LabelsOrBuilder
-	Name                      string
-	NameBytes                 *ByteString
-	//	ParserForType *com.google.protobuf.Parser&lt;org.apache.mesos.Protos$TaskInfo&gt;
-	ResourcesCount int32
-	//	ResourcesList *List[Resource]
-	//	ResourcesOrBuilderList *List[? extends org.apache.mesos.Protos$ResourceOrBuilder]
-	SerializedSize   int32
-	SlaveId          *SlaveID
-	SlaveIdOrBuilder *SlaveIDOrBuilder
-	TaskId           *TaskID
-	TaskIdOrBuilder  *TaskIDOrBuilder
-	UnknownFields    *UnknownFieldSet
+	//	AllFields *Map[FieldDescriptor,Object] `json:"allFields"`
+	Command                   *CommandInfo            `json:"command"`
+	CommandOrBuilder          *CommandInfoOrBuilder   `json:"commandOrBuilder"`
+	Container                 *ContainerInfo          `json:"container"`
+	ContainerOrBuilder        *ContainerInfoOrBuilder `json:"containerOrBuilder"`
+	Data                      *ByteString             `json:"data"`
+	DefaultInstanceForType    *TaskInfo               `json:"defaultInstanceForType"`
+	DescriptorForType         *Descriptor             `json:"descriptorForType"`
+	Discovery                 *DiscoveryInfo          `json:"discovery"`
+	DiscoveryOrBuilder        *DiscoveryInfoOrBuilder `json:"discoveryOrBuilder"`
+	Executor                  *ExecutorInfo           `json:"executor"`
+	ExecutorOrBuilder         *ExecutorInfoOrBuilder  `json:"executorOrBuilder"`
+	HealthCheck               *HealthCheck            `json:"healthCheck"`
+	HealthCheckOrBuilder      *HealthCheckOrBuilder   `json:"healthCheckOrBuilder"`
+	InitializationErrorString string                  `json:"initializationErrorString"`
+	Initialized               bool                    `json:"initialized"`
+	Labels                    *Labels                 `json:"labels"`
+	LabelsOrBuilder           *LabelsOrBuilder        `json:"labelsOrBuilder"`
+	Name                      string                  `json:"name"`
+	NameBytes                 *ByteString             `json:"nameBytes"`
+	//	ParserForType *com.google.protobuf.Parser&lt;org.apache.mesos.Protos$TaskInfo&gt; `json:"parserForType"`
+	ResourcesCount int32 `json:"resourcesCount"`
+	//	ResourcesList *List[Resource] `json:"resourcesList"`
+	//	ResourcesOrBuilderList *List[? extends org.apache.mesos.Protos$ResourceOrBuilder] `json:"resourcesOrBuilderList"`
+	SerializedSize   int32             `json:"serializedSize"`
+	SlaveId          *SlaveID          `json:"slaveId"`
+	SlaveIdOrBuilder *SlaveIDOrBuilder `json:"slaveIdOrBuilder"`
+	TaskId           *TaskID           `json:"taskId"`
+	TaskIdOrBuilder  *TaskIDOrBuilder  `json:"taskIdOrBuilder"`
+	UnknownFields    *UnknownFieldSet  `json:"unknownFields"`
 }
 
 func (self *TaskInfo) Populate(jsonReader io.ReadCloser) (err error) {

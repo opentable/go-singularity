@@ -3,8 +3,8 @@ package dtos
 import "io"
 
 type TaskIDOrBuilder struct {
-	Value      string
-	ValueBytes *ByteString
+	Value      string      `json:"value"`
+	ValueBytes *ByteString `json:"valueBytes"`
 }
 
 func (self *TaskIDOrBuilder) Populate(jsonReader io.ReadCloser) (err error) {

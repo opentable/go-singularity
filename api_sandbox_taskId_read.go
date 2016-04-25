@@ -6,6 +6,7 @@ func (client *Client) Read(taskId string, path string, grep string, offset int64
 	pathParamMap := map[string]interface{}{
 		"taskId": taskId,
 	}
+
 	queryParamMap := map[string]interface{}{
 		"path": path, "grep": grep, "offset": offset, "length": length,
 	}

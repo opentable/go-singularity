@@ -3,23 +3,23 @@ package dtos
 import "io"
 
 type HealthCheck struct {
-	//	AllFields *Map[FieldDescriptor,Object]
-	Command                   *CommandInfo
-	CommandOrBuilder          *CommandInfoOrBuilder
-	ConsecutiveFailures       int32
-	DefaultInstanceForType    *HealthCheck
-	DelaySeconds              float64
-	DescriptorForType         *Descriptor
-	GracePeriodSeconds        float64
-	Http                      *HTTP
-	HttpOrBuilder             *HTTPOrBuilder
-	InitializationErrorString string
-	Initialized               bool
-	IntervalSeconds           float64
-	//	ParserForType *com.google.protobuf.Parser&lt;org.apache.mesos.Protos$HealthCheck&gt;
-	SerializedSize int32
-	TimeoutSeconds float64
-	UnknownFields  *UnknownFieldSet
+	//	AllFields *Map[FieldDescriptor,Object] `json:"allFields"`
+	Command                   *CommandInfo          `json:"command"`
+	CommandOrBuilder          *CommandInfoOrBuilder `json:"commandOrBuilder"`
+	ConsecutiveFailures       int32                 `json:"consecutiveFailures"`
+	DefaultInstanceForType    *HealthCheck          `json:"defaultInstanceForType"`
+	DelaySeconds              float64               `json:"delaySeconds"`
+	DescriptorForType         *Descriptor           `json:"descriptorForType"`
+	GracePeriodSeconds        float64               `json:"gracePeriodSeconds"`
+	Http                      *HTTP                 `json:"http"`
+	HttpOrBuilder             *HTTPOrBuilder        `json:"httpOrBuilder"`
+	InitializationErrorString string                `json:"initializationErrorString"`
+	Initialized               bool                  `json:"initialized"`
+	IntervalSeconds           float64               `json:"intervalSeconds"`
+	//	ParserForType *com.google.protobuf.Parser&lt;org.apache.mesos.Protos$HealthCheck&gt; `json:"parserForType"`
+	SerializedSize int32            `json:"serializedSize"`
+	TimeoutSeconds float64          `json:"timeoutSeconds"`
+	UnknownFields  *UnknownFieldSet `json:"unknownFields"`
 }
 
 func (self *HealthCheck) Populate(jsonReader io.ReadCloser) (err error) {

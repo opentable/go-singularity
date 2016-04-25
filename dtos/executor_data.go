@@ -3,23 +3,23 @@ package dtos
 import "io"
 
 type ExecutorData struct {
-	Cmd                            string
-	EmbeddedArtifacts              EmbeddedArtifactList
-	ExternalArtifacts              ExternalArtifactList
-	ExtraCmdLineArgs               StringList
-	LoggingExtraFields             map[string]string
-	LoggingS3Bucket                string
-	LoggingTag                     string
-	MaxOpenFiles                   int32
-	MaxTaskThreads                 int32
-	PreserveTaskSandboxAfterFinish bool
-	RunningSentinel                string
-	S3ArtifactSignatures           S3ArtifactSignatureList
-	S3Artifacts                    S3ArtifactList
-	SigKillProcessesAfterMillis    int64
-	SkipLogrotateAndCompress       bool
-	SuccessfulExitCodes            []int32
-	User                           string
+	Cmd                            string                  `json:"cmd"`
+	EmbeddedArtifacts              EmbeddedArtifactList    `json:"embeddedArtifacts"`
+	ExternalArtifacts              ExternalArtifactList    `json:"externalArtifacts"`
+	ExtraCmdLineArgs               StringList              `json:"extraCmdLineArgs"`
+	LoggingExtraFields             map[string]string       `json:"loggingExtraFields"`
+	LoggingS3Bucket                string                  `json:"loggingS3Bucket"`
+	LoggingTag                     string                  `json:"loggingTag"`
+	MaxOpenFiles                   int32                   `json:"maxOpenFiles"`
+	MaxTaskThreads                 int32                   `json:"maxTaskThreads"`
+	PreserveTaskSandboxAfterFinish bool                    `json:"preserveTaskSandboxAfterFinish"`
+	RunningSentinel                string                  `json:"runningSentinel"`
+	S3ArtifactSignatures           S3ArtifactSignatureList `json:"s3ArtifactSignatures"`
+	S3Artifacts                    S3ArtifactList          `json:"s3Artifacts"`
+	SigKillProcessesAfterMillis    int64                   `json:"sigKillProcessesAfterMillis"`
+	SkipLogrotateAndCompress       bool                    `json:"skipLogrotateAndCompress"`
+	SuccessfulExitCodes            []int32                 `json:"successfulExitCodes"`
+	User                           string                  `json:"user"`
 }
 
 func (self *ExecutorData) Populate(jsonReader io.ReadCloser) (err error) {

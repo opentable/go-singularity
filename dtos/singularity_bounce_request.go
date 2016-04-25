@@ -3,11 +3,11 @@ package dtos
 import "io"
 
 type SingularityBounceRequest struct {
-	ActionId         string
-	DurationMillis   int64
-	Incremental      bool
-	Message          string
-	SkipHealthchecks bool
+	ActionId         string `json:"actionId"`
+	DurationMillis   int64  `json:"durationMillis"`
+	Incremental      bool   `json:"incremental"`
+	Message          string `json:"message"`
+	SkipHealthchecks bool   `json:"skipHealthchecks"`
 }
 
 func (self *SingularityBounceRequest) Populate(jsonReader io.ReadCloser) (err error) {

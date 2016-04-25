@@ -3,42 +3,42 @@ package dtos
 import "io"
 
 type SingularityDeploy struct {
-	Arguments                             StringList
-	AutoAdvanceDeploySteps                bool
-	Command                               string
-	ConsiderHealthyAfterRunningForSeconds int64
-	ContainerInfo                         *SingularityContainerInfo
-	CustomExecutorCmd                     string
-	CustomExecutorId                      string
-	CustomExecutorResources               *Resources
-	CustomExecutorSource                  string
-	CustomExecutorUser                    string
-	DeployHealthTimeoutSeconds            int64
-	DeployInstanceCountPerStep            int32
-	DeployStepWaitTimeMs                  int32
-	Env                                   map[string]string
-	ExecutorData                          *ExecutorData
-	HealthcheckIntervalSeconds            int64
-	HealthcheckMaxRetries                 int32
-	HealthcheckMaxTotalTimeoutSeconds     int64
-	HealthcheckPortIndex                  int32
-	//	HealthcheckProtocol *HealthcheckProtocol
-	HealthcheckTimeoutSeconds int64
-	HealthcheckUri            string
-	Id                        string
-	Labels                    map[string]string
-	LoadBalancerGroups        StringList
-	//	LoadBalancerOptions *Map[string,Object]
-	LoadBalancerPortIndex int32
-	MaxTaskRetries        int32
-	Metadata              map[string]string
-	RequestId             string
-	//	Resources *com.hubspot.mesos.Resources
-	ServiceBasePath          string
-	SkipHealthchecksOnDeploy bool
-	Timestamp                int64
-	Uris                     StringList
-	Version                  string
+	Arguments                             StringList                `json:"arguments"`
+	AutoAdvanceDeploySteps                bool                      `json:"autoAdvanceDeploySteps"`
+	Command                               string                    `json:"command"`
+	ConsiderHealthyAfterRunningForSeconds int64                     `json:"considerHealthyAfterRunningForSeconds"`
+	ContainerInfo                         *SingularityContainerInfo `json:"containerInfo"`
+	CustomExecutorCmd                     string                    `json:"customExecutorCmd"`
+	CustomExecutorId                      string                    `json:"customExecutorId"`
+	CustomExecutorResources               *Resources                `json:"customExecutorResources"`
+	CustomExecutorSource                  string                    `json:"customExecutorSource"`
+	CustomExecutorUser                    string                    `json:"customExecutorUser"`
+	DeployHealthTimeoutSeconds            int64                     `json:"deployHealthTimeoutSeconds"`
+	DeployInstanceCountPerStep            int32                     `json:"deployInstanceCountPerStep"`
+	DeployStepWaitTimeMs                  int32                     `json:"deployStepWaitTimeMs"`
+	Env                                   map[string]string         `json:"env"`
+	ExecutorData                          *ExecutorData             `json:"executorData"`
+	HealthcheckIntervalSeconds            int64                     `json:"healthcheckIntervalSeconds"`
+	HealthcheckMaxRetries                 int32                     `json:"healthcheckMaxRetries"`
+	HealthcheckMaxTotalTimeoutSeconds     int64                     `json:"healthcheckMaxTotalTimeoutSeconds"`
+	HealthcheckPortIndex                  int32                     `json:"healthcheckPortIndex"`
+	//	HealthcheckProtocol *HealthcheckProtocol `json:"healthcheckProtocol"`
+	HealthcheckTimeoutSeconds int64             `json:"healthcheckTimeoutSeconds"`
+	HealthcheckUri            string            `json:"healthcheckUri"`
+	Id                        string            `json:"id"`
+	Labels                    map[string]string `json:"labels"`
+	LoadBalancerGroups        StringList        `json:"loadBalancerGroups"`
+	//	LoadBalancerOptions *Map[string,Object] `json:"loadBalancerOptions"`
+	LoadBalancerPortIndex int32             `json:"loadBalancerPortIndex"`
+	MaxTaskRetries        int32             `json:"maxTaskRetries"`
+	Metadata              map[string]string `json:"metadata"`
+	RequestId             string            `json:"requestId"`
+	//	Resources *com.hubspot.mesos.Resources `json:"resources"`
+	ServiceBasePath          string     `json:"serviceBasePath"`
+	SkipHealthchecksOnDeploy bool       `json:"skipHealthchecksOnDeploy"`
+	Timestamp                int64      `json:"timestamp"`
+	Uris                     StringList `json:"uris"`
+	Version                  string     `json:"version"`
 }
 
 func (self *SingularityDeploy) Populate(jsonReader io.ReadCloser) (err error) {

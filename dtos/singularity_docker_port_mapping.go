@@ -2,12 +2,19 @@ package dtos
 
 import "io"
 
+type SingularityDockerPortMappingSingularityPortMappingType string
+
+const (
+	SingularityDockerPortMappingSingularityPortMappingTypeLITERAL    SingularityDockerPortMappingSingularityPortMappingType = "LITERAL"
+	SingularityDockerPortMappingSingularityPortMappingTypeFROM_OFFER SingularityDockerPortMappingSingularityPortMappingType = "FROM_OFFER"
+)
+
 type SingularityDockerPortMapping struct {
-	ContainerPort int32
-	//	ContainerPortType *SingularityPortMappingType
-	HostPort int32
-	//	HostPortType *SingularityPortMappingType
-	Protocol string
+	ContainerPort     int32                                                  `json:"containerPort"`
+	ContainerPortType SingularityDockerPortMappingSingularityPortMappingType `json:"containerPortType"`
+	HostPort          int32                                                  `json:"hostPort"`
+	HostPortType      SingularityDockerPortMappingSingularityPortMappingType `json:"hostPortType"`
+	Protocol          string                                                 `json:"protocol"`
 }
 
 func (self *SingularityDockerPortMapping) Populate(jsonReader io.ReadCloser) (err error) {

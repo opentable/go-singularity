@@ -3,9 +3,9 @@ package dtos
 import "io"
 
 type Resources struct {
-	Cpus     float64
-	MemoryMb float64
-	NumPorts int32
+	Cpus     float64 `json:"cpus"`
+	MemoryMb float64 `json:"memoryMb"`
+	NumPorts int32   `json:"numPorts"`
 }
 
 func (self *Resources) Populate(jsonReader io.ReadCloser) (err error) {

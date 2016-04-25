@@ -6,6 +6,7 @@ func (client *Client) Scale(requestId string, body *dtos.SingularityScaleRequest
 	pathParamMap := map[string]interface{}{
 		"requestId": requestId,
 	}
+
 	queryParamMap := map[string]interface{}{}
 
 	response = new(dtos.SingularityRequestParent)
@@ -18,6 +19,7 @@ func (client *Client) DeleteExpiringScale(requestId string) (response *dtos.Sing
 	pathParamMap := map[string]interface{}{
 		"requestId": requestId,
 	}
+
 	queryParamMap := map[string]interface{}{}
 
 	response = new(dtos.SingularityRequestParent)

@@ -3,8 +3,8 @@ package dtos
 import "io"
 
 type SingularityDeleteRequestRequest struct {
-	ActionId string
-	Message  string
+	ActionId string `json:"actionId"`
+	Message  string `json:"message"`
 }
 
 func (self *SingularityDeleteRequestRequest) Populate(jsonReader io.ReadCloser) (err error) {

@@ -3,10 +3,10 @@ package dtos
 import "io"
 
 type SingularitySandbox struct {
-	CurrentDirectory string
-	Files            SingularitySandboxFileList
-	FullPathToRoot   string
-	SlaveHostname    string
+	CurrentDirectory string                     `json:"currentDirectory"`
+	Files            SingularitySandboxFileList `json:"files"`
+	FullPathToRoot   string                     `json:"fullPathToRoot"`
+	SlaveHostname    string                     `json:"slaveHostname"`
 }
 
 func (self *SingularitySandbox) Populate(jsonReader io.ReadCloser) (err error) {

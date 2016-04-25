@@ -3,10 +3,10 @@ package dtos
 import "io"
 
 type SingularityRunNowRequest struct {
-	CommandLineArgs  StringList
-	Message          string
-	RunId            string
-	SkipHealthchecks bool
+	CommandLineArgs  StringList `json:"commandLineArgs"`
+	Message          string     `json:"message"`
+	RunId            string     `json:"runId"`
+	SkipHealthchecks bool       `json:"skipHealthchecks"`
 }
 
 func (self *SingularityRunNowRequest) Populate(jsonReader io.ReadCloser) (err error) {

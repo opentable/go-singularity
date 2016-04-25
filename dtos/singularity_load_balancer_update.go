@@ -2,13 +2,35 @@ package dtos
 
 import "io"
 
+type SingularityLoadBalancerUpdateBaragonRequestState string
+
+const (
+	SingularityLoadBalancerUpdateBaragonRequestStateUNKNOWN              SingularityLoadBalancerUpdateBaragonRequestState = "UNKNOWN"
+	SingularityLoadBalancerUpdateBaragonRequestStateFAILED               SingularityLoadBalancerUpdateBaragonRequestState = "FAILED"
+	SingularityLoadBalancerUpdateBaragonRequestStateWAITING              SingularityLoadBalancerUpdateBaragonRequestState = "WAITING"
+	SingularityLoadBalancerUpdateBaragonRequestStateSUCCESS              SingularityLoadBalancerUpdateBaragonRequestState = "SUCCESS"
+	SingularityLoadBalancerUpdateBaragonRequestStateCANCELING            SingularityLoadBalancerUpdateBaragonRequestState = "CANCELING"
+	SingularityLoadBalancerUpdateBaragonRequestStateCANCELED             SingularityLoadBalancerUpdateBaragonRequestState = "CANCELED"
+	SingularityLoadBalancerUpdateBaragonRequestStateINVALID_REQUEST_NOOP SingularityLoadBalancerUpdateBaragonRequestState = "INVALID_REQUEST_NOOP"
+)
+
+type SingularityLoadBalancerUpdateLoadBalancerMethod string
+
+const (
+	SingularityLoadBalancerUpdateLoadBalancerMethodPRE_ENQUEUE SingularityLoadBalancerUpdateLoadBalancerMethod = "PRE_ENQUEUE"
+	SingularityLoadBalancerUpdateLoadBalancerMethodENQUEUE     SingularityLoadBalancerUpdateLoadBalancerMethod = "ENQUEUE"
+	SingularityLoadBalancerUpdateLoadBalancerMethodCHECK_STATE SingularityLoadBalancerUpdateLoadBalancerMethod = "CHECK_STATE"
+	SingularityLoadBalancerUpdateLoadBalancerMethodCANCEL      SingularityLoadBalancerUpdateLoadBalancerMethod = "CANCEL"
+	SingularityLoadBalancerUpdateLoadBalancerMethodDELETE      SingularityLoadBalancerUpdateLoadBalancerMethod = "DELETE"
+)
+
 type SingularityLoadBalancerUpdate struct {
-	LoadBalancerRequestId *LoadBalancerRequestId
-	//	LoadBalancerState *BaragonRequestState
-	Message string
-	//	Method *LoadBalancerMethod
-	Timestamp int64
-	Uri       string
+	LoadBalancerRequestId *LoadBalancerRequestId                           `json:"loadBalancerRequestId"`
+	LoadBalancerState     SingularityLoadBalancerUpdateBaragonRequestState `json:"loadBalancerState"`
+	Message               string                                           `json:"message"`
+	Method                SingularityLoadBalancerUpdateLoadBalancerMethod  `json:"method"`
+	Timestamp             int64                                            `json:"timestamp"`
+	Uri                   string                                           `json:"uri"`
 }
 
 func (self *SingularityLoadBalancerUpdate) Populate(jsonReader io.ReadCloser) (err error) {

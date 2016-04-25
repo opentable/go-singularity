@@ -6,6 +6,7 @@ func (client *Client) GetQueuedRequestUpdates(webhookId string) (response dtos.S
 	pathParamMap := map[string]interface{}{
 		"webhookId": webhookId,
 	}
+
 	queryParamMap := map[string]interface{}{}
 
 	response = make(dtos.SingularityRequestHistoryList, 0)

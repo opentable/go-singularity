@@ -6,6 +6,7 @@ func (client *Client) GetRequest(requestId string) (response *dtos.SingularityRe
 	pathParamMap := map[string]interface{}{
 		"requestId": requestId,
 	}
+
 	queryParamMap := map[string]interface{}{}
 
 	response = new(dtos.SingularityRequestParent)
@@ -18,6 +19,7 @@ func (client *Client) DeleteRequest(requestId string, body *dtos.SingularityDele
 	pathParamMap := map[string]interface{}{
 		"requestId": requestId,
 	}
+
 	queryParamMap := map[string]interface{}{}
 
 	response = new(dtos.SingularityRequest)

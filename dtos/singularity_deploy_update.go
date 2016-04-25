@@ -2,11 +2,18 @@ package dtos
 
 import "io"
 
+type SingularityDeployUpdateDeployEventType string
+
+const (
+	SingularityDeployUpdateDeployEventTypeSTARTING SingularityDeployUpdateDeployEventType = "STARTING"
+	SingularityDeployUpdateDeployEventTypeFINISHED SingularityDeployUpdateDeployEventType = "FINISHED"
+)
+
 type SingularityDeployUpdate struct {
-	Deploy       *SingularityDeploy
-	DeployMarker *SingularityDeployMarker
-	DeployResult *SingularityDeployResult
-	//	EventType *DeployEventType
+	Deploy       *SingularityDeploy                     `json:"deploy"`
+	DeployMarker *SingularityDeployMarker               `json:"deployMarker"`
+	DeployResult *SingularityDeployResult               `json:"deployResult"`
+	EventType    SingularityDeployUpdateDeployEventType `json:"eventType"`
 }
 
 func (self *SingularityDeployUpdate) Populate(jsonReader io.ReadCloser) (err error) {

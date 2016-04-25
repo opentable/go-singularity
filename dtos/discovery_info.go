@@ -2,28 +2,36 @@ package dtos
 
 import "io"
 
+type DiscoveryInfoVisibility string
+
+const (
+	DiscoveryInfoVisibilityFRAMEWORK DiscoveryInfoVisibility = "FRAMEWORK"
+	DiscoveryInfoVisibilityCLUSTER   DiscoveryInfoVisibility = "CLUSTER"
+	DiscoveryInfoVisibilityEXTERNAL  DiscoveryInfoVisibility = "EXTERNAL"
+)
+
 type DiscoveryInfo struct {
-	//	AllFields *Map[FieldDescriptor,Object]
-	DefaultInstanceForType    *DiscoveryInfo
-	DescriptorForType         *Descriptor
-	Environment               string
-	EnvironmentBytes          *ByteString
-	InitializationErrorString string
-	Initialized               bool
-	Labels                    *Labels
-	LabelsOrBuilder           *LabelsOrBuilder
-	Location                  string
-	LocationBytes             *ByteString
-	Name                      string
-	NameBytes                 *ByteString
-	//	ParserForType *com.google.protobuf.Parser&lt;org.apache.mesos.Protos$DiscoveryInfo&gt;
-	Ports          *Ports
-	PortsOrBuilder *PortsOrBuilder
-	SerializedSize int32
-	UnknownFields  *UnknownFieldSet
-	Version        string
-	VersionBytes   *ByteString
-	//	Visibility *Visibility
+	//	AllFields *Map[FieldDescriptor,Object] `json:"allFields"`
+	DefaultInstanceForType    *DiscoveryInfo   `json:"defaultInstanceForType"`
+	DescriptorForType         *Descriptor      `json:"descriptorForType"`
+	Environment               string           `json:"environment"`
+	EnvironmentBytes          *ByteString      `json:"environmentBytes"`
+	InitializationErrorString string           `json:"initializationErrorString"`
+	Initialized               bool             `json:"initialized"`
+	Labels                    *Labels          `json:"labels"`
+	LabelsOrBuilder           *LabelsOrBuilder `json:"labelsOrBuilder"`
+	Location                  string           `json:"location"`
+	LocationBytes             *ByteString      `json:"locationBytes"`
+	Name                      string           `json:"name"`
+	NameBytes                 *ByteString      `json:"nameBytes"`
+	//	ParserForType *com.google.protobuf.Parser&lt;org.apache.mesos.Protos$DiscoveryInfo&gt; `json:"parserForType"`
+	Ports          *Ports                  `json:"ports"`
+	PortsOrBuilder *PortsOrBuilder         `json:"portsOrBuilder"`
+	SerializedSize int32                   `json:"serializedSize"`
+	UnknownFields  *UnknownFieldSet        `json:"unknownFields"`
+	Version        string                  `json:"version"`
+	VersionBytes   *ByteString             `json:"versionBytes"`
+	Visibility     DiscoveryInfoVisibility `json:"visibility"`
 }
 
 func (self *DiscoveryInfo) Populate(jsonReader io.ReadCloser) (err error) {

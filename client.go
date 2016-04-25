@@ -14,6 +14,8 @@ import (
 	"github.com/opentable/singularity/dtos"
 )
 
+//go:generate swagger-client-maker api-docs/ .
+
 type Client struct {
 	baseUrl string
 	http    http.Client
@@ -43,6 +45,7 @@ func (client *Client) Request(method, path string, pathParams, queryParams urlPa
 	if err != nil {
 		return
 	}
+	log.Printf("res.Status = %+v\n", res.Status)
 	resBody = res.Body
 	return
 }
@@ -77,8 +80,9 @@ func buildBodyRequest(method, path string, bodyObj dtos.DTO) (req *http.Request,
 	buf := bytes.Buffer{}
 	enc := json.NewEncoder(&buf)
 	enc.Encode(bodyObj) // XXX Here, consider a goroutine and a PipeWriter
-	log.Print(path, buf.String())
+	log.Print(path, " <- ", buf.String())
 	req, err = http.NewRequest(method, path, &buf)
+	req.Header.Add("Content-Type", "application/json")
 	return
 }
 

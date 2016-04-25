@@ -3,12 +3,12 @@ package dtos
 import "io"
 
 type SingularityExpiringBounce struct {
-	ActionId string
-	DeployId string
-	//	ExpiringAPIRequestObject *T
-	RequestId   string
-	StartMillis int64
-	User        string
+	ActionId string `json:"actionId"`
+	DeployId string `json:"deployId"`
+	//	ExpiringAPIRequestObject *T `json:"expiringAPIRequestObject"`
+	RequestId   string `json:"requestId"`
+	StartMillis int64  `json:"startMillis"`
+	User        string `json:"user"`
 }
 
 func (self *SingularityExpiringBounce) Populate(jsonReader io.ReadCloser) (err error) {

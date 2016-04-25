@@ -3,9 +3,10 @@ package dtos
 import "io"
 
 type SingularityVolume struct {
-	ContainerPath string
-	HostPath      string
-	//	Mode *SingularityDockerVolumeMode
+	ContainerPath string `json:"containerPath"`
+	HostPath      string `json:"hostPath"`
+	//	Mode *SingularityDockerVolumeMode `json:"mode"`
+
 }
 
 func (self *SingularityVolume) Populate(jsonReader io.ReadCloser) (err error) {

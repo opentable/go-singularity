@@ -3,12 +3,12 @@ package dtos
 import "io"
 
 type SingularityExpiringSkipHealthchecks struct {
-	ActionId string
-	//	ExpiringAPIRequestObject *T
-	RequestId                string
-	RevertToSkipHealthchecks bool
-	StartMillis              int64
-	User                     string
+	ActionId string `json:"actionId"`
+	//	ExpiringAPIRequestObject *T `json:"expiringAPIRequestObject"`
+	RequestId                string `json:"requestId"`
+	RevertToSkipHealthchecks bool   `json:"revertToSkipHealthchecks"`
+	StartMillis              int64  `json:"startMillis"`
+	User                     string `json:"user"`
 }
 
 func (self *SingularityExpiringSkipHealthchecks) Populate(jsonReader io.ReadCloser) (err error) {

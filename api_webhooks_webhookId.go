@@ -6,6 +6,7 @@ func (client *Client) DeleteWebhook(webhookId string) (response string, err erro
 	pathParamMap := map[string]interface{}{
 		"webhookId": webhookId,
 	}
+
 	queryParamMap := map[string]interface{}{}
 
 	resBody, err := client.Request("DELETE", "/api/webhooks/{webhookId}", pathParamMap, queryParamMap)

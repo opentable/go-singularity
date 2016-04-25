@@ -3,17 +3,18 @@ package dtos
 import "io"
 
 type Environment struct {
-	//	AllFields *Map[FieldDescriptor,Object]
-	DefaultInstanceForType    *Environment
-	DescriptorForType         *Descriptor
-	InitializationErrorString string
-	Initialized               bool
-	//	ParserForType *com.google.protobuf.Parser&lt;org.apache.mesos.Protos$Environment&gt;
-	SerializedSize int32
-	UnknownFields  *UnknownFieldSet
-	VariablesCount int32
-	//	VariablesList *List[Variable]
-	//	VariablesOrBuilderList *List[? extends org.apache.mesos.Protos$Environment$VariableOrBuilder]
+	//	AllFields *Map[FieldDescriptor,Object] `json:"allFields"`
+	DefaultInstanceForType    *Environment `json:"defaultInstanceForType"`
+	DescriptorForType         *Descriptor  `json:"descriptorForType"`
+	InitializationErrorString string       `json:"initializationErrorString"`
+	Initialized               bool         `json:"initialized"`
+	//	ParserForType *com.google.protobuf.Parser&lt;org.apache.mesos.Protos$Environment&gt; `json:"parserForType"`
+	SerializedSize int32            `json:"serializedSize"`
+	UnknownFields  *UnknownFieldSet `json:"unknownFields"`
+	VariablesCount int32            `json:"variablesCount"`
+	//	VariablesList *List[Variable] `json:"variablesList"`
+	//	VariablesOrBuilderList *List[? extends org.apache.mesos.Protos$Environment$VariableOrBuilder] `json:"variablesOrBuilderList"`
+
 }
 
 func (self *Environment) Populate(jsonReader io.ReadCloser) (err error) {

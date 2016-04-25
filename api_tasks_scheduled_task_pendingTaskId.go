@@ -6,6 +6,7 @@ func (client *Client) GetPendingTask(pendingTaskId string) (response *dtos.Singu
 	pathParamMap := map[string]interface{}{
 		"pendingTaskId": pendingTaskId,
 	}
+
 	queryParamMap := map[string]interface{}{}
 
 	response = new(dtos.SingularityTaskRequest)

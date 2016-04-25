@@ -6,6 +6,7 @@ func (client *Client) Browse(taskId string, path string) (response *dtos.Singula
 	pathParamMap := map[string]interface{}{
 		"taskId": taskId,
 	}
+
 	queryParamMap := map[string]interface{}{
 		"path": path,
 	}

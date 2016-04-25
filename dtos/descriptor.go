@@ -3,16 +3,16 @@ package dtos
 import "io"
 
 type Descriptor struct {
-	ContainingType *Descriptor
-	//	EnumTypes *List[EnumDescriptor]
-	//	Extensions *List[FieldDescriptor]
-	//	Fields *List[FieldDescriptor]
-	File        *FileDescriptor
-	FullName    string
-	Index       int32
-	Name        string
-	NestedTypes DescriptorList
-	Options     *MessageOptions
+	ContainingType *Descriptor `json:"containingType"`
+	//	EnumTypes *List[EnumDescriptor] `json:"enumTypes"`
+	//	Extensions *List[FieldDescriptor] `json:"extensions"`
+	//	Fields *List[FieldDescriptor] `json:"fields"`
+	File        *FileDescriptor `json:"file"`
+	FullName    string          `json:"fullName"`
+	Index       int32           `json:"index"`
+	Name        string          `json:"name"`
+	NestedTypes DescriptorList  `json:"nestedTypes"`
+	Options     *MessageOptions `json:"options"`
 }
 
 func (self *Descriptor) Populate(jsonReader io.ReadCloser) (err error) {

@@ -6,6 +6,7 @@ func (client *Client) DecommissionRack(rackId string, body *dtos.SingularityMach
 	pathParamMap := map[string]interface{}{
 		"rackId": rackId,
 	}
+
 	queryParamMap := map[string]interface{}{}
 
 	_, err = client.Request("POST", "/api/racks/rack/{rackId}/decommission", pathParamMap, queryParamMap, body)

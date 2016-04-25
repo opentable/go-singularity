@@ -3,14 +3,14 @@ package dtos
 import "io"
 
 type S3ArtifactSignature struct {
-	ArtifactFilename           string
-	Filename                   string
-	Filesize                   int64
-	Md5sum                     string
-	Name                       string
-	S3Bucket                   string
-	S3ObjectKey                string
-	TargetFolderRelativeToTask string
+	ArtifactFilename           string `json:"artifactFilename"`
+	Filename                   string `json:"filename"`
+	Filesize                   int64  `json:"filesize"`
+	Md5sum                     string `json:"md5sum"`
+	Name                       string `json:"name"`
+	S3Bucket                   string `json:"s3Bucket"`
+	S3ObjectKey                string `json:"s3ObjectKey"`
+	TargetFolderRelativeToTask string `json:"targetFolderRelativeToTask"`
 }
 
 func (self *S3ArtifactSignature) Populate(jsonReader io.ReadCloser) (err error) {

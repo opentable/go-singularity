@@ -2,12 +2,24 @@ package dtos
 
 import "io"
 
+type SingularityMachineStateHistoryUpdateMachineState string
+
+const (
+	SingularityMachineStateHistoryUpdateMachineStateMISSING_ON_STARTUP    SingularityMachineStateHistoryUpdateMachineState = "MISSING_ON_STARTUP"
+	SingularityMachineStateHistoryUpdateMachineStateACTIVE                SingularityMachineStateHistoryUpdateMachineState = "ACTIVE"
+	SingularityMachineStateHistoryUpdateMachineStateSTARTING_DECOMMISSION SingularityMachineStateHistoryUpdateMachineState = "STARTING_DECOMMISSION"
+	SingularityMachineStateHistoryUpdateMachineStateDECOMMISSIONING       SingularityMachineStateHistoryUpdateMachineState = "DECOMMISSIONING"
+	SingularityMachineStateHistoryUpdateMachineStateDECOMMISSIONED        SingularityMachineStateHistoryUpdateMachineState = "DECOMMISSIONED"
+	SingularityMachineStateHistoryUpdateMachineStateDEAD                  SingularityMachineStateHistoryUpdateMachineState = "DEAD"
+	SingularityMachineStateHistoryUpdateMachineStateFROZEN                SingularityMachineStateHistoryUpdateMachineState = "FROZEN"
+)
+
 type SingularityMachineStateHistoryUpdate struct {
-	Message  string
-	ObjectId string
-	//	State *MachineState
-	Timestamp int64
-	User      string
+	Message   string                                           `json:"message"`
+	ObjectId  string                                           `json:"objectId"`
+	State     SingularityMachineStateHistoryUpdateMachineState `json:"state"`
+	Timestamp int64                                            `json:"timestamp"`
+	User      string                                           `json:"user"`
 }
 
 func (self *SingularityMachineStateHistoryUpdate) Populate(jsonReader io.ReadCloser) (err error) {

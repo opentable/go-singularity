@@ -3,11 +3,11 @@ package dtos
 import "io"
 
 type EmbeddedArtifact struct {
-	Content                    StringList
-	Filename                   string
-	Md5sum                     string
-	Name                       string
-	TargetFolderRelativeToTask string
+	Content                    StringList `json:"content"`
+	Filename                   string     `json:"filename"`
+	Md5sum                     string     `json:"md5sum"`
+	Name                       string     `json:"name"`
+	TargetFolderRelativeToTask string     `json:"targetFolderRelativeToTask"`
 }
 
 func (self *EmbeddedArtifact) Populate(jsonReader io.ReadCloser) (err error) {

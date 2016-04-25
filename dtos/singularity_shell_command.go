@@ -3,10 +3,10 @@ package dtos
 import "io"
 
 type SingularityShellCommand struct {
-	LogfileName string
-	Name        string
-	Options     StringList
-	User        string
+	LogfileName string     `json:"logfileName"`
+	Name        string     `json:"name"`
+	Options     StringList `json:"options"`
+	User        string     `json:"user"`
 }
 
 func (self *SingularityShellCommand) Populate(jsonReader io.ReadCloser) (err error) {

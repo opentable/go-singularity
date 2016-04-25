@@ -2,29 +2,39 @@ package dtos
 
 import "io"
 
+type SingularityRequestRequestType string
+
+const (
+	SingularityRequestRequestTypeSERVICE   SingularityRequestRequestType = "SERVICE"
+	SingularityRequestRequestTypeWORKER    SingularityRequestRequestType = "WORKER"
+	SingularityRequestRequestTypeSCHEDULED SingularityRequestRequestType = "SCHEDULED"
+	SingularityRequestRequestTypeON_DEMAND SingularityRequestRequestType = "ON_DEMAND"
+	SingularityRequestRequestTypeRUN_ONCE  SingularityRequestRequestType = "RUN_ONCE"
+)
+
 type SingularityRequest struct {
-	AllowedSlaveAttributes map[string]string
-	BounceAfterScale       bool
-	//	EmailConfigurationOverrides *Map[SingularityEmailType,List[SingularityEmailDestination]]
-	Group                                 string
-	Id                                    string
-	Instances                             int32
-	KillOldNonLongRunningTasksAfterMillis int64
-	LoadBalanced                          bool
-	NumRetriesOnFailure                   int32
-	Owners                                StringList
-	QuartzSchedule                        string
-	RackAffinity                          StringList
-	RackSensitive                         bool
-	ReadOnlyGroups                        StringList
-	//	RequestType *RequestType
-	RequiredSlaveAttributes map[string]string
-	Schedule                string
-	//	ScheduleType *ScheduleType
-	ScheduledExpectedRuntimeMillis int64
-	SkipHealthchecks               bool
-	//	SlavePlacement *SlavePlacement
-	WaitAtLeastMillisAfterTaskFinishesForReschedule int64
+	AllowedSlaveAttributes map[string]string `json:"allowedSlaveAttributes"`
+	BounceAfterScale       bool              `json:"bounceAfterScale"`
+	//	EmailConfigurationOverrides *Map[SingularityEmailType,List[SingularityEmailDestination]] `json:"emailConfigurationOverrides"`
+	Group                                 string                        `json:"group"`
+	Id                                    string                        `json:"id"`
+	Instances                             int32                         `json:"instances"`
+	KillOldNonLongRunningTasksAfterMillis int64                         `json:"killOldNonLongRunningTasksAfterMillis"`
+	LoadBalanced                          bool                          `json:"loadBalanced"`
+	NumRetriesOnFailure                   int32                         `json:"numRetriesOnFailure"`
+	Owners                                StringList                    `json:"owners"`
+	QuartzSchedule                        string                        `json:"quartzSchedule"`
+	RackAffinity                          StringList                    `json:"rackAffinity"`
+	RackSensitive                         bool                          `json:"rackSensitive"`
+	ReadOnlyGroups                        StringList                    `json:"readOnlyGroups"`
+	RequestType                           SingularityRequestRequestType `json:"requestType"`
+	RequiredSlaveAttributes               map[string]string             `json:"requiredSlaveAttributes"`
+	Schedule                              string                        `json:"schedule"`
+	//	ScheduleType *ScheduleType `json:"scheduleType"`
+	ScheduledExpectedRuntimeMillis int64 `json:"scheduledExpectedRuntimeMillis"`
+	SkipHealthchecks               bool  `json:"skipHealthchecks"`
+	//	SlavePlacement *SlavePlacement `json:"slavePlacement"`
+	WaitAtLeastMillisAfterTaskFinishesForReschedule int64 `json:"waitAtLeastMillisAfterTaskFinishesForReschedule"`
 }
 
 func (self *SingularityRequest) Populate(jsonReader io.ReadCloser) (err error) {

@@ -3,9 +3,9 @@ package dtos
 import "io"
 
 type SingularityDeployRequest struct {
-	Deploy                    *SingularityDeploy
-	Message                   string
-	UnpauseOnSuccessfulDeploy bool
+	Deploy                    *SingularityDeploy `json:"deploy"`
+	Message                   string             `json:"message"`
+	UnpauseOnSuccessfulDeploy bool               `json:"unpauseOnSuccessfulDeploy"`
 }
 
 func (self *SingularityDeployRequest) Populate(jsonReader io.ReadCloser) (err error) {

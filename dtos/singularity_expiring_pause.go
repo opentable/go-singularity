@@ -3,11 +3,11 @@ package dtos
 import "io"
 
 type SingularityExpiringPause struct {
-	ActionId string
-	//	ExpiringAPIRequestObject *T
-	RequestId   string
-	StartMillis int64
-	User        string
+	ActionId string `json:"actionId"`
+	//	ExpiringAPIRequestObject *T `json:"expiringAPIRequestObject"`
+	RequestId   string `json:"requestId"`
+	StartMillis int64  `json:"startMillis"`
+	User        string `json:"user"`
 }
 
 func (self *SingularityExpiringPause) Populate(jsonReader io.ReadCloser) (err error) {

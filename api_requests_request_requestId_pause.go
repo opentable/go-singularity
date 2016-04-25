@@ -6,6 +6,7 @@ func (client *Client) Pause(requestId string, body *dtos.SingularityPauseRequest
 	pathParamMap := map[string]interface{}{
 		"requestId": requestId,
 	}
+
 	queryParamMap := map[string]interface{}{}
 
 	response = new(dtos.SingularityRequestParent)
@@ -18,6 +19,7 @@ func (client *Client) DeleteExpiringPause(requestId string) (response *dtos.Sing
 	pathParamMap := map[string]interface{}{
 		"requestId": requestId,
 	}
+
 	queryParamMap := map[string]interface{}{}
 
 	response = new(dtos.SingularityRequestParent)

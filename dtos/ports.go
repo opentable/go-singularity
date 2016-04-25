@@ -3,17 +3,17 @@ package dtos
 import "io"
 
 type Ports struct {
-	//	AllFields *Map[FieldDescriptor,Object]
-	DefaultInstanceForType    *Ports
-	DescriptorForType         *Descriptor
-	InitializationErrorString string
-	Initialized               bool
-	//	ParserForType *com.google.protobuf.Parser&lt;org.apache.mesos.Protos$Ports&gt;
-	PortsCount int32
-	//	PortsList *List[Port]
-	//	PortsOrBuilderList *List[? extends org.apache.mesos.Protos$PortOrBuilder]
-	SerializedSize int32
-	UnknownFields  *UnknownFieldSet
+	//	AllFields *Map[FieldDescriptor,Object] `json:"allFields"`
+	DefaultInstanceForType    *Ports      `json:"defaultInstanceForType"`
+	DescriptorForType         *Descriptor `json:"descriptorForType"`
+	InitializationErrorString string      `json:"initializationErrorString"`
+	Initialized               bool        `json:"initialized"`
+	//	ParserForType *com.google.protobuf.Parser&lt;org.apache.mesos.Protos$Ports&gt; `json:"parserForType"`
+	PortsCount int32 `json:"portsCount"`
+	//	PortsList *List[Port] `json:"portsList"`
+	//	PortsOrBuilderList *List[? extends org.apache.mesos.Protos$PortOrBuilder] `json:"portsOrBuilderList"`
+	SerializedSize int32            `json:"serializedSize"`
+	UnknownFields  *UnknownFieldSet `json:"unknownFields"`
 }
 
 func (self *Ports) Populate(jsonReader io.ReadCloser) (err error) {

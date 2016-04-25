@@ -3,15 +3,15 @@ package dtos
 import "io"
 
 type SingularityTaskId struct {
-	DeployId        string
-	Host            string
-	Id              string
-	InstanceNo      int32
-	RackId          string
-	RequestId       string
-	SanitizedHost   string
-	SanitizedRackId string
-	StartedAt       int64
+	DeployId        string `json:"deployId"`
+	Host            string `json:"host"`
+	Id              string `json:"id"`
+	InstanceNo      int32  `json:"instanceNo"`
+	RackId          string `json:"rackId"`
+	RequestId       string `json:"requestId"`
+	SanitizedHost   string `json:"sanitizedHost"`
+	SanitizedRackId string `json:"sanitizedRackId"`
+	StartedAt       int64  `json:"startedAt"`
 }
 
 func (self *SingularityTaskId) Populate(jsonReader io.ReadCloser) (err error) {

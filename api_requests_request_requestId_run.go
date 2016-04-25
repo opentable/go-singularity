@@ -6,6 +6,7 @@ func (client *Client) ScheduleImmediately(requestId string, body *dtos.Singulari
 	pathParamMap := map[string]interface{}{
 		"requestId": requestId,
 	}
+
 	queryParamMap := map[string]interface{}{}
 
 	response = new(dtos.SingularityRequestParent)

@@ -2,12 +2,28 @@ package dtos
 
 import "io"
 
+type SingularityTaskHistoryUpdateExtendedTaskState string
+
+const (
+	SingularityTaskHistoryUpdateExtendedTaskStateTASK_LAUNCHED        SingularityTaskHistoryUpdateExtendedTaskState = "TASK_LAUNCHED"
+	SingularityTaskHistoryUpdateExtendedTaskStateTASK_STAGING         SingularityTaskHistoryUpdateExtendedTaskState = "TASK_STAGING"
+	SingularityTaskHistoryUpdateExtendedTaskStateTASK_STARTING        SingularityTaskHistoryUpdateExtendedTaskState = "TASK_STARTING"
+	SingularityTaskHistoryUpdateExtendedTaskStateTASK_RUNNING         SingularityTaskHistoryUpdateExtendedTaskState = "TASK_RUNNING"
+	SingularityTaskHistoryUpdateExtendedTaskStateTASK_CLEANING        SingularityTaskHistoryUpdateExtendedTaskState = "TASK_CLEANING"
+	SingularityTaskHistoryUpdateExtendedTaskStateTASK_FINISHED        SingularityTaskHistoryUpdateExtendedTaskState = "TASK_FINISHED"
+	SingularityTaskHistoryUpdateExtendedTaskStateTASK_FAILED          SingularityTaskHistoryUpdateExtendedTaskState = "TASK_FAILED"
+	SingularityTaskHistoryUpdateExtendedTaskStateTASK_KILLED          SingularityTaskHistoryUpdateExtendedTaskState = "TASK_KILLED"
+	SingularityTaskHistoryUpdateExtendedTaskStateTASK_LOST            SingularityTaskHistoryUpdateExtendedTaskState = "TASK_LOST"
+	SingularityTaskHistoryUpdateExtendedTaskStateTASK_LOST_WHILE_DOWN SingularityTaskHistoryUpdateExtendedTaskState = "TASK_LOST_WHILE_DOWN"
+	SingularityTaskHistoryUpdateExtendedTaskStateTASK_ERROR           SingularityTaskHistoryUpdateExtendedTaskState = "TASK_ERROR"
+)
+
 type SingularityTaskHistoryUpdate struct {
-	StatusMessage string
-	StatusReason  string
-	TaskId        *SingularityTaskId
-	//	TaskState *ExtendedTaskState
-	Timestamp int64
+	StatusMessage string                                        `json:"statusMessage"`
+	StatusReason  string                                        `json:"statusReason"`
+	TaskId        *SingularityTaskId                            `json:"taskId"`
+	TaskState     SingularityTaskHistoryUpdateExtendedTaskState `json:"taskState"`
+	Timestamp     int64                                         `json:"timestamp"`
 }
 
 func (self *SingularityTaskHistoryUpdate) Populate(jsonReader io.ReadCloser) (err error) {

@@ -2,16 +2,25 @@ package dtos
 
 import "io"
 
+type SingularityRequestCleanupRequestCleanupType string
+
+const (
+	SingularityRequestCleanupRequestCleanupTypeDELETING           SingularityRequestCleanupRequestCleanupType = "DELETING"
+	SingularityRequestCleanupRequestCleanupTypePAUSING            SingularityRequestCleanupRequestCleanupType = "PAUSING"
+	SingularityRequestCleanupRequestCleanupTypeBOUNCE             SingularityRequestCleanupRequestCleanupType = "BOUNCE"
+	SingularityRequestCleanupRequestCleanupTypeINCREMENTAL_BOUNCE SingularityRequestCleanupRequestCleanupType = "INCREMENTAL_BOUNCE"
+)
+
 type SingularityRequestCleanup struct {
-	ActionId string
-	//	CleanupType *RequestCleanupType
-	DeployId         string
-	KillTasks        bool
-	Message          string
-	RequestId        string
-	SkipHealthchecks bool
-	Timestamp        int64
-	User             string
+	ActionId         string                                      `json:"actionId"`
+	CleanupType      SingularityRequestCleanupRequestCleanupType `json:"cleanupType"`
+	DeployId         string                                      `json:"deployId"`
+	KillTasks        bool                                        `json:"killTasks"`
+	Message          string                                      `json:"message"`
+	RequestId        string                                      `json:"requestId"`
+	SkipHealthchecks bool                                        `json:"skipHealthchecks"`
+	Timestamp        int64                                       `json:"timestamp"`
+	User             string                                      `json:"user"`
 }
 
 func (self *SingularityRequestCleanup) Populate(jsonReader io.ReadCloser) (err error) {

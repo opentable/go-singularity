@@ -3,18 +3,18 @@ package dtos
 import "io"
 
 type MesosTaskStatisticsObject struct {
-	CpusLimit             int32
-	CpusNrPeriods         int64
-	CpusNrThrottled       int64
-	CpusSystemTimeSecs    float64
-	CpusThrottledTimeSecs float64
-	CpusUserTimeSecs      float64
-	MemAnonBytes          int64
-	MemFileBytes          int64
-	MemLimitBytes         int64
-	MemMappedFileBytes    int64
-	MemRssBytes           int64
-	Timestamp             float64
+	CpusLimit             int32   `json:"cpusLimit"`
+	CpusNrPeriods         int64   `json:"cpusNrPeriods"`
+	CpusNrThrottled       int64   `json:"cpusNrThrottled"`
+	CpusSystemTimeSecs    float64 `json:"cpusSystemTimeSecs"`
+	CpusThrottledTimeSecs float64 `json:"cpusThrottledTimeSecs"`
+	CpusUserTimeSecs      float64 `json:"cpusUserTimeSecs"`
+	MemAnonBytes          int64   `json:"memAnonBytes"`
+	MemFileBytes          int64   `json:"memFileBytes"`
+	MemLimitBytes         int64   `json:"memLimitBytes"`
+	MemMappedFileBytes    int64   `json:"memMappedFileBytes"`
+	MemRssBytes           int64   `json:"memRssBytes"`
+	Timestamp             float64 `json:"timestamp"`
 }
 
 func (self *MesosTaskStatisticsObject) Populate(jsonReader io.ReadCloser) (err error) {

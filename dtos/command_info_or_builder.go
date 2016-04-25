@@ -3,20 +3,20 @@ package dtos
 import "io"
 
 type CommandInfoOrBuilder struct {
-	ArgumentsCount       int32
-	ArgumentsList        StringList
-	Container            *ContainerInfo
-	ContainerOrBuilder   *ContainerInfoOrBuilder
-	Environment          *Environment
-	EnvironmentOrBuilder *EnvironmentOrBuilder
-	Shell                bool
-	UrisCount            int32
-	//	UrisList *List[URI]
-	//	UrisOrBuilderList *List[? extends org.apache.mesos.Protos$CommandInfo$URIOrBuilder]
-	User       string
-	UserBytes  *ByteString
-	Value      string
-	ValueBytes *ByteString
+	ArgumentsCount       int32                   `json:"argumentsCount"`
+	ArgumentsList        StringList              `json:"argumentsList"`
+	Container            *ContainerInfo          `json:"container"`
+	ContainerOrBuilder   *ContainerInfoOrBuilder `json:"containerOrBuilder"`
+	Environment          *Environment            `json:"environment"`
+	EnvironmentOrBuilder *EnvironmentOrBuilder   `json:"environmentOrBuilder"`
+	Shell                bool                    `json:"shell"`
+	UrisCount            int32                   `json:"urisCount"`
+	//	UrisList *List[URI] `json:"urisList"`
+	//	UrisOrBuilderList *List[? extends org.apache.mesos.Protos$CommandInfo$URIOrBuilder] `json:"urisOrBuilderList"`
+	User       string      `json:"user"`
+	UserBytes  *ByteString `json:"userBytes"`
+	Value      string      `json:"value"`
+	ValueBytes *ByteString `json:"valueBytes"`
 }
 
 func (self *CommandInfoOrBuilder) Populate(jsonReader io.ReadCloser) (err error) {

@@ -3,9 +3,9 @@ package dtos
 import "io"
 
 type SingularityRack struct {
-	CurrentState *SingularityMachineStateHistoryUpdate
-	FirstSeenAt  int64
-	Id           string
+	CurrentState *SingularityMachineStateHistoryUpdate `json:"currentState"`
+	FirstSeenAt  int64                                 `json:"firstSeenAt"`
+	Id           string                                `json:"id"`
 }
 
 func (self *SingularityRack) Populate(jsonReader io.ReadCloser) (err error) {

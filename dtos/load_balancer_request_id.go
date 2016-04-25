@@ -2,10 +2,19 @@ package dtos
 
 import "io"
 
+type LoadBalancerRequestIdLoadBalancerRequestType string
+
+const (
+	LoadBalancerRequestIdLoadBalancerRequestTypeADD    LoadBalancerRequestIdLoadBalancerRequestType = "ADD"
+	LoadBalancerRequestIdLoadBalancerRequestTypeREMOVE LoadBalancerRequestIdLoadBalancerRequestType = "REMOVE"
+	LoadBalancerRequestIdLoadBalancerRequestTypeDEPLOY LoadBalancerRequestIdLoadBalancerRequestType = "DEPLOY"
+	LoadBalancerRequestIdLoadBalancerRequestTypeDELETE LoadBalancerRequestIdLoadBalancerRequestType = "DELETE"
+)
+
 type LoadBalancerRequestId struct {
-	AttemptNumber int32
-	Id            string
-	//	RequestType *LoadBalancerRequestType
+	AttemptNumber int32                                        `json:"attemptNumber"`
+	Id            string                                       `json:"id"`
+	RequestType   LoadBalancerRequestIdLoadBalancerRequestType `json:"requestType"`
 }
 
 func (self *LoadBalancerRequestId) Populate(jsonReader io.ReadCloser) (err error) {

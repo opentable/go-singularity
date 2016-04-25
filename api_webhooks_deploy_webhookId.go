@@ -6,6 +6,7 @@ func (client *Client) GetQueuedDeployUpdates(webhookId string) (response dtos.Si
 	pathParamMap := map[string]interface{}{
 		"webhookId": webhookId,
 	}
+
 	queryParamMap := map[string]interface{}{}
 
 	response = make(dtos.SingularityDeployUpdateList, 0)

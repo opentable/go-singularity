@@ -3,17 +3,17 @@ package dtos
 import "io"
 
 type Labels struct {
-	//	AllFields *Map[FieldDescriptor,Object]
-	DefaultInstanceForType    *Labels
-	DescriptorForType         *Descriptor
-	InitializationErrorString string
-	Initialized               bool
-	LabelsCount               int32
-	//	LabelsList *List[Label]
-	//	LabelsOrBuilderList *List[? extends org.apache.mesos.Protos$LabelOrBuilder]
-	//	ParserForType *com.google.protobuf.Parser&lt;org.apache.mesos.Protos$Labels&gt;
-	SerializedSize int32
-	UnknownFields  *UnknownFieldSet
+	//	AllFields *Map[FieldDescriptor,Object] `json:"allFields"`
+	DefaultInstanceForType    *Labels     `json:"defaultInstanceForType"`
+	DescriptorForType         *Descriptor `json:"descriptorForType"`
+	InitializationErrorString string      `json:"initializationErrorString"`
+	Initialized               bool        `json:"initialized"`
+	LabelsCount               int32       `json:"labelsCount"`
+	//	LabelsList *List[Label] `json:"labelsList"`
+	//	LabelsOrBuilderList *List[? extends org.apache.mesos.Protos$LabelOrBuilder] `json:"labelsOrBuilderList"`
+	//	ParserForType *com.google.protobuf.Parser&lt;org.apache.mesos.Protos$Labels&gt; `json:"parserForType"`
+	SerializedSize int32            `json:"serializedSize"`
+	UnknownFields  *UnknownFieldSet `json:"unknownFields"`
 }
 
 func (self *Labels) Populate(jsonReader io.ReadCloser) (err error) {

@@ -6,6 +6,7 @@ func (client *Client) SkipHealthchecks(requestId string, body *dtos.SingularityS
 	pathParamMap := map[string]interface{}{
 		"requestId": requestId,
 	}
+
 	queryParamMap := map[string]interface{}{}
 
 	response = new(dtos.SingularityRequestParent)
@@ -18,6 +19,7 @@ func (client *Client) DeleteExpiringSkipHealthchecks(requestId string) (response
 	pathParamMap := map[string]interface{}{
 		"requestId": requestId,
 	}
+
 	queryParamMap := map[string]interface{}{}
 
 	response = new(dtos.SingularityRequestParent)

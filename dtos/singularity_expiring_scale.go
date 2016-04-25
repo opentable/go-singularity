@@ -3,12 +3,12 @@ package dtos
 import "io"
 
 type SingularityExpiringScale struct {
-	ActionId string
-	//	ExpiringAPIRequestObject *T
-	RequestId         string
-	RevertToInstances int32
-	StartMillis       int64
-	User              string
+	ActionId string `json:"actionId"`
+	//	ExpiringAPIRequestObject *T `json:"expiringAPIRequestObject"`
+	RequestId         string `json:"requestId"`
+	RevertToInstances int32  `json:"revertToInstances"`
+	StartMillis       int64  `json:"startMillis"`
+	User              string `json:"user"`
 }
 
 func (self *SingularityExpiringScale) Populate(jsonReader io.ReadCloser) (err error) {

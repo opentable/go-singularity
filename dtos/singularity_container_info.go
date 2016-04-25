@@ -2,10 +2,17 @@ package dtos
 
 import "io"
 
+type SingularityContainerInfoSingularityContainerType string
+
+const (
+	SingularityContainerInfoSingularityContainerTypeMESOS  SingularityContainerInfoSingularityContainerType = "MESOS"
+	SingularityContainerInfoSingularityContainerTypeDOCKER SingularityContainerInfoSingularityContainerType = "DOCKER"
+)
+
 type SingularityContainerInfo struct {
-	Docker *SingularityDockerInfo
-	//	Type *SingularityContainerType
-	Volumes SingularityVolumeList
+	Docker  *SingularityDockerInfo                           `json:"docker"`
+	Type    SingularityContainerInfoSingularityContainerType `json:"type"`
+	Volumes SingularityVolumeList                            `json:"volumes"`
 }
 
 func (self *SingularityContainerInfo) Populate(jsonReader io.ReadCloser) (err error) {

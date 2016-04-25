@@ -2,10 +2,25 @@ package dtos
 
 import "io"
 
+type SingularityDeployFailureSingularityDeployFailureReason string
+
+const (
+	SingularityDeployFailureSingularityDeployFailureReasonTASK_FAILED_ON_STARTUP         SingularityDeployFailureSingularityDeployFailureReason = "TASK_FAILED_ON_STARTUP"
+	SingularityDeployFailureSingularityDeployFailureReasonTASK_FAILED_HEALTH_CHECKS      SingularityDeployFailureSingularityDeployFailureReason = "TASK_FAILED_HEALTH_CHECKS"
+	SingularityDeployFailureSingularityDeployFailureReasonTASK_COULD_NOT_BE_SCHEDULED    SingularityDeployFailureSingularityDeployFailureReason = "TASK_COULD_NOT_BE_SCHEDULED"
+	SingularityDeployFailureSingularityDeployFailureReasonTASK_NEVER_ENTERED_RUNNING     SingularityDeployFailureSingularityDeployFailureReason = "TASK_NEVER_ENTERED_RUNNING"
+	SingularityDeployFailureSingularityDeployFailureReasonTASK_EXPECTED_RUNNING_FINISHED SingularityDeployFailureSingularityDeployFailureReason = "TASK_EXPECTED_RUNNING_FINISHED"
+	SingularityDeployFailureSingularityDeployFailureReasonDEPLOY_CANCELLED               SingularityDeployFailureSingularityDeployFailureReason = "DEPLOY_CANCELLED"
+	SingularityDeployFailureSingularityDeployFailureReasonDEPLOY_OVERDUE                 SingularityDeployFailureSingularityDeployFailureReason = "DEPLOY_OVERDUE"
+	SingularityDeployFailureSingularityDeployFailureReasonFAILED_TO_SAVE_DEPLOY_STATE    SingularityDeployFailureSingularityDeployFailureReason = "FAILED_TO_SAVE_DEPLOY_STATE"
+	SingularityDeployFailureSingularityDeployFailureReasonLOAD_BALANCER_UPDATE_FAILED    SingularityDeployFailureSingularityDeployFailureReason = "LOAD_BALANCER_UPDATE_FAILED"
+	SingularityDeployFailureSingularityDeployFailureReasonPENDING_DEPLOY_REMOVED         SingularityDeployFailureSingularityDeployFailureReason = "PENDING_DEPLOY_REMOVED"
+)
+
 type SingularityDeployFailure struct {
-	Message string
-	//	Reason *SingularityDeployFailureReason
-	TaskId *SingularityTaskId
+	Message string                                                 `json:"message"`
+	Reason  SingularityDeployFailureSingularityDeployFailureReason `json:"reason"`
+	TaskId  *SingularityTaskId                                     `json:"taskId"`
 }
 
 func (self *SingularityDeployFailure) Populate(jsonReader io.ReadCloser) (err error) {

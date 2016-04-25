@@ -3,11 +3,11 @@ package dtos
 import "io"
 
 type SingularityScaleRequest struct {
-	ActionId         string
-	DurationMillis   int64
-	Instances        int32
-	Message          string
-	SkipHealthchecks bool
+	ActionId         string `json:"actionId"`
+	DurationMillis   int64  `json:"durationMillis"`
+	Instances        int32  `json:"instances"`
+	Message          string `json:"message"`
+	SkipHealthchecks bool   `json:"skipHealthchecks"`
 }
 
 func (self *SingularityScaleRequest) Populate(jsonReader io.ReadCloser) (err error) {

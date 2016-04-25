@@ -3,9 +3,9 @@ package dtos
 import "io"
 
 type SingularityUpdatePendingDeployRequest struct {
-	DeployId              string
-	RequestId             string
-	TargetActiveInstances int32
+	DeployId              string `json:"deployId"`
+	RequestId             string `json:"requestId"`
+	TargetActiveInstances int32  `json:"targetActiveInstances"`
 }
 
 func (self *SingularityUpdatePendingDeployRequest) Populate(jsonReader io.ReadCloser) (err error) {

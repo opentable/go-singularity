@@ -2,23 +2,31 @@ package dtos
 
 import "io"
 
+type ContainerInfoType string
+
+const (
+	ContainerInfoTypeDOCKER ContainerInfoType = "DOCKER"
+	ContainerInfoTypeMESOS  ContainerInfoType = "MESOS"
+)
+
 type ContainerInfo struct {
-	//	AllFields *Map[FieldDescriptor,Object]
-	DefaultInstanceForType    *ContainerInfo
-	DescriptorForType         *Descriptor
-	Docker                    *DockerInfo
-	DockerOrBuilder           *DockerInfoOrBuilder
-	Hostname                  string
-	HostnameBytes             *ByteString
-	InitializationErrorString string
-	Initialized               bool
-	//	ParserForType *com.google.protobuf.Parser&lt;org.apache.mesos.Protos$ContainerInfo&gt;
-	SerializedSize int32
-	//	Type *Type
-	UnknownFields *UnknownFieldSet
-	VolumesCount  int32
-	//	VolumesList *List[Volume]
-	//	VolumesOrBuilderList *List[? extends org.apache.mesos.Protos$VolumeOrBuilder]
+	//	AllFields *Map[FieldDescriptor,Object] `json:"allFields"`
+	DefaultInstanceForType    *ContainerInfo       `json:"defaultInstanceForType"`
+	DescriptorForType         *Descriptor          `json:"descriptorForType"`
+	Docker                    *DockerInfo          `json:"docker"`
+	DockerOrBuilder           *DockerInfoOrBuilder `json:"dockerOrBuilder"`
+	Hostname                  string               `json:"hostname"`
+	HostnameBytes             *ByteString          `json:"hostnameBytes"`
+	InitializationErrorString string               `json:"initializationErrorString"`
+	Initialized               bool                 `json:"initialized"`
+	//	ParserForType *com.google.protobuf.Parser&lt;org.apache.mesos.Protos$ContainerInfo&gt; `json:"parserForType"`
+	SerializedSize int32             `json:"serializedSize"`
+	Type           ContainerInfoType `json:"type"`
+	UnknownFields  *UnknownFieldSet  `json:"unknownFields"`
+	VolumesCount   int32             `json:"volumesCount"`
+	//	VolumesList *List[Volume] `json:"volumesList"`
+	//	VolumesOrBuilderList *List[? extends org.apache.mesos.Protos$VolumeOrBuilder] `json:"volumesOrBuilderList"`
+
 }
 
 func (self *ContainerInfo) Populate(jsonReader io.ReadCloser) (err error) {

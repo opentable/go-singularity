@@ -2,12 +2,24 @@ package dtos
 
 import "io"
 
+type SingularityDeployResultDeployState string
+
+const (
+	SingularityDeployResultDeployStateSUCCEEDED             SingularityDeployResultDeployState = "SUCCEEDED"
+	SingularityDeployResultDeployStateFAILED_INTERNAL_STATE SingularityDeployResultDeployState = "FAILED_INTERNAL_STATE"
+	SingularityDeployResultDeployStateCANCELING             SingularityDeployResultDeployState = "CANCELING"
+	SingularityDeployResultDeployStateWAITING               SingularityDeployResultDeployState = "WAITING"
+	SingularityDeployResultDeployStateOVERDUE               SingularityDeployResultDeployState = "OVERDUE"
+	SingularityDeployResultDeployStateFAILED                SingularityDeployResultDeployState = "FAILED"
+	SingularityDeployResultDeployStateCANCELED              SingularityDeployResultDeployState = "CANCELED"
+)
+
 type SingularityDeployResult struct {
-	DeployFailures SingularityDeployFailureList
-	//	DeployState *DeployState
-	LbUpdate  *SingularityLoadBalancerUpdate
-	Message   string
-	Timestamp int64
+	DeployFailures SingularityDeployFailureList       `json:"deployFailures"`
+	DeployState    SingularityDeployResultDeployState `json:"deployState"`
+	LbUpdate       *SingularityLoadBalancerUpdate     `json:"lbUpdate"`
+	Message        string                             `json:"message"`
+	Timestamp      int64                              `json:"timestamp"`
 }
 
 func (self *SingularityDeployResult) Populate(jsonReader io.ReadCloser) (err error) {

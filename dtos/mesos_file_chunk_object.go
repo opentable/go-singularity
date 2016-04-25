@@ -3,9 +3,9 @@ package dtos
 import "io"
 
 type MesosFileChunkObject struct {
-	Data       string
-	NextOffset int64
-	Offset     int64
+	Data       string `json:"data"`
+	NextOffset int64  `json:"nextOffset"`
+	Offset     int64  `json:"offset"`
 }
 
 func (self *MesosFileChunkObject) Populate(jsonReader io.ReadCloser) (err error) {

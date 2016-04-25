@@ -3,7 +3,7 @@ package dtos
 import "io"
 
 type SingularityMachineChangeRequest struct {
-	Message string
+	Message string `json:"message"`
 }
 
 func (self *SingularityMachineChangeRequest) Populate(jsonReader io.ReadCloser) (err error) {

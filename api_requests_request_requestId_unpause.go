@@ -6,6 +6,7 @@ func (client *Client) Unpause(requestId string, body *dtos.SingularityUnpauseReq
 	pathParamMap := map[string]interface{}{
 		"requestId": requestId,
 	}
+
 	queryParamMap := map[string]interface{}{}
 
 	response = new(dtos.SingularityRequestParent)

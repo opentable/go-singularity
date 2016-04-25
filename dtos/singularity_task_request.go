@@ -3,9 +3,9 @@ package dtos
 import "io"
 
 type SingularityTaskRequest struct {
-	Deploy      *SingularityDeploy
-	PendingTask *SingularityPendingTask
-	Request     *SingularityRequest
+	Deploy      *SingularityDeploy      `json:"deploy"`
+	PendingTask *SingularityPendingTask `json:"pendingTask"`
+	Request     *SingularityRequest     `json:"request"`
 }
 
 func (self *SingularityTaskRequest) Populate(jsonReader io.ReadCloser) (err error) {

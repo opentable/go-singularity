@@ -6,6 +6,7 @@ func (client *Client) GetTaskStatistics(taskId string) (response *dtos.MesosTask
 	pathParamMap := map[string]interface{}{
 		"taskId": taskId,
 	}
+
 	queryParamMap := map[string]interface{}{}
 
 	response = new(dtos.MesosTaskStatisticsObject)

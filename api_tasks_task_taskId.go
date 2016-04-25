@@ -6,6 +6,7 @@ func (client *Client) KillTask(taskId string, body *dtos.SingularityKillTaskRequ
 	pathParamMap := map[string]interface{}{
 		"taskId": taskId,
 	}
+
 	queryParamMap := map[string]interface{}{}
 
 	response = new(dtos.SingularityTaskCleanup)
@@ -18,6 +19,7 @@ func (client *Client) GetActiveTask(taskId string) (response *dtos.SingularityTa
 	pathParamMap := map[string]interface{}{
 		"taskId": taskId,
 	}
+
 	queryParamMap := map[string]interface{}{}
 
 	response = new(dtos.SingularityTask)

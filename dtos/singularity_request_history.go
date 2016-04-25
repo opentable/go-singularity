@@ -2,12 +2,29 @@ package dtos
 
 import "io"
 
+type SingularityRequestHistoryRequestHistoryType string
+
+const (
+	SingularityRequestHistoryRequestHistoryTypeCREATED             SingularityRequestHistoryRequestHistoryType = "CREATED"
+	SingularityRequestHistoryRequestHistoryTypeUPDATED             SingularityRequestHistoryRequestHistoryType = "UPDATED"
+	SingularityRequestHistoryRequestHistoryTypeDELETED             SingularityRequestHistoryRequestHistoryType = "DELETED"
+	SingularityRequestHistoryRequestHistoryTypePAUSED              SingularityRequestHistoryRequestHistoryType = "PAUSED"
+	SingularityRequestHistoryRequestHistoryTypeUNPAUSED            SingularityRequestHistoryRequestHistoryType = "UNPAUSED"
+	SingularityRequestHistoryRequestHistoryTypeENTERED_COOLDOWN    SingularityRequestHistoryRequestHistoryType = "ENTERED_COOLDOWN"
+	SingularityRequestHistoryRequestHistoryTypeEXITED_COOLDOWN     SingularityRequestHistoryRequestHistoryType = "EXITED_COOLDOWN"
+	SingularityRequestHistoryRequestHistoryTypeFINISHED            SingularityRequestHistoryRequestHistoryType = "FINISHED"
+	SingularityRequestHistoryRequestHistoryTypeDEPLOYED_TO_UNPAUSE SingularityRequestHistoryRequestHistoryType = "DEPLOYED_TO_UNPAUSE"
+	SingularityRequestHistoryRequestHistoryTypeBOUNCED             SingularityRequestHistoryRequestHistoryType = "BOUNCED"
+	SingularityRequestHistoryRequestHistoryTypeSCALED              SingularityRequestHistoryRequestHistoryType = "SCALED"
+	SingularityRequestHistoryRequestHistoryTypeSCALE_REVERTED      SingularityRequestHistoryRequestHistoryType = "SCALE_REVERTED"
+)
+
 type SingularityRequestHistory struct {
-	CreatedAt int64
-	//	EventType *RequestHistoryType
-	Message string
-	Request *SingularityRequest
-	User    string
+	CreatedAt int64                                       `json:"createdAt"`
+	EventType SingularityRequestHistoryRequestHistoryType `json:"eventType"`
+	Message   string                                      `json:"message"`
+	Request   *SingularityRequest                         `json:"request"`
+	User      string                                      `json:"user"`
 }
 
 func (self *SingularityRequestHistory) Populate(jsonReader io.ReadCloser) (err error) {

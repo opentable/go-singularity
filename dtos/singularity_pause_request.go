@@ -3,10 +3,10 @@ package dtos
 import "io"
 
 type SingularityPauseRequest struct {
-	ActionId       string
-	DurationMillis int64
-	KillTasks      bool
-	Message        string
+	ActionId       string `json:"actionId"`
+	DurationMillis int64  `json:"durationMillis"`
+	KillTasks      bool   `json:"killTasks"`
+	Message        string `json:"message"`
 }
 
 func (self *SingularityPauseRequest) Populate(jsonReader io.ReadCloser) (err error) {

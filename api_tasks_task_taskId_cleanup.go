@@ -6,6 +6,7 @@ func (client *Client) GetTaskCleanup(taskId string) (response *dtos.SingularityT
 	pathParamMap := map[string]interface{}{
 		"taskId": taskId,
 	}
+
 	queryParamMap := map[string]interface{}{}
 
 	response = new(dtos.SingularityTaskCleanup)

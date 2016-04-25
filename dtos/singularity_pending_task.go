@@ -3,12 +3,12 @@ package dtos
 import "io"
 
 type SingularityPendingTask struct {
-	CmdLineArgsList  StringList
-	Message          string
-	PendingTaskId    *SingularityPendingTaskId
-	RunId            string
-	SkipHealthchecks bool
-	User             string
+	CmdLineArgsList  StringList                `json:"cmdLineArgsList"`
+	Message          string                    `json:"message"`
+	PendingTaskId    *SingularityPendingTaskId `json:"pendingTaskId"`
+	RunId            string                    `json:"runId"`
+	SkipHealthchecks bool                      `json:"skipHealthchecks"`
+	User             string                    `json:"user"`
 }
 
 func (self *SingularityPendingTask) Populate(jsonReader io.ReadCloser) (err error) {
