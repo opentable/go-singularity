@@ -1,6 +1,9 @@
 package dtos
 
-import "io"
+import (
+	"fmt"
+	"io"
+)
 
 type SingularityRequestCleanupRequestCleanupType string
 
@@ -12,20 +15,24 @@ const (
 )
 
 type SingularityRequestCleanup struct {
-	ActionId         string                                      `json:"actionId"`
+	present          map[string]bool
+	ActionId         string                                      `json:"actionId,omitempty"`
 	CleanupType      SingularityRequestCleanupRequestCleanupType `json:"cleanupType"`
-	DeployId         string                                      `json:"deployId"`
+	DeployId         string                                      `json:"deployId,omitempty"`
 	KillTasks        bool                                        `json:"killTasks"`
-	Message          string                                      `json:"message"`
-	RequestId        string                                      `json:"requestId"`
+	Message          string                                      `json:"message,omitempty"`
+	RequestId        string                                      `json:"requestId,omitempty"`
 	SkipHealthchecks bool                                        `json:"skipHealthchecks"`
 	Timestamp        int64                                       `json:"timestamp"`
-	User             string                                      `json:"user"`
+	User             string                                      `json:"user,omitempty"`
 }
 
 func (self *SingularityRequestCleanup) Populate(jsonReader io.ReadCloser) (err error) {
-	err = ReadPopulate(jsonReader, self)
-	return
+	return ReadPopulate(jsonReader, self)
+}
+
+func (self *SingularityRequestCleanup) MarshalJSON() ([]byte, error) {
+	return MarshalJSON(self)
 }
 
 func (self *SingularityRequestCleanup) FormatText() string {
@@ -34,6 +41,235 @@ func (self *SingularityRequestCleanup) FormatText() string {
 
 func (self *SingularityRequestCleanup) FormatJSON() string {
 	return FormatJSON(self)
+}
+
+func (self *SingularityRequestCleanup) FieldsPresent() []string {
+	return presenceFromMap(self.present)
+}
+
+func (self *SingularityRequestCleanup) SetField(name string, value interface{}) error {
+	if self.present == nil {
+		self.present = make(map[string]bool)
+	}
+	switch name {
+	default:
+		return fmt.Errorf("No such field %s on SingularityRequestCleanup", name)
+
+	case "actionId", "ActionId":
+		v, ok := value.(string)
+		if ok {
+			self.ActionId = v
+			self.present["actionId"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field actionId/ActionId: value %v couldn't be cast to type string", value)
+		}
+
+	case "cleanupType", "CleanupType":
+		v, ok := value.(SingularityRequestCleanupRequestCleanupType)
+		if ok {
+			self.CleanupType = v
+			self.present["cleanupType"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field cleanupType/CleanupType: value %v couldn't be cast to type SingularityRequestCleanupRequestCleanupType", value)
+		}
+
+	case "deployId", "DeployId":
+		v, ok := value.(string)
+		if ok {
+			self.DeployId = v
+			self.present["deployId"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field deployId/DeployId: value %v couldn't be cast to type string", value)
+		}
+
+	case "killTasks", "KillTasks":
+		v, ok := value.(bool)
+		if ok {
+			self.KillTasks = v
+			self.present["killTasks"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field killTasks/KillTasks: value %v couldn't be cast to type bool", value)
+		}
+
+	case "message", "Message":
+		v, ok := value.(string)
+		if ok {
+			self.Message = v
+			self.present["message"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field message/Message: value %v couldn't be cast to type string", value)
+		}
+
+	case "requestId", "RequestId":
+		v, ok := value.(string)
+		if ok {
+			self.RequestId = v
+			self.present["requestId"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field requestId/RequestId: value %v couldn't be cast to type string", value)
+		}
+
+	case "skipHealthchecks", "SkipHealthchecks":
+		v, ok := value.(bool)
+		if ok {
+			self.SkipHealthchecks = v
+			self.present["skipHealthchecks"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field skipHealthchecks/SkipHealthchecks: value %v couldn't be cast to type bool", value)
+		}
+
+	case "timestamp", "Timestamp":
+		v, ok := value.(int64)
+		if ok {
+			self.Timestamp = v
+			self.present["timestamp"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field timestamp/Timestamp: value %v couldn't be cast to type int64", value)
+		}
+
+	case "user", "User":
+		v, ok := value.(string)
+		if ok {
+			self.User = v
+			self.present["user"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field user/User: value %v couldn't be cast to type string", value)
+		}
+
+	}
+}
+
+func (self *SingularityRequestCleanup) GetField(name string) (interface{}, error) {
+	switch name {
+	default:
+		return nil, fmt.Errorf("No such field %s on SingularityRequestCleanup", name)
+
+	case "actionId", "ActionId":
+		if self.present != nil {
+			if _, ok := self.present["actionId"]; ok {
+				return self.ActionId, nil
+			}
+		}
+		return nil, fmt.Errorf("Field ActionId no set on ActionId %+v", self)
+
+	case "cleanupType", "CleanupType":
+		if self.present != nil {
+			if _, ok := self.present["cleanupType"]; ok {
+				return self.CleanupType, nil
+			}
+		}
+		return nil, fmt.Errorf("Field CleanupType no set on CleanupType %+v", self)
+
+	case "deployId", "DeployId":
+		if self.present != nil {
+			if _, ok := self.present["deployId"]; ok {
+				return self.DeployId, nil
+			}
+		}
+		return nil, fmt.Errorf("Field DeployId no set on DeployId %+v", self)
+
+	case "killTasks", "KillTasks":
+		if self.present != nil {
+			if _, ok := self.present["killTasks"]; ok {
+				return self.KillTasks, nil
+			}
+		}
+		return nil, fmt.Errorf("Field KillTasks no set on KillTasks %+v", self)
+
+	case "message", "Message":
+		if self.present != nil {
+			if _, ok := self.present["message"]; ok {
+				return self.Message, nil
+			}
+		}
+		return nil, fmt.Errorf("Field Message no set on Message %+v", self)
+
+	case "requestId", "RequestId":
+		if self.present != nil {
+			if _, ok := self.present["requestId"]; ok {
+				return self.RequestId, nil
+			}
+		}
+		return nil, fmt.Errorf("Field RequestId no set on RequestId %+v", self)
+
+	case "skipHealthchecks", "SkipHealthchecks":
+		if self.present != nil {
+			if _, ok := self.present["skipHealthchecks"]; ok {
+				return self.SkipHealthchecks, nil
+			}
+		}
+		return nil, fmt.Errorf("Field SkipHealthchecks no set on SkipHealthchecks %+v", self)
+
+	case "timestamp", "Timestamp":
+		if self.present != nil {
+			if _, ok := self.present["timestamp"]; ok {
+				return self.Timestamp, nil
+			}
+		}
+		return nil, fmt.Errorf("Field Timestamp no set on Timestamp %+v", self)
+
+	case "user", "User":
+		if self.present != nil {
+			if _, ok := self.present["user"]; ok {
+				return self.User, nil
+			}
+		}
+		return nil, fmt.Errorf("Field User no set on User %+v", self)
+
+	}
+}
+
+func (self *SingularityRequestCleanup) ClearField(name string) error {
+	if self.present == nil {
+		self.present = make(map[string]bool)
+	}
+	switch name {
+	default:
+		return fmt.Errorf("No such field %s on SingularityRequestCleanup", name)
+
+	case "actionId", "ActionId":
+		self.present["actionId"] = false
+
+	case "cleanupType", "CleanupType":
+		self.present["cleanupType"] = false
+
+	case "deployId", "DeployId":
+		self.present["deployId"] = false
+
+	case "killTasks", "KillTasks":
+		self.present["killTasks"] = false
+
+	case "message", "Message":
+		self.present["message"] = false
+
+	case "requestId", "RequestId":
+		self.present["requestId"] = false
+
+	case "skipHealthchecks", "SkipHealthchecks":
+		self.present["skipHealthchecks"] = false
+
+	case "timestamp", "Timestamp":
+		self.present["timestamp"] = false
+
+	case "user", "User":
+		self.present["user"] = false
+
+	}
+
+	return nil
+}
+
+func (self *SingularityRequestCleanup) LoadMap(from map[string]interface{}) error {
+	return loadMapIntoDTO(from, self)
 }
 
 type SingularityRequestCleanupList []*SingularityRequestCleanup

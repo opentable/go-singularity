@@ -1,23 +1,30 @@
 package dtos
 
-import "io"
+import (
+	"fmt"
+	"io"
+)
 
 type FileDescriptor struct {
+	present      map[string]bool
 	Dependencies FileDescriptorList `json:"dependencies"`
 	//	EnumTypes *List[EnumDescriptor] `json:"enumTypes"`
 	//	Extensions *List[FieldDescriptor] `json:"extensions"`
 	MessageTypes       DescriptorList     `json:"messageTypes"`
-	Name               string             `json:"name"`
+	Name               string             `json:"name,omitempty"`
 	Options            *FileOptions       `json:"options"`
-	Package            string             `json:"package"`
+	Package            string             `json:"package,omitempty"`
 	PublicDependencies FileDescriptorList `json:"publicDependencies"`
 	//	Services *List[ServiceDescriptor] `json:"services"`
 
 }
 
 func (self *FileDescriptor) Populate(jsonReader io.ReadCloser) (err error) {
-	err = ReadPopulate(jsonReader, self)
-	return
+	return ReadPopulate(jsonReader, self)
+}
+
+func (self *FileDescriptor) MarshalJSON() ([]byte, error) {
+	return MarshalJSON(self)
 }
 
 func (self *FileDescriptor) FormatText() string {
@@ -26,6 +33,172 @@ func (self *FileDescriptor) FormatText() string {
 
 func (self *FileDescriptor) FormatJSON() string {
 	return FormatJSON(self)
+}
+
+func (self *FileDescriptor) FieldsPresent() []string {
+	return presenceFromMap(self.present)
+}
+
+func (self *FileDescriptor) SetField(name string, value interface{}) error {
+	if self.present == nil {
+		self.present = make(map[string]bool)
+	}
+	switch name {
+	default:
+		return fmt.Errorf("No such field %s on FileDescriptor", name)
+
+	case "dependencies", "Dependencies":
+		v, ok := value.(FileDescriptorList)
+		if ok {
+			self.Dependencies = v
+			self.present["dependencies"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field dependencies/Dependencies: value %v couldn't be cast to type FileDescriptorList", value)
+		}
+
+	case "messageTypes", "MessageTypes":
+		v, ok := value.(DescriptorList)
+		if ok {
+			self.MessageTypes = v
+			self.present["messageTypes"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field messageTypes/MessageTypes: value %v couldn't be cast to type DescriptorList", value)
+		}
+
+	case "name", "Name":
+		v, ok := value.(string)
+		if ok {
+			self.Name = v
+			self.present["name"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field name/Name: value %v couldn't be cast to type string", value)
+		}
+
+	case "options", "Options":
+		v, ok := value.(*FileOptions)
+		if ok {
+			self.Options = v
+			self.present["options"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field options/Options: value %v couldn't be cast to type *FileOptions", value)
+		}
+
+	case "package", "Package":
+		v, ok := value.(string)
+		if ok {
+			self.Package = v
+			self.present["package"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field package/Package: value %v couldn't be cast to type string", value)
+		}
+
+	case "publicDependencies", "PublicDependencies":
+		v, ok := value.(FileDescriptorList)
+		if ok {
+			self.PublicDependencies = v
+			self.present["publicDependencies"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field publicDependencies/PublicDependencies: value %v couldn't be cast to type FileDescriptorList", value)
+		}
+
+	}
+}
+
+func (self *FileDescriptor) GetField(name string) (interface{}, error) {
+	switch name {
+	default:
+		return nil, fmt.Errorf("No such field %s on FileDescriptor", name)
+
+	case "dependencies", "Dependencies":
+		if self.present != nil {
+			if _, ok := self.present["dependencies"]; ok {
+				return self.Dependencies, nil
+			}
+		}
+		return nil, fmt.Errorf("Field Dependencies no set on Dependencies %+v", self)
+
+	case "messageTypes", "MessageTypes":
+		if self.present != nil {
+			if _, ok := self.present["messageTypes"]; ok {
+				return self.MessageTypes, nil
+			}
+		}
+		return nil, fmt.Errorf("Field MessageTypes no set on MessageTypes %+v", self)
+
+	case "name", "Name":
+		if self.present != nil {
+			if _, ok := self.present["name"]; ok {
+				return self.Name, nil
+			}
+		}
+		return nil, fmt.Errorf("Field Name no set on Name %+v", self)
+
+	case "options", "Options":
+		if self.present != nil {
+			if _, ok := self.present["options"]; ok {
+				return self.Options, nil
+			}
+		}
+		return nil, fmt.Errorf("Field Options no set on Options %+v", self)
+
+	case "package", "Package":
+		if self.present != nil {
+			if _, ok := self.present["package"]; ok {
+				return self.Package, nil
+			}
+		}
+		return nil, fmt.Errorf("Field Package no set on Package %+v", self)
+
+	case "publicDependencies", "PublicDependencies":
+		if self.present != nil {
+			if _, ok := self.present["publicDependencies"]; ok {
+				return self.PublicDependencies, nil
+			}
+		}
+		return nil, fmt.Errorf("Field PublicDependencies no set on PublicDependencies %+v", self)
+
+	}
+}
+
+func (self *FileDescriptor) ClearField(name string) error {
+	if self.present == nil {
+		self.present = make(map[string]bool)
+	}
+	switch name {
+	default:
+		return fmt.Errorf("No such field %s on FileDescriptor", name)
+
+	case "dependencies", "Dependencies":
+		self.present["dependencies"] = false
+
+	case "messageTypes", "MessageTypes":
+		self.present["messageTypes"] = false
+
+	case "name", "Name":
+		self.present["name"] = false
+
+	case "options", "Options":
+		self.present["options"] = false
+
+	case "package", "Package":
+		self.present["package"] = false
+
+	case "publicDependencies", "PublicDependencies":
+		self.present["publicDependencies"] = false
+
+	}
+
+	return nil
+}
+
+func (self *FileDescriptor) LoadMap(from map[string]interface{}) error {
+	return loadMapIntoDTO(from, self)
 }
 
 type FileDescriptorList []*FileDescriptor

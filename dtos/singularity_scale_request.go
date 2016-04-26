@@ -1,18 +1,25 @@
 package dtos
 
-import "io"
+import (
+	"fmt"
+	"io"
+)
 
 type SingularityScaleRequest struct {
-	ActionId         string `json:"actionId"`
+	present          map[string]bool
+	ActionId         string `json:"actionId,omitempty"`
 	DurationMillis   int64  `json:"durationMillis"`
 	Instances        int32  `json:"instances"`
-	Message          string `json:"message"`
+	Message          string `json:"message,omitempty"`
 	SkipHealthchecks bool   `json:"skipHealthchecks"`
 }
 
 func (self *SingularityScaleRequest) Populate(jsonReader io.ReadCloser) (err error) {
-	err = ReadPopulate(jsonReader, self)
-	return
+	return ReadPopulate(jsonReader, self)
+}
+
+func (self *SingularityScaleRequest) MarshalJSON() ([]byte, error) {
+	return MarshalJSON(self)
 }
 
 func (self *SingularityScaleRequest) FormatText() string {
@@ -21,6 +28,151 @@ func (self *SingularityScaleRequest) FormatText() string {
 
 func (self *SingularityScaleRequest) FormatJSON() string {
 	return FormatJSON(self)
+}
+
+func (self *SingularityScaleRequest) FieldsPresent() []string {
+	return presenceFromMap(self.present)
+}
+
+func (self *SingularityScaleRequest) SetField(name string, value interface{}) error {
+	if self.present == nil {
+		self.present = make(map[string]bool)
+	}
+	switch name {
+	default:
+		return fmt.Errorf("No such field %s on SingularityScaleRequest", name)
+
+	case "actionId", "ActionId":
+		v, ok := value.(string)
+		if ok {
+			self.ActionId = v
+			self.present["actionId"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field actionId/ActionId: value %v couldn't be cast to type string", value)
+		}
+
+	case "durationMillis", "DurationMillis":
+		v, ok := value.(int64)
+		if ok {
+			self.DurationMillis = v
+			self.present["durationMillis"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field durationMillis/DurationMillis: value %v couldn't be cast to type int64", value)
+		}
+
+	case "instances", "Instances":
+		v, ok := value.(int32)
+		if ok {
+			self.Instances = v
+			self.present["instances"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field instances/Instances: value %v couldn't be cast to type int32", value)
+		}
+
+	case "message", "Message":
+		v, ok := value.(string)
+		if ok {
+			self.Message = v
+			self.present["message"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field message/Message: value %v couldn't be cast to type string", value)
+		}
+
+	case "skipHealthchecks", "SkipHealthchecks":
+		v, ok := value.(bool)
+		if ok {
+			self.SkipHealthchecks = v
+			self.present["skipHealthchecks"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field skipHealthchecks/SkipHealthchecks: value %v couldn't be cast to type bool", value)
+		}
+
+	}
+}
+
+func (self *SingularityScaleRequest) GetField(name string) (interface{}, error) {
+	switch name {
+	default:
+		return nil, fmt.Errorf("No such field %s on SingularityScaleRequest", name)
+
+	case "actionId", "ActionId":
+		if self.present != nil {
+			if _, ok := self.present["actionId"]; ok {
+				return self.ActionId, nil
+			}
+		}
+		return nil, fmt.Errorf("Field ActionId no set on ActionId %+v", self)
+
+	case "durationMillis", "DurationMillis":
+		if self.present != nil {
+			if _, ok := self.present["durationMillis"]; ok {
+				return self.DurationMillis, nil
+			}
+		}
+		return nil, fmt.Errorf("Field DurationMillis no set on DurationMillis %+v", self)
+
+	case "instances", "Instances":
+		if self.present != nil {
+			if _, ok := self.present["instances"]; ok {
+				return self.Instances, nil
+			}
+		}
+		return nil, fmt.Errorf("Field Instances no set on Instances %+v", self)
+
+	case "message", "Message":
+		if self.present != nil {
+			if _, ok := self.present["message"]; ok {
+				return self.Message, nil
+			}
+		}
+		return nil, fmt.Errorf("Field Message no set on Message %+v", self)
+
+	case "skipHealthchecks", "SkipHealthchecks":
+		if self.present != nil {
+			if _, ok := self.present["skipHealthchecks"]; ok {
+				return self.SkipHealthchecks, nil
+			}
+		}
+		return nil, fmt.Errorf("Field SkipHealthchecks no set on SkipHealthchecks %+v", self)
+
+	}
+}
+
+func (self *SingularityScaleRequest) ClearField(name string) error {
+	if self.present == nil {
+		self.present = make(map[string]bool)
+	}
+	switch name {
+	default:
+		return fmt.Errorf("No such field %s on SingularityScaleRequest", name)
+
+	case "actionId", "ActionId":
+		self.present["actionId"] = false
+
+	case "durationMillis", "DurationMillis":
+		self.present["durationMillis"] = false
+
+	case "instances", "Instances":
+		self.present["instances"] = false
+
+	case "message", "Message":
+		self.present["message"] = false
+
+	case "skipHealthchecks", "SkipHealthchecks":
+		self.present["skipHealthchecks"] = false
+
+	}
+
+	return nil
+}
+
+func (self *SingularityScaleRequest) LoadMap(from map[string]interface{}) error {
+	return loadMapIntoDTO(from, self)
 }
 
 type SingularityScaleRequestList []*SingularityScaleRequest

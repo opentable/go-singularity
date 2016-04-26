@@ -1,6 +1,9 @@
 package dtos
 
-import "io"
+import (
+	"fmt"
+	"io"
+)
 
 type FileOptionsOptimizeMode string
 
@@ -11,20 +14,21 @@ const (
 )
 
 type FileOptions struct {
+	present map[string]bool
 	//	AllFields *Map[FieldDescriptor,Object] `json:"allFields"`
 	CcGenericServices         bool                    `json:"ccGenericServices"`
 	DefaultInstanceForType    *FileOptions            `json:"defaultInstanceForType"`
 	DescriptorForType         *Descriptor             `json:"descriptorForType"`
-	GoPackage                 string                  `json:"goPackage"`
+	GoPackage                 string                  `json:"goPackage,omitempty"`
 	GoPackageBytes            *ByteString             `json:"goPackageBytes"`
-	InitializationErrorString string                  `json:"initializationErrorString"`
+	InitializationErrorString string                  `json:"initializationErrorString,omitempty"`
 	Initialized               bool                    `json:"initialized"`
 	JavaGenerateEqualsAndHash bool                    `json:"javaGenerateEqualsAndHash"`
 	JavaGenericServices       bool                    `json:"javaGenericServices"`
 	JavaMultipleFiles         bool                    `json:"javaMultipleFiles"`
-	JavaOuterClassname        string                  `json:"javaOuterClassname"`
+	JavaOuterClassname        string                  `json:"javaOuterClassname,omitempty"`
 	JavaOuterClassnameBytes   *ByteString             `json:"javaOuterClassnameBytes"`
-	JavaPackage               string                  `json:"javaPackage"`
+	JavaPackage               string                  `json:"javaPackage,omitempty"`
 	JavaPackageBytes          *ByteString             `json:"javaPackageBytes"`
 	OptimizeFor               FileOptionsOptimizeMode `json:"optimizeFor"`
 	//	ParserForType *com.google.protobuf.Parser&lt;com.google.protobuf.DescriptorProtos$FileOptions&gt; `json:"parserForType"`
@@ -37,8 +41,11 @@ type FileOptions struct {
 }
 
 func (self *FileOptions) Populate(jsonReader io.ReadCloser) (err error) {
-	err = ReadPopulate(jsonReader, self)
-	return
+	return ReadPopulate(jsonReader, self)
+}
+
+func (self *FileOptions) MarshalJSON() ([]byte, error) {
+	return MarshalJSON(self)
 }
 
 func (self *FileOptions) FormatText() string {
@@ -47,6 +54,445 @@ func (self *FileOptions) FormatText() string {
 
 func (self *FileOptions) FormatJSON() string {
 	return FormatJSON(self)
+}
+
+func (self *FileOptions) FieldsPresent() []string {
+	return presenceFromMap(self.present)
+}
+
+func (self *FileOptions) SetField(name string, value interface{}) error {
+	if self.present == nil {
+		self.present = make(map[string]bool)
+	}
+	switch name {
+	default:
+		return fmt.Errorf("No such field %s on FileOptions", name)
+
+	case "ccGenericServices", "CcGenericServices":
+		v, ok := value.(bool)
+		if ok {
+			self.CcGenericServices = v
+			self.present["ccGenericServices"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field ccGenericServices/CcGenericServices: value %v couldn't be cast to type bool", value)
+		}
+
+	case "defaultInstanceForType", "DefaultInstanceForType":
+		v, ok := value.(*FileOptions)
+		if ok {
+			self.DefaultInstanceForType = v
+			self.present["defaultInstanceForType"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field defaultInstanceForType/DefaultInstanceForType: value %v couldn't be cast to type *FileOptions", value)
+		}
+
+	case "descriptorForType", "DescriptorForType":
+		v, ok := value.(*Descriptor)
+		if ok {
+			self.DescriptorForType = v
+			self.present["descriptorForType"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field descriptorForType/DescriptorForType: value %v couldn't be cast to type *Descriptor", value)
+		}
+
+	case "goPackage", "GoPackage":
+		v, ok := value.(string)
+		if ok {
+			self.GoPackage = v
+			self.present["goPackage"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field goPackage/GoPackage: value %v couldn't be cast to type string", value)
+		}
+
+	case "goPackageBytes", "GoPackageBytes":
+		v, ok := value.(*ByteString)
+		if ok {
+			self.GoPackageBytes = v
+			self.present["goPackageBytes"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field goPackageBytes/GoPackageBytes: value %v couldn't be cast to type *ByteString", value)
+		}
+
+	case "initializationErrorString", "InitializationErrorString":
+		v, ok := value.(string)
+		if ok {
+			self.InitializationErrorString = v
+			self.present["initializationErrorString"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field initializationErrorString/InitializationErrorString: value %v couldn't be cast to type string", value)
+		}
+
+	case "initialized", "Initialized":
+		v, ok := value.(bool)
+		if ok {
+			self.Initialized = v
+			self.present["initialized"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field initialized/Initialized: value %v couldn't be cast to type bool", value)
+		}
+
+	case "javaGenerateEqualsAndHash", "JavaGenerateEqualsAndHash":
+		v, ok := value.(bool)
+		if ok {
+			self.JavaGenerateEqualsAndHash = v
+			self.present["javaGenerateEqualsAndHash"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field javaGenerateEqualsAndHash/JavaGenerateEqualsAndHash: value %v couldn't be cast to type bool", value)
+		}
+
+	case "javaGenericServices", "JavaGenericServices":
+		v, ok := value.(bool)
+		if ok {
+			self.JavaGenericServices = v
+			self.present["javaGenericServices"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field javaGenericServices/JavaGenericServices: value %v couldn't be cast to type bool", value)
+		}
+
+	case "javaMultipleFiles", "JavaMultipleFiles":
+		v, ok := value.(bool)
+		if ok {
+			self.JavaMultipleFiles = v
+			self.present["javaMultipleFiles"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field javaMultipleFiles/JavaMultipleFiles: value %v couldn't be cast to type bool", value)
+		}
+
+	case "javaOuterClassname", "JavaOuterClassname":
+		v, ok := value.(string)
+		if ok {
+			self.JavaOuterClassname = v
+			self.present["javaOuterClassname"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field javaOuterClassname/JavaOuterClassname: value %v couldn't be cast to type string", value)
+		}
+
+	case "javaOuterClassnameBytes", "JavaOuterClassnameBytes":
+		v, ok := value.(*ByteString)
+		if ok {
+			self.JavaOuterClassnameBytes = v
+			self.present["javaOuterClassnameBytes"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field javaOuterClassnameBytes/JavaOuterClassnameBytes: value %v couldn't be cast to type *ByteString", value)
+		}
+
+	case "javaPackage", "JavaPackage":
+		v, ok := value.(string)
+		if ok {
+			self.JavaPackage = v
+			self.present["javaPackage"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field javaPackage/JavaPackage: value %v couldn't be cast to type string", value)
+		}
+
+	case "javaPackageBytes", "JavaPackageBytes":
+		v, ok := value.(*ByteString)
+		if ok {
+			self.JavaPackageBytes = v
+			self.present["javaPackageBytes"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field javaPackageBytes/JavaPackageBytes: value %v couldn't be cast to type *ByteString", value)
+		}
+
+	case "optimizeFor", "OptimizeFor":
+		v, ok := value.(FileOptionsOptimizeMode)
+		if ok {
+			self.OptimizeFor = v
+			self.present["optimizeFor"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field optimizeFor/OptimizeFor: value %v couldn't be cast to type FileOptionsOptimizeMode", value)
+		}
+
+	case "pyGenericServices", "PyGenericServices":
+		v, ok := value.(bool)
+		if ok {
+			self.PyGenericServices = v
+			self.present["pyGenericServices"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field pyGenericServices/PyGenericServices: value %v couldn't be cast to type bool", value)
+		}
+
+	case "serializedSize", "SerializedSize":
+		v, ok := value.(int32)
+		if ok {
+			self.SerializedSize = v
+			self.present["serializedSize"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field serializedSize/SerializedSize: value %v couldn't be cast to type int32", value)
+		}
+
+	case "uninterpretedOptionCount", "UninterpretedOptionCount":
+		v, ok := value.(int32)
+		if ok {
+			self.UninterpretedOptionCount = v
+			self.present["uninterpretedOptionCount"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field uninterpretedOptionCount/UninterpretedOptionCount: value %v couldn't be cast to type int32", value)
+		}
+
+	case "unknownFields", "UnknownFields":
+		v, ok := value.(*UnknownFieldSet)
+		if ok {
+			self.UnknownFields = v
+			self.present["unknownFields"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field unknownFields/UnknownFields: value %v couldn't be cast to type *UnknownFieldSet", value)
+		}
+
+	}
+}
+
+func (self *FileOptions) GetField(name string) (interface{}, error) {
+	switch name {
+	default:
+		return nil, fmt.Errorf("No such field %s on FileOptions", name)
+
+	case "ccGenericServices", "CcGenericServices":
+		if self.present != nil {
+			if _, ok := self.present["ccGenericServices"]; ok {
+				return self.CcGenericServices, nil
+			}
+		}
+		return nil, fmt.Errorf("Field CcGenericServices no set on CcGenericServices %+v", self)
+
+	case "defaultInstanceForType", "DefaultInstanceForType":
+		if self.present != nil {
+			if _, ok := self.present["defaultInstanceForType"]; ok {
+				return self.DefaultInstanceForType, nil
+			}
+		}
+		return nil, fmt.Errorf("Field DefaultInstanceForType no set on DefaultInstanceForType %+v", self)
+
+	case "descriptorForType", "DescriptorForType":
+		if self.present != nil {
+			if _, ok := self.present["descriptorForType"]; ok {
+				return self.DescriptorForType, nil
+			}
+		}
+		return nil, fmt.Errorf("Field DescriptorForType no set on DescriptorForType %+v", self)
+
+	case "goPackage", "GoPackage":
+		if self.present != nil {
+			if _, ok := self.present["goPackage"]; ok {
+				return self.GoPackage, nil
+			}
+		}
+		return nil, fmt.Errorf("Field GoPackage no set on GoPackage %+v", self)
+
+	case "goPackageBytes", "GoPackageBytes":
+		if self.present != nil {
+			if _, ok := self.present["goPackageBytes"]; ok {
+				return self.GoPackageBytes, nil
+			}
+		}
+		return nil, fmt.Errorf("Field GoPackageBytes no set on GoPackageBytes %+v", self)
+
+	case "initializationErrorString", "InitializationErrorString":
+		if self.present != nil {
+			if _, ok := self.present["initializationErrorString"]; ok {
+				return self.InitializationErrorString, nil
+			}
+		}
+		return nil, fmt.Errorf("Field InitializationErrorString no set on InitializationErrorString %+v", self)
+
+	case "initialized", "Initialized":
+		if self.present != nil {
+			if _, ok := self.present["initialized"]; ok {
+				return self.Initialized, nil
+			}
+		}
+		return nil, fmt.Errorf("Field Initialized no set on Initialized %+v", self)
+
+	case "javaGenerateEqualsAndHash", "JavaGenerateEqualsAndHash":
+		if self.present != nil {
+			if _, ok := self.present["javaGenerateEqualsAndHash"]; ok {
+				return self.JavaGenerateEqualsAndHash, nil
+			}
+		}
+		return nil, fmt.Errorf("Field JavaGenerateEqualsAndHash no set on JavaGenerateEqualsAndHash %+v", self)
+
+	case "javaGenericServices", "JavaGenericServices":
+		if self.present != nil {
+			if _, ok := self.present["javaGenericServices"]; ok {
+				return self.JavaGenericServices, nil
+			}
+		}
+		return nil, fmt.Errorf("Field JavaGenericServices no set on JavaGenericServices %+v", self)
+
+	case "javaMultipleFiles", "JavaMultipleFiles":
+		if self.present != nil {
+			if _, ok := self.present["javaMultipleFiles"]; ok {
+				return self.JavaMultipleFiles, nil
+			}
+		}
+		return nil, fmt.Errorf("Field JavaMultipleFiles no set on JavaMultipleFiles %+v", self)
+
+	case "javaOuterClassname", "JavaOuterClassname":
+		if self.present != nil {
+			if _, ok := self.present["javaOuterClassname"]; ok {
+				return self.JavaOuterClassname, nil
+			}
+		}
+		return nil, fmt.Errorf("Field JavaOuterClassname no set on JavaOuterClassname %+v", self)
+
+	case "javaOuterClassnameBytes", "JavaOuterClassnameBytes":
+		if self.present != nil {
+			if _, ok := self.present["javaOuterClassnameBytes"]; ok {
+				return self.JavaOuterClassnameBytes, nil
+			}
+		}
+		return nil, fmt.Errorf("Field JavaOuterClassnameBytes no set on JavaOuterClassnameBytes %+v", self)
+
+	case "javaPackage", "JavaPackage":
+		if self.present != nil {
+			if _, ok := self.present["javaPackage"]; ok {
+				return self.JavaPackage, nil
+			}
+		}
+		return nil, fmt.Errorf("Field JavaPackage no set on JavaPackage %+v", self)
+
+	case "javaPackageBytes", "JavaPackageBytes":
+		if self.present != nil {
+			if _, ok := self.present["javaPackageBytes"]; ok {
+				return self.JavaPackageBytes, nil
+			}
+		}
+		return nil, fmt.Errorf("Field JavaPackageBytes no set on JavaPackageBytes %+v", self)
+
+	case "optimizeFor", "OptimizeFor":
+		if self.present != nil {
+			if _, ok := self.present["optimizeFor"]; ok {
+				return self.OptimizeFor, nil
+			}
+		}
+		return nil, fmt.Errorf("Field OptimizeFor no set on OptimizeFor %+v", self)
+
+	case "pyGenericServices", "PyGenericServices":
+		if self.present != nil {
+			if _, ok := self.present["pyGenericServices"]; ok {
+				return self.PyGenericServices, nil
+			}
+		}
+		return nil, fmt.Errorf("Field PyGenericServices no set on PyGenericServices %+v", self)
+
+	case "serializedSize", "SerializedSize":
+		if self.present != nil {
+			if _, ok := self.present["serializedSize"]; ok {
+				return self.SerializedSize, nil
+			}
+		}
+		return nil, fmt.Errorf("Field SerializedSize no set on SerializedSize %+v", self)
+
+	case "uninterpretedOptionCount", "UninterpretedOptionCount":
+		if self.present != nil {
+			if _, ok := self.present["uninterpretedOptionCount"]; ok {
+				return self.UninterpretedOptionCount, nil
+			}
+		}
+		return nil, fmt.Errorf("Field UninterpretedOptionCount no set on UninterpretedOptionCount %+v", self)
+
+	case "unknownFields", "UnknownFields":
+		if self.present != nil {
+			if _, ok := self.present["unknownFields"]; ok {
+				return self.UnknownFields, nil
+			}
+		}
+		return nil, fmt.Errorf("Field UnknownFields no set on UnknownFields %+v", self)
+
+	}
+}
+
+func (self *FileOptions) ClearField(name string) error {
+	if self.present == nil {
+		self.present = make(map[string]bool)
+	}
+	switch name {
+	default:
+		return fmt.Errorf("No such field %s on FileOptions", name)
+
+	case "ccGenericServices", "CcGenericServices":
+		self.present["ccGenericServices"] = false
+
+	case "defaultInstanceForType", "DefaultInstanceForType":
+		self.present["defaultInstanceForType"] = false
+
+	case "descriptorForType", "DescriptorForType":
+		self.present["descriptorForType"] = false
+
+	case "goPackage", "GoPackage":
+		self.present["goPackage"] = false
+
+	case "goPackageBytes", "GoPackageBytes":
+		self.present["goPackageBytes"] = false
+
+	case "initializationErrorString", "InitializationErrorString":
+		self.present["initializationErrorString"] = false
+
+	case "initialized", "Initialized":
+		self.present["initialized"] = false
+
+	case "javaGenerateEqualsAndHash", "JavaGenerateEqualsAndHash":
+		self.present["javaGenerateEqualsAndHash"] = false
+
+	case "javaGenericServices", "JavaGenericServices":
+		self.present["javaGenericServices"] = false
+
+	case "javaMultipleFiles", "JavaMultipleFiles":
+		self.present["javaMultipleFiles"] = false
+
+	case "javaOuterClassname", "JavaOuterClassname":
+		self.present["javaOuterClassname"] = false
+
+	case "javaOuterClassnameBytes", "JavaOuterClassnameBytes":
+		self.present["javaOuterClassnameBytes"] = false
+
+	case "javaPackage", "JavaPackage":
+		self.present["javaPackage"] = false
+
+	case "javaPackageBytes", "JavaPackageBytes":
+		self.present["javaPackageBytes"] = false
+
+	case "optimizeFor", "OptimizeFor":
+		self.present["optimizeFor"] = false
+
+	case "pyGenericServices", "PyGenericServices":
+		self.present["pyGenericServices"] = false
+
+	case "serializedSize", "SerializedSize":
+		self.present["serializedSize"] = false
+
+	case "uninterpretedOptionCount", "UninterpretedOptionCount":
+		self.present["uninterpretedOptionCount"] = false
+
+	case "unknownFields", "UnknownFields":
+		self.present["unknownFields"] = false
+
+	}
+
+	return nil
+}
+
+func (self *FileOptions) LoadMap(from map[string]interface{}) error {
+	return loadMapIntoDTO(from, self)
 }
 
 type FileOptionsList []*FileOptions

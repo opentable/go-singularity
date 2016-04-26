@@ -1,17 +1,24 @@
 package dtos
 
-import "io"
+import (
+	"fmt"
+	"io"
+)
 
 type SingularitySandboxFile struct {
-	Mode  string `json:"mode"`
-	Mtime int64  `json:"mtime"`
-	Name  string `json:"name"`
-	Size  int64  `json:"size"`
+	present map[string]bool
+	Mode    string `json:"mode,omitempty"`
+	Mtime   int64  `json:"mtime"`
+	Name    string `json:"name,omitempty"`
+	Size    int64  `json:"size"`
 }
 
 func (self *SingularitySandboxFile) Populate(jsonReader io.ReadCloser) (err error) {
-	err = ReadPopulate(jsonReader, self)
-	return
+	return ReadPopulate(jsonReader, self)
+}
+
+func (self *SingularitySandboxFile) MarshalJSON() ([]byte, error) {
+	return MarshalJSON(self)
 }
 
 func (self *SingularitySandboxFile) FormatText() string {
@@ -20,6 +27,130 @@ func (self *SingularitySandboxFile) FormatText() string {
 
 func (self *SingularitySandboxFile) FormatJSON() string {
 	return FormatJSON(self)
+}
+
+func (self *SingularitySandboxFile) FieldsPresent() []string {
+	return presenceFromMap(self.present)
+}
+
+func (self *SingularitySandboxFile) SetField(name string, value interface{}) error {
+	if self.present == nil {
+		self.present = make(map[string]bool)
+	}
+	switch name {
+	default:
+		return fmt.Errorf("No such field %s on SingularitySandboxFile", name)
+
+	case "mode", "Mode":
+		v, ok := value.(string)
+		if ok {
+			self.Mode = v
+			self.present["mode"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field mode/Mode: value %v couldn't be cast to type string", value)
+		}
+
+	case "mtime", "Mtime":
+		v, ok := value.(int64)
+		if ok {
+			self.Mtime = v
+			self.present["mtime"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field mtime/Mtime: value %v couldn't be cast to type int64", value)
+		}
+
+	case "name", "Name":
+		v, ok := value.(string)
+		if ok {
+			self.Name = v
+			self.present["name"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field name/Name: value %v couldn't be cast to type string", value)
+		}
+
+	case "size", "Size":
+		v, ok := value.(int64)
+		if ok {
+			self.Size = v
+			self.present["size"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field size/Size: value %v couldn't be cast to type int64", value)
+		}
+
+	}
+}
+
+func (self *SingularitySandboxFile) GetField(name string) (interface{}, error) {
+	switch name {
+	default:
+		return nil, fmt.Errorf("No such field %s on SingularitySandboxFile", name)
+
+	case "mode", "Mode":
+		if self.present != nil {
+			if _, ok := self.present["mode"]; ok {
+				return self.Mode, nil
+			}
+		}
+		return nil, fmt.Errorf("Field Mode no set on Mode %+v", self)
+
+	case "mtime", "Mtime":
+		if self.present != nil {
+			if _, ok := self.present["mtime"]; ok {
+				return self.Mtime, nil
+			}
+		}
+		return nil, fmt.Errorf("Field Mtime no set on Mtime %+v", self)
+
+	case "name", "Name":
+		if self.present != nil {
+			if _, ok := self.present["name"]; ok {
+				return self.Name, nil
+			}
+		}
+		return nil, fmt.Errorf("Field Name no set on Name %+v", self)
+
+	case "size", "Size":
+		if self.present != nil {
+			if _, ok := self.present["size"]; ok {
+				return self.Size, nil
+			}
+		}
+		return nil, fmt.Errorf("Field Size no set on Size %+v", self)
+
+	}
+}
+
+func (self *SingularitySandboxFile) ClearField(name string) error {
+	if self.present == nil {
+		self.present = make(map[string]bool)
+	}
+	switch name {
+	default:
+		return fmt.Errorf("No such field %s on SingularitySandboxFile", name)
+
+	case "mode", "Mode":
+		self.present["mode"] = false
+
+	case "mtime", "Mtime":
+		self.present["mtime"] = false
+
+	case "name", "Name":
+		self.present["name"] = false
+
+	case "size", "Size":
+		self.present["size"] = false
+
+	}
+
+	return nil
+}
+
+func (self *SingularitySandboxFile) LoadMap(from map[string]interface{}) error {
+	return loadMapIntoDTO(from, self)
 }
 
 type SingularitySandboxFileList []*SingularitySandboxFile

@@ -3,6 +3,7 @@ package dtos
 import (
 	"bytes"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"io"
 	"strings"
@@ -12,6 +13,13 @@ type DTO interface {
 	Populate(io.ReadCloser) error
 	FormatText() string
 	FormatJSON() string
+}
+
+type Fielder interface {
+	FieldsPresent() []string
+	GetField(string) (interface{}, error)
+	SetField(string, interface{}) error
+	ClearField(string) error
 }
 
 type StringList []string
@@ -54,6 +62,37 @@ func ReadPopulate(jsonReader io.ReadCloser, target interface{}) (err error) {
 	return
 }
 
+func MarshalJSON(dto Fielder) (buf []byte, err error) {
+	data := make(map[string]interface{})
+	for _, name := range dto.FieldsPresent() {
+		data[name], _ = dto.GetField(name)
+	}
+	return json.Marshal(data)
+}
+
+func presenceFromMap(m map[string]bool) []string {
+	presence := make([]string, 0)
+	for name, present := range m {
+		if present {
+			presence = append(presence, name)
+		}
+	}
+	return presence
+}
+
+func loadMapIntoDTO(from map[string]interface{}, dto Fielder) error {
+	errs := make([]string, 0)
+	for name, value := range from {
+		if err := dto.SetField(name, value); err != nil {
+			errs = append(errs, err.Error())
+		}
+	}
+	if len(errs) > 0 {
+		return errors.New(strings.Join(errs, "\n"))
+	}
+	return nil
+}
+
 func FormatText(dto interface{}) string {
 	return fmt.Sprintf("%+v", dto)
 }
@@ -61,10 +100,12 @@ func FormatText(dto interface{}) string {
 func FormatJSON(dto interface{}) string {
 	str, err := json.Marshal(dto)
 	if err != nil {
-		return "<<XXXX>>"
+		return "&lt;<XXXX>>"
 	} else {
 		buf := bytes.Buffer{}
 		json.Indent(&buf, str, "", "  ")
 		return buf.String()
 	}
 }
+
+// vim: set ft=go:

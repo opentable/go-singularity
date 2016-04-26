@@ -1,6 +1,9 @@
 package dtos
 
-import "io"
+import (
+	"fmt"
+	"io"
+)
 
 type DockerInfoNetwork string
 
@@ -11,13 +14,14 @@ const (
 )
 
 type DockerInfo struct {
+	present map[string]bool
 	//	AllFields *Map[FieldDescriptor,Object] `json:"allFields"`
 	DefaultInstanceForType    *DockerInfo       `json:"defaultInstanceForType"`
 	DescriptorForType         *Descriptor       `json:"descriptorForType"`
 	ForcePullImage            bool              `json:"forcePullImage"`
-	Image                     string            `json:"image"`
+	Image                     string            `json:"image,omitempty"`
 	ImageBytes                *ByteString       `json:"imageBytes"`
-	InitializationErrorString string            `json:"initializationErrorString"`
+	InitializationErrorString string            `json:"initializationErrorString,omitempty"`
 	Initialized               bool              `json:"initialized"`
 	Network                   DockerInfoNetwork `json:"network"`
 	ParametersCount           int32             `json:"parametersCount"`
@@ -33,8 +37,11 @@ type DockerInfo struct {
 }
 
 func (self *DockerInfo) Populate(jsonReader io.ReadCloser) (err error) {
-	err = ReadPopulate(jsonReader, self)
-	return
+	return ReadPopulate(jsonReader, self)
+}
+
+func (self *DockerInfo) MarshalJSON() ([]byte, error) {
+	return MarshalJSON(self)
 }
 
 func (self *DockerInfo) FormatText() string {
@@ -43,6 +50,319 @@ func (self *DockerInfo) FormatText() string {
 
 func (self *DockerInfo) FormatJSON() string {
 	return FormatJSON(self)
+}
+
+func (self *DockerInfo) FieldsPresent() []string {
+	return presenceFromMap(self.present)
+}
+
+func (self *DockerInfo) SetField(name string, value interface{}) error {
+	if self.present == nil {
+		self.present = make(map[string]bool)
+	}
+	switch name {
+	default:
+		return fmt.Errorf("No such field %s on DockerInfo", name)
+
+	case "defaultInstanceForType", "DefaultInstanceForType":
+		v, ok := value.(*DockerInfo)
+		if ok {
+			self.DefaultInstanceForType = v
+			self.present["defaultInstanceForType"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field defaultInstanceForType/DefaultInstanceForType: value %v couldn't be cast to type *DockerInfo", value)
+		}
+
+	case "descriptorForType", "DescriptorForType":
+		v, ok := value.(*Descriptor)
+		if ok {
+			self.DescriptorForType = v
+			self.present["descriptorForType"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field descriptorForType/DescriptorForType: value %v couldn't be cast to type *Descriptor", value)
+		}
+
+	case "forcePullImage", "ForcePullImage":
+		v, ok := value.(bool)
+		if ok {
+			self.ForcePullImage = v
+			self.present["forcePullImage"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field forcePullImage/ForcePullImage: value %v couldn't be cast to type bool", value)
+		}
+
+	case "image", "Image":
+		v, ok := value.(string)
+		if ok {
+			self.Image = v
+			self.present["image"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field image/Image: value %v couldn't be cast to type string", value)
+		}
+
+	case "imageBytes", "ImageBytes":
+		v, ok := value.(*ByteString)
+		if ok {
+			self.ImageBytes = v
+			self.present["imageBytes"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field imageBytes/ImageBytes: value %v couldn't be cast to type *ByteString", value)
+		}
+
+	case "initializationErrorString", "InitializationErrorString":
+		v, ok := value.(string)
+		if ok {
+			self.InitializationErrorString = v
+			self.present["initializationErrorString"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field initializationErrorString/InitializationErrorString: value %v couldn't be cast to type string", value)
+		}
+
+	case "initialized", "Initialized":
+		v, ok := value.(bool)
+		if ok {
+			self.Initialized = v
+			self.present["initialized"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field initialized/Initialized: value %v couldn't be cast to type bool", value)
+		}
+
+	case "network", "Network":
+		v, ok := value.(DockerInfoNetwork)
+		if ok {
+			self.Network = v
+			self.present["network"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field network/Network: value %v couldn't be cast to type DockerInfoNetwork", value)
+		}
+
+	case "parametersCount", "ParametersCount":
+		v, ok := value.(int32)
+		if ok {
+			self.ParametersCount = v
+			self.present["parametersCount"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field parametersCount/ParametersCount: value %v couldn't be cast to type int32", value)
+		}
+
+	case "portMappingsCount", "PortMappingsCount":
+		v, ok := value.(int32)
+		if ok {
+			self.PortMappingsCount = v
+			self.present["portMappingsCount"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field portMappingsCount/PortMappingsCount: value %v couldn't be cast to type int32", value)
+		}
+
+	case "privileged", "Privileged":
+		v, ok := value.(bool)
+		if ok {
+			self.Privileged = v
+			self.present["privileged"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field privileged/Privileged: value %v couldn't be cast to type bool", value)
+		}
+
+	case "serializedSize", "SerializedSize":
+		v, ok := value.(int32)
+		if ok {
+			self.SerializedSize = v
+			self.present["serializedSize"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field serializedSize/SerializedSize: value %v couldn't be cast to type int32", value)
+		}
+
+	case "unknownFields", "UnknownFields":
+		v, ok := value.(*UnknownFieldSet)
+		if ok {
+			self.UnknownFields = v
+			self.present["unknownFields"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field unknownFields/UnknownFields: value %v couldn't be cast to type *UnknownFieldSet", value)
+		}
+
+	}
+}
+
+func (self *DockerInfo) GetField(name string) (interface{}, error) {
+	switch name {
+	default:
+		return nil, fmt.Errorf("No such field %s on DockerInfo", name)
+
+	case "defaultInstanceForType", "DefaultInstanceForType":
+		if self.present != nil {
+			if _, ok := self.present["defaultInstanceForType"]; ok {
+				return self.DefaultInstanceForType, nil
+			}
+		}
+		return nil, fmt.Errorf("Field DefaultInstanceForType no set on DefaultInstanceForType %+v", self)
+
+	case "descriptorForType", "DescriptorForType":
+		if self.present != nil {
+			if _, ok := self.present["descriptorForType"]; ok {
+				return self.DescriptorForType, nil
+			}
+		}
+		return nil, fmt.Errorf("Field DescriptorForType no set on DescriptorForType %+v", self)
+
+	case "forcePullImage", "ForcePullImage":
+		if self.present != nil {
+			if _, ok := self.present["forcePullImage"]; ok {
+				return self.ForcePullImage, nil
+			}
+		}
+		return nil, fmt.Errorf("Field ForcePullImage no set on ForcePullImage %+v", self)
+
+	case "image", "Image":
+		if self.present != nil {
+			if _, ok := self.present["image"]; ok {
+				return self.Image, nil
+			}
+		}
+		return nil, fmt.Errorf("Field Image no set on Image %+v", self)
+
+	case "imageBytes", "ImageBytes":
+		if self.present != nil {
+			if _, ok := self.present["imageBytes"]; ok {
+				return self.ImageBytes, nil
+			}
+		}
+		return nil, fmt.Errorf("Field ImageBytes no set on ImageBytes %+v", self)
+
+	case "initializationErrorString", "InitializationErrorString":
+		if self.present != nil {
+			if _, ok := self.present["initializationErrorString"]; ok {
+				return self.InitializationErrorString, nil
+			}
+		}
+		return nil, fmt.Errorf("Field InitializationErrorString no set on InitializationErrorString %+v", self)
+
+	case "initialized", "Initialized":
+		if self.present != nil {
+			if _, ok := self.present["initialized"]; ok {
+				return self.Initialized, nil
+			}
+		}
+		return nil, fmt.Errorf("Field Initialized no set on Initialized %+v", self)
+
+	case "network", "Network":
+		if self.present != nil {
+			if _, ok := self.present["network"]; ok {
+				return self.Network, nil
+			}
+		}
+		return nil, fmt.Errorf("Field Network no set on Network %+v", self)
+
+	case "parametersCount", "ParametersCount":
+		if self.present != nil {
+			if _, ok := self.present["parametersCount"]; ok {
+				return self.ParametersCount, nil
+			}
+		}
+		return nil, fmt.Errorf("Field ParametersCount no set on ParametersCount %+v", self)
+
+	case "portMappingsCount", "PortMappingsCount":
+		if self.present != nil {
+			if _, ok := self.present["portMappingsCount"]; ok {
+				return self.PortMappingsCount, nil
+			}
+		}
+		return nil, fmt.Errorf("Field PortMappingsCount no set on PortMappingsCount %+v", self)
+
+	case "privileged", "Privileged":
+		if self.present != nil {
+			if _, ok := self.present["privileged"]; ok {
+				return self.Privileged, nil
+			}
+		}
+		return nil, fmt.Errorf("Field Privileged no set on Privileged %+v", self)
+
+	case "serializedSize", "SerializedSize":
+		if self.present != nil {
+			if _, ok := self.present["serializedSize"]; ok {
+				return self.SerializedSize, nil
+			}
+		}
+		return nil, fmt.Errorf("Field SerializedSize no set on SerializedSize %+v", self)
+
+	case "unknownFields", "UnknownFields":
+		if self.present != nil {
+			if _, ok := self.present["unknownFields"]; ok {
+				return self.UnknownFields, nil
+			}
+		}
+		return nil, fmt.Errorf("Field UnknownFields no set on UnknownFields %+v", self)
+
+	}
+}
+
+func (self *DockerInfo) ClearField(name string) error {
+	if self.present == nil {
+		self.present = make(map[string]bool)
+	}
+	switch name {
+	default:
+		return fmt.Errorf("No such field %s on DockerInfo", name)
+
+	case "defaultInstanceForType", "DefaultInstanceForType":
+		self.present["defaultInstanceForType"] = false
+
+	case "descriptorForType", "DescriptorForType":
+		self.present["descriptorForType"] = false
+
+	case "forcePullImage", "ForcePullImage":
+		self.present["forcePullImage"] = false
+
+	case "image", "Image":
+		self.present["image"] = false
+
+	case "imageBytes", "ImageBytes":
+		self.present["imageBytes"] = false
+
+	case "initializationErrorString", "InitializationErrorString":
+		self.present["initializationErrorString"] = false
+
+	case "initialized", "Initialized":
+		self.present["initialized"] = false
+
+	case "network", "Network":
+		self.present["network"] = false
+
+	case "parametersCount", "ParametersCount":
+		self.present["parametersCount"] = false
+
+	case "portMappingsCount", "PortMappingsCount":
+		self.present["portMappingsCount"] = false
+
+	case "privileged", "Privileged":
+		self.present["privileged"] = false
+
+	case "serializedSize", "SerializedSize":
+		self.present["serializedSize"] = false
+
+	case "unknownFields", "UnknownFields":
+		self.present["unknownFields"] = false
+
+	}
+
+	return nil
+}
+
+func (self *DockerInfo) LoadMap(from map[string]interface{}) error {
+	return loadMapIntoDTO(from, self)
 }
 
 type DockerInfoList []*DockerInfo

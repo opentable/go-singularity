@@ -1,6 +1,9 @@
 package dtos
 
-import "io"
+import (
+	"fmt"
+	"io"
+)
 
 type LoadBalancerRequestIdLoadBalancerRequestType string
 
@@ -12,14 +15,18 @@ const (
 )
 
 type LoadBalancerRequestId struct {
+	present       map[string]bool
 	AttemptNumber int32                                        `json:"attemptNumber"`
-	Id            string                                       `json:"id"`
+	Id            string                                       `json:"id,omitempty"`
 	RequestType   LoadBalancerRequestIdLoadBalancerRequestType `json:"requestType"`
 }
 
 func (self *LoadBalancerRequestId) Populate(jsonReader io.ReadCloser) (err error) {
-	err = ReadPopulate(jsonReader, self)
-	return
+	return ReadPopulate(jsonReader, self)
+}
+
+func (self *LoadBalancerRequestId) MarshalJSON() ([]byte, error) {
+	return MarshalJSON(self)
 }
 
 func (self *LoadBalancerRequestId) FormatText() string {
@@ -28,6 +35,109 @@ func (self *LoadBalancerRequestId) FormatText() string {
 
 func (self *LoadBalancerRequestId) FormatJSON() string {
 	return FormatJSON(self)
+}
+
+func (self *LoadBalancerRequestId) FieldsPresent() []string {
+	return presenceFromMap(self.present)
+}
+
+func (self *LoadBalancerRequestId) SetField(name string, value interface{}) error {
+	if self.present == nil {
+		self.present = make(map[string]bool)
+	}
+	switch name {
+	default:
+		return fmt.Errorf("No such field %s on LoadBalancerRequestId", name)
+
+	case "attemptNumber", "AttemptNumber":
+		v, ok := value.(int32)
+		if ok {
+			self.AttemptNumber = v
+			self.present["attemptNumber"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field attemptNumber/AttemptNumber: value %v couldn't be cast to type int32", value)
+		}
+
+	case "id", "Id":
+		v, ok := value.(string)
+		if ok {
+			self.Id = v
+			self.present["id"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field id/Id: value %v couldn't be cast to type string", value)
+		}
+
+	case "requestType", "RequestType":
+		v, ok := value.(LoadBalancerRequestIdLoadBalancerRequestType)
+		if ok {
+			self.RequestType = v
+			self.present["requestType"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field requestType/RequestType: value %v couldn't be cast to type LoadBalancerRequestIdLoadBalancerRequestType", value)
+		}
+
+	}
+}
+
+func (self *LoadBalancerRequestId) GetField(name string) (interface{}, error) {
+	switch name {
+	default:
+		return nil, fmt.Errorf("No such field %s on LoadBalancerRequestId", name)
+
+	case "attemptNumber", "AttemptNumber":
+		if self.present != nil {
+			if _, ok := self.present["attemptNumber"]; ok {
+				return self.AttemptNumber, nil
+			}
+		}
+		return nil, fmt.Errorf("Field AttemptNumber no set on AttemptNumber %+v", self)
+
+	case "id", "Id":
+		if self.present != nil {
+			if _, ok := self.present["id"]; ok {
+				return self.Id, nil
+			}
+		}
+		return nil, fmt.Errorf("Field Id no set on Id %+v", self)
+
+	case "requestType", "RequestType":
+		if self.present != nil {
+			if _, ok := self.present["requestType"]; ok {
+				return self.RequestType, nil
+			}
+		}
+		return nil, fmt.Errorf("Field RequestType no set on RequestType %+v", self)
+
+	}
+}
+
+func (self *LoadBalancerRequestId) ClearField(name string) error {
+	if self.present == nil {
+		self.present = make(map[string]bool)
+	}
+	switch name {
+	default:
+		return fmt.Errorf("No such field %s on LoadBalancerRequestId", name)
+
+	case "attemptNumber", "AttemptNumber":
+		self.present["attemptNumber"] = false
+
+	case "id", "Id":
+		self.present["id"] = false
+
+	case "requestType", "RequestType":
+		self.present["requestType"] = false
+
+	}
+
+	return nil
+}
+
+func (self *LoadBalancerRequestId) LoadMap(from map[string]interface{}) error {
+	return loadMapIntoDTO(from, self)
 }
 
 type LoadBalancerRequestIdList []*LoadBalancerRequestId

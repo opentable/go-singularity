@@ -1,6 +1,9 @@
 package dtos
 
-import "io"
+import (
+	"fmt"
+	"io"
+)
 
 type SingularityMachineStateHistoryUpdateMachineState string
 
@@ -15,16 +18,20 @@ const (
 )
 
 type SingularityMachineStateHistoryUpdate struct {
-	Message   string                                           `json:"message"`
-	ObjectId  string                                           `json:"objectId"`
+	present   map[string]bool
+	Message   string                                           `json:"message,omitempty"`
+	ObjectId  string                                           `json:"objectId,omitempty"`
 	State     SingularityMachineStateHistoryUpdateMachineState `json:"state"`
 	Timestamp int64                                            `json:"timestamp"`
-	User      string                                           `json:"user"`
+	User      string                                           `json:"user,omitempty"`
 }
 
 func (self *SingularityMachineStateHistoryUpdate) Populate(jsonReader io.ReadCloser) (err error) {
-	err = ReadPopulate(jsonReader, self)
-	return
+	return ReadPopulate(jsonReader, self)
+}
+
+func (self *SingularityMachineStateHistoryUpdate) MarshalJSON() ([]byte, error) {
+	return MarshalJSON(self)
 }
 
 func (self *SingularityMachineStateHistoryUpdate) FormatText() string {
@@ -33,6 +40,151 @@ func (self *SingularityMachineStateHistoryUpdate) FormatText() string {
 
 func (self *SingularityMachineStateHistoryUpdate) FormatJSON() string {
 	return FormatJSON(self)
+}
+
+func (self *SingularityMachineStateHistoryUpdate) FieldsPresent() []string {
+	return presenceFromMap(self.present)
+}
+
+func (self *SingularityMachineStateHistoryUpdate) SetField(name string, value interface{}) error {
+	if self.present == nil {
+		self.present = make(map[string]bool)
+	}
+	switch name {
+	default:
+		return fmt.Errorf("No such field %s on SingularityMachineStateHistoryUpdate", name)
+
+	case "message", "Message":
+		v, ok := value.(string)
+		if ok {
+			self.Message = v
+			self.present["message"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field message/Message: value %v couldn't be cast to type string", value)
+		}
+
+	case "objectId", "ObjectId":
+		v, ok := value.(string)
+		if ok {
+			self.ObjectId = v
+			self.present["objectId"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field objectId/ObjectId: value %v couldn't be cast to type string", value)
+		}
+
+	case "state", "State":
+		v, ok := value.(SingularityMachineStateHistoryUpdateMachineState)
+		if ok {
+			self.State = v
+			self.present["state"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field state/State: value %v couldn't be cast to type SingularityMachineStateHistoryUpdateMachineState", value)
+		}
+
+	case "timestamp", "Timestamp":
+		v, ok := value.(int64)
+		if ok {
+			self.Timestamp = v
+			self.present["timestamp"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field timestamp/Timestamp: value %v couldn't be cast to type int64", value)
+		}
+
+	case "user", "User":
+		v, ok := value.(string)
+		if ok {
+			self.User = v
+			self.present["user"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field user/User: value %v couldn't be cast to type string", value)
+		}
+
+	}
+}
+
+func (self *SingularityMachineStateHistoryUpdate) GetField(name string) (interface{}, error) {
+	switch name {
+	default:
+		return nil, fmt.Errorf("No such field %s on SingularityMachineStateHistoryUpdate", name)
+
+	case "message", "Message":
+		if self.present != nil {
+			if _, ok := self.present["message"]; ok {
+				return self.Message, nil
+			}
+		}
+		return nil, fmt.Errorf("Field Message no set on Message %+v", self)
+
+	case "objectId", "ObjectId":
+		if self.present != nil {
+			if _, ok := self.present["objectId"]; ok {
+				return self.ObjectId, nil
+			}
+		}
+		return nil, fmt.Errorf("Field ObjectId no set on ObjectId %+v", self)
+
+	case "state", "State":
+		if self.present != nil {
+			if _, ok := self.present["state"]; ok {
+				return self.State, nil
+			}
+		}
+		return nil, fmt.Errorf("Field State no set on State %+v", self)
+
+	case "timestamp", "Timestamp":
+		if self.present != nil {
+			if _, ok := self.present["timestamp"]; ok {
+				return self.Timestamp, nil
+			}
+		}
+		return nil, fmt.Errorf("Field Timestamp no set on Timestamp %+v", self)
+
+	case "user", "User":
+		if self.present != nil {
+			if _, ok := self.present["user"]; ok {
+				return self.User, nil
+			}
+		}
+		return nil, fmt.Errorf("Field User no set on User %+v", self)
+
+	}
+}
+
+func (self *SingularityMachineStateHistoryUpdate) ClearField(name string) error {
+	if self.present == nil {
+		self.present = make(map[string]bool)
+	}
+	switch name {
+	default:
+		return fmt.Errorf("No such field %s on SingularityMachineStateHistoryUpdate", name)
+
+	case "message", "Message":
+		self.present["message"] = false
+
+	case "objectId", "ObjectId":
+		self.present["objectId"] = false
+
+	case "state", "State":
+		self.present["state"] = false
+
+	case "timestamp", "Timestamp":
+		self.present["timestamp"] = false
+
+	case "user", "User":
+		self.present["user"] = false
+
+	}
+
+	return nil
+}
+
+func (self *SingularityMachineStateHistoryUpdate) LoadMap(from map[string]interface{}) error {
+	return loadMapIntoDTO(from, self)
 }
 
 type SingularityMachineStateHistoryUpdateList []*SingularityMachineStateHistoryUpdate

@@ -1,16 +1,23 @@
 package dtos
 
-import "io"
+import (
+	"fmt"
+	"io"
+)
 
 type SingularityTaskRequest struct {
+	present     map[string]bool
 	Deploy      *SingularityDeploy      `json:"deploy"`
 	PendingTask *SingularityPendingTask `json:"pendingTask"`
 	Request     *SingularityRequest     `json:"request"`
 }
 
 func (self *SingularityTaskRequest) Populate(jsonReader io.ReadCloser) (err error) {
-	err = ReadPopulate(jsonReader, self)
-	return
+	return ReadPopulate(jsonReader, self)
+}
+
+func (self *SingularityTaskRequest) MarshalJSON() ([]byte, error) {
+	return MarshalJSON(self)
 }
 
 func (self *SingularityTaskRequest) FormatText() string {
@@ -19,6 +26,109 @@ func (self *SingularityTaskRequest) FormatText() string {
 
 func (self *SingularityTaskRequest) FormatJSON() string {
 	return FormatJSON(self)
+}
+
+func (self *SingularityTaskRequest) FieldsPresent() []string {
+	return presenceFromMap(self.present)
+}
+
+func (self *SingularityTaskRequest) SetField(name string, value interface{}) error {
+	if self.present == nil {
+		self.present = make(map[string]bool)
+	}
+	switch name {
+	default:
+		return fmt.Errorf("No such field %s on SingularityTaskRequest", name)
+
+	case "deploy", "Deploy":
+		v, ok := value.(*SingularityDeploy)
+		if ok {
+			self.Deploy = v
+			self.present["deploy"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field deploy/Deploy: value %v couldn't be cast to type *SingularityDeploy", value)
+		}
+
+	case "pendingTask", "PendingTask":
+		v, ok := value.(*SingularityPendingTask)
+		if ok {
+			self.PendingTask = v
+			self.present["pendingTask"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field pendingTask/PendingTask: value %v couldn't be cast to type *SingularityPendingTask", value)
+		}
+
+	case "request", "Request":
+		v, ok := value.(*SingularityRequest)
+		if ok {
+			self.Request = v
+			self.present["request"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field request/Request: value %v couldn't be cast to type *SingularityRequest", value)
+		}
+
+	}
+}
+
+func (self *SingularityTaskRequest) GetField(name string) (interface{}, error) {
+	switch name {
+	default:
+		return nil, fmt.Errorf("No such field %s on SingularityTaskRequest", name)
+
+	case "deploy", "Deploy":
+		if self.present != nil {
+			if _, ok := self.present["deploy"]; ok {
+				return self.Deploy, nil
+			}
+		}
+		return nil, fmt.Errorf("Field Deploy no set on Deploy %+v", self)
+
+	case "pendingTask", "PendingTask":
+		if self.present != nil {
+			if _, ok := self.present["pendingTask"]; ok {
+				return self.PendingTask, nil
+			}
+		}
+		return nil, fmt.Errorf("Field PendingTask no set on PendingTask %+v", self)
+
+	case "request", "Request":
+		if self.present != nil {
+			if _, ok := self.present["request"]; ok {
+				return self.Request, nil
+			}
+		}
+		return nil, fmt.Errorf("Field Request no set on Request %+v", self)
+
+	}
+}
+
+func (self *SingularityTaskRequest) ClearField(name string) error {
+	if self.present == nil {
+		self.present = make(map[string]bool)
+	}
+	switch name {
+	default:
+		return fmt.Errorf("No such field %s on SingularityTaskRequest", name)
+
+	case "deploy", "Deploy":
+		self.present["deploy"] = false
+
+	case "pendingTask", "PendingTask":
+		self.present["pendingTask"] = false
+
+	case "request", "Request":
+		self.present["request"] = false
+
+	}
+
+	return nil
+}
+
+func (self *SingularityTaskRequest) LoadMap(from map[string]interface{}) error {
+	return loadMapIntoDTO(from, self)
 }
 
 type SingularityTaskRequestList []*SingularityTaskRequest

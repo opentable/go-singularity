@@ -1,6 +1,9 @@
 package dtos
 
-import "io"
+import (
+	"fmt"
+	"io"
+)
 
 type SingularityDeployFailureSingularityDeployFailureReason string
 
@@ -18,14 +21,18 @@ const (
 )
 
 type SingularityDeployFailure struct {
-	Message string                                                 `json:"message"`
+	present map[string]bool
+	Message string                                                 `json:"message,omitempty"`
 	Reason  SingularityDeployFailureSingularityDeployFailureReason `json:"reason"`
 	TaskId  *SingularityTaskId                                     `json:"taskId"`
 }
 
 func (self *SingularityDeployFailure) Populate(jsonReader io.ReadCloser) (err error) {
-	err = ReadPopulate(jsonReader, self)
-	return
+	return ReadPopulate(jsonReader, self)
+}
+
+func (self *SingularityDeployFailure) MarshalJSON() ([]byte, error) {
+	return MarshalJSON(self)
 }
 
 func (self *SingularityDeployFailure) FormatText() string {
@@ -34,6 +41,109 @@ func (self *SingularityDeployFailure) FormatText() string {
 
 func (self *SingularityDeployFailure) FormatJSON() string {
 	return FormatJSON(self)
+}
+
+func (self *SingularityDeployFailure) FieldsPresent() []string {
+	return presenceFromMap(self.present)
+}
+
+func (self *SingularityDeployFailure) SetField(name string, value interface{}) error {
+	if self.present == nil {
+		self.present = make(map[string]bool)
+	}
+	switch name {
+	default:
+		return fmt.Errorf("No such field %s on SingularityDeployFailure", name)
+
+	case "message", "Message":
+		v, ok := value.(string)
+		if ok {
+			self.Message = v
+			self.present["message"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field message/Message: value %v couldn't be cast to type string", value)
+		}
+
+	case "reason", "Reason":
+		v, ok := value.(SingularityDeployFailureSingularityDeployFailureReason)
+		if ok {
+			self.Reason = v
+			self.present["reason"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field reason/Reason: value %v couldn't be cast to type SingularityDeployFailureSingularityDeployFailureReason", value)
+		}
+
+	case "taskId", "TaskId":
+		v, ok := value.(*SingularityTaskId)
+		if ok {
+			self.TaskId = v
+			self.present["taskId"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field taskId/TaskId: value %v couldn't be cast to type *SingularityTaskId", value)
+		}
+
+	}
+}
+
+func (self *SingularityDeployFailure) GetField(name string) (interface{}, error) {
+	switch name {
+	default:
+		return nil, fmt.Errorf("No such field %s on SingularityDeployFailure", name)
+
+	case "message", "Message":
+		if self.present != nil {
+			if _, ok := self.present["message"]; ok {
+				return self.Message, nil
+			}
+		}
+		return nil, fmt.Errorf("Field Message no set on Message %+v", self)
+
+	case "reason", "Reason":
+		if self.present != nil {
+			if _, ok := self.present["reason"]; ok {
+				return self.Reason, nil
+			}
+		}
+		return nil, fmt.Errorf("Field Reason no set on Reason %+v", self)
+
+	case "taskId", "TaskId":
+		if self.present != nil {
+			if _, ok := self.present["taskId"]; ok {
+				return self.TaskId, nil
+			}
+		}
+		return nil, fmt.Errorf("Field TaskId no set on TaskId %+v", self)
+
+	}
+}
+
+func (self *SingularityDeployFailure) ClearField(name string) error {
+	if self.present == nil {
+		self.present = make(map[string]bool)
+	}
+	switch name {
+	default:
+		return fmt.Errorf("No such field %s on SingularityDeployFailure", name)
+
+	case "message", "Message":
+		self.present["message"] = false
+
+	case "reason", "Reason":
+		self.present["reason"] = false
+
+	case "taskId", "TaskId":
+		self.present["taskId"] = false
+
+	}
+
+	return nil
+}
+
+func (self *SingularityDeployFailure) LoadMap(from map[string]interface{}) error {
+	return loadMapIntoDTO(from, self)
 }
 
 type SingularityDeployFailureList []*SingularityDeployFailure

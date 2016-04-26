@@ -1,6 +1,9 @@
 package dtos
 
-import "io"
+import (
+	"fmt"
+	"io"
+)
 
 type SingularityWebhookWebhookType string
 
@@ -11,16 +14,20 @@ const (
 )
 
 type SingularityWebhook struct {
-	Id        string                        `json:"id"`
+	present   map[string]bool
+	Id        string                        `json:"id,omitempty"`
 	Timestamp int64                         `json:"timestamp"`
 	Type      SingularityWebhookWebhookType `json:"type"`
-	Uri       string                        `json:"uri"`
-	User      string                        `json:"user"`
+	Uri       string                        `json:"uri,omitempty"`
+	User      string                        `json:"user,omitempty"`
 }
 
 func (self *SingularityWebhook) Populate(jsonReader io.ReadCloser) (err error) {
-	err = ReadPopulate(jsonReader, self)
-	return
+	return ReadPopulate(jsonReader, self)
+}
+
+func (self *SingularityWebhook) MarshalJSON() ([]byte, error) {
+	return MarshalJSON(self)
 }
 
 func (self *SingularityWebhook) FormatText() string {
@@ -29,6 +36,151 @@ func (self *SingularityWebhook) FormatText() string {
 
 func (self *SingularityWebhook) FormatJSON() string {
 	return FormatJSON(self)
+}
+
+func (self *SingularityWebhook) FieldsPresent() []string {
+	return presenceFromMap(self.present)
+}
+
+func (self *SingularityWebhook) SetField(name string, value interface{}) error {
+	if self.present == nil {
+		self.present = make(map[string]bool)
+	}
+	switch name {
+	default:
+		return fmt.Errorf("No such field %s on SingularityWebhook", name)
+
+	case "id", "Id":
+		v, ok := value.(string)
+		if ok {
+			self.Id = v
+			self.present["id"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field id/Id: value %v couldn't be cast to type string", value)
+		}
+
+	case "timestamp", "Timestamp":
+		v, ok := value.(int64)
+		if ok {
+			self.Timestamp = v
+			self.present["timestamp"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field timestamp/Timestamp: value %v couldn't be cast to type int64", value)
+		}
+
+	case "type", "Type":
+		v, ok := value.(SingularityWebhookWebhookType)
+		if ok {
+			self.Type = v
+			self.present["type"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field type/Type: value %v couldn't be cast to type SingularityWebhookWebhookType", value)
+		}
+
+	case "uri", "Uri":
+		v, ok := value.(string)
+		if ok {
+			self.Uri = v
+			self.present["uri"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field uri/Uri: value %v couldn't be cast to type string", value)
+		}
+
+	case "user", "User":
+		v, ok := value.(string)
+		if ok {
+			self.User = v
+			self.present["user"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field user/User: value %v couldn't be cast to type string", value)
+		}
+
+	}
+}
+
+func (self *SingularityWebhook) GetField(name string) (interface{}, error) {
+	switch name {
+	default:
+		return nil, fmt.Errorf("No such field %s on SingularityWebhook", name)
+
+	case "id", "Id":
+		if self.present != nil {
+			if _, ok := self.present["id"]; ok {
+				return self.Id, nil
+			}
+		}
+		return nil, fmt.Errorf("Field Id no set on Id %+v", self)
+
+	case "timestamp", "Timestamp":
+		if self.present != nil {
+			if _, ok := self.present["timestamp"]; ok {
+				return self.Timestamp, nil
+			}
+		}
+		return nil, fmt.Errorf("Field Timestamp no set on Timestamp %+v", self)
+
+	case "type", "Type":
+		if self.present != nil {
+			if _, ok := self.present["type"]; ok {
+				return self.Type, nil
+			}
+		}
+		return nil, fmt.Errorf("Field Type no set on Type %+v", self)
+
+	case "uri", "Uri":
+		if self.present != nil {
+			if _, ok := self.present["uri"]; ok {
+				return self.Uri, nil
+			}
+		}
+		return nil, fmt.Errorf("Field Uri no set on Uri %+v", self)
+
+	case "user", "User":
+		if self.present != nil {
+			if _, ok := self.present["user"]; ok {
+				return self.User, nil
+			}
+		}
+		return nil, fmt.Errorf("Field User no set on User %+v", self)
+
+	}
+}
+
+func (self *SingularityWebhook) ClearField(name string) error {
+	if self.present == nil {
+		self.present = make(map[string]bool)
+	}
+	switch name {
+	default:
+		return fmt.Errorf("No such field %s on SingularityWebhook", name)
+
+	case "id", "Id":
+		self.present["id"] = false
+
+	case "timestamp", "Timestamp":
+		self.present["timestamp"] = false
+
+	case "type", "Type":
+		self.present["type"] = false
+
+	case "uri", "Uri":
+		self.present["uri"] = false
+
+	case "user", "User":
+		self.present["user"] = false
+
+	}
+
+	return nil
+}
+
+func (self *SingularityWebhook) LoadMap(from map[string]interface{}) error {
+	return loadMapIntoDTO(from, self)
 }
 
 type SingularityWebhookList []*SingularityWebhook

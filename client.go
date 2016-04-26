@@ -21,6 +21,16 @@ type Client struct {
 	http    http.Client
 }
 
+type ReqError struct {
+	method, path string
+	message      string
+	body         bytes.Buffer
+}
+
+func (e *ReqError) Error() string {
+	return fmt.Sprintf("%s %s => %s: \n%s", e.method, e.path, e.message, e.body.String())
+}
+
 func NewClient(apiBase string) (client *Client) {
 	return &Client{apiBase, http.Client{}}
 }
@@ -45,7 +55,18 @@ func (client *Client) Request(method, path string, pathParams, queryParams urlPa
 	if err != nil {
 		return
 	}
-	log.Printf("res.Status = %+v\n", res.Status)
+	if res.StatusCode > 299 {
+		rerr := &ReqError{
+			message: res.Status,
+			method:  method,
+			path:    path,
+			body:    bytes.Buffer{},
+		}
+		rerr.body.ReadFrom(res.Body)
+		res.Body.Close()
+		err = rerr
+		return
+	}
 	resBody = res.Body
 	return
 }
