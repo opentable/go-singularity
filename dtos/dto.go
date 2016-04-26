@@ -20,6 +20,7 @@ type Fielder interface {
 	GetField(string) (interface{}, error)
 	SetField(string, interface{}) error
 	ClearField(string) error
+	LoadMap(map[string]interface{}) error
 }
 
 type StringList []string
@@ -78,6 +79,10 @@ func presenceFromMap(m map[string]bool) []string {
 		}
 	}
 	return presence
+}
+
+func LoadMap(dto Fielder, from map[string]interface{}) (Fielder, error) {
+	return dto, dto.LoadMap(from)
 }
 
 func loadMapIntoDTO(from map[string]interface{}, dto Fielder) error {
