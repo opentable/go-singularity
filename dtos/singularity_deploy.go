@@ -33,16 +33,16 @@ type SingularityDeploy struct {
 	Labels                    map[string]string `json:"labels"`
 	LoadBalancerGroups        StringList        `json:"loadBalancerGroups"`
 	//	LoadBalancerOptions *Map[string,Object] `json:"loadBalancerOptions"`
-	LoadBalancerPortIndex int32             `json:"loadBalancerPortIndex"`
-	MaxTaskRetries        int32             `json:"maxTaskRetries"`
-	Metadata              map[string]string `json:"metadata"`
-	RequestId             string            `json:"requestId,omitempty"`
-	//	Resources *com.hubspot.mesos.Resources `json:"resources"`
-	ServiceBasePath          string     `json:"serviceBasePath,omitempty"`
-	SkipHealthchecksOnDeploy bool       `json:"skipHealthchecksOnDeploy"`
-	Timestamp                int64      `json:"timestamp"`
-	Uris                     StringList `json:"uris"`
-	Version                  string     `json:"version,omitempty"`
+	LoadBalancerPortIndex    int32             `json:"loadBalancerPortIndex"`
+	MaxTaskRetries           int32             `json:"maxTaskRetries"`
+	Metadata                 map[string]string `json:"metadata"`
+	RequestId                string            `json:"requestId,omitempty"`
+	Resources                *Resources        `json:"resources"`
+	ServiceBasePath          string            `json:"serviceBasePath,omitempty"`
+	SkipHealthchecksOnDeploy bool              `json:"skipHealthchecksOnDeploy"`
+	Timestamp                int64             `json:"timestamp"`
+	Uris                     StringList        `json:"uris"`
+	Version                  string            `json:"version,omitempty"`
 }
 
 func (self *SingularityDeploy) Populate(jsonReader io.ReadCloser) (err error) {
@@ -353,6 +353,16 @@ func (self *SingularityDeploy) SetField(name string, value interface{}) error {
 			return fmt.Errorf("Field requestId/RequestId: value %v couldn't be cast to type string", value)
 		}
 
+	case "resources", "Resources":
+		v, ok := value.(*Resources)
+		if ok {
+			self.Resources = v
+			self.present["resources"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field resources/Resources: value %v couldn't be cast to type *Resources", value)
+		}
+
 	case "serviceBasePath", "ServiceBasePath":
 		v, ok := value.(string)
 		if ok {
@@ -635,6 +645,14 @@ func (self *SingularityDeploy) GetField(name string) (interface{}, error) {
 		}
 		return nil, fmt.Errorf("Field RequestId no set on RequestId %+v", self)
 
+	case "resources", "Resources":
+		if self.present != nil {
+			if _, ok := self.present["resources"]; ok {
+				return self.Resources, nil
+			}
+		}
+		return nil, fmt.Errorf("Field Resources no set on Resources %+v", self)
+
 	case "serviceBasePath", "ServiceBasePath":
 		if self.present != nil {
 			if _, ok := self.present["serviceBasePath"]; ok {
@@ -769,6 +787,9 @@ func (self *SingularityDeploy) ClearField(name string) error {
 
 	case "requestId", "RequestId":
 		self.present["requestId"] = false
+
+	case "resources", "Resources":
+		self.present["resources"] = false
 
 	case "serviceBasePath", "ServiceBasePath":
 		self.present["serviceBasePath"] = false
