@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
+	"io/ioutil"
 	"log"
 	"net/http"
 	"net/url"
@@ -67,7 +68,11 @@ func (client *Client) Request(method, path string, pathParams, queryParams urlPa
 		err = rerr
 		return
 	}
-	resBody = res.Body
+	buf := bytes.Buffer{}
+	buf.ReadFrom(res.Body)
+	log.Printf("%s -> %+v\n", path, buf.String())
+	resBody = ioutil.NopCloser(&buf)
+	//resBody = res.Body
 	return
 }
 

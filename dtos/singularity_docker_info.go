@@ -80,7 +80,7 @@ func (self *SingularityDockerInfo) SetField(name string, value interface{}) erro
 			self.present["portMappings"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field portMappings/PortMappings: value %v couldn't be cast to type SingularityDockerPortMappingList", value)
+			return fmt.Errorf("Field portMappings/PortMappings: value %v (%T) couldn't be cast to type SingularityDockerPortMappingList", value, value)
 		}
 
 	case "privileged", "Privileged":

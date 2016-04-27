@@ -5,14 +5,14 @@ if [ $# -lt 1 ]; then
   exit 1
 fi
 
-mkdir api-docs
+mkdir -p api-docs
 
 for f in ${1}/*.json; do
-  name=$(basename $f)
+  name=$(basename "$f")
   jqscript=jq-scripts/${name}
   if [ -f "${jqscript}" ]; then
-    jq -f "${jqscript}" $f > "api-docs/${name}"
+    jq -f "${jqscript}" "$f" > "api-docs/${name}"
   else
-    cp $f api-docs
+    jq . "$f" > "api-docs/${name}"
   fi
 done
