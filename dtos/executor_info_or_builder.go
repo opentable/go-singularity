@@ -62,7 +62,7 @@ func (self *ExecutorInfoOrBuilder) SetField(name string, value interface{}) erro
 			self.present["command"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field command/Command: value %v couldn't be cast to type *CommandInfo", value)
+			return fmt.Errorf("Field command/Command: value %v(%T) couldn't be cast to type *CommandInfo", value, value)
 		}
 
 	case "commandOrBuilder", "CommandOrBuilder":
@@ -72,7 +72,7 @@ func (self *ExecutorInfoOrBuilder) SetField(name string, value interface{}) erro
 			self.present["commandOrBuilder"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field commandOrBuilder/CommandOrBuilder: value %v couldn't be cast to type *CommandInfoOrBuilder", value)
+			return fmt.Errorf("Field commandOrBuilder/CommandOrBuilder: value %v(%T) couldn't be cast to type *CommandInfoOrBuilder", value, value)
 		}
 
 	case "container", "Container":
@@ -82,7 +82,7 @@ func (self *ExecutorInfoOrBuilder) SetField(name string, value interface{}) erro
 			self.present["container"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field container/Container: value %v couldn't be cast to type *ContainerInfo", value)
+			return fmt.Errorf("Field container/Container: value %v(%T) couldn't be cast to type *ContainerInfo", value, value)
 		}
 
 	case "containerOrBuilder", "ContainerOrBuilder":
@@ -92,7 +92,7 @@ func (self *ExecutorInfoOrBuilder) SetField(name string, value interface{}) erro
 			self.present["containerOrBuilder"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field containerOrBuilder/ContainerOrBuilder: value %v couldn't be cast to type *ContainerInfoOrBuilder", value)
+			return fmt.Errorf("Field containerOrBuilder/ContainerOrBuilder: value %v(%T) couldn't be cast to type *ContainerInfoOrBuilder", value, value)
 		}
 
 	case "data", "Data":
@@ -102,7 +102,7 @@ func (self *ExecutorInfoOrBuilder) SetField(name string, value interface{}) erro
 			self.present["data"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field data/Data: value %v couldn't be cast to type *ByteString", value)
+			return fmt.Errorf("Field data/Data: value %v(%T) couldn't be cast to type *ByteString", value, value)
 		}
 
 	case "discovery", "Discovery":
@@ -112,7 +112,7 @@ func (self *ExecutorInfoOrBuilder) SetField(name string, value interface{}) erro
 			self.present["discovery"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field discovery/Discovery: value %v couldn't be cast to type *DiscoveryInfo", value)
+			return fmt.Errorf("Field discovery/Discovery: value %v(%T) couldn't be cast to type *DiscoveryInfo", value, value)
 		}
 
 	case "discoveryOrBuilder", "DiscoveryOrBuilder":
@@ -122,7 +122,7 @@ func (self *ExecutorInfoOrBuilder) SetField(name string, value interface{}) erro
 			self.present["discoveryOrBuilder"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field discoveryOrBuilder/DiscoveryOrBuilder: value %v couldn't be cast to type *DiscoveryInfoOrBuilder", value)
+			return fmt.Errorf("Field discoveryOrBuilder/DiscoveryOrBuilder: value %v(%T) couldn't be cast to type *DiscoveryInfoOrBuilder", value, value)
 		}
 
 	case "executorId", "ExecutorId":
@@ -132,7 +132,7 @@ func (self *ExecutorInfoOrBuilder) SetField(name string, value interface{}) erro
 			self.present["executorId"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field executorId/ExecutorId: value %v couldn't be cast to type *ExecutorID", value)
+			return fmt.Errorf("Field executorId/ExecutorId: value %v(%T) couldn't be cast to type *ExecutorID", value, value)
 		}
 
 	case "executorIdOrBuilder", "ExecutorIdOrBuilder":
@@ -142,7 +142,7 @@ func (self *ExecutorInfoOrBuilder) SetField(name string, value interface{}) erro
 			self.present["executorIdOrBuilder"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field executorIdOrBuilder/ExecutorIdOrBuilder: value %v couldn't be cast to type *ExecutorIDOrBuilder", value)
+			return fmt.Errorf("Field executorIdOrBuilder/ExecutorIdOrBuilder: value %v(%T) couldn't be cast to type *ExecutorIDOrBuilder", value, value)
 		}
 
 	case "frameworkId", "FrameworkId":
@@ -152,7 +152,7 @@ func (self *ExecutorInfoOrBuilder) SetField(name string, value interface{}) erro
 			self.present["frameworkId"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field frameworkId/FrameworkId: value %v couldn't be cast to type *FrameworkID", value)
+			return fmt.Errorf("Field frameworkId/FrameworkId: value %v(%T) couldn't be cast to type *FrameworkID", value, value)
 		}
 
 	case "frameworkIdOrBuilder", "FrameworkIdOrBuilder":
@@ -162,7 +162,7 @@ func (self *ExecutorInfoOrBuilder) SetField(name string, value interface{}) erro
 			self.present["frameworkIdOrBuilder"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field frameworkIdOrBuilder/FrameworkIdOrBuilder: value %v couldn't be cast to type *FrameworkIDOrBuilder", value)
+			return fmt.Errorf("Field frameworkIdOrBuilder/FrameworkIdOrBuilder: value %v(%T) couldn't be cast to type *FrameworkIDOrBuilder", value, value)
 		}
 
 	case "name", "Name":
@@ -172,7 +172,7 @@ func (self *ExecutorInfoOrBuilder) SetField(name string, value interface{}) erro
 			self.present["name"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field name/Name: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field name/Name: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "nameBytes", "NameBytes":
@@ -182,7 +182,7 @@ func (self *ExecutorInfoOrBuilder) SetField(name string, value interface{}) erro
 			self.present["nameBytes"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field nameBytes/NameBytes: value %v couldn't be cast to type *ByteString", value)
+			return fmt.Errorf("Field nameBytes/NameBytes: value %v(%T) couldn't be cast to type *ByteString", value, value)
 		}
 
 	case "resourcesCount", "ResourcesCount":
@@ -192,7 +192,7 @@ func (self *ExecutorInfoOrBuilder) SetField(name string, value interface{}) erro
 			self.present["resourcesCount"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field resourcesCount/ResourcesCount: value %v couldn't be cast to type int32", value)
+			return fmt.Errorf("Field resourcesCount/ResourcesCount: value %v(%T) couldn't be cast to type int32", value, value)
 		}
 
 	case "source", "Source":
@@ -202,7 +202,7 @@ func (self *ExecutorInfoOrBuilder) SetField(name string, value interface{}) erro
 			self.present["source"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field source/Source: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field source/Source: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "sourceBytes", "SourceBytes":
@@ -212,7 +212,7 @@ func (self *ExecutorInfoOrBuilder) SetField(name string, value interface{}) erro
 			self.present["sourceBytes"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field sourceBytes/SourceBytes: value %v couldn't be cast to type *ByteString", value)
+			return fmt.Errorf("Field sourceBytes/SourceBytes: value %v(%T) couldn't be cast to type *ByteString", value, value)
 		}
 
 	}

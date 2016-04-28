@@ -66,7 +66,7 @@ func (self *SingularityRequestHistory) SetField(name string, value interface{}) 
 			self.present["createdAt"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field createdAt/CreatedAt: value %v couldn't be cast to type int64", value)
+			return fmt.Errorf("Field createdAt/CreatedAt: value %v(%T) couldn't be cast to type int64", value, value)
 		}
 
 	case "eventType", "EventType":
@@ -76,7 +76,7 @@ func (self *SingularityRequestHistory) SetField(name string, value interface{}) 
 			self.present["eventType"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field eventType/EventType: value %v couldn't be cast to type SingularityRequestHistoryRequestHistoryType", value)
+			return fmt.Errorf("Field eventType/EventType: value %v(%T) couldn't be cast to type SingularityRequestHistoryRequestHistoryType", value, value)
 		}
 
 	case "message", "Message":
@@ -86,7 +86,7 @@ func (self *SingularityRequestHistory) SetField(name string, value interface{}) 
 			self.present["message"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field message/Message: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field message/Message: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "request", "Request":
@@ -96,7 +96,7 @@ func (self *SingularityRequestHistory) SetField(name string, value interface{}) 
 			self.present["request"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field request/Request: value %v couldn't be cast to type *SingularityRequest", value)
+			return fmt.Errorf("Field request/Request: value %v(%T) couldn't be cast to type *SingularityRequest", value, value)
 		}
 
 	case "user", "User":
@@ -106,7 +106,7 @@ func (self *SingularityRequestHistory) SetField(name string, value interface{}) 
 			self.present["user"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field user/User: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field user/User: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	}

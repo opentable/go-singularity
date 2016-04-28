@@ -54,7 +54,7 @@ func (self *Descriptor) SetField(name string, value interface{}) error {
 			self.present["containingType"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field containingType/ContainingType: value %v couldn't be cast to type *Descriptor", value)
+			return fmt.Errorf("Field containingType/ContainingType: value %v(%T) couldn't be cast to type *Descriptor", value, value)
 		}
 
 	case "file", "File":
@@ -64,7 +64,7 @@ func (self *Descriptor) SetField(name string, value interface{}) error {
 			self.present["file"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field file/File: value %v couldn't be cast to type *FileDescriptor", value)
+			return fmt.Errorf("Field file/File: value %v(%T) couldn't be cast to type *FileDescriptor", value, value)
 		}
 
 	case "fullName", "FullName":
@@ -74,7 +74,7 @@ func (self *Descriptor) SetField(name string, value interface{}) error {
 			self.present["fullName"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field fullName/FullName: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field fullName/FullName: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "index", "Index":
@@ -84,7 +84,7 @@ func (self *Descriptor) SetField(name string, value interface{}) error {
 			self.present["index"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field index/Index: value %v couldn't be cast to type int32", value)
+			return fmt.Errorf("Field index/Index: value %v(%T) couldn't be cast to type int32", value, value)
 		}
 
 	case "name", "Name":
@@ -94,7 +94,7 @@ func (self *Descriptor) SetField(name string, value interface{}) error {
 			self.present["name"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field name/Name: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field name/Name: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "nestedTypes", "NestedTypes":
@@ -104,7 +104,7 @@ func (self *Descriptor) SetField(name string, value interface{}) error {
 			self.present["nestedTypes"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field nestedTypes/NestedTypes: value %v couldn't be cast to type DescriptorList", value)
+			return fmt.Errorf("Field nestedTypes/NestedTypes: value %v(%T) couldn't be cast to type DescriptorList", value, value)
 		}
 
 	case "options", "Options":
@@ -114,7 +114,7 @@ func (self *Descriptor) SetField(name string, value interface{}) error {
 			self.present["options"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field options/Options: value %v couldn't be cast to type *MessageOptions", value)
+			return fmt.Errorf("Field options/Options: value %v(%T) couldn't be cast to type *MessageOptions", value, value)
 		}
 
 	}

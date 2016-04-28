@@ -48,7 +48,7 @@ func (self *SingularitySandboxFile) SetField(name string, value interface{}) err
 			self.present["mode"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field mode/Mode: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field mode/Mode: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "mtime", "Mtime":
@@ -58,7 +58,7 @@ func (self *SingularitySandboxFile) SetField(name string, value interface{}) err
 			self.present["mtime"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field mtime/Mtime: value %v couldn't be cast to type int64", value)
+			return fmt.Errorf("Field mtime/Mtime: value %v(%T) couldn't be cast to type int64", value, value)
 		}
 
 	case "name", "Name":
@@ -68,7 +68,7 @@ func (self *SingularitySandboxFile) SetField(name string, value interface{}) err
 			self.present["name"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field name/Name: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field name/Name: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "size", "Size":
@@ -78,7 +78,7 @@ func (self *SingularitySandboxFile) SetField(name string, value interface{}) err
 			self.present["size"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field size/Size: value %v couldn't be cast to type int64", value)
+			return fmt.Errorf("Field size/Size: value %v(%T) couldn't be cast to type int64", value, value)
 		}
 
 	}

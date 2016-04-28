@@ -50,7 +50,7 @@ func (self *SingularityExpiringSkipHealthchecks) SetField(name string, value int
 			self.present["actionId"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field actionId/ActionId: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field actionId/ActionId: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "requestId", "RequestId":
@@ -60,7 +60,7 @@ func (self *SingularityExpiringSkipHealthchecks) SetField(name string, value int
 			self.present["requestId"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field requestId/RequestId: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field requestId/RequestId: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "revertToSkipHealthchecks", "RevertToSkipHealthchecks":
@@ -70,7 +70,7 @@ func (self *SingularityExpiringSkipHealthchecks) SetField(name string, value int
 			self.present["revertToSkipHealthchecks"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field revertToSkipHealthchecks/RevertToSkipHealthchecks: value %v couldn't be cast to type bool", value)
+			return fmt.Errorf("Field revertToSkipHealthchecks/RevertToSkipHealthchecks: value %v(%T) couldn't be cast to type bool", value, value)
 		}
 
 	case "startMillis", "StartMillis":
@@ -80,7 +80,7 @@ func (self *SingularityExpiringSkipHealthchecks) SetField(name string, value int
 			self.present["startMillis"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field startMillis/StartMillis: value %v couldn't be cast to type int64", value)
+			return fmt.Errorf("Field startMillis/StartMillis: value %v(%T) couldn't be cast to type int64", value, value)
 		}
 
 	case "user", "User":
@@ -90,7 +90,7 @@ func (self *SingularityExpiringSkipHealthchecks) SetField(name string, value int
 			self.present["user"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field user/User: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field user/User: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	}

@@ -47,7 +47,7 @@ func (self *SingularityRack) SetField(name string, value interface{}) error {
 			self.present["currentState"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field currentState/CurrentState: value %v couldn't be cast to type *SingularityMachineStateHistoryUpdate", value)
+			return fmt.Errorf("Field currentState/CurrentState: value %v(%T) couldn't be cast to type *SingularityMachineStateHistoryUpdate", value, value)
 		}
 
 	case "firstSeenAt", "FirstSeenAt":
@@ -57,7 +57,7 @@ func (self *SingularityRack) SetField(name string, value interface{}) error {
 			self.present["firstSeenAt"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field firstSeenAt/FirstSeenAt: value %v couldn't be cast to type int64", value)
+			return fmt.Errorf("Field firstSeenAt/FirstSeenAt: value %v(%T) couldn't be cast to type int64", value, value)
 		}
 
 	case "id", "Id":
@@ -67,7 +67,7 @@ func (self *SingularityRack) SetField(name string, value interface{}) error {
 			self.present["id"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field id/Id: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field id/Id: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	}

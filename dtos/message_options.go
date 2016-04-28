@@ -57,7 +57,7 @@ func (self *MessageOptions) SetField(name string, value interface{}) error {
 			self.present["defaultInstanceForType"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field defaultInstanceForType/DefaultInstanceForType: value %v couldn't be cast to type *MessageOptions", value)
+			return fmt.Errorf("Field defaultInstanceForType/DefaultInstanceForType: value %v(%T) couldn't be cast to type *MessageOptions", value, value)
 		}
 
 	case "descriptorForType", "DescriptorForType":
@@ -67,7 +67,7 @@ func (self *MessageOptions) SetField(name string, value interface{}) error {
 			self.present["descriptorForType"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field descriptorForType/DescriptorForType: value %v couldn't be cast to type *Descriptor", value)
+			return fmt.Errorf("Field descriptorForType/DescriptorForType: value %v(%T) couldn't be cast to type *Descriptor", value, value)
 		}
 
 	case "initializationErrorString", "InitializationErrorString":
@@ -77,7 +77,7 @@ func (self *MessageOptions) SetField(name string, value interface{}) error {
 			self.present["initializationErrorString"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field initializationErrorString/InitializationErrorString: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field initializationErrorString/InitializationErrorString: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "initialized", "Initialized":
@@ -87,7 +87,7 @@ func (self *MessageOptions) SetField(name string, value interface{}) error {
 			self.present["initialized"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field initialized/Initialized: value %v couldn't be cast to type bool", value)
+			return fmt.Errorf("Field initialized/Initialized: value %v(%T) couldn't be cast to type bool", value, value)
 		}
 
 	case "messageSetWireFormat", "MessageSetWireFormat":
@@ -97,7 +97,7 @@ func (self *MessageOptions) SetField(name string, value interface{}) error {
 			self.present["messageSetWireFormat"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field messageSetWireFormat/MessageSetWireFormat: value %v couldn't be cast to type bool", value)
+			return fmt.Errorf("Field messageSetWireFormat/MessageSetWireFormat: value %v(%T) couldn't be cast to type bool", value, value)
 		}
 
 	case "noStandardDescriptorAccessor", "NoStandardDescriptorAccessor":
@@ -107,7 +107,7 @@ func (self *MessageOptions) SetField(name string, value interface{}) error {
 			self.present["noStandardDescriptorAccessor"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field noStandardDescriptorAccessor/NoStandardDescriptorAccessor: value %v couldn't be cast to type bool", value)
+			return fmt.Errorf("Field noStandardDescriptorAccessor/NoStandardDescriptorAccessor: value %v(%T) couldn't be cast to type bool", value, value)
 		}
 
 	case "serializedSize", "SerializedSize":
@@ -117,7 +117,7 @@ func (self *MessageOptions) SetField(name string, value interface{}) error {
 			self.present["serializedSize"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field serializedSize/SerializedSize: value %v couldn't be cast to type int32", value)
+			return fmt.Errorf("Field serializedSize/SerializedSize: value %v(%T) couldn't be cast to type int32", value, value)
 		}
 
 	case "uninterpretedOptionCount", "UninterpretedOptionCount":
@@ -127,7 +127,7 @@ func (self *MessageOptions) SetField(name string, value interface{}) error {
 			self.present["uninterpretedOptionCount"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field uninterpretedOptionCount/UninterpretedOptionCount: value %v couldn't be cast to type int32", value)
+			return fmt.Errorf("Field uninterpretedOptionCount/UninterpretedOptionCount: value %v(%T) couldn't be cast to type int32", value, value)
 		}
 
 	case "unknownFields", "UnknownFields":
@@ -137,7 +137,7 @@ func (self *MessageOptions) SetField(name string, value interface{}) error {
 			self.present["unknownFields"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field unknownFields/UnknownFields: value %v couldn't be cast to type *UnknownFieldSet", value)
+			return fmt.Errorf("Field unknownFields/UnknownFields: value %v(%T) couldn't be cast to type *UnknownFieldSet", value, value)
 		}
 
 	}

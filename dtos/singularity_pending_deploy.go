@@ -60,7 +60,7 @@ func (self *SingularityPendingDeploy) SetField(name string, value interface{}) e
 			self.present["currentDeployState"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field currentDeployState/CurrentDeployState: value %v couldn't be cast to type SingularityPendingDeployDeployState", value)
+			return fmt.Errorf("Field currentDeployState/CurrentDeployState: value %v(%T) couldn't be cast to type SingularityPendingDeployDeployState", value, value)
 		}
 
 	case "deployMarker", "DeployMarker":
@@ -70,7 +70,7 @@ func (self *SingularityPendingDeploy) SetField(name string, value interface{}) e
 			self.present["deployMarker"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field deployMarker/DeployMarker: value %v couldn't be cast to type *SingularityDeployMarker", value)
+			return fmt.Errorf("Field deployMarker/DeployMarker: value %v(%T) couldn't be cast to type *SingularityDeployMarker", value, value)
 		}
 
 	case "deployProgress", "DeployProgress":
@@ -80,7 +80,7 @@ func (self *SingularityPendingDeploy) SetField(name string, value interface{}) e
 			self.present["deployProgress"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field deployProgress/DeployProgress: value %v couldn't be cast to type *SingularityDeployProgress", value)
+			return fmt.Errorf("Field deployProgress/DeployProgress: value %v(%T) couldn't be cast to type *SingularityDeployProgress", value, value)
 		}
 
 	case "lastLoadBalancerUpdate", "LastLoadBalancerUpdate":
@@ -90,7 +90,7 @@ func (self *SingularityPendingDeploy) SetField(name string, value interface{}) e
 			self.present["lastLoadBalancerUpdate"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field lastLoadBalancerUpdate/LastLoadBalancerUpdate: value %v couldn't be cast to type *SingularityLoadBalancerUpdate", value)
+			return fmt.Errorf("Field lastLoadBalancerUpdate/LastLoadBalancerUpdate: value %v(%T) couldn't be cast to type *SingularityLoadBalancerUpdate", value, value)
 		}
 
 	}

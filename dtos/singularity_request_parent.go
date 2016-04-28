@@ -65,7 +65,7 @@ func (self *SingularityRequestParent) SetField(name string, value interface{}) e
 			self.present["activeDeploy"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field activeDeploy/ActiveDeploy: value %v couldn't be cast to type *SingularityDeploy", value)
+			return fmt.Errorf("Field activeDeploy/ActiveDeploy: value %v(%T) couldn't be cast to type *SingularityDeploy", value, value)
 		}
 
 	case "expiringBounce", "ExpiringBounce":
@@ -75,7 +75,7 @@ func (self *SingularityRequestParent) SetField(name string, value interface{}) e
 			self.present["expiringBounce"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field expiringBounce/ExpiringBounce: value %v couldn't be cast to type *SingularityExpiringBounce", value)
+			return fmt.Errorf("Field expiringBounce/ExpiringBounce: value %v(%T) couldn't be cast to type *SingularityExpiringBounce", value, value)
 		}
 
 	case "expiringPause", "ExpiringPause":
@@ -85,7 +85,7 @@ func (self *SingularityRequestParent) SetField(name string, value interface{}) e
 			self.present["expiringPause"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field expiringPause/ExpiringPause: value %v couldn't be cast to type *SingularityExpiringPause", value)
+			return fmt.Errorf("Field expiringPause/ExpiringPause: value %v(%T) couldn't be cast to type *SingularityExpiringPause", value, value)
 		}
 
 	case "expiringScale", "ExpiringScale":
@@ -95,7 +95,7 @@ func (self *SingularityRequestParent) SetField(name string, value interface{}) e
 			self.present["expiringScale"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field expiringScale/ExpiringScale: value %v couldn't be cast to type *SingularityExpiringScale", value)
+			return fmt.Errorf("Field expiringScale/ExpiringScale: value %v(%T) couldn't be cast to type *SingularityExpiringScale", value, value)
 		}
 
 	case "expiringSkipHealthchecks", "ExpiringSkipHealthchecks":
@@ -105,7 +105,7 @@ func (self *SingularityRequestParent) SetField(name string, value interface{}) e
 			self.present["expiringSkipHealthchecks"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field expiringSkipHealthchecks/ExpiringSkipHealthchecks: value %v couldn't be cast to type *SingularityExpiringSkipHealthchecks", value)
+			return fmt.Errorf("Field expiringSkipHealthchecks/ExpiringSkipHealthchecks: value %v(%T) couldn't be cast to type *SingularityExpiringSkipHealthchecks", value, value)
 		}
 
 	case "pendingDeploy", "PendingDeploy":
@@ -115,7 +115,7 @@ func (self *SingularityRequestParent) SetField(name string, value interface{}) e
 			self.present["pendingDeploy"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field pendingDeploy/PendingDeploy: value %v couldn't be cast to type *SingularityDeploy", value)
+			return fmt.Errorf("Field pendingDeploy/PendingDeploy: value %v(%T) couldn't be cast to type *SingularityDeploy", value, value)
 		}
 
 	case "pendingDeployState", "PendingDeployState":
@@ -125,7 +125,7 @@ func (self *SingularityRequestParent) SetField(name string, value interface{}) e
 			self.present["pendingDeployState"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field pendingDeployState/PendingDeployState: value %v couldn't be cast to type *SingularityPendingDeploy", value)
+			return fmt.Errorf("Field pendingDeployState/PendingDeployState: value %v(%T) couldn't be cast to type *SingularityPendingDeploy", value, value)
 		}
 
 	case "request", "Request":
@@ -135,7 +135,7 @@ func (self *SingularityRequestParent) SetField(name string, value interface{}) e
 			self.present["request"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field request/Request: value %v couldn't be cast to type *SingularityRequest", value)
+			return fmt.Errorf("Field request/Request: value %v(%T) couldn't be cast to type *SingularityRequest", value, value)
 		}
 
 	case "requestDeployState", "RequestDeployState":
@@ -145,7 +145,7 @@ func (self *SingularityRequestParent) SetField(name string, value interface{}) e
 			self.present["requestDeployState"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field requestDeployState/RequestDeployState: value %v couldn't be cast to type *SingularityRequestDeployState", value)
+			return fmt.Errorf("Field requestDeployState/RequestDeployState: value %v(%T) couldn't be cast to type *SingularityRequestDeployState", value, value)
 		}
 
 	case "state", "State":
@@ -155,7 +155,7 @@ func (self *SingularityRequestParent) SetField(name string, value interface{}) e
 			self.present["state"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field state/State: value %v couldn't be cast to type SingularityRequestParentRequestState", value)
+			return fmt.Errorf("Field state/State: value %v(%T) couldn't be cast to type SingularityRequestParentRequestState", value, value)
 		}
 
 	}

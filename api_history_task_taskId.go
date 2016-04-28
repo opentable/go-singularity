@@ -2,10 +2,11 @@ package singularity
 
 import "github.com/opentable/singularity/dtos"
 
-func (client *Client) getHistoryForTask(taskId string) (response *dtos.SingularityTaskHistory, err error) {
+func (client *Client) GetHistoryForTask(taskId string) (response *dtos.SingularityTaskHistory, err error) {
 	pathParamMap := map[string]interface{}{
 		"taskId": taskId,
 	}
+
 	queryParamMap := map[string]interface{}{}
 
 	response = new(dtos.SingularityTaskHistory)

@@ -48,7 +48,7 @@ func (self *SingularityShellCommand) SetField(name string, value interface{}) er
 			self.present["logfileName"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field logfileName/LogfileName: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field logfileName/LogfileName: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "name", "Name":
@@ -58,7 +58,7 @@ func (self *SingularityShellCommand) SetField(name string, value interface{}) er
 			self.present["name"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field name/Name: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field name/Name: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "options", "Options":
@@ -68,7 +68,7 @@ func (self *SingularityShellCommand) SetField(name string, value interface{}) er
 			self.present["options"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field options/Options: value %v couldn't be cast to type StringList", value)
+			return fmt.Errorf("Field options/Options: value %v(%T) couldn't be cast to type StringList", value, value)
 		}
 
 	case "user", "User":
@@ -78,7 +78,7 @@ func (self *SingularityShellCommand) SetField(name string, value interface{}) er
 			self.present["user"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field user/User: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field user/User: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	}

@@ -50,7 +50,7 @@ func (self *ExternalArtifact) SetField(name string, value interface{}) error {
 			self.present["filename"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field filename/Filename: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field filename/Filename: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "filesize", "Filesize":
@@ -60,7 +60,7 @@ func (self *ExternalArtifact) SetField(name string, value interface{}) error {
 			self.present["filesize"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field filesize/Filesize: value %v couldn't be cast to type int64", value)
+			return fmt.Errorf("Field filesize/Filesize: value %v(%T) couldn't be cast to type int64", value, value)
 		}
 
 	case "md5sum", "Md5sum":
@@ -70,7 +70,7 @@ func (self *ExternalArtifact) SetField(name string, value interface{}) error {
 			self.present["md5sum"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field md5sum/Md5sum: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field md5sum/Md5sum: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "name", "Name":
@@ -80,7 +80,7 @@ func (self *ExternalArtifact) SetField(name string, value interface{}) error {
 			self.present["name"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field name/Name: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field name/Name: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "targetFolderRelativeToTask", "TargetFolderRelativeToTask":
@@ -90,7 +90,7 @@ func (self *ExternalArtifact) SetField(name string, value interface{}) error {
 			self.present["targetFolderRelativeToTask"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field targetFolderRelativeToTask/TargetFolderRelativeToTask: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field targetFolderRelativeToTask/TargetFolderRelativeToTask: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "url", "Url":
@@ -100,7 +100,7 @@ func (self *ExternalArtifact) SetField(name string, value interface{}) error {
 			self.present["url"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field url/Url: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field url/Url: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	}

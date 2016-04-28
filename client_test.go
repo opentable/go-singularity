@@ -35,3 +35,10 @@ func ExamplepathRender() {
 	// Output:
 	// /user/Joe/17
 }
+
+func ExampleComplexPathRender() {
+	path, _ := pathRender("/api/history/request/{requestId}/deploy/{deployId}", urlParams{"requestId": "192.168.99.100:5000hellolabels:latest", "deployId": "4990399829e84ce2be5a523b252e1afd"})
+	fmt.Println(path)
+	// Output:
+	// /api/history/request/192.168.99.100:5000hellolabels:latest/deploy/4990399829e84ce2be5a523b252e1afd
+}

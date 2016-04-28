@@ -49,7 +49,7 @@ func (self *SingularityExpiringPause) SetField(name string, value interface{}) e
 			self.present["actionId"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field actionId/ActionId: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field actionId/ActionId: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "requestId", "RequestId":
@@ -59,7 +59,7 @@ func (self *SingularityExpiringPause) SetField(name string, value interface{}) e
 			self.present["requestId"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field requestId/RequestId: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field requestId/RequestId: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "startMillis", "StartMillis":
@@ -69,7 +69,7 @@ func (self *SingularityExpiringPause) SetField(name string, value interface{}) e
 			self.present["startMillis"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field startMillis/StartMillis: value %v couldn't be cast to type int64", value)
+			return fmt.Errorf("Field startMillis/StartMillis: value %v(%T) couldn't be cast to type int64", value, value)
 		}
 
 	case "user", "User":
@@ -79,7 +79,7 @@ func (self *SingularityExpiringPause) SetField(name string, value interface{}) e
 			self.present["user"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field user/User: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field user/User: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	}

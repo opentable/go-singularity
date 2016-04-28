@@ -49,7 +49,7 @@ func (self *SingularityDeployMarker) SetField(name string, value interface{}) er
 			self.present["deployId"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field deployId/DeployId: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field deployId/DeployId: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "message", "Message":
@@ -59,7 +59,7 @@ func (self *SingularityDeployMarker) SetField(name string, value interface{}) er
 			self.present["message"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field message/Message: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field message/Message: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "requestId", "RequestId":
@@ -69,7 +69,7 @@ func (self *SingularityDeployMarker) SetField(name string, value interface{}) er
 			self.present["requestId"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field requestId/RequestId: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field requestId/RequestId: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "timestamp", "Timestamp":
@@ -79,7 +79,7 @@ func (self *SingularityDeployMarker) SetField(name string, value interface{}) er
 			self.present["timestamp"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field timestamp/Timestamp: value %v couldn't be cast to type int64", value)
+			return fmt.Errorf("Field timestamp/Timestamp: value %v(%T) couldn't be cast to type int64", value, value)
 		}
 
 	case "user", "User":
@@ -89,7 +89,7 @@ func (self *SingularityDeployMarker) SetField(name string, value interface{}) er
 			self.present["user"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field user/User: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field user/User: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	}

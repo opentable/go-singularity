@@ -48,7 +48,7 @@ func (self *LabelsOrBuilder) SetField(name string, value interface{}) error {
 			self.present["labelsCount"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field labelsCount/LabelsCount: value %v couldn't be cast to type int32", value)
+			return fmt.Errorf("Field labelsCount/LabelsCount: value %v(%T) couldn't be cast to type int32", value, value)
 		}
 
 	}

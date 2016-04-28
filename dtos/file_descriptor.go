@@ -54,7 +54,7 @@ func (self *FileDescriptor) SetField(name string, value interface{}) error {
 			self.present["dependencies"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field dependencies/Dependencies: value %v couldn't be cast to type FileDescriptorList", value)
+			return fmt.Errorf("Field dependencies/Dependencies: value %v(%T) couldn't be cast to type FileDescriptorList", value, value)
 		}
 
 	case "messageTypes", "MessageTypes":
@@ -64,7 +64,7 @@ func (self *FileDescriptor) SetField(name string, value interface{}) error {
 			self.present["messageTypes"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field messageTypes/MessageTypes: value %v couldn't be cast to type DescriptorList", value)
+			return fmt.Errorf("Field messageTypes/MessageTypes: value %v(%T) couldn't be cast to type DescriptorList", value, value)
 		}
 
 	case "name", "Name":
@@ -74,7 +74,7 @@ func (self *FileDescriptor) SetField(name string, value interface{}) error {
 			self.present["name"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field name/Name: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field name/Name: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "options", "Options":
@@ -84,7 +84,7 @@ func (self *FileDescriptor) SetField(name string, value interface{}) error {
 			self.present["options"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field options/Options: value %v couldn't be cast to type *FileOptions", value)
+			return fmt.Errorf("Field options/Options: value %v(%T) couldn't be cast to type *FileOptions", value, value)
 		}
 
 	case "package", "Package":
@@ -94,7 +94,7 @@ func (self *FileDescriptor) SetField(name string, value interface{}) error {
 			self.present["package"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field package/Package: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field package/Package: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "publicDependencies", "PublicDependencies":
@@ -104,7 +104,7 @@ func (self *FileDescriptor) SetField(name string, value interface{}) error {
 			self.present["publicDependencies"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field publicDependencies/PublicDependencies: value %v couldn't be cast to type FileDescriptorList", value)
+			return fmt.Errorf("Field publicDependencies/PublicDependencies: value %v(%T) couldn't be cast to type FileDescriptorList", value, value)
 		}
 
 	}

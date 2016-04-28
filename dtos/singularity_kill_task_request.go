@@ -48,7 +48,7 @@ func (self *SingularityKillTaskRequest) SetField(name string, value interface{})
 			self.present["actionId"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field actionId/ActionId: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field actionId/ActionId: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "message", "Message":
@@ -58,7 +58,7 @@ func (self *SingularityKillTaskRequest) SetField(name string, value interface{})
 			self.present["message"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field message/Message: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field message/Message: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "override", "Override":
@@ -68,7 +68,7 @@ func (self *SingularityKillTaskRequest) SetField(name string, value interface{})
 			self.present["override"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field override/Override: value %v couldn't be cast to type bool", value)
+			return fmt.Errorf("Field override/Override: value %v(%T) couldn't be cast to type bool", value, value)
 		}
 
 	case "waitForReplacementTask", "WaitForReplacementTask":
@@ -78,7 +78,7 @@ func (self *SingularityKillTaskRequest) SetField(name string, value interface{})
 			self.present["waitForReplacementTask"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field waitForReplacementTask/WaitForReplacementTask: value %v couldn't be cast to type bool", value)
+			return fmt.Errorf("Field waitForReplacementTask/WaitForReplacementTask: value %v(%T) couldn't be cast to type bool", value, value)
 		}
 
 	}

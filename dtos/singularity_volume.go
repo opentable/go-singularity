@@ -48,7 +48,7 @@ func (self *SingularityVolume) SetField(name string, value interface{}) error {
 			self.present["containerPath"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field containerPath/ContainerPath: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field containerPath/ContainerPath: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "hostPath", "HostPath":
@@ -58,7 +58,7 @@ func (self *SingularityVolume) SetField(name string, value interface{}) error {
 			self.present["hostPath"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field hostPath/HostPath: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field hostPath/HostPath: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	}

@@ -50,7 +50,7 @@ func (self *SingularityPendingTask) SetField(name string, value interface{}) err
 			self.present["cmdLineArgsList"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field cmdLineArgsList/CmdLineArgsList: value %v couldn't be cast to type StringList", value)
+			return fmt.Errorf("Field cmdLineArgsList/CmdLineArgsList: value %v(%T) couldn't be cast to type StringList", value, value)
 		}
 
 	case "message", "Message":
@@ -60,7 +60,7 @@ func (self *SingularityPendingTask) SetField(name string, value interface{}) err
 			self.present["message"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field message/Message: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field message/Message: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "pendingTaskId", "PendingTaskId":
@@ -70,7 +70,7 @@ func (self *SingularityPendingTask) SetField(name string, value interface{}) err
 			self.present["pendingTaskId"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field pendingTaskId/PendingTaskId: value %v couldn't be cast to type *SingularityPendingTaskId", value)
+			return fmt.Errorf("Field pendingTaskId/PendingTaskId: value %v(%T) couldn't be cast to type *SingularityPendingTaskId", value, value)
 		}
 
 	case "runId", "RunId":
@@ -80,7 +80,7 @@ func (self *SingularityPendingTask) SetField(name string, value interface{}) err
 			self.present["runId"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field runId/RunId: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field runId/RunId: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "skipHealthchecks", "SkipHealthchecks":
@@ -90,7 +90,7 @@ func (self *SingularityPendingTask) SetField(name string, value interface{}) err
 			self.present["skipHealthchecks"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field skipHealthchecks/SkipHealthchecks: value %v couldn't be cast to type bool", value)
+			return fmt.Errorf("Field skipHealthchecks/SkipHealthchecks: value %v(%T) couldn't be cast to type bool", value, value)
 		}
 
 	case "user", "User":
@@ -100,7 +100,7 @@ func (self *SingularityPendingTask) SetField(name string, value interface{}) err
 			self.present["user"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field user/User: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field user/User: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	}

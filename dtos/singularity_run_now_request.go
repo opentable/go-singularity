@@ -48,7 +48,7 @@ func (self *SingularityRunNowRequest) SetField(name string, value interface{}) e
 			self.present["commandLineArgs"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field commandLineArgs/CommandLineArgs: value %v couldn't be cast to type StringList", value)
+			return fmt.Errorf("Field commandLineArgs/CommandLineArgs: value %v(%T) couldn't be cast to type StringList", value, value)
 		}
 
 	case "message", "Message":
@@ -58,7 +58,7 @@ func (self *SingularityRunNowRequest) SetField(name string, value interface{}) e
 			self.present["message"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field message/Message: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field message/Message: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "runId", "RunId":
@@ -68,7 +68,7 @@ func (self *SingularityRunNowRequest) SetField(name string, value interface{}) e
 			self.present["runId"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field runId/RunId: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field runId/RunId: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "skipHealthchecks", "SkipHealthchecks":
@@ -78,7 +78,7 @@ func (self *SingularityRunNowRequest) SetField(name string, value interface{}) e
 			self.present["skipHealthchecks"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field skipHealthchecks/SkipHealthchecks: value %v couldn't be cast to type bool", value)
+			return fmt.Errorf("Field skipHealthchecks/SkipHealthchecks: value %v(%T) couldn't be cast to type bool", value, value)
 		}
 
 	}

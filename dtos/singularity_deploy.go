@@ -80,7 +80,7 @@ func (self *SingularityDeploy) SetField(name string, value interface{}) error {
 			self.present["arguments"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field arguments/Arguments: value %v couldn't be cast to type StringList", value)
+			return fmt.Errorf("Field arguments/Arguments: value %v(%T) couldn't be cast to type StringList", value, value)
 		}
 
 	case "autoAdvanceDeploySteps", "AutoAdvanceDeploySteps":
@@ -90,7 +90,7 @@ func (self *SingularityDeploy) SetField(name string, value interface{}) error {
 			self.present["autoAdvanceDeploySteps"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field autoAdvanceDeploySteps/AutoAdvanceDeploySteps: value %v couldn't be cast to type bool", value)
+			return fmt.Errorf("Field autoAdvanceDeploySteps/AutoAdvanceDeploySteps: value %v(%T) couldn't be cast to type bool", value, value)
 		}
 
 	case "command", "Command":
@@ -100,7 +100,7 @@ func (self *SingularityDeploy) SetField(name string, value interface{}) error {
 			self.present["command"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field command/Command: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field command/Command: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "considerHealthyAfterRunningForSeconds", "ConsiderHealthyAfterRunningForSeconds":
@@ -110,7 +110,7 @@ func (self *SingularityDeploy) SetField(name string, value interface{}) error {
 			self.present["considerHealthyAfterRunningForSeconds"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field considerHealthyAfterRunningForSeconds/ConsiderHealthyAfterRunningForSeconds: value %v couldn't be cast to type int64", value)
+			return fmt.Errorf("Field considerHealthyAfterRunningForSeconds/ConsiderHealthyAfterRunningForSeconds: value %v(%T) couldn't be cast to type int64", value, value)
 		}
 
 	case "containerInfo", "ContainerInfo":
@@ -120,7 +120,7 @@ func (self *SingularityDeploy) SetField(name string, value interface{}) error {
 			self.present["containerInfo"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field containerInfo/ContainerInfo: value %v couldn't be cast to type *SingularityContainerInfo", value)
+			return fmt.Errorf("Field containerInfo/ContainerInfo: value %v(%T) couldn't be cast to type *SingularityContainerInfo", value, value)
 		}
 
 	case "customExecutorCmd", "CustomExecutorCmd":
@@ -130,7 +130,7 @@ func (self *SingularityDeploy) SetField(name string, value interface{}) error {
 			self.present["customExecutorCmd"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field customExecutorCmd/CustomExecutorCmd: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field customExecutorCmd/CustomExecutorCmd: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "customExecutorId", "CustomExecutorId":
@@ -140,7 +140,7 @@ func (self *SingularityDeploy) SetField(name string, value interface{}) error {
 			self.present["customExecutorId"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field customExecutorId/CustomExecutorId: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field customExecutorId/CustomExecutorId: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "customExecutorResources", "CustomExecutorResources":
@@ -150,7 +150,7 @@ func (self *SingularityDeploy) SetField(name string, value interface{}) error {
 			self.present["customExecutorResources"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field customExecutorResources/CustomExecutorResources: value %v couldn't be cast to type *Resources", value)
+			return fmt.Errorf("Field customExecutorResources/CustomExecutorResources: value %v(%T) couldn't be cast to type *Resources", value, value)
 		}
 
 	case "customExecutorSource", "CustomExecutorSource":
@@ -160,7 +160,7 @@ func (self *SingularityDeploy) SetField(name string, value interface{}) error {
 			self.present["customExecutorSource"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field customExecutorSource/CustomExecutorSource: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field customExecutorSource/CustomExecutorSource: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "customExecutorUser", "CustomExecutorUser":
@@ -170,7 +170,7 @@ func (self *SingularityDeploy) SetField(name string, value interface{}) error {
 			self.present["customExecutorUser"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field customExecutorUser/CustomExecutorUser: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field customExecutorUser/CustomExecutorUser: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "deployHealthTimeoutSeconds", "DeployHealthTimeoutSeconds":
@@ -180,7 +180,7 @@ func (self *SingularityDeploy) SetField(name string, value interface{}) error {
 			self.present["deployHealthTimeoutSeconds"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field deployHealthTimeoutSeconds/DeployHealthTimeoutSeconds: value %v couldn't be cast to type int64", value)
+			return fmt.Errorf("Field deployHealthTimeoutSeconds/DeployHealthTimeoutSeconds: value %v(%T) couldn't be cast to type int64", value, value)
 		}
 
 	case "deployInstanceCountPerStep", "DeployInstanceCountPerStep":
@@ -190,7 +190,7 @@ func (self *SingularityDeploy) SetField(name string, value interface{}) error {
 			self.present["deployInstanceCountPerStep"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field deployInstanceCountPerStep/DeployInstanceCountPerStep: value %v couldn't be cast to type int32", value)
+			return fmt.Errorf("Field deployInstanceCountPerStep/DeployInstanceCountPerStep: value %v(%T) couldn't be cast to type int32", value, value)
 		}
 
 	case "deployStepWaitTimeMs", "DeployStepWaitTimeMs":
@@ -200,7 +200,7 @@ func (self *SingularityDeploy) SetField(name string, value interface{}) error {
 			self.present["deployStepWaitTimeMs"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field deployStepWaitTimeMs/DeployStepWaitTimeMs: value %v couldn't be cast to type int32", value)
+			return fmt.Errorf("Field deployStepWaitTimeMs/DeployStepWaitTimeMs: value %v(%T) couldn't be cast to type int32", value, value)
 		}
 
 	case "env", "Env":
@@ -210,7 +210,7 @@ func (self *SingularityDeploy) SetField(name string, value interface{}) error {
 			self.present["env"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field env/Env: value %v couldn't be cast to type map[string]string", value)
+			return fmt.Errorf("Field env/Env: value %v(%T) couldn't be cast to type map[string]string", value, value)
 		}
 
 	case "executorData", "ExecutorData":
@@ -220,7 +220,7 @@ func (self *SingularityDeploy) SetField(name string, value interface{}) error {
 			self.present["executorData"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field executorData/ExecutorData: value %v couldn't be cast to type *ExecutorData", value)
+			return fmt.Errorf("Field executorData/ExecutorData: value %v(%T) couldn't be cast to type *ExecutorData", value, value)
 		}
 
 	case "healthcheckIntervalSeconds", "HealthcheckIntervalSeconds":
@@ -230,7 +230,7 @@ func (self *SingularityDeploy) SetField(name string, value interface{}) error {
 			self.present["healthcheckIntervalSeconds"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field healthcheckIntervalSeconds/HealthcheckIntervalSeconds: value %v couldn't be cast to type int64", value)
+			return fmt.Errorf("Field healthcheckIntervalSeconds/HealthcheckIntervalSeconds: value %v(%T) couldn't be cast to type int64", value, value)
 		}
 
 	case "healthcheckMaxRetries", "HealthcheckMaxRetries":
@@ -240,7 +240,7 @@ func (self *SingularityDeploy) SetField(name string, value interface{}) error {
 			self.present["healthcheckMaxRetries"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field healthcheckMaxRetries/HealthcheckMaxRetries: value %v couldn't be cast to type int32", value)
+			return fmt.Errorf("Field healthcheckMaxRetries/HealthcheckMaxRetries: value %v(%T) couldn't be cast to type int32", value, value)
 		}
 
 	case "healthcheckMaxTotalTimeoutSeconds", "HealthcheckMaxTotalTimeoutSeconds":
@@ -250,7 +250,7 @@ func (self *SingularityDeploy) SetField(name string, value interface{}) error {
 			self.present["healthcheckMaxTotalTimeoutSeconds"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field healthcheckMaxTotalTimeoutSeconds/HealthcheckMaxTotalTimeoutSeconds: value %v couldn't be cast to type int64", value)
+			return fmt.Errorf("Field healthcheckMaxTotalTimeoutSeconds/HealthcheckMaxTotalTimeoutSeconds: value %v(%T) couldn't be cast to type int64", value, value)
 		}
 
 	case "healthcheckPortIndex", "HealthcheckPortIndex":
@@ -260,7 +260,7 @@ func (self *SingularityDeploy) SetField(name string, value interface{}) error {
 			self.present["healthcheckPortIndex"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field healthcheckPortIndex/HealthcheckPortIndex: value %v couldn't be cast to type int32", value)
+			return fmt.Errorf("Field healthcheckPortIndex/HealthcheckPortIndex: value %v(%T) couldn't be cast to type int32", value, value)
 		}
 
 	case "healthcheckTimeoutSeconds", "HealthcheckTimeoutSeconds":
@@ -270,7 +270,7 @@ func (self *SingularityDeploy) SetField(name string, value interface{}) error {
 			self.present["healthcheckTimeoutSeconds"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field healthcheckTimeoutSeconds/HealthcheckTimeoutSeconds: value %v couldn't be cast to type int64", value)
+			return fmt.Errorf("Field healthcheckTimeoutSeconds/HealthcheckTimeoutSeconds: value %v(%T) couldn't be cast to type int64", value, value)
 		}
 
 	case "healthcheckUri", "HealthcheckUri":
@@ -280,7 +280,7 @@ func (self *SingularityDeploy) SetField(name string, value interface{}) error {
 			self.present["healthcheckUri"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field healthcheckUri/HealthcheckUri: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field healthcheckUri/HealthcheckUri: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "id", "Id":
@@ -290,7 +290,7 @@ func (self *SingularityDeploy) SetField(name string, value interface{}) error {
 			self.present["id"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field id/Id: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field id/Id: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "labels", "Labels":
@@ -300,7 +300,7 @@ func (self *SingularityDeploy) SetField(name string, value interface{}) error {
 			self.present["labels"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field labels/Labels: value %v couldn't be cast to type map[string]string", value)
+			return fmt.Errorf("Field labels/Labels: value %v(%T) couldn't be cast to type map[string]string", value, value)
 		}
 
 	case "loadBalancerGroups", "LoadBalancerGroups":
@@ -310,7 +310,7 @@ func (self *SingularityDeploy) SetField(name string, value interface{}) error {
 			self.present["loadBalancerGroups"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field loadBalancerGroups/LoadBalancerGroups: value %v couldn't be cast to type StringList", value)
+			return fmt.Errorf("Field loadBalancerGroups/LoadBalancerGroups: value %v(%T) couldn't be cast to type StringList", value, value)
 		}
 
 	case "loadBalancerPortIndex", "LoadBalancerPortIndex":
@@ -320,7 +320,7 @@ func (self *SingularityDeploy) SetField(name string, value interface{}) error {
 			self.present["loadBalancerPortIndex"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field loadBalancerPortIndex/LoadBalancerPortIndex: value %v couldn't be cast to type int32", value)
+			return fmt.Errorf("Field loadBalancerPortIndex/LoadBalancerPortIndex: value %v(%T) couldn't be cast to type int32", value, value)
 		}
 
 	case "maxTaskRetries", "MaxTaskRetries":
@@ -330,7 +330,7 @@ func (self *SingularityDeploy) SetField(name string, value interface{}) error {
 			self.present["maxTaskRetries"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field maxTaskRetries/MaxTaskRetries: value %v couldn't be cast to type int32", value)
+			return fmt.Errorf("Field maxTaskRetries/MaxTaskRetries: value %v(%T) couldn't be cast to type int32", value, value)
 		}
 
 	case "metadata", "Metadata":
@@ -340,7 +340,7 @@ func (self *SingularityDeploy) SetField(name string, value interface{}) error {
 			self.present["metadata"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field metadata/Metadata: value %v couldn't be cast to type map[string]string", value)
+			return fmt.Errorf("Field metadata/Metadata: value %v(%T) couldn't be cast to type map[string]string", value, value)
 		}
 
 	case "requestId", "RequestId":
@@ -350,7 +350,7 @@ func (self *SingularityDeploy) SetField(name string, value interface{}) error {
 			self.present["requestId"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field requestId/RequestId: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field requestId/RequestId: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "resources", "Resources":
@@ -360,7 +360,7 @@ func (self *SingularityDeploy) SetField(name string, value interface{}) error {
 			self.present["resources"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field resources/Resources: value %v couldn't be cast to type *Resources", value)
+			return fmt.Errorf("Field resources/Resources: value %v(%T) couldn't be cast to type *Resources", value, value)
 		}
 
 	case "serviceBasePath", "ServiceBasePath":
@@ -370,7 +370,7 @@ func (self *SingularityDeploy) SetField(name string, value interface{}) error {
 			self.present["serviceBasePath"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field serviceBasePath/ServiceBasePath: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field serviceBasePath/ServiceBasePath: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "skipHealthchecksOnDeploy", "SkipHealthchecksOnDeploy":
@@ -380,7 +380,7 @@ func (self *SingularityDeploy) SetField(name string, value interface{}) error {
 			self.present["skipHealthchecksOnDeploy"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field skipHealthchecksOnDeploy/SkipHealthchecksOnDeploy: value %v couldn't be cast to type bool", value)
+			return fmt.Errorf("Field skipHealthchecksOnDeploy/SkipHealthchecksOnDeploy: value %v(%T) couldn't be cast to type bool", value, value)
 		}
 
 	case "timestamp", "Timestamp":
@@ -390,7 +390,7 @@ func (self *SingularityDeploy) SetField(name string, value interface{}) error {
 			self.present["timestamp"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field timestamp/Timestamp: value %v couldn't be cast to type int64", value)
+			return fmt.Errorf("Field timestamp/Timestamp: value %v(%T) couldn't be cast to type int64", value, value)
 		}
 
 	case "uris", "Uris":
@@ -400,7 +400,7 @@ func (self *SingularityDeploy) SetField(name string, value interface{}) error {
 			self.present["uris"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field uris/Uris: value %v couldn't be cast to type StringList", value)
+			return fmt.Errorf("Field uris/Uris: value %v(%T) couldn't be cast to type StringList", value, value)
 		}
 
 	case "version", "Version":
@@ -410,7 +410,7 @@ func (self *SingularityDeploy) SetField(name string, value interface{}) error {
 			self.present["version"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field version/Version: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field version/Version: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	}

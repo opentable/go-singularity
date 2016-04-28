@@ -68,7 +68,7 @@ func (self *ContainerInfo) SetField(name string, value interface{}) error {
 			self.present["defaultInstanceForType"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field defaultInstanceForType/DefaultInstanceForType: value %v couldn't be cast to type *ContainerInfo", value)
+			return fmt.Errorf("Field defaultInstanceForType/DefaultInstanceForType: value %v(%T) couldn't be cast to type *ContainerInfo", value, value)
 		}
 
 	case "descriptorForType", "DescriptorForType":
@@ -78,7 +78,7 @@ func (self *ContainerInfo) SetField(name string, value interface{}) error {
 			self.present["descriptorForType"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field descriptorForType/DescriptorForType: value %v couldn't be cast to type *Descriptor", value)
+			return fmt.Errorf("Field descriptorForType/DescriptorForType: value %v(%T) couldn't be cast to type *Descriptor", value, value)
 		}
 
 	case "docker", "Docker":
@@ -88,7 +88,7 @@ func (self *ContainerInfo) SetField(name string, value interface{}) error {
 			self.present["docker"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field docker/Docker: value %v couldn't be cast to type *DockerInfo", value)
+			return fmt.Errorf("Field docker/Docker: value %v(%T) couldn't be cast to type *DockerInfo", value, value)
 		}
 
 	case "dockerOrBuilder", "DockerOrBuilder":
@@ -98,7 +98,7 @@ func (self *ContainerInfo) SetField(name string, value interface{}) error {
 			self.present["dockerOrBuilder"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field dockerOrBuilder/DockerOrBuilder: value %v couldn't be cast to type *DockerInfoOrBuilder", value)
+			return fmt.Errorf("Field dockerOrBuilder/DockerOrBuilder: value %v(%T) couldn't be cast to type *DockerInfoOrBuilder", value, value)
 		}
 
 	case "hostname", "Hostname":
@@ -108,7 +108,7 @@ func (self *ContainerInfo) SetField(name string, value interface{}) error {
 			self.present["hostname"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field hostname/Hostname: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field hostname/Hostname: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "hostnameBytes", "HostnameBytes":
@@ -118,7 +118,7 @@ func (self *ContainerInfo) SetField(name string, value interface{}) error {
 			self.present["hostnameBytes"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field hostnameBytes/HostnameBytes: value %v couldn't be cast to type *ByteString", value)
+			return fmt.Errorf("Field hostnameBytes/HostnameBytes: value %v(%T) couldn't be cast to type *ByteString", value, value)
 		}
 
 	case "initializationErrorString", "InitializationErrorString":
@@ -128,7 +128,7 @@ func (self *ContainerInfo) SetField(name string, value interface{}) error {
 			self.present["initializationErrorString"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field initializationErrorString/InitializationErrorString: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field initializationErrorString/InitializationErrorString: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "initialized", "Initialized":
@@ -138,7 +138,7 @@ func (self *ContainerInfo) SetField(name string, value interface{}) error {
 			self.present["initialized"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field initialized/Initialized: value %v couldn't be cast to type bool", value)
+			return fmt.Errorf("Field initialized/Initialized: value %v(%T) couldn't be cast to type bool", value, value)
 		}
 
 	case "serializedSize", "SerializedSize":
@@ -148,7 +148,7 @@ func (self *ContainerInfo) SetField(name string, value interface{}) error {
 			self.present["serializedSize"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field serializedSize/SerializedSize: value %v couldn't be cast to type int32", value)
+			return fmt.Errorf("Field serializedSize/SerializedSize: value %v(%T) couldn't be cast to type int32", value, value)
 		}
 
 	case "type", "Type":
@@ -158,7 +158,7 @@ func (self *ContainerInfo) SetField(name string, value interface{}) error {
 			self.present["type"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field type/Type: value %v couldn't be cast to type ContainerInfoType", value)
+			return fmt.Errorf("Field type/Type: value %v(%T) couldn't be cast to type ContainerInfoType", value, value)
 		}
 
 	case "unknownFields", "UnknownFields":
@@ -168,7 +168,7 @@ func (self *ContainerInfo) SetField(name string, value interface{}) error {
 			self.present["unknownFields"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field unknownFields/UnknownFields: value %v couldn't be cast to type *UnknownFieldSet", value)
+			return fmt.Errorf("Field unknownFields/UnknownFields: value %v(%T) couldn't be cast to type *UnknownFieldSet", value, value)
 		}
 
 	case "volumesCount", "VolumesCount":
@@ -178,7 +178,7 @@ func (self *ContainerInfo) SetField(name string, value interface{}) error {
 			self.present["volumesCount"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field volumesCount/VolumesCount: value %v couldn't be cast to type int32", value)
+			return fmt.Errorf("Field volumesCount/VolumesCount: value %v(%T) couldn't be cast to type int32", value, value)
 		}
 
 	}

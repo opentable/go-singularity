@@ -50,7 +50,7 @@ func (self *SingularityDockerInfo) SetField(name string, value interface{}) erro
 			self.present["forcePullImage"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field forcePullImage/ForcePullImage: value %v couldn't be cast to type bool", value)
+			return fmt.Errorf("Field forcePullImage/ForcePullImage: value %v(%T) couldn't be cast to type bool", value, value)
 		}
 
 	case "image", "Image":
@@ -60,7 +60,7 @@ func (self *SingularityDockerInfo) SetField(name string, value interface{}) erro
 			self.present["image"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field image/Image: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field image/Image: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "parameters", "Parameters":
@@ -70,7 +70,7 @@ func (self *SingularityDockerInfo) SetField(name string, value interface{}) erro
 			self.present["parameters"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field parameters/Parameters: value %v couldn't be cast to type map[string]string", value)
+			return fmt.Errorf("Field parameters/Parameters: value %v(%T) couldn't be cast to type map[string]string", value, value)
 		}
 
 	case "portMappings", "PortMappings":
@@ -80,7 +80,7 @@ func (self *SingularityDockerInfo) SetField(name string, value interface{}) erro
 			self.present["portMappings"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field portMappings/PortMappings: value %v couldn't be cast to type SingularityDockerPortMappingList", value)
+			return fmt.Errorf("Field portMappings/PortMappings: value %v(%T) couldn't be cast to type SingularityDockerPortMappingList", value, value)
 		}
 
 	case "privileged", "Privileged":
@@ -90,7 +90,7 @@ func (self *SingularityDockerInfo) SetField(name string, value interface{}) erro
 			self.present["privileged"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field privileged/Privileged: value %v couldn't be cast to type bool", value)
+			return fmt.Errorf("Field privileged/Privileged: value %v(%T) couldn't be cast to type bool", value, value)
 		}
 
 	}

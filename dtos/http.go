@@ -57,7 +57,7 @@ func (self *HTTP) SetField(name string, value interface{}) error {
 			self.present["defaultInstanceForType"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field defaultInstanceForType/DefaultInstanceForType: value %v couldn't be cast to type *HTTP", value)
+			return fmt.Errorf("Field defaultInstanceForType/DefaultInstanceForType: value %v(%T) couldn't be cast to type *HTTP", value, value)
 		}
 
 	case "descriptorForType", "DescriptorForType":
@@ -67,7 +67,7 @@ func (self *HTTP) SetField(name string, value interface{}) error {
 			self.present["descriptorForType"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field descriptorForType/DescriptorForType: value %v couldn't be cast to type *Descriptor", value)
+			return fmt.Errorf("Field descriptorForType/DescriptorForType: value %v(%T) couldn't be cast to type *Descriptor", value, value)
 		}
 
 	case "initializationErrorString", "InitializationErrorString":
@@ -77,7 +77,7 @@ func (self *HTTP) SetField(name string, value interface{}) error {
 			self.present["initializationErrorString"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field initializationErrorString/InitializationErrorString: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field initializationErrorString/InitializationErrorString: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "initialized", "Initialized":
@@ -87,7 +87,7 @@ func (self *HTTP) SetField(name string, value interface{}) error {
 			self.present["initialized"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field initialized/Initialized: value %v couldn't be cast to type bool", value)
+			return fmt.Errorf("Field initialized/Initialized: value %v(%T) couldn't be cast to type bool", value, value)
 		}
 
 	case "path", "Path":
@@ -97,7 +97,7 @@ func (self *HTTP) SetField(name string, value interface{}) error {
 			self.present["path"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field path/Path: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field path/Path: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "pathBytes", "PathBytes":
@@ -107,7 +107,7 @@ func (self *HTTP) SetField(name string, value interface{}) error {
 			self.present["pathBytes"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field pathBytes/PathBytes: value %v couldn't be cast to type *ByteString", value)
+			return fmt.Errorf("Field pathBytes/PathBytes: value %v(%T) couldn't be cast to type *ByteString", value, value)
 		}
 
 	case "port", "Port":
@@ -117,7 +117,7 @@ func (self *HTTP) SetField(name string, value interface{}) error {
 			self.present["port"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field port/Port: value %v couldn't be cast to type int32", value)
+			return fmt.Errorf("Field port/Port: value %v(%T) couldn't be cast to type int32", value, value)
 		}
 
 	case "serializedSize", "SerializedSize":
@@ -127,7 +127,7 @@ func (self *HTTP) SetField(name string, value interface{}) error {
 			self.present["serializedSize"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field serializedSize/SerializedSize: value %v couldn't be cast to type int32", value)
+			return fmt.Errorf("Field serializedSize/SerializedSize: value %v(%T) couldn't be cast to type int32", value, value)
 		}
 
 	case "statusesCount", "StatusesCount":
@@ -137,7 +137,7 @@ func (self *HTTP) SetField(name string, value interface{}) error {
 			self.present["statusesCount"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field statusesCount/StatusesCount: value %v couldn't be cast to type int32", value)
+			return fmt.Errorf("Field statusesCount/StatusesCount: value %v(%T) couldn't be cast to type int32", value, value)
 		}
 
 	case "statusesList", "StatusesList":
@@ -147,7 +147,7 @@ func (self *HTTP) SetField(name string, value interface{}) error {
 			self.present["statusesList"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field statusesList/StatusesList: value %v couldn't be cast to type []int32", value)
+			return fmt.Errorf("Field statusesList/StatusesList: value %v(%T) couldn't be cast to type []int32", value, value)
 		}
 
 	case "unknownFields", "UnknownFields":
@@ -157,7 +157,7 @@ func (self *HTTP) SetField(name string, value interface{}) error {
 			self.present["unknownFields"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field unknownFields/UnknownFields: value %v couldn't be cast to type *UnknownFieldSet", value)
+			return fmt.Errorf("Field unknownFields/UnknownFields: value %v(%T) couldn't be cast to type *UnknownFieldSet", value, value)
 		}
 
 	}

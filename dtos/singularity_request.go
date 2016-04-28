@@ -76,7 +76,7 @@ func (self *SingularityRequest) SetField(name string, value interface{}) error {
 			self.present["allowedSlaveAttributes"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field allowedSlaveAttributes/AllowedSlaveAttributes: value %v couldn't be cast to type map[string]string", value)
+			return fmt.Errorf("Field allowedSlaveAttributes/AllowedSlaveAttributes: value %v(%T) couldn't be cast to type map[string]string", value, value)
 		}
 
 	case "bounceAfterScale", "BounceAfterScale":
@@ -86,7 +86,7 @@ func (self *SingularityRequest) SetField(name string, value interface{}) error {
 			self.present["bounceAfterScale"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field bounceAfterScale/BounceAfterScale: value %v couldn't be cast to type bool", value)
+			return fmt.Errorf("Field bounceAfterScale/BounceAfterScale: value %v(%T) couldn't be cast to type bool", value, value)
 		}
 
 	case "group", "Group":
@@ -96,7 +96,7 @@ func (self *SingularityRequest) SetField(name string, value interface{}) error {
 			self.present["group"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field group/Group: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field group/Group: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "id", "Id":
@@ -106,7 +106,7 @@ func (self *SingularityRequest) SetField(name string, value interface{}) error {
 			self.present["id"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field id/Id: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field id/Id: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "instances", "Instances":
@@ -116,7 +116,7 @@ func (self *SingularityRequest) SetField(name string, value interface{}) error {
 			self.present["instances"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field instances/Instances: value %v couldn't be cast to type int32", value)
+			return fmt.Errorf("Field instances/Instances: value %v(%T) couldn't be cast to type int32", value, value)
 		}
 
 	case "killOldNonLongRunningTasksAfterMillis", "KillOldNonLongRunningTasksAfterMillis":
@@ -126,7 +126,7 @@ func (self *SingularityRequest) SetField(name string, value interface{}) error {
 			self.present["killOldNonLongRunningTasksAfterMillis"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field killOldNonLongRunningTasksAfterMillis/KillOldNonLongRunningTasksAfterMillis: value %v couldn't be cast to type int64", value)
+			return fmt.Errorf("Field killOldNonLongRunningTasksAfterMillis/KillOldNonLongRunningTasksAfterMillis: value %v(%T) couldn't be cast to type int64", value, value)
 		}
 
 	case "loadBalanced", "LoadBalanced":
@@ -136,7 +136,7 @@ func (self *SingularityRequest) SetField(name string, value interface{}) error {
 			self.present["loadBalanced"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field loadBalanced/LoadBalanced: value %v couldn't be cast to type bool", value)
+			return fmt.Errorf("Field loadBalanced/LoadBalanced: value %v(%T) couldn't be cast to type bool", value, value)
 		}
 
 	case "numRetriesOnFailure", "NumRetriesOnFailure":
@@ -146,7 +146,7 @@ func (self *SingularityRequest) SetField(name string, value interface{}) error {
 			self.present["numRetriesOnFailure"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field numRetriesOnFailure/NumRetriesOnFailure: value %v couldn't be cast to type int32", value)
+			return fmt.Errorf("Field numRetriesOnFailure/NumRetriesOnFailure: value %v(%T) couldn't be cast to type int32", value, value)
 		}
 
 	case "owners", "Owners":
@@ -156,7 +156,7 @@ func (self *SingularityRequest) SetField(name string, value interface{}) error {
 			self.present["owners"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field owners/Owners: value %v couldn't be cast to type StringList", value)
+			return fmt.Errorf("Field owners/Owners: value %v(%T) couldn't be cast to type StringList", value, value)
 		}
 
 	case "quartzSchedule", "QuartzSchedule":
@@ -166,7 +166,7 @@ func (self *SingularityRequest) SetField(name string, value interface{}) error {
 			self.present["quartzSchedule"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field quartzSchedule/QuartzSchedule: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field quartzSchedule/QuartzSchedule: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "rackAffinity", "RackAffinity":
@@ -176,7 +176,7 @@ func (self *SingularityRequest) SetField(name string, value interface{}) error {
 			self.present["rackAffinity"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field rackAffinity/RackAffinity: value %v couldn't be cast to type StringList", value)
+			return fmt.Errorf("Field rackAffinity/RackAffinity: value %v(%T) couldn't be cast to type StringList", value, value)
 		}
 
 	case "rackSensitive", "RackSensitive":
@@ -186,7 +186,7 @@ func (self *SingularityRequest) SetField(name string, value interface{}) error {
 			self.present["rackSensitive"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field rackSensitive/RackSensitive: value %v couldn't be cast to type bool", value)
+			return fmt.Errorf("Field rackSensitive/RackSensitive: value %v(%T) couldn't be cast to type bool", value, value)
 		}
 
 	case "readOnlyGroups", "ReadOnlyGroups":
@@ -196,7 +196,7 @@ func (self *SingularityRequest) SetField(name string, value interface{}) error {
 			self.present["readOnlyGroups"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field readOnlyGroups/ReadOnlyGroups: value %v couldn't be cast to type StringList", value)
+			return fmt.Errorf("Field readOnlyGroups/ReadOnlyGroups: value %v(%T) couldn't be cast to type StringList", value, value)
 		}
 
 	case "requestType", "RequestType":
@@ -206,7 +206,7 @@ func (self *SingularityRequest) SetField(name string, value interface{}) error {
 			self.present["requestType"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field requestType/RequestType: value %v couldn't be cast to type SingularityRequestRequestType", value)
+			return fmt.Errorf("Field requestType/RequestType: value %v(%T) couldn't be cast to type SingularityRequestRequestType", value, value)
 		}
 
 	case "requiredSlaveAttributes", "RequiredSlaveAttributes":
@@ -216,7 +216,7 @@ func (self *SingularityRequest) SetField(name string, value interface{}) error {
 			self.present["requiredSlaveAttributes"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field requiredSlaveAttributes/RequiredSlaveAttributes: value %v couldn't be cast to type map[string]string", value)
+			return fmt.Errorf("Field requiredSlaveAttributes/RequiredSlaveAttributes: value %v(%T) couldn't be cast to type map[string]string", value, value)
 		}
 
 	case "schedule", "Schedule":
@@ -226,7 +226,7 @@ func (self *SingularityRequest) SetField(name string, value interface{}) error {
 			self.present["schedule"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field schedule/Schedule: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field schedule/Schedule: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "scheduledExpectedRuntimeMillis", "ScheduledExpectedRuntimeMillis":
@@ -236,7 +236,7 @@ func (self *SingularityRequest) SetField(name string, value interface{}) error {
 			self.present["scheduledExpectedRuntimeMillis"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field scheduledExpectedRuntimeMillis/ScheduledExpectedRuntimeMillis: value %v couldn't be cast to type int64", value)
+			return fmt.Errorf("Field scheduledExpectedRuntimeMillis/ScheduledExpectedRuntimeMillis: value %v(%T) couldn't be cast to type int64", value, value)
 		}
 
 	case "skipHealthchecks", "SkipHealthchecks":
@@ -246,7 +246,7 @@ func (self *SingularityRequest) SetField(name string, value interface{}) error {
 			self.present["skipHealthchecks"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field skipHealthchecks/SkipHealthchecks: value %v couldn't be cast to type bool", value)
+			return fmt.Errorf("Field skipHealthchecks/SkipHealthchecks: value %v(%T) couldn't be cast to type bool", value, value)
 		}
 
 	case "waitAtLeastMillisAfterTaskFinishesForReschedule", "WaitAtLeastMillisAfterTaskFinishesForReschedule":
@@ -256,7 +256,7 @@ func (self *SingularityRequest) SetField(name string, value interface{}) error {
 			self.present["waitAtLeastMillisAfterTaskFinishesForReschedule"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field waitAtLeastMillisAfterTaskFinishesForReschedule/WaitAtLeastMillisAfterTaskFinishesForReschedule: value %v couldn't be cast to type int64", value)
+			return fmt.Errorf("Field waitAtLeastMillisAfterTaskFinishesForReschedule/WaitAtLeastMillisAfterTaskFinishesForReschedule: value %v(%T) couldn't be cast to type int64", value, value)
 		}
 
 	}

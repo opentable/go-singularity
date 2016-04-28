@@ -55,7 +55,7 @@ func (self *Labels) SetField(name string, value interface{}) error {
 			self.present["defaultInstanceForType"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field defaultInstanceForType/DefaultInstanceForType: value %v couldn't be cast to type *Labels", value)
+			return fmt.Errorf("Field defaultInstanceForType/DefaultInstanceForType: value %v(%T) couldn't be cast to type *Labels", value, value)
 		}
 
 	case "descriptorForType", "DescriptorForType":
@@ -65,7 +65,7 @@ func (self *Labels) SetField(name string, value interface{}) error {
 			self.present["descriptorForType"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field descriptorForType/DescriptorForType: value %v couldn't be cast to type *Descriptor", value)
+			return fmt.Errorf("Field descriptorForType/DescriptorForType: value %v(%T) couldn't be cast to type *Descriptor", value, value)
 		}
 
 	case "initializationErrorString", "InitializationErrorString":
@@ -75,7 +75,7 @@ func (self *Labels) SetField(name string, value interface{}) error {
 			self.present["initializationErrorString"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field initializationErrorString/InitializationErrorString: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field initializationErrorString/InitializationErrorString: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "initialized", "Initialized":
@@ -85,7 +85,7 @@ func (self *Labels) SetField(name string, value interface{}) error {
 			self.present["initialized"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field initialized/Initialized: value %v couldn't be cast to type bool", value)
+			return fmt.Errorf("Field initialized/Initialized: value %v(%T) couldn't be cast to type bool", value, value)
 		}
 
 	case "labelsCount", "LabelsCount":
@@ -95,7 +95,7 @@ func (self *Labels) SetField(name string, value interface{}) error {
 			self.present["labelsCount"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field labelsCount/LabelsCount: value %v couldn't be cast to type int32", value)
+			return fmt.Errorf("Field labelsCount/LabelsCount: value %v(%T) couldn't be cast to type int32", value, value)
 		}
 
 	case "serializedSize", "SerializedSize":
@@ -105,7 +105,7 @@ func (self *Labels) SetField(name string, value interface{}) error {
 			self.present["serializedSize"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field serializedSize/SerializedSize: value %v couldn't be cast to type int32", value)
+			return fmt.Errorf("Field serializedSize/SerializedSize: value %v(%T) couldn't be cast to type int32", value, value)
 		}
 
 	case "unknownFields", "UnknownFields":
@@ -115,7 +115,7 @@ func (self *Labels) SetField(name string, value interface{}) error {
 			self.present["unknownFields"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field unknownFields/UnknownFields: value %v couldn't be cast to type *UnknownFieldSet", value)
+			return fmt.Errorf("Field unknownFields/UnknownFields: value %v(%T) couldn't be cast to type *UnknownFieldSet", value, value)
 		}
 
 	}

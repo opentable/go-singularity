@@ -54,7 +54,7 @@ func (self *SingularityContainerInfo) SetField(name string, value interface{}) e
 			self.present["docker"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field docker/Docker: value %v couldn't be cast to type *SingularityDockerInfo", value)
+			return fmt.Errorf("Field docker/Docker: value %v(%T) couldn't be cast to type *SingularityDockerInfo", value, value)
 		}
 
 	case "type", "Type":
@@ -64,7 +64,7 @@ func (self *SingularityContainerInfo) SetField(name string, value interface{}) e
 			self.present["type"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field type/Type: value %v couldn't be cast to type SingularityContainerInfoSingularityContainerType", value)
+			return fmt.Errorf("Field type/Type: value %v(%T) couldn't be cast to type SingularityContainerInfoSingularityContainerType", value, value)
 		}
 
 	case "volumes", "Volumes":
@@ -74,7 +74,7 @@ func (self *SingularityContainerInfo) SetField(name string, value interface{}) e
 			self.present["volumes"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field volumes/Volumes: value %v couldn't be cast to type SingularityVolumeList", value)
+			return fmt.Errorf("Field volumes/Volumes: value %v(%T) couldn't be cast to type SingularityVolumeList", value, value)
 		}
 
 	}

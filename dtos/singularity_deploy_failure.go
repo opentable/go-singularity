@@ -62,7 +62,7 @@ func (self *SingularityDeployFailure) SetField(name string, value interface{}) e
 			self.present["message"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field message/Message: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field message/Message: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "reason", "Reason":
@@ -72,7 +72,7 @@ func (self *SingularityDeployFailure) SetField(name string, value interface{}) e
 			self.present["reason"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field reason/Reason: value %v couldn't be cast to type SingularityDeployFailureSingularityDeployFailureReason", value)
+			return fmt.Errorf("Field reason/Reason: value %v(%T) couldn't be cast to type SingularityDeployFailureSingularityDeployFailureReason", value, value)
 		}
 
 	case "taskId", "TaskId":
@@ -82,7 +82,7 @@ func (self *SingularityDeployFailure) SetField(name string, value interface{}) e
 			self.present["taskId"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field taskId/TaskId: value %v couldn't be cast to type *SingularityTaskId", value)
+			return fmt.Errorf("Field taskId/TaskId: value %v(%T) couldn't be cast to type *SingularityTaskId", value, value)
 		}
 
 	}

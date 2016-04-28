@@ -2,14 +2,15 @@ package singularity
 
 import "github.com/opentable/singularity/dtos"
 
-func (client *Client) getSlaves(state string) (response *dtos.SingularitySlave, err error) {
+func (client *Client) GetSlaves(state string) (response dtos.SingularitySlaveList, err error) {
 	pathParamMap := map[string]interface{}{}
+
 	queryParamMap := map[string]interface{}{
 		"state": state,
 	}
 
-	response = new(dtos.SingularitySlave)
-	err = client.DTORequest(response, "GET", "/api/slaves/", pathParamMap, queryParamMap)
+	response = make(dtos.SingularitySlaveList, 0)
+	err = client.DTORequest(&response, "GET", "/api/slaves/", pathParamMap, queryParamMap)
 
 	return
 }

@@ -2,22 +2,24 @@ package singularity
 
 import "github.com/opentable/singularity/dtos"
 
-func (client *Client) getSlaveHistory(slaveId string) (response *dtos.SingularityMachineStateHistoryUpdate, err error) {
+func (client *Client) GetSlaveHistory(slaveId string) (response dtos.SingularityMachineStateHistoryUpdateList, err error) {
 	pathParamMap := map[string]interface{}{
 		"slaveId": slaveId,
 	}
+
 	queryParamMap := map[string]interface{}{}
 
-	response = new(dtos.SingularityMachineStateHistoryUpdate)
-	err = client.DTORequest(response, "GET", "/api/slaves/slave/{slaveId}", pathParamMap, queryParamMap)
+	response = make(dtos.SingularityMachineStateHistoryUpdateList, 0)
+	err = client.DTORequest(&response, "GET", "/api/slaves/slave/{slaveId}", pathParamMap, queryParamMap)
 
 	return
 }
 
-func (client *Client) removeSlave(slaveId string) (err error) {
+func (client *Client) RemoveSlave(slaveId string) (err error) {
 	pathParamMap := map[string]interface{}{
 		"slaveId": slaveId,
 	}
+
 	queryParamMap := map[string]interface{}{}
 
 	_, err = client.Request("DELETE", "/api/slaves/slave/{slaveId}", pathParamMap, queryParamMap)

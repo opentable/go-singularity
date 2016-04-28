@@ -47,7 +47,7 @@ func (self *SingularityUnpauseRequest) SetField(name string, value interface{}) 
 			self.present["actionId"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field actionId/ActionId: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field actionId/ActionId: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "message", "Message":
@@ -57,7 +57,7 @@ func (self *SingularityUnpauseRequest) SetField(name string, value interface{}) 
 			self.present["message"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field message/Message: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field message/Message: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "skipHealthchecks", "SkipHealthchecks":
@@ -67,7 +67,7 @@ func (self *SingularityUnpauseRequest) SetField(name string, value interface{}) 
 			self.present["skipHealthchecks"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field skipHealthchecks/SkipHealthchecks: value %v couldn't be cast to type bool", value)
+			return fmt.Errorf("Field skipHealthchecks/SkipHealthchecks: value %v(%T) couldn't be cast to type bool", value, value)
 		}
 
 	}

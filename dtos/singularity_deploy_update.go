@@ -55,7 +55,7 @@ func (self *SingularityDeployUpdate) SetField(name string, value interface{}) er
 			self.present["deploy"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field deploy/Deploy: value %v couldn't be cast to type *SingularityDeploy", value)
+			return fmt.Errorf("Field deploy/Deploy: value %v(%T) couldn't be cast to type *SingularityDeploy", value, value)
 		}
 
 	case "deployMarker", "DeployMarker":
@@ -65,7 +65,7 @@ func (self *SingularityDeployUpdate) SetField(name string, value interface{}) er
 			self.present["deployMarker"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field deployMarker/DeployMarker: value %v couldn't be cast to type *SingularityDeployMarker", value)
+			return fmt.Errorf("Field deployMarker/DeployMarker: value %v(%T) couldn't be cast to type *SingularityDeployMarker", value, value)
 		}
 
 	case "deployResult", "DeployResult":
@@ -75,7 +75,7 @@ func (self *SingularityDeployUpdate) SetField(name string, value interface{}) er
 			self.present["deployResult"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field deployResult/DeployResult: value %v couldn't be cast to type *SingularityDeployResult", value)
+			return fmt.Errorf("Field deployResult/DeployResult: value %v(%T) couldn't be cast to type *SingularityDeployResult", value, value)
 		}
 
 	case "eventType", "EventType":
@@ -85,7 +85,7 @@ func (self *SingularityDeployUpdate) SetField(name string, value interface{}) er
 			self.present["eventType"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field eventType/EventType: value %v couldn't be cast to type SingularityDeployUpdateDeployEventType", value)
+			return fmt.Errorf("Field eventType/EventType: value %v(%T) couldn't be cast to type SingularityDeployUpdateDeployEventType", value, value)
 		}
 
 	}

@@ -48,7 +48,7 @@ func (self *EnvironmentOrBuilder) SetField(name string, value interface{}) error
 			self.present["variablesCount"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field variablesCount/VariablesCount: value %v couldn't be cast to type int32", value)
+			return fmt.Errorf("Field variablesCount/VariablesCount: value %v(%T) couldn't be cast to type int32", value, value)
 		}
 
 	}

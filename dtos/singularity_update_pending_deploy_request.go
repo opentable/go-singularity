@@ -47,7 +47,7 @@ func (self *SingularityUpdatePendingDeployRequest) SetField(name string, value i
 			self.present["deployId"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field deployId/DeployId: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field deployId/DeployId: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "requestId", "RequestId":
@@ -57,7 +57,7 @@ func (self *SingularityUpdatePendingDeployRequest) SetField(name string, value i
 			self.present["requestId"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field requestId/RequestId: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field requestId/RequestId: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "targetActiveInstances", "TargetActiveInstances":
@@ -67,7 +67,7 @@ func (self *SingularityUpdatePendingDeployRequest) SetField(name string, value i
 			self.present["targetActiveInstances"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field targetActiveInstances/TargetActiveInstances: value %v couldn't be cast to type int32", value)
+			return fmt.Errorf("Field targetActiveInstances/TargetActiveInstances: value %v(%T) couldn't be cast to type int32", value, value)
 		}
 
 	}

@@ -61,7 +61,7 @@ func (self *ExecutorData) SetField(name string, value interface{}) error {
 			self.present["cmd"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field cmd/Cmd: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field cmd/Cmd: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "embeddedArtifacts", "EmbeddedArtifacts":
@@ -71,7 +71,7 @@ func (self *ExecutorData) SetField(name string, value interface{}) error {
 			self.present["embeddedArtifacts"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field embeddedArtifacts/EmbeddedArtifacts: value %v couldn't be cast to type EmbeddedArtifactList", value)
+			return fmt.Errorf("Field embeddedArtifacts/EmbeddedArtifacts: value %v(%T) couldn't be cast to type EmbeddedArtifactList", value, value)
 		}
 
 	case "externalArtifacts", "ExternalArtifacts":
@@ -81,7 +81,7 @@ func (self *ExecutorData) SetField(name string, value interface{}) error {
 			self.present["externalArtifacts"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field externalArtifacts/ExternalArtifacts: value %v couldn't be cast to type ExternalArtifactList", value)
+			return fmt.Errorf("Field externalArtifacts/ExternalArtifacts: value %v(%T) couldn't be cast to type ExternalArtifactList", value, value)
 		}
 
 	case "extraCmdLineArgs", "ExtraCmdLineArgs":
@@ -91,7 +91,7 @@ func (self *ExecutorData) SetField(name string, value interface{}) error {
 			self.present["extraCmdLineArgs"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field extraCmdLineArgs/ExtraCmdLineArgs: value %v couldn't be cast to type StringList", value)
+			return fmt.Errorf("Field extraCmdLineArgs/ExtraCmdLineArgs: value %v(%T) couldn't be cast to type StringList", value, value)
 		}
 
 	case "loggingExtraFields", "LoggingExtraFields":
@@ -101,7 +101,7 @@ func (self *ExecutorData) SetField(name string, value interface{}) error {
 			self.present["loggingExtraFields"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field loggingExtraFields/LoggingExtraFields: value %v couldn't be cast to type map[string]string", value)
+			return fmt.Errorf("Field loggingExtraFields/LoggingExtraFields: value %v(%T) couldn't be cast to type map[string]string", value, value)
 		}
 
 	case "loggingS3Bucket", "LoggingS3Bucket":
@@ -111,7 +111,7 @@ func (self *ExecutorData) SetField(name string, value interface{}) error {
 			self.present["loggingS3Bucket"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field loggingS3Bucket/LoggingS3Bucket: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field loggingS3Bucket/LoggingS3Bucket: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "loggingTag", "LoggingTag":
@@ -121,7 +121,7 @@ func (self *ExecutorData) SetField(name string, value interface{}) error {
 			self.present["loggingTag"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field loggingTag/LoggingTag: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field loggingTag/LoggingTag: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "maxOpenFiles", "MaxOpenFiles":
@@ -131,7 +131,7 @@ func (self *ExecutorData) SetField(name string, value interface{}) error {
 			self.present["maxOpenFiles"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field maxOpenFiles/MaxOpenFiles: value %v couldn't be cast to type int32", value)
+			return fmt.Errorf("Field maxOpenFiles/MaxOpenFiles: value %v(%T) couldn't be cast to type int32", value, value)
 		}
 
 	case "maxTaskThreads", "MaxTaskThreads":
@@ -141,7 +141,7 @@ func (self *ExecutorData) SetField(name string, value interface{}) error {
 			self.present["maxTaskThreads"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field maxTaskThreads/MaxTaskThreads: value %v couldn't be cast to type int32", value)
+			return fmt.Errorf("Field maxTaskThreads/MaxTaskThreads: value %v(%T) couldn't be cast to type int32", value, value)
 		}
 
 	case "preserveTaskSandboxAfterFinish", "PreserveTaskSandboxAfterFinish":
@@ -151,7 +151,7 @@ func (self *ExecutorData) SetField(name string, value interface{}) error {
 			self.present["preserveTaskSandboxAfterFinish"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field preserveTaskSandboxAfterFinish/PreserveTaskSandboxAfterFinish: value %v couldn't be cast to type bool", value)
+			return fmt.Errorf("Field preserveTaskSandboxAfterFinish/PreserveTaskSandboxAfterFinish: value %v(%T) couldn't be cast to type bool", value, value)
 		}
 
 	case "runningSentinel", "RunningSentinel":
@@ -161,7 +161,7 @@ func (self *ExecutorData) SetField(name string, value interface{}) error {
 			self.present["runningSentinel"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field runningSentinel/RunningSentinel: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field runningSentinel/RunningSentinel: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "s3ArtifactSignatures", "S3ArtifactSignatures":
@@ -171,7 +171,7 @@ func (self *ExecutorData) SetField(name string, value interface{}) error {
 			self.present["s3ArtifactSignatures"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field s3ArtifactSignatures/S3ArtifactSignatures: value %v couldn't be cast to type S3ArtifactSignatureList", value)
+			return fmt.Errorf("Field s3ArtifactSignatures/S3ArtifactSignatures: value %v(%T) couldn't be cast to type S3ArtifactSignatureList", value, value)
 		}
 
 	case "s3Artifacts", "S3Artifacts":
@@ -181,7 +181,7 @@ func (self *ExecutorData) SetField(name string, value interface{}) error {
 			self.present["s3Artifacts"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field s3Artifacts/S3Artifacts: value %v couldn't be cast to type S3ArtifactList", value)
+			return fmt.Errorf("Field s3Artifacts/S3Artifacts: value %v(%T) couldn't be cast to type S3ArtifactList", value, value)
 		}
 
 	case "sigKillProcessesAfterMillis", "SigKillProcessesAfterMillis":
@@ -191,7 +191,7 @@ func (self *ExecutorData) SetField(name string, value interface{}) error {
 			self.present["sigKillProcessesAfterMillis"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field sigKillProcessesAfterMillis/SigKillProcessesAfterMillis: value %v couldn't be cast to type int64", value)
+			return fmt.Errorf("Field sigKillProcessesAfterMillis/SigKillProcessesAfterMillis: value %v(%T) couldn't be cast to type int64", value, value)
 		}
 
 	case "skipLogrotateAndCompress", "SkipLogrotateAndCompress":
@@ -201,7 +201,7 @@ func (self *ExecutorData) SetField(name string, value interface{}) error {
 			self.present["skipLogrotateAndCompress"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field skipLogrotateAndCompress/SkipLogrotateAndCompress: value %v couldn't be cast to type bool", value)
+			return fmt.Errorf("Field skipLogrotateAndCompress/SkipLogrotateAndCompress: value %v(%T) couldn't be cast to type bool", value, value)
 		}
 
 	case "successfulExitCodes", "SuccessfulExitCodes":
@@ -211,7 +211,7 @@ func (self *ExecutorData) SetField(name string, value interface{}) error {
 			self.present["successfulExitCodes"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field successfulExitCodes/SuccessfulExitCodes: value %v couldn't be cast to type []int32", value)
+			return fmt.Errorf("Field successfulExitCodes/SuccessfulExitCodes: value %v(%T) couldn't be cast to type []int32", value, value)
 		}
 
 	case "user", "User":
@@ -221,7 +221,7 @@ func (self *ExecutorData) SetField(name string, value interface{}) error {
 			self.present["user"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field user/User: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field user/User: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	}

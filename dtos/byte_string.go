@@ -46,7 +46,7 @@ func (self *ByteString) SetField(name string, value interface{}) error {
 			self.present["empty"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field empty/Empty: value %v couldn't be cast to type bool", value)
+			return fmt.Errorf("Field empty/Empty: value %v(%T) couldn't be cast to type bool", value, value)
 		}
 
 	case "validUtf8", "ValidUtf8":
@@ -56,7 +56,7 @@ func (self *ByteString) SetField(name string, value interface{}) error {
 			self.present["validUtf8"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field validUtf8/ValidUtf8: value %v couldn't be cast to type bool", value)
+			return fmt.Errorf("Field validUtf8/ValidUtf8: value %v(%T) couldn't be cast to type bool", value, value)
 		}
 
 	}

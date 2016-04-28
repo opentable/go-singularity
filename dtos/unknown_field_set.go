@@ -49,7 +49,7 @@ func (self *UnknownFieldSet) SetField(name string, value interface{}) error {
 			self.present["defaultInstanceForType"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field defaultInstanceForType/DefaultInstanceForType: value %v couldn't be cast to type *UnknownFieldSet", value)
+			return fmt.Errorf("Field defaultInstanceForType/DefaultInstanceForType: value %v(%T) couldn't be cast to type *UnknownFieldSet", value, value)
 		}
 
 	case "initialized", "Initialized":
@@ -59,7 +59,7 @@ func (self *UnknownFieldSet) SetField(name string, value interface{}) error {
 			self.present["initialized"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field initialized/Initialized: value %v couldn't be cast to type bool", value)
+			return fmt.Errorf("Field initialized/Initialized: value %v(%T) couldn't be cast to type bool", value, value)
 		}
 
 	case "serializedSize", "SerializedSize":
@@ -69,7 +69,7 @@ func (self *UnknownFieldSet) SetField(name string, value interface{}) error {
 			self.present["serializedSize"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field serializedSize/SerializedSize: value %v couldn't be cast to type int32", value)
+			return fmt.Errorf("Field serializedSize/SerializedSize: value %v(%T) couldn't be cast to type int32", value, value)
 		}
 
 	case "serializedSizeAsMessageSet", "SerializedSizeAsMessageSet":
@@ -79,7 +79,7 @@ func (self *UnknownFieldSet) SetField(name string, value interface{}) error {
 			self.present["serializedSizeAsMessageSet"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field serializedSizeAsMessageSet/SerializedSizeAsMessageSet: value %v couldn't be cast to type int32", value)
+			return fmt.Errorf("Field serializedSizeAsMessageSet/SerializedSizeAsMessageSet: value %v(%T) couldn't be cast to type int32", value, value)
 		}
 
 	}

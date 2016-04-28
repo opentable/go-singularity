@@ -56,7 +56,7 @@ func (self *MesosTaskStatisticsObject) SetField(name string, value interface{}) 
 			self.present["cpusLimit"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field cpusLimit/CpusLimit: value %v couldn't be cast to type int32", value)
+			return fmt.Errorf("Field cpusLimit/CpusLimit: value %v(%T) couldn't be cast to type int32", value, value)
 		}
 
 	case "cpusNrPeriods", "CpusNrPeriods":
@@ -66,7 +66,7 @@ func (self *MesosTaskStatisticsObject) SetField(name string, value interface{}) 
 			self.present["cpusNrPeriods"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field cpusNrPeriods/CpusNrPeriods: value %v couldn't be cast to type int64", value)
+			return fmt.Errorf("Field cpusNrPeriods/CpusNrPeriods: value %v(%T) couldn't be cast to type int64", value, value)
 		}
 
 	case "cpusNrThrottled", "CpusNrThrottled":
@@ -76,7 +76,7 @@ func (self *MesosTaskStatisticsObject) SetField(name string, value interface{}) 
 			self.present["cpusNrThrottled"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field cpusNrThrottled/CpusNrThrottled: value %v couldn't be cast to type int64", value)
+			return fmt.Errorf("Field cpusNrThrottled/CpusNrThrottled: value %v(%T) couldn't be cast to type int64", value, value)
 		}
 
 	case "cpusSystemTimeSecs", "CpusSystemTimeSecs":
@@ -86,7 +86,7 @@ func (self *MesosTaskStatisticsObject) SetField(name string, value interface{}) 
 			self.present["cpusSystemTimeSecs"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field cpusSystemTimeSecs/CpusSystemTimeSecs: value %v couldn't be cast to type float64", value)
+			return fmt.Errorf("Field cpusSystemTimeSecs/CpusSystemTimeSecs: value %v(%T) couldn't be cast to type float64", value, value)
 		}
 
 	case "cpusThrottledTimeSecs", "CpusThrottledTimeSecs":
@@ -96,7 +96,7 @@ func (self *MesosTaskStatisticsObject) SetField(name string, value interface{}) 
 			self.present["cpusThrottledTimeSecs"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field cpusThrottledTimeSecs/CpusThrottledTimeSecs: value %v couldn't be cast to type float64", value)
+			return fmt.Errorf("Field cpusThrottledTimeSecs/CpusThrottledTimeSecs: value %v(%T) couldn't be cast to type float64", value, value)
 		}
 
 	case "cpusUserTimeSecs", "CpusUserTimeSecs":
@@ -106,7 +106,7 @@ func (self *MesosTaskStatisticsObject) SetField(name string, value interface{}) 
 			self.present["cpusUserTimeSecs"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field cpusUserTimeSecs/CpusUserTimeSecs: value %v couldn't be cast to type float64", value)
+			return fmt.Errorf("Field cpusUserTimeSecs/CpusUserTimeSecs: value %v(%T) couldn't be cast to type float64", value, value)
 		}
 
 	case "memAnonBytes", "MemAnonBytes":
@@ -116,7 +116,7 @@ func (self *MesosTaskStatisticsObject) SetField(name string, value interface{}) 
 			self.present["memAnonBytes"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field memAnonBytes/MemAnonBytes: value %v couldn't be cast to type int64", value)
+			return fmt.Errorf("Field memAnonBytes/MemAnonBytes: value %v(%T) couldn't be cast to type int64", value, value)
 		}
 
 	case "memFileBytes", "MemFileBytes":
@@ -126,7 +126,7 @@ func (self *MesosTaskStatisticsObject) SetField(name string, value interface{}) 
 			self.present["memFileBytes"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field memFileBytes/MemFileBytes: value %v couldn't be cast to type int64", value)
+			return fmt.Errorf("Field memFileBytes/MemFileBytes: value %v(%T) couldn't be cast to type int64", value, value)
 		}
 
 	case "memLimitBytes", "MemLimitBytes":
@@ -136,7 +136,7 @@ func (self *MesosTaskStatisticsObject) SetField(name string, value interface{}) 
 			self.present["memLimitBytes"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field memLimitBytes/MemLimitBytes: value %v couldn't be cast to type int64", value)
+			return fmt.Errorf("Field memLimitBytes/MemLimitBytes: value %v(%T) couldn't be cast to type int64", value, value)
 		}
 
 	case "memMappedFileBytes", "MemMappedFileBytes":
@@ -146,7 +146,7 @@ func (self *MesosTaskStatisticsObject) SetField(name string, value interface{}) 
 			self.present["memMappedFileBytes"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field memMappedFileBytes/MemMappedFileBytes: value %v couldn't be cast to type int64", value)
+			return fmt.Errorf("Field memMappedFileBytes/MemMappedFileBytes: value %v(%T) couldn't be cast to type int64", value, value)
 		}
 
 	case "memRssBytes", "MemRssBytes":
@@ -156,7 +156,7 @@ func (self *MesosTaskStatisticsObject) SetField(name string, value interface{}) 
 			self.present["memRssBytes"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field memRssBytes/MemRssBytes: value %v couldn't be cast to type int64", value)
+			return fmt.Errorf("Field memRssBytes/MemRssBytes: value %v(%T) couldn't be cast to type int64", value, value)
 		}
 
 	case "timestamp", "Timestamp":
@@ -166,7 +166,7 @@ func (self *MesosTaskStatisticsObject) SetField(name string, value interface{}) 
 			self.present["timestamp"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field timestamp/Timestamp: value %v couldn't be cast to type float64", value)
+			return fmt.Errorf("Field timestamp/Timestamp: value %v(%T) couldn't be cast to type float64", value, value)
 		}
 
 	}

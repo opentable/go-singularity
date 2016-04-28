@@ -63,7 +63,7 @@ func (self *DockerInfoOrBuilder) SetField(name string, value interface{}) error 
 			self.present["forcePullImage"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field forcePullImage/ForcePullImage: value %v couldn't be cast to type bool", value)
+			return fmt.Errorf("Field forcePullImage/ForcePullImage: value %v(%T) couldn't be cast to type bool", value, value)
 		}
 
 	case "image", "Image":
@@ -73,7 +73,7 @@ func (self *DockerInfoOrBuilder) SetField(name string, value interface{}) error 
 			self.present["image"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field image/Image: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field image/Image: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "imageBytes", "ImageBytes":
@@ -83,7 +83,7 @@ func (self *DockerInfoOrBuilder) SetField(name string, value interface{}) error 
 			self.present["imageBytes"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field imageBytes/ImageBytes: value %v couldn't be cast to type *ByteString", value)
+			return fmt.Errorf("Field imageBytes/ImageBytes: value %v(%T) couldn't be cast to type *ByteString", value, value)
 		}
 
 	case "network", "Network":
@@ -93,7 +93,7 @@ func (self *DockerInfoOrBuilder) SetField(name string, value interface{}) error 
 			self.present["network"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field network/Network: value %v couldn't be cast to type DockerInfoOrBuilderNetwork", value)
+			return fmt.Errorf("Field network/Network: value %v(%T) couldn't be cast to type DockerInfoOrBuilderNetwork", value, value)
 		}
 
 	case "parametersCount", "ParametersCount":
@@ -103,7 +103,7 @@ func (self *DockerInfoOrBuilder) SetField(name string, value interface{}) error 
 			self.present["parametersCount"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field parametersCount/ParametersCount: value %v couldn't be cast to type int32", value)
+			return fmt.Errorf("Field parametersCount/ParametersCount: value %v(%T) couldn't be cast to type int32", value, value)
 		}
 
 	case "portMappingsCount", "PortMappingsCount":
@@ -113,7 +113,7 @@ func (self *DockerInfoOrBuilder) SetField(name string, value interface{}) error 
 			self.present["portMappingsCount"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field portMappingsCount/PortMappingsCount: value %v couldn't be cast to type int32", value)
+			return fmt.Errorf("Field portMappingsCount/PortMappingsCount: value %v(%T) couldn't be cast to type int32", value, value)
 		}
 
 	case "privileged", "Privileged":
@@ -123,7 +123,7 @@ func (self *DockerInfoOrBuilder) SetField(name string, value interface{}) error 
 			self.present["privileged"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field privileged/Privileged: value %v couldn't be cast to type bool", value)
+			return fmt.Errorf("Field privileged/Privileged: value %v(%T) couldn't be cast to type bool", value, value)
 		}
 
 	}

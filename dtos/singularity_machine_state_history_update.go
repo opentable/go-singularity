@@ -61,7 +61,7 @@ func (self *SingularityMachineStateHistoryUpdate) SetField(name string, value in
 			self.present["message"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field message/Message: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field message/Message: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "objectId", "ObjectId":
@@ -71,7 +71,7 @@ func (self *SingularityMachineStateHistoryUpdate) SetField(name string, value in
 			self.present["objectId"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field objectId/ObjectId: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field objectId/ObjectId: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "state", "State":
@@ -81,7 +81,7 @@ func (self *SingularityMachineStateHistoryUpdate) SetField(name string, value in
 			self.present["state"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field state/State: value %v couldn't be cast to type SingularityMachineStateHistoryUpdateMachineState", value)
+			return fmt.Errorf("Field state/State: value %v(%T) couldn't be cast to type SingularityMachineStateHistoryUpdateMachineState", value, value)
 		}
 
 	case "timestamp", "Timestamp":
@@ -91,7 +91,7 @@ func (self *SingularityMachineStateHistoryUpdate) SetField(name string, value in
 			self.present["timestamp"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field timestamp/Timestamp: value %v couldn't be cast to type int64", value)
+			return fmt.Errorf("Field timestamp/Timestamp: value %v(%T) couldn't be cast to type int64", value, value)
 		}
 
 	case "user", "User":
@@ -101,7 +101,7 @@ func (self *SingularityMachineStateHistoryUpdate) SetField(name string, value in
 			self.present["user"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field user/User: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field user/User: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	}

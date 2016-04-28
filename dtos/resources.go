@@ -47,7 +47,7 @@ func (self *Resources) SetField(name string, value interface{}) error {
 			self.present["cpus"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field cpus/Cpus: value %v couldn't be cast to type float64", value)
+			return fmt.Errorf("Field cpus/Cpus: value %v(%T) couldn't be cast to type float64", value, value)
 		}
 
 	case "memoryMb", "MemoryMb":
@@ -57,7 +57,7 @@ func (self *Resources) SetField(name string, value interface{}) error {
 			self.present["memoryMb"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field memoryMb/MemoryMb: value %v couldn't be cast to type float64", value)
+			return fmt.Errorf("Field memoryMb/MemoryMb: value %v(%T) couldn't be cast to type float64", value, value)
 		}
 
 	case "numPorts", "NumPorts":
@@ -67,7 +67,7 @@ func (self *Resources) SetField(name string, value interface{}) error {
 			self.present["numPorts"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field numPorts/NumPorts: value %v couldn't be cast to type int32", value)
+			return fmt.Errorf("Field numPorts/NumPorts: value %v(%T) couldn't be cast to type int32", value, value)
 		}
 
 	}

@@ -56,7 +56,7 @@ func (self *SingularityDockerPortMapping) SetField(name string, value interface{
 			self.present["containerPort"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field containerPort/ContainerPort: value %v couldn't be cast to type int32", value)
+			return fmt.Errorf("Field containerPort/ContainerPort: value %v(%T) couldn't be cast to type int32", value, value)
 		}
 
 	case "containerPortType", "ContainerPortType":
@@ -66,7 +66,7 @@ func (self *SingularityDockerPortMapping) SetField(name string, value interface{
 			self.present["containerPortType"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field containerPortType/ContainerPortType: value %v couldn't be cast to type SingularityDockerPortMappingSingularityPortMappingType", value)
+			return fmt.Errorf("Field containerPortType/ContainerPortType: value %v(%T) couldn't be cast to type SingularityDockerPortMappingSingularityPortMappingType", value, value)
 		}
 
 	case "hostPort", "HostPort":
@@ -76,7 +76,7 @@ func (self *SingularityDockerPortMapping) SetField(name string, value interface{
 			self.present["hostPort"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field hostPort/HostPort: value %v couldn't be cast to type int32", value)
+			return fmt.Errorf("Field hostPort/HostPort: value %v(%T) couldn't be cast to type int32", value, value)
 		}
 
 	case "hostPortType", "HostPortType":
@@ -86,7 +86,7 @@ func (self *SingularityDockerPortMapping) SetField(name string, value interface{
 			self.present["hostPortType"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field hostPortType/HostPortType: value %v couldn't be cast to type SingularityDockerPortMappingSingularityPortMappingType", value)
+			return fmt.Errorf("Field hostPortType/HostPortType: value %v(%T) couldn't be cast to type SingularityDockerPortMappingSingularityPortMappingType", value, value)
 		}
 
 	case "protocol", "Protocol":
@@ -96,7 +96,7 @@ func (self *SingularityDockerPortMapping) SetField(name string, value interface{
 			self.present["protocol"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field protocol/Protocol: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field protocol/Protocol: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	}

@@ -73,7 +73,7 @@ func (self *SingularityPendingRequest) SetField(name string, value interface{}) 
 			self.present["actionId"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field actionId/ActionId: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field actionId/ActionId: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "cmdLineArgsList", "CmdLineArgsList":
@@ -83,7 +83,7 @@ func (self *SingularityPendingRequest) SetField(name string, value interface{}) 
 			self.present["cmdLineArgsList"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field cmdLineArgsList/CmdLineArgsList: value %v couldn't be cast to type StringList", value)
+			return fmt.Errorf("Field cmdLineArgsList/CmdLineArgsList: value %v(%T) couldn't be cast to type StringList", value, value)
 		}
 
 	case "deployId", "DeployId":
@@ -93,7 +93,7 @@ func (self *SingularityPendingRequest) SetField(name string, value interface{}) 
 			self.present["deployId"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field deployId/DeployId: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field deployId/DeployId: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "message", "Message":
@@ -103,7 +103,7 @@ func (self *SingularityPendingRequest) SetField(name string, value interface{}) 
 			self.present["message"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field message/Message: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field message/Message: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "pendingType", "PendingType":
@@ -113,7 +113,7 @@ func (self *SingularityPendingRequest) SetField(name string, value interface{}) 
 			self.present["pendingType"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field pendingType/PendingType: value %v couldn't be cast to type SingularityPendingRequestPendingType", value)
+			return fmt.Errorf("Field pendingType/PendingType: value %v(%T) couldn't be cast to type SingularityPendingRequestPendingType", value, value)
 		}
 
 	case "requestId", "RequestId":
@@ -123,7 +123,7 @@ func (self *SingularityPendingRequest) SetField(name string, value interface{}) 
 			self.present["requestId"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field requestId/RequestId: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field requestId/RequestId: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "runId", "RunId":
@@ -133,7 +133,7 @@ func (self *SingularityPendingRequest) SetField(name string, value interface{}) 
 			self.present["runId"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field runId/RunId: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field runId/RunId: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "skipHealthchecks", "SkipHealthchecks":
@@ -143,7 +143,7 @@ func (self *SingularityPendingRequest) SetField(name string, value interface{}) 
 			self.present["skipHealthchecks"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field skipHealthchecks/SkipHealthchecks: value %v couldn't be cast to type bool", value)
+			return fmt.Errorf("Field skipHealthchecks/SkipHealthchecks: value %v(%T) couldn't be cast to type bool", value, value)
 		}
 
 	case "timestamp", "Timestamp":
@@ -153,7 +153,7 @@ func (self *SingularityPendingRequest) SetField(name string, value interface{}) 
 			self.present["timestamp"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field timestamp/Timestamp: value %v couldn't be cast to type int64", value)
+			return fmt.Errorf("Field timestamp/Timestamp: value %v(%T) couldn't be cast to type int64", value, value)
 		}
 
 	case "user", "User":
@@ -163,7 +163,7 @@ func (self *SingularityPendingRequest) SetField(name string, value interface{}) 
 			self.present["user"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field user/User: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field user/User: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	}

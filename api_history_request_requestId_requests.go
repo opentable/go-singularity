@@ -2,16 +2,17 @@ package singularity
 
 import "github.com/opentable/singularity/dtos"
 
-func (client *Client) getRequestHistoryForRequest(requestId string, count int32, page int32) (response *dtos.SingularityRequestHistory, err error) {
+func (client *Client) GetRequestHistoryForRequest(requestId string, count int32, page int32) (response dtos.SingularityRequestHistoryList, err error) {
 	pathParamMap := map[string]interface{}{
 		"requestId": requestId,
 	}
+
 	queryParamMap := map[string]interface{}{
 		"count": count, "page": page,
 	}
 
-	response = new(dtos.SingularityRequestHistory)
-	err = client.DTORequest(response, "GET", "/api/history/request/{requestId}/requests", pathParamMap, queryParamMap)
+	response = make(dtos.SingularityRequestHistoryList, 0)
+	err = client.DTORequest(&response, "GET", "/api/history/request/{requestId}/requests", pathParamMap, queryParamMap)
 
 	return
 }

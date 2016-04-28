@@ -53,7 +53,7 @@ func (self *SingularityTaskId) SetField(name string, value interface{}) error {
 			self.present["deployId"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field deployId/DeployId: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field deployId/DeployId: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "host", "Host":
@@ -63,7 +63,7 @@ func (self *SingularityTaskId) SetField(name string, value interface{}) error {
 			self.present["host"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field host/Host: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field host/Host: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "id", "Id":
@@ -73,7 +73,7 @@ func (self *SingularityTaskId) SetField(name string, value interface{}) error {
 			self.present["id"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field id/Id: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field id/Id: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "instanceNo", "InstanceNo":
@@ -83,7 +83,7 @@ func (self *SingularityTaskId) SetField(name string, value interface{}) error {
 			self.present["instanceNo"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field instanceNo/InstanceNo: value %v couldn't be cast to type int32", value)
+			return fmt.Errorf("Field instanceNo/InstanceNo: value %v(%T) couldn't be cast to type int32", value, value)
 		}
 
 	case "rackId", "RackId":
@@ -93,7 +93,7 @@ func (self *SingularityTaskId) SetField(name string, value interface{}) error {
 			self.present["rackId"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field rackId/RackId: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field rackId/RackId: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "requestId", "RequestId":
@@ -103,7 +103,7 @@ func (self *SingularityTaskId) SetField(name string, value interface{}) error {
 			self.present["requestId"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field requestId/RequestId: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field requestId/RequestId: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "sanitizedHost", "SanitizedHost":
@@ -113,7 +113,7 @@ func (self *SingularityTaskId) SetField(name string, value interface{}) error {
 			self.present["sanitizedHost"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field sanitizedHost/SanitizedHost: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field sanitizedHost/SanitizedHost: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "sanitizedRackId", "SanitizedRackId":
@@ -123,7 +123,7 @@ func (self *SingularityTaskId) SetField(name string, value interface{}) error {
 			self.present["sanitizedRackId"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field sanitizedRackId/SanitizedRackId: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field sanitizedRackId/SanitizedRackId: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "startedAt", "StartedAt":
@@ -133,7 +133,7 @@ func (self *SingularityTaskId) SetField(name string, value interface{}) error {
 			self.present["startedAt"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field startedAt/StartedAt: value %v couldn't be cast to type int64", value)
+			return fmt.Errorf("Field startedAt/StartedAt: value %v(%T) couldn't be cast to type int64", value, value)
 		}
 
 	}

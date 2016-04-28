@@ -67,7 +67,7 @@ func (self *SingularityTaskCleanup) SetField(name string, value interface{}) err
 			self.present["actionId"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field actionId/ActionId: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field actionId/ActionId: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "cleanupType", "CleanupType":
@@ -77,7 +77,7 @@ func (self *SingularityTaskCleanup) SetField(name string, value interface{}) err
 			self.present["cleanupType"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field cleanupType/CleanupType: value %v couldn't be cast to type SingularityTaskCleanupTaskCleanupType", value)
+			return fmt.Errorf("Field cleanupType/CleanupType: value %v(%T) couldn't be cast to type SingularityTaskCleanupTaskCleanupType", value, value)
 		}
 
 	case "message", "Message":
@@ -87,7 +87,7 @@ func (self *SingularityTaskCleanup) SetField(name string, value interface{}) err
 			self.present["message"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field message/Message: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field message/Message: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "taskId", "TaskId":
@@ -97,7 +97,7 @@ func (self *SingularityTaskCleanup) SetField(name string, value interface{}) err
 			self.present["taskId"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field taskId/TaskId: value %v couldn't be cast to type *SingularityTaskId", value)
+			return fmt.Errorf("Field taskId/TaskId: value %v(%T) couldn't be cast to type *SingularityTaskId", value, value)
 		}
 
 	case "timestamp", "Timestamp":
@@ -107,7 +107,7 @@ func (self *SingularityTaskCleanup) SetField(name string, value interface{}) err
 			self.present["timestamp"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field timestamp/Timestamp: value %v couldn't be cast to type int64", value)
+			return fmt.Errorf("Field timestamp/Timestamp: value %v(%T) couldn't be cast to type int64", value, value)
 		}
 
 	case "user", "User":
@@ -117,7 +117,7 @@ func (self *SingularityTaskCleanup) SetField(name string, value interface{}) err
 			self.present["user"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field user/User: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field user/User: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	}

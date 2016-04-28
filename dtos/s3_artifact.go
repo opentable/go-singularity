@@ -51,7 +51,7 @@ func (self *S3Artifact) SetField(name string, value interface{}) error {
 			self.present["filename"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field filename/Filename: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field filename/Filename: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "filesize", "Filesize":
@@ -61,7 +61,7 @@ func (self *S3Artifact) SetField(name string, value interface{}) error {
 			self.present["filesize"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field filesize/Filesize: value %v couldn't be cast to type int64", value)
+			return fmt.Errorf("Field filesize/Filesize: value %v(%T) couldn't be cast to type int64", value, value)
 		}
 
 	case "md5sum", "Md5sum":
@@ -71,7 +71,7 @@ func (self *S3Artifact) SetField(name string, value interface{}) error {
 			self.present["md5sum"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field md5sum/Md5sum: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field md5sum/Md5sum: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "name", "Name":
@@ -81,7 +81,7 @@ func (self *S3Artifact) SetField(name string, value interface{}) error {
 			self.present["name"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field name/Name: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field name/Name: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "s3Bucket", "S3Bucket":
@@ -91,7 +91,7 @@ func (self *S3Artifact) SetField(name string, value interface{}) error {
 			self.present["s3Bucket"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field s3Bucket/S3Bucket: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field s3Bucket/S3Bucket: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "s3ObjectKey", "S3ObjectKey":
@@ -101,7 +101,7 @@ func (self *S3Artifact) SetField(name string, value interface{}) error {
 			self.present["s3ObjectKey"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field s3ObjectKey/S3ObjectKey: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field s3ObjectKey/S3ObjectKey: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "targetFolderRelativeToTask", "TargetFolderRelativeToTask":
@@ -111,7 +111,7 @@ func (self *S3Artifact) SetField(name string, value interface{}) error {
 			self.present["targetFolderRelativeToTask"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field targetFolderRelativeToTask/TargetFolderRelativeToTask: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field targetFolderRelativeToTask/TargetFolderRelativeToTask: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	}

@@ -47,7 +47,7 @@ func (self *MesosFileChunkObject) SetField(name string, value interface{}) error
 			self.present["data"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field data/Data: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field data/Data: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "nextOffset", "NextOffset":
@@ -57,7 +57,7 @@ func (self *MesosFileChunkObject) SetField(name string, value interface{}) error
 			self.present["nextOffset"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field nextOffset/NextOffset: value %v couldn't be cast to type int64", value)
+			return fmt.Errorf("Field nextOffset/NextOffset: value %v(%T) couldn't be cast to type int64", value, value)
 		}
 
 	case "offset", "Offset":
@@ -67,7 +67,7 @@ func (self *MesosFileChunkObject) SetField(name string, value interface{}) error
 			self.present["offset"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field offset/Offset: value %v couldn't be cast to type int64", value)
+			return fmt.Errorf("Field offset/Offset: value %v(%T) couldn't be cast to type int64", value, value)
 		}
 
 	}

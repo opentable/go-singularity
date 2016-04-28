@@ -65,7 +65,7 @@ func (self *SingularityTaskHistoryUpdate) SetField(name string, value interface{
 			self.present["statusMessage"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field statusMessage/StatusMessage: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field statusMessage/StatusMessage: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "statusReason", "StatusReason":
@@ -75,7 +75,7 @@ func (self *SingularityTaskHistoryUpdate) SetField(name string, value interface{
 			self.present["statusReason"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field statusReason/StatusReason: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field statusReason/StatusReason: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "taskId", "TaskId":
@@ -85,7 +85,7 @@ func (self *SingularityTaskHistoryUpdate) SetField(name string, value interface{
 			self.present["taskId"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field taskId/TaskId: value %v couldn't be cast to type *SingularityTaskId", value)
+			return fmt.Errorf("Field taskId/TaskId: value %v(%T) couldn't be cast to type *SingularityTaskId", value, value)
 		}
 
 	case "taskState", "TaskState":
@@ -95,7 +95,7 @@ func (self *SingularityTaskHistoryUpdate) SetField(name string, value interface{
 			self.present["taskState"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field taskState/TaskState: value %v couldn't be cast to type SingularityTaskHistoryUpdateExtendedTaskState", value)
+			return fmt.Errorf("Field taskState/TaskState: value %v(%T) couldn't be cast to type SingularityTaskHistoryUpdateExtendedTaskState", value, value)
 		}
 
 	case "timestamp", "Timestamp":
@@ -105,7 +105,7 @@ func (self *SingularityTaskHistoryUpdate) SetField(name string, value interface{
 			self.present["timestamp"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field timestamp/Timestamp: value %v couldn't be cast to type int64", value)
+			return fmt.Errorf("Field timestamp/Timestamp: value %v(%T) couldn't be cast to type int64", value, value)
 		}
 
 	}

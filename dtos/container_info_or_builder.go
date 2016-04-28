@@ -60,7 +60,7 @@ func (self *ContainerInfoOrBuilder) SetField(name string, value interface{}) err
 			self.present["docker"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field docker/Docker: value %v couldn't be cast to type *DockerInfo", value)
+			return fmt.Errorf("Field docker/Docker: value %v(%T) couldn't be cast to type *DockerInfo", value, value)
 		}
 
 	case "dockerOrBuilder", "DockerOrBuilder":
@@ -70,7 +70,7 @@ func (self *ContainerInfoOrBuilder) SetField(name string, value interface{}) err
 			self.present["dockerOrBuilder"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field dockerOrBuilder/DockerOrBuilder: value %v couldn't be cast to type *DockerInfoOrBuilder", value)
+			return fmt.Errorf("Field dockerOrBuilder/DockerOrBuilder: value %v(%T) couldn't be cast to type *DockerInfoOrBuilder", value, value)
 		}
 
 	case "hostname", "Hostname":
@@ -80,7 +80,7 @@ func (self *ContainerInfoOrBuilder) SetField(name string, value interface{}) err
 			self.present["hostname"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field hostname/Hostname: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field hostname/Hostname: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "hostnameBytes", "HostnameBytes":
@@ -90,7 +90,7 @@ func (self *ContainerInfoOrBuilder) SetField(name string, value interface{}) err
 			self.present["hostnameBytes"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field hostnameBytes/HostnameBytes: value %v couldn't be cast to type *ByteString", value)
+			return fmt.Errorf("Field hostnameBytes/HostnameBytes: value %v(%T) couldn't be cast to type *ByteString", value, value)
 		}
 
 	case "type", "Type":
@@ -100,7 +100,7 @@ func (self *ContainerInfoOrBuilder) SetField(name string, value interface{}) err
 			self.present["type"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field type/Type: value %v couldn't be cast to type ContainerInfoOrBuilderType", value)
+			return fmt.Errorf("Field type/Type: value %v(%T) couldn't be cast to type ContainerInfoOrBuilderType", value, value)
 		}
 
 	case "volumesCount", "VolumesCount":
@@ -110,7 +110,7 @@ func (self *ContainerInfoOrBuilder) SetField(name string, value interface{}) err
 			self.present["volumesCount"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field volumesCount/VolumesCount: value %v couldn't be cast to type int32", value)
+			return fmt.Errorf("Field volumesCount/VolumesCount: value %v(%T) couldn't be cast to type int32", value, value)
 		}
 
 	}

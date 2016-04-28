@@ -72,7 +72,7 @@ func (self *SingularityLoadBalancerUpdate) SetField(name string, value interface
 			self.present["loadBalancerRequestId"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field loadBalancerRequestId/LoadBalancerRequestId: value %v couldn't be cast to type *LoadBalancerRequestId", value)
+			return fmt.Errorf("Field loadBalancerRequestId/LoadBalancerRequestId: value %v(%T) couldn't be cast to type *LoadBalancerRequestId", value, value)
 		}
 
 	case "loadBalancerState", "LoadBalancerState":
@@ -82,7 +82,7 @@ func (self *SingularityLoadBalancerUpdate) SetField(name string, value interface
 			self.present["loadBalancerState"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field loadBalancerState/LoadBalancerState: value %v couldn't be cast to type SingularityLoadBalancerUpdateBaragonRequestState", value)
+			return fmt.Errorf("Field loadBalancerState/LoadBalancerState: value %v(%T) couldn't be cast to type SingularityLoadBalancerUpdateBaragonRequestState", value, value)
 		}
 
 	case "message", "Message":
@@ -92,7 +92,7 @@ func (self *SingularityLoadBalancerUpdate) SetField(name string, value interface
 			self.present["message"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field message/Message: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field message/Message: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "method", "Method":
@@ -102,7 +102,7 @@ func (self *SingularityLoadBalancerUpdate) SetField(name string, value interface
 			self.present["method"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field method/Method: value %v couldn't be cast to type SingularityLoadBalancerUpdateLoadBalancerMethod", value)
+			return fmt.Errorf("Field method/Method: value %v(%T) couldn't be cast to type SingularityLoadBalancerUpdateLoadBalancerMethod", value, value)
 		}
 
 	case "timestamp", "Timestamp":
@@ -112,7 +112,7 @@ func (self *SingularityLoadBalancerUpdate) SetField(name string, value interface
 			self.present["timestamp"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field timestamp/Timestamp: value %v couldn't be cast to type int64", value)
+			return fmt.Errorf("Field timestamp/Timestamp: value %v(%T) couldn't be cast to type int64", value, value)
 		}
 
 	case "uri", "Uri":
@@ -122,7 +122,7 @@ func (self *SingularityLoadBalancerUpdate) SetField(name string, value interface
 			self.present["uri"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field uri/Uri: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field uri/Uri: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	}

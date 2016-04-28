@@ -49,7 +49,7 @@ func (self *EmbeddedArtifact) SetField(name string, value interface{}) error {
 			self.present["content"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field content/Content: value %v couldn't be cast to type StringList", value)
+			return fmt.Errorf("Field content/Content: value %v(%T) couldn't be cast to type StringList", value, value)
 		}
 
 	case "filename", "Filename":
@@ -59,7 +59,7 @@ func (self *EmbeddedArtifact) SetField(name string, value interface{}) error {
 			self.present["filename"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field filename/Filename: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field filename/Filename: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "md5sum", "Md5sum":
@@ -69,7 +69,7 @@ func (self *EmbeddedArtifact) SetField(name string, value interface{}) error {
 			self.present["md5sum"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field md5sum/Md5sum: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field md5sum/Md5sum: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "name", "Name":
@@ -79,7 +79,7 @@ func (self *EmbeddedArtifact) SetField(name string, value interface{}) error {
 			self.present["name"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field name/Name: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field name/Name: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "targetFolderRelativeToTask", "TargetFolderRelativeToTask":
@@ -89,7 +89,7 @@ func (self *EmbeddedArtifact) SetField(name string, value interface{}) error {
 			self.present["targetFolderRelativeToTask"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field targetFolderRelativeToTask/TargetFolderRelativeToTask: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field targetFolderRelativeToTask/TargetFolderRelativeToTask: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	}

@@ -18,7 +18,8 @@ import (
 //go:generate swagger-client-maker api-docs/ .
 
 type Client struct {
-	baseUrl string
+	BaseUrl string
+	Debug   bool
 	http    http.Client
 }
 
@@ -33,7 +34,7 @@ func (e *ReqError) Error() string {
 }
 
 func NewClient(apiBase string) (client *Client) {
-	return &Client{apiBase, http.Client{}}
+	return &Client{apiBase, false, http.Client{}}
 }
 
 type urlParams map[string]interface{}
@@ -68,16 +69,19 @@ func (client *Client) Request(method, path string, pathParams, queryParams urlPa
 		err = rerr
 		return
 	}
-	buf := bytes.Buffer{}
-	buf.ReadFrom(res.Body)
-	log.Printf("%s -> %+v\n", path, buf.String())
-	resBody = ioutil.NopCloser(&buf)
-	//resBody = res.Body
+	if client.Debug {
+		buf := bytes.Buffer{}
+		buf.ReadFrom(res.Body)
+		log.Printf("%s -> %+v\n", req.URL, buf.String())
+		resBody = ioutil.NopCloser(&buf)
+	} else {
+		resBody = res.Body
+	}
 	return
 }
 
 func (client *Client) buildRequest(method, path string, pathParams, queryParams urlParams, bodies ...dtos.DTO) (req *http.Request, err error) {
-	url, err := url.Parse(client.baseUrl)
+	url, err := url.Parse(client.BaseUrl)
 	if err != nil {
 		return
 	}
@@ -86,27 +90,35 @@ func (client *Client) buildRequest(method, path string, pathParams, queryParams 
 	if err != nil {
 		return
 	}
-	url.Path = strings.Join([]string{url.Path, path}, "/")
-	log.Print(url)
+	url.Path = strings.Join([]string{strings.TrimRight(url.Path, "/"), strings.TrimLeft(path, "/")}, "/")
+
+	if client.Debug {
+		log.Print(url)
+	}
 
 	if len(bodies) > 0 {
-		req, err = buildBodyRequest(method, url.String(), bodies[0])
+		req, err = client.buildBodyRequest(method, url.String(), bodies[0])
 	} else {
-		req, err = buildBodilessRequest(method, url.String())
+		req, err = client.buildBodilessRequest(method, url.String())
 	}
 	return
 }
 
-func buildBodilessRequest(method, path string) (req *http.Request, err error) {
+func (cl *Client) buildBodilessRequest(method, path string) (req *http.Request, err error) {
+	if cl.Debug {
+		log.Print(method, " ", path)
+	}
 	req, err = http.NewRequest(method, path, nil)
 	return
 }
 
-func buildBodyRequest(method, path string, bodyObj dtos.DTO) (req *http.Request, err error) {
+func (cl *Client) buildBodyRequest(method, path string, bodyObj dtos.DTO) (req *http.Request, err error) {
 	buf := bytes.Buffer{}
 	enc := json.NewEncoder(&buf)
 	enc.Encode(bodyObj) // XXX Here, consider a goroutine and a PipeWriter
-	log.Print(path, " <- ", buf.String())
+	if cl.Debug {
+		log.Print(method, " ", path, " <- ", buf.String())
+	}
 	req, err = http.NewRequest(method, path, &buf)
 	req.Header.Add("Content-Type", "application/json")
 	return
@@ -121,7 +133,7 @@ func pathRender(path string, params urlParams) (res string, err error) {
 	indices := parmRE.FindAllSubmatchIndex(pathBytes, -1)
 	for _, matches := range indices {
 		building = append(building, pathBytes[start:matches[0]]...)
-		start = matches[len(matches)-1]
+		start = matches[len(matches)-1] + 1
 		parmName := pathBytes[matches[2]:matches[3]]
 		val, ok := params[string(parmName)]
 		if !ok {
@@ -130,12 +142,12 @@ func pathRender(path string, params urlParams) (res string, err error) {
 		}
 		building = append(building, fmt.Sprintf("%v", val)...)
 	}
-	building = append(building, pathBytes[start+1:]...)
+	building = append(building, pathBytes[start:]...)
 	res = string(building)
 
 	return
 }
 
 func (client *Client) buildURL(subpath string) (url string) {
-	return strings.Join([]string{client.baseUrl, subpath}, "/")
+	return strings.Join([]string{client.BaseUrl, subpath}, "/")
 }

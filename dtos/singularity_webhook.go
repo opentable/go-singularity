@@ -57,7 +57,7 @@ func (self *SingularityWebhook) SetField(name string, value interface{}) error {
 			self.present["id"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field id/Id: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field id/Id: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "timestamp", "Timestamp":
@@ -67,7 +67,7 @@ func (self *SingularityWebhook) SetField(name string, value interface{}) error {
 			self.present["timestamp"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field timestamp/Timestamp: value %v couldn't be cast to type int64", value)
+			return fmt.Errorf("Field timestamp/Timestamp: value %v(%T) couldn't be cast to type int64", value, value)
 		}
 
 	case "type", "Type":
@@ -77,7 +77,7 @@ func (self *SingularityWebhook) SetField(name string, value interface{}) error {
 			self.present["type"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field type/Type: value %v couldn't be cast to type SingularityWebhookWebhookType", value)
+			return fmt.Errorf("Field type/Type: value %v(%T) couldn't be cast to type SingularityWebhookWebhookType", value, value)
 		}
 
 	case "uri", "Uri":
@@ -87,7 +87,7 @@ func (self *SingularityWebhook) SetField(name string, value interface{}) error {
 			self.present["uri"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field uri/Uri: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field uri/Uri: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "user", "User":
@@ -97,7 +97,7 @@ func (self *SingularityWebhook) SetField(name string, value interface{}) error {
 			self.present["user"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field user/User: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field user/User: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	}

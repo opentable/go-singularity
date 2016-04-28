@@ -2,10 +2,11 @@ package singularity
 
 import "github.com/opentable/singularity/dtos"
 
-func (client *Client) getDeploy(requestId string, deployId string) (response *dtos.SingularityDeployHistory, err error) {
+func (client *Client) GetDeploy(requestId string, deployId string) (response *dtos.SingularityDeployHistory, err error) {
 	pathParamMap := map[string]interface{}{
 		"requestId": requestId, "deployId": deployId,
 	}
+
 	queryParamMap := map[string]interface{}{}
 
 	response = new(dtos.SingularityDeployHistory)

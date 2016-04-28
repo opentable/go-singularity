@@ -70,7 +70,7 @@ func (self *SingularityPendingTaskId) SetField(name string, value interface{}) e
 			self.present["createdAt"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field createdAt/CreatedAt: value %v couldn't be cast to type int64", value)
+			return fmt.Errorf("Field createdAt/CreatedAt: value %v(%T) couldn't be cast to type int64", value, value)
 		}
 
 	case "deployId", "DeployId":
@@ -80,7 +80,7 @@ func (self *SingularityPendingTaskId) SetField(name string, value interface{}) e
 			self.present["deployId"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field deployId/DeployId: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field deployId/DeployId: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "id", "Id":
@@ -90,7 +90,7 @@ func (self *SingularityPendingTaskId) SetField(name string, value interface{}) e
 			self.present["id"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field id/Id: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field id/Id: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "instanceNo", "InstanceNo":
@@ -100,7 +100,7 @@ func (self *SingularityPendingTaskId) SetField(name string, value interface{}) e
 			self.present["instanceNo"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field instanceNo/InstanceNo: value %v couldn't be cast to type int32", value)
+			return fmt.Errorf("Field instanceNo/InstanceNo: value %v(%T) couldn't be cast to type int32", value, value)
 		}
 
 	case "nextRunAt", "NextRunAt":
@@ -110,7 +110,7 @@ func (self *SingularityPendingTaskId) SetField(name string, value interface{}) e
 			self.present["nextRunAt"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field nextRunAt/NextRunAt: value %v couldn't be cast to type int64", value)
+			return fmt.Errorf("Field nextRunAt/NextRunAt: value %v(%T) couldn't be cast to type int64", value, value)
 		}
 
 	case "pendingType", "PendingType":
@@ -120,7 +120,7 @@ func (self *SingularityPendingTaskId) SetField(name string, value interface{}) e
 			self.present["pendingType"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field pendingType/PendingType: value %v couldn't be cast to type SingularityPendingTaskIdPendingType", value)
+			return fmt.Errorf("Field pendingType/PendingType: value %v(%T) couldn't be cast to type SingularityPendingTaskIdPendingType", value, value)
 		}
 
 	case "requestId", "RequestId":
@@ -130,7 +130,7 @@ func (self *SingularityPendingTaskId) SetField(name string, value interface{}) e
 			self.present["requestId"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field requestId/RequestId: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field requestId/RequestId: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	}

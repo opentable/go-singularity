@@ -48,7 +48,7 @@ func (self *SingularityPauseRequest) SetField(name string, value interface{}) er
 			self.present["actionId"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field actionId/ActionId: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field actionId/ActionId: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "durationMillis", "DurationMillis":
@@ -58,7 +58,7 @@ func (self *SingularityPauseRequest) SetField(name string, value interface{}) er
 			self.present["durationMillis"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field durationMillis/DurationMillis: value %v couldn't be cast to type int64", value)
+			return fmt.Errorf("Field durationMillis/DurationMillis: value %v(%T) couldn't be cast to type int64", value, value)
 		}
 
 	case "killTasks", "KillTasks":
@@ -68,7 +68,7 @@ func (self *SingularityPauseRequest) SetField(name string, value interface{}) er
 			self.present["killTasks"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field killTasks/KillTasks: value %v couldn't be cast to type bool", value)
+			return fmt.Errorf("Field killTasks/KillTasks: value %v(%T) couldn't be cast to type bool", value, value)
 		}
 
 	case "message", "Message":
@@ -78,7 +78,7 @@ func (self *SingularityPauseRequest) SetField(name string, value interface{}) er
 			self.present["message"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field message/Message: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field message/Message: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	}

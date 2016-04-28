@@ -1,16 +1,16 @@
 package singularity
 
-import "bytes"
+import "github.com/opentable/singularity/dtos"
 
-func (client *Client) getRequestHistoryForRequestLike(requestIdLike string, count int32, page int32) (response string, err error) {
+func (client *Client) GetRequestHistoryForRequestLike(requestIdLike string, count int32, page int32) (response dtos.StringList, err error) {
 	pathParamMap := map[string]interface{}{}
+
 	queryParamMap := map[string]interface{}{
 		"requestIdLike": requestIdLike, "count": count, "page": page,
 	}
 
-	resBody, err := client.Request("GET", "/api/history/requests/search", pathParamMap, queryParamMap)
-	readBuf := bytes.Buffer{}
-	readBuf.ReadFrom(resBody)
-	response = string(readBuf.Bytes())
+	response = make(dtos.StringList, 0)
+	err = client.DTORequest(&response, "GET", "/api/history/requests/search", pathParamMap, queryParamMap)
+
 	return
 }

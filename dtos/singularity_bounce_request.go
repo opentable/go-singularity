@@ -49,7 +49,7 @@ func (self *SingularityBounceRequest) SetField(name string, value interface{}) e
 			self.present["actionId"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field actionId/ActionId: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field actionId/ActionId: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "durationMillis", "DurationMillis":
@@ -59,7 +59,7 @@ func (self *SingularityBounceRequest) SetField(name string, value interface{}) e
 			self.present["durationMillis"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field durationMillis/DurationMillis: value %v couldn't be cast to type int64", value)
+			return fmt.Errorf("Field durationMillis/DurationMillis: value %v(%T) couldn't be cast to type int64", value, value)
 		}
 
 	case "incremental", "Incremental":
@@ -69,7 +69,7 @@ func (self *SingularityBounceRequest) SetField(name string, value interface{}) e
 			self.present["incremental"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field incremental/Incremental: value %v couldn't be cast to type bool", value)
+			return fmt.Errorf("Field incremental/Incremental: value %v(%T) couldn't be cast to type bool", value, value)
 		}
 
 	case "message", "Message":
@@ -79,7 +79,7 @@ func (self *SingularityBounceRequest) SetField(name string, value interface{}) e
 			self.present["message"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field message/Message: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field message/Message: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "skipHealthchecks", "SkipHealthchecks":
@@ -89,7 +89,7 @@ func (self *SingularityBounceRequest) SetField(name string, value interface{}) e
 			self.present["skipHealthchecks"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field skipHealthchecks/SkipHealthchecks: value %v couldn't be cast to type bool", value)
+			return fmt.Errorf("Field skipHealthchecks/SkipHealthchecks: value %v(%T) couldn't be cast to type bool", value, value)
 		}
 
 	}

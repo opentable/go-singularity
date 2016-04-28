@@ -69,7 +69,7 @@ func (self *Offer) SetField(name string, value interface{}) error {
 			self.present["attributesCount"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field attributesCount/AttributesCount: value %v couldn't be cast to type int32", value)
+			return fmt.Errorf("Field attributesCount/AttributesCount: value %v(%T) couldn't be cast to type int32", value, value)
 		}
 
 	case "defaultInstanceForType", "DefaultInstanceForType":
@@ -79,7 +79,7 @@ func (self *Offer) SetField(name string, value interface{}) error {
 			self.present["defaultInstanceForType"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field defaultInstanceForType/DefaultInstanceForType: value %v couldn't be cast to type *Offer", value)
+			return fmt.Errorf("Field defaultInstanceForType/DefaultInstanceForType: value %v(%T) couldn't be cast to type *Offer", value, value)
 		}
 
 	case "descriptorForType", "DescriptorForType":
@@ -89,7 +89,7 @@ func (self *Offer) SetField(name string, value interface{}) error {
 			self.present["descriptorForType"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field descriptorForType/DescriptorForType: value %v couldn't be cast to type *Descriptor", value)
+			return fmt.Errorf("Field descriptorForType/DescriptorForType: value %v(%T) couldn't be cast to type *Descriptor", value, value)
 		}
 
 	case "executorIdsCount", "ExecutorIdsCount":
@@ -99,7 +99,7 @@ func (self *Offer) SetField(name string, value interface{}) error {
 			self.present["executorIdsCount"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field executorIdsCount/ExecutorIdsCount: value %v couldn't be cast to type int32", value)
+			return fmt.Errorf("Field executorIdsCount/ExecutorIdsCount: value %v(%T) couldn't be cast to type int32", value, value)
 		}
 
 	case "executorIdsList", "ExecutorIdsList":
@@ -109,7 +109,7 @@ func (self *Offer) SetField(name string, value interface{}) error {
 			self.present["executorIdsList"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field executorIdsList/ExecutorIdsList: value %v couldn't be cast to type ExecutorIDList", value)
+			return fmt.Errorf("Field executorIdsList/ExecutorIdsList: value %v(%T) couldn't be cast to type ExecutorIDList", value, value)
 		}
 
 	case "frameworkId", "FrameworkId":
@@ -119,7 +119,7 @@ func (self *Offer) SetField(name string, value interface{}) error {
 			self.present["frameworkId"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field frameworkId/FrameworkId: value %v couldn't be cast to type *FrameworkID", value)
+			return fmt.Errorf("Field frameworkId/FrameworkId: value %v(%T) couldn't be cast to type *FrameworkID", value, value)
 		}
 
 	case "frameworkIdOrBuilder", "FrameworkIdOrBuilder":
@@ -129,7 +129,7 @@ func (self *Offer) SetField(name string, value interface{}) error {
 			self.present["frameworkIdOrBuilder"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field frameworkIdOrBuilder/FrameworkIdOrBuilder: value %v couldn't be cast to type *FrameworkIDOrBuilder", value)
+			return fmt.Errorf("Field frameworkIdOrBuilder/FrameworkIdOrBuilder: value %v(%T) couldn't be cast to type *FrameworkIDOrBuilder", value, value)
 		}
 
 	case "hostname", "Hostname":
@@ -139,7 +139,7 @@ func (self *Offer) SetField(name string, value interface{}) error {
 			self.present["hostname"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field hostname/Hostname: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field hostname/Hostname: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "hostnameBytes", "HostnameBytes":
@@ -149,7 +149,7 @@ func (self *Offer) SetField(name string, value interface{}) error {
 			self.present["hostnameBytes"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field hostnameBytes/HostnameBytes: value %v couldn't be cast to type *ByteString", value)
+			return fmt.Errorf("Field hostnameBytes/HostnameBytes: value %v(%T) couldn't be cast to type *ByteString", value, value)
 		}
 
 	case "id", "Id":
@@ -159,7 +159,7 @@ func (self *Offer) SetField(name string, value interface{}) error {
 			self.present["id"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field id/Id: value %v couldn't be cast to type *OfferID", value)
+			return fmt.Errorf("Field id/Id: value %v(%T) couldn't be cast to type *OfferID", value, value)
 		}
 
 	case "idOrBuilder", "IdOrBuilder":
@@ -169,7 +169,7 @@ func (self *Offer) SetField(name string, value interface{}) error {
 			self.present["idOrBuilder"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field idOrBuilder/IdOrBuilder: value %v couldn't be cast to type *OfferIDOrBuilder", value)
+			return fmt.Errorf("Field idOrBuilder/IdOrBuilder: value %v(%T) couldn't be cast to type *OfferIDOrBuilder", value, value)
 		}
 
 	case "initializationErrorString", "InitializationErrorString":
@@ -179,7 +179,7 @@ func (self *Offer) SetField(name string, value interface{}) error {
 			self.present["initializationErrorString"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field initializationErrorString/InitializationErrorString: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field initializationErrorString/InitializationErrorString: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "initialized", "Initialized":
@@ -189,7 +189,7 @@ func (self *Offer) SetField(name string, value interface{}) error {
 			self.present["initialized"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field initialized/Initialized: value %v couldn't be cast to type bool", value)
+			return fmt.Errorf("Field initialized/Initialized: value %v(%T) couldn't be cast to type bool", value, value)
 		}
 
 	case "resourcesCount", "ResourcesCount":
@@ -199,7 +199,7 @@ func (self *Offer) SetField(name string, value interface{}) error {
 			self.present["resourcesCount"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field resourcesCount/ResourcesCount: value %v couldn't be cast to type int32", value)
+			return fmt.Errorf("Field resourcesCount/ResourcesCount: value %v(%T) couldn't be cast to type int32", value, value)
 		}
 
 	case "serializedSize", "SerializedSize":
@@ -209,7 +209,7 @@ func (self *Offer) SetField(name string, value interface{}) error {
 			self.present["serializedSize"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field serializedSize/SerializedSize: value %v couldn't be cast to type int32", value)
+			return fmt.Errorf("Field serializedSize/SerializedSize: value %v(%T) couldn't be cast to type int32", value, value)
 		}
 
 	case "slaveId", "SlaveId":
@@ -219,7 +219,7 @@ func (self *Offer) SetField(name string, value interface{}) error {
 			self.present["slaveId"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field slaveId/SlaveId: value %v couldn't be cast to type *SlaveID", value)
+			return fmt.Errorf("Field slaveId/SlaveId: value %v(%T) couldn't be cast to type *SlaveID", value, value)
 		}
 
 	case "slaveIdOrBuilder", "SlaveIdOrBuilder":
@@ -229,7 +229,7 @@ func (self *Offer) SetField(name string, value interface{}) error {
 			self.present["slaveIdOrBuilder"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field slaveIdOrBuilder/SlaveIdOrBuilder: value %v couldn't be cast to type *SlaveIDOrBuilder", value)
+			return fmt.Errorf("Field slaveIdOrBuilder/SlaveIdOrBuilder: value %v(%T) couldn't be cast to type *SlaveIDOrBuilder", value, value)
 		}
 
 	case "unknownFields", "UnknownFields":
@@ -239,7 +239,7 @@ func (self *Offer) SetField(name string, value interface{}) error {
 			self.present["unknownFields"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field unknownFields/UnknownFields: value %v couldn't be cast to type *UnknownFieldSet", value)
+			return fmt.Errorf("Field unknownFields/UnknownFields: value %v(%T) couldn't be cast to type *UnknownFieldSet", value, value)
 		}
 
 	}

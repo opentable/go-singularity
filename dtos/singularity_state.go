@@ -78,7 +78,7 @@ func (self *SingularityState) SetField(name string, value interface{}) error {
 			self.present["activeRacks"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field activeRacks/ActiveRacks: value %v couldn't be cast to type int32", value)
+			return fmt.Errorf("Field activeRacks/ActiveRacks: value %v(%T) couldn't be cast to type int32", value, value)
 		}
 
 	case "activeRequests", "ActiveRequests":
@@ -88,7 +88,7 @@ func (self *SingularityState) SetField(name string, value interface{}) error {
 			self.present["activeRequests"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field activeRequests/ActiveRequests: value %v couldn't be cast to type int32", value)
+			return fmt.Errorf("Field activeRequests/ActiveRequests: value %v(%T) couldn't be cast to type int32", value, value)
 		}
 
 	case "activeSlaves", "ActiveSlaves":
@@ -98,7 +98,7 @@ func (self *SingularityState) SetField(name string, value interface{}) error {
 			self.present["activeSlaves"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field activeSlaves/ActiveSlaves: value %v couldn't be cast to type int32", value)
+			return fmt.Errorf("Field activeSlaves/ActiveSlaves: value %v(%T) couldn't be cast to type int32", value, value)
 		}
 
 	case "activeTasks", "ActiveTasks":
@@ -108,7 +108,7 @@ func (self *SingularityState) SetField(name string, value interface{}) error {
 			self.present["activeTasks"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field activeTasks/ActiveTasks: value %v couldn't be cast to type int32", value)
+			return fmt.Errorf("Field activeTasks/ActiveTasks: value %v(%T) couldn't be cast to type int32", value, value)
 		}
 
 	case "allRequests", "AllRequests":
@@ -118,7 +118,7 @@ func (self *SingularityState) SetField(name string, value interface{}) error {
 			self.present["allRequests"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field allRequests/AllRequests: value %v couldn't be cast to type int32", value)
+			return fmt.Errorf("Field allRequests/AllRequests: value %v(%T) couldn't be cast to type int32", value, value)
 		}
 
 	case "authDatastoreHealthy", "AuthDatastoreHealthy":
@@ -128,7 +128,7 @@ func (self *SingularityState) SetField(name string, value interface{}) error {
 			self.present["authDatastoreHealthy"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field authDatastoreHealthy/AuthDatastoreHealthy: value %v couldn't be cast to type bool", value)
+			return fmt.Errorf("Field authDatastoreHealthy/AuthDatastoreHealthy: value %v(%T) couldn't be cast to type bool", value, value)
 		}
 
 	case "cleaningRequests", "CleaningRequests":
@@ -138,7 +138,7 @@ func (self *SingularityState) SetField(name string, value interface{}) error {
 			self.present["cleaningRequests"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field cleaningRequests/CleaningRequests: value %v couldn't be cast to type int32", value)
+			return fmt.Errorf("Field cleaningRequests/CleaningRequests: value %v(%T) couldn't be cast to type int32", value, value)
 		}
 
 	case "cleaningTasks", "CleaningTasks":
@@ -148,7 +148,7 @@ func (self *SingularityState) SetField(name string, value interface{}) error {
 			self.present["cleaningTasks"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field cleaningTasks/CleaningTasks: value %v couldn't be cast to type int32", value)
+			return fmt.Errorf("Field cleaningTasks/CleaningTasks: value %v(%T) couldn't be cast to type int32", value, value)
 		}
 
 	case "cooldownRequests", "CooldownRequests":
@@ -158,7 +158,7 @@ func (self *SingularityState) SetField(name string, value interface{}) error {
 			self.present["cooldownRequests"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field cooldownRequests/CooldownRequests: value %v couldn't be cast to type int32", value)
+			return fmt.Errorf("Field cooldownRequests/CooldownRequests: value %v(%T) couldn't be cast to type int32", value, value)
 		}
 
 	case "deadRacks", "DeadRacks":
@@ -168,7 +168,7 @@ func (self *SingularityState) SetField(name string, value interface{}) error {
 			self.present["deadRacks"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field deadRacks/DeadRacks: value %v couldn't be cast to type int32", value)
+			return fmt.Errorf("Field deadRacks/DeadRacks: value %v(%T) couldn't be cast to type int32", value, value)
 		}
 
 	case "deadSlaves", "DeadSlaves":
@@ -178,7 +178,7 @@ func (self *SingularityState) SetField(name string, value interface{}) error {
 			self.present["deadSlaves"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field deadSlaves/DeadSlaves: value %v couldn't be cast to type int32", value)
+			return fmt.Errorf("Field deadSlaves/DeadSlaves: value %v(%T) couldn't be cast to type int32", value, value)
 		}
 
 	case "decomissioningRacks", "DecomissioningRacks":
@@ -188,7 +188,7 @@ func (self *SingularityState) SetField(name string, value interface{}) error {
 			self.present["decomissioningRacks"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field decomissioningRacks/DecomissioningRacks: value %v couldn't be cast to type int32", value)
+			return fmt.Errorf("Field decomissioningRacks/DecomissioningRacks: value %v(%T) couldn't be cast to type int32", value, value)
 		}
 
 	case "decomissioningSlaves", "DecomissioningSlaves":
@@ -198,7 +198,7 @@ func (self *SingularityState) SetField(name string, value interface{}) error {
 			self.present["decomissioningSlaves"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field decomissioningSlaves/DecomissioningSlaves: value %v couldn't be cast to type int32", value)
+			return fmt.Errorf("Field decomissioningSlaves/DecomissioningSlaves: value %v(%T) couldn't be cast to type int32", value, value)
 		}
 
 	case "decommissioningRacks", "DecommissioningRacks":
@@ -208,7 +208,7 @@ func (self *SingularityState) SetField(name string, value interface{}) error {
 			self.present["decommissioningRacks"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field decommissioningRacks/DecommissioningRacks: value %v couldn't be cast to type int32", value)
+			return fmt.Errorf("Field decommissioningRacks/DecommissioningRacks: value %v(%T) couldn't be cast to type int32", value, value)
 		}
 
 	case "decommissioningSlaves", "DecommissioningSlaves":
@@ -218,7 +218,7 @@ func (self *SingularityState) SetField(name string, value interface{}) error {
 			self.present["decommissioningSlaves"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field decommissioningSlaves/DecommissioningSlaves: value %v couldn't be cast to type int32", value)
+			return fmt.Errorf("Field decommissioningSlaves/DecommissioningSlaves: value %v(%T) couldn't be cast to type int32", value, value)
 		}
 
 	case "finishedRequests", "FinishedRequests":
@@ -228,7 +228,7 @@ func (self *SingularityState) SetField(name string, value interface{}) error {
 			self.present["finishedRequests"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field finishedRequests/FinishedRequests: value %v couldn't be cast to type int32", value)
+			return fmt.Errorf("Field finishedRequests/FinishedRequests: value %v(%T) couldn't be cast to type int32", value, value)
 		}
 
 	case "futureTasks", "FutureTasks":
@@ -238,7 +238,7 @@ func (self *SingularityState) SetField(name string, value interface{}) error {
 			self.present["futureTasks"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field futureTasks/FutureTasks: value %v couldn't be cast to type int32", value)
+			return fmt.Errorf("Field futureTasks/FutureTasks: value %v(%T) couldn't be cast to type int32", value, value)
 		}
 
 	case "generatedAt", "GeneratedAt":
@@ -248,7 +248,7 @@ func (self *SingularityState) SetField(name string, value interface{}) error {
 			self.present["generatedAt"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field generatedAt/GeneratedAt: value %v couldn't be cast to type int64", value)
+			return fmt.Errorf("Field generatedAt/GeneratedAt: value %v(%T) couldn't be cast to type int64", value, value)
 		}
 
 	case "hostStates", "HostStates":
@@ -258,7 +258,7 @@ func (self *SingularityState) SetField(name string, value interface{}) error {
 			self.present["hostStates"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field hostStates/HostStates: value %v couldn't be cast to type SingularityHostStateList", value)
+			return fmt.Errorf("Field hostStates/HostStates: value %v(%T) couldn't be cast to type SingularityHostStateList", value, value)
 		}
 
 	case "lateTasks", "LateTasks":
@@ -268,7 +268,7 @@ func (self *SingularityState) SetField(name string, value interface{}) error {
 			self.present["lateTasks"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field lateTasks/LateTasks: value %v couldn't be cast to type int32", value)
+			return fmt.Errorf("Field lateTasks/LateTasks: value %v(%T) couldn't be cast to type int32", value, value)
 		}
 
 	case "lbCleanupRequests", "LbCleanupRequests":
@@ -278,7 +278,7 @@ func (self *SingularityState) SetField(name string, value interface{}) error {
 			self.present["lbCleanupRequests"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field lbCleanupRequests/LbCleanupRequests: value %v couldn't be cast to type int32", value)
+			return fmt.Errorf("Field lbCleanupRequests/LbCleanupRequests: value %v(%T) couldn't be cast to type int32", value, value)
 		}
 
 	case "lbCleanupTasks", "LbCleanupTasks":
@@ -288,7 +288,7 @@ func (self *SingularityState) SetField(name string, value interface{}) error {
 			self.present["lbCleanupTasks"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field lbCleanupTasks/LbCleanupTasks: value %v couldn't be cast to type int32", value)
+			return fmt.Errorf("Field lbCleanupTasks/LbCleanupTasks: value %v(%T) couldn't be cast to type int32", value, value)
 		}
 
 	case "maxTaskLag", "MaxTaskLag":
@@ -298,7 +298,7 @@ func (self *SingularityState) SetField(name string, value interface{}) error {
 			self.present["maxTaskLag"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field maxTaskLag/MaxTaskLag: value %v couldn't be cast to type int64", value)
+			return fmt.Errorf("Field maxTaskLag/MaxTaskLag: value %v(%T) couldn't be cast to type int64", value, value)
 		}
 
 	case "numDeploys", "NumDeploys":
@@ -308,7 +308,7 @@ func (self *SingularityState) SetField(name string, value interface{}) error {
 			self.present["numDeploys"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field numDeploys/NumDeploys: value %v couldn't be cast to type int32", value)
+			return fmt.Errorf("Field numDeploys/NumDeploys: value %v(%T) couldn't be cast to type int32", value, value)
 		}
 
 	case "oldestDeploy", "OldestDeploy":
@@ -318,7 +318,7 @@ func (self *SingularityState) SetField(name string, value interface{}) error {
 			self.present["oldestDeploy"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field oldestDeploy/OldestDeploy: value %v couldn't be cast to type int64", value)
+			return fmt.Errorf("Field oldestDeploy/OldestDeploy: value %v(%T) couldn't be cast to type int64", value, value)
 		}
 
 	case "overProvisionedRequestIds", "OverProvisionedRequestIds":
@@ -328,7 +328,7 @@ func (self *SingularityState) SetField(name string, value interface{}) error {
 			self.present["overProvisionedRequestIds"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field overProvisionedRequestIds/OverProvisionedRequestIds: value %v couldn't be cast to type StringList", value)
+			return fmt.Errorf("Field overProvisionedRequestIds/OverProvisionedRequestIds: value %v(%T) couldn't be cast to type StringList", value, value)
 		}
 
 	case "overProvisionedRequests", "OverProvisionedRequests":
@@ -338,7 +338,7 @@ func (self *SingularityState) SetField(name string, value interface{}) error {
 			self.present["overProvisionedRequests"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field overProvisionedRequests/OverProvisionedRequests: value %v couldn't be cast to type int32", value)
+			return fmt.Errorf("Field overProvisionedRequests/OverProvisionedRequests: value %v(%T) couldn't be cast to type int32", value, value)
 		}
 
 	case "pausedRequests", "PausedRequests":
@@ -348,7 +348,7 @@ func (self *SingularityState) SetField(name string, value interface{}) error {
 			self.present["pausedRequests"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field pausedRequests/PausedRequests: value %v couldn't be cast to type int32", value)
+			return fmt.Errorf("Field pausedRequests/PausedRequests: value %v(%T) couldn't be cast to type int32", value, value)
 		}
 
 	case "pendingRequests", "PendingRequests":
@@ -358,7 +358,7 @@ func (self *SingularityState) SetField(name string, value interface{}) error {
 			self.present["pendingRequests"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field pendingRequests/PendingRequests: value %v couldn't be cast to type int32", value)
+			return fmt.Errorf("Field pendingRequests/PendingRequests: value %v(%T) couldn't be cast to type int32", value, value)
 		}
 
 	case "scheduledTasks", "ScheduledTasks":
@@ -368,7 +368,7 @@ func (self *SingularityState) SetField(name string, value interface{}) error {
 			self.present["scheduledTasks"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field scheduledTasks/ScheduledTasks: value %v couldn't be cast to type int32", value)
+			return fmt.Errorf("Field scheduledTasks/ScheduledTasks: value %v(%T) couldn't be cast to type int32", value, value)
 		}
 
 	case "underProvisionedRequestIds", "UnderProvisionedRequestIds":
@@ -378,7 +378,7 @@ func (self *SingularityState) SetField(name string, value interface{}) error {
 			self.present["underProvisionedRequestIds"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field underProvisionedRequestIds/UnderProvisionedRequestIds: value %v couldn't be cast to type StringList", value)
+			return fmt.Errorf("Field underProvisionedRequestIds/UnderProvisionedRequestIds: value %v(%T) couldn't be cast to type StringList", value, value)
 		}
 
 	case "underProvisionedRequests", "UnderProvisionedRequests":
@@ -388,7 +388,7 @@ func (self *SingularityState) SetField(name string, value interface{}) error {
 			self.present["underProvisionedRequests"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field underProvisionedRequests/UnderProvisionedRequests: value %v couldn't be cast to type int32", value)
+			return fmt.Errorf("Field underProvisionedRequests/UnderProvisionedRequests: value %v(%T) couldn't be cast to type int32", value, value)
 		}
 
 	case "unknownRacks", "UnknownRacks":
@@ -398,7 +398,7 @@ func (self *SingularityState) SetField(name string, value interface{}) error {
 			self.present["unknownRacks"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field unknownRacks/UnknownRacks: value %v couldn't be cast to type int32", value)
+			return fmt.Errorf("Field unknownRacks/UnknownRacks: value %v(%T) couldn't be cast to type int32", value, value)
 		}
 
 	case "unknownSlaves", "UnknownSlaves":
@@ -408,7 +408,7 @@ func (self *SingularityState) SetField(name string, value interface{}) error {
 			self.present["unknownSlaves"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field unknownSlaves/UnknownSlaves: value %v couldn't be cast to type int32", value)
+			return fmt.Errorf("Field unknownSlaves/UnknownSlaves: value %v(%T) couldn't be cast to type int32", value, value)
 		}
 
 	}

@@ -51,7 +51,7 @@ func (self *SingularityHostState) SetField(name string, value interface{}) error
 			self.present["driverStatus"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field driverStatus/DriverStatus: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field driverStatus/DriverStatus: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "hostAddress", "HostAddress":
@@ -61,7 +61,7 @@ func (self *SingularityHostState) SetField(name string, value interface{}) error
 			self.present["hostAddress"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field hostAddress/HostAddress: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field hostAddress/HostAddress: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "hostname", "Hostname":
@@ -71,7 +71,7 @@ func (self *SingularityHostState) SetField(name string, value interface{}) error
 			self.present["hostname"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field hostname/Hostname: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field hostname/Hostname: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "master", "Master":
@@ -81,7 +81,7 @@ func (self *SingularityHostState) SetField(name string, value interface{}) error
 			self.present["master"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field master/Master: value %v couldn't be cast to type bool", value)
+			return fmt.Errorf("Field master/Master: value %v(%T) couldn't be cast to type bool", value, value)
 		}
 
 	case "mesosMaster", "MesosMaster":
@@ -91,7 +91,7 @@ func (self *SingularityHostState) SetField(name string, value interface{}) error
 			self.present["mesosMaster"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field mesosMaster/MesosMaster: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field mesosMaster/MesosMaster: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "millisSinceLastOffer", "MillisSinceLastOffer":
@@ -101,7 +101,7 @@ func (self *SingularityHostState) SetField(name string, value interface{}) error
 			self.present["millisSinceLastOffer"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field millisSinceLastOffer/MillisSinceLastOffer: value %v couldn't be cast to type int64", value)
+			return fmt.Errorf("Field millisSinceLastOffer/MillisSinceLastOffer: value %v(%T) couldn't be cast to type int64", value, value)
 		}
 
 	case "uptime", "Uptime":
@@ -111,7 +111,7 @@ func (self *SingularityHostState) SetField(name string, value interface{}) error
 			self.present["uptime"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field uptime/Uptime: value %v couldn't be cast to type int64", value)
+			return fmt.Errorf("Field uptime/Uptime: value %v(%T) couldn't be cast to type int64", value, value)
 		}
 
 	}

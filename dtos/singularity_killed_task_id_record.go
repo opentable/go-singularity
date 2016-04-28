@@ -50,7 +50,7 @@ func (self *SingularityKilledTaskIdRecord) SetField(name string, value interface
 			self.present["originalTimestamp"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field originalTimestamp/OriginalTimestamp: value %v couldn't be cast to type int64", value)
+			return fmt.Errorf("Field originalTimestamp/OriginalTimestamp: value %v(%T) couldn't be cast to type int64", value, value)
 		}
 
 	case "retries", "Retries":
@@ -60,7 +60,7 @@ func (self *SingularityKilledTaskIdRecord) SetField(name string, value interface
 			self.present["retries"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field retries/Retries: value %v couldn't be cast to type int32", value)
+			return fmt.Errorf("Field retries/Retries: value %v(%T) couldn't be cast to type int32", value, value)
 		}
 
 	case "taskId", "TaskId":
@@ -70,7 +70,7 @@ func (self *SingularityKilledTaskIdRecord) SetField(name string, value interface
 			self.present["taskId"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field taskId/TaskId: value %v couldn't be cast to type *SingularityTaskId", value)
+			return fmt.Errorf("Field taskId/TaskId: value %v(%T) couldn't be cast to type *SingularityTaskId", value, value)
 		}
 
 	case "timestamp", "Timestamp":
@@ -80,7 +80,7 @@ func (self *SingularityKilledTaskIdRecord) SetField(name string, value interface
 			self.present["timestamp"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field timestamp/Timestamp: value %v couldn't be cast to type int64", value)
+			return fmt.Errorf("Field timestamp/Timestamp: value %v(%T) couldn't be cast to type int64", value, value)
 		}
 
 	}

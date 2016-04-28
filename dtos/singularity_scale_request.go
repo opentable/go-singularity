@@ -49,7 +49,7 @@ func (self *SingularityScaleRequest) SetField(name string, value interface{}) er
 			self.present["actionId"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field actionId/ActionId: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field actionId/ActionId: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "durationMillis", "DurationMillis":
@@ -59,7 +59,7 @@ func (self *SingularityScaleRequest) SetField(name string, value interface{}) er
 			self.present["durationMillis"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field durationMillis/DurationMillis: value %v couldn't be cast to type int64", value)
+			return fmt.Errorf("Field durationMillis/DurationMillis: value %v(%T) couldn't be cast to type int64", value, value)
 		}
 
 	case "instances", "Instances":
@@ -69,7 +69,7 @@ func (self *SingularityScaleRequest) SetField(name string, value interface{}) er
 			self.present["instances"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field instances/Instances: value %v couldn't be cast to type int32", value)
+			return fmt.Errorf("Field instances/Instances: value %v(%T) couldn't be cast to type int32", value, value)
 		}
 
 	case "message", "Message":
@@ -79,7 +79,7 @@ func (self *SingularityScaleRequest) SetField(name string, value interface{}) er
 			self.present["message"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field message/Message: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field message/Message: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "skipHealthchecks", "SkipHealthchecks":
@@ -89,7 +89,7 @@ func (self *SingularityScaleRequest) SetField(name string, value interface{}) er
 			self.present["skipHealthchecks"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field skipHealthchecks/SkipHealthchecks: value %v couldn't be cast to type bool", value)
+			return fmt.Errorf("Field skipHealthchecks/SkipHealthchecks: value %v(%T) couldn't be cast to type bool", value, value)
 		}
 
 	}

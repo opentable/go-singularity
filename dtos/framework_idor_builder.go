@@ -46,7 +46,7 @@ func (self *FrameworkIDOrBuilder) SetField(name string, value interface{}) error
 			self.present["value"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field value/Value: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field value/Value: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "valueBytes", "ValueBytes":
@@ -56,7 +56,7 @@ func (self *FrameworkIDOrBuilder) SetField(name string, value interface{}) error
 			self.present["valueBytes"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field valueBytes/ValueBytes: value %v couldn't be cast to type *ByteString", value)
+			return fmt.Errorf("Field valueBytes/ValueBytes: value %v(%T) couldn't be cast to type *ByteString", value, value)
 		}
 
 	}

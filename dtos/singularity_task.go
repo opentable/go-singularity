@@ -49,7 +49,7 @@ func (self *SingularityTask) SetField(name string, value interface{}) error {
 			self.present["mesosTask"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field mesosTask/MesosTask: value %v couldn't be cast to type *TaskInfo", value)
+			return fmt.Errorf("Field mesosTask/MesosTask: value %v(%T) couldn't be cast to type *TaskInfo", value, value)
 		}
 
 	case "offer", "Offer":
@@ -59,7 +59,7 @@ func (self *SingularityTask) SetField(name string, value interface{}) error {
 			self.present["offer"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field offer/Offer: value %v couldn't be cast to type *Offer", value)
+			return fmt.Errorf("Field offer/Offer: value %v(%T) couldn't be cast to type *Offer", value, value)
 		}
 
 	case "rackId", "RackId":
@@ -69,7 +69,7 @@ func (self *SingularityTask) SetField(name string, value interface{}) error {
 			self.present["rackId"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field rackId/RackId: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field rackId/RackId: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "taskId", "TaskId":
@@ -79,7 +79,7 @@ func (self *SingularityTask) SetField(name string, value interface{}) error {
 			self.present["taskId"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field taskId/TaskId: value %v couldn't be cast to type *SingularityTaskId", value)
+			return fmt.Errorf("Field taskId/TaskId: value %v(%T) couldn't be cast to type *SingularityTaskId", value, value)
 		}
 
 	case "taskRequest", "TaskRequest":
@@ -89,7 +89,7 @@ func (self *SingularityTask) SetField(name string, value interface{}) error {
 			self.present["taskRequest"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field taskRequest/TaskRequest: value %v couldn't be cast to type *SingularityTaskRequest", value)
+			return fmt.Errorf("Field taskRequest/TaskRequest: value %v(%T) couldn't be cast to type *SingularityTaskRequest", value, value)
 		}
 
 	}

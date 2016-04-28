@@ -75,7 +75,7 @@ func (self *FileOptions) SetField(name string, value interface{}) error {
 			self.present["ccGenericServices"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field ccGenericServices/CcGenericServices: value %v couldn't be cast to type bool", value)
+			return fmt.Errorf("Field ccGenericServices/CcGenericServices: value %v(%T) couldn't be cast to type bool", value, value)
 		}
 
 	case "defaultInstanceForType", "DefaultInstanceForType":
@@ -85,7 +85,7 @@ func (self *FileOptions) SetField(name string, value interface{}) error {
 			self.present["defaultInstanceForType"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field defaultInstanceForType/DefaultInstanceForType: value %v couldn't be cast to type *FileOptions", value)
+			return fmt.Errorf("Field defaultInstanceForType/DefaultInstanceForType: value %v(%T) couldn't be cast to type *FileOptions", value, value)
 		}
 
 	case "descriptorForType", "DescriptorForType":
@@ -95,7 +95,7 @@ func (self *FileOptions) SetField(name string, value interface{}) error {
 			self.present["descriptorForType"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field descriptorForType/DescriptorForType: value %v couldn't be cast to type *Descriptor", value)
+			return fmt.Errorf("Field descriptorForType/DescriptorForType: value %v(%T) couldn't be cast to type *Descriptor", value, value)
 		}
 
 	case "goPackage", "GoPackage":
@@ -105,7 +105,7 @@ func (self *FileOptions) SetField(name string, value interface{}) error {
 			self.present["goPackage"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field goPackage/GoPackage: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field goPackage/GoPackage: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "goPackageBytes", "GoPackageBytes":
@@ -115,7 +115,7 @@ func (self *FileOptions) SetField(name string, value interface{}) error {
 			self.present["goPackageBytes"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field goPackageBytes/GoPackageBytes: value %v couldn't be cast to type *ByteString", value)
+			return fmt.Errorf("Field goPackageBytes/GoPackageBytes: value %v(%T) couldn't be cast to type *ByteString", value, value)
 		}
 
 	case "initializationErrorString", "InitializationErrorString":
@@ -125,7 +125,7 @@ func (self *FileOptions) SetField(name string, value interface{}) error {
 			self.present["initializationErrorString"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field initializationErrorString/InitializationErrorString: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field initializationErrorString/InitializationErrorString: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "initialized", "Initialized":
@@ -135,7 +135,7 @@ func (self *FileOptions) SetField(name string, value interface{}) error {
 			self.present["initialized"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field initialized/Initialized: value %v couldn't be cast to type bool", value)
+			return fmt.Errorf("Field initialized/Initialized: value %v(%T) couldn't be cast to type bool", value, value)
 		}
 
 	case "javaGenerateEqualsAndHash", "JavaGenerateEqualsAndHash":
@@ -145,7 +145,7 @@ func (self *FileOptions) SetField(name string, value interface{}) error {
 			self.present["javaGenerateEqualsAndHash"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field javaGenerateEqualsAndHash/JavaGenerateEqualsAndHash: value %v couldn't be cast to type bool", value)
+			return fmt.Errorf("Field javaGenerateEqualsAndHash/JavaGenerateEqualsAndHash: value %v(%T) couldn't be cast to type bool", value, value)
 		}
 
 	case "javaGenericServices", "JavaGenericServices":
@@ -155,7 +155,7 @@ func (self *FileOptions) SetField(name string, value interface{}) error {
 			self.present["javaGenericServices"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field javaGenericServices/JavaGenericServices: value %v couldn't be cast to type bool", value)
+			return fmt.Errorf("Field javaGenericServices/JavaGenericServices: value %v(%T) couldn't be cast to type bool", value, value)
 		}
 
 	case "javaMultipleFiles", "JavaMultipleFiles":
@@ -165,7 +165,7 @@ func (self *FileOptions) SetField(name string, value interface{}) error {
 			self.present["javaMultipleFiles"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field javaMultipleFiles/JavaMultipleFiles: value %v couldn't be cast to type bool", value)
+			return fmt.Errorf("Field javaMultipleFiles/JavaMultipleFiles: value %v(%T) couldn't be cast to type bool", value, value)
 		}
 
 	case "javaOuterClassname", "JavaOuterClassname":
@@ -175,7 +175,7 @@ func (self *FileOptions) SetField(name string, value interface{}) error {
 			self.present["javaOuterClassname"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field javaOuterClassname/JavaOuterClassname: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field javaOuterClassname/JavaOuterClassname: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "javaOuterClassnameBytes", "JavaOuterClassnameBytes":
@@ -185,7 +185,7 @@ func (self *FileOptions) SetField(name string, value interface{}) error {
 			self.present["javaOuterClassnameBytes"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field javaOuterClassnameBytes/JavaOuterClassnameBytes: value %v couldn't be cast to type *ByteString", value)
+			return fmt.Errorf("Field javaOuterClassnameBytes/JavaOuterClassnameBytes: value %v(%T) couldn't be cast to type *ByteString", value, value)
 		}
 
 	case "javaPackage", "JavaPackage":
@@ -195,7 +195,7 @@ func (self *FileOptions) SetField(name string, value interface{}) error {
 			self.present["javaPackage"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field javaPackage/JavaPackage: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field javaPackage/JavaPackage: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "javaPackageBytes", "JavaPackageBytes":
@@ -205,7 +205,7 @@ func (self *FileOptions) SetField(name string, value interface{}) error {
 			self.present["javaPackageBytes"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field javaPackageBytes/JavaPackageBytes: value %v couldn't be cast to type *ByteString", value)
+			return fmt.Errorf("Field javaPackageBytes/JavaPackageBytes: value %v(%T) couldn't be cast to type *ByteString", value, value)
 		}
 
 	case "optimizeFor", "OptimizeFor":
@@ -215,7 +215,7 @@ func (self *FileOptions) SetField(name string, value interface{}) error {
 			self.present["optimizeFor"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field optimizeFor/OptimizeFor: value %v couldn't be cast to type FileOptionsOptimizeMode", value)
+			return fmt.Errorf("Field optimizeFor/OptimizeFor: value %v(%T) couldn't be cast to type FileOptionsOptimizeMode", value, value)
 		}
 
 	case "pyGenericServices", "PyGenericServices":
@@ -225,7 +225,7 @@ func (self *FileOptions) SetField(name string, value interface{}) error {
 			self.present["pyGenericServices"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field pyGenericServices/PyGenericServices: value %v couldn't be cast to type bool", value)
+			return fmt.Errorf("Field pyGenericServices/PyGenericServices: value %v(%T) couldn't be cast to type bool", value, value)
 		}
 
 	case "serializedSize", "SerializedSize":
@@ -235,7 +235,7 @@ func (self *FileOptions) SetField(name string, value interface{}) error {
 			self.present["serializedSize"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field serializedSize/SerializedSize: value %v couldn't be cast to type int32", value)
+			return fmt.Errorf("Field serializedSize/SerializedSize: value %v(%T) couldn't be cast to type int32", value, value)
 		}
 
 	case "uninterpretedOptionCount", "UninterpretedOptionCount":
@@ -245,7 +245,7 @@ func (self *FileOptions) SetField(name string, value interface{}) error {
 			self.present["uninterpretedOptionCount"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field uninterpretedOptionCount/UninterpretedOptionCount: value %v couldn't be cast to type int32", value)
+			return fmt.Errorf("Field uninterpretedOptionCount/UninterpretedOptionCount: value %v(%T) couldn't be cast to type int32", value, value)
 		}
 
 	case "unknownFields", "UnknownFields":
@@ -255,7 +255,7 @@ func (self *FileOptions) SetField(name string, value interface{}) error {
 			self.present["unknownFields"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field unknownFields/UnknownFields: value %v couldn't be cast to type *UnknownFieldSet", value)
+			return fmt.Errorf("Field unknownFields/UnknownFields: value %v(%T) couldn't be cast to type *UnknownFieldSet", value, value)
 		}
 
 	}

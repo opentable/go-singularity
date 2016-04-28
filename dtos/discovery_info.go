@@ -73,7 +73,7 @@ func (self *DiscoveryInfo) SetField(name string, value interface{}) error {
 			self.present["defaultInstanceForType"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field defaultInstanceForType/DefaultInstanceForType: value %v couldn't be cast to type *DiscoveryInfo", value)
+			return fmt.Errorf("Field defaultInstanceForType/DefaultInstanceForType: value %v(%T) couldn't be cast to type *DiscoveryInfo", value, value)
 		}
 
 	case "descriptorForType", "DescriptorForType":
@@ -83,7 +83,7 @@ func (self *DiscoveryInfo) SetField(name string, value interface{}) error {
 			self.present["descriptorForType"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field descriptorForType/DescriptorForType: value %v couldn't be cast to type *Descriptor", value)
+			return fmt.Errorf("Field descriptorForType/DescriptorForType: value %v(%T) couldn't be cast to type *Descriptor", value, value)
 		}
 
 	case "environment", "Environment":
@@ -93,7 +93,7 @@ func (self *DiscoveryInfo) SetField(name string, value interface{}) error {
 			self.present["environment"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field environment/Environment: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field environment/Environment: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "environmentBytes", "EnvironmentBytes":
@@ -103,7 +103,7 @@ func (self *DiscoveryInfo) SetField(name string, value interface{}) error {
 			self.present["environmentBytes"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field environmentBytes/EnvironmentBytes: value %v couldn't be cast to type *ByteString", value)
+			return fmt.Errorf("Field environmentBytes/EnvironmentBytes: value %v(%T) couldn't be cast to type *ByteString", value, value)
 		}
 
 	case "initializationErrorString", "InitializationErrorString":
@@ -113,7 +113,7 @@ func (self *DiscoveryInfo) SetField(name string, value interface{}) error {
 			self.present["initializationErrorString"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field initializationErrorString/InitializationErrorString: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field initializationErrorString/InitializationErrorString: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "initialized", "Initialized":
@@ -123,7 +123,7 @@ func (self *DiscoveryInfo) SetField(name string, value interface{}) error {
 			self.present["initialized"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field initialized/Initialized: value %v couldn't be cast to type bool", value)
+			return fmt.Errorf("Field initialized/Initialized: value %v(%T) couldn't be cast to type bool", value, value)
 		}
 
 	case "labels", "Labels":
@@ -133,7 +133,7 @@ func (self *DiscoveryInfo) SetField(name string, value interface{}) error {
 			self.present["labels"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field labels/Labels: value %v couldn't be cast to type *Labels", value)
+			return fmt.Errorf("Field labels/Labels: value %v(%T) couldn't be cast to type *Labels", value, value)
 		}
 
 	case "labelsOrBuilder", "LabelsOrBuilder":
@@ -143,7 +143,7 @@ func (self *DiscoveryInfo) SetField(name string, value interface{}) error {
 			self.present["labelsOrBuilder"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field labelsOrBuilder/LabelsOrBuilder: value %v couldn't be cast to type *LabelsOrBuilder", value)
+			return fmt.Errorf("Field labelsOrBuilder/LabelsOrBuilder: value %v(%T) couldn't be cast to type *LabelsOrBuilder", value, value)
 		}
 
 	case "location", "Location":
@@ -153,7 +153,7 @@ func (self *DiscoveryInfo) SetField(name string, value interface{}) error {
 			self.present["location"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field location/Location: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field location/Location: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "locationBytes", "LocationBytes":
@@ -163,7 +163,7 @@ func (self *DiscoveryInfo) SetField(name string, value interface{}) error {
 			self.present["locationBytes"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field locationBytes/LocationBytes: value %v couldn't be cast to type *ByteString", value)
+			return fmt.Errorf("Field locationBytes/LocationBytes: value %v(%T) couldn't be cast to type *ByteString", value, value)
 		}
 
 	case "name", "Name":
@@ -173,7 +173,7 @@ func (self *DiscoveryInfo) SetField(name string, value interface{}) error {
 			self.present["name"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field name/Name: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field name/Name: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "nameBytes", "NameBytes":
@@ -183,7 +183,7 @@ func (self *DiscoveryInfo) SetField(name string, value interface{}) error {
 			self.present["nameBytes"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field nameBytes/NameBytes: value %v couldn't be cast to type *ByteString", value)
+			return fmt.Errorf("Field nameBytes/NameBytes: value %v(%T) couldn't be cast to type *ByteString", value, value)
 		}
 
 	case "ports", "Ports":
@@ -193,7 +193,7 @@ func (self *DiscoveryInfo) SetField(name string, value interface{}) error {
 			self.present["ports"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field ports/Ports: value %v couldn't be cast to type *Ports", value)
+			return fmt.Errorf("Field ports/Ports: value %v(%T) couldn't be cast to type *Ports", value, value)
 		}
 
 	case "portsOrBuilder", "PortsOrBuilder":
@@ -203,7 +203,7 @@ func (self *DiscoveryInfo) SetField(name string, value interface{}) error {
 			self.present["portsOrBuilder"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field portsOrBuilder/PortsOrBuilder: value %v couldn't be cast to type *PortsOrBuilder", value)
+			return fmt.Errorf("Field portsOrBuilder/PortsOrBuilder: value %v(%T) couldn't be cast to type *PortsOrBuilder", value, value)
 		}
 
 	case "serializedSize", "SerializedSize":
@@ -213,7 +213,7 @@ func (self *DiscoveryInfo) SetField(name string, value interface{}) error {
 			self.present["serializedSize"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field serializedSize/SerializedSize: value %v couldn't be cast to type int32", value)
+			return fmt.Errorf("Field serializedSize/SerializedSize: value %v(%T) couldn't be cast to type int32", value, value)
 		}
 
 	case "unknownFields", "UnknownFields":
@@ -223,7 +223,7 @@ func (self *DiscoveryInfo) SetField(name string, value interface{}) error {
 			self.present["unknownFields"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field unknownFields/UnknownFields: value %v couldn't be cast to type *UnknownFieldSet", value)
+			return fmt.Errorf("Field unknownFields/UnknownFields: value %v(%T) couldn't be cast to type *UnknownFieldSet", value, value)
 		}
 
 	case "version", "Version":
@@ -233,7 +233,7 @@ func (self *DiscoveryInfo) SetField(name string, value interface{}) error {
 			self.present["version"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field version/Version: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field version/Version: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "versionBytes", "VersionBytes":
@@ -243,7 +243,7 @@ func (self *DiscoveryInfo) SetField(name string, value interface{}) error {
 			self.present["versionBytes"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field versionBytes/VersionBytes: value %v couldn't be cast to type *ByteString", value)
+			return fmt.Errorf("Field versionBytes/VersionBytes: value %v(%T) couldn't be cast to type *ByteString", value, value)
 		}
 
 	case "visibility", "Visibility":
@@ -253,7 +253,7 @@ func (self *DiscoveryInfo) SetField(name string, value interface{}) error {
 			self.present["visibility"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field visibility/Visibility: value %v couldn't be cast to type DiscoveryInfoVisibility", value)
+			return fmt.Errorf("Field visibility/Visibility: value %v(%T) couldn't be cast to type DiscoveryInfoVisibility", value, value)
 		}
 
 	}

@@ -48,7 +48,7 @@ func (self *SingularitySandbox) SetField(name string, value interface{}) error {
 			self.present["currentDirectory"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field currentDirectory/CurrentDirectory: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field currentDirectory/CurrentDirectory: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "files", "Files":
@@ -58,7 +58,7 @@ func (self *SingularitySandbox) SetField(name string, value interface{}) error {
 			self.present["files"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field files/Files: value %v couldn't be cast to type SingularitySandboxFileList", value)
+			return fmt.Errorf("Field files/Files: value %v(%T) couldn't be cast to type SingularitySandboxFileList", value, value)
 		}
 
 	case "fullPathToRoot", "FullPathToRoot":
@@ -68,7 +68,7 @@ func (self *SingularitySandbox) SetField(name string, value interface{}) error {
 			self.present["fullPathToRoot"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field fullPathToRoot/FullPathToRoot: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field fullPathToRoot/FullPathToRoot: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "slaveHostname", "SlaveHostname":
@@ -78,7 +78,7 @@ func (self *SingularitySandbox) SetField(name string, value interface{}) error {
 			self.present["slaveHostname"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field slaveHostname/SlaveHostname: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field slaveHostname/SlaveHostname: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	}

@@ -48,7 +48,7 @@ func (self *SingularityTaskShellCommandRequest) SetField(name string, value inte
 			self.present["shellCommand"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field shellCommand/ShellCommand: value %v couldn't be cast to type *SingularityShellCommand", value)
+			return fmt.Errorf("Field shellCommand/ShellCommand: value %v(%T) couldn't be cast to type *SingularityShellCommand", value, value)
 		}
 
 	case "taskId", "TaskId":
@@ -58,7 +58,7 @@ func (self *SingularityTaskShellCommandRequest) SetField(name string, value inte
 			self.present["taskId"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field taskId/TaskId: value %v couldn't be cast to type *SingularityTaskId", value)
+			return fmt.Errorf("Field taskId/TaskId: value %v(%T) couldn't be cast to type *SingularityTaskId", value, value)
 		}
 
 	case "timestamp", "Timestamp":
@@ -68,7 +68,7 @@ func (self *SingularityTaskShellCommandRequest) SetField(name string, value inte
 			self.present["timestamp"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field timestamp/Timestamp: value %v couldn't be cast to type int64", value)
+			return fmt.Errorf("Field timestamp/Timestamp: value %v(%T) couldn't be cast to type int64", value, value)
 		}
 
 	case "user", "User":
@@ -78,7 +78,7 @@ func (self *SingularityTaskShellCommandRequest) SetField(name string, value inte
 			self.present["user"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field user/User: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field user/User: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	}

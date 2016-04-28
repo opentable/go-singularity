@@ -56,7 +56,7 @@ func (self *LoadBalancerRequestId) SetField(name string, value interface{}) erro
 			self.present["attemptNumber"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field attemptNumber/AttemptNumber: value %v couldn't be cast to type int32", value)
+			return fmt.Errorf("Field attemptNumber/AttemptNumber: value %v(%T) couldn't be cast to type int32", value, value)
 		}
 
 	case "id", "Id":
@@ -66,7 +66,7 @@ func (self *LoadBalancerRequestId) SetField(name string, value interface{}) erro
 			self.present["id"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field id/Id: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field id/Id: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "requestType", "RequestType":
@@ -76,7 +76,7 @@ func (self *LoadBalancerRequestId) SetField(name string, value interface{}) erro
 			self.present["requestType"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field requestType/RequestType: value %v couldn't be cast to type LoadBalancerRequestIdLoadBalancerRequestType", value)
+			return fmt.Errorf("Field requestType/RequestType: value %v(%T) couldn't be cast to type LoadBalancerRequestIdLoadBalancerRequestType", value, value)
 		}
 
 	}

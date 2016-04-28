@@ -61,7 +61,7 @@ func (self *HealthCheck) SetField(name string, value interface{}) error {
 			self.present["command"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field command/Command: value %v couldn't be cast to type *CommandInfo", value)
+			return fmt.Errorf("Field command/Command: value %v(%T) couldn't be cast to type *CommandInfo", value, value)
 		}
 
 	case "commandOrBuilder", "CommandOrBuilder":
@@ -71,7 +71,7 @@ func (self *HealthCheck) SetField(name string, value interface{}) error {
 			self.present["commandOrBuilder"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field commandOrBuilder/CommandOrBuilder: value %v couldn't be cast to type *CommandInfoOrBuilder", value)
+			return fmt.Errorf("Field commandOrBuilder/CommandOrBuilder: value %v(%T) couldn't be cast to type *CommandInfoOrBuilder", value, value)
 		}
 
 	case "consecutiveFailures", "ConsecutiveFailures":
@@ -81,7 +81,7 @@ func (self *HealthCheck) SetField(name string, value interface{}) error {
 			self.present["consecutiveFailures"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field consecutiveFailures/ConsecutiveFailures: value %v couldn't be cast to type int32", value)
+			return fmt.Errorf("Field consecutiveFailures/ConsecutiveFailures: value %v(%T) couldn't be cast to type int32", value, value)
 		}
 
 	case "defaultInstanceForType", "DefaultInstanceForType":
@@ -91,7 +91,7 @@ func (self *HealthCheck) SetField(name string, value interface{}) error {
 			self.present["defaultInstanceForType"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field defaultInstanceForType/DefaultInstanceForType: value %v couldn't be cast to type *HealthCheck", value)
+			return fmt.Errorf("Field defaultInstanceForType/DefaultInstanceForType: value %v(%T) couldn't be cast to type *HealthCheck", value, value)
 		}
 
 	case "delaySeconds", "DelaySeconds":
@@ -101,7 +101,7 @@ func (self *HealthCheck) SetField(name string, value interface{}) error {
 			self.present["delaySeconds"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field delaySeconds/DelaySeconds: value %v couldn't be cast to type float64", value)
+			return fmt.Errorf("Field delaySeconds/DelaySeconds: value %v(%T) couldn't be cast to type float64", value, value)
 		}
 
 	case "descriptorForType", "DescriptorForType":
@@ -111,7 +111,7 @@ func (self *HealthCheck) SetField(name string, value interface{}) error {
 			self.present["descriptorForType"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field descriptorForType/DescriptorForType: value %v couldn't be cast to type *Descriptor", value)
+			return fmt.Errorf("Field descriptorForType/DescriptorForType: value %v(%T) couldn't be cast to type *Descriptor", value, value)
 		}
 
 	case "gracePeriodSeconds", "GracePeriodSeconds":
@@ -121,7 +121,7 @@ func (self *HealthCheck) SetField(name string, value interface{}) error {
 			self.present["gracePeriodSeconds"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field gracePeriodSeconds/GracePeriodSeconds: value %v couldn't be cast to type float64", value)
+			return fmt.Errorf("Field gracePeriodSeconds/GracePeriodSeconds: value %v(%T) couldn't be cast to type float64", value, value)
 		}
 
 	case "http", "Http":
@@ -131,7 +131,7 @@ func (self *HealthCheck) SetField(name string, value interface{}) error {
 			self.present["http"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field http/Http: value %v couldn't be cast to type *HTTP", value)
+			return fmt.Errorf("Field http/Http: value %v(%T) couldn't be cast to type *HTTP", value, value)
 		}
 
 	case "httpOrBuilder", "HttpOrBuilder":
@@ -141,7 +141,7 @@ func (self *HealthCheck) SetField(name string, value interface{}) error {
 			self.present["httpOrBuilder"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field httpOrBuilder/HttpOrBuilder: value %v couldn't be cast to type *HTTPOrBuilder", value)
+			return fmt.Errorf("Field httpOrBuilder/HttpOrBuilder: value %v(%T) couldn't be cast to type *HTTPOrBuilder", value, value)
 		}
 
 	case "initializationErrorString", "InitializationErrorString":
@@ -151,7 +151,7 @@ func (self *HealthCheck) SetField(name string, value interface{}) error {
 			self.present["initializationErrorString"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field initializationErrorString/InitializationErrorString: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field initializationErrorString/InitializationErrorString: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "initialized", "Initialized":
@@ -161,7 +161,7 @@ func (self *HealthCheck) SetField(name string, value interface{}) error {
 			self.present["initialized"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field initialized/Initialized: value %v couldn't be cast to type bool", value)
+			return fmt.Errorf("Field initialized/Initialized: value %v(%T) couldn't be cast to type bool", value, value)
 		}
 
 	case "intervalSeconds", "IntervalSeconds":
@@ -171,7 +171,7 @@ func (self *HealthCheck) SetField(name string, value interface{}) error {
 			self.present["intervalSeconds"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field intervalSeconds/IntervalSeconds: value %v couldn't be cast to type float64", value)
+			return fmt.Errorf("Field intervalSeconds/IntervalSeconds: value %v(%T) couldn't be cast to type float64", value, value)
 		}
 
 	case "serializedSize", "SerializedSize":
@@ -181,7 +181,7 @@ func (self *HealthCheck) SetField(name string, value interface{}) error {
 			self.present["serializedSize"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field serializedSize/SerializedSize: value %v couldn't be cast to type int32", value)
+			return fmt.Errorf("Field serializedSize/SerializedSize: value %v(%T) couldn't be cast to type int32", value, value)
 		}
 
 	case "timeoutSeconds", "TimeoutSeconds":
@@ -191,7 +191,7 @@ func (self *HealthCheck) SetField(name string, value interface{}) error {
 			self.present["timeoutSeconds"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field timeoutSeconds/TimeoutSeconds: value %v couldn't be cast to type float64", value)
+			return fmt.Errorf("Field timeoutSeconds/TimeoutSeconds: value %v(%T) couldn't be cast to type float64", value, value)
 		}
 
 	case "unknownFields", "UnknownFields":
@@ -201,7 +201,7 @@ func (self *HealthCheck) SetField(name string, value interface{}) error {
 			self.present["unknownFields"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field unknownFields/UnknownFields: value %v couldn't be cast to type *UnknownFieldSet", value)
+			return fmt.Errorf("Field unknownFields/UnknownFields: value %v(%T) couldn't be cast to type *UnknownFieldSet", value, value)
 		}
 
 	}

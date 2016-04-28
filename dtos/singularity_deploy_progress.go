@@ -51,7 +51,7 @@ func (self *SingularityDeployProgress) SetField(name string, value interface{}) 
 			self.present["autoAdvanceDeploySteps"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field autoAdvanceDeploySteps/AutoAdvanceDeploySteps: value %v couldn't be cast to type bool", value)
+			return fmt.Errorf("Field autoAdvanceDeploySteps/AutoAdvanceDeploySteps: value %v(%T) couldn't be cast to type bool", value, value)
 		}
 
 	case "deployInstanceCountPerStep", "DeployInstanceCountPerStep":
@@ -61,7 +61,7 @@ func (self *SingularityDeployProgress) SetField(name string, value interface{}) 
 			self.present["deployInstanceCountPerStep"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field deployInstanceCountPerStep/DeployInstanceCountPerStep: value %v couldn't be cast to type int32", value)
+			return fmt.Errorf("Field deployInstanceCountPerStep/DeployInstanceCountPerStep: value %v(%T) couldn't be cast to type int32", value, value)
 		}
 
 	case "deployStepWaitTimeMs", "DeployStepWaitTimeMs":
@@ -71,7 +71,7 @@ func (self *SingularityDeployProgress) SetField(name string, value interface{}) 
 			self.present["deployStepWaitTimeMs"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field deployStepWaitTimeMs/DeployStepWaitTimeMs: value %v couldn't be cast to type int64", value)
+			return fmt.Errorf("Field deployStepWaitTimeMs/DeployStepWaitTimeMs: value %v(%T) couldn't be cast to type int64", value, value)
 		}
 
 	case "failedDeployTasks", "FailedDeployTasks":
@@ -81,7 +81,7 @@ func (self *SingularityDeployProgress) SetField(name string, value interface{}) 
 			self.present["failedDeployTasks"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field failedDeployTasks/FailedDeployTasks: value %v couldn't be cast to type SingularityTaskIdList", value)
+			return fmt.Errorf("Field failedDeployTasks/FailedDeployTasks: value %v(%T) couldn't be cast to type SingularityTaskIdList", value, value)
 		}
 
 	case "stepComplete", "StepComplete":
@@ -91,7 +91,7 @@ func (self *SingularityDeployProgress) SetField(name string, value interface{}) 
 			self.present["stepComplete"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field stepComplete/StepComplete: value %v couldn't be cast to type bool", value)
+			return fmt.Errorf("Field stepComplete/StepComplete: value %v(%T) couldn't be cast to type bool", value, value)
 		}
 
 	case "targetActiveInstances", "TargetActiveInstances":
@@ -101,7 +101,7 @@ func (self *SingularityDeployProgress) SetField(name string, value interface{}) 
 			self.present["targetActiveInstances"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field targetActiveInstances/TargetActiveInstances: value %v couldn't be cast to type int32", value)
+			return fmt.Errorf("Field targetActiveInstances/TargetActiveInstances: value %v(%T) couldn't be cast to type int32", value, value)
 		}
 
 	case "timestamp", "Timestamp":
@@ -111,7 +111,7 @@ func (self *SingularityDeployProgress) SetField(name string, value interface{}) 
 			self.present["timestamp"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field timestamp/Timestamp: value %v couldn't be cast to type int64", value)
+			return fmt.Errorf("Field timestamp/Timestamp: value %v(%T) couldn't be cast to type int64", value, value)
 		}
 
 	}

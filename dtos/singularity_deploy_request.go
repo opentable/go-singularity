@@ -47,7 +47,7 @@ func (self *SingularityDeployRequest) SetField(name string, value interface{}) e
 			self.present["deploy"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field deploy/Deploy: value %v couldn't be cast to type *SingularityDeploy", value)
+			return fmt.Errorf("Field deploy/Deploy: value %v(%T) couldn't be cast to type *SingularityDeploy", value, value)
 		}
 
 	case "message", "Message":
@@ -57,7 +57,7 @@ func (self *SingularityDeployRequest) SetField(name string, value interface{}) e
 			self.present["message"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field message/Message: value %v couldn't be cast to type string", value)
+			return fmt.Errorf("Field message/Message: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "unpauseOnSuccessfulDeploy", "UnpauseOnSuccessfulDeploy":
@@ -67,7 +67,7 @@ func (self *SingularityDeployRequest) SetField(name string, value interface{}) e
 			self.present["unpauseOnSuccessfulDeploy"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field unpauseOnSuccessfulDeploy/UnpauseOnSuccessfulDeploy: value %v couldn't be cast to type bool", value)
+			return fmt.Errorf("Field unpauseOnSuccessfulDeploy/UnpauseOnSuccessfulDeploy: value %v(%T) couldn't be cast to type bool", value, value)
 		}
 
 	}

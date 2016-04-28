@@ -48,7 +48,7 @@ func (self *PortsOrBuilder) SetField(name string, value interface{}) error {
 			self.present["portsCount"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field portsCount/PortsCount: value %v couldn't be cast to type int32", value)
+			return fmt.Errorf("Field portsCount/PortsCount: value %v(%T) couldn't be cast to type int32", value, value)
 		}
 
 	}
