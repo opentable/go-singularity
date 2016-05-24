@@ -26,6 +26,7 @@ type Client struct {
 type ReqError struct {
 	method, path string
 	message      string
+	status       int
 	body         bytes.Buffer
 }
 
@@ -59,6 +60,7 @@ func (client *Client) Request(method, path string, pathParams, queryParams urlPa
 	}
 	if res.StatusCode > 299 {
 		rerr := &ReqError{
+			status:  res.StatusCode,
 			message: res.Status,
 			method:  method,
 			path:    path,
