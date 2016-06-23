@@ -2204,7 +2204,11 @@
           "type": "string"
         },
         "mode": {
-          "$ref": "SingularityDockerVolumeMode"
+          "$ref": "SingularityDockerVolumeMode",
+          "enum": [
+            "RO",
+            "RW"
+          ]
         }
       }
     },

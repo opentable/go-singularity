@@ -1,4 +1,5 @@
 ( .apis[] | select(.path == "/api/history/request/{requestId}/run/{runId}") |
   .operations[] | select(.nickname == "getTaskHistoryForRequest") | .nickname ) |= "getTaskHistoryForRequestRun" |
 ( .apis[] | select(.path ==  "/api/history/request/{requestId}/tasks/active") |
-  .operations[] | select(.nickname == "getTaskHistoryForRequest") | .nickname ) |= "getTaskHistoryForActiveRequest"
+  .operations[] | select(.nickname == "getTaskHistoryForRequest") | .nickname ) |= "getTaskHistoryForActiveRequest" |
+  .models.SingularityVolume.properties.mode["enum"] = ["RO", "RW"]

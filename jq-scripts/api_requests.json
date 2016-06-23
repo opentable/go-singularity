@@ -1,1 +1,2 @@
-.models.SingularityDeploy.properties.resources["$ref"] = "Resources"
+.models.SingularityDeploy.properties.resources["$ref"] = "Resources" |
+  .models.SingularityVolume.properties.mode["enum"] = ["RO", "RW"]
