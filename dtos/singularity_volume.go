@@ -5,12 +5,18 @@ import (
 	"io"
 )
 
+type SingularityVolumeSingularityDockerVolumeMode string
+
+const (
+	SingularityVolumeSingularityDockerVolumeModeRO SingularityVolumeSingularityDockerVolumeMode = "RO"
+	SingularityVolumeSingularityDockerVolumeModeRW SingularityVolumeSingularityDockerVolumeMode = "RW"
+)
+
 type SingularityVolume struct {
 	present       map[string]bool
-	ContainerPath string `json:"containerPath,omitempty"`
-	HostPath      string `json:"hostPath,omitempty"`
-	//	Mode *SingularityDockerVolumeMode `json:"mode"`
-
+	ContainerPath string                                       `json:"containerPath,omitempty"`
+	HostPath      string                                       `json:"hostPath,omitempty"`
+	Mode          SingularityVolumeSingularityDockerVolumeMode `json:"mode"`
 }
 
 func (self *SingularityVolume) Populate(jsonReader io.ReadCloser) (err error) {
@@ -61,6 +67,16 @@ func (self *SingularityVolume) SetField(name string, value interface{}) error {
 			return fmt.Errorf("Field hostPath/HostPath: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
+	case "mode", "Mode":
+		v, ok := value.(SingularityVolumeSingularityDockerVolumeMode)
+		if ok {
+			self.Mode = v
+			self.present["mode"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field mode/Mode: value %v(%T) couldn't be cast to type SingularityVolumeSingularityDockerVolumeMode", value, value)
+		}
+
 	}
 }
 
@@ -85,6 +101,14 @@ func (self *SingularityVolume) GetField(name string) (interface{}, error) {
 		}
 		return nil, fmt.Errorf("Field HostPath no set on HostPath %+v", self)
 
+	case "mode", "Mode":
+		if self.present != nil {
+			if _, ok := self.present["mode"]; ok {
+				return self.Mode, nil
+			}
+		}
+		return nil, fmt.Errorf("Field Mode no set on Mode %+v", self)
+
 	}
 }
 
@@ -101,6 +125,9 @@ func (self *SingularityVolume) ClearField(name string) error {
 
 	case "hostPath", "HostPath":
 		self.present["hostPath"] = false
+
+	case "mode", "Mode":
+		self.present["mode"] = false
 
 	}
 
