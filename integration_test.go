@@ -5,8 +5,8 @@ import (
 	"os"
 	"testing"
 
-	"github.com/opentable/singularity"
-	"github.com/opentable/singularity/dtos"
+	"github.com/opentable/go-singularity"
+	"github.com/opentable/go-singularity/dtos"
 	"github.com/opentable/test_with_docker"
 )
 

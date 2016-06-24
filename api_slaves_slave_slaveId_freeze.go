@@ -1,6 +1,6 @@
 package singularity
 
-import "github.com/opentable/singularity/dtos"
+import "github.com/opentable/go-singularity/dtos"
 
 func (client *Client) FreezeSlave(slaveId string, body *dtos.SingularityMachineChangeRequest) (err error) {
 	pathParamMap := map[string]interface{}{

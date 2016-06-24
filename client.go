@@ -12,7 +12,7 @@ import (
 	"regexp"
 	"strings"
 
-	"github.com/opentable/singularity/dtos"
+	"github.com/opentable/go-singularity/dtos"
 )
 
 //go:generate swagger-client-maker api-docs/ .

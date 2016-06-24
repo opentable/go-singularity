@@ -1,6 +1,6 @@
 package singularity
 
-import "github.com/opentable/singularity/dtos"
+import "github.com/opentable/go-singularity/dtos"
 
 func (client *Client) GetDeploys(requestId string, count int32, page int32) (response dtos.SingularityDeployHistoryList, err error) {
 	pathParamMap := map[string]interface{}{

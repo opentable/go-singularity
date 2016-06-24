@@ -1,6 +1,6 @@
 package singularity
 
-import "github.com/opentable/singularity/dtos"
+import "github.com/opentable/go-singularity/dtos"
 
 func (client *Client) GetKilledTasks() (response dtos.SingularityKilledTaskIdRecordList, err error) {
 	pathParamMap := map[string]interface{}{}

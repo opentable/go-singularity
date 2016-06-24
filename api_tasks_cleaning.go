@@ -1,6 +1,6 @@
 package singularity
 
-import "github.com/opentable/singularity/dtos"
+import "github.com/opentable/go-singularity/dtos"
 
 func (client *Client) GetCleaningTasks() (response dtos.SingularityTaskCleanupList, err error) {
 	pathParamMap := map[string]interface{}{}
