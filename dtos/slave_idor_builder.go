@@ -3,32 +3,44 @@ package dtos
 import (
 	"fmt"
 	"io"
+
+	"github.com/opentable/swaggering"
 )
 
 type SlaveIDOrBuilder struct {
-	present    map[string]bool
-	Value      string      `json:"value,omitempty"`
+	present map[string]bool
+
+	Value string `json:"value,omitempty"`
+
 	ValueBytes *ByteString `json:"valueBytes"`
 }
 
 func (self *SlaveIDOrBuilder) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, self)
+	return swaggering.ReadPopulate(jsonReader, self)
+}
+
+func (self *SlaveIDOrBuilder) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*SlaveIDOrBuilder); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A SlaveIDOrBuilder cannot absorb the values from %v", other)
 }
 
 func (self *SlaveIDOrBuilder) MarshalJSON() ([]byte, error) {
-	return MarshalJSON(self)
+	return swaggering.MarshalJSON(self)
 }
 
 func (self *SlaveIDOrBuilder) FormatText() string {
-	return FormatText(self)
+	return swaggering.FormatText(self)
 }
 
 func (self *SlaveIDOrBuilder) FormatJSON() string {
-	return FormatJSON(self)
+	return swaggering.FormatJSON(self)
 }
 
 func (self *SlaveIDOrBuilder) FieldsPresent() []string {
-	return presenceFromMap(self.present)
+	return swaggering.PresenceFromMap(self.present)
 }
 
 func (self *SlaveIDOrBuilder) SetField(name string, value interface{}) error {
@@ -106,13 +118,21 @@ func (self *SlaveIDOrBuilder) ClearField(name string) error {
 }
 
 func (self *SlaveIDOrBuilder) LoadMap(from map[string]interface{}) error {
-	return loadMapIntoDTO(from, self)
+	return swaggering.LoadMapIntoDTO(from, self)
 }
 
 type SlaveIDOrBuilderList []*SlaveIDOrBuilder
 
+func (self *SlaveIDOrBuilderList) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*SlaveIDOrBuilderList); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A SlaveIDOrBuilder cannot absorb the values from %v", other)
+}
+
 func (list *SlaveIDOrBuilderList) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, list)
+	return swaggering.ReadPopulate(jsonReader, list)
 }
 
 func (list *SlaveIDOrBuilderList) FormatText() string {
@@ -125,5 +145,5 @@ func (list *SlaveIDOrBuilderList) FormatText() string {
 }
 
 func (list *SlaveIDOrBuilderList) FormatJSON() string {
-	return FormatJSON(list)
+	return swaggering.FormatJSON(list)
 }

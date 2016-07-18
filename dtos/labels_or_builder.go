@@ -3,34 +3,47 @@ package dtos
 import (
 	"fmt"
 	"io"
+
+	"github.com/opentable/swaggering"
 )
 
 type LabelsOrBuilder struct {
-	present     map[string]bool
+	present map[string]bool
+
 	LabelsCount int32 `json:"labelsCount"`
-	//	LabelsList *List[Label] `json:"labelsList"`
-	//	LabelsOrBuilderList *List[? extends org.apache.mesos.Protos$LabelOrBuilder] `json:"labelsOrBuilderList"`
+
+	// LabelsList *List[Label] `json:"labelsList"`
+
+	// LabelsOrBuilderList *List[? extends org.apache.mesos.Protos$LabelOrBuilder] `json:"labelsOrBuilderList"`
 
 }
 
 func (self *LabelsOrBuilder) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, self)
+	return swaggering.ReadPopulate(jsonReader, self)
+}
+
+func (self *LabelsOrBuilder) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*LabelsOrBuilder); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A LabelsOrBuilder cannot absorb the values from %v", other)
 }
 
 func (self *LabelsOrBuilder) MarshalJSON() ([]byte, error) {
-	return MarshalJSON(self)
+	return swaggering.MarshalJSON(self)
 }
 
 func (self *LabelsOrBuilder) FormatText() string {
-	return FormatText(self)
+	return swaggering.FormatText(self)
 }
 
 func (self *LabelsOrBuilder) FormatJSON() string {
-	return FormatJSON(self)
+	return swaggering.FormatJSON(self)
 }
 
 func (self *LabelsOrBuilder) FieldsPresent() []string {
-	return presenceFromMap(self.present)
+	return swaggering.PresenceFromMap(self.present)
 }
 
 func (self *LabelsOrBuilder) SetField(name string, value interface{}) error {
@@ -87,13 +100,21 @@ func (self *LabelsOrBuilder) ClearField(name string) error {
 }
 
 func (self *LabelsOrBuilder) LoadMap(from map[string]interface{}) error {
-	return loadMapIntoDTO(from, self)
+	return swaggering.LoadMapIntoDTO(from, self)
 }
 
 type LabelsOrBuilderList []*LabelsOrBuilder
 
+func (self *LabelsOrBuilderList) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*LabelsOrBuilderList); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A LabelsOrBuilder cannot absorb the values from %v", other)
+}
+
 func (list *LabelsOrBuilderList) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, list)
+	return swaggering.ReadPopulate(jsonReader, list)
 }
 
 func (list *LabelsOrBuilderList) FormatText() string {
@@ -106,5 +127,5 @@ func (list *LabelsOrBuilderList) FormatText() string {
 }
 
 func (list *LabelsOrBuilderList) FormatJSON() string {
-	return FormatJSON(list)
+	return swaggering.FormatJSON(list)
 }

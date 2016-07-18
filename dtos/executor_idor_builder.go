@@ -3,32 +3,44 @@ package dtos
 import (
 	"fmt"
 	"io"
+
+	"github.com/opentable/swaggering"
 )
 
 type ExecutorIDOrBuilder struct {
-	present    map[string]bool
-	Value      string      `json:"value,omitempty"`
+	present map[string]bool
+
+	Value string `json:"value,omitempty"`
+
 	ValueBytes *ByteString `json:"valueBytes"`
 }
 
 func (self *ExecutorIDOrBuilder) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, self)
+	return swaggering.ReadPopulate(jsonReader, self)
+}
+
+func (self *ExecutorIDOrBuilder) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*ExecutorIDOrBuilder); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A ExecutorIDOrBuilder cannot absorb the values from %v", other)
 }
 
 func (self *ExecutorIDOrBuilder) MarshalJSON() ([]byte, error) {
-	return MarshalJSON(self)
+	return swaggering.MarshalJSON(self)
 }
 
 func (self *ExecutorIDOrBuilder) FormatText() string {
-	return FormatText(self)
+	return swaggering.FormatText(self)
 }
 
 func (self *ExecutorIDOrBuilder) FormatJSON() string {
-	return FormatJSON(self)
+	return swaggering.FormatJSON(self)
 }
 
 func (self *ExecutorIDOrBuilder) FieldsPresent() []string {
-	return presenceFromMap(self.present)
+	return swaggering.PresenceFromMap(self.present)
 }
 
 func (self *ExecutorIDOrBuilder) SetField(name string, value interface{}) error {
@@ -106,13 +118,21 @@ func (self *ExecutorIDOrBuilder) ClearField(name string) error {
 }
 
 func (self *ExecutorIDOrBuilder) LoadMap(from map[string]interface{}) error {
-	return loadMapIntoDTO(from, self)
+	return swaggering.LoadMapIntoDTO(from, self)
 }
 
 type ExecutorIDOrBuilderList []*ExecutorIDOrBuilder
 
+func (self *ExecutorIDOrBuilderList) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*ExecutorIDOrBuilderList); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A ExecutorIDOrBuilder cannot absorb the values from %v", other)
+}
+
 func (list *ExecutorIDOrBuilderList) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, list)
+	return swaggering.ReadPopulate(jsonReader, list)
 }
 
 func (list *ExecutorIDOrBuilderList) FormatText() string {
@@ -125,5 +145,5 @@ func (list *ExecutorIDOrBuilderList) FormatText() string {
 }
 
 func (list *ExecutorIDOrBuilderList) FormatJSON() string {
-	return FormatJSON(list)
+	return swaggering.FormatJSON(list)
 }

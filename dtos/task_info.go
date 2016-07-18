@@ -3,60 +3,100 @@ package dtos
 import (
 	"fmt"
 	"io"
+
+	"github.com/opentable/swaggering"
 )
 
 type TaskInfo struct {
 	present map[string]bool
-	//	AllFields *Map[FieldDescriptor,Object] `json:"allFields"`
-	Command                   *CommandInfo            `json:"command"`
-	CommandOrBuilder          *CommandInfoOrBuilder   `json:"commandOrBuilder"`
-	Container                 *ContainerInfo          `json:"container"`
-	ContainerOrBuilder        *ContainerInfoOrBuilder `json:"containerOrBuilder"`
-	Data                      *ByteString             `json:"data"`
-	DefaultInstanceForType    *TaskInfo               `json:"defaultInstanceForType"`
-	DescriptorForType         *Descriptor             `json:"descriptorForType"`
-	Discovery                 *DiscoveryInfo          `json:"discovery"`
-	DiscoveryOrBuilder        *DiscoveryInfoOrBuilder `json:"discoveryOrBuilder"`
-	Executor                  *ExecutorInfo           `json:"executor"`
-	ExecutorOrBuilder         *ExecutorInfoOrBuilder  `json:"executorOrBuilder"`
-	HealthCheck               *HealthCheck            `json:"healthCheck"`
-	HealthCheckOrBuilder      *HealthCheckOrBuilder   `json:"healthCheckOrBuilder"`
-	InitializationErrorString string                  `json:"initializationErrorString,omitempty"`
-	Initialized               bool                    `json:"initialized"`
-	Labels                    *Labels                 `json:"labels"`
-	LabelsOrBuilder           *LabelsOrBuilder        `json:"labelsOrBuilder"`
-	Name                      string                  `json:"name,omitempty"`
-	NameBytes                 *ByteString             `json:"nameBytes"`
-	//	ParserForType *com.google.protobuf.Parser&lt;org.apache.mesos.Protos$TaskInfo&gt; `json:"parserForType"`
+
+	// AllFields *Map[FieldDescriptor,Object] `json:"allFields"`
+
+	Command *CommandInfo `json:"command"`
+
+	CommandOrBuilder *CommandInfoOrBuilder `json:"commandOrBuilder"`
+
+	Container *ContainerInfo `json:"container"`
+
+	ContainerOrBuilder *ContainerInfoOrBuilder `json:"containerOrBuilder"`
+
+	Data *ByteString `json:"data"`
+
+	DefaultInstanceForType *TaskInfo `json:"defaultInstanceForType"`
+
+	DescriptorForType *Descriptor `json:"descriptorForType"`
+
+	Discovery *DiscoveryInfo `json:"discovery"`
+
+	DiscoveryOrBuilder *DiscoveryInfoOrBuilder `json:"discoveryOrBuilder"`
+
+	Executor *ExecutorInfo `json:"executor"`
+
+	ExecutorOrBuilder *ExecutorInfoOrBuilder `json:"executorOrBuilder"`
+
+	HealthCheck *HealthCheck `json:"healthCheck"`
+
+	HealthCheckOrBuilder *HealthCheckOrBuilder `json:"healthCheckOrBuilder"`
+
+	InitializationErrorString string `json:"initializationErrorString,omitempty"`
+
+	Initialized bool `json:"initialized"`
+
+	Labels *Labels `json:"labels"`
+
+	LabelsOrBuilder *LabelsOrBuilder `json:"labelsOrBuilder"`
+
+	Name string `json:"name,omitempty"`
+
+	NameBytes *ByteString `json:"nameBytes"`
+
+	// ParserForType *com.google.protobuf.Parser<org.apache.mesos.Protos$TaskInfo> `json:"parserForType"`
+
 	ResourcesCount int32 `json:"resourcesCount"`
-	//	ResourcesList *List[Resource] `json:"resourcesList"`
-	//	ResourcesOrBuilderList *List[? extends org.apache.mesos.Protos$ResourceOrBuilder] `json:"resourcesOrBuilderList"`
-	SerializedSize   int32             `json:"serializedSize"`
-	SlaveId          *SlaveID          `json:"slaveId"`
+
+	// ResourcesList *List[Resource] `json:"resourcesList"`
+
+	// ResourcesOrBuilderList *List[? extends org.apache.mesos.Protos$ResourceOrBuilder] `json:"resourcesOrBuilderList"`
+
+	SerializedSize int32 `json:"serializedSize"`
+
+	SlaveId *SlaveID `json:"slaveId"`
+
 	SlaveIdOrBuilder *SlaveIDOrBuilder `json:"slaveIdOrBuilder"`
-	TaskId           *TaskID           `json:"taskId"`
-	TaskIdOrBuilder  *TaskIDOrBuilder  `json:"taskIdOrBuilder"`
-	UnknownFields    *UnknownFieldSet  `json:"unknownFields"`
+
+	TaskId *TaskID `json:"taskId"`
+
+	TaskIdOrBuilder *TaskIDOrBuilder `json:"taskIdOrBuilder"`
+
+	UnknownFields *UnknownFieldSet `json:"unknownFields"`
 }
 
 func (self *TaskInfo) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, self)
+	return swaggering.ReadPopulate(jsonReader, self)
+}
+
+func (self *TaskInfo) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*TaskInfo); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A TaskInfo cannot absorb the values from %v", other)
 }
 
 func (self *TaskInfo) MarshalJSON() ([]byte, error) {
-	return MarshalJSON(self)
+	return swaggering.MarshalJSON(self)
 }
 
 func (self *TaskInfo) FormatText() string {
-	return FormatText(self)
+	return swaggering.FormatText(self)
 }
 
 func (self *TaskInfo) FormatJSON() string {
-	return FormatJSON(self)
+	return swaggering.FormatJSON(self)
 }
 
 func (self *TaskInfo) FieldsPresent() []string {
-	return presenceFromMap(self.present)
+	return swaggering.PresenceFromMap(self.present)
 }
 
 func (self *TaskInfo) SetField(name string, value interface{}) error {
@@ -638,13 +678,21 @@ func (self *TaskInfo) ClearField(name string) error {
 }
 
 func (self *TaskInfo) LoadMap(from map[string]interface{}) error {
-	return loadMapIntoDTO(from, self)
+	return swaggering.LoadMapIntoDTO(from, self)
 }
 
 type TaskInfoList []*TaskInfo
 
+func (self *TaskInfoList) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*TaskInfoList); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A TaskInfo cannot absorb the values from %v", other)
+}
+
 func (list *TaskInfoList) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, list)
+	return swaggering.ReadPopulate(jsonReader, list)
 }
 
 func (list *TaskInfoList) FormatText() string {
@@ -657,5 +705,5 @@ func (list *TaskInfoList) FormatText() string {
 }
 
 func (list *TaskInfoList) FormatJSON() string {
-	return FormatJSON(list)
+	return swaggering.FormatJSON(list)
 }

@@ -3,6 +3,8 @@ package dtos
 import (
 	"fmt"
 	"io"
+
+	"github.com/opentable/swaggering"
 )
 
 type SingularityRequestRequestType string
@@ -16,49 +18,79 @@ const (
 )
 
 type SingularityRequest struct {
-	present                map[string]bool
+	present map[string]bool
+
 	AllowedSlaveAttributes map[string]string `json:"allowedSlaveAttributes"`
-	BounceAfterScale       bool              `json:"bounceAfterScale"`
-	//	EmailConfigurationOverrides *Map[SingularityEmailType,List[SingularityEmailDestination]] `json:"emailConfigurationOverrides"`
-	Group                                 string                        `json:"group,omitempty"`
-	Id                                    string                        `json:"id,omitempty"`
-	Instances                             int32                         `json:"instances"`
-	KillOldNonLongRunningTasksAfterMillis int64                         `json:"killOldNonLongRunningTasksAfterMillis"`
-	LoadBalanced                          bool                          `json:"loadBalanced"`
-	NumRetriesOnFailure                   int32                         `json:"numRetriesOnFailure"`
-	Owners                                StringList                    `json:"owners"`
-	QuartzSchedule                        string                        `json:"quartzSchedule,omitempty"`
-	RackAffinity                          StringList                    `json:"rackAffinity"`
-	RackSensitive                         bool                          `json:"rackSensitive"`
-	ReadOnlyGroups                        StringList                    `json:"readOnlyGroups"`
-	RequestType                           SingularityRequestRequestType `json:"requestType"`
-	RequiredSlaveAttributes               map[string]string             `json:"requiredSlaveAttributes"`
-	Schedule                              string                        `json:"schedule,omitempty"`
-	//	ScheduleType *ScheduleType `json:"scheduleType"`
+
+	BounceAfterScale bool `json:"bounceAfterScale"`
+
+	// EmailConfigurationOverrides *Map[SingularityEmailType,List[SingularityEmailDestination]] `json:"emailConfigurationOverrides"`
+
+	Group string `json:"group,omitempty"`
+
+	Id string `json:"id,omitempty"`
+
+	Instances int32 `json:"instances"`
+
+	KillOldNonLongRunningTasksAfterMillis int64 `json:"killOldNonLongRunningTasksAfterMillis"`
+
+	LoadBalanced bool `json:"loadBalanced"`
+
+	NumRetriesOnFailure int32 `json:"numRetriesOnFailure"`
+
+	Owners swaggering.StringList `json:"owners"`
+
+	QuartzSchedule string `json:"quartzSchedule,omitempty"`
+
+	RackAffinity swaggering.StringList `json:"rackAffinity"`
+
+	RackSensitive bool `json:"rackSensitive"`
+
+	ReadOnlyGroups swaggering.StringList `json:"readOnlyGroups"`
+
+	RequestType SingularityRequestRequestType `json:"requestType"`
+
+	RequiredSlaveAttributes map[string]string `json:"requiredSlaveAttributes"`
+
+	Schedule string `json:"schedule,omitempty"`
+
+	// ScheduleType *ScheduleType `json:"scheduleType"`
+
 	ScheduledExpectedRuntimeMillis int64 `json:"scheduledExpectedRuntimeMillis"`
-	SkipHealthchecks               bool  `json:"skipHealthchecks"`
-	//	SlavePlacement *SlavePlacement `json:"slavePlacement"`
+
+	SkipHealthchecks bool `json:"skipHealthchecks"`
+
+	// SlavePlacement *SlavePlacement `json:"slavePlacement"`
+
 	WaitAtLeastMillisAfterTaskFinishesForReschedule int64 `json:"waitAtLeastMillisAfterTaskFinishesForReschedule"`
 }
 
 func (self *SingularityRequest) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, self)
+	return swaggering.ReadPopulate(jsonReader, self)
+}
+
+func (self *SingularityRequest) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*SingularityRequest); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A SingularityRequest cannot absorb the values from %v", other)
 }
 
 func (self *SingularityRequest) MarshalJSON() ([]byte, error) {
-	return MarshalJSON(self)
+	return swaggering.MarshalJSON(self)
 }
 
 func (self *SingularityRequest) FormatText() string {
-	return FormatText(self)
+	return swaggering.FormatText(self)
 }
 
 func (self *SingularityRequest) FormatJSON() string {
-	return FormatJSON(self)
+	return swaggering.FormatJSON(self)
 }
 
 func (self *SingularityRequest) FieldsPresent() []string {
-	return presenceFromMap(self.present)
+	return swaggering.PresenceFromMap(self.present)
 }
 
 func (self *SingularityRequest) SetField(name string, value interface{}) error {
@@ -150,7 +182,7 @@ func (self *SingularityRequest) SetField(name string, value interface{}) error {
 		}
 
 	case "owners", "Owners":
-		v, ok := value.(StringList)
+		v, ok := value.(swaggering.StringList)
 		if ok {
 			self.Owners = v
 			self.present["owners"] = true
@@ -170,7 +202,7 @@ func (self *SingularityRequest) SetField(name string, value interface{}) error {
 		}
 
 	case "rackAffinity", "RackAffinity":
-		v, ok := value.(StringList)
+		v, ok := value.(swaggering.StringList)
 		if ok {
 			self.RackAffinity = v
 			self.present["rackAffinity"] = true
@@ -190,7 +222,7 @@ func (self *SingularityRequest) SetField(name string, value interface{}) error {
 		}
 
 	case "readOnlyGroups", "ReadOnlyGroups":
-		v, ok := value.(StringList)
+		v, ok := value.(swaggering.StringList)
 		if ok {
 			self.ReadOnlyGroups = v
 			self.present["readOnlyGroups"] = true
@@ -493,13 +525,21 @@ func (self *SingularityRequest) ClearField(name string) error {
 }
 
 func (self *SingularityRequest) LoadMap(from map[string]interface{}) error {
-	return loadMapIntoDTO(from, self)
+	return swaggering.LoadMapIntoDTO(from, self)
 }
 
 type SingularityRequestList []*SingularityRequest
 
+func (self *SingularityRequestList) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*SingularityRequestList); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A SingularityRequest cannot absorb the values from %v", other)
+}
+
 func (list *SingularityRequestList) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, list)
+	return swaggering.ReadPopulate(jsonReader, list)
 }
 
 func (list *SingularityRequestList) FormatText() string {
@@ -512,5 +552,5 @@ func (list *SingularityRequestList) FormatText() string {
 }
 
 func (list *SingularityRequestList) FormatJSON() string {
-	return FormatJSON(list)
+	return swaggering.FormatJSON(list)
 }

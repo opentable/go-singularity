@@ -3,33 +3,46 @@ package dtos
 import (
 	"fmt"
 	"io"
+
+	"github.com/opentable/swaggering"
 )
 
 type Resources struct {
-	present  map[string]bool
-	Cpus     float64 `json:"cpus"`
+	present map[string]bool
+
+	Cpus float64 `json:"cpus"`
+
 	MemoryMb float64 `json:"memoryMb"`
-	NumPorts int32   `json:"numPorts"`
+
+	NumPorts int32 `json:"numPorts"`
 }
 
 func (self *Resources) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, self)
+	return swaggering.ReadPopulate(jsonReader, self)
+}
+
+func (self *Resources) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*Resources); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A Resources cannot absorb the values from %v", other)
 }
 
 func (self *Resources) MarshalJSON() ([]byte, error) {
-	return MarshalJSON(self)
+	return swaggering.MarshalJSON(self)
 }
 
 func (self *Resources) FormatText() string {
-	return FormatText(self)
+	return swaggering.FormatText(self)
 }
 
 func (self *Resources) FormatJSON() string {
-	return FormatJSON(self)
+	return swaggering.FormatJSON(self)
 }
 
 func (self *Resources) FieldsPresent() []string {
-	return presenceFromMap(self.present)
+	return swaggering.PresenceFromMap(self.present)
 }
 
 func (self *Resources) SetField(name string, value interface{}) error {
@@ -128,13 +141,21 @@ func (self *Resources) ClearField(name string) error {
 }
 
 func (self *Resources) LoadMap(from map[string]interface{}) error {
-	return loadMapIntoDTO(from, self)
+	return swaggering.LoadMapIntoDTO(from, self)
 }
 
 type ResourcesList []*Resources
 
+func (self *ResourcesList) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*ResourcesList); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A Resources cannot absorb the values from %v", other)
+}
+
 func (list *ResourcesList) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, list)
+	return swaggering.ReadPopulate(jsonReader, list)
 }
 
 func (list *ResourcesList) FormatText() string {
@@ -147,5 +168,5 @@ func (list *ResourcesList) FormatText() string {
 }
 
 func (list *ResourcesList) FormatJSON() string {
-	return FormatJSON(list)
+	return swaggering.FormatJSON(list)
 }

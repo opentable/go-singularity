@@ -3,39 +3,58 @@ package dtos
 import (
 	"fmt"
 	"io"
+
+	"github.com/opentable/swaggering"
 )
 
 type HealthCheckOrBuilder struct {
-	present             map[string]bool
-	Command             *CommandInfo          `json:"command"`
-	CommandOrBuilder    *CommandInfoOrBuilder `json:"commandOrBuilder"`
-	ConsecutiveFailures int32                 `json:"consecutiveFailures"`
-	DelaySeconds        float64               `json:"delaySeconds"`
-	GracePeriodSeconds  float64               `json:"gracePeriodSeconds"`
-	Http                *HTTP                 `json:"http"`
-	HttpOrBuilder       *HTTPOrBuilder        `json:"httpOrBuilder"`
-	IntervalSeconds     float64               `json:"intervalSeconds"`
-	TimeoutSeconds      float64               `json:"timeoutSeconds"`
+	present map[string]bool
+
+	Command *CommandInfo `json:"command"`
+
+	CommandOrBuilder *CommandInfoOrBuilder `json:"commandOrBuilder"`
+
+	ConsecutiveFailures int32 `json:"consecutiveFailures"`
+
+	DelaySeconds float64 `json:"delaySeconds"`
+
+	GracePeriodSeconds float64 `json:"gracePeriodSeconds"`
+
+	Http *HTTP `json:"http"`
+
+	HttpOrBuilder *HTTPOrBuilder `json:"httpOrBuilder"`
+
+	IntervalSeconds float64 `json:"intervalSeconds"`
+
+	TimeoutSeconds float64 `json:"timeoutSeconds"`
 }
 
 func (self *HealthCheckOrBuilder) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, self)
+	return swaggering.ReadPopulate(jsonReader, self)
+}
+
+func (self *HealthCheckOrBuilder) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*HealthCheckOrBuilder); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A HealthCheckOrBuilder cannot absorb the values from %v", other)
 }
 
 func (self *HealthCheckOrBuilder) MarshalJSON() ([]byte, error) {
-	return MarshalJSON(self)
+	return swaggering.MarshalJSON(self)
 }
 
 func (self *HealthCheckOrBuilder) FormatText() string {
-	return FormatText(self)
+	return swaggering.FormatText(self)
 }
 
 func (self *HealthCheckOrBuilder) FormatJSON() string {
-	return FormatJSON(self)
+	return swaggering.FormatJSON(self)
 }
 
 func (self *HealthCheckOrBuilder) FieldsPresent() []string {
-	return presenceFromMap(self.present)
+	return swaggering.PresenceFromMap(self.present)
 }
 
 func (self *HealthCheckOrBuilder) SetField(name string, value interface{}) error {
@@ -260,13 +279,21 @@ func (self *HealthCheckOrBuilder) ClearField(name string) error {
 }
 
 func (self *HealthCheckOrBuilder) LoadMap(from map[string]interface{}) error {
-	return loadMapIntoDTO(from, self)
+	return swaggering.LoadMapIntoDTO(from, self)
 }
 
 type HealthCheckOrBuilderList []*HealthCheckOrBuilder
 
+func (self *HealthCheckOrBuilderList) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*HealthCheckOrBuilderList); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A HealthCheckOrBuilder cannot absorb the values from %v", other)
+}
+
 func (list *HealthCheckOrBuilderList) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, list)
+	return swaggering.ReadPopulate(jsonReader, list)
 }
 
 func (list *HealthCheckOrBuilderList) FormatText() string {
@@ -279,5 +306,5 @@ func (list *HealthCheckOrBuilderList) FormatText() string {
 }
 
 func (list *HealthCheckOrBuilderList) FormatJSON() string {
-	return FormatJSON(list)
+	return swaggering.FormatJSON(list)
 }

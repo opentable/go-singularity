@@ -3,36 +3,52 @@ package dtos
 import (
 	"fmt"
 	"io"
+
+	"github.com/opentable/swaggering"
 )
 
 type SingularityExpiringSkipHealthchecks struct {
-	present  map[string]bool
+	present map[string]bool
+
 	ActionId string `json:"actionId,omitempty"`
-	//	ExpiringAPIRequestObject *T `json:"expiringAPIRequestObject"`
-	RequestId                string `json:"requestId,omitempty"`
-	RevertToSkipHealthchecks bool   `json:"revertToSkipHealthchecks"`
-	StartMillis              int64  `json:"startMillis"`
-	User                     string `json:"user,omitempty"`
+
+	// ExpiringAPIRequestObject *T `json:"expiringAPIRequestObject"`
+
+	RequestId string `json:"requestId,omitempty"`
+
+	RevertToSkipHealthchecks bool `json:"revertToSkipHealthchecks"`
+
+	StartMillis int64 `json:"startMillis"`
+
+	User string `json:"user,omitempty"`
 }
 
 func (self *SingularityExpiringSkipHealthchecks) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, self)
+	return swaggering.ReadPopulate(jsonReader, self)
+}
+
+func (self *SingularityExpiringSkipHealthchecks) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*SingularityExpiringSkipHealthchecks); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A SingularityExpiringSkipHealthchecks cannot absorb the values from %v", other)
 }
 
 func (self *SingularityExpiringSkipHealthchecks) MarshalJSON() ([]byte, error) {
-	return MarshalJSON(self)
+	return swaggering.MarshalJSON(self)
 }
 
 func (self *SingularityExpiringSkipHealthchecks) FormatText() string {
-	return FormatText(self)
+	return swaggering.FormatText(self)
 }
 
 func (self *SingularityExpiringSkipHealthchecks) FormatJSON() string {
-	return FormatJSON(self)
+	return swaggering.FormatJSON(self)
 }
 
 func (self *SingularityExpiringSkipHealthchecks) FieldsPresent() []string {
-	return presenceFromMap(self.present)
+	return swaggering.PresenceFromMap(self.present)
 }
 
 func (self *SingularityExpiringSkipHealthchecks) SetField(name string, value interface{}) error {
@@ -173,13 +189,21 @@ func (self *SingularityExpiringSkipHealthchecks) ClearField(name string) error {
 }
 
 func (self *SingularityExpiringSkipHealthchecks) LoadMap(from map[string]interface{}) error {
-	return loadMapIntoDTO(from, self)
+	return swaggering.LoadMapIntoDTO(from, self)
 }
 
 type SingularityExpiringSkipHealthchecksList []*SingularityExpiringSkipHealthchecks
 
+func (self *SingularityExpiringSkipHealthchecksList) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*SingularityExpiringSkipHealthchecksList); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A SingularityExpiringSkipHealthchecks cannot absorb the values from %v", other)
+}
+
 func (list *SingularityExpiringSkipHealthchecksList) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, list)
+	return swaggering.ReadPopulate(jsonReader, list)
 }
 
 func (list *SingularityExpiringSkipHealthchecksList) FormatText() string {
@@ -192,5 +216,5 @@ func (list *SingularityExpiringSkipHealthchecksList) FormatText() string {
 }
 
 func (list *SingularityExpiringSkipHealthchecksList) FormatJSON() string {
-	return FormatJSON(list)
+	return swaggering.FormatJSON(list)
 }

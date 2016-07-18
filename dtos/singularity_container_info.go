@@ -3,6 +3,8 @@ package dtos
 import (
 	"fmt"
 	"io"
+
+	"github.com/opentable/swaggering"
 )
 
 type SingularityContainerInfoSingularityContainerType string
@@ -14,29 +16,40 @@ const (
 
 type SingularityContainerInfo struct {
 	present map[string]bool
-	Docker  *SingularityDockerInfo                           `json:"docker"`
-	Type    SingularityContainerInfoSingularityContainerType `json:"type"`
-	Volumes SingularityVolumeList                            `json:"volumes"`
+
+	Docker *SingularityDockerInfo `json:"docker"`
+
+	Type SingularityContainerInfoSingularityContainerType `json:"type"`
+
+	Volumes SingularityVolumeList `json:"volumes"`
 }
 
 func (self *SingularityContainerInfo) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, self)
+	return swaggering.ReadPopulate(jsonReader, self)
+}
+
+func (self *SingularityContainerInfo) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*SingularityContainerInfo); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A SingularityContainerInfo cannot absorb the values from %v", other)
 }
 
 func (self *SingularityContainerInfo) MarshalJSON() ([]byte, error) {
-	return MarshalJSON(self)
+	return swaggering.MarshalJSON(self)
 }
 
 func (self *SingularityContainerInfo) FormatText() string {
-	return FormatText(self)
+	return swaggering.FormatText(self)
 }
 
 func (self *SingularityContainerInfo) FormatJSON() string {
-	return FormatJSON(self)
+	return swaggering.FormatJSON(self)
 }
 
 func (self *SingularityContainerInfo) FieldsPresent() []string {
-	return presenceFromMap(self.present)
+	return swaggering.PresenceFromMap(self.present)
 }
 
 func (self *SingularityContainerInfo) SetField(name string, value interface{}) error {
@@ -135,13 +148,21 @@ func (self *SingularityContainerInfo) ClearField(name string) error {
 }
 
 func (self *SingularityContainerInfo) LoadMap(from map[string]interface{}) error {
-	return loadMapIntoDTO(from, self)
+	return swaggering.LoadMapIntoDTO(from, self)
 }
 
 type SingularityContainerInfoList []*SingularityContainerInfo
 
+func (self *SingularityContainerInfoList) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*SingularityContainerInfoList); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A SingularityContainerInfo cannot absorb the values from %v", other)
+}
+
 func (list *SingularityContainerInfoList) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, list)
+	return swaggering.ReadPopulate(jsonReader, list)
 }
 
 func (list *SingularityContainerInfoList) FormatText() string {
@@ -154,5 +175,5 @@ func (list *SingularityContainerInfoList) FormatText() string {
 }
 
 func (list *SingularityContainerInfoList) FormatJSON() string {
-	return FormatJSON(list)
+	return swaggering.FormatJSON(list)
 }

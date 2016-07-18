@@ -3,34 +3,48 @@ package dtos
 import (
 	"fmt"
 	"io"
+
+	"github.com/opentable/swaggering"
 )
 
 type SingularityShellCommand struct {
-	present     map[string]bool
-	LogfileName string     `json:"logfileName,omitempty"`
-	Name        string     `json:"name,omitempty"`
-	Options     StringList `json:"options"`
-	User        string     `json:"user,omitempty"`
+	present map[string]bool
+
+	LogfileName string `json:"logfileName,omitempty"`
+
+	Name string `json:"name,omitempty"`
+
+	Options swaggering.StringList `json:"options"`
+
+	User string `json:"user,omitempty"`
 }
 
 func (self *SingularityShellCommand) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, self)
+	return swaggering.ReadPopulate(jsonReader, self)
+}
+
+func (self *SingularityShellCommand) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*SingularityShellCommand); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A SingularityShellCommand cannot absorb the values from %v", other)
 }
 
 func (self *SingularityShellCommand) MarshalJSON() ([]byte, error) {
-	return MarshalJSON(self)
+	return swaggering.MarshalJSON(self)
 }
 
 func (self *SingularityShellCommand) FormatText() string {
-	return FormatText(self)
+	return swaggering.FormatText(self)
 }
 
 func (self *SingularityShellCommand) FormatJSON() string {
-	return FormatJSON(self)
+	return swaggering.FormatJSON(self)
 }
 
 func (self *SingularityShellCommand) FieldsPresent() []string {
-	return presenceFromMap(self.present)
+	return swaggering.PresenceFromMap(self.present)
 }
 
 func (self *SingularityShellCommand) SetField(name string, value interface{}) error {
@@ -62,7 +76,7 @@ func (self *SingularityShellCommand) SetField(name string, value interface{}) er
 		}
 
 	case "options", "Options":
-		v, ok := value.(StringList)
+		v, ok := value.(swaggering.StringList)
 		if ok {
 			self.Options = v
 			self.present["options"] = true
@@ -150,13 +164,21 @@ func (self *SingularityShellCommand) ClearField(name string) error {
 }
 
 func (self *SingularityShellCommand) LoadMap(from map[string]interface{}) error {
-	return loadMapIntoDTO(from, self)
+	return swaggering.LoadMapIntoDTO(from, self)
 }
 
 type SingularityShellCommandList []*SingularityShellCommand
 
+func (self *SingularityShellCommandList) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*SingularityShellCommandList); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A SingularityShellCommand cannot absorb the values from %v", other)
+}
+
 func (list *SingularityShellCommandList) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, list)
+	return swaggering.ReadPopulate(jsonReader, list)
 }
 
 func (list *SingularityShellCommandList) FormatText() string {
@@ -169,5 +191,5 @@ func (list *SingularityShellCommandList) FormatText() string {
 }
 
 func (list *SingularityShellCommandList) FormatJSON() string {
-	return FormatJSON(list)
+	return swaggering.FormatJSON(list)
 }

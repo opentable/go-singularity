@@ -3,37 +3,54 @@ package dtos
 import (
 	"fmt"
 	"io"
+
+	"github.com/opentable/swaggering"
 )
 
 type SingularityHostState struct {
-	present              map[string]bool
-	DriverStatus         string `json:"driverStatus,omitempty"`
-	HostAddress          string `json:"hostAddress,omitempty"`
-	Hostname             string `json:"hostname,omitempty"`
-	Master               bool   `json:"master"`
-	MesosMaster          string `json:"mesosMaster,omitempty"`
-	MillisSinceLastOffer int64  `json:"millisSinceLastOffer"`
-	Uptime               int64  `json:"uptime"`
+	present map[string]bool
+
+	DriverStatus string `json:"driverStatus,omitempty"`
+
+	HostAddress string `json:"hostAddress,omitempty"`
+
+	Hostname string `json:"hostname,omitempty"`
+
+	Master bool `json:"master"`
+
+	MesosMaster string `json:"mesosMaster,omitempty"`
+
+	MillisSinceLastOffer int64 `json:"millisSinceLastOffer"`
+
+	Uptime int64 `json:"uptime"`
 }
 
 func (self *SingularityHostState) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, self)
+	return swaggering.ReadPopulate(jsonReader, self)
+}
+
+func (self *SingularityHostState) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*SingularityHostState); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A SingularityHostState cannot absorb the values from %v", other)
 }
 
 func (self *SingularityHostState) MarshalJSON() ([]byte, error) {
-	return MarshalJSON(self)
+	return swaggering.MarshalJSON(self)
 }
 
 func (self *SingularityHostState) FormatText() string {
-	return FormatText(self)
+	return swaggering.FormatText(self)
 }
 
 func (self *SingularityHostState) FormatJSON() string {
-	return FormatJSON(self)
+	return swaggering.FormatJSON(self)
 }
 
 func (self *SingularityHostState) FieldsPresent() []string {
-	return presenceFromMap(self.present)
+	return swaggering.PresenceFromMap(self.present)
 }
 
 func (self *SingularityHostState) SetField(name string, value interface{}) error {
@@ -216,13 +233,21 @@ func (self *SingularityHostState) ClearField(name string) error {
 }
 
 func (self *SingularityHostState) LoadMap(from map[string]interface{}) error {
-	return loadMapIntoDTO(from, self)
+	return swaggering.LoadMapIntoDTO(from, self)
 }
 
 type SingularityHostStateList []*SingularityHostState
 
+func (self *SingularityHostStateList) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*SingularityHostStateList); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A SingularityHostState cannot absorb the values from %v", other)
+}
+
 func (list *SingularityHostStateList) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, list)
+	return swaggering.ReadPopulate(jsonReader, list)
 }
 
 func (list *SingularityHostStateList) FormatText() string {
@@ -235,5 +260,5 @@ func (list *SingularityHostStateList) FormatText() string {
 }
 
 func (list *SingularityHostStateList) FormatJSON() string {
-	return FormatJSON(list)
+	return swaggering.FormatJSON(list)
 }

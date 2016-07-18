@@ -3,34 +3,48 @@ package dtos
 import (
 	"fmt"
 	"io"
+
+	"github.com/opentable/swaggering"
 )
 
 type SingularityDeployHistory struct {
-	present          map[string]bool
-	Deploy           *SingularityDeploy           `json:"deploy"`
-	DeployMarker     *SingularityDeployMarker     `json:"deployMarker"`
-	DeployResult     *SingularityDeployResult     `json:"deployResult"`
+	present map[string]bool
+
+	Deploy *SingularityDeploy `json:"deploy"`
+
+	DeployMarker *SingularityDeployMarker `json:"deployMarker"`
+
+	DeployResult *SingularityDeployResult `json:"deployResult"`
+
 	DeployStatistics *SingularityDeployStatistics `json:"deployStatistics"`
 }
 
 func (self *SingularityDeployHistory) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, self)
+	return swaggering.ReadPopulate(jsonReader, self)
+}
+
+func (self *SingularityDeployHistory) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*SingularityDeployHistory); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A SingularityDeployHistory cannot absorb the values from %v", other)
 }
 
 func (self *SingularityDeployHistory) MarshalJSON() ([]byte, error) {
-	return MarshalJSON(self)
+	return swaggering.MarshalJSON(self)
 }
 
 func (self *SingularityDeployHistory) FormatText() string {
-	return FormatText(self)
+	return swaggering.FormatText(self)
 }
 
 func (self *SingularityDeployHistory) FormatJSON() string {
-	return FormatJSON(self)
+	return swaggering.FormatJSON(self)
 }
 
 func (self *SingularityDeployHistory) FieldsPresent() []string {
-	return presenceFromMap(self.present)
+	return swaggering.PresenceFromMap(self.present)
 }
 
 func (self *SingularityDeployHistory) SetField(name string, value interface{}) error {
@@ -150,13 +164,21 @@ func (self *SingularityDeployHistory) ClearField(name string) error {
 }
 
 func (self *SingularityDeployHistory) LoadMap(from map[string]interface{}) error {
-	return loadMapIntoDTO(from, self)
+	return swaggering.LoadMapIntoDTO(from, self)
 }
 
 type SingularityDeployHistoryList []*SingularityDeployHistory
 
+func (self *SingularityDeployHistoryList) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*SingularityDeployHistoryList); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A SingularityDeployHistory cannot absorb the values from %v", other)
+}
+
 func (list *SingularityDeployHistoryList) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, list)
+	return swaggering.ReadPopulate(jsonReader, list)
 }
 
 func (list *SingularityDeployHistoryList) FormatText() string {
@@ -169,5 +191,5 @@ func (list *SingularityDeployHistoryList) FormatText() string {
 }
 
 func (list *SingularityDeployHistoryList) FormatJSON() string {
-	return FormatJSON(list)
+	return swaggering.FormatJSON(list)
 }

@@ -3,33 +3,46 @@ package dtos
 import (
 	"fmt"
 	"io"
+
+	"github.com/opentable/swaggering"
 )
 
 type SingularityRequestDeployState struct {
-	present       map[string]bool
-	ActiveDeploy  *SingularityDeployMarker `json:"activeDeploy"`
+	present map[string]bool
+
+	ActiveDeploy *SingularityDeployMarker `json:"activeDeploy"`
+
 	PendingDeploy *SingularityDeployMarker `json:"pendingDeploy"`
-	RequestId     string                   `json:"requestId,omitempty"`
+
+	RequestId string `json:"requestId,omitempty"`
 }
 
 func (self *SingularityRequestDeployState) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, self)
+	return swaggering.ReadPopulate(jsonReader, self)
+}
+
+func (self *SingularityRequestDeployState) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*SingularityRequestDeployState); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A SingularityRequestDeployState cannot absorb the values from %v", other)
 }
 
 func (self *SingularityRequestDeployState) MarshalJSON() ([]byte, error) {
-	return MarshalJSON(self)
+	return swaggering.MarshalJSON(self)
 }
 
 func (self *SingularityRequestDeployState) FormatText() string {
-	return FormatText(self)
+	return swaggering.FormatText(self)
 }
 
 func (self *SingularityRequestDeployState) FormatJSON() string {
-	return FormatJSON(self)
+	return swaggering.FormatJSON(self)
 }
 
 func (self *SingularityRequestDeployState) FieldsPresent() []string {
-	return presenceFromMap(self.present)
+	return swaggering.PresenceFromMap(self.present)
 }
 
 func (self *SingularityRequestDeployState) SetField(name string, value interface{}) error {
@@ -128,13 +141,21 @@ func (self *SingularityRequestDeployState) ClearField(name string) error {
 }
 
 func (self *SingularityRequestDeployState) LoadMap(from map[string]interface{}) error {
-	return loadMapIntoDTO(from, self)
+	return swaggering.LoadMapIntoDTO(from, self)
 }
 
 type SingularityRequestDeployStateList []*SingularityRequestDeployState
 
+func (self *SingularityRequestDeployStateList) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*SingularityRequestDeployStateList); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A SingularityRequestDeployState cannot absorb the values from %v", other)
+}
+
 func (list *SingularityRequestDeployStateList) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, list)
+	return swaggering.ReadPopulate(jsonReader, list)
 }
 
 func (list *SingularityRequestDeployStateList) FormatText() string {
@@ -147,5 +168,5 @@ func (list *SingularityRequestDeployStateList) FormatText() string {
 }
 
 func (list *SingularityRequestDeployStateList) FormatJSON() string {
-	return FormatJSON(list)
+	return swaggering.FormatJSON(list)
 }

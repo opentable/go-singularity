@@ -3,34 +3,48 @@ package dtos
 import (
 	"fmt"
 	"io"
+
+	"github.com/opentable/swaggering"
 )
 
 type SingularityKillTaskRequest struct {
-	present                map[string]bool
-	ActionId               string `json:"actionId,omitempty"`
-	Message                string `json:"message,omitempty"`
-	Override               bool   `json:"override"`
-	WaitForReplacementTask bool   `json:"waitForReplacementTask"`
+	present map[string]bool
+
+	ActionId string `json:"actionId,omitempty"`
+
+	Message string `json:"message,omitempty"`
+
+	Override bool `json:"override"`
+
+	WaitForReplacementTask bool `json:"waitForReplacementTask"`
 }
 
 func (self *SingularityKillTaskRequest) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, self)
+	return swaggering.ReadPopulate(jsonReader, self)
+}
+
+func (self *SingularityKillTaskRequest) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*SingularityKillTaskRequest); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A SingularityKillTaskRequest cannot absorb the values from %v", other)
 }
 
 func (self *SingularityKillTaskRequest) MarshalJSON() ([]byte, error) {
-	return MarshalJSON(self)
+	return swaggering.MarshalJSON(self)
 }
 
 func (self *SingularityKillTaskRequest) FormatText() string {
-	return FormatText(self)
+	return swaggering.FormatText(self)
 }
 
 func (self *SingularityKillTaskRequest) FormatJSON() string {
-	return FormatJSON(self)
+	return swaggering.FormatJSON(self)
 }
 
 func (self *SingularityKillTaskRequest) FieldsPresent() []string {
-	return presenceFromMap(self.present)
+	return swaggering.PresenceFromMap(self.present)
 }
 
 func (self *SingularityKillTaskRequest) SetField(name string, value interface{}) error {
@@ -150,13 +164,21 @@ func (self *SingularityKillTaskRequest) ClearField(name string) error {
 }
 
 func (self *SingularityKillTaskRequest) LoadMap(from map[string]interface{}) error {
-	return loadMapIntoDTO(from, self)
+	return swaggering.LoadMapIntoDTO(from, self)
 }
 
 type SingularityKillTaskRequestList []*SingularityKillTaskRequest
 
+func (self *SingularityKillTaskRequestList) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*SingularityKillTaskRequestList); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A SingularityKillTaskRequest cannot absorb the values from %v", other)
+}
+
 func (list *SingularityKillTaskRequestList) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, list)
+	return swaggering.ReadPopulate(jsonReader, list)
 }
 
 func (list *SingularityKillTaskRequestList) FormatText() string {
@@ -169,5 +191,5 @@ func (list *SingularityKillTaskRequestList) FormatText() string {
 }
 
 func (list *SingularityKillTaskRequestList) FormatJSON() string {
-	return FormatJSON(list)
+	return swaggering.FormatJSON(list)
 }

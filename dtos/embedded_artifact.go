@@ -3,35 +3,50 @@ package dtos
 import (
 	"fmt"
 	"io"
+
+	"github.com/opentable/swaggering"
 )
 
 type EmbeddedArtifact struct {
-	present                    map[string]bool
-	Content                    StringList `json:"content"`
-	Filename                   string     `json:"filename,omitempty"`
-	Md5sum                     string     `json:"md5sum,omitempty"`
-	Name                       string     `json:"name,omitempty"`
-	TargetFolderRelativeToTask string     `json:"targetFolderRelativeToTask,omitempty"`
+	present map[string]bool
+
+	Content swaggering.StringList `json:"content"`
+
+	Filename string `json:"filename,omitempty"`
+
+	Md5sum string `json:"md5sum,omitempty"`
+
+	Name string `json:"name,omitempty"`
+
+	TargetFolderRelativeToTask string `json:"targetFolderRelativeToTask,omitempty"`
 }
 
 func (self *EmbeddedArtifact) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, self)
+	return swaggering.ReadPopulate(jsonReader, self)
+}
+
+func (self *EmbeddedArtifact) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*EmbeddedArtifact); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A EmbeddedArtifact cannot absorb the values from %v", other)
 }
 
 func (self *EmbeddedArtifact) MarshalJSON() ([]byte, error) {
-	return MarshalJSON(self)
+	return swaggering.MarshalJSON(self)
 }
 
 func (self *EmbeddedArtifact) FormatText() string {
-	return FormatText(self)
+	return swaggering.FormatText(self)
 }
 
 func (self *EmbeddedArtifact) FormatJSON() string {
-	return FormatJSON(self)
+	return swaggering.FormatJSON(self)
 }
 
 func (self *EmbeddedArtifact) FieldsPresent() []string {
-	return presenceFromMap(self.present)
+	return swaggering.PresenceFromMap(self.present)
 }
 
 func (self *EmbeddedArtifact) SetField(name string, value interface{}) error {
@@ -43,7 +58,7 @@ func (self *EmbeddedArtifact) SetField(name string, value interface{}) error {
 		return fmt.Errorf("No such field %s on EmbeddedArtifact", name)
 
 	case "content", "Content":
-		v, ok := value.(StringList)
+		v, ok := value.(swaggering.StringList)
 		if ok {
 			self.Content = v
 			self.present["content"] = true
@@ -172,13 +187,21 @@ func (self *EmbeddedArtifact) ClearField(name string) error {
 }
 
 func (self *EmbeddedArtifact) LoadMap(from map[string]interface{}) error {
-	return loadMapIntoDTO(from, self)
+	return swaggering.LoadMapIntoDTO(from, self)
 }
 
 type EmbeddedArtifactList []*EmbeddedArtifact
 
+func (self *EmbeddedArtifactList) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*EmbeddedArtifactList); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A EmbeddedArtifact cannot absorb the values from %v", other)
+}
+
 func (list *EmbeddedArtifactList) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, list)
+	return swaggering.ReadPopulate(jsonReader, list)
 }
 
 func (list *EmbeddedArtifactList) FormatText() string {
@@ -191,5 +214,5 @@ func (list *EmbeddedArtifactList) FormatText() string {
 }
 
 func (list *EmbeddedArtifactList) FormatJSON() string {
-	return FormatJSON(list)
+	return swaggering.FormatJSON(list)
 }

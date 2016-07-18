@@ -3,40 +3,59 @@ package dtos
 import (
 	"fmt"
 	"io"
+
+	"github.com/opentable/swaggering"
 )
 
 type FileDescriptor struct {
-	present      map[string]bool
+	present map[string]bool
+
 	Dependencies FileDescriptorList `json:"dependencies"`
-	//	EnumTypes *List[EnumDescriptor] `json:"enumTypes"`
-	//	Extensions *List[FieldDescriptor] `json:"extensions"`
-	MessageTypes       DescriptorList     `json:"messageTypes"`
-	Name               string             `json:"name,omitempty"`
-	Options            *FileOptions       `json:"options"`
-	Package            string             `json:"package,omitempty"`
+
+	// EnumTypes *List[EnumDescriptor] `json:"enumTypes"`
+
+	// Extensions *List[FieldDescriptor] `json:"extensions"`
+
+	MessageTypes DescriptorList `json:"messageTypes"`
+
+	Name string `json:"name,omitempty"`
+
+	Options *FileOptions `json:"options"`
+
+	Package string `json:"package,omitempty"`
+
 	PublicDependencies FileDescriptorList `json:"publicDependencies"`
-	//	Services *List[ServiceDescriptor] `json:"services"`
+
+	// Services *List[ServiceDescriptor] `json:"services"`
 
 }
 
 func (self *FileDescriptor) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, self)
+	return swaggering.ReadPopulate(jsonReader, self)
+}
+
+func (self *FileDescriptor) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*FileDescriptor); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A FileDescriptor cannot absorb the values from %v", other)
 }
 
 func (self *FileDescriptor) MarshalJSON() ([]byte, error) {
-	return MarshalJSON(self)
+	return swaggering.MarshalJSON(self)
 }
 
 func (self *FileDescriptor) FormatText() string {
-	return FormatText(self)
+	return swaggering.FormatText(self)
 }
 
 func (self *FileDescriptor) FormatJSON() string {
-	return FormatJSON(self)
+	return swaggering.FormatJSON(self)
 }
 
 func (self *FileDescriptor) FieldsPresent() []string {
-	return presenceFromMap(self.present)
+	return swaggering.PresenceFromMap(self.present)
 }
 
 func (self *FileDescriptor) SetField(name string, value interface{}) error {
@@ -198,13 +217,21 @@ func (self *FileDescriptor) ClearField(name string) error {
 }
 
 func (self *FileDescriptor) LoadMap(from map[string]interface{}) error {
-	return loadMapIntoDTO(from, self)
+	return swaggering.LoadMapIntoDTO(from, self)
 }
 
 type FileDescriptorList []*FileDescriptor
 
+func (self *FileDescriptorList) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*FileDescriptorList); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A FileDescriptor cannot absorb the values from %v", other)
+}
+
 func (list *FileDescriptorList) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, list)
+	return swaggering.ReadPopulate(jsonReader, list)
 }
 
 func (list *FileDescriptorList) FormatText() string {
@@ -217,5 +244,5 @@ func (list *FileDescriptorList) FormatText() string {
 }
 
 func (list *FileDescriptorList) FormatJSON() string {
-	return FormatJSON(list)
+	return swaggering.FormatJSON(list)
 }

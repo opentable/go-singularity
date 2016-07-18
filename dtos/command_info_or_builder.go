@@ -3,44 +3,68 @@ package dtos
 import (
 	"fmt"
 	"io"
+
+	"github.com/opentable/swaggering"
 )
 
 type CommandInfoOrBuilder struct {
-	present              map[string]bool
-	ArgumentsCount       int32                   `json:"argumentsCount"`
-	ArgumentsList        StringList              `json:"argumentsList"`
-	Container            *ContainerInfo          `json:"container"`
-	ContainerOrBuilder   *ContainerInfoOrBuilder `json:"containerOrBuilder"`
-	Environment          *Environment            `json:"environment"`
-	EnvironmentOrBuilder *EnvironmentOrBuilder   `json:"environmentOrBuilder"`
-	Shell                bool                    `json:"shell"`
-	UrisCount            int32                   `json:"urisCount"`
-	//	UrisList *List[URI] `json:"urisList"`
-	//	UrisOrBuilderList *List[? extends org.apache.mesos.Protos$CommandInfo$URIOrBuilder] `json:"urisOrBuilderList"`
-	User       string      `json:"user,omitempty"`
-	UserBytes  *ByteString `json:"userBytes"`
-	Value      string      `json:"value,omitempty"`
+	present map[string]bool
+
+	ArgumentsCount int32 `json:"argumentsCount"`
+
+	ArgumentsList swaggering.StringList `json:"argumentsList"`
+
+	Container *ContainerInfo `json:"container"`
+
+	ContainerOrBuilder *ContainerInfoOrBuilder `json:"containerOrBuilder"`
+
+	Environment *Environment `json:"environment"`
+
+	EnvironmentOrBuilder *EnvironmentOrBuilder `json:"environmentOrBuilder"`
+
+	Shell bool `json:"shell"`
+
+	UrisCount int32 `json:"urisCount"`
+
+	// UrisList *List[URI] `json:"urisList"`
+
+	// UrisOrBuilderList *List[? extends org.apache.mesos.Protos$CommandInfo$URIOrBuilder] `json:"urisOrBuilderList"`
+
+	User string `json:"user,omitempty"`
+
+	UserBytes *ByteString `json:"userBytes"`
+
+	Value string `json:"value,omitempty"`
+
 	ValueBytes *ByteString `json:"valueBytes"`
 }
 
 func (self *CommandInfoOrBuilder) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, self)
+	return swaggering.ReadPopulate(jsonReader, self)
+}
+
+func (self *CommandInfoOrBuilder) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*CommandInfoOrBuilder); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A CommandInfoOrBuilder cannot absorb the values from %v", other)
 }
 
 func (self *CommandInfoOrBuilder) MarshalJSON() ([]byte, error) {
-	return MarshalJSON(self)
+	return swaggering.MarshalJSON(self)
 }
 
 func (self *CommandInfoOrBuilder) FormatText() string {
-	return FormatText(self)
+	return swaggering.FormatText(self)
 }
 
 func (self *CommandInfoOrBuilder) FormatJSON() string {
-	return FormatJSON(self)
+	return swaggering.FormatJSON(self)
 }
 
 func (self *CommandInfoOrBuilder) FieldsPresent() []string {
-	return presenceFromMap(self.present)
+	return swaggering.PresenceFromMap(self.present)
 }
 
 func (self *CommandInfoOrBuilder) SetField(name string, value interface{}) error {
@@ -62,7 +86,7 @@ func (self *CommandInfoOrBuilder) SetField(name string, value interface{}) error
 		}
 
 	case "argumentsList", "ArgumentsList":
-		v, ok := value.(StringList)
+		v, ok := value.(swaggering.StringList)
 		if ok {
 			self.ArgumentsList = v
 			self.present["argumentsList"] = true
@@ -328,13 +352,21 @@ func (self *CommandInfoOrBuilder) ClearField(name string) error {
 }
 
 func (self *CommandInfoOrBuilder) LoadMap(from map[string]interface{}) error {
-	return loadMapIntoDTO(from, self)
+	return swaggering.LoadMapIntoDTO(from, self)
 }
 
 type CommandInfoOrBuilderList []*CommandInfoOrBuilder
 
+func (self *CommandInfoOrBuilderList) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*CommandInfoOrBuilderList); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A CommandInfoOrBuilder cannot absorb the values from %v", other)
+}
+
 func (list *CommandInfoOrBuilderList) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, list)
+	return swaggering.ReadPopulate(jsonReader, list)
 }
 
 func (list *CommandInfoOrBuilderList) FormatText() string {
@@ -347,5 +379,5 @@ func (list *CommandInfoOrBuilderList) FormatText() string {
 }
 
 func (list *CommandInfoOrBuilderList) FormatJSON() string {
-	return FormatJSON(list)
+	return swaggering.FormatJSON(list)
 }

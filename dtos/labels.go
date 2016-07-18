@@ -3,41 +3,62 @@ package dtos
 import (
 	"fmt"
 	"io"
+
+	"github.com/opentable/swaggering"
 )
 
 type Labels struct {
 	present map[string]bool
-	//	AllFields *Map[FieldDescriptor,Object] `json:"allFields"`
-	DefaultInstanceForType    *Labels     `json:"defaultInstanceForType"`
-	DescriptorForType         *Descriptor `json:"descriptorForType"`
-	InitializationErrorString string      `json:"initializationErrorString,omitempty"`
-	Initialized               bool        `json:"initialized"`
-	LabelsCount               int32       `json:"labelsCount"`
-	//	LabelsList *List[Label] `json:"labelsList"`
-	//	LabelsOrBuilderList *List[? extends org.apache.mesos.Protos$LabelOrBuilder] `json:"labelsOrBuilderList"`
-	//	ParserForType *com.google.protobuf.Parser&lt;org.apache.mesos.Protos$Labels&gt; `json:"parserForType"`
-	SerializedSize int32            `json:"serializedSize"`
-	UnknownFields  *UnknownFieldSet `json:"unknownFields"`
+
+	// AllFields *Map[FieldDescriptor,Object] `json:"allFields"`
+
+	DefaultInstanceForType *Labels `json:"defaultInstanceForType"`
+
+	DescriptorForType *Descriptor `json:"descriptorForType"`
+
+	InitializationErrorString string `json:"initializationErrorString,omitempty"`
+
+	Initialized bool `json:"initialized"`
+
+	LabelsCount int32 `json:"labelsCount"`
+
+	// LabelsList *List[Label] `json:"labelsList"`
+
+	// LabelsOrBuilderList *List[? extends org.apache.mesos.Protos$LabelOrBuilder] `json:"labelsOrBuilderList"`
+
+	// ParserForType *com.google.protobuf.Parser<org.apache.mesos.Protos$Labels> `json:"parserForType"`
+
+	SerializedSize int32 `json:"serializedSize"`
+
+	UnknownFields *UnknownFieldSet `json:"unknownFields"`
 }
 
 func (self *Labels) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, self)
+	return swaggering.ReadPopulate(jsonReader, self)
+}
+
+func (self *Labels) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*Labels); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A Labels cannot absorb the values from %v", other)
 }
 
 func (self *Labels) MarshalJSON() ([]byte, error) {
-	return MarshalJSON(self)
+	return swaggering.MarshalJSON(self)
 }
 
 func (self *Labels) FormatText() string {
-	return FormatText(self)
+	return swaggering.FormatText(self)
 }
 
 func (self *Labels) FormatJSON() string {
-	return FormatJSON(self)
+	return swaggering.FormatJSON(self)
 }
 
 func (self *Labels) FieldsPresent() []string {
-	return presenceFromMap(self.present)
+	return swaggering.PresenceFromMap(self.present)
 }
 
 func (self *Labels) SetField(name string, value interface{}) error {
@@ -220,13 +241,21 @@ func (self *Labels) ClearField(name string) error {
 }
 
 func (self *Labels) LoadMap(from map[string]interface{}) error {
-	return loadMapIntoDTO(from, self)
+	return swaggering.LoadMapIntoDTO(from, self)
 }
 
 type LabelsList []*Labels
 
+func (self *LabelsList) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*LabelsList); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A Labels cannot absorb the values from %v", other)
+}
+
 func (list *LabelsList) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, list)
+	return swaggering.ReadPopulate(jsonReader, list)
 }
 
 func (list *LabelsList) FormatText() string {
@@ -239,5 +268,5 @@ func (list *LabelsList) FormatText() string {
 }
 
 func (list *LabelsList) FormatJSON() string {
-	return FormatJSON(list)
+	return swaggering.FormatJSON(list)
 }

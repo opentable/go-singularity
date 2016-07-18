@@ -3,48 +3,76 @@ package dtos
 import (
 	"fmt"
 	"io"
+
+	"github.com/opentable/swaggering"
 )
 
 type ExecutorInfoOrBuilder struct {
-	present              map[string]bool
-	Command              *CommandInfo            `json:"command"`
-	CommandOrBuilder     *CommandInfoOrBuilder   `json:"commandOrBuilder"`
-	Container            *ContainerInfo          `json:"container"`
-	ContainerOrBuilder   *ContainerInfoOrBuilder `json:"containerOrBuilder"`
-	Data                 *ByteString             `json:"data"`
-	Discovery            *DiscoveryInfo          `json:"discovery"`
-	DiscoveryOrBuilder   *DiscoveryInfoOrBuilder `json:"discoveryOrBuilder"`
-	ExecutorId           *ExecutorID             `json:"executorId"`
-	ExecutorIdOrBuilder  *ExecutorIDOrBuilder    `json:"executorIdOrBuilder"`
-	FrameworkId          *FrameworkID            `json:"frameworkId"`
-	FrameworkIdOrBuilder *FrameworkIDOrBuilder   `json:"frameworkIdOrBuilder"`
-	Name                 string                  `json:"name,omitempty"`
-	NameBytes            *ByteString             `json:"nameBytes"`
-	ResourcesCount       int32                   `json:"resourcesCount"`
-	//	ResourcesList *List[Resource] `json:"resourcesList"`
-	//	ResourcesOrBuilderList *List[? extends org.apache.mesos.Protos$ResourceOrBuilder] `json:"resourcesOrBuilderList"`
-	Source      string      `json:"source,omitempty"`
+	present map[string]bool
+
+	Command *CommandInfo `json:"command"`
+
+	CommandOrBuilder *CommandInfoOrBuilder `json:"commandOrBuilder"`
+
+	Container *ContainerInfo `json:"container"`
+
+	ContainerOrBuilder *ContainerInfoOrBuilder `json:"containerOrBuilder"`
+
+	Data *ByteString `json:"data"`
+
+	Discovery *DiscoveryInfo `json:"discovery"`
+
+	DiscoveryOrBuilder *DiscoveryInfoOrBuilder `json:"discoveryOrBuilder"`
+
+	ExecutorId *ExecutorID `json:"executorId"`
+
+	ExecutorIdOrBuilder *ExecutorIDOrBuilder `json:"executorIdOrBuilder"`
+
+	FrameworkId *FrameworkID `json:"frameworkId"`
+
+	FrameworkIdOrBuilder *FrameworkIDOrBuilder `json:"frameworkIdOrBuilder"`
+
+	Name string `json:"name,omitempty"`
+
+	NameBytes *ByteString `json:"nameBytes"`
+
+	ResourcesCount int32 `json:"resourcesCount"`
+
+	// ResourcesList *List[Resource] `json:"resourcesList"`
+
+	// ResourcesOrBuilderList *List[? extends org.apache.mesos.Protos$ResourceOrBuilder] `json:"resourcesOrBuilderList"`
+
+	Source string `json:"source,omitempty"`
+
 	SourceBytes *ByteString `json:"sourceBytes"`
 }
 
 func (self *ExecutorInfoOrBuilder) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, self)
+	return swaggering.ReadPopulate(jsonReader, self)
+}
+
+func (self *ExecutorInfoOrBuilder) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*ExecutorInfoOrBuilder); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A ExecutorInfoOrBuilder cannot absorb the values from %v", other)
 }
 
 func (self *ExecutorInfoOrBuilder) MarshalJSON() ([]byte, error) {
-	return MarshalJSON(self)
+	return swaggering.MarshalJSON(self)
 }
 
 func (self *ExecutorInfoOrBuilder) FormatText() string {
-	return FormatText(self)
+	return swaggering.FormatText(self)
 }
 
 func (self *ExecutorInfoOrBuilder) FormatJSON() string {
-	return FormatJSON(self)
+	return swaggering.FormatJSON(self)
 }
 
 func (self *ExecutorInfoOrBuilder) FieldsPresent() []string {
-	return presenceFromMap(self.present)
+	return swaggering.PresenceFromMap(self.present)
 }
 
 func (self *ExecutorInfoOrBuilder) SetField(name string, value interface{}) error {
@@ -416,13 +444,21 @@ func (self *ExecutorInfoOrBuilder) ClearField(name string) error {
 }
 
 func (self *ExecutorInfoOrBuilder) LoadMap(from map[string]interface{}) error {
-	return loadMapIntoDTO(from, self)
+	return swaggering.LoadMapIntoDTO(from, self)
 }
 
 type ExecutorInfoOrBuilderList []*ExecutorInfoOrBuilder
 
+func (self *ExecutorInfoOrBuilderList) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*ExecutorInfoOrBuilderList); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A ExecutorInfoOrBuilder cannot absorb the values from %v", other)
+}
+
 func (list *ExecutorInfoOrBuilderList) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, list)
+	return swaggering.ReadPopulate(jsonReader, list)
 }
 
 func (list *ExecutorInfoOrBuilderList) FormatText() string {
@@ -435,5 +471,5 @@ func (list *ExecutorInfoOrBuilderList) FormatText() string {
 }
 
 func (list *ExecutorInfoOrBuilderList) FormatJSON() string {
-	return FormatJSON(list)
+	return swaggering.FormatJSON(list)
 }

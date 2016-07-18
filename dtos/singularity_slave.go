@@ -3,36 +3,52 @@ package dtos
 import (
 	"fmt"
 	"io"
+
+	"github.com/opentable/swaggering"
 )
 
 type SingularitySlave struct {
-	present      map[string]bool
-	Attributes   map[string]string                     `json:"attributes"`
+	present map[string]bool
+
+	Attributes map[string]string `json:"attributes"`
+
 	CurrentState *SingularityMachineStateHistoryUpdate `json:"currentState"`
-	FirstSeenAt  int64                                 `json:"firstSeenAt"`
-	Host         string                                `json:"host,omitempty"`
-	Id           string                                `json:"id,omitempty"`
-	RackId       string                                `json:"rackId,omitempty"`
+
+	FirstSeenAt int64 `json:"firstSeenAt"`
+
+	Host string `json:"host,omitempty"`
+
+	Id string `json:"id,omitempty"`
+
+	RackId string `json:"rackId,omitempty"`
 }
 
 func (self *SingularitySlave) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, self)
+	return swaggering.ReadPopulate(jsonReader, self)
+}
+
+func (self *SingularitySlave) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*SingularitySlave); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A SingularitySlave cannot absorb the values from %v", other)
 }
 
 func (self *SingularitySlave) MarshalJSON() ([]byte, error) {
-	return MarshalJSON(self)
+	return swaggering.MarshalJSON(self)
 }
 
 func (self *SingularitySlave) FormatText() string {
-	return FormatText(self)
+	return swaggering.FormatText(self)
 }
 
 func (self *SingularitySlave) FormatJSON() string {
-	return FormatJSON(self)
+	return swaggering.FormatJSON(self)
 }
 
 func (self *SingularitySlave) FieldsPresent() []string {
-	return presenceFromMap(self.present)
+	return swaggering.PresenceFromMap(self.present)
 }
 
 func (self *SingularitySlave) SetField(name string, value interface{}) error {
@@ -194,13 +210,21 @@ func (self *SingularitySlave) ClearField(name string) error {
 }
 
 func (self *SingularitySlave) LoadMap(from map[string]interface{}) error {
-	return loadMapIntoDTO(from, self)
+	return swaggering.LoadMapIntoDTO(from, self)
 }
 
 type SingularitySlaveList []*SingularitySlave
 
+func (self *SingularitySlaveList) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*SingularitySlaveList); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A SingularitySlave cannot absorb the values from %v", other)
+}
+
 func (list *SingularitySlaveList) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, list)
+	return swaggering.ReadPopulate(jsonReader, list)
 }
 
 func (list *SingularitySlaveList) FormatText() string {
@@ -213,5 +237,5 @@ func (list *SingularitySlaveList) FormatText() string {
 }
 
 func (list *SingularitySlaveList) FormatJSON() string {
-	return FormatJSON(list)
+	return swaggering.FormatJSON(list)
 }

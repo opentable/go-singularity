@@ -3,6 +3,8 @@ package dtos
 import (
 	"fmt"
 	"io"
+
+	"github.com/opentable/swaggering"
 )
 
 type SingularityTaskHistoryUpdateExtendedTaskState string
@@ -22,32 +24,45 @@ const (
 )
 
 type SingularityTaskHistoryUpdate struct {
-	present       map[string]bool
-	StatusMessage string                                        `json:"statusMessage,omitempty"`
-	StatusReason  string                                        `json:"statusReason,omitempty"`
-	TaskId        *SingularityTaskId                            `json:"taskId"`
-	TaskState     SingularityTaskHistoryUpdateExtendedTaskState `json:"taskState"`
-	Timestamp     int64                                         `json:"timestamp"`
+	present map[string]bool
+
+	StatusMessage string `json:"statusMessage,omitempty"`
+
+	StatusReason string `json:"statusReason,omitempty"`
+
+	TaskId *SingularityTaskId `json:"taskId"`
+
+	TaskState SingularityTaskHistoryUpdateExtendedTaskState `json:"taskState"`
+
+	Timestamp int64 `json:"timestamp"`
 }
 
 func (self *SingularityTaskHistoryUpdate) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, self)
+	return swaggering.ReadPopulate(jsonReader, self)
+}
+
+func (self *SingularityTaskHistoryUpdate) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*SingularityTaskHistoryUpdate); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A SingularityTaskHistoryUpdate cannot absorb the values from %v", other)
 }
 
 func (self *SingularityTaskHistoryUpdate) MarshalJSON() ([]byte, error) {
-	return MarshalJSON(self)
+	return swaggering.MarshalJSON(self)
 }
 
 func (self *SingularityTaskHistoryUpdate) FormatText() string {
-	return FormatText(self)
+	return swaggering.FormatText(self)
 }
 
 func (self *SingularityTaskHistoryUpdate) FormatJSON() string {
-	return FormatJSON(self)
+	return swaggering.FormatJSON(self)
 }
 
 func (self *SingularityTaskHistoryUpdate) FieldsPresent() []string {
-	return presenceFromMap(self.present)
+	return swaggering.PresenceFromMap(self.present)
 }
 
 func (self *SingularityTaskHistoryUpdate) SetField(name string, value interface{}) error {
@@ -188,13 +203,21 @@ func (self *SingularityTaskHistoryUpdate) ClearField(name string) error {
 }
 
 func (self *SingularityTaskHistoryUpdate) LoadMap(from map[string]interface{}) error {
-	return loadMapIntoDTO(from, self)
+	return swaggering.LoadMapIntoDTO(from, self)
 }
 
 type SingularityTaskHistoryUpdateList []*SingularityTaskHistoryUpdate
 
+func (self *SingularityTaskHistoryUpdateList) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*SingularityTaskHistoryUpdateList); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A SingularityTaskHistoryUpdate cannot absorb the values from %v", other)
+}
+
 func (list *SingularityTaskHistoryUpdateList) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, list)
+	return swaggering.ReadPopulate(jsonReader, list)
 }
 
 func (list *SingularityTaskHistoryUpdateList) FormatText() string {
@@ -207,5 +230,5 @@ func (list *SingularityTaskHistoryUpdateList) FormatText() string {
 }
 
 func (list *SingularityTaskHistoryUpdateList) FormatJSON() string {
-	return FormatJSON(list)
+	return swaggering.FormatJSON(list)
 }

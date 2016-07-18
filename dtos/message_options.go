@@ -3,43 +3,66 @@ package dtos
 import (
 	"fmt"
 	"io"
+
+	"github.com/opentable/swaggering"
 )
 
 type MessageOptions struct {
 	present map[string]bool
-	//	AllFields *Map[FieldDescriptor,Object] `json:"allFields"`
-	DefaultInstanceForType       *MessageOptions `json:"defaultInstanceForType"`
-	DescriptorForType            *Descriptor     `json:"descriptorForType"`
-	InitializationErrorString    string          `json:"initializationErrorString,omitempty"`
-	Initialized                  bool            `json:"initialized"`
-	MessageSetWireFormat         bool            `json:"messageSetWireFormat"`
-	NoStandardDescriptorAccessor bool            `json:"noStandardDescriptorAccessor"`
-	//	ParserForType *com.google.protobuf.Parser&lt;com.google.protobuf.DescriptorProtos$MessageOptions&gt; `json:"parserForType"`
-	SerializedSize           int32 `json:"serializedSize"`
+
+	// AllFields *Map[FieldDescriptor,Object] `json:"allFields"`
+
+	DefaultInstanceForType *MessageOptions `json:"defaultInstanceForType"`
+
+	DescriptorForType *Descriptor `json:"descriptorForType"`
+
+	InitializationErrorString string `json:"initializationErrorString,omitempty"`
+
+	Initialized bool `json:"initialized"`
+
+	MessageSetWireFormat bool `json:"messageSetWireFormat"`
+
+	NoStandardDescriptorAccessor bool `json:"noStandardDescriptorAccessor"`
+
+	// ParserForType *com.google.protobuf.Parser<com.google.protobuf.DescriptorProtos$MessageOptions> `json:"parserForType"`
+
+	SerializedSize int32 `json:"serializedSize"`
+
 	UninterpretedOptionCount int32 `json:"uninterpretedOptionCount"`
-	//	UninterpretedOptionList *List[UninterpretedOption] `json:"uninterpretedOptionList"`
-	//	UninterpretedOptionOrBuilderList *List[? extends com.google.protobuf.DescriptorProtos$UninterpretedOptionOrBuilder] `json:"uninterpretedOptionOrBuilderList"`
+
+	// UninterpretedOptionList *List[UninterpretedOption] `json:"uninterpretedOptionList"`
+
+	// UninterpretedOptionOrBuilderList *List[? extends com.google.protobuf.DescriptorProtos$UninterpretedOptionOrBuilder] `json:"uninterpretedOptionOrBuilderList"`
+
 	UnknownFields *UnknownFieldSet `json:"unknownFields"`
 }
 
 func (self *MessageOptions) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, self)
+	return swaggering.ReadPopulate(jsonReader, self)
+}
+
+func (self *MessageOptions) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*MessageOptions); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A MessageOptions cannot absorb the values from %v", other)
 }
 
 func (self *MessageOptions) MarshalJSON() ([]byte, error) {
-	return MarshalJSON(self)
+	return swaggering.MarshalJSON(self)
 }
 
 func (self *MessageOptions) FormatText() string {
-	return FormatText(self)
+	return swaggering.FormatText(self)
 }
 
 func (self *MessageOptions) FormatJSON() string {
-	return FormatJSON(self)
+	return swaggering.FormatJSON(self)
 }
 
 func (self *MessageOptions) FieldsPresent() []string {
-	return presenceFromMap(self.present)
+	return swaggering.PresenceFromMap(self.present)
 }
 
 func (self *MessageOptions) SetField(name string, value interface{}) error {
@@ -264,13 +287,21 @@ func (self *MessageOptions) ClearField(name string) error {
 }
 
 func (self *MessageOptions) LoadMap(from map[string]interface{}) error {
-	return loadMapIntoDTO(from, self)
+	return swaggering.LoadMapIntoDTO(from, self)
 }
 
 type MessageOptionsList []*MessageOptions
 
+func (self *MessageOptionsList) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*MessageOptionsList); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A MessageOptions cannot absorb the values from %v", other)
+}
+
 func (list *MessageOptionsList) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, list)
+	return swaggering.ReadPopulate(jsonReader, list)
 }
 
 func (list *MessageOptionsList) FormatText() string {
@@ -283,5 +314,5 @@ func (list *MessageOptionsList) FormatText() string {
 }
 
 func (list *MessageOptionsList) FormatJSON() string {
-	return FormatJSON(list)
+	return swaggering.FormatJSON(list)
 }

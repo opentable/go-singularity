@@ -3,35 +3,50 @@ package dtos
 import (
 	"fmt"
 	"io"
+
+	"github.com/opentable/swaggering"
 )
 
 type UnknownFieldSet struct {
-	present                map[string]bool
+	present map[string]bool
+
 	DefaultInstanceForType *UnknownFieldSet `json:"defaultInstanceForType"`
-	Initialized            bool             `json:"initialized"`
-	//	ParserForType *Parser `json:"parserForType"`
-	SerializedSize             int32 `json:"serializedSize"`
+
+	Initialized bool `json:"initialized"`
+
+	// ParserForType *Parser `json:"parserForType"`
+
+	SerializedSize int32 `json:"serializedSize"`
+
 	SerializedSizeAsMessageSet int32 `json:"serializedSizeAsMessageSet"`
 }
 
 func (self *UnknownFieldSet) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, self)
+	return swaggering.ReadPopulate(jsonReader, self)
+}
+
+func (self *UnknownFieldSet) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*UnknownFieldSet); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A UnknownFieldSet cannot absorb the values from %v", other)
 }
 
 func (self *UnknownFieldSet) MarshalJSON() ([]byte, error) {
-	return MarshalJSON(self)
+	return swaggering.MarshalJSON(self)
 }
 
 func (self *UnknownFieldSet) FormatText() string {
-	return FormatText(self)
+	return swaggering.FormatText(self)
 }
 
 func (self *UnknownFieldSet) FormatJSON() string {
-	return FormatJSON(self)
+	return swaggering.FormatJSON(self)
 }
 
 func (self *UnknownFieldSet) FieldsPresent() []string {
-	return presenceFromMap(self.present)
+	return swaggering.PresenceFromMap(self.present)
 }
 
 func (self *UnknownFieldSet) SetField(name string, value interface{}) error {
@@ -151,13 +166,21 @@ func (self *UnknownFieldSet) ClearField(name string) error {
 }
 
 func (self *UnknownFieldSet) LoadMap(from map[string]interface{}) error {
-	return loadMapIntoDTO(from, self)
+	return swaggering.LoadMapIntoDTO(from, self)
 }
 
 type UnknownFieldSetList []*UnknownFieldSet
 
+func (self *UnknownFieldSetList) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*UnknownFieldSetList); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A UnknownFieldSet cannot absorb the values from %v", other)
+}
+
 func (list *UnknownFieldSetList) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, list)
+	return swaggering.ReadPopulate(jsonReader, list)
 }
 
 func (list *UnknownFieldSetList) FormatText() string {
@@ -170,5 +193,5 @@ func (list *UnknownFieldSetList) FormatText() string {
 }
 
 func (list *UnknownFieldSetList) FormatJSON() string {
-	return FormatJSON(list)
+	return swaggering.FormatJSON(list)
 }

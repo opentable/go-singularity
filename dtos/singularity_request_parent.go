@@ -3,6 +3,8 @@ package dtos
 import (
 	"fmt"
 	"io"
+
+	"github.com/opentable/swaggering"
 )
 
 type SingularityRequestParentRequestState string
@@ -17,37 +19,55 @@ const (
 )
 
 type SingularityRequestParent struct {
-	present                  map[string]bool
-	ActiveDeploy             *SingularityDeploy                   `json:"activeDeploy"`
-	ExpiringBounce           *SingularityExpiringBounce           `json:"expiringBounce"`
-	ExpiringPause            *SingularityExpiringPause            `json:"expiringPause"`
-	ExpiringScale            *SingularityExpiringScale            `json:"expiringScale"`
+	present map[string]bool
+
+	ActiveDeploy *SingularityDeploy `json:"activeDeploy"`
+
+	ExpiringBounce *SingularityExpiringBounce `json:"expiringBounce"`
+
+	ExpiringPause *SingularityExpiringPause `json:"expiringPause"`
+
+	ExpiringScale *SingularityExpiringScale `json:"expiringScale"`
+
 	ExpiringSkipHealthchecks *SingularityExpiringSkipHealthchecks `json:"expiringSkipHealthchecks"`
-	PendingDeploy            *SingularityDeploy                   `json:"pendingDeploy"`
-	PendingDeployState       *SingularityPendingDeploy            `json:"pendingDeployState"`
-	Request                  *SingularityRequest                  `json:"request"`
-	RequestDeployState       *SingularityRequestDeployState       `json:"requestDeployState"`
-	State                    SingularityRequestParentRequestState `json:"state"`
+
+	PendingDeploy *SingularityDeploy `json:"pendingDeploy"`
+
+	PendingDeployState *SingularityPendingDeploy `json:"pendingDeployState"`
+
+	Request *SingularityRequest `json:"request"`
+
+	RequestDeployState *SingularityRequestDeployState `json:"requestDeployState"`
+
+	State SingularityRequestParentRequestState `json:"state"`
 }
 
 func (self *SingularityRequestParent) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, self)
+	return swaggering.ReadPopulate(jsonReader, self)
+}
+
+func (self *SingularityRequestParent) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*SingularityRequestParent); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A SingularityRequestParent cannot absorb the values from %v", other)
 }
 
 func (self *SingularityRequestParent) MarshalJSON() ([]byte, error) {
-	return MarshalJSON(self)
+	return swaggering.MarshalJSON(self)
 }
 
 func (self *SingularityRequestParent) FormatText() string {
-	return FormatText(self)
+	return swaggering.FormatText(self)
 }
 
 func (self *SingularityRequestParent) FormatJSON() string {
-	return FormatJSON(self)
+	return swaggering.FormatJSON(self)
 }
 
 func (self *SingularityRequestParent) FieldsPresent() []string {
-	return presenceFromMap(self.present)
+	return swaggering.PresenceFromMap(self.present)
 }
 
 func (self *SingularityRequestParent) SetField(name string, value interface{}) error {
@@ -293,13 +313,21 @@ func (self *SingularityRequestParent) ClearField(name string) error {
 }
 
 func (self *SingularityRequestParent) LoadMap(from map[string]interface{}) error {
-	return loadMapIntoDTO(from, self)
+	return swaggering.LoadMapIntoDTO(from, self)
 }
 
 type SingularityRequestParentList []*SingularityRequestParent
 
+func (self *SingularityRequestParentList) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*SingularityRequestParentList); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A SingularityRequestParent cannot absorb the values from %v", other)
+}
+
 func (list *SingularityRequestParentList) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, list)
+	return swaggering.ReadPopulate(jsonReader, list)
 }
 
 func (list *SingularityRequestParentList) FormatText() string {
@@ -312,5 +340,5 @@ func (list *SingularityRequestParentList) FormatText() string {
 }
 
 func (list *SingularityRequestParentList) FormatJSON() string {
-	return FormatJSON(list)
+	return swaggering.FormatJSON(list)
 }

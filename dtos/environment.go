@@ -3,42 +3,63 @@ package dtos
 import (
 	"fmt"
 	"io"
+
+	"github.com/opentable/swaggering"
 )
 
 type Environment struct {
 	present map[string]bool
-	//	AllFields *Map[FieldDescriptor,Object] `json:"allFields"`
-	DefaultInstanceForType    *Environment `json:"defaultInstanceForType"`
-	DescriptorForType         *Descriptor  `json:"descriptorForType"`
-	InitializationErrorString string       `json:"initializationErrorString,omitempty"`
-	Initialized               bool         `json:"initialized"`
-	//	ParserForType *com.google.protobuf.Parser&lt;org.apache.mesos.Protos$Environment&gt; `json:"parserForType"`
-	SerializedSize int32            `json:"serializedSize"`
-	UnknownFields  *UnknownFieldSet `json:"unknownFields"`
-	VariablesCount int32            `json:"variablesCount"`
-	//	VariablesList *List[Variable] `json:"variablesList"`
-	//	VariablesOrBuilderList *List[? extends org.apache.mesos.Protos$Environment$VariableOrBuilder] `json:"variablesOrBuilderList"`
+
+	// AllFields *Map[FieldDescriptor,Object] `json:"allFields"`
+
+	DefaultInstanceForType *Environment `json:"defaultInstanceForType"`
+
+	DescriptorForType *Descriptor `json:"descriptorForType"`
+
+	InitializationErrorString string `json:"initializationErrorString,omitempty"`
+
+	Initialized bool `json:"initialized"`
+
+	// ParserForType *com.google.protobuf.Parser<org.apache.mesos.Protos$Environment> `json:"parserForType"`
+
+	SerializedSize int32 `json:"serializedSize"`
+
+	UnknownFields *UnknownFieldSet `json:"unknownFields"`
+
+	VariablesCount int32 `json:"variablesCount"`
+
+	// VariablesList *List[Variable] `json:"variablesList"`
+
+	// VariablesOrBuilderList *List[? extends org.apache.mesos.Protos$Environment$VariableOrBuilder] `json:"variablesOrBuilderList"`
 
 }
 
 func (self *Environment) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, self)
+	return swaggering.ReadPopulate(jsonReader, self)
+}
+
+func (self *Environment) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*Environment); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A Environment cannot absorb the values from %v", other)
 }
 
 func (self *Environment) MarshalJSON() ([]byte, error) {
-	return MarshalJSON(self)
+	return swaggering.MarshalJSON(self)
 }
 
 func (self *Environment) FormatText() string {
-	return FormatText(self)
+	return swaggering.FormatText(self)
 }
 
 func (self *Environment) FormatJSON() string {
-	return FormatJSON(self)
+	return swaggering.FormatJSON(self)
 }
 
 func (self *Environment) FieldsPresent() []string {
-	return presenceFromMap(self.present)
+	return swaggering.PresenceFromMap(self.present)
 }
 
 func (self *Environment) SetField(name string, value interface{}) error {
@@ -221,13 +242,21 @@ func (self *Environment) ClearField(name string) error {
 }
 
 func (self *Environment) LoadMap(from map[string]interface{}) error {
-	return loadMapIntoDTO(from, self)
+	return swaggering.LoadMapIntoDTO(from, self)
 }
 
 type EnvironmentList []*Environment
 
+func (self *EnvironmentList) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*EnvironmentList); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A Environment cannot absorb the values from %v", other)
+}
+
 func (list *EnvironmentList) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, list)
+	return swaggering.ReadPopulate(jsonReader, list)
 }
 
 func (list *EnvironmentList) FormatText() string {
@@ -240,5 +269,5 @@ func (list *EnvironmentList) FormatText() string {
 }
 
 func (list *EnvironmentList) FormatJSON() string {
-	return FormatJSON(list)
+	return swaggering.FormatJSON(list)
 }

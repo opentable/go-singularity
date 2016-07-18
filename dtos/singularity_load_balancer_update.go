@@ -3,6 +3,8 @@ package dtos
 import (
 	"fmt"
 	"io"
+
+	"github.com/opentable/swaggering"
 )
 
 type SingularityLoadBalancerUpdateBaragonRequestState string
@@ -28,33 +30,47 @@ const (
 )
 
 type SingularityLoadBalancerUpdate struct {
-	present               map[string]bool
-	LoadBalancerRequestId *LoadBalancerRequestId                           `json:"loadBalancerRequestId"`
-	LoadBalancerState     SingularityLoadBalancerUpdateBaragonRequestState `json:"loadBalancerState"`
-	Message               string                                           `json:"message,omitempty"`
-	Method                SingularityLoadBalancerUpdateLoadBalancerMethod  `json:"method"`
-	Timestamp             int64                                            `json:"timestamp"`
-	Uri                   string                                           `json:"uri,omitempty"`
+	present map[string]bool
+
+	LoadBalancerRequestId *LoadBalancerRequestId `json:"loadBalancerRequestId"`
+
+	LoadBalancerState SingularityLoadBalancerUpdateBaragonRequestState `json:"loadBalancerState"`
+
+	Message string `json:"message,omitempty"`
+
+	Method SingularityLoadBalancerUpdateLoadBalancerMethod `json:"method"`
+
+	Timestamp int64 `json:"timestamp"`
+
+	Uri string `json:"uri,omitempty"`
 }
 
 func (self *SingularityLoadBalancerUpdate) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, self)
+	return swaggering.ReadPopulate(jsonReader, self)
+}
+
+func (self *SingularityLoadBalancerUpdate) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*SingularityLoadBalancerUpdate); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A SingularityLoadBalancerUpdate cannot absorb the values from %v", other)
 }
 
 func (self *SingularityLoadBalancerUpdate) MarshalJSON() ([]byte, error) {
-	return MarshalJSON(self)
+	return swaggering.MarshalJSON(self)
 }
 
 func (self *SingularityLoadBalancerUpdate) FormatText() string {
-	return FormatText(self)
+	return swaggering.FormatText(self)
 }
 
 func (self *SingularityLoadBalancerUpdate) FormatJSON() string {
-	return FormatJSON(self)
+	return swaggering.FormatJSON(self)
 }
 
 func (self *SingularityLoadBalancerUpdate) FieldsPresent() []string {
-	return presenceFromMap(self.present)
+	return swaggering.PresenceFromMap(self.present)
 }
 
 func (self *SingularityLoadBalancerUpdate) SetField(name string, value interface{}) error {
@@ -216,13 +232,21 @@ func (self *SingularityLoadBalancerUpdate) ClearField(name string) error {
 }
 
 func (self *SingularityLoadBalancerUpdate) LoadMap(from map[string]interface{}) error {
-	return loadMapIntoDTO(from, self)
+	return swaggering.LoadMapIntoDTO(from, self)
 }
 
 type SingularityLoadBalancerUpdateList []*SingularityLoadBalancerUpdate
 
+func (self *SingularityLoadBalancerUpdateList) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*SingularityLoadBalancerUpdateList); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A SingularityLoadBalancerUpdate cannot absorb the values from %v", other)
+}
+
 func (list *SingularityLoadBalancerUpdateList) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, list)
+	return swaggering.ReadPopulate(jsonReader, list)
 }
 
 func (list *SingularityLoadBalancerUpdateList) FormatText() string {
@@ -235,5 +259,5 @@ func (list *SingularityLoadBalancerUpdateList) FormatText() string {
 }
 
 func (list *SingularityLoadBalancerUpdateList) FormatJSON() string {
-	return FormatJSON(list)
+	return swaggering.FormatJSON(list)
 }

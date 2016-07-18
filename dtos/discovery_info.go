@@ -3,6 +3,8 @@ package dtos
 import (
 	"fmt"
 	"io"
+
+	"github.com/opentable/swaggering"
 )
 
 type DiscoveryInfoVisibility string
@@ -15,47 +17,76 @@ const (
 
 type DiscoveryInfo struct {
 	present map[string]bool
-	//	AllFields *Map[FieldDescriptor,Object] `json:"allFields"`
-	DefaultInstanceForType    *DiscoveryInfo   `json:"defaultInstanceForType"`
-	DescriptorForType         *Descriptor      `json:"descriptorForType"`
-	Environment               string           `json:"environment,omitempty"`
-	EnvironmentBytes          *ByteString      `json:"environmentBytes"`
-	InitializationErrorString string           `json:"initializationErrorString,omitempty"`
-	Initialized               bool             `json:"initialized"`
-	Labels                    *Labels          `json:"labels"`
-	LabelsOrBuilder           *LabelsOrBuilder `json:"labelsOrBuilder"`
-	Location                  string           `json:"location,omitempty"`
-	LocationBytes             *ByteString      `json:"locationBytes"`
-	Name                      string           `json:"name,omitempty"`
-	NameBytes                 *ByteString      `json:"nameBytes"`
-	//	ParserForType *com.google.protobuf.Parser&lt;org.apache.mesos.Protos$DiscoveryInfo&gt; `json:"parserForType"`
-	Ports          *Ports                  `json:"ports"`
-	PortsOrBuilder *PortsOrBuilder         `json:"portsOrBuilder"`
-	SerializedSize int32                   `json:"serializedSize"`
-	UnknownFields  *UnknownFieldSet        `json:"unknownFields"`
-	Version        string                  `json:"version,omitempty"`
-	VersionBytes   *ByteString             `json:"versionBytes"`
-	Visibility     DiscoveryInfoVisibility `json:"visibility"`
+
+	// AllFields *Map[FieldDescriptor,Object] `json:"allFields"`
+
+	DefaultInstanceForType *DiscoveryInfo `json:"defaultInstanceForType"`
+
+	DescriptorForType *Descriptor `json:"descriptorForType"`
+
+	Environment string `json:"environment,omitempty"`
+
+	EnvironmentBytes *ByteString `json:"environmentBytes"`
+
+	InitializationErrorString string `json:"initializationErrorString,omitempty"`
+
+	Initialized bool `json:"initialized"`
+
+	Labels *Labels `json:"labels"`
+
+	LabelsOrBuilder *LabelsOrBuilder `json:"labelsOrBuilder"`
+
+	Location string `json:"location,omitempty"`
+
+	LocationBytes *ByteString `json:"locationBytes"`
+
+	Name string `json:"name,omitempty"`
+
+	NameBytes *ByteString `json:"nameBytes"`
+
+	// ParserForType *com.google.protobuf.Parser<org.apache.mesos.Protos$DiscoveryInfo> `json:"parserForType"`
+
+	Ports *Ports `json:"ports"`
+
+	PortsOrBuilder *PortsOrBuilder `json:"portsOrBuilder"`
+
+	SerializedSize int32 `json:"serializedSize"`
+
+	UnknownFields *UnknownFieldSet `json:"unknownFields"`
+
+	Version string `json:"version,omitempty"`
+
+	VersionBytes *ByteString `json:"versionBytes"`
+
+	Visibility DiscoveryInfoVisibility `json:"visibility"`
 }
 
 func (self *DiscoveryInfo) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, self)
+	return swaggering.ReadPopulate(jsonReader, self)
+}
+
+func (self *DiscoveryInfo) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*DiscoveryInfo); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A DiscoveryInfo cannot absorb the values from %v", other)
 }
 
 func (self *DiscoveryInfo) MarshalJSON() ([]byte, error) {
-	return MarshalJSON(self)
+	return swaggering.MarshalJSON(self)
 }
 
 func (self *DiscoveryInfo) FormatText() string {
-	return FormatText(self)
+	return swaggering.FormatText(self)
 }
 
 func (self *DiscoveryInfo) FormatJSON() string {
-	return FormatJSON(self)
+	return swaggering.FormatJSON(self)
 }
 
 func (self *DiscoveryInfo) FieldsPresent() []string {
-	return presenceFromMap(self.present)
+	return swaggering.PresenceFromMap(self.present)
 }
 
 func (self *DiscoveryInfo) SetField(name string, value interface{}) error {
@@ -490,13 +521,21 @@ func (self *DiscoveryInfo) ClearField(name string) error {
 }
 
 func (self *DiscoveryInfo) LoadMap(from map[string]interface{}) error {
-	return loadMapIntoDTO(from, self)
+	return swaggering.LoadMapIntoDTO(from, self)
 }
 
 type DiscoveryInfoList []*DiscoveryInfo
 
+func (self *DiscoveryInfoList) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*DiscoveryInfoList); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A DiscoveryInfo cannot absorb the values from %v", other)
+}
+
 func (list *DiscoveryInfoList) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, list)
+	return swaggering.ReadPopulate(jsonReader, list)
 }
 
 func (list *DiscoveryInfoList) FormatText() string {
@@ -509,5 +548,5 @@ func (list *DiscoveryInfoList) FormatText() string {
 }
 
 func (list *DiscoveryInfoList) FormatJSON() string {
-	return FormatJSON(list)
+	return swaggering.FormatJSON(list)
 }

@@ -3,39 +3,58 @@ package dtos
 import (
 	"fmt"
 	"io"
+
+	"github.com/opentable/swaggering"
 )
 
 type SingularityTaskId struct {
-	present         map[string]bool
-	DeployId        string `json:"deployId,omitempty"`
-	Host            string `json:"host,omitempty"`
-	Id              string `json:"id,omitempty"`
-	InstanceNo      int32  `json:"instanceNo"`
-	RackId          string `json:"rackId,omitempty"`
-	RequestId       string `json:"requestId,omitempty"`
-	SanitizedHost   string `json:"sanitizedHost,omitempty"`
+	present map[string]bool
+
+	DeployId string `json:"deployId,omitempty"`
+
+	Host string `json:"host,omitempty"`
+
+	Id string `json:"id,omitempty"`
+
+	InstanceNo int32 `json:"instanceNo"`
+
+	RackId string `json:"rackId,omitempty"`
+
+	RequestId string `json:"requestId,omitempty"`
+
+	SanitizedHost string `json:"sanitizedHost,omitempty"`
+
 	SanitizedRackId string `json:"sanitizedRackId,omitempty"`
-	StartedAt       int64  `json:"startedAt"`
+
+	StartedAt int64 `json:"startedAt"`
 }
 
 func (self *SingularityTaskId) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, self)
+	return swaggering.ReadPopulate(jsonReader, self)
+}
+
+func (self *SingularityTaskId) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*SingularityTaskId); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A SingularityTaskId cannot absorb the values from %v", other)
 }
 
 func (self *SingularityTaskId) MarshalJSON() ([]byte, error) {
-	return MarshalJSON(self)
+	return swaggering.MarshalJSON(self)
 }
 
 func (self *SingularityTaskId) FormatText() string {
-	return FormatText(self)
+	return swaggering.FormatText(self)
 }
 
 func (self *SingularityTaskId) FormatJSON() string {
-	return FormatJSON(self)
+	return swaggering.FormatJSON(self)
 }
 
 func (self *SingularityTaskId) FieldsPresent() []string {
-	return presenceFromMap(self.present)
+	return swaggering.PresenceFromMap(self.present)
 }
 
 func (self *SingularityTaskId) SetField(name string, value interface{}) error {
@@ -260,13 +279,21 @@ func (self *SingularityTaskId) ClearField(name string) error {
 }
 
 func (self *SingularityTaskId) LoadMap(from map[string]interface{}) error {
-	return loadMapIntoDTO(from, self)
+	return swaggering.LoadMapIntoDTO(from, self)
 }
 
 type SingularityTaskIdList []*SingularityTaskId
 
+func (self *SingularityTaskIdList) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*SingularityTaskIdList); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A SingularityTaskId cannot absorb the values from %v", other)
+}
+
 func (list *SingularityTaskIdList) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, list)
+	return swaggering.ReadPopulate(jsonReader, list)
 }
 
 func (list *SingularityTaskIdList) FormatText() string {
@@ -279,5 +306,5 @@ func (list *SingularityTaskIdList) FormatText() string {
 }
 
 func (list *SingularityTaskIdList) FormatJSON() string {
-	return FormatJSON(list)
+	return swaggering.FormatJSON(list)
 }

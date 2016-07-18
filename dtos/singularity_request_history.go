@@ -3,6 +3,8 @@ package dtos
 import (
 	"fmt"
 	"io"
+
+	"github.com/opentable/swaggering"
 )
 
 type SingularityRequestHistoryRequestHistoryType string
@@ -23,32 +25,45 @@ const (
 )
 
 type SingularityRequestHistory struct {
-	present   map[string]bool
-	CreatedAt int64                                       `json:"createdAt"`
+	present map[string]bool
+
+	CreatedAt int64 `json:"createdAt"`
+
 	EventType SingularityRequestHistoryRequestHistoryType `json:"eventType"`
-	Message   string                                      `json:"message,omitempty"`
-	Request   *SingularityRequest                         `json:"request"`
-	User      string                                      `json:"user,omitempty"`
+
+	Message string `json:"message,omitempty"`
+
+	Request *SingularityRequest `json:"request"`
+
+	User string `json:"user,omitempty"`
 }
 
 func (self *SingularityRequestHistory) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, self)
+	return swaggering.ReadPopulate(jsonReader, self)
+}
+
+func (self *SingularityRequestHistory) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*SingularityRequestHistory); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A SingularityRequestHistory cannot absorb the values from %v", other)
 }
 
 func (self *SingularityRequestHistory) MarshalJSON() ([]byte, error) {
-	return MarshalJSON(self)
+	return swaggering.MarshalJSON(self)
 }
 
 func (self *SingularityRequestHistory) FormatText() string {
-	return FormatText(self)
+	return swaggering.FormatText(self)
 }
 
 func (self *SingularityRequestHistory) FormatJSON() string {
-	return FormatJSON(self)
+	return swaggering.FormatJSON(self)
 }
 
 func (self *SingularityRequestHistory) FieldsPresent() []string {
-	return presenceFromMap(self.present)
+	return swaggering.PresenceFromMap(self.present)
 }
 
 func (self *SingularityRequestHistory) SetField(name string, value interface{}) error {
@@ -189,13 +204,21 @@ func (self *SingularityRequestHistory) ClearField(name string) error {
 }
 
 func (self *SingularityRequestHistory) LoadMap(from map[string]interface{}) error {
-	return loadMapIntoDTO(from, self)
+	return swaggering.LoadMapIntoDTO(from, self)
 }
 
 type SingularityRequestHistoryList []*SingularityRequestHistory
 
+func (self *SingularityRequestHistoryList) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*SingularityRequestHistoryList); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A SingularityRequestHistory cannot absorb the values from %v", other)
+}
+
 func (list *SingularityRequestHistoryList) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, list)
+	return swaggering.ReadPopulate(jsonReader, list)
 }
 
 func (list *SingularityRequestHistoryList) FormatText() string {
@@ -208,5 +231,5 @@ func (list *SingularityRequestHistoryList) FormatText() string {
 }
 
 func (list *SingularityRequestHistoryList) FormatJSON() string {
-	return FormatJSON(list)
+	return swaggering.FormatJSON(list)
 }

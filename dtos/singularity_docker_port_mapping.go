@@ -3,6 +3,8 @@ package dtos
 import (
 	"fmt"
 	"io"
+
+	"github.com/opentable/swaggering"
 )
 
 type SingularityDockerPortMappingSingularityPortMappingType string
@@ -13,32 +15,45 @@ const (
 )
 
 type SingularityDockerPortMapping struct {
-	present           map[string]bool
-	ContainerPort     int32                                                  `json:"containerPort"`
+	present map[string]bool
+
+	ContainerPort int32 `json:"containerPort"`
+
 	ContainerPortType SingularityDockerPortMappingSingularityPortMappingType `json:"containerPortType"`
-	HostPort          int32                                                  `json:"hostPort"`
-	HostPortType      SingularityDockerPortMappingSingularityPortMappingType `json:"hostPortType"`
-	Protocol          string                                                 `json:"protocol,omitempty"`
+
+	HostPort int32 `json:"hostPort"`
+
+	HostPortType SingularityDockerPortMappingSingularityPortMappingType `json:"hostPortType"`
+
+	Protocol string `json:"protocol,omitempty"`
 }
 
 func (self *SingularityDockerPortMapping) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, self)
+	return swaggering.ReadPopulate(jsonReader, self)
+}
+
+func (self *SingularityDockerPortMapping) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*SingularityDockerPortMapping); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A SingularityDockerPortMapping cannot absorb the values from %v", other)
 }
 
 func (self *SingularityDockerPortMapping) MarshalJSON() ([]byte, error) {
-	return MarshalJSON(self)
+	return swaggering.MarshalJSON(self)
 }
 
 func (self *SingularityDockerPortMapping) FormatText() string {
-	return FormatText(self)
+	return swaggering.FormatText(self)
 }
 
 func (self *SingularityDockerPortMapping) FormatJSON() string {
-	return FormatJSON(self)
+	return swaggering.FormatJSON(self)
 }
 
 func (self *SingularityDockerPortMapping) FieldsPresent() []string {
-	return presenceFromMap(self.present)
+	return swaggering.PresenceFromMap(self.present)
 }
 
 func (self *SingularityDockerPortMapping) SetField(name string, value interface{}) error {
@@ -179,13 +194,21 @@ func (self *SingularityDockerPortMapping) ClearField(name string) error {
 }
 
 func (self *SingularityDockerPortMapping) LoadMap(from map[string]interface{}) error {
-	return loadMapIntoDTO(from, self)
+	return swaggering.LoadMapIntoDTO(from, self)
 }
 
 type SingularityDockerPortMappingList []*SingularityDockerPortMapping
 
+func (self *SingularityDockerPortMappingList) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*SingularityDockerPortMappingList); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A SingularityDockerPortMapping cannot absorb the values from %v", other)
+}
+
 func (list *SingularityDockerPortMappingList) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, list)
+	return swaggering.ReadPopulate(jsonReader, list)
 }
 
 func (list *SingularityDockerPortMappingList) FormatText() string {
@@ -198,5 +221,5 @@ func (list *SingularityDockerPortMappingList) FormatText() string {
 }
 
 func (list *SingularityDockerPortMappingList) FormatJSON() string {
-	return FormatJSON(list)
+	return swaggering.FormatJSON(list)
 }

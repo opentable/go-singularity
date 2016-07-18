@@ -3,34 +3,48 @@ package dtos
 import (
 	"fmt"
 	"io"
+
+	"github.com/opentable/swaggering"
 )
 
 type SingularitySandboxFile struct {
 	present map[string]bool
-	Mode    string `json:"mode,omitempty"`
-	Mtime   int64  `json:"mtime"`
-	Name    string `json:"name,omitempty"`
-	Size    int64  `json:"size"`
+
+	Mode string `json:"mode,omitempty"`
+
+	Mtime int64 `json:"mtime"`
+
+	Name string `json:"name,omitempty"`
+
+	Size int64 `json:"size"`
 }
 
 func (self *SingularitySandboxFile) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, self)
+	return swaggering.ReadPopulate(jsonReader, self)
+}
+
+func (self *SingularitySandboxFile) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*SingularitySandboxFile); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A SingularitySandboxFile cannot absorb the values from %v", other)
 }
 
 func (self *SingularitySandboxFile) MarshalJSON() ([]byte, error) {
-	return MarshalJSON(self)
+	return swaggering.MarshalJSON(self)
 }
 
 func (self *SingularitySandboxFile) FormatText() string {
-	return FormatText(self)
+	return swaggering.FormatText(self)
 }
 
 func (self *SingularitySandboxFile) FormatJSON() string {
-	return FormatJSON(self)
+	return swaggering.FormatJSON(self)
 }
 
 func (self *SingularitySandboxFile) FieldsPresent() []string {
-	return presenceFromMap(self.present)
+	return swaggering.PresenceFromMap(self.present)
 }
 
 func (self *SingularitySandboxFile) SetField(name string, value interface{}) error {
@@ -150,13 +164,21 @@ func (self *SingularitySandboxFile) ClearField(name string) error {
 }
 
 func (self *SingularitySandboxFile) LoadMap(from map[string]interface{}) error {
-	return loadMapIntoDTO(from, self)
+	return swaggering.LoadMapIntoDTO(from, self)
 }
 
 type SingularitySandboxFileList []*SingularitySandboxFile
 
+func (self *SingularitySandboxFileList) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*SingularitySandboxFileList); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A SingularitySandboxFile cannot absorb the values from %v", other)
+}
+
 func (list *SingularitySandboxFileList) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, list)
+	return swaggering.ReadPopulate(jsonReader, list)
 }
 
 func (list *SingularitySandboxFileList) FormatText() string {
@@ -169,5 +191,5 @@ func (list *SingularitySandboxFileList) FormatText() string {
 }
 
 func (list *SingularitySandboxFileList) FormatJSON() string {
-	return FormatJSON(list)
+	return swaggering.FormatJSON(list)
 }

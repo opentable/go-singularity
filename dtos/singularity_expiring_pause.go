@@ -3,35 +3,50 @@ package dtos
 import (
 	"fmt"
 	"io"
+
+	"github.com/opentable/swaggering"
 )
 
 type SingularityExpiringPause struct {
-	present  map[string]bool
+	present map[string]bool
+
 	ActionId string `json:"actionId,omitempty"`
-	//	ExpiringAPIRequestObject *T `json:"expiringAPIRequestObject"`
-	RequestId   string `json:"requestId,omitempty"`
-	StartMillis int64  `json:"startMillis"`
-	User        string `json:"user,omitempty"`
+
+	// ExpiringAPIRequestObject *T `json:"expiringAPIRequestObject"`
+
+	RequestId string `json:"requestId,omitempty"`
+
+	StartMillis int64 `json:"startMillis"`
+
+	User string `json:"user,omitempty"`
 }
 
 func (self *SingularityExpiringPause) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, self)
+	return swaggering.ReadPopulate(jsonReader, self)
+}
+
+func (self *SingularityExpiringPause) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*SingularityExpiringPause); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A SingularityExpiringPause cannot absorb the values from %v", other)
 }
 
 func (self *SingularityExpiringPause) MarshalJSON() ([]byte, error) {
-	return MarshalJSON(self)
+	return swaggering.MarshalJSON(self)
 }
 
 func (self *SingularityExpiringPause) FormatText() string {
-	return FormatText(self)
+	return swaggering.FormatText(self)
 }
 
 func (self *SingularityExpiringPause) FormatJSON() string {
-	return FormatJSON(self)
+	return swaggering.FormatJSON(self)
 }
 
 func (self *SingularityExpiringPause) FieldsPresent() []string {
-	return presenceFromMap(self.present)
+	return swaggering.PresenceFromMap(self.present)
 }
 
 func (self *SingularityExpiringPause) SetField(name string, value interface{}) error {
@@ -151,13 +166,21 @@ func (self *SingularityExpiringPause) ClearField(name string) error {
 }
 
 func (self *SingularityExpiringPause) LoadMap(from map[string]interface{}) error {
-	return loadMapIntoDTO(from, self)
+	return swaggering.LoadMapIntoDTO(from, self)
 }
 
 type SingularityExpiringPauseList []*SingularityExpiringPause
 
+func (self *SingularityExpiringPauseList) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*SingularityExpiringPauseList); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A SingularityExpiringPause cannot absorb the values from %v", other)
+}
+
 func (list *SingularityExpiringPauseList) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, list)
+	return swaggering.ReadPopulate(jsonReader, list)
 }
 
 func (list *SingularityExpiringPauseList) FormatText() string {
@@ -170,5 +193,5 @@ func (list *SingularityExpiringPauseList) FormatText() string {
 }
 
 func (list *SingularityExpiringPauseList) FormatJSON() string {
-	return FormatJSON(list)
+	return swaggering.FormatJSON(list)
 }

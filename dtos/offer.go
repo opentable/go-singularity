@@ -3,55 +3,90 @@ package dtos
 import (
 	"fmt"
 	"io"
+
+	"github.com/opentable/swaggering"
 )
 
 type Offer struct {
 	present map[string]bool
-	//	AllFields *Map[FieldDescriptor,Object] `json:"allFields"`
+
+	// AllFields *Map[FieldDescriptor,Object] `json:"allFields"`
+
 	AttributesCount int32 `json:"attributesCount"`
-	//	AttributesList *List[Attribute] `json:"attributesList"`
-	//	AttributesOrBuilderList *List[? extends org.apache.mesos.Protos$AttributeOrBuilder] `json:"attributesOrBuilderList"`
-	DefaultInstanceForType *Offer         `json:"defaultInstanceForType"`
-	DescriptorForType      *Descriptor    `json:"descriptorForType"`
-	ExecutorIdsCount       int32          `json:"executorIdsCount"`
-	ExecutorIdsList        ExecutorIDList `json:"executorIdsList"`
-	//	ExecutorIdsOrBuilderList *List[? extends org.apache.mesos.Protos$ExecutorIDOrBuilder] `json:"executorIdsOrBuilderList"`
-	FrameworkId               *FrameworkID          `json:"frameworkId"`
-	FrameworkIdOrBuilder      *FrameworkIDOrBuilder `json:"frameworkIdOrBuilder"`
-	Hostname                  string                `json:"hostname,omitempty"`
-	HostnameBytes             *ByteString           `json:"hostnameBytes"`
-	Id                        *OfferID              `json:"id"`
-	IdOrBuilder               *OfferIDOrBuilder     `json:"idOrBuilder"`
-	InitializationErrorString string                `json:"initializationErrorString,omitempty"`
-	Initialized               bool                  `json:"initialized"`
-	//	ParserForType *com.google.protobuf.Parser&lt;org.apache.mesos.Protos$Offer&gt; `json:"parserForType"`
+
+	// AttributesList *List[Attribute] `json:"attributesList"`
+
+	// AttributesOrBuilderList *List[? extends org.apache.mesos.Protos$AttributeOrBuilder] `json:"attributesOrBuilderList"`
+
+	DefaultInstanceForType *Offer `json:"defaultInstanceForType"`
+
+	DescriptorForType *Descriptor `json:"descriptorForType"`
+
+	ExecutorIdsCount int32 `json:"executorIdsCount"`
+
+	ExecutorIdsList ExecutorIDList `json:"executorIdsList"`
+
+	// ExecutorIdsOrBuilderList *List[? extends org.apache.mesos.Protos$ExecutorIDOrBuilder] `json:"executorIdsOrBuilderList"`
+
+	FrameworkId *FrameworkID `json:"frameworkId"`
+
+	FrameworkIdOrBuilder *FrameworkIDOrBuilder `json:"frameworkIdOrBuilder"`
+
+	Hostname string `json:"hostname,omitempty"`
+
+	HostnameBytes *ByteString `json:"hostnameBytes"`
+
+	Id *OfferID `json:"id"`
+
+	IdOrBuilder *OfferIDOrBuilder `json:"idOrBuilder"`
+
+	InitializationErrorString string `json:"initializationErrorString,omitempty"`
+
+	Initialized bool `json:"initialized"`
+
+	// ParserForType *com.google.protobuf.Parser<org.apache.mesos.Protos$Offer> `json:"parserForType"`
+
 	ResourcesCount int32 `json:"resourcesCount"`
-	//	ResourcesList *List[Resource] `json:"resourcesList"`
-	//	ResourcesOrBuilderList *List[? extends org.apache.mesos.Protos$ResourceOrBuilder] `json:"resourcesOrBuilderList"`
-	SerializedSize   int32             `json:"serializedSize"`
-	SlaveId          *SlaveID          `json:"slaveId"`
+
+	// ResourcesList *List[Resource] `json:"resourcesList"`
+
+	// ResourcesOrBuilderList *List[? extends org.apache.mesos.Protos$ResourceOrBuilder] `json:"resourcesOrBuilderList"`
+
+	SerializedSize int32 `json:"serializedSize"`
+
+	SlaveId *SlaveID `json:"slaveId"`
+
 	SlaveIdOrBuilder *SlaveIDOrBuilder `json:"slaveIdOrBuilder"`
-	UnknownFields    *UnknownFieldSet  `json:"unknownFields"`
+
+	UnknownFields *UnknownFieldSet `json:"unknownFields"`
 }
 
 func (self *Offer) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, self)
+	return swaggering.ReadPopulate(jsonReader, self)
+}
+
+func (self *Offer) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*Offer); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A Offer cannot absorb the values from %v", other)
 }
 
 func (self *Offer) MarshalJSON() ([]byte, error) {
-	return MarshalJSON(self)
+	return swaggering.MarshalJSON(self)
 }
 
 func (self *Offer) FormatText() string {
-	return FormatText(self)
+	return swaggering.FormatText(self)
 }
 
 func (self *Offer) FormatJSON() string {
-	return FormatJSON(self)
+	return swaggering.FormatJSON(self)
 }
 
 func (self *Offer) FieldsPresent() []string {
-	return presenceFromMap(self.present)
+	return swaggering.PresenceFromMap(self.present)
 }
 
 func (self *Offer) SetField(name string, value interface{}) error {
@@ -465,13 +500,21 @@ func (self *Offer) ClearField(name string) error {
 }
 
 func (self *Offer) LoadMap(from map[string]interface{}) error {
-	return loadMapIntoDTO(from, self)
+	return swaggering.LoadMapIntoDTO(from, self)
 }
 
 type OfferList []*Offer
 
+func (self *OfferList) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*OfferList); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A Offer cannot absorb the values from %v", other)
+}
+
 func (list *OfferList) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, list)
+	return swaggering.ReadPopulate(jsonReader, list)
 }
 
 func (list *OfferList) FormatText() string {
@@ -484,5 +527,5 @@ func (list *OfferList) FormatText() string {
 }
 
 func (list *OfferList) FormatJSON() string {
-	return FormatJSON(list)
+	return swaggering.FormatJSON(list)
 }

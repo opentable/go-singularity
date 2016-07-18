@@ -3,6 +3,8 @@ package dtos
 import (
 	"fmt"
 	"io"
+
+	"github.com/opentable/swaggering"
 )
 
 type SingularityPendingDeployDeployState string
@@ -18,31 +20,43 @@ const (
 )
 
 type SingularityPendingDeploy struct {
-	present                map[string]bool
-	CurrentDeployState     SingularityPendingDeployDeployState `json:"currentDeployState"`
-	DeployMarker           *SingularityDeployMarker            `json:"deployMarker"`
-	DeployProgress         *SingularityDeployProgress          `json:"deployProgress"`
-	LastLoadBalancerUpdate *SingularityLoadBalancerUpdate      `json:"lastLoadBalancerUpdate"`
+	present map[string]bool
+
+	CurrentDeployState SingularityPendingDeployDeployState `json:"currentDeployState"`
+
+	DeployMarker *SingularityDeployMarker `json:"deployMarker"`
+
+	DeployProgress *SingularityDeployProgress `json:"deployProgress"`
+
+	LastLoadBalancerUpdate *SingularityLoadBalancerUpdate `json:"lastLoadBalancerUpdate"`
 }
 
 func (self *SingularityPendingDeploy) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, self)
+	return swaggering.ReadPopulate(jsonReader, self)
+}
+
+func (self *SingularityPendingDeploy) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*SingularityPendingDeploy); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A SingularityPendingDeploy cannot absorb the values from %v", other)
 }
 
 func (self *SingularityPendingDeploy) MarshalJSON() ([]byte, error) {
-	return MarshalJSON(self)
+	return swaggering.MarshalJSON(self)
 }
 
 func (self *SingularityPendingDeploy) FormatText() string {
-	return FormatText(self)
+	return swaggering.FormatText(self)
 }
 
 func (self *SingularityPendingDeploy) FormatJSON() string {
-	return FormatJSON(self)
+	return swaggering.FormatJSON(self)
 }
 
 func (self *SingularityPendingDeploy) FieldsPresent() []string {
-	return presenceFromMap(self.present)
+	return swaggering.PresenceFromMap(self.present)
 }
 
 func (self *SingularityPendingDeploy) SetField(name string, value interface{}) error {
@@ -162,13 +176,21 @@ func (self *SingularityPendingDeploy) ClearField(name string) error {
 }
 
 func (self *SingularityPendingDeploy) LoadMap(from map[string]interface{}) error {
-	return loadMapIntoDTO(from, self)
+	return swaggering.LoadMapIntoDTO(from, self)
 }
 
 type SingularityPendingDeployList []*SingularityPendingDeploy
 
+func (self *SingularityPendingDeployList) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*SingularityPendingDeployList); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A SingularityPendingDeploy cannot absorb the values from %v", other)
+}
+
 func (list *SingularityPendingDeployList) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, list)
+	return swaggering.ReadPopulate(jsonReader, list)
 }
 
 func (list *SingularityPendingDeployList) FormatText() string {
@@ -181,5 +203,5 @@ func (list *SingularityPendingDeployList) FormatText() string {
 }
 
 func (list *SingularityPendingDeployList) FormatJSON() string {
-	return FormatJSON(list)
+	return swaggering.FormatJSON(list)
 }

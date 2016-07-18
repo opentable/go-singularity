@@ -3,66 +3,112 @@ package dtos
 import (
 	"fmt"
 	"io"
+
+	"github.com/opentable/swaggering"
 )
 
 type SingularityDeploy struct {
-	present                               map[string]bool
-	Arguments                             StringList                `json:"arguments"`
-	AutoAdvanceDeploySteps                bool                      `json:"autoAdvanceDeploySteps"`
-	Command                               string                    `json:"command,omitempty"`
-	ConsiderHealthyAfterRunningForSeconds int64                     `json:"considerHealthyAfterRunningForSeconds"`
-	ContainerInfo                         *SingularityContainerInfo `json:"containerInfo"`
-	CustomExecutorCmd                     string                    `json:"customExecutorCmd,omitempty"`
-	CustomExecutorId                      string                    `json:"customExecutorId,omitempty"`
-	CustomExecutorResources               *Resources                `json:"customExecutorResources"`
-	CustomExecutorSource                  string                    `json:"customExecutorSource,omitempty"`
-	CustomExecutorUser                    string                    `json:"customExecutorUser,omitempty"`
-	DeployHealthTimeoutSeconds            int64                     `json:"deployHealthTimeoutSeconds"`
-	DeployInstanceCountPerStep            int32                     `json:"deployInstanceCountPerStep"`
-	DeployStepWaitTimeMs                  int32                     `json:"deployStepWaitTimeMs"`
-	Env                                   map[string]string         `json:"env"`
-	ExecutorData                          *ExecutorData             `json:"executorData"`
-	HealthcheckIntervalSeconds            int64                     `json:"healthcheckIntervalSeconds"`
-	HealthcheckMaxRetries                 int32                     `json:"healthcheckMaxRetries"`
-	HealthcheckMaxTotalTimeoutSeconds     int64                     `json:"healthcheckMaxTotalTimeoutSeconds"`
-	HealthcheckPortIndex                  int32                     `json:"healthcheckPortIndex"`
-	//	HealthcheckProtocol *HealthcheckProtocol `json:"healthcheckProtocol"`
-	HealthcheckTimeoutSeconds int64             `json:"healthcheckTimeoutSeconds"`
-	HealthcheckUri            string            `json:"healthcheckUri,omitempty"`
-	Id                        string            `json:"id,omitempty"`
-	Labels                    map[string]string `json:"labels"`
-	LoadBalancerGroups        StringList        `json:"loadBalancerGroups"`
-	//	LoadBalancerOptions *Map[string,Object] `json:"loadBalancerOptions"`
-	LoadBalancerPortIndex    int32             `json:"loadBalancerPortIndex"`
-	MaxTaskRetries           int32             `json:"maxTaskRetries"`
-	Metadata                 map[string]string `json:"metadata"`
-	RequestId                string            `json:"requestId,omitempty"`
-	Resources                *Resources        `json:"resources"`
-	ServiceBasePath          string            `json:"serviceBasePath,omitempty"`
-	SkipHealthchecksOnDeploy bool              `json:"skipHealthchecksOnDeploy"`
-	Timestamp                int64             `json:"timestamp"`
-	Uris                     StringList        `json:"uris"`
-	Version                  string            `json:"version,omitempty"`
+	present map[string]bool
+
+	Arguments swaggering.StringList `json:"arguments"`
+
+	AutoAdvanceDeploySteps bool `json:"autoAdvanceDeploySteps"`
+
+	Command string `json:"command,omitempty"`
+
+	ConsiderHealthyAfterRunningForSeconds int64 `json:"considerHealthyAfterRunningForSeconds"`
+
+	ContainerInfo *SingularityContainerInfo `json:"containerInfo"`
+
+	CustomExecutorCmd string `json:"customExecutorCmd,omitempty"`
+
+	CustomExecutorId string `json:"customExecutorId,omitempty"`
+
+	CustomExecutorResources *Resources `json:"customExecutorResources"`
+
+	CustomExecutorSource string `json:"customExecutorSource,omitempty"`
+
+	CustomExecutorUser string `json:"customExecutorUser,omitempty"`
+
+	DeployHealthTimeoutSeconds int64 `json:"deployHealthTimeoutSeconds"`
+
+	DeployInstanceCountPerStep int32 `json:"deployInstanceCountPerStep"`
+
+	DeployStepWaitTimeMs int32 `json:"deployStepWaitTimeMs"`
+
+	Env map[string]string `json:"env"`
+
+	ExecutorData *ExecutorData `json:"executorData"`
+
+	HealthcheckIntervalSeconds int64 `json:"healthcheckIntervalSeconds"`
+
+	HealthcheckMaxRetries int32 `json:"healthcheckMaxRetries"`
+
+	HealthcheckMaxTotalTimeoutSeconds int64 `json:"healthcheckMaxTotalTimeoutSeconds"`
+
+	HealthcheckPortIndex int32 `json:"healthcheckPortIndex"`
+
+	// HealthcheckProtocol *HealthcheckProtocol `json:"healthcheckProtocol"`
+
+	HealthcheckTimeoutSeconds int64 `json:"healthcheckTimeoutSeconds"`
+
+	HealthcheckUri string `json:"healthcheckUri,omitempty"`
+
+	Id string `json:"id,omitempty"`
+
+	Labels map[string]string `json:"labels"`
+
+	LoadBalancerGroups swaggering.StringList `json:"loadBalancerGroups"`
+
+	// LoadBalancerOptions *Map[string,Object] `json:"loadBalancerOptions"`
+
+	LoadBalancerPortIndex int32 `json:"loadBalancerPortIndex"`
+
+	MaxTaskRetries int32 `json:"maxTaskRetries"`
+
+	Metadata map[string]string `json:"metadata"`
+
+	RequestId string `json:"requestId,omitempty"`
+
+	Resources *Resources `json:"resources"`
+
+	ServiceBasePath string `json:"serviceBasePath,omitempty"`
+
+	SkipHealthchecksOnDeploy bool `json:"skipHealthchecksOnDeploy"`
+
+	Timestamp int64 `json:"timestamp"`
+
+	Uris swaggering.StringList `json:"uris"`
+
+	Version string `json:"version,omitempty"`
 }
 
 func (self *SingularityDeploy) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, self)
+	return swaggering.ReadPopulate(jsonReader, self)
+}
+
+func (self *SingularityDeploy) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*SingularityDeploy); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A SingularityDeploy cannot absorb the values from %v", other)
 }
 
 func (self *SingularityDeploy) MarshalJSON() ([]byte, error) {
-	return MarshalJSON(self)
+	return swaggering.MarshalJSON(self)
 }
 
 func (self *SingularityDeploy) FormatText() string {
-	return FormatText(self)
+	return swaggering.FormatText(self)
 }
 
 func (self *SingularityDeploy) FormatJSON() string {
-	return FormatJSON(self)
+	return swaggering.FormatJSON(self)
 }
 
 func (self *SingularityDeploy) FieldsPresent() []string {
-	return presenceFromMap(self.present)
+	return swaggering.PresenceFromMap(self.present)
 }
 
 func (self *SingularityDeploy) SetField(name string, value interface{}) error {
@@ -74,7 +120,7 @@ func (self *SingularityDeploy) SetField(name string, value interface{}) error {
 		return fmt.Errorf("No such field %s on SingularityDeploy", name)
 
 	case "arguments", "Arguments":
-		v, ok := value.(StringList)
+		v, ok := value.(swaggering.StringList)
 		if ok {
 			self.Arguments = v
 			self.present["arguments"] = true
@@ -304,7 +350,7 @@ func (self *SingularityDeploy) SetField(name string, value interface{}) error {
 		}
 
 	case "loadBalancerGroups", "LoadBalancerGroups":
-		v, ok := value.(StringList)
+		v, ok := value.(swaggering.StringList)
 		if ok {
 			self.LoadBalancerGroups = v
 			self.present["loadBalancerGroups"] = true
@@ -394,7 +440,7 @@ func (self *SingularityDeploy) SetField(name string, value interface{}) error {
 		}
 
 	case "uris", "Uris":
-		v, ok := value.(StringList)
+		v, ok := value.(swaggering.StringList)
 		if ok {
 			self.Uris = v
 			self.present["uris"] = true
@@ -812,13 +858,21 @@ func (self *SingularityDeploy) ClearField(name string) error {
 }
 
 func (self *SingularityDeploy) LoadMap(from map[string]interface{}) error {
-	return loadMapIntoDTO(from, self)
+	return swaggering.LoadMapIntoDTO(from, self)
 }
 
 type SingularityDeployList []*SingularityDeploy
 
+func (self *SingularityDeployList) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*SingularityDeployList); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A SingularityDeploy cannot absorb the values from %v", other)
+}
+
 func (list *SingularityDeployList) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, list)
+	return swaggering.ReadPopulate(jsonReader, list)
 }
 
 func (list *SingularityDeployList) FormatText() string {
@@ -831,5 +885,5 @@ func (list *SingularityDeployList) FormatText() string {
 }
 
 func (list *SingularityDeployList) FormatJSON() string {
-	return FormatJSON(list)
+	return swaggering.FormatJSON(list)
 }

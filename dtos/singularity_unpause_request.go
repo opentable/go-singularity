@@ -3,33 +3,46 @@ package dtos
 import (
 	"fmt"
 	"io"
+
+	"github.com/opentable/swaggering"
 )
 
 type SingularityUnpauseRequest struct {
-	present          map[string]bool
-	ActionId         string `json:"actionId,omitempty"`
-	Message          string `json:"message,omitempty"`
-	SkipHealthchecks bool   `json:"skipHealthchecks"`
+	present map[string]bool
+
+	ActionId string `json:"actionId,omitempty"`
+
+	Message string `json:"message,omitempty"`
+
+	SkipHealthchecks bool `json:"skipHealthchecks"`
 }
 
 func (self *SingularityUnpauseRequest) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, self)
+	return swaggering.ReadPopulate(jsonReader, self)
+}
+
+func (self *SingularityUnpauseRequest) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*SingularityUnpauseRequest); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A SingularityUnpauseRequest cannot absorb the values from %v", other)
 }
 
 func (self *SingularityUnpauseRequest) MarshalJSON() ([]byte, error) {
-	return MarshalJSON(self)
+	return swaggering.MarshalJSON(self)
 }
 
 func (self *SingularityUnpauseRequest) FormatText() string {
-	return FormatText(self)
+	return swaggering.FormatText(self)
 }
 
 func (self *SingularityUnpauseRequest) FormatJSON() string {
-	return FormatJSON(self)
+	return swaggering.FormatJSON(self)
 }
 
 func (self *SingularityUnpauseRequest) FieldsPresent() []string {
-	return presenceFromMap(self.present)
+	return swaggering.PresenceFromMap(self.present)
 }
 
 func (self *SingularityUnpauseRequest) SetField(name string, value interface{}) error {
@@ -128,13 +141,21 @@ func (self *SingularityUnpauseRequest) ClearField(name string) error {
 }
 
 func (self *SingularityUnpauseRequest) LoadMap(from map[string]interface{}) error {
-	return loadMapIntoDTO(from, self)
+	return swaggering.LoadMapIntoDTO(from, self)
 }
 
 type SingularityUnpauseRequestList []*SingularityUnpauseRequest
 
+func (self *SingularityUnpauseRequestList) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*SingularityUnpauseRequestList); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A SingularityUnpauseRequest cannot absorb the values from %v", other)
+}
+
 func (list *SingularityUnpauseRequestList) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, list)
+	return swaggering.ReadPopulate(jsonReader, list)
 }
 
 func (list *SingularityUnpauseRequestList) FormatText() string {
@@ -147,5 +168,5 @@ func (list *SingularityUnpauseRequestList) FormatText() string {
 }
 
 func (list *SingularityUnpauseRequestList) FormatJSON() string {
-	return FormatJSON(list)
+	return swaggering.FormatJSON(list)
 }

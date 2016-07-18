@@ -3,33 +3,46 @@ package dtos
 import (
 	"fmt"
 	"io"
+
+	"github.com/opentable/swaggering"
 )
 
 type SingularityRack struct {
-	present      map[string]bool
+	present map[string]bool
+
 	CurrentState *SingularityMachineStateHistoryUpdate `json:"currentState"`
-	FirstSeenAt  int64                                 `json:"firstSeenAt"`
-	Id           string                                `json:"id,omitempty"`
+
+	FirstSeenAt int64 `json:"firstSeenAt"`
+
+	Id string `json:"id,omitempty"`
 }
 
 func (self *SingularityRack) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, self)
+	return swaggering.ReadPopulate(jsonReader, self)
+}
+
+func (self *SingularityRack) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*SingularityRack); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A SingularityRack cannot absorb the values from %v", other)
 }
 
 func (self *SingularityRack) MarshalJSON() ([]byte, error) {
-	return MarshalJSON(self)
+	return swaggering.MarshalJSON(self)
 }
 
 func (self *SingularityRack) FormatText() string {
-	return FormatText(self)
+	return swaggering.FormatText(self)
 }
 
 func (self *SingularityRack) FormatJSON() string {
-	return FormatJSON(self)
+	return swaggering.FormatJSON(self)
 }
 
 func (self *SingularityRack) FieldsPresent() []string {
-	return presenceFromMap(self.present)
+	return swaggering.PresenceFromMap(self.present)
 }
 
 func (self *SingularityRack) SetField(name string, value interface{}) error {
@@ -128,13 +141,21 @@ func (self *SingularityRack) ClearField(name string) error {
 }
 
 func (self *SingularityRack) LoadMap(from map[string]interface{}) error {
-	return loadMapIntoDTO(from, self)
+	return swaggering.LoadMapIntoDTO(from, self)
 }
 
 type SingularityRackList []*SingularityRack
 
+func (self *SingularityRackList) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*SingularityRackList); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A SingularityRack cannot absorb the values from %v", other)
+}
+
 func (list *SingularityRackList) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, list)
+	return swaggering.ReadPopulate(jsonReader, list)
 }
 
 func (list *SingularityRackList) FormatText() string {
@@ -147,5 +168,5 @@ func (list *SingularityRackList) FormatText() string {
 }
 
 func (list *SingularityRackList) FormatJSON() string {
-	return FormatJSON(list)
+	return swaggering.FormatJSON(list)
 }

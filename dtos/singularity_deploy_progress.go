@@ -3,37 +3,54 @@ package dtos
 import (
 	"fmt"
 	"io"
+
+	"github.com/opentable/swaggering"
 )
 
 type SingularityDeployProgress struct {
-	present                    map[string]bool
-	AutoAdvanceDeploySteps     bool                  `json:"autoAdvanceDeploySteps"`
-	DeployInstanceCountPerStep int32                 `json:"deployInstanceCountPerStep"`
-	DeployStepWaitTimeMs       int64                 `json:"deployStepWaitTimeMs"`
-	FailedDeployTasks          SingularityTaskIdList `json:"failedDeployTasks"`
-	StepComplete               bool                  `json:"stepComplete"`
-	TargetActiveInstances      int32                 `json:"targetActiveInstances"`
-	Timestamp                  int64                 `json:"timestamp"`
+	present map[string]bool
+
+	AutoAdvanceDeploySteps bool `json:"autoAdvanceDeploySteps"`
+
+	DeployInstanceCountPerStep int32 `json:"deployInstanceCountPerStep"`
+
+	DeployStepWaitTimeMs int64 `json:"deployStepWaitTimeMs"`
+
+	FailedDeployTasks SingularityTaskIdList `json:"failedDeployTasks"`
+
+	StepComplete bool `json:"stepComplete"`
+
+	TargetActiveInstances int32 `json:"targetActiveInstances"`
+
+	Timestamp int64 `json:"timestamp"`
 }
 
 func (self *SingularityDeployProgress) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, self)
+	return swaggering.ReadPopulate(jsonReader, self)
+}
+
+func (self *SingularityDeployProgress) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*SingularityDeployProgress); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A SingularityDeployProgress cannot absorb the values from %v", other)
 }
 
 func (self *SingularityDeployProgress) MarshalJSON() ([]byte, error) {
-	return MarshalJSON(self)
+	return swaggering.MarshalJSON(self)
 }
 
 func (self *SingularityDeployProgress) FormatText() string {
-	return FormatText(self)
+	return swaggering.FormatText(self)
 }
 
 func (self *SingularityDeployProgress) FormatJSON() string {
-	return FormatJSON(self)
+	return swaggering.FormatJSON(self)
 }
 
 func (self *SingularityDeployProgress) FieldsPresent() []string {
-	return presenceFromMap(self.present)
+	return swaggering.PresenceFromMap(self.present)
 }
 
 func (self *SingularityDeployProgress) SetField(name string, value interface{}) error {
@@ -216,13 +233,21 @@ func (self *SingularityDeployProgress) ClearField(name string) error {
 }
 
 func (self *SingularityDeployProgress) LoadMap(from map[string]interface{}) error {
-	return loadMapIntoDTO(from, self)
+	return swaggering.LoadMapIntoDTO(from, self)
 }
 
 type SingularityDeployProgressList []*SingularityDeployProgress
 
+func (self *SingularityDeployProgressList) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*SingularityDeployProgressList); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A SingularityDeployProgress cannot absorb the values from %v", other)
+}
+
 func (list *SingularityDeployProgressList) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, list)
+	return swaggering.ReadPopulate(jsonReader, list)
 }
 
 func (list *SingularityDeployProgressList) FormatText() string {
@@ -235,5 +260,5 @@ func (list *SingularityDeployProgressList) FormatText() string {
 }
 
 func (list *SingularityDeployProgressList) FormatJSON() string {
-	return FormatJSON(list)
+	return swaggering.FormatJSON(list)
 }

@@ -3,47 +3,74 @@ package dtos
 import (
 	"fmt"
 	"io"
+
+	"github.com/opentable/swaggering"
 )
 
 type HealthCheck struct {
 	present map[string]bool
-	//	AllFields *Map[FieldDescriptor,Object] `json:"allFields"`
-	Command                   *CommandInfo          `json:"command"`
-	CommandOrBuilder          *CommandInfoOrBuilder `json:"commandOrBuilder"`
-	ConsecutiveFailures       int32                 `json:"consecutiveFailures"`
-	DefaultInstanceForType    *HealthCheck          `json:"defaultInstanceForType"`
-	DelaySeconds              float64               `json:"delaySeconds"`
-	DescriptorForType         *Descriptor           `json:"descriptorForType"`
-	GracePeriodSeconds        float64               `json:"gracePeriodSeconds"`
-	Http                      *HTTP                 `json:"http"`
-	HttpOrBuilder             *HTTPOrBuilder        `json:"httpOrBuilder"`
-	InitializationErrorString string                `json:"initializationErrorString,omitempty"`
-	Initialized               bool                  `json:"initialized"`
-	IntervalSeconds           float64               `json:"intervalSeconds"`
-	//	ParserForType *com.google.protobuf.Parser&lt;org.apache.mesos.Protos$HealthCheck&gt; `json:"parserForType"`
-	SerializedSize int32            `json:"serializedSize"`
-	TimeoutSeconds float64          `json:"timeoutSeconds"`
-	UnknownFields  *UnknownFieldSet `json:"unknownFields"`
+
+	// AllFields *Map[FieldDescriptor,Object] `json:"allFields"`
+
+	Command *CommandInfo `json:"command"`
+
+	CommandOrBuilder *CommandInfoOrBuilder `json:"commandOrBuilder"`
+
+	ConsecutiveFailures int32 `json:"consecutiveFailures"`
+
+	DefaultInstanceForType *HealthCheck `json:"defaultInstanceForType"`
+
+	DelaySeconds float64 `json:"delaySeconds"`
+
+	DescriptorForType *Descriptor `json:"descriptorForType"`
+
+	GracePeriodSeconds float64 `json:"gracePeriodSeconds"`
+
+	Http *HTTP `json:"http"`
+
+	HttpOrBuilder *HTTPOrBuilder `json:"httpOrBuilder"`
+
+	InitializationErrorString string `json:"initializationErrorString,omitempty"`
+
+	Initialized bool `json:"initialized"`
+
+	IntervalSeconds float64 `json:"intervalSeconds"`
+
+	// ParserForType *com.google.protobuf.Parser<org.apache.mesos.Protos$HealthCheck> `json:"parserForType"`
+
+	SerializedSize int32 `json:"serializedSize"`
+
+	TimeoutSeconds float64 `json:"timeoutSeconds"`
+
+	UnknownFields *UnknownFieldSet `json:"unknownFields"`
 }
 
 func (self *HealthCheck) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, self)
+	return swaggering.ReadPopulate(jsonReader, self)
+}
+
+func (self *HealthCheck) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*HealthCheck); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A HealthCheck cannot absorb the values from %v", other)
 }
 
 func (self *HealthCheck) MarshalJSON() ([]byte, error) {
-	return MarshalJSON(self)
+	return swaggering.MarshalJSON(self)
 }
 
 func (self *HealthCheck) FormatText() string {
-	return FormatText(self)
+	return swaggering.FormatText(self)
 }
 
 func (self *HealthCheck) FormatJSON() string {
-	return FormatJSON(self)
+	return swaggering.FormatJSON(self)
 }
 
 func (self *HealthCheck) FieldsPresent() []string {
-	return presenceFromMap(self.present)
+	return swaggering.PresenceFromMap(self.present)
 }
 
 func (self *HealthCheck) SetField(name string, value interface{}) error {
@@ -394,13 +421,21 @@ func (self *HealthCheck) ClearField(name string) error {
 }
 
 func (self *HealthCheck) LoadMap(from map[string]interface{}) error {
-	return loadMapIntoDTO(from, self)
+	return swaggering.LoadMapIntoDTO(from, self)
 }
 
 type HealthCheckList []*HealthCheck
 
+func (self *HealthCheckList) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*HealthCheckList); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A HealthCheck cannot absorb the values from %v", other)
+}
+
 func (list *HealthCheckList) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, list)
+	return swaggering.ReadPopulate(jsonReader, list)
 }
 
 func (list *HealthCheckList) FormatText() string {
@@ -413,5 +448,5 @@ func (list *HealthCheckList) FormatText() string {
 }
 
 func (list *HealthCheckList) FormatJSON() string {
-	return FormatJSON(list)
+	return swaggering.FormatJSON(list)
 }

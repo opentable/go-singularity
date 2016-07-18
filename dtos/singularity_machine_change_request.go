@@ -3,31 +3,42 @@ package dtos
 import (
 	"fmt"
 	"io"
+
+	"github.com/opentable/swaggering"
 )
 
 type SingularityMachineChangeRequest struct {
 	present map[string]bool
+
 	Message string `json:"message,omitempty"`
 }
 
 func (self *SingularityMachineChangeRequest) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, self)
+	return swaggering.ReadPopulate(jsonReader, self)
+}
+
+func (self *SingularityMachineChangeRequest) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*SingularityMachineChangeRequest); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A SingularityMachineChangeRequest cannot absorb the values from %v", other)
 }
 
 func (self *SingularityMachineChangeRequest) MarshalJSON() ([]byte, error) {
-	return MarshalJSON(self)
+	return swaggering.MarshalJSON(self)
 }
 
 func (self *SingularityMachineChangeRequest) FormatText() string {
-	return FormatText(self)
+	return swaggering.FormatText(self)
 }
 
 func (self *SingularityMachineChangeRequest) FormatJSON() string {
-	return FormatJSON(self)
+	return swaggering.FormatJSON(self)
 }
 
 func (self *SingularityMachineChangeRequest) FieldsPresent() []string {
-	return presenceFromMap(self.present)
+	return swaggering.PresenceFromMap(self.present)
 }
 
 func (self *SingularityMachineChangeRequest) SetField(name string, value interface{}) error {
@@ -84,13 +95,21 @@ func (self *SingularityMachineChangeRequest) ClearField(name string) error {
 }
 
 func (self *SingularityMachineChangeRequest) LoadMap(from map[string]interface{}) error {
-	return loadMapIntoDTO(from, self)
+	return swaggering.LoadMapIntoDTO(from, self)
 }
 
 type SingularityMachineChangeRequestList []*SingularityMachineChangeRequest
 
+func (self *SingularityMachineChangeRequestList) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*SingularityMachineChangeRequestList); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A SingularityMachineChangeRequest cannot absorb the values from %v", other)
+}
+
 func (list *SingularityMachineChangeRequestList) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, list)
+	return swaggering.ReadPopulate(jsonReader, list)
 }
 
 func (list *SingularityMachineChangeRequestList) FormatText() string {
@@ -103,5 +122,5 @@ func (list *SingularityMachineChangeRequestList) FormatText() string {
 }
 
 func (list *SingularityMachineChangeRequestList) FormatJSON() string {
-	return FormatJSON(list)
+	return swaggering.FormatJSON(list)
 }

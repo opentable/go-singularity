@@ -3,6 +3,8 @@ package dtos
 import (
 	"fmt"
 	"io"
+
+	"github.com/opentable/swaggering"
 )
 
 type DiscoveryInfoOrBuilderVisibility string
@@ -14,40 +16,61 @@ const (
 )
 
 type DiscoveryInfoOrBuilder struct {
-	present          map[string]bool
-	Environment      string                           `json:"environment,omitempty"`
-	EnvironmentBytes *ByteString                      `json:"environmentBytes"`
-	Labels           *Labels                          `json:"labels"`
-	LabelsOrBuilder  *LabelsOrBuilder                 `json:"labelsOrBuilder"`
-	Location         string                           `json:"location,omitempty"`
-	LocationBytes    *ByteString                      `json:"locationBytes"`
-	Name             string                           `json:"name,omitempty"`
-	NameBytes        *ByteString                      `json:"nameBytes"`
-	Ports            *Ports                           `json:"ports"`
-	PortsOrBuilder   *PortsOrBuilder                  `json:"portsOrBuilder"`
-	Version          string                           `json:"version,omitempty"`
-	VersionBytes     *ByteString                      `json:"versionBytes"`
-	Visibility       DiscoveryInfoOrBuilderVisibility `json:"visibility"`
+	present map[string]bool
+
+	Environment string `json:"environment,omitempty"`
+
+	EnvironmentBytes *ByteString `json:"environmentBytes"`
+
+	Labels *Labels `json:"labels"`
+
+	LabelsOrBuilder *LabelsOrBuilder `json:"labelsOrBuilder"`
+
+	Location string `json:"location,omitempty"`
+
+	LocationBytes *ByteString `json:"locationBytes"`
+
+	Name string `json:"name,omitempty"`
+
+	NameBytes *ByteString `json:"nameBytes"`
+
+	Ports *Ports `json:"ports"`
+
+	PortsOrBuilder *PortsOrBuilder `json:"portsOrBuilder"`
+
+	Version string `json:"version,omitempty"`
+
+	VersionBytes *ByteString `json:"versionBytes"`
+
+	Visibility DiscoveryInfoOrBuilderVisibility `json:"visibility"`
 }
 
 func (self *DiscoveryInfoOrBuilder) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, self)
+	return swaggering.ReadPopulate(jsonReader, self)
+}
+
+func (self *DiscoveryInfoOrBuilder) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*DiscoveryInfoOrBuilder); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A DiscoveryInfoOrBuilder cannot absorb the values from %v", other)
 }
 
 func (self *DiscoveryInfoOrBuilder) MarshalJSON() ([]byte, error) {
-	return MarshalJSON(self)
+	return swaggering.MarshalJSON(self)
 }
 
 func (self *DiscoveryInfoOrBuilder) FormatText() string {
-	return FormatText(self)
+	return swaggering.FormatText(self)
 }
 
 func (self *DiscoveryInfoOrBuilder) FormatJSON() string {
-	return FormatJSON(self)
+	return swaggering.FormatJSON(self)
 }
 
 func (self *DiscoveryInfoOrBuilder) FieldsPresent() []string {
-	return presenceFromMap(self.present)
+	return swaggering.PresenceFromMap(self.present)
 }
 
 func (self *DiscoveryInfoOrBuilder) SetField(name string, value interface{}) error {
@@ -356,13 +379,21 @@ func (self *DiscoveryInfoOrBuilder) ClearField(name string) error {
 }
 
 func (self *DiscoveryInfoOrBuilder) LoadMap(from map[string]interface{}) error {
-	return loadMapIntoDTO(from, self)
+	return swaggering.LoadMapIntoDTO(from, self)
 }
 
 type DiscoveryInfoOrBuilderList []*DiscoveryInfoOrBuilder
 
+func (self *DiscoveryInfoOrBuilderList) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*DiscoveryInfoOrBuilderList); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A DiscoveryInfoOrBuilder cannot absorb the values from %v", other)
+}
+
 func (list *DiscoveryInfoOrBuilderList) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, list)
+	return swaggering.ReadPopulate(jsonReader, list)
 }
 
 func (list *DiscoveryInfoOrBuilderList) FormatText() string {
@@ -375,5 +406,5 @@ func (list *DiscoveryInfoOrBuilderList) FormatText() string {
 }
 
 func (list *DiscoveryInfoOrBuilderList) FormatJSON() string {
-	return FormatJSON(list)
+	return swaggering.FormatJSON(list)
 }

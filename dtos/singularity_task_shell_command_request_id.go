@@ -3,34 +3,48 @@ package dtos
 import (
 	"fmt"
 	"io"
+
+	"github.com/opentable/swaggering"
 )
 
 type SingularityTaskShellCommandRequestId struct {
-	present   map[string]bool
-	Id        string             `json:"id,omitempty"`
-	Name      string             `json:"name,omitempty"`
-	TaskId    *SingularityTaskId `json:"taskId"`
-	Timestamp int64              `json:"timestamp"`
+	present map[string]bool
+
+	Id string `json:"id,omitempty"`
+
+	Name string `json:"name,omitempty"`
+
+	TaskId *SingularityTaskId `json:"taskId"`
+
+	Timestamp int64 `json:"timestamp"`
 }
 
 func (self *SingularityTaskShellCommandRequestId) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, self)
+	return swaggering.ReadPopulate(jsonReader, self)
+}
+
+func (self *SingularityTaskShellCommandRequestId) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*SingularityTaskShellCommandRequestId); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A SingularityTaskShellCommandRequestId cannot absorb the values from %v", other)
 }
 
 func (self *SingularityTaskShellCommandRequestId) MarshalJSON() ([]byte, error) {
-	return MarshalJSON(self)
+	return swaggering.MarshalJSON(self)
 }
 
 func (self *SingularityTaskShellCommandRequestId) FormatText() string {
-	return FormatText(self)
+	return swaggering.FormatText(self)
 }
 
 func (self *SingularityTaskShellCommandRequestId) FormatJSON() string {
-	return FormatJSON(self)
+	return swaggering.FormatJSON(self)
 }
 
 func (self *SingularityTaskShellCommandRequestId) FieldsPresent() []string {
-	return presenceFromMap(self.present)
+	return swaggering.PresenceFromMap(self.present)
 }
 
 func (self *SingularityTaskShellCommandRequestId) SetField(name string, value interface{}) error {
@@ -150,13 +164,21 @@ func (self *SingularityTaskShellCommandRequestId) ClearField(name string) error 
 }
 
 func (self *SingularityTaskShellCommandRequestId) LoadMap(from map[string]interface{}) error {
-	return loadMapIntoDTO(from, self)
+	return swaggering.LoadMapIntoDTO(from, self)
 }
 
 type SingularityTaskShellCommandRequestIdList []*SingularityTaskShellCommandRequestId
 
+func (self *SingularityTaskShellCommandRequestIdList) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*SingularityTaskShellCommandRequestIdList); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A SingularityTaskShellCommandRequestId cannot absorb the values from %v", other)
+}
+
 func (list *SingularityTaskShellCommandRequestIdList) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, list)
+	return swaggering.ReadPopulate(jsonReader, list)
 }
 
 func (list *SingularityTaskShellCommandRequestIdList) FormatText() string {
@@ -169,5 +191,5 @@ func (list *SingularityTaskShellCommandRequestIdList) FormatText() string {
 }
 
 func (list *SingularityTaskShellCommandRequestIdList) FormatJSON() string {
-	return FormatJSON(list)
+	return swaggering.FormatJSON(list)
 }

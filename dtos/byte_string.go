@@ -3,32 +3,44 @@ package dtos
 import (
 	"fmt"
 	"io"
+
+	"github.com/opentable/swaggering"
 )
 
 type ByteString struct {
-	present   map[string]bool
-	Empty     bool `json:"empty"`
+	present map[string]bool
+
+	Empty bool `json:"empty"`
+
 	ValidUtf8 bool `json:"validUtf8"`
 }
 
 func (self *ByteString) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, self)
+	return swaggering.ReadPopulate(jsonReader, self)
+}
+
+func (self *ByteString) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*ByteString); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A ByteString cannot absorb the values from %v", other)
 }
 
 func (self *ByteString) MarshalJSON() ([]byte, error) {
-	return MarshalJSON(self)
+	return swaggering.MarshalJSON(self)
 }
 
 func (self *ByteString) FormatText() string {
-	return FormatText(self)
+	return swaggering.FormatText(self)
 }
 
 func (self *ByteString) FormatJSON() string {
-	return FormatJSON(self)
+	return swaggering.FormatJSON(self)
 }
 
 func (self *ByteString) FieldsPresent() []string {
-	return presenceFromMap(self.present)
+	return swaggering.PresenceFromMap(self.present)
 }
 
 func (self *ByteString) SetField(name string, value interface{}) error {
@@ -106,13 +118,21 @@ func (self *ByteString) ClearField(name string) error {
 }
 
 func (self *ByteString) LoadMap(from map[string]interface{}) error {
-	return loadMapIntoDTO(from, self)
+	return swaggering.LoadMapIntoDTO(from, self)
 }
 
 type ByteStringList []*ByteString
 
+func (self *ByteStringList) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*ByteStringList); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A ByteString cannot absorb the values from %v", other)
+}
+
 func (list *ByteStringList) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, list)
+	return swaggering.ReadPopulate(jsonReader, list)
 }
 
 func (list *ByteStringList) FormatText() string {
@@ -125,5 +145,5 @@ func (list *ByteStringList) FormatText() string {
 }
 
 func (list *ByteStringList) FormatJSON() string {
-	return FormatJSON(list)
+	return swaggering.FormatJSON(list)
 }

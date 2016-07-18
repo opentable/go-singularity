@@ -3,35 +3,50 @@ package dtos
 import (
 	"fmt"
 	"io"
+
+	"github.com/opentable/swaggering"
 )
 
 type HTTPOrBuilder struct {
-	present       map[string]bool
-	Path          string      `json:"path,omitempty"`
-	PathBytes     *ByteString `json:"pathBytes"`
-	Port          int32       `json:"port"`
-	StatusesCount int32       `json:"statusesCount"`
-	StatusesList  []int32     `json:"statusesList"`
+	present map[string]bool
+
+	Path string `json:"path,omitempty"`
+
+	PathBytes *ByteString `json:"pathBytes"`
+
+	Port int32 `json:"port"`
+
+	StatusesCount int32 `json:"statusesCount"`
+
+	StatusesList []int32 `json:"statusesList"`
 }
 
 func (self *HTTPOrBuilder) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, self)
+	return swaggering.ReadPopulate(jsonReader, self)
+}
+
+func (self *HTTPOrBuilder) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*HTTPOrBuilder); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A HTTPOrBuilder cannot absorb the values from %v", other)
 }
 
 func (self *HTTPOrBuilder) MarshalJSON() ([]byte, error) {
-	return MarshalJSON(self)
+	return swaggering.MarshalJSON(self)
 }
 
 func (self *HTTPOrBuilder) FormatText() string {
-	return FormatText(self)
+	return swaggering.FormatText(self)
 }
 
 func (self *HTTPOrBuilder) FormatJSON() string {
-	return FormatJSON(self)
+	return swaggering.FormatJSON(self)
 }
 
 func (self *HTTPOrBuilder) FieldsPresent() []string {
-	return presenceFromMap(self.present)
+	return swaggering.PresenceFromMap(self.present)
 }
 
 func (self *HTTPOrBuilder) SetField(name string, value interface{}) error {
@@ -172,13 +187,21 @@ func (self *HTTPOrBuilder) ClearField(name string) error {
 }
 
 func (self *HTTPOrBuilder) LoadMap(from map[string]interface{}) error {
-	return loadMapIntoDTO(from, self)
+	return swaggering.LoadMapIntoDTO(from, self)
 }
 
 type HTTPOrBuilderList []*HTTPOrBuilder
 
+func (self *HTTPOrBuilderList) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*HTTPOrBuilderList); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A HTTPOrBuilder cannot absorb the values from %v", other)
+}
+
 func (list *HTTPOrBuilderList) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, list)
+	return swaggering.ReadPopulate(jsonReader, list)
 }
 
 func (list *HTTPOrBuilderList) FormatText() string {
@@ -191,5 +214,5 @@ func (list *HTTPOrBuilderList) FormatText() string {
 }
 
 func (list *HTTPOrBuilderList) FormatJSON() string {
-	return FormatJSON(list)
+	return swaggering.FormatJSON(list)
 }

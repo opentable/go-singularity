@@ -3,34 +3,48 @@ package dtos
 import (
 	"fmt"
 	"io"
+
+	"github.com/opentable/swaggering"
 )
 
 type SingularityRunNowRequest struct {
-	present          map[string]bool
-	CommandLineArgs  StringList `json:"commandLineArgs"`
-	Message          string     `json:"message,omitempty"`
-	RunId            string     `json:"runId,omitempty"`
-	SkipHealthchecks bool       `json:"skipHealthchecks"`
+	present map[string]bool
+
+	CommandLineArgs swaggering.StringList `json:"commandLineArgs"`
+
+	Message string `json:"message,omitempty"`
+
+	RunId string `json:"runId,omitempty"`
+
+	SkipHealthchecks bool `json:"skipHealthchecks"`
 }
 
 func (self *SingularityRunNowRequest) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, self)
+	return swaggering.ReadPopulate(jsonReader, self)
+}
+
+func (self *SingularityRunNowRequest) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*SingularityRunNowRequest); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A SingularityRunNowRequest cannot absorb the values from %v", other)
 }
 
 func (self *SingularityRunNowRequest) MarshalJSON() ([]byte, error) {
-	return MarshalJSON(self)
+	return swaggering.MarshalJSON(self)
 }
 
 func (self *SingularityRunNowRequest) FormatText() string {
-	return FormatText(self)
+	return swaggering.FormatText(self)
 }
 
 func (self *SingularityRunNowRequest) FormatJSON() string {
-	return FormatJSON(self)
+	return swaggering.FormatJSON(self)
 }
 
 func (self *SingularityRunNowRequest) FieldsPresent() []string {
-	return presenceFromMap(self.present)
+	return swaggering.PresenceFromMap(self.present)
 }
 
 func (self *SingularityRunNowRequest) SetField(name string, value interface{}) error {
@@ -42,7 +56,7 @@ func (self *SingularityRunNowRequest) SetField(name string, value interface{}) e
 		return fmt.Errorf("No such field %s on SingularityRunNowRequest", name)
 
 	case "commandLineArgs", "CommandLineArgs":
-		v, ok := value.(StringList)
+		v, ok := value.(swaggering.StringList)
 		if ok {
 			self.CommandLineArgs = v
 			self.present["commandLineArgs"] = true
@@ -150,13 +164,21 @@ func (self *SingularityRunNowRequest) ClearField(name string) error {
 }
 
 func (self *SingularityRunNowRequest) LoadMap(from map[string]interface{}) error {
-	return loadMapIntoDTO(from, self)
+	return swaggering.LoadMapIntoDTO(from, self)
 }
 
 type SingularityRunNowRequestList []*SingularityRunNowRequest
 
+func (self *SingularityRunNowRequestList) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*SingularityRunNowRequestList); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A SingularityRunNowRequest cannot absorb the values from %v", other)
+}
+
 func (list *SingularityRunNowRequestList) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, list)
+	return swaggering.ReadPopulate(jsonReader, list)
 }
 
 func (list *SingularityRunNowRequestList) FormatText() string {
@@ -169,5 +191,5 @@ func (list *SingularityRunNowRequestList) FormatText() string {
 }
 
 func (list *SingularityRunNowRequestList) FormatJSON() string {
-	return FormatJSON(list)
+	return swaggering.FormatJSON(list)
 }

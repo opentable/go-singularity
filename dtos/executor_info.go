@@ -3,56 +3,92 @@ package dtos
 import (
 	"fmt"
 	"io"
+
+	"github.com/opentable/swaggering"
 )
 
 type ExecutorInfo struct {
 	present map[string]bool
-	//	AllFields *Map[FieldDescriptor,Object] `json:"allFields"`
-	Command                   *CommandInfo            `json:"command"`
-	CommandOrBuilder          *CommandInfoOrBuilder   `json:"commandOrBuilder"`
-	Container                 *ContainerInfo          `json:"container"`
-	ContainerOrBuilder        *ContainerInfoOrBuilder `json:"containerOrBuilder"`
-	Data                      *ByteString             `json:"data"`
-	DefaultInstanceForType    *ExecutorInfo           `json:"defaultInstanceForType"`
-	DescriptorForType         *Descriptor             `json:"descriptorForType"`
-	Discovery                 *DiscoveryInfo          `json:"discovery"`
-	DiscoveryOrBuilder        *DiscoveryInfoOrBuilder `json:"discoveryOrBuilder"`
-	ExecutorId                *ExecutorID             `json:"executorId"`
-	ExecutorIdOrBuilder       *ExecutorIDOrBuilder    `json:"executorIdOrBuilder"`
-	FrameworkId               *FrameworkID            `json:"frameworkId"`
-	FrameworkIdOrBuilder      *FrameworkIDOrBuilder   `json:"frameworkIdOrBuilder"`
-	InitializationErrorString string                  `json:"initializationErrorString,omitempty"`
-	Initialized               bool                    `json:"initialized"`
-	Name                      string                  `json:"name,omitempty"`
-	NameBytes                 *ByteString             `json:"nameBytes"`
-	//	ParserForType *com.google.protobuf.Parser&lt;org.apache.mesos.Protos$ExecutorInfo&gt; `json:"parserForType"`
+
+	// AllFields *Map[FieldDescriptor,Object] `json:"allFields"`
+
+	Command *CommandInfo `json:"command"`
+
+	CommandOrBuilder *CommandInfoOrBuilder `json:"commandOrBuilder"`
+
+	Container *ContainerInfo `json:"container"`
+
+	ContainerOrBuilder *ContainerInfoOrBuilder `json:"containerOrBuilder"`
+
+	Data *ByteString `json:"data"`
+
+	DefaultInstanceForType *ExecutorInfo `json:"defaultInstanceForType"`
+
+	DescriptorForType *Descriptor `json:"descriptorForType"`
+
+	Discovery *DiscoveryInfo `json:"discovery"`
+
+	DiscoveryOrBuilder *DiscoveryInfoOrBuilder `json:"discoveryOrBuilder"`
+
+	ExecutorId *ExecutorID `json:"executorId"`
+
+	ExecutorIdOrBuilder *ExecutorIDOrBuilder `json:"executorIdOrBuilder"`
+
+	FrameworkId *FrameworkID `json:"frameworkId"`
+
+	FrameworkIdOrBuilder *FrameworkIDOrBuilder `json:"frameworkIdOrBuilder"`
+
+	InitializationErrorString string `json:"initializationErrorString,omitempty"`
+
+	Initialized bool `json:"initialized"`
+
+	Name string `json:"name,omitempty"`
+
+	NameBytes *ByteString `json:"nameBytes"`
+
+	// ParserForType *com.google.protobuf.Parser<org.apache.mesos.Protos$ExecutorInfo> `json:"parserForType"`
+
 	ResourcesCount int32 `json:"resourcesCount"`
-	//	ResourcesList *List[Resource] `json:"resourcesList"`
-	//	ResourcesOrBuilderList *List[? extends org.apache.mesos.Protos$ResourceOrBuilder] `json:"resourcesOrBuilderList"`
-	SerializedSize int32            `json:"serializedSize"`
-	Source         string           `json:"source,omitempty"`
-	SourceBytes    *ByteString      `json:"sourceBytes"`
-	UnknownFields  *UnknownFieldSet `json:"unknownFields"`
+
+	// ResourcesList *List[Resource] `json:"resourcesList"`
+
+	// ResourcesOrBuilderList *List[? extends org.apache.mesos.Protos$ResourceOrBuilder] `json:"resourcesOrBuilderList"`
+
+	SerializedSize int32 `json:"serializedSize"`
+
+	Source string `json:"source,omitempty"`
+
+	SourceBytes *ByteString `json:"sourceBytes"`
+
+	UnknownFields *UnknownFieldSet `json:"unknownFields"`
 }
 
 func (self *ExecutorInfo) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, self)
+	return swaggering.ReadPopulate(jsonReader, self)
+}
+
+func (self *ExecutorInfo) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*ExecutorInfo); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A ExecutorInfo cannot absorb the values from %v", other)
 }
 
 func (self *ExecutorInfo) MarshalJSON() ([]byte, error) {
-	return MarshalJSON(self)
+	return swaggering.MarshalJSON(self)
 }
 
 func (self *ExecutorInfo) FormatText() string {
-	return FormatText(self)
+	return swaggering.FormatText(self)
 }
 
 func (self *ExecutorInfo) FormatJSON() string {
-	return FormatJSON(self)
+	return swaggering.FormatJSON(self)
 }
 
 func (self *ExecutorInfo) FieldsPresent() []string {
-	return presenceFromMap(self.present)
+	return swaggering.PresenceFromMap(self.present)
 }
 
 func (self *ExecutorInfo) SetField(name string, value interface{}) error {
@@ -550,13 +586,21 @@ func (self *ExecutorInfo) ClearField(name string) error {
 }
 
 func (self *ExecutorInfo) LoadMap(from map[string]interface{}) error {
-	return loadMapIntoDTO(from, self)
+	return swaggering.LoadMapIntoDTO(from, self)
 }
 
 type ExecutorInfoList []*ExecutorInfo
 
+func (self *ExecutorInfoList) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*ExecutorInfoList); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A ExecutorInfo cannot absorb the values from %v", other)
+}
+
 func (list *ExecutorInfoList) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, list)
+	return swaggering.ReadPopulate(jsonReader, list)
 }
 
 func (list *ExecutorInfoList) FormatText() string {
@@ -569,5 +613,5 @@ func (list *ExecutorInfoList) FormatText() string {
 }
 
 func (list *ExecutorInfoList) FormatJSON() string {
-	return FormatJSON(list)
+	return swaggering.FormatJSON(list)
 }
