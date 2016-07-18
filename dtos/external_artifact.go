@@ -3,36 +3,52 @@ package dtos
 import (
 	"fmt"
 	"io"
+
+	"github.com/opentable/swaggering"
 )
 
 type ExternalArtifact struct {
-	present                    map[string]bool
-	Filename                   string `json:"filename,omitempty"`
-	Filesize                   int64  `json:"filesize"`
-	Md5sum                     string `json:"md5sum,omitempty"`
-	Name                       string `json:"name,omitempty"`
+	present map[string]bool
+
+	Filename string `json:"filename,omitempty"`
+
+	Filesize int64 `json:"filesize"`
+
+	Md5sum string `json:"md5sum,omitempty"`
+
+	Name string `json:"name,omitempty"`
+
 	TargetFolderRelativeToTask string `json:"targetFolderRelativeToTask,omitempty"`
-	Url                        string `json:"url,omitempty"`
+
+	Url string `json:"url,omitempty"`
 }
 
 func (self *ExternalArtifact) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, self)
+	return swaggering.ReadPopulate(jsonReader, self)
+}
+
+func (self *ExternalArtifact) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*ExternalArtifact); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A ExternalArtifact cannot absorb the values from %v", other)
 }
 
 func (self *ExternalArtifact) MarshalJSON() ([]byte, error) {
-	return MarshalJSON(self)
+	return swaggering.MarshalJSON(self)
 }
 
 func (self *ExternalArtifact) FormatText() string {
-	return FormatText(self)
+	return swaggering.FormatText(self)
 }
 
 func (self *ExternalArtifact) FormatJSON() string {
-	return FormatJSON(self)
+	return swaggering.FormatJSON(self)
 }
 
 func (self *ExternalArtifact) FieldsPresent() []string {
-	return presenceFromMap(self.present)
+	return swaggering.PresenceFromMap(self.present)
 }
 
 func (self *ExternalArtifact) SetField(name string, value interface{}) error {
@@ -194,13 +210,21 @@ func (self *ExternalArtifact) ClearField(name string) error {
 }
 
 func (self *ExternalArtifact) LoadMap(from map[string]interface{}) error {
-	return loadMapIntoDTO(from, self)
+	return swaggering.LoadMapIntoDTO(from, self)
 }
 
 type ExternalArtifactList []*ExternalArtifact
 
+func (self *ExternalArtifactList) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*ExternalArtifactList); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A ExternalArtifact cannot absorb the values from %v", other)
+}
+
 func (list *ExternalArtifactList) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, list)
+	return swaggering.ReadPopulate(jsonReader, list)
 }
 
 func (list *ExternalArtifactList) FormatText() string {
@@ -213,5 +237,5 @@ func (list *ExternalArtifactList) FormatText() string {
 }
 
 func (list *ExternalArtifactList) FormatJSON() string {
-	return FormatJSON(list)
+	return swaggering.FormatJSON(list)
 }

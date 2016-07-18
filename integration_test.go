@@ -6,7 +6,7 @@ import (
 	"testing"
 
 	"github.com/opentable/go-singularity"
-	"github.com/opentable/go-singularity/dtos"
+	"github.com/opentable/swaggering"
 	"github.com/opentable/test_with_docker"
 )
 
@@ -78,7 +78,7 @@ func TestGetRequests(t *testing.T) {
 	output("GetRequests", &obj, err)
 }
 
-func output(title string, thing dtos.DTO, err error) {
+func output(title string, thing swaggering.DTO, err error) {
 	if err != nil {
 		log.Panic(title, " ERR: ", err)
 	} else {

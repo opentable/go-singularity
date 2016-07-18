@@ -3,36 +3,52 @@ package dtos
 import (
 	"fmt"
 	"io"
+
+	"github.com/opentable/swaggering"
 )
 
 type SingularityPendingTask struct {
-	present          map[string]bool
-	CmdLineArgsList  StringList                `json:"cmdLineArgsList"`
-	Message          string                    `json:"message,omitempty"`
-	PendingTaskId    *SingularityPendingTaskId `json:"pendingTaskId"`
-	RunId            string                    `json:"runId,omitempty"`
-	SkipHealthchecks bool                      `json:"skipHealthchecks"`
-	User             string                    `json:"user,omitempty"`
+	present map[string]bool
+
+	CmdLineArgsList swaggering.StringList `json:"cmdLineArgsList"`
+
+	Message string `json:"message,omitempty"`
+
+	PendingTaskId *SingularityPendingTaskId `json:"pendingTaskId"`
+
+	RunId string `json:"runId,omitempty"`
+
+	SkipHealthchecks bool `json:"skipHealthchecks"`
+
+	User string `json:"user,omitempty"`
 }
 
 func (self *SingularityPendingTask) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, self)
+	return swaggering.ReadPopulate(jsonReader, self)
+}
+
+func (self *SingularityPendingTask) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*SingularityPendingTask); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A SingularityPendingTask cannot absorb the values from %v", other)
 }
 
 func (self *SingularityPendingTask) MarshalJSON() ([]byte, error) {
-	return MarshalJSON(self)
+	return swaggering.MarshalJSON(self)
 }
 
 func (self *SingularityPendingTask) FormatText() string {
-	return FormatText(self)
+	return swaggering.FormatText(self)
 }
 
 func (self *SingularityPendingTask) FormatJSON() string {
-	return FormatJSON(self)
+	return swaggering.FormatJSON(self)
 }
 
 func (self *SingularityPendingTask) FieldsPresent() []string {
-	return presenceFromMap(self.present)
+	return swaggering.PresenceFromMap(self.present)
 }
 
 func (self *SingularityPendingTask) SetField(name string, value interface{}) error {
@@ -44,7 +60,7 @@ func (self *SingularityPendingTask) SetField(name string, value interface{}) err
 		return fmt.Errorf("No such field %s on SingularityPendingTask", name)
 
 	case "cmdLineArgsList", "CmdLineArgsList":
-		v, ok := value.(StringList)
+		v, ok := value.(swaggering.StringList)
 		if ok {
 			self.CmdLineArgsList = v
 			self.present["cmdLineArgsList"] = true
@@ -194,13 +210,21 @@ func (self *SingularityPendingTask) ClearField(name string) error {
 }
 
 func (self *SingularityPendingTask) LoadMap(from map[string]interface{}) error {
-	return loadMapIntoDTO(from, self)
+	return swaggering.LoadMapIntoDTO(from, self)
 }
 
 type SingularityPendingTaskList []*SingularityPendingTask
 
+func (self *SingularityPendingTaskList) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*SingularityPendingTaskList); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A SingularityPendingTask cannot absorb the values from %v", other)
+}
+
 func (list *SingularityPendingTaskList) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, list)
+	return swaggering.ReadPopulate(jsonReader, list)
 }
 
 func (list *SingularityPendingTaskList) FormatText() string {
@@ -213,5 +237,5 @@ func (list *SingularityPendingTaskList) FormatText() string {
 }
 
 func (list *SingularityPendingTaskList) FormatJSON() string {
-	return FormatJSON(list)
+	return swaggering.FormatJSON(list)
 }

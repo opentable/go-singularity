@@ -3,64 +3,108 @@ package dtos
 import (
 	"fmt"
 	"io"
+
+	"github.com/opentable/swaggering"
 )
 
 type SingularityState struct {
-	present                    map[string]bool
-	ActiveRacks                int32                    `json:"activeRacks"`
-	ActiveRequests             int32                    `json:"activeRequests"`
-	ActiveSlaves               int32                    `json:"activeSlaves"`
-	ActiveTasks                int32                    `json:"activeTasks"`
-	AllRequests                int32                    `json:"allRequests"`
-	AuthDatastoreHealthy       bool                     `json:"authDatastoreHealthy"`
-	CleaningRequests           int32                    `json:"cleaningRequests"`
-	CleaningTasks              int32                    `json:"cleaningTasks"`
-	CooldownRequests           int32                    `json:"cooldownRequests"`
-	DeadRacks                  int32                    `json:"deadRacks"`
-	DeadSlaves                 int32                    `json:"deadSlaves"`
-	DecomissioningRacks        int32                    `json:"decomissioningRacks"`
-	DecomissioningSlaves       int32                    `json:"decomissioningSlaves"`
-	DecommissioningRacks       int32                    `json:"decommissioningRacks"`
-	DecommissioningSlaves      int32                    `json:"decommissioningSlaves"`
-	FinishedRequests           int32                    `json:"finishedRequests"`
-	FutureTasks                int32                    `json:"futureTasks"`
-	GeneratedAt                int64                    `json:"generatedAt"`
-	HostStates                 SingularityHostStateList `json:"hostStates"`
-	LateTasks                  int32                    `json:"lateTasks"`
-	LbCleanupRequests          int32                    `json:"lbCleanupRequests"`
-	LbCleanupTasks             int32                    `json:"lbCleanupTasks"`
-	MaxTaskLag                 int64                    `json:"maxTaskLag"`
-	NumDeploys                 int32                    `json:"numDeploys"`
-	OldestDeploy               int64                    `json:"oldestDeploy"`
-	OverProvisionedRequestIds  StringList               `json:"overProvisionedRequestIds"`
-	OverProvisionedRequests    int32                    `json:"overProvisionedRequests"`
-	PausedRequests             int32                    `json:"pausedRequests"`
-	PendingRequests            int32                    `json:"pendingRequests"`
-	ScheduledTasks             int32                    `json:"scheduledTasks"`
-	UnderProvisionedRequestIds StringList               `json:"underProvisionedRequestIds"`
-	UnderProvisionedRequests   int32                    `json:"underProvisionedRequests"`
-	UnknownRacks               int32                    `json:"unknownRacks"`
-	UnknownSlaves              int32                    `json:"unknownSlaves"`
+	present map[string]bool
+
+	ActiveRacks int32 `json:"activeRacks"`
+
+	ActiveRequests int32 `json:"activeRequests"`
+
+	ActiveSlaves int32 `json:"activeSlaves"`
+
+	ActiveTasks int32 `json:"activeTasks"`
+
+	AllRequests int32 `json:"allRequests"`
+
+	AuthDatastoreHealthy bool `json:"authDatastoreHealthy"`
+
+	CleaningRequests int32 `json:"cleaningRequests"`
+
+	CleaningTasks int32 `json:"cleaningTasks"`
+
+	CooldownRequests int32 `json:"cooldownRequests"`
+
+	DeadRacks int32 `json:"deadRacks"`
+
+	DeadSlaves int32 `json:"deadSlaves"`
+
+	DecomissioningRacks int32 `json:"decomissioningRacks"`
+
+	DecomissioningSlaves int32 `json:"decomissioningSlaves"`
+
+	DecommissioningRacks int32 `json:"decommissioningRacks"`
+
+	DecommissioningSlaves int32 `json:"decommissioningSlaves"`
+
+	FinishedRequests int32 `json:"finishedRequests"`
+
+	FutureTasks int32 `json:"futureTasks"`
+
+	GeneratedAt int64 `json:"generatedAt"`
+
+	HostStates SingularityHostStateList `json:"hostStates"`
+
+	LateTasks int32 `json:"lateTasks"`
+
+	LbCleanupRequests int32 `json:"lbCleanupRequests"`
+
+	LbCleanupTasks int32 `json:"lbCleanupTasks"`
+
+	MaxTaskLag int64 `json:"maxTaskLag"`
+
+	NumDeploys int32 `json:"numDeploys"`
+
+	OldestDeploy int64 `json:"oldestDeploy"`
+
+	OverProvisionedRequestIds swaggering.StringList `json:"overProvisionedRequestIds"`
+
+	OverProvisionedRequests int32 `json:"overProvisionedRequests"`
+
+	PausedRequests int32 `json:"pausedRequests"`
+
+	PendingRequests int32 `json:"pendingRequests"`
+
+	ScheduledTasks int32 `json:"scheduledTasks"`
+
+	UnderProvisionedRequestIds swaggering.StringList `json:"underProvisionedRequestIds"`
+
+	UnderProvisionedRequests int32 `json:"underProvisionedRequests"`
+
+	UnknownRacks int32 `json:"unknownRacks"`
+
+	UnknownSlaves int32 `json:"unknownSlaves"`
 }
 
 func (self *SingularityState) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, self)
+	return swaggering.ReadPopulate(jsonReader, self)
+}
+
+func (self *SingularityState) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*SingularityState); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A SingularityState cannot absorb the values from %v", other)
 }
 
 func (self *SingularityState) MarshalJSON() ([]byte, error) {
-	return MarshalJSON(self)
+	return swaggering.MarshalJSON(self)
 }
 
 func (self *SingularityState) FormatText() string {
-	return FormatText(self)
+	return swaggering.FormatText(self)
 }
 
 func (self *SingularityState) FormatJSON() string {
-	return FormatJSON(self)
+	return swaggering.FormatJSON(self)
 }
 
 func (self *SingularityState) FieldsPresent() []string {
-	return presenceFromMap(self.present)
+	return swaggering.PresenceFromMap(self.present)
 }
 
 func (self *SingularityState) SetField(name string, value interface{}) error {
@@ -322,7 +366,7 @@ func (self *SingularityState) SetField(name string, value interface{}) error {
 		}
 
 	case "overProvisionedRequestIds", "OverProvisionedRequestIds":
-		v, ok := value.(StringList)
+		v, ok := value.(swaggering.StringList)
 		if ok {
 			self.OverProvisionedRequestIds = v
 			self.present["overProvisionedRequestIds"] = true
@@ -372,7 +416,7 @@ func (self *SingularityState) SetField(name string, value interface{}) error {
 		}
 
 	case "underProvisionedRequestIds", "UnderProvisionedRequestIds":
-		v, ok := value.(StringList)
+		v, ok := value.(swaggering.StringList)
 		if ok {
 			self.UnderProvisionedRequestIds = v
 			self.present["underProvisionedRequestIds"] = true
@@ -810,13 +854,21 @@ func (self *SingularityState) ClearField(name string) error {
 }
 
 func (self *SingularityState) LoadMap(from map[string]interface{}) error {
-	return loadMapIntoDTO(from, self)
+	return swaggering.LoadMapIntoDTO(from, self)
 }
 
 type SingularityStateList []*SingularityState
 
+func (self *SingularityStateList) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*SingularityStateList); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A SingularityState cannot absorb the values from %v", other)
+}
+
 func (list *SingularityStateList) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, list)
+	return swaggering.ReadPopulate(jsonReader, list)
 }
 
 func (list *SingularityStateList) FormatText() string {
@@ -829,5 +881,5 @@ func (list *SingularityStateList) FormatText() string {
 }
 
 func (list *SingularityStateList) FormatJSON() string {
-	return FormatJSON(list)
+	return swaggering.FormatJSON(list)
 }

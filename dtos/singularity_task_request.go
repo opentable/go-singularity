@@ -3,33 +3,46 @@ package dtos
 import (
 	"fmt"
 	"io"
+
+	"github.com/opentable/swaggering"
 )
 
 type SingularityTaskRequest struct {
-	present     map[string]bool
-	Deploy      *SingularityDeploy      `json:"deploy"`
+	present map[string]bool
+
+	Deploy *SingularityDeploy `json:"deploy"`
+
 	PendingTask *SingularityPendingTask `json:"pendingTask"`
-	Request     *SingularityRequest     `json:"request"`
+
+	Request *SingularityRequest `json:"request"`
 }
 
 func (self *SingularityTaskRequest) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, self)
+	return swaggering.ReadPopulate(jsonReader, self)
+}
+
+func (self *SingularityTaskRequest) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*SingularityTaskRequest); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A SingularityTaskRequest cannot absorb the values from %v", other)
 }
 
 func (self *SingularityTaskRequest) MarshalJSON() ([]byte, error) {
-	return MarshalJSON(self)
+	return swaggering.MarshalJSON(self)
 }
 
 func (self *SingularityTaskRequest) FormatText() string {
-	return FormatText(self)
+	return swaggering.FormatText(self)
 }
 
 func (self *SingularityTaskRequest) FormatJSON() string {
-	return FormatJSON(self)
+	return swaggering.FormatJSON(self)
 }
 
 func (self *SingularityTaskRequest) FieldsPresent() []string {
-	return presenceFromMap(self.present)
+	return swaggering.PresenceFromMap(self.present)
 }
 
 func (self *SingularityTaskRequest) SetField(name string, value interface{}) error {
@@ -128,13 +141,21 @@ func (self *SingularityTaskRequest) ClearField(name string) error {
 }
 
 func (self *SingularityTaskRequest) LoadMap(from map[string]interface{}) error {
-	return loadMapIntoDTO(from, self)
+	return swaggering.LoadMapIntoDTO(from, self)
 }
 
 type SingularityTaskRequestList []*SingularityTaskRequest
 
+func (self *SingularityTaskRequestList) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*SingularityTaskRequestList); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A SingularityTaskRequest cannot absorb the values from %v", other)
+}
+
 func (list *SingularityTaskRequestList) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, list)
+	return swaggering.ReadPopulate(jsonReader, list)
 }
 
 func (list *SingularityTaskRequestList) FormatText() string {
@@ -147,5 +168,5 @@ func (list *SingularityTaskRequestList) FormatText() string {
 }
 
 func (list *SingularityTaskRequestList) FormatJSON() string {
-	return FormatJSON(list)
+	return swaggering.FormatJSON(list)
 }

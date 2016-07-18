@@ -3,33 +3,46 @@ package dtos
 import (
 	"fmt"
 	"io"
+
+	"github.com/opentable/swaggering"
 )
 
 type MesosFileChunkObject struct {
-	present    map[string]bool
-	Data       string `json:"data,omitempty"`
-	NextOffset int64  `json:"nextOffset"`
-	Offset     int64  `json:"offset"`
+	present map[string]bool
+
+	Data string `json:"data,omitempty"`
+
+	NextOffset int64 `json:"nextOffset"`
+
+	Offset int64 `json:"offset"`
 }
 
 func (self *MesosFileChunkObject) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, self)
+	return swaggering.ReadPopulate(jsonReader, self)
+}
+
+func (self *MesosFileChunkObject) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*MesosFileChunkObject); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A MesosFileChunkObject cannot absorb the values from %v", other)
 }
 
 func (self *MesosFileChunkObject) MarshalJSON() ([]byte, error) {
-	return MarshalJSON(self)
+	return swaggering.MarshalJSON(self)
 }
 
 func (self *MesosFileChunkObject) FormatText() string {
-	return FormatText(self)
+	return swaggering.FormatText(self)
 }
 
 func (self *MesosFileChunkObject) FormatJSON() string {
-	return FormatJSON(self)
+	return swaggering.FormatJSON(self)
 }
 
 func (self *MesosFileChunkObject) FieldsPresent() []string {
-	return presenceFromMap(self.present)
+	return swaggering.PresenceFromMap(self.present)
 }
 
 func (self *MesosFileChunkObject) SetField(name string, value interface{}) error {
@@ -128,13 +141,21 @@ func (self *MesosFileChunkObject) ClearField(name string) error {
 }
 
 func (self *MesosFileChunkObject) LoadMap(from map[string]interface{}) error {
-	return loadMapIntoDTO(from, self)
+	return swaggering.LoadMapIntoDTO(from, self)
 }
 
 type MesosFileChunkObjectList []*MesosFileChunkObject
 
+func (self *MesosFileChunkObjectList) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*MesosFileChunkObjectList); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A MesosFileChunkObject cannot absorb the values from %v", other)
+}
+
 func (list *MesosFileChunkObjectList) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, list)
+	return swaggering.ReadPopulate(jsonReader, list)
 }
 
 func (list *MesosFileChunkObjectList) FormatText() string {
@@ -147,5 +168,5 @@ func (list *MesosFileChunkObjectList) FormatText() string {
 }
 
 func (list *MesosFileChunkObjectList) FormatJSON() string {
-	return FormatJSON(list)
+	return swaggering.FormatJSON(list)
 }

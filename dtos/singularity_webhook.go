@@ -3,6 +3,8 @@ package dtos
 import (
 	"fmt"
 	"io"
+
+	"github.com/opentable/swaggering"
 )
 
 type SingularityWebhookWebhookType string
@@ -14,32 +16,45 @@ const (
 )
 
 type SingularityWebhook struct {
-	present   map[string]bool
-	Id        string                        `json:"id,omitempty"`
-	Timestamp int64                         `json:"timestamp"`
-	Type      SingularityWebhookWebhookType `json:"type"`
-	Uri       string                        `json:"uri,omitempty"`
-	User      string                        `json:"user,omitempty"`
+	present map[string]bool
+
+	Id string `json:"id,omitempty"`
+
+	Timestamp int64 `json:"timestamp"`
+
+	Type SingularityWebhookWebhookType `json:"type"`
+
+	Uri string `json:"uri,omitempty"`
+
+	User string `json:"user,omitempty"`
 }
 
 func (self *SingularityWebhook) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, self)
+	return swaggering.ReadPopulate(jsonReader, self)
+}
+
+func (self *SingularityWebhook) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*SingularityWebhook); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A SingularityWebhook cannot absorb the values from %v", other)
 }
 
 func (self *SingularityWebhook) MarshalJSON() ([]byte, error) {
-	return MarshalJSON(self)
+	return swaggering.MarshalJSON(self)
 }
 
 func (self *SingularityWebhook) FormatText() string {
-	return FormatText(self)
+	return swaggering.FormatText(self)
 }
 
 func (self *SingularityWebhook) FormatJSON() string {
-	return FormatJSON(self)
+	return swaggering.FormatJSON(self)
 }
 
 func (self *SingularityWebhook) FieldsPresent() []string {
-	return presenceFromMap(self.present)
+	return swaggering.PresenceFromMap(self.present)
 }
 
 func (self *SingularityWebhook) SetField(name string, value interface{}) error {
@@ -180,13 +195,21 @@ func (self *SingularityWebhook) ClearField(name string) error {
 }
 
 func (self *SingularityWebhook) LoadMap(from map[string]interface{}) error {
-	return loadMapIntoDTO(from, self)
+	return swaggering.LoadMapIntoDTO(from, self)
 }
 
 type SingularityWebhookList []*SingularityWebhook
 
+func (self *SingularityWebhookList) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*SingularityWebhookList); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A SingularityWebhook cannot absorb the values from %v", other)
+}
+
 func (list *SingularityWebhookList) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, list)
+	return swaggering.ReadPopulate(jsonReader, list)
 }
 
 func (list *SingularityWebhookList) FormatText() string {
@@ -199,5 +222,5 @@ func (list *SingularityWebhookList) FormatText() string {
 }
 
 func (list *SingularityWebhookList) FormatJSON() string {
-	return FormatJSON(list)
+	return swaggering.FormatJSON(list)
 }

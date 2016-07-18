@@ -3,32 +3,44 @@ package dtos
 import (
 	"fmt"
 	"io"
+
+	"github.com/opentable/swaggering"
 )
 
 type FrameworkIDOrBuilder struct {
-	present    map[string]bool
-	Value      string      `json:"value,omitempty"`
+	present map[string]bool
+
+	Value string `json:"value,omitempty"`
+
 	ValueBytes *ByteString `json:"valueBytes"`
 }
 
 func (self *FrameworkIDOrBuilder) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, self)
+	return swaggering.ReadPopulate(jsonReader, self)
+}
+
+func (self *FrameworkIDOrBuilder) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*FrameworkIDOrBuilder); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A FrameworkIDOrBuilder cannot absorb the values from %v", other)
 }
 
 func (self *FrameworkIDOrBuilder) MarshalJSON() ([]byte, error) {
-	return MarshalJSON(self)
+	return swaggering.MarshalJSON(self)
 }
 
 func (self *FrameworkIDOrBuilder) FormatText() string {
-	return FormatText(self)
+	return swaggering.FormatText(self)
 }
 
 func (self *FrameworkIDOrBuilder) FormatJSON() string {
-	return FormatJSON(self)
+	return swaggering.FormatJSON(self)
 }
 
 func (self *FrameworkIDOrBuilder) FieldsPresent() []string {
-	return presenceFromMap(self.present)
+	return swaggering.PresenceFromMap(self.present)
 }
 
 func (self *FrameworkIDOrBuilder) SetField(name string, value interface{}) error {
@@ -106,13 +118,21 @@ func (self *FrameworkIDOrBuilder) ClearField(name string) error {
 }
 
 func (self *FrameworkIDOrBuilder) LoadMap(from map[string]interface{}) error {
-	return loadMapIntoDTO(from, self)
+	return swaggering.LoadMapIntoDTO(from, self)
 }
 
 type FrameworkIDOrBuilderList []*FrameworkIDOrBuilder
 
+func (self *FrameworkIDOrBuilderList) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*FrameworkIDOrBuilderList); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A FrameworkIDOrBuilder cannot absorb the values from %v", other)
+}
+
 func (list *FrameworkIDOrBuilderList) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, list)
+	return swaggering.ReadPopulate(jsonReader, list)
 }
 
 func (list *FrameworkIDOrBuilderList) FormatText() string {
@@ -125,5 +145,5 @@ func (list *FrameworkIDOrBuilderList) FormatText() string {
 }
 
 func (list *FrameworkIDOrBuilderList) FormatJSON() string {
-	return FormatJSON(list)
+	return swaggering.FormatJSON(list)
 }

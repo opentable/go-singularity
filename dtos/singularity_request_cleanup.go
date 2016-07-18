@@ -3,6 +3,8 @@ package dtos
 import (
 	"fmt"
 	"io"
+
+	"github.com/opentable/swaggering"
 )
 
 type SingularityRequestCleanupRequestCleanupType string
@@ -15,36 +17,53 @@ const (
 )
 
 type SingularityRequestCleanup struct {
-	present          map[string]bool
-	ActionId         string                                      `json:"actionId,omitempty"`
-	CleanupType      SingularityRequestCleanupRequestCleanupType `json:"cleanupType"`
-	DeployId         string                                      `json:"deployId,omitempty"`
-	KillTasks        bool                                        `json:"killTasks"`
-	Message          string                                      `json:"message,omitempty"`
-	RequestId        string                                      `json:"requestId,omitempty"`
-	SkipHealthchecks bool                                        `json:"skipHealthchecks"`
-	Timestamp        int64                                       `json:"timestamp"`
-	User             string                                      `json:"user,omitempty"`
+	present map[string]bool
+
+	ActionId string `json:"actionId,omitempty"`
+
+	CleanupType SingularityRequestCleanupRequestCleanupType `json:"cleanupType"`
+
+	DeployId string `json:"deployId,omitempty"`
+
+	KillTasks bool `json:"killTasks"`
+
+	Message string `json:"message,omitempty"`
+
+	RequestId string `json:"requestId,omitempty"`
+
+	SkipHealthchecks bool `json:"skipHealthchecks"`
+
+	Timestamp int64 `json:"timestamp"`
+
+	User string `json:"user,omitempty"`
 }
 
 func (self *SingularityRequestCleanup) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, self)
+	return swaggering.ReadPopulate(jsonReader, self)
+}
+
+func (self *SingularityRequestCleanup) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*SingularityRequestCleanup); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A SingularityRequestCleanup cannot absorb the values from %v", other)
 }
 
 func (self *SingularityRequestCleanup) MarshalJSON() ([]byte, error) {
-	return MarshalJSON(self)
+	return swaggering.MarshalJSON(self)
 }
 
 func (self *SingularityRequestCleanup) FormatText() string {
-	return FormatText(self)
+	return swaggering.FormatText(self)
 }
 
 func (self *SingularityRequestCleanup) FormatJSON() string {
-	return FormatJSON(self)
+	return swaggering.FormatJSON(self)
 }
 
 func (self *SingularityRequestCleanup) FieldsPresent() []string {
-	return presenceFromMap(self.present)
+	return swaggering.PresenceFromMap(self.present)
 }
 
 func (self *SingularityRequestCleanup) SetField(name string, value interface{}) error {
@@ -269,13 +288,21 @@ func (self *SingularityRequestCleanup) ClearField(name string) error {
 }
 
 func (self *SingularityRequestCleanup) LoadMap(from map[string]interface{}) error {
-	return loadMapIntoDTO(from, self)
+	return swaggering.LoadMapIntoDTO(from, self)
 }
 
 type SingularityRequestCleanupList []*SingularityRequestCleanup
 
+func (self *SingularityRequestCleanupList) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*SingularityRequestCleanupList); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A SingularityRequestCleanup cannot absorb the values from %v", other)
+}
+
 func (list *SingularityRequestCleanupList) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, list)
+	return swaggering.ReadPopulate(jsonReader, list)
 }
 
 func (list *SingularityRequestCleanupList) FormatText() string {
@@ -288,5 +315,5 @@ func (list *SingularityRequestCleanupList) FormatText() string {
 }
 
 func (list *SingularityRequestCleanupList) FormatJSON() string {
-	return FormatJSON(list)
+	return swaggering.FormatJSON(list)
 }

@@ -3,6 +3,8 @@ package dtos
 import (
 	"fmt"
 	"io"
+
+	"github.com/opentable/swaggering"
 )
 
 type ContainerInfoOrBuilderType string
@@ -13,36 +15,52 @@ const (
 )
 
 type ContainerInfoOrBuilder struct {
-	present         map[string]bool
-	Docker          *DockerInfo                `json:"docker"`
-	DockerOrBuilder *DockerInfoOrBuilder       `json:"dockerOrBuilder"`
-	Hostname        string                     `json:"hostname,omitempty"`
-	HostnameBytes   *ByteString                `json:"hostnameBytes"`
-	Type            ContainerInfoOrBuilderType `json:"type"`
-	VolumesCount    int32                      `json:"volumesCount"`
-	//	VolumesList *List[Volume] `json:"volumesList"`
-	//	VolumesOrBuilderList *List[? extends org.apache.mesos.Protos$VolumeOrBuilder] `json:"volumesOrBuilderList"`
+	present map[string]bool
+
+	Docker *DockerInfo `json:"docker"`
+
+	DockerOrBuilder *DockerInfoOrBuilder `json:"dockerOrBuilder"`
+
+	Hostname string `json:"hostname,omitempty"`
+
+	HostnameBytes *ByteString `json:"hostnameBytes"`
+
+	Type ContainerInfoOrBuilderType `json:"type"`
+
+	VolumesCount int32 `json:"volumesCount"`
+
+	// VolumesList *List[Volume] `json:"volumesList"`
+
+	// VolumesOrBuilderList *List[? extends org.apache.mesos.Protos$VolumeOrBuilder] `json:"volumesOrBuilderList"`
 
 }
 
 func (self *ContainerInfoOrBuilder) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, self)
+	return swaggering.ReadPopulate(jsonReader, self)
+}
+
+func (self *ContainerInfoOrBuilder) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*ContainerInfoOrBuilder); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A ContainerInfoOrBuilder cannot absorb the values from %v", other)
 }
 
 func (self *ContainerInfoOrBuilder) MarshalJSON() ([]byte, error) {
-	return MarshalJSON(self)
+	return swaggering.MarshalJSON(self)
 }
 
 func (self *ContainerInfoOrBuilder) FormatText() string {
-	return FormatText(self)
+	return swaggering.FormatText(self)
 }
 
 func (self *ContainerInfoOrBuilder) FormatJSON() string {
-	return FormatJSON(self)
+	return swaggering.FormatJSON(self)
 }
 
 func (self *ContainerInfoOrBuilder) FieldsPresent() []string {
-	return presenceFromMap(self.present)
+	return swaggering.PresenceFromMap(self.present)
 }
 
 func (self *ContainerInfoOrBuilder) SetField(name string, value interface{}) error {
@@ -204,13 +222,21 @@ func (self *ContainerInfoOrBuilder) ClearField(name string) error {
 }
 
 func (self *ContainerInfoOrBuilder) LoadMap(from map[string]interface{}) error {
-	return loadMapIntoDTO(from, self)
+	return swaggering.LoadMapIntoDTO(from, self)
 }
 
 type ContainerInfoOrBuilderList []*ContainerInfoOrBuilder
 
+func (self *ContainerInfoOrBuilderList) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*ContainerInfoOrBuilderList); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A ContainerInfoOrBuilder cannot absorb the values from %v", other)
+}
+
 func (list *ContainerInfoOrBuilderList) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, list)
+	return swaggering.ReadPopulate(jsonReader, list)
 }
 
 func (list *ContainerInfoOrBuilderList) FormatText() string {
@@ -223,5 +249,5 @@ func (list *ContainerInfoOrBuilderList) FormatText() string {
 }
 
 func (list *ContainerInfoOrBuilderList) FormatJSON() string {
-	return FormatJSON(list)
+	return swaggering.FormatJSON(list)
 }

@@ -3,6 +3,8 @@ package dtos
 import (
 	"fmt"
 	"io"
+
+	"github.com/opentable/swaggering"
 )
 
 type LoadBalancerRequestIdLoadBalancerRequestType string
@@ -15,30 +17,41 @@ const (
 )
 
 type LoadBalancerRequestId struct {
-	present       map[string]bool
-	AttemptNumber int32                                        `json:"attemptNumber"`
-	Id            string                                       `json:"id,omitempty"`
-	RequestType   LoadBalancerRequestIdLoadBalancerRequestType `json:"requestType"`
+	present map[string]bool
+
+	AttemptNumber int32 `json:"attemptNumber"`
+
+	Id string `json:"id,omitempty"`
+
+	RequestType LoadBalancerRequestIdLoadBalancerRequestType `json:"requestType"`
 }
 
 func (self *LoadBalancerRequestId) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, self)
+	return swaggering.ReadPopulate(jsonReader, self)
+}
+
+func (self *LoadBalancerRequestId) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*LoadBalancerRequestId); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A LoadBalancerRequestId cannot absorb the values from %v", other)
 }
 
 func (self *LoadBalancerRequestId) MarshalJSON() ([]byte, error) {
-	return MarshalJSON(self)
+	return swaggering.MarshalJSON(self)
 }
 
 func (self *LoadBalancerRequestId) FormatText() string {
-	return FormatText(self)
+	return swaggering.FormatText(self)
 }
 
 func (self *LoadBalancerRequestId) FormatJSON() string {
-	return FormatJSON(self)
+	return swaggering.FormatJSON(self)
 }
 
 func (self *LoadBalancerRequestId) FieldsPresent() []string {
-	return presenceFromMap(self.present)
+	return swaggering.PresenceFromMap(self.present)
 }
 
 func (self *LoadBalancerRequestId) SetField(name string, value interface{}) error {
@@ -137,13 +150,21 @@ func (self *LoadBalancerRequestId) ClearField(name string) error {
 }
 
 func (self *LoadBalancerRequestId) LoadMap(from map[string]interface{}) error {
-	return loadMapIntoDTO(from, self)
+	return swaggering.LoadMapIntoDTO(from, self)
 }
 
 type LoadBalancerRequestIdList []*LoadBalancerRequestId
 
+func (self *LoadBalancerRequestIdList) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*LoadBalancerRequestIdList); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A LoadBalancerRequestId cannot absorb the values from %v", other)
+}
+
 func (list *LoadBalancerRequestIdList) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, list)
+	return swaggering.ReadPopulate(jsonReader, list)
 }
 
 func (list *LoadBalancerRequestIdList) FormatText() string {
@@ -156,5 +177,5 @@ func (list *LoadBalancerRequestIdList) FormatText() string {
 }
 
 func (list *LoadBalancerRequestIdList) FormatJSON() string {
-	return FormatJSON(list)
+	return swaggering.FormatJSON(list)
 }

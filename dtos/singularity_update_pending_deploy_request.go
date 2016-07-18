@@ -3,33 +3,46 @@ package dtos
 import (
 	"fmt"
 	"io"
+
+	"github.com/opentable/swaggering"
 )
 
 type SingularityUpdatePendingDeployRequest struct {
-	present               map[string]bool
-	DeployId              string `json:"deployId,omitempty"`
-	RequestId             string `json:"requestId,omitempty"`
-	TargetActiveInstances int32  `json:"targetActiveInstances"`
+	present map[string]bool
+
+	DeployId string `json:"deployId,omitempty"`
+
+	RequestId string `json:"requestId,omitempty"`
+
+	TargetActiveInstances int32 `json:"targetActiveInstances"`
 }
 
 func (self *SingularityUpdatePendingDeployRequest) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, self)
+	return swaggering.ReadPopulate(jsonReader, self)
+}
+
+func (self *SingularityUpdatePendingDeployRequest) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*SingularityUpdatePendingDeployRequest); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A SingularityUpdatePendingDeployRequest cannot absorb the values from %v", other)
 }
 
 func (self *SingularityUpdatePendingDeployRequest) MarshalJSON() ([]byte, error) {
-	return MarshalJSON(self)
+	return swaggering.MarshalJSON(self)
 }
 
 func (self *SingularityUpdatePendingDeployRequest) FormatText() string {
-	return FormatText(self)
+	return swaggering.FormatText(self)
 }
 
 func (self *SingularityUpdatePendingDeployRequest) FormatJSON() string {
-	return FormatJSON(self)
+	return swaggering.FormatJSON(self)
 }
 
 func (self *SingularityUpdatePendingDeployRequest) FieldsPresent() []string {
-	return presenceFromMap(self.present)
+	return swaggering.PresenceFromMap(self.present)
 }
 
 func (self *SingularityUpdatePendingDeployRequest) SetField(name string, value interface{}) error {
@@ -128,13 +141,21 @@ func (self *SingularityUpdatePendingDeployRequest) ClearField(name string) error
 }
 
 func (self *SingularityUpdatePendingDeployRequest) LoadMap(from map[string]interface{}) error {
-	return loadMapIntoDTO(from, self)
+	return swaggering.LoadMapIntoDTO(from, self)
 }
 
 type SingularityUpdatePendingDeployRequestList []*SingularityUpdatePendingDeployRequest
 
+func (self *SingularityUpdatePendingDeployRequestList) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*SingularityUpdatePendingDeployRequestList); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A SingularityUpdatePendingDeployRequest cannot absorb the values from %v", other)
+}
+
 func (list *SingularityUpdatePendingDeployRequestList) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, list)
+	return swaggering.ReadPopulate(jsonReader, list)
 }
 
 func (list *SingularityUpdatePendingDeployRequestList) FormatText() string {
@@ -147,5 +168,5 @@ func (list *SingularityUpdatePendingDeployRequestList) FormatText() string {
 }
 
 func (list *SingularityUpdatePendingDeployRequestList) FormatJSON() string {
-	return FormatJSON(list)
+	return swaggering.FormatJSON(list)
 }

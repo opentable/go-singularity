@@ -3,36 +3,52 @@ package dtos
 import (
 	"fmt"
 	"io"
+
+	"github.com/opentable/swaggering"
 )
 
 type SingularityKilledTaskIdRecord struct {
-	present           map[string]bool
+	present map[string]bool
+
 	OriginalTimestamp int64 `json:"originalTimestamp"`
-	//	RequestCleanupType *RequestCleanupType `json:"requestCleanupType"`
+
+	// RequestCleanupType *RequestCleanupType `json:"requestCleanupType"`
+
 	Retries int32 `json:"retries"`
-	//	TaskCleanupType *TaskCleanupType `json:"taskCleanupType"`
-	TaskId    *SingularityTaskId `json:"taskId"`
-	Timestamp int64              `json:"timestamp"`
+
+	// TaskCleanupType *TaskCleanupType `json:"taskCleanupType"`
+
+	TaskId *SingularityTaskId `json:"taskId"`
+
+	Timestamp int64 `json:"timestamp"`
 }
 
 func (self *SingularityKilledTaskIdRecord) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, self)
+	return swaggering.ReadPopulate(jsonReader, self)
+}
+
+func (self *SingularityKilledTaskIdRecord) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*SingularityKilledTaskIdRecord); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A SingularityKilledTaskIdRecord cannot absorb the values from %v", other)
 }
 
 func (self *SingularityKilledTaskIdRecord) MarshalJSON() ([]byte, error) {
-	return MarshalJSON(self)
+	return swaggering.MarshalJSON(self)
 }
 
 func (self *SingularityKilledTaskIdRecord) FormatText() string {
-	return FormatText(self)
+	return swaggering.FormatText(self)
 }
 
 func (self *SingularityKilledTaskIdRecord) FormatJSON() string {
-	return FormatJSON(self)
+	return swaggering.FormatJSON(self)
 }
 
 func (self *SingularityKilledTaskIdRecord) FieldsPresent() []string {
-	return presenceFromMap(self.present)
+	return swaggering.PresenceFromMap(self.present)
 }
 
 func (self *SingularityKilledTaskIdRecord) SetField(name string, value interface{}) error {
@@ -152,13 +168,21 @@ func (self *SingularityKilledTaskIdRecord) ClearField(name string) error {
 }
 
 func (self *SingularityKilledTaskIdRecord) LoadMap(from map[string]interface{}) error {
-	return loadMapIntoDTO(from, self)
+	return swaggering.LoadMapIntoDTO(from, self)
 }
 
 type SingularityKilledTaskIdRecordList []*SingularityKilledTaskIdRecord
 
+func (self *SingularityKilledTaskIdRecordList) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*SingularityKilledTaskIdRecordList); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A SingularityKilledTaskIdRecord cannot absorb the values from %v", other)
+}
+
 func (list *SingularityKilledTaskIdRecordList) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, list)
+	return swaggering.ReadPopulate(jsonReader, list)
 }
 
 func (list *SingularityKilledTaskIdRecordList) FormatText() string {
@@ -171,5 +195,5 @@ func (list *SingularityKilledTaskIdRecordList) FormatText() string {
 }
 
 func (list *SingularityKilledTaskIdRecordList) FormatJSON() string {
-	return FormatJSON(list)
+	return swaggering.FormatJSON(list)
 }

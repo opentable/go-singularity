@@ -3,34 +3,48 @@ package dtos
 import (
 	"fmt"
 	"io"
+
+	"github.com/opentable/swaggering"
 )
 
 type SingularityTaskIdHistory struct {
 	present map[string]bool
-	//	LastTaskState *ExtendedTaskState `json:"lastTaskState"`
-	RunId     string             `json:"runId,omitempty"`
-	TaskId    *SingularityTaskId `json:"taskId"`
-	UpdatedAt int64              `json:"updatedAt"`
+
+	// LastTaskState *ExtendedTaskState `json:"lastTaskState"`
+
+	RunId string `json:"runId,omitempty"`
+
+	TaskId *SingularityTaskId `json:"taskId"`
+
+	UpdatedAt int64 `json:"updatedAt"`
 }
 
 func (self *SingularityTaskIdHistory) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, self)
+	return swaggering.ReadPopulate(jsonReader, self)
+}
+
+func (self *SingularityTaskIdHistory) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*SingularityTaskIdHistory); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A SingularityTaskIdHistory cannot absorb the values from %v", other)
 }
 
 func (self *SingularityTaskIdHistory) MarshalJSON() ([]byte, error) {
-	return MarshalJSON(self)
+	return swaggering.MarshalJSON(self)
 }
 
 func (self *SingularityTaskIdHistory) FormatText() string {
-	return FormatText(self)
+	return swaggering.FormatText(self)
 }
 
 func (self *SingularityTaskIdHistory) FormatJSON() string {
-	return FormatJSON(self)
+	return swaggering.FormatJSON(self)
 }
 
 func (self *SingularityTaskIdHistory) FieldsPresent() []string {
-	return presenceFromMap(self.present)
+	return swaggering.PresenceFromMap(self.present)
 }
 
 func (self *SingularityTaskIdHistory) SetField(name string, value interface{}) error {
@@ -129,13 +143,21 @@ func (self *SingularityTaskIdHistory) ClearField(name string) error {
 }
 
 func (self *SingularityTaskIdHistory) LoadMap(from map[string]interface{}) error {
-	return loadMapIntoDTO(from, self)
+	return swaggering.LoadMapIntoDTO(from, self)
 }
 
 type SingularityTaskIdHistoryList []*SingularityTaskIdHistory
 
+func (self *SingularityTaskIdHistoryList) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*SingularityTaskIdHistoryList); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A SingularityTaskIdHistory cannot absorb the values from %v", other)
+}
+
 func (list *SingularityTaskIdHistoryList) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, list)
+	return swaggering.ReadPopulate(jsonReader, list)
 }
 
 func (list *SingularityTaskIdHistoryList) FormatText() string {
@@ -148,5 +170,5 @@ func (list *SingularityTaskIdHistoryList) FormatText() string {
 }
 
 func (list *SingularityTaskIdHistoryList) FormatJSON() string {
-	return FormatJSON(list)
+	return swaggering.FormatJSON(list)
 }

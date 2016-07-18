@@ -3,40 +3,60 @@ package dtos
 import (
 	"fmt"
 	"io"
+
+	"github.com/opentable/swaggering"
 )
 
 type FrameworkID struct {
 	present map[string]bool
-	//	AllFields *Map[FieldDescriptor,Object] `json:"allFields"`
-	DefaultInstanceForType    *FrameworkID `json:"defaultInstanceForType"`
-	DescriptorForType         *Descriptor  `json:"descriptorForType"`
-	InitializationErrorString string       `json:"initializationErrorString,omitempty"`
-	Initialized               bool         `json:"initialized"`
-	//	ParserForType *com.google.protobuf.Parser&lt;org.apache.mesos.Protos$FrameworkID&gt; `json:"parserForType"`
-	SerializedSize int32            `json:"serializedSize"`
-	UnknownFields  *UnknownFieldSet `json:"unknownFields"`
-	Value          string           `json:"value,omitempty"`
-	ValueBytes     *ByteString      `json:"valueBytes"`
+
+	// AllFields *Map[FieldDescriptor,Object] `json:"allFields"`
+
+	DefaultInstanceForType *FrameworkID `json:"defaultInstanceForType"`
+
+	DescriptorForType *Descriptor `json:"descriptorForType"`
+
+	InitializationErrorString string `json:"initializationErrorString,omitempty"`
+
+	Initialized bool `json:"initialized"`
+
+	// ParserForType *com.google.protobuf.Parser<org.apache.mesos.Protos$FrameworkID> `json:"parserForType"`
+
+	SerializedSize int32 `json:"serializedSize"`
+
+	UnknownFields *UnknownFieldSet `json:"unknownFields"`
+
+	Value string `json:"value,omitempty"`
+
+	ValueBytes *ByteString `json:"valueBytes"`
 }
 
 func (self *FrameworkID) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, self)
+	return swaggering.ReadPopulate(jsonReader, self)
+}
+
+func (self *FrameworkID) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*FrameworkID); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A FrameworkID cannot absorb the values from %v", other)
 }
 
 func (self *FrameworkID) MarshalJSON() ([]byte, error) {
-	return MarshalJSON(self)
+	return swaggering.MarshalJSON(self)
 }
 
 func (self *FrameworkID) FormatText() string {
-	return FormatText(self)
+	return swaggering.FormatText(self)
 }
 
 func (self *FrameworkID) FormatJSON() string {
-	return FormatJSON(self)
+	return swaggering.FormatJSON(self)
 }
 
 func (self *FrameworkID) FieldsPresent() []string {
-	return presenceFromMap(self.present)
+	return swaggering.PresenceFromMap(self.present)
 }
 
 func (self *FrameworkID) SetField(name string, value interface{}) error {
@@ -240,13 +260,21 @@ func (self *FrameworkID) ClearField(name string) error {
 }
 
 func (self *FrameworkID) LoadMap(from map[string]interface{}) error {
-	return loadMapIntoDTO(from, self)
+	return swaggering.LoadMapIntoDTO(from, self)
 }
 
 type FrameworkIDList []*FrameworkID
 
+func (self *FrameworkIDList) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*FrameworkIDList); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A FrameworkID cannot absorb the values from %v", other)
+}
+
 func (list *FrameworkIDList) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, list)
+	return swaggering.ReadPopulate(jsonReader, list)
 }
 
 func (list *FrameworkIDList) FormatText() string {
@@ -259,5 +287,5 @@ func (list *FrameworkIDList) FormatText() string {
 }
 
 func (list *FrameworkIDList) FormatJSON() string {
-	return FormatJSON(list)
+	return swaggering.FormatJSON(list)
 }

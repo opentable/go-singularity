@@ -3,40 +3,60 @@ package dtos
 import (
 	"fmt"
 	"io"
+
+	"github.com/opentable/swaggering"
 )
 
 type OfferID struct {
 	present map[string]bool
-	//	AllFields *Map[FieldDescriptor,Object] `json:"allFields"`
-	DefaultInstanceForType    *OfferID    `json:"defaultInstanceForType"`
-	DescriptorForType         *Descriptor `json:"descriptorForType"`
-	InitializationErrorString string      `json:"initializationErrorString,omitempty"`
-	Initialized               bool        `json:"initialized"`
-	//	ParserForType *com.google.protobuf.Parser&lt;org.apache.mesos.Protos$OfferID&gt; `json:"parserForType"`
-	SerializedSize int32            `json:"serializedSize"`
-	UnknownFields  *UnknownFieldSet `json:"unknownFields"`
-	Value          string           `json:"value,omitempty"`
-	ValueBytes     *ByteString      `json:"valueBytes"`
+
+	// AllFields *Map[FieldDescriptor,Object] `json:"allFields"`
+
+	DefaultInstanceForType *OfferID `json:"defaultInstanceForType"`
+
+	DescriptorForType *Descriptor `json:"descriptorForType"`
+
+	InitializationErrorString string `json:"initializationErrorString,omitempty"`
+
+	Initialized bool `json:"initialized"`
+
+	// ParserForType *com.google.protobuf.Parser<org.apache.mesos.Protos$OfferID> `json:"parserForType"`
+
+	SerializedSize int32 `json:"serializedSize"`
+
+	UnknownFields *UnknownFieldSet `json:"unknownFields"`
+
+	Value string `json:"value,omitempty"`
+
+	ValueBytes *ByteString `json:"valueBytes"`
 }
 
 func (self *OfferID) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, self)
+	return swaggering.ReadPopulate(jsonReader, self)
+}
+
+func (self *OfferID) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*OfferID); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A OfferID cannot absorb the values from %v", other)
 }
 
 func (self *OfferID) MarshalJSON() ([]byte, error) {
-	return MarshalJSON(self)
+	return swaggering.MarshalJSON(self)
 }
 
 func (self *OfferID) FormatText() string {
-	return FormatText(self)
+	return swaggering.FormatText(self)
 }
 
 func (self *OfferID) FormatJSON() string {
-	return FormatJSON(self)
+	return swaggering.FormatJSON(self)
 }
 
 func (self *OfferID) FieldsPresent() []string {
-	return presenceFromMap(self.present)
+	return swaggering.PresenceFromMap(self.present)
 }
 
 func (self *OfferID) SetField(name string, value interface{}) error {
@@ -240,13 +260,21 @@ func (self *OfferID) ClearField(name string) error {
 }
 
 func (self *OfferID) LoadMap(from map[string]interface{}) error {
-	return loadMapIntoDTO(from, self)
+	return swaggering.LoadMapIntoDTO(from, self)
 }
 
 type OfferIDList []*OfferID
 
+func (self *OfferIDList) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*OfferIDList); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A OfferID cannot absorb the values from %v", other)
+}
+
 func (list *OfferIDList) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, list)
+	return swaggering.ReadPopulate(jsonReader, list)
 }
 
 func (list *OfferIDList) FormatText() string {
@@ -259,5 +287,5 @@ func (list *OfferIDList) FormatText() string {
 }
 
 func (list *OfferIDList) FormatJSON() string {
-	return FormatJSON(list)
+	return swaggering.FormatJSON(list)
 }

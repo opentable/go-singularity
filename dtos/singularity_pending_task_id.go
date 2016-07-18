@@ -3,6 +3,8 @@ package dtos
 import (
 	"fmt"
 	"io"
+
+	"github.com/opentable/swaggering"
 )
 
 type SingularityPendingTaskIdPendingType string
@@ -25,34 +27,49 @@ const (
 )
 
 type SingularityPendingTaskId struct {
-	present     map[string]bool
-	CreatedAt   int64                               `json:"createdAt"`
-	DeployId    string                              `json:"deployId,omitempty"`
-	Id          string                              `json:"id,omitempty"`
-	InstanceNo  int32                               `json:"instanceNo"`
-	NextRunAt   int64                               `json:"nextRunAt"`
+	present map[string]bool
+
+	CreatedAt int64 `json:"createdAt"`
+
+	DeployId string `json:"deployId,omitempty"`
+
+	Id string `json:"id,omitempty"`
+
+	InstanceNo int32 `json:"instanceNo"`
+
+	NextRunAt int64 `json:"nextRunAt"`
+
 	PendingType SingularityPendingTaskIdPendingType `json:"pendingType"`
-	RequestId   string                              `json:"requestId,omitempty"`
+
+	RequestId string `json:"requestId,omitempty"`
 }
 
 func (self *SingularityPendingTaskId) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, self)
+	return swaggering.ReadPopulate(jsonReader, self)
+}
+
+func (self *SingularityPendingTaskId) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*SingularityPendingTaskId); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A SingularityPendingTaskId cannot absorb the values from %v", other)
 }
 
 func (self *SingularityPendingTaskId) MarshalJSON() ([]byte, error) {
-	return MarshalJSON(self)
+	return swaggering.MarshalJSON(self)
 }
 
 func (self *SingularityPendingTaskId) FormatText() string {
-	return FormatText(self)
+	return swaggering.FormatText(self)
 }
 
 func (self *SingularityPendingTaskId) FormatJSON() string {
-	return FormatJSON(self)
+	return swaggering.FormatJSON(self)
 }
 
 func (self *SingularityPendingTaskId) FieldsPresent() []string {
-	return presenceFromMap(self.present)
+	return swaggering.PresenceFromMap(self.present)
 }
 
 func (self *SingularityPendingTaskId) SetField(name string, value interface{}) error {
@@ -235,13 +252,21 @@ func (self *SingularityPendingTaskId) ClearField(name string) error {
 }
 
 func (self *SingularityPendingTaskId) LoadMap(from map[string]interface{}) error {
-	return loadMapIntoDTO(from, self)
+	return swaggering.LoadMapIntoDTO(from, self)
 }
 
 type SingularityPendingTaskIdList []*SingularityPendingTaskId
 
+func (self *SingularityPendingTaskIdList) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*SingularityPendingTaskIdList); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A SingularityPendingTaskId cannot absorb the values from %v", other)
+}
+
 func (list *SingularityPendingTaskIdList) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, list)
+	return swaggering.ReadPopulate(jsonReader, list)
 }
 
 func (list *SingularityPendingTaskIdList) FormatText() string {
@@ -254,5 +279,5 @@ func (list *SingularityPendingTaskIdList) FormatText() string {
 }
 
 func (list *SingularityPendingTaskIdList) FormatJSON() string {
-	return FormatJSON(list)
+	return swaggering.FormatJSON(list)
 }

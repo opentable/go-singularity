@@ -3,36 +3,52 @@ package dtos
 import (
 	"fmt"
 	"io"
+
+	"github.com/opentable/swaggering"
 )
 
 type SingularityExpiringBounce struct {
-	present  map[string]bool
+	present map[string]bool
+
 	ActionId string `json:"actionId,omitempty"`
+
 	DeployId string `json:"deployId,omitempty"`
-	//	ExpiringAPIRequestObject *T `json:"expiringAPIRequestObject"`
-	RequestId   string `json:"requestId,omitempty"`
-	StartMillis int64  `json:"startMillis"`
-	User        string `json:"user,omitempty"`
+
+	// ExpiringAPIRequestObject *T `json:"expiringAPIRequestObject"`
+
+	RequestId string `json:"requestId,omitempty"`
+
+	StartMillis int64 `json:"startMillis"`
+
+	User string `json:"user,omitempty"`
 }
 
 func (self *SingularityExpiringBounce) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, self)
+	return swaggering.ReadPopulate(jsonReader, self)
+}
+
+func (self *SingularityExpiringBounce) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*SingularityExpiringBounce); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A SingularityExpiringBounce cannot absorb the values from %v", other)
 }
 
 func (self *SingularityExpiringBounce) MarshalJSON() ([]byte, error) {
-	return MarshalJSON(self)
+	return swaggering.MarshalJSON(self)
 }
 
 func (self *SingularityExpiringBounce) FormatText() string {
-	return FormatText(self)
+	return swaggering.FormatText(self)
 }
 
 func (self *SingularityExpiringBounce) FormatJSON() string {
-	return FormatJSON(self)
+	return swaggering.FormatJSON(self)
 }
 
 func (self *SingularityExpiringBounce) FieldsPresent() []string {
-	return presenceFromMap(self.present)
+	return swaggering.PresenceFromMap(self.present)
 }
 
 func (self *SingularityExpiringBounce) SetField(name string, value interface{}) error {
@@ -173,13 +189,21 @@ func (self *SingularityExpiringBounce) ClearField(name string) error {
 }
 
 func (self *SingularityExpiringBounce) LoadMap(from map[string]interface{}) error {
-	return loadMapIntoDTO(from, self)
+	return swaggering.LoadMapIntoDTO(from, self)
 }
 
 type SingularityExpiringBounceList []*SingularityExpiringBounce
 
+func (self *SingularityExpiringBounceList) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*SingularityExpiringBounceList); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A SingularityExpiringBounce cannot absorb the values from %v", other)
+}
+
 func (list *SingularityExpiringBounceList) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, list)
+	return swaggering.ReadPopulate(jsonReader, list)
 }
 
 func (list *SingularityExpiringBounceList) FormatText() string {
@@ -192,5 +216,5 @@ func (list *SingularityExpiringBounceList) FormatText() string {
 }
 
 func (list *SingularityExpiringBounceList) FormatJSON() string {
-	return FormatJSON(list)
+	return swaggering.FormatJSON(list)
 }

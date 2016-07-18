@@ -3,41 +3,62 @@ package dtos
 import (
 	"fmt"
 	"io"
+
+	"github.com/opentable/swaggering"
 )
 
 type Ports struct {
 	present map[string]bool
-	//	AllFields *Map[FieldDescriptor,Object] `json:"allFields"`
-	DefaultInstanceForType    *Ports      `json:"defaultInstanceForType"`
-	DescriptorForType         *Descriptor `json:"descriptorForType"`
-	InitializationErrorString string      `json:"initializationErrorString,omitempty"`
-	Initialized               bool        `json:"initialized"`
-	//	ParserForType *com.google.protobuf.Parser&lt;org.apache.mesos.Protos$Ports&gt; `json:"parserForType"`
+
+	// AllFields *Map[FieldDescriptor,Object] `json:"allFields"`
+
+	DefaultInstanceForType *Ports `json:"defaultInstanceForType"`
+
+	DescriptorForType *Descriptor `json:"descriptorForType"`
+
+	InitializationErrorString string `json:"initializationErrorString,omitempty"`
+
+	Initialized bool `json:"initialized"`
+
+	// ParserForType *com.google.protobuf.Parser<org.apache.mesos.Protos$Ports> `json:"parserForType"`
+
 	PortsCount int32 `json:"portsCount"`
-	//	PortsList *List[Port] `json:"portsList"`
-	//	PortsOrBuilderList *List[? extends org.apache.mesos.Protos$PortOrBuilder] `json:"portsOrBuilderList"`
-	SerializedSize int32            `json:"serializedSize"`
-	UnknownFields  *UnknownFieldSet `json:"unknownFields"`
+
+	// PortsList *List[Port] `json:"portsList"`
+
+	// PortsOrBuilderList *List[? extends org.apache.mesos.Protos$PortOrBuilder] `json:"portsOrBuilderList"`
+
+	SerializedSize int32 `json:"serializedSize"`
+
+	UnknownFields *UnknownFieldSet `json:"unknownFields"`
 }
 
 func (self *Ports) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, self)
+	return swaggering.ReadPopulate(jsonReader, self)
+}
+
+func (self *Ports) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*Ports); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A Ports cannot absorb the values from %v", other)
 }
 
 func (self *Ports) MarshalJSON() ([]byte, error) {
-	return MarshalJSON(self)
+	return swaggering.MarshalJSON(self)
 }
 
 func (self *Ports) FormatText() string {
-	return FormatText(self)
+	return swaggering.FormatText(self)
 }
 
 func (self *Ports) FormatJSON() string {
-	return FormatJSON(self)
+	return swaggering.FormatJSON(self)
 }
 
 func (self *Ports) FieldsPresent() []string {
-	return presenceFromMap(self.present)
+	return swaggering.PresenceFromMap(self.present)
 }
 
 func (self *Ports) SetField(name string, value interface{}) error {
@@ -220,13 +241,21 @@ func (self *Ports) ClearField(name string) error {
 }
 
 func (self *Ports) LoadMap(from map[string]interface{}) error {
-	return loadMapIntoDTO(from, self)
+	return swaggering.LoadMapIntoDTO(from, self)
 }
 
 type PortsList []*Ports
 
+func (self *PortsList) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*PortsList); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A Ports cannot absorb the values from %v", other)
+}
+
 func (list *PortsList) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, list)
+	return swaggering.ReadPopulate(jsonReader, list)
 }
 
 func (list *PortsList) FormatText() string {
@@ -239,5 +268,5 @@ func (list *PortsList) FormatText() string {
 }
 
 func (list *PortsList) FormatJSON() string {
-	return FormatJSON(list)
+	return swaggering.FormatJSON(list)
 }

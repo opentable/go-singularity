@@ -3,40 +3,60 @@ package dtos
 import (
 	"fmt"
 	"io"
+
+	"github.com/opentable/swaggering"
 )
 
 type TaskID struct {
 	present map[string]bool
-	//	AllFields *Map[FieldDescriptor,Object] `json:"allFields"`
-	DefaultInstanceForType    *TaskID     `json:"defaultInstanceForType"`
-	DescriptorForType         *Descriptor `json:"descriptorForType"`
-	InitializationErrorString string      `json:"initializationErrorString,omitempty"`
-	Initialized               bool        `json:"initialized"`
-	//	ParserForType *com.google.protobuf.Parser&lt;org.apache.mesos.Protos$TaskID&gt; `json:"parserForType"`
-	SerializedSize int32            `json:"serializedSize"`
-	UnknownFields  *UnknownFieldSet `json:"unknownFields"`
-	Value          string           `json:"value,omitempty"`
-	ValueBytes     *ByteString      `json:"valueBytes"`
+
+	// AllFields *Map[FieldDescriptor,Object] `json:"allFields"`
+
+	DefaultInstanceForType *TaskID `json:"defaultInstanceForType"`
+
+	DescriptorForType *Descriptor `json:"descriptorForType"`
+
+	InitializationErrorString string `json:"initializationErrorString,omitempty"`
+
+	Initialized bool `json:"initialized"`
+
+	// ParserForType *com.google.protobuf.Parser<org.apache.mesos.Protos$TaskID> `json:"parserForType"`
+
+	SerializedSize int32 `json:"serializedSize"`
+
+	UnknownFields *UnknownFieldSet `json:"unknownFields"`
+
+	Value string `json:"value,omitempty"`
+
+	ValueBytes *ByteString `json:"valueBytes"`
 }
 
 func (self *TaskID) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, self)
+	return swaggering.ReadPopulate(jsonReader, self)
+}
+
+func (self *TaskID) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*TaskID); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A TaskID cannot absorb the values from %v", other)
 }
 
 func (self *TaskID) MarshalJSON() ([]byte, error) {
-	return MarshalJSON(self)
+	return swaggering.MarshalJSON(self)
 }
 
 func (self *TaskID) FormatText() string {
-	return FormatText(self)
+	return swaggering.FormatText(self)
 }
 
 func (self *TaskID) FormatJSON() string {
-	return FormatJSON(self)
+	return swaggering.FormatJSON(self)
 }
 
 func (self *TaskID) FieldsPresent() []string {
-	return presenceFromMap(self.present)
+	return swaggering.PresenceFromMap(self.present)
 }
 
 func (self *TaskID) SetField(name string, value interface{}) error {
@@ -240,13 +260,21 @@ func (self *TaskID) ClearField(name string) error {
 }
 
 func (self *TaskID) LoadMap(from map[string]interface{}) error {
-	return loadMapIntoDTO(from, self)
+	return swaggering.LoadMapIntoDTO(from, self)
 }
 
 type TaskIDList []*TaskID
 
+func (self *TaskIDList) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*TaskIDList); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A TaskID cannot absorb the values from %v", other)
+}
+
 func (list *TaskIDList) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, list)
+	return swaggering.ReadPopulate(jsonReader, list)
 }
 
 func (list *TaskIDList) FormatText() string {
@@ -259,5 +287,5 @@ func (list *TaskIDList) FormatText() string {
 }
 
 func (list *TaskIDList) FormatJSON() string {
-	return FormatJSON(list)
+	return swaggering.FormatJSON(list)
 }

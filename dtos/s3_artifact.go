@@ -3,37 +3,54 @@ package dtos
 import (
 	"fmt"
 	"io"
+
+	"github.com/opentable/swaggering"
 )
 
 type S3Artifact struct {
-	present                    map[string]bool
-	Filename                   string `json:"filename,omitempty"`
-	Filesize                   int64  `json:"filesize"`
-	Md5sum                     string `json:"md5sum,omitempty"`
-	Name                       string `json:"name,omitempty"`
-	S3Bucket                   string `json:"s3Bucket,omitempty"`
-	S3ObjectKey                string `json:"s3ObjectKey,omitempty"`
+	present map[string]bool
+
+	Filename string `json:"filename,omitempty"`
+
+	Filesize int64 `json:"filesize"`
+
+	Md5sum string `json:"md5sum,omitempty"`
+
+	Name string `json:"name,omitempty"`
+
+	S3Bucket string `json:"s3Bucket,omitempty"`
+
+	S3ObjectKey string `json:"s3ObjectKey,omitempty"`
+
 	TargetFolderRelativeToTask string `json:"targetFolderRelativeToTask,omitempty"`
 }
 
 func (self *S3Artifact) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, self)
+	return swaggering.ReadPopulate(jsonReader, self)
+}
+
+func (self *S3Artifact) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*S3Artifact); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A S3Artifact cannot absorb the values from %v", other)
 }
 
 func (self *S3Artifact) MarshalJSON() ([]byte, error) {
-	return MarshalJSON(self)
+	return swaggering.MarshalJSON(self)
 }
 
 func (self *S3Artifact) FormatText() string {
-	return FormatText(self)
+	return swaggering.FormatText(self)
 }
 
 func (self *S3Artifact) FormatJSON() string {
-	return FormatJSON(self)
+	return swaggering.FormatJSON(self)
 }
 
 func (self *S3Artifact) FieldsPresent() []string {
-	return presenceFromMap(self.present)
+	return swaggering.PresenceFromMap(self.present)
 }
 
 func (self *S3Artifact) SetField(name string, value interface{}) error {
@@ -216,13 +233,21 @@ func (self *S3Artifact) ClearField(name string) error {
 }
 
 func (self *S3Artifact) LoadMap(from map[string]interface{}) error {
-	return loadMapIntoDTO(from, self)
+	return swaggering.LoadMapIntoDTO(from, self)
 }
 
 type S3ArtifactList []*S3Artifact
 
+func (self *S3ArtifactList) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*S3ArtifactList); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A S3Artifact cannot absorb the values from %v", other)
+}
+
 func (list *S3ArtifactList) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, list)
+	return swaggering.ReadPopulate(jsonReader, list)
 }
 
 func (list *S3ArtifactList) FormatText() string {
@@ -235,5 +260,5 @@ func (list *S3ArtifactList) FormatText() string {
 }
 
 func (list *S3ArtifactList) FormatJSON() string {
-	return FormatJSON(list)
+	return swaggering.FormatJSON(list)
 }

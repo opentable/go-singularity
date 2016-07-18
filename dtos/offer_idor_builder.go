@@ -3,32 +3,44 @@ package dtos
 import (
 	"fmt"
 	"io"
+
+	"github.com/opentable/swaggering"
 )
 
 type OfferIDOrBuilder struct {
-	present    map[string]bool
-	Value      string      `json:"value,omitempty"`
+	present map[string]bool
+
+	Value string `json:"value,omitempty"`
+
 	ValueBytes *ByteString `json:"valueBytes"`
 }
 
 func (self *OfferIDOrBuilder) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, self)
+	return swaggering.ReadPopulate(jsonReader, self)
+}
+
+func (self *OfferIDOrBuilder) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*OfferIDOrBuilder); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A OfferIDOrBuilder cannot absorb the values from %v", other)
 }
 
 func (self *OfferIDOrBuilder) MarshalJSON() ([]byte, error) {
-	return MarshalJSON(self)
+	return swaggering.MarshalJSON(self)
 }
 
 func (self *OfferIDOrBuilder) FormatText() string {
-	return FormatText(self)
+	return swaggering.FormatText(self)
 }
 
 func (self *OfferIDOrBuilder) FormatJSON() string {
-	return FormatJSON(self)
+	return swaggering.FormatJSON(self)
 }
 
 func (self *OfferIDOrBuilder) FieldsPresent() []string {
-	return presenceFromMap(self.present)
+	return swaggering.PresenceFromMap(self.present)
 }
 
 func (self *OfferIDOrBuilder) SetField(name string, value interface{}) error {
@@ -106,13 +118,21 @@ func (self *OfferIDOrBuilder) ClearField(name string) error {
 }
 
 func (self *OfferIDOrBuilder) LoadMap(from map[string]interface{}) error {
-	return loadMapIntoDTO(from, self)
+	return swaggering.LoadMapIntoDTO(from, self)
 }
 
 type OfferIDOrBuilderList []*OfferIDOrBuilder
 
+func (self *OfferIDOrBuilderList) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*OfferIDOrBuilderList); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A OfferIDOrBuilder cannot absorb the values from %v", other)
+}
+
 func (list *OfferIDOrBuilderList) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, list)
+	return swaggering.ReadPopulate(jsonReader, list)
 }
 
 func (list *OfferIDOrBuilderList) FormatText() string {
@@ -125,5 +145,5 @@ func (list *OfferIDOrBuilderList) FormatText() string {
 }
 
 func (list *OfferIDOrBuilderList) FormatJSON() string {
-	return FormatJSON(list)
+	return swaggering.FormatJSON(list)
 }

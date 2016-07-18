@@ -3,42 +3,64 @@ package dtos
 import (
 	"fmt"
 	"io"
+
+	"github.com/opentable/swaggering"
 )
 
 type MesosTaskStatisticsObject struct {
-	present               map[string]bool
-	CpusLimit             int32   `json:"cpusLimit"`
-	CpusNrPeriods         int64   `json:"cpusNrPeriods"`
-	CpusNrThrottled       int64   `json:"cpusNrThrottled"`
-	CpusSystemTimeSecs    float64 `json:"cpusSystemTimeSecs"`
+	present map[string]bool
+
+	CpusLimit int32 `json:"cpusLimit"`
+
+	CpusNrPeriods int64 `json:"cpusNrPeriods"`
+
+	CpusNrThrottled int64 `json:"cpusNrThrottled"`
+
+	CpusSystemTimeSecs float64 `json:"cpusSystemTimeSecs"`
+
 	CpusThrottledTimeSecs float64 `json:"cpusThrottledTimeSecs"`
-	CpusUserTimeSecs      float64 `json:"cpusUserTimeSecs"`
-	MemAnonBytes          int64   `json:"memAnonBytes"`
-	MemFileBytes          int64   `json:"memFileBytes"`
-	MemLimitBytes         int64   `json:"memLimitBytes"`
-	MemMappedFileBytes    int64   `json:"memMappedFileBytes"`
-	MemRssBytes           int64   `json:"memRssBytes"`
-	Timestamp             float64 `json:"timestamp"`
+
+	CpusUserTimeSecs float64 `json:"cpusUserTimeSecs"`
+
+	MemAnonBytes int64 `json:"memAnonBytes"`
+
+	MemFileBytes int64 `json:"memFileBytes"`
+
+	MemLimitBytes int64 `json:"memLimitBytes"`
+
+	MemMappedFileBytes int64 `json:"memMappedFileBytes"`
+
+	MemRssBytes int64 `json:"memRssBytes"`
+
+	Timestamp float64 `json:"timestamp"`
 }
 
 func (self *MesosTaskStatisticsObject) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, self)
+	return swaggering.ReadPopulate(jsonReader, self)
+}
+
+func (self *MesosTaskStatisticsObject) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*MesosTaskStatisticsObject); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A MesosTaskStatisticsObject cannot absorb the values from %v", other)
 }
 
 func (self *MesosTaskStatisticsObject) MarshalJSON() ([]byte, error) {
-	return MarshalJSON(self)
+	return swaggering.MarshalJSON(self)
 }
 
 func (self *MesosTaskStatisticsObject) FormatText() string {
-	return FormatText(self)
+	return swaggering.FormatText(self)
 }
 
 func (self *MesosTaskStatisticsObject) FormatJSON() string {
-	return FormatJSON(self)
+	return swaggering.FormatJSON(self)
 }
 
 func (self *MesosTaskStatisticsObject) FieldsPresent() []string {
-	return presenceFromMap(self.present)
+	return swaggering.PresenceFromMap(self.present)
 }
 
 func (self *MesosTaskStatisticsObject) SetField(name string, value interface{}) error {
@@ -326,13 +348,21 @@ func (self *MesosTaskStatisticsObject) ClearField(name string) error {
 }
 
 func (self *MesosTaskStatisticsObject) LoadMap(from map[string]interface{}) error {
-	return loadMapIntoDTO(from, self)
+	return swaggering.LoadMapIntoDTO(from, self)
 }
 
 type MesosTaskStatisticsObjectList []*MesosTaskStatisticsObject
 
+func (self *MesosTaskStatisticsObjectList) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*MesosTaskStatisticsObjectList); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A MesosTaskStatisticsObject cannot absorb the values from %v", other)
+}
+
 func (list *MesosTaskStatisticsObjectList) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, list)
+	return swaggering.ReadPopulate(jsonReader, list)
 }
 
 func (list *MesosTaskStatisticsObjectList) FormatText() string {
@@ -345,5 +375,5 @@ func (list *MesosTaskStatisticsObjectList) FormatText() string {
 }
 
 func (list *MesosTaskStatisticsObjectList) FormatJSON() string {
-	return FormatJSON(list)
+	return swaggering.FormatJSON(list)
 }

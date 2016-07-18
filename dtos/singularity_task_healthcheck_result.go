@@ -3,36 +3,52 @@ package dtos
 import (
 	"fmt"
 	"io"
+
+	"github.com/opentable/swaggering"
 )
 
 type SingularityTaskHealthcheckResult struct {
-	present        map[string]bool
-	DurationMillis int64              `json:"durationMillis"`
-	ErrorMessage   string             `json:"errorMessage,omitempty"`
-	ResponseBody   string             `json:"responseBody,omitempty"`
-	StatusCode     int32              `json:"statusCode"`
-	TaskId         *SingularityTaskId `json:"taskId"`
-	Timestamp      int64              `json:"timestamp"`
+	present map[string]bool
+
+	DurationMillis int64 `json:"durationMillis"`
+
+	ErrorMessage string `json:"errorMessage,omitempty"`
+
+	ResponseBody string `json:"responseBody,omitempty"`
+
+	StatusCode int32 `json:"statusCode"`
+
+	TaskId *SingularityTaskId `json:"taskId"`
+
+	Timestamp int64 `json:"timestamp"`
 }
 
 func (self *SingularityTaskHealthcheckResult) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, self)
+	return swaggering.ReadPopulate(jsonReader, self)
+}
+
+func (self *SingularityTaskHealthcheckResult) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*SingularityTaskHealthcheckResult); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A SingularityTaskHealthcheckResult cannot absorb the values from %v", other)
 }
 
 func (self *SingularityTaskHealthcheckResult) MarshalJSON() ([]byte, error) {
-	return MarshalJSON(self)
+	return swaggering.MarshalJSON(self)
 }
 
 func (self *SingularityTaskHealthcheckResult) FormatText() string {
-	return FormatText(self)
+	return swaggering.FormatText(self)
 }
 
 func (self *SingularityTaskHealthcheckResult) FormatJSON() string {
-	return FormatJSON(self)
+	return swaggering.FormatJSON(self)
 }
 
 func (self *SingularityTaskHealthcheckResult) FieldsPresent() []string {
-	return presenceFromMap(self.present)
+	return swaggering.PresenceFromMap(self.present)
 }
 
 func (self *SingularityTaskHealthcheckResult) SetField(name string, value interface{}) error {
@@ -194,13 +210,21 @@ func (self *SingularityTaskHealthcheckResult) ClearField(name string) error {
 }
 
 func (self *SingularityTaskHealthcheckResult) LoadMap(from map[string]interface{}) error {
-	return loadMapIntoDTO(from, self)
+	return swaggering.LoadMapIntoDTO(from, self)
 }
 
 type SingularityTaskHealthcheckResultList []*SingularityTaskHealthcheckResult
 
+func (self *SingularityTaskHealthcheckResultList) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*SingularityTaskHealthcheckResultList); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A SingularityTaskHealthcheckResult cannot absorb the values from %v", other)
+}
+
 func (list *SingularityTaskHealthcheckResultList) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, list)
+	return swaggering.ReadPopulate(jsonReader, list)
 }
 
 func (list *SingularityTaskHealthcheckResultList) FormatText() string {
@@ -213,5 +237,5 @@ func (list *SingularityTaskHealthcheckResultList) FormatText() string {
 }
 
 func (list *SingularityTaskHealthcheckResultList) FormatJSON() string {
-	return FormatJSON(list)
+	return swaggering.FormatJSON(list)
 }

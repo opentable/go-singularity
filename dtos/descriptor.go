@@ -3,40 +3,60 @@ package dtos
 import (
 	"fmt"
 	"io"
+
+	"github.com/opentable/swaggering"
 )
 
 type Descriptor struct {
-	present        map[string]bool
+	present map[string]bool
+
 	ContainingType *Descriptor `json:"containingType"`
-	//	EnumTypes *List[EnumDescriptor] `json:"enumTypes"`
-	//	Extensions *List[FieldDescriptor] `json:"extensions"`
-	//	Fields *List[FieldDescriptor] `json:"fields"`
-	File        *FileDescriptor `json:"file"`
-	FullName    string          `json:"fullName,omitempty"`
-	Index       int32           `json:"index"`
-	Name        string          `json:"name,omitempty"`
-	NestedTypes DescriptorList  `json:"nestedTypes"`
-	Options     *MessageOptions `json:"options"`
+
+	// EnumTypes *List[EnumDescriptor] `json:"enumTypes"`
+
+	// Extensions *List[FieldDescriptor] `json:"extensions"`
+
+	// Fields *List[FieldDescriptor] `json:"fields"`
+
+	File *FileDescriptor `json:"file"`
+
+	FullName string `json:"fullName,omitempty"`
+
+	Index int32 `json:"index"`
+
+	Name string `json:"name,omitempty"`
+
+	NestedTypes DescriptorList `json:"nestedTypes"`
+
+	Options *MessageOptions `json:"options"`
 }
 
 func (self *Descriptor) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, self)
+	return swaggering.ReadPopulate(jsonReader, self)
+}
+
+func (self *Descriptor) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*Descriptor); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A Descriptor cannot absorb the values from %v", other)
 }
 
 func (self *Descriptor) MarshalJSON() ([]byte, error) {
-	return MarshalJSON(self)
+	return swaggering.MarshalJSON(self)
 }
 
 func (self *Descriptor) FormatText() string {
-	return FormatText(self)
+	return swaggering.FormatText(self)
 }
 
 func (self *Descriptor) FormatJSON() string {
-	return FormatJSON(self)
+	return swaggering.FormatJSON(self)
 }
 
 func (self *Descriptor) FieldsPresent() []string {
-	return presenceFromMap(self.present)
+	return swaggering.PresenceFromMap(self.present)
 }
 
 func (self *Descriptor) SetField(name string, value interface{}) error {
@@ -219,13 +239,21 @@ func (self *Descriptor) ClearField(name string) error {
 }
 
 func (self *Descriptor) LoadMap(from map[string]interface{}) error {
-	return loadMapIntoDTO(from, self)
+	return swaggering.LoadMapIntoDTO(from, self)
 }
 
 type DescriptorList []*Descriptor
 
+func (self *DescriptorList) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*DescriptorList); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A Descriptor cannot absorb the values from %v", other)
+}
+
 func (list *DescriptorList) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, list)
+	return swaggering.ReadPopulate(jsonReader, list)
 }
 
 func (list *DescriptorList) FormatText() string {
@@ -238,5 +266,5 @@ func (list *DescriptorList) FormatText() string {
 }
 
 func (list *DescriptorList) FormatJSON() string {
-	return FormatJSON(list)
+	return swaggering.FormatJSON(list)
 }

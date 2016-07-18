@@ -3,6 +3,8 @@ package dtos
 import (
 	"fmt"
 	"io"
+
+	"github.com/opentable/swaggering"
 )
 
 type SingularityPendingRequestPendingType string
@@ -25,37 +27,55 @@ const (
 )
 
 type SingularityPendingRequest struct {
-	present          map[string]bool
-	ActionId         string                               `json:"actionId,omitempty"`
-	CmdLineArgsList  StringList                           `json:"cmdLineArgsList"`
-	DeployId         string                               `json:"deployId,omitempty"`
-	Message          string                               `json:"message,omitempty"`
-	PendingType      SingularityPendingRequestPendingType `json:"pendingType"`
-	RequestId        string                               `json:"requestId,omitempty"`
-	RunId            string                               `json:"runId,omitempty"`
-	SkipHealthchecks bool                                 `json:"skipHealthchecks"`
-	Timestamp        int64                                `json:"timestamp"`
-	User             string                               `json:"user,omitempty"`
+	present map[string]bool
+
+	ActionId string `json:"actionId,omitempty"`
+
+	CmdLineArgsList swaggering.StringList `json:"cmdLineArgsList"`
+
+	DeployId string `json:"deployId,omitempty"`
+
+	Message string `json:"message,omitempty"`
+
+	PendingType SingularityPendingRequestPendingType `json:"pendingType"`
+
+	RequestId string `json:"requestId,omitempty"`
+
+	RunId string `json:"runId,omitempty"`
+
+	SkipHealthchecks bool `json:"skipHealthchecks"`
+
+	Timestamp int64 `json:"timestamp"`
+
+	User string `json:"user,omitempty"`
 }
 
 func (self *SingularityPendingRequest) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, self)
+	return swaggering.ReadPopulate(jsonReader, self)
+}
+
+func (self *SingularityPendingRequest) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*SingularityPendingRequest); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A SingularityPendingRequest cannot absorb the values from %v", other)
 }
 
 func (self *SingularityPendingRequest) MarshalJSON() ([]byte, error) {
-	return MarshalJSON(self)
+	return swaggering.MarshalJSON(self)
 }
 
 func (self *SingularityPendingRequest) FormatText() string {
-	return FormatText(self)
+	return swaggering.FormatText(self)
 }
 
 func (self *SingularityPendingRequest) FormatJSON() string {
-	return FormatJSON(self)
+	return swaggering.FormatJSON(self)
 }
 
 func (self *SingularityPendingRequest) FieldsPresent() []string {
-	return presenceFromMap(self.present)
+	return swaggering.PresenceFromMap(self.present)
 }
 
 func (self *SingularityPendingRequest) SetField(name string, value interface{}) error {
@@ -77,7 +97,7 @@ func (self *SingularityPendingRequest) SetField(name string, value interface{}) 
 		}
 
 	case "cmdLineArgsList", "CmdLineArgsList":
-		v, ok := value.(StringList)
+		v, ok := value.(swaggering.StringList)
 		if ok {
 			self.CmdLineArgsList = v
 			self.present["cmdLineArgsList"] = true
@@ -301,13 +321,21 @@ func (self *SingularityPendingRequest) ClearField(name string) error {
 }
 
 func (self *SingularityPendingRequest) LoadMap(from map[string]interface{}) error {
-	return loadMapIntoDTO(from, self)
+	return swaggering.LoadMapIntoDTO(from, self)
 }
 
 type SingularityPendingRequestList []*SingularityPendingRequest
 
+func (self *SingularityPendingRequestList) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*SingularityPendingRequestList); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A SingularityPendingRequest cannot absorb the values from %v", other)
+}
+
 func (list *SingularityPendingRequestList) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, list)
+	return swaggering.ReadPopulate(jsonReader, list)
 }
 
 func (list *SingularityPendingRequestList) FormatText() string {
@@ -320,5 +348,5 @@ func (list *SingularityPendingRequestList) FormatText() string {
 }
 
 func (list *SingularityPendingRequestList) FormatJSON() string {
-	return FormatJSON(list)
+	return swaggering.FormatJSON(list)
 }

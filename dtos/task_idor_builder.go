@@ -3,32 +3,44 @@ package dtos
 import (
 	"fmt"
 	"io"
+
+	"github.com/opentable/swaggering"
 )
 
 type TaskIDOrBuilder struct {
-	present    map[string]bool
-	Value      string      `json:"value,omitempty"`
+	present map[string]bool
+
+	Value string `json:"value,omitempty"`
+
 	ValueBytes *ByteString `json:"valueBytes"`
 }
 
 func (self *TaskIDOrBuilder) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, self)
+	return swaggering.ReadPopulate(jsonReader, self)
+}
+
+func (self *TaskIDOrBuilder) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*TaskIDOrBuilder); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A TaskIDOrBuilder cannot absorb the values from %v", other)
 }
 
 func (self *TaskIDOrBuilder) MarshalJSON() ([]byte, error) {
-	return MarshalJSON(self)
+	return swaggering.MarshalJSON(self)
 }
 
 func (self *TaskIDOrBuilder) FormatText() string {
-	return FormatText(self)
+	return swaggering.FormatText(self)
 }
 
 func (self *TaskIDOrBuilder) FormatJSON() string {
-	return FormatJSON(self)
+	return swaggering.FormatJSON(self)
 }
 
 func (self *TaskIDOrBuilder) FieldsPresent() []string {
-	return presenceFromMap(self.present)
+	return swaggering.PresenceFromMap(self.present)
 }
 
 func (self *TaskIDOrBuilder) SetField(name string, value interface{}) error {
@@ -106,13 +118,21 @@ func (self *TaskIDOrBuilder) ClearField(name string) error {
 }
 
 func (self *TaskIDOrBuilder) LoadMap(from map[string]interface{}) error {
-	return loadMapIntoDTO(from, self)
+	return swaggering.LoadMapIntoDTO(from, self)
 }
 
 type TaskIDOrBuilderList []*TaskIDOrBuilder
 
+func (self *TaskIDOrBuilderList) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*TaskIDOrBuilderList); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A TaskIDOrBuilder cannot absorb the values from %v", other)
+}
+
 func (list *TaskIDOrBuilderList) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, list)
+	return swaggering.ReadPopulate(jsonReader, list)
 }
 
 func (list *TaskIDOrBuilderList) FormatText() string {
@@ -125,5 +145,5 @@ func (list *TaskIDOrBuilderList) FormatText() string {
 }
 
 func (list *TaskIDOrBuilderList) FormatJSON() string {
-	return FormatJSON(list)
+	return swaggering.FormatJSON(list)
 }

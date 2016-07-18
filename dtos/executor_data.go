@@ -3,47 +3,74 @@ package dtos
 import (
 	"fmt"
 	"io"
+
+	"github.com/opentable/swaggering"
 )
 
 type ExecutorData struct {
-	present                        map[string]bool
-	Cmd                            string                  `json:"cmd,omitempty"`
-	EmbeddedArtifacts              EmbeddedArtifactList    `json:"embeddedArtifacts"`
-	ExternalArtifacts              ExternalArtifactList    `json:"externalArtifacts"`
-	ExtraCmdLineArgs               StringList              `json:"extraCmdLineArgs"`
-	LoggingExtraFields             map[string]string       `json:"loggingExtraFields"`
-	LoggingS3Bucket                string                  `json:"loggingS3Bucket,omitempty"`
-	LoggingTag                     string                  `json:"loggingTag,omitempty"`
-	MaxOpenFiles                   int32                   `json:"maxOpenFiles"`
-	MaxTaskThreads                 int32                   `json:"maxTaskThreads"`
-	PreserveTaskSandboxAfterFinish bool                    `json:"preserveTaskSandboxAfterFinish"`
-	RunningSentinel                string                  `json:"runningSentinel,omitempty"`
-	S3ArtifactSignatures           S3ArtifactSignatureList `json:"s3ArtifactSignatures"`
-	S3Artifacts                    S3ArtifactList          `json:"s3Artifacts"`
-	SigKillProcessesAfterMillis    int64                   `json:"sigKillProcessesAfterMillis"`
-	SkipLogrotateAndCompress       bool                    `json:"skipLogrotateAndCompress"`
-	SuccessfulExitCodes            []int32                 `json:"successfulExitCodes"`
-	User                           string                  `json:"user,omitempty"`
+	present map[string]bool
+
+	Cmd string `json:"cmd,omitempty"`
+
+	EmbeddedArtifacts EmbeddedArtifactList `json:"embeddedArtifacts"`
+
+	ExternalArtifacts ExternalArtifactList `json:"externalArtifacts"`
+
+	ExtraCmdLineArgs swaggering.StringList `json:"extraCmdLineArgs"`
+
+	LoggingExtraFields map[string]string `json:"loggingExtraFields"`
+
+	LoggingS3Bucket string `json:"loggingS3Bucket,omitempty"`
+
+	LoggingTag string `json:"loggingTag,omitempty"`
+
+	MaxOpenFiles int32 `json:"maxOpenFiles"`
+
+	MaxTaskThreads int32 `json:"maxTaskThreads"`
+
+	PreserveTaskSandboxAfterFinish bool `json:"preserveTaskSandboxAfterFinish"`
+
+	RunningSentinel string `json:"runningSentinel,omitempty"`
+
+	S3ArtifactSignatures S3ArtifactSignatureList `json:"s3ArtifactSignatures"`
+
+	S3Artifacts S3ArtifactList `json:"s3Artifacts"`
+
+	SigKillProcessesAfterMillis int64 `json:"sigKillProcessesAfterMillis"`
+
+	SkipLogrotateAndCompress bool `json:"skipLogrotateAndCompress"`
+
+	SuccessfulExitCodes []int32 `json:"successfulExitCodes"`
+
+	User string `json:"user,omitempty"`
 }
 
 func (self *ExecutorData) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, self)
+	return swaggering.ReadPopulate(jsonReader, self)
+}
+
+func (self *ExecutorData) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*ExecutorData); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A ExecutorData cannot absorb the values from %v", other)
 }
 
 func (self *ExecutorData) MarshalJSON() ([]byte, error) {
-	return MarshalJSON(self)
+	return swaggering.MarshalJSON(self)
 }
 
 func (self *ExecutorData) FormatText() string {
-	return FormatText(self)
+	return swaggering.FormatText(self)
 }
 
 func (self *ExecutorData) FormatJSON() string {
-	return FormatJSON(self)
+	return swaggering.FormatJSON(self)
 }
 
 func (self *ExecutorData) FieldsPresent() []string {
-	return presenceFromMap(self.present)
+	return swaggering.PresenceFromMap(self.present)
 }
 
 func (self *ExecutorData) SetField(name string, value interface{}) error {
@@ -85,7 +112,7 @@ func (self *ExecutorData) SetField(name string, value interface{}) error {
 		}
 
 	case "extraCmdLineArgs", "ExtraCmdLineArgs":
-		v, ok := value.(StringList)
+		v, ok := value.(swaggering.StringList)
 		if ok {
 			self.ExtraCmdLineArgs = v
 			self.present["extraCmdLineArgs"] = true
@@ -436,13 +463,21 @@ func (self *ExecutorData) ClearField(name string) error {
 }
 
 func (self *ExecutorData) LoadMap(from map[string]interface{}) error {
-	return loadMapIntoDTO(from, self)
+	return swaggering.LoadMapIntoDTO(from, self)
 }
 
 type ExecutorDataList []*ExecutorData
 
+func (self *ExecutorDataList) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*ExecutorDataList); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A ExecutorData cannot absorb the values from %v", other)
+}
+
 func (list *ExecutorDataList) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, list)
+	return swaggering.ReadPopulate(jsonReader, list)
 }
 
 func (list *ExecutorDataList) FormatText() string {
@@ -455,5 +490,5 @@ func (list *ExecutorDataList) FormatText() string {
 }
 
 func (list *ExecutorDataList) FormatJSON() string {
-	return FormatJSON(list)
+	return swaggering.FormatJSON(list)
 }

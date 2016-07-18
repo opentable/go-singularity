@@ -3,34 +3,47 @@ package dtos
 import (
 	"fmt"
 	"io"
+
+	"github.com/opentable/swaggering"
 )
 
 type PortsOrBuilder struct {
-	present    map[string]bool
+	present map[string]bool
+
 	PortsCount int32 `json:"portsCount"`
-	//	PortsList *List[Port] `json:"portsList"`
-	//	PortsOrBuilderList *List[? extends org.apache.mesos.Protos$PortOrBuilder] `json:"portsOrBuilderList"`
+
+	// PortsList *List[Port] `json:"portsList"`
+
+	// PortsOrBuilderList *List[? extends org.apache.mesos.Protos$PortOrBuilder] `json:"portsOrBuilderList"`
 
 }
 
 func (self *PortsOrBuilder) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, self)
+	return swaggering.ReadPopulate(jsonReader, self)
+}
+
+func (self *PortsOrBuilder) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*PortsOrBuilder); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A PortsOrBuilder cannot absorb the values from %v", other)
 }
 
 func (self *PortsOrBuilder) MarshalJSON() ([]byte, error) {
-	return MarshalJSON(self)
+	return swaggering.MarshalJSON(self)
 }
 
 func (self *PortsOrBuilder) FormatText() string {
-	return FormatText(self)
+	return swaggering.FormatText(self)
 }
 
 func (self *PortsOrBuilder) FormatJSON() string {
-	return FormatJSON(self)
+	return swaggering.FormatJSON(self)
 }
 
 func (self *PortsOrBuilder) FieldsPresent() []string {
-	return presenceFromMap(self.present)
+	return swaggering.PresenceFromMap(self.present)
 }
 
 func (self *PortsOrBuilder) SetField(name string, value interface{}) error {
@@ -87,13 +100,21 @@ func (self *PortsOrBuilder) ClearField(name string) error {
 }
 
 func (self *PortsOrBuilder) LoadMap(from map[string]interface{}) error {
-	return loadMapIntoDTO(from, self)
+	return swaggering.LoadMapIntoDTO(from, self)
 }
 
 type PortsOrBuilderList []*PortsOrBuilder
 
+func (self *PortsOrBuilderList) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*PortsOrBuilderList); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A PortsOrBuilder cannot absorb the values from %v", other)
+}
+
 func (list *PortsOrBuilderList) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, list)
+	return swaggering.ReadPopulate(jsonReader, list)
 }
 
 func (list *PortsOrBuilderList) FormatText() string {
@@ -106,5 +127,5 @@ func (list *PortsOrBuilderList) FormatText() string {
 }
 
 func (list *PortsOrBuilderList) FormatJSON() string {
-	return FormatJSON(list)
+	return swaggering.FormatJSON(list)
 }

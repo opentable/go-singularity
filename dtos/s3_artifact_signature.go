@@ -3,38 +3,56 @@ package dtos
 import (
 	"fmt"
 	"io"
+
+	"github.com/opentable/swaggering"
 )
 
 type S3ArtifactSignature struct {
-	present                    map[string]bool
-	ArtifactFilename           string `json:"artifactFilename,omitempty"`
-	Filename                   string `json:"filename,omitempty"`
-	Filesize                   int64  `json:"filesize"`
-	Md5sum                     string `json:"md5sum,omitempty"`
-	Name                       string `json:"name,omitempty"`
-	S3Bucket                   string `json:"s3Bucket,omitempty"`
-	S3ObjectKey                string `json:"s3ObjectKey,omitempty"`
+	present map[string]bool
+
+	ArtifactFilename string `json:"artifactFilename,omitempty"`
+
+	Filename string `json:"filename,omitempty"`
+
+	Filesize int64 `json:"filesize"`
+
+	Md5sum string `json:"md5sum,omitempty"`
+
+	Name string `json:"name,omitempty"`
+
+	S3Bucket string `json:"s3Bucket,omitempty"`
+
+	S3ObjectKey string `json:"s3ObjectKey,omitempty"`
+
 	TargetFolderRelativeToTask string `json:"targetFolderRelativeToTask,omitempty"`
 }
 
 func (self *S3ArtifactSignature) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, self)
+	return swaggering.ReadPopulate(jsonReader, self)
+}
+
+func (self *S3ArtifactSignature) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*S3ArtifactSignature); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A S3ArtifactSignature cannot absorb the values from %v", other)
 }
 
 func (self *S3ArtifactSignature) MarshalJSON() ([]byte, error) {
-	return MarshalJSON(self)
+	return swaggering.MarshalJSON(self)
 }
 
 func (self *S3ArtifactSignature) FormatText() string {
-	return FormatText(self)
+	return swaggering.FormatText(self)
 }
 
 func (self *S3ArtifactSignature) FormatJSON() string {
-	return FormatJSON(self)
+	return swaggering.FormatJSON(self)
 }
 
 func (self *S3ArtifactSignature) FieldsPresent() []string {
-	return presenceFromMap(self.present)
+	return swaggering.PresenceFromMap(self.present)
 }
 
 func (self *S3ArtifactSignature) SetField(name string, value interface{}) error {
@@ -238,13 +256,21 @@ func (self *S3ArtifactSignature) ClearField(name string) error {
 }
 
 func (self *S3ArtifactSignature) LoadMap(from map[string]interface{}) error {
-	return loadMapIntoDTO(from, self)
+	return swaggering.LoadMapIntoDTO(from, self)
 }
 
 type S3ArtifactSignatureList []*S3ArtifactSignature
 
+func (self *S3ArtifactSignatureList) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*S3ArtifactSignatureList); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A S3ArtifactSignature cannot absorb the values from %v", other)
+}
+
 func (list *S3ArtifactSignatureList) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, list)
+	return swaggering.ReadPopulate(jsonReader, list)
 }
 
 func (list *S3ArtifactSignatureList) FormatText() string {
@@ -257,5 +283,5 @@ func (list *S3ArtifactSignatureList) FormatText() string {
 }
 
 func (list *S3ArtifactSignatureList) FormatJSON() string {
-	return FormatJSON(list)
+	return swaggering.FormatJSON(list)
 }

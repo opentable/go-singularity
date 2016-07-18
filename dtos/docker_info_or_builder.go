@@ -3,6 +3,8 @@ package dtos
 import (
 	"fmt"
 	"io"
+
+	"github.com/opentable/swaggering"
 )
 
 type DockerInfoOrBuilderNetwork string
@@ -14,38 +16,57 @@ const (
 )
 
 type DockerInfoOrBuilder struct {
-	present         map[string]bool
-	ForcePullImage  bool                       `json:"forcePullImage"`
-	Image           string                     `json:"image,omitempty"`
-	ImageBytes      *ByteString                `json:"imageBytes"`
-	Network         DockerInfoOrBuilderNetwork `json:"network"`
-	ParametersCount int32                      `json:"parametersCount"`
-	//	ParametersList *List[Parameter] `json:"parametersList"`
-	//	ParametersOrBuilderList *List[? extends org.apache.mesos.Protos$ParameterOrBuilder] `json:"parametersOrBuilderList"`
+	present map[string]bool
+
+	ForcePullImage bool `json:"forcePullImage"`
+
+	Image string `json:"image,omitempty"`
+
+	ImageBytes *ByteString `json:"imageBytes"`
+
+	Network DockerInfoOrBuilderNetwork `json:"network"`
+
+	ParametersCount int32 `json:"parametersCount"`
+
+	// ParametersList *List[Parameter] `json:"parametersList"`
+
+	// ParametersOrBuilderList *List[? extends org.apache.mesos.Protos$ParameterOrBuilder] `json:"parametersOrBuilderList"`
+
 	PortMappingsCount int32 `json:"portMappingsCount"`
-	//	PortMappingsList *List[PortMapping] `json:"portMappingsList"`
-	//	PortMappingsOrBuilderList *List[? extends org.apache.mesos.Protos$ContainerInfo$DockerInfo$PortMappingOrBuilder] `json:"portMappingsOrBuilderList"`
+
+	// PortMappingsList *List[PortMapping] `json:"portMappingsList"`
+
+	// PortMappingsOrBuilderList *List[? extends org.apache.mesos.Protos$ContainerInfo$DockerInfo$PortMappingOrBuilder] `json:"portMappingsOrBuilderList"`
+
 	Privileged bool `json:"privileged"`
 }
 
 func (self *DockerInfoOrBuilder) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, self)
+	return swaggering.ReadPopulate(jsonReader, self)
+}
+
+func (self *DockerInfoOrBuilder) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*DockerInfoOrBuilder); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A DockerInfoOrBuilder cannot absorb the values from %v", other)
 }
 
 func (self *DockerInfoOrBuilder) MarshalJSON() ([]byte, error) {
-	return MarshalJSON(self)
+	return swaggering.MarshalJSON(self)
 }
 
 func (self *DockerInfoOrBuilder) FormatText() string {
-	return FormatText(self)
+	return swaggering.FormatText(self)
 }
 
 func (self *DockerInfoOrBuilder) FormatJSON() string {
-	return FormatJSON(self)
+	return swaggering.FormatJSON(self)
 }
 
 func (self *DockerInfoOrBuilder) FieldsPresent() []string {
-	return presenceFromMap(self.present)
+	return swaggering.PresenceFromMap(self.present)
 }
 
 func (self *DockerInfoOrBuilder) SetField(name string, value interface{}) error {
@@ -228,13 +249,21 @@ func (self *DockerInfoOrBuilder) ClearField(name string) error {
 }
 
 func (self *DockerInfoOrBuilder) LoadMap(from map[string]interface{}) error {
-	return loadMapIntoDTO(from, self)
+	return swaggering.LoadMapIntoDTO(from, self)
 }
 
 type DockerInfoOrBuilderList []*DockerInfoOrBuilder
 
+func (self *DockerInfoOrBuilderList) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*DockerInfoOrBuilderList); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A DockerInfoOrBuilder cannot absorb the values from %v", other)
+}
+
 func (list *DockerInfoOrBuilderList) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, list)
+	return swaggering.ReadPopulate(jsonReader, list)
 }
 
 func (list *DockerInfoOrBuilderList) FormatText() string {
@@ -247,5 +276,5 @@ func (list *DockerInfoOrBuilderList) FormatText() string {
 }
 
 func (list *DockerInfoOrBuilderList) FormatJSON() string {
-	return FormatJSON(list)
+	return swaggering.FormatJSON(list)
 }

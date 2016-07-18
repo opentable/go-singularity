@@ -3,34 +3,47 @@ package dtos
 import (
 	"fmt"
 	"io"
+
+	"github.com/opentable/swaggering"
 )
 
 type EnvironmentOrBuilder struct {
-	present        map[string]bool
+	present map[string]bool
+
 	VariablesCount int32 `json:"variablesCount"`
-	//	VariablesList *List[Variable] `json:"variablesList"`
-	//	VariablesOrBuilderList *List[? extends org.apache.mesos.Protos$Environment$VariableOrBuilder] `json:"variablesOrBuilderList"`
+
+	// VariablesList *List[Variable] `json:"variablesList"`
+
+	// VariablesOrBuilderList *List[? extends org.apache.mesos.Protos$Environment$VariableOrBuilder] `json:"variablesOrBuilderList"`
 
 }
 
 func (self *EnvironmentOrBuilder) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, self)
+	return swaggering.ReadPopulate(jsonReader, self)
+}
+
+func (self *EnvironmentOrBuilder) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*EnvironmentOrBuilder); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A EnvironmentOrBuilder cannot absorb the values from %v", other)
 }
 
 func (self *EnvironmentOrBuilder) MarshalJSON() ([]byte, error) {
-	return MarshalJSON(self)
+	return swaggering.MarshalJSON(self)
 }
 
 func (self *EnvironmentOrBuilder) FormatText() string {
-	return FormatText(self)
+	return swaggering.FormatText(self)
 }
 
 func (self *EnvironmentOrBuilder) FormatJSON() string {
-	return FormatJSON(self)
+	return swaggering.FormatJSON(self)
 }
 
 func (self *EnvironmentOrBuilder) FieldsPresent() []string {
-	return presenceFromMap(self.present)
+	return swaggering.PresenceFromMap(self.present)
 }
 
 func (self *EnvironmentOrBuilder) SetField(name string, value interface{}) error {
@@ -87,13 +100,21 @@ func (self *EnvironmentOrBuilder) ClearField(name string) error {
 }
 
 func (self *EnvironmentOrBuilder) LoadMap(from map[string]interface{}) error {
-	return loadMapIntoDTO(from, self)
+	return swaggering.LoadMapIntoDTO(from, self)
 }
 
 type EnvironmentOrBuilderList []*EnvironmentOrBuilder
 
+func (self *EnvironmentOrBuilderList) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*EnvironmentOrBuilderList); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A EnvironmentOrBuilder cannot absorb the values from %v", other)
+}
+
 func (list *EnvironmentOrBuilderList) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, list)
+	return swaggering.ReadPopulate(jsonReader, list)
 }
 
 func (list *EnvironmentOrBuilderList) FormatText() string {
@@ -106,5 +127,5 @@ func (list *EnvironmentOrBuilderList) FormatText() string {
 }
 
 func (list *EnvironmentOrBuilderList) FormatJSON() string {
-	return FormatJSON(list)
+	return swaggering.FormatJSON(list)
 }

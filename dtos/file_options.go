@@ -3,6 +3,8 @@ package dtos
 import (
 	"fmt"
 	"io"
+
+	"github.com/opentable/swaggering"
 )
 
 type FileOptionsOptimizeMode string
@@ -15,49 +17,80 @@ const (
 
 type FileOptions struct {
 	present map[string]bool
-	//	AllFields *Map[FieldDescriptor,Object] `json:"allFields"`
-	CcGenericServices         bool                    `json:"ccGenericServices"`
-	DefaultInstanceForType    *FileOptions            `json:"defaultInstanceForType"`
-	DescriptorForType         *Descriptor             `json:"descriptorForType"`
-	GoPackage                 string                  `json:"goPackage,omitempty"`
-	GoPackageBytes            *ByteString             `json:"goPackageBytes"`
-	InitializationErrorString string                  `json:"initializationErrorString,omitempty"`
-	Initialized               bool                    `json:"initialized"`
-	JavaGenerateEqualsAndHash bool                    `json:"javaGenerateEqualsAndHash"`
-	JavaGenericServices       bool                    `json:"javaGenericServices"`
-	JavaMultipleFiles         bool                    `json:"javaMultipleFiles"`
-	JavaOuterClassname        string                  `json:"javaOuterClassname,omitempty"`
-	JavaOuterClassnameBytes   *ByteString             `json:"javaOuterClassnameBytes"`
-	JavaPackage               string                  `json:"javaPackage,omitempty"`
-	JavaPackageBytes          *ByteString             `json:"javaPackageBytes"`
-	OptimizeFor               FileOptionsOptimizeMode `json:"optimizeFor"`
-	//	ParserForType *com.google.protobuf.Parser&lt;com.google.protobuf.DescriptorProtos$FileOptions&gt; `json:"parserForType"`
-	PyGenericServices        bool  `json:"pyGenericServices"`
-	SerializedSize           int32 `json:"serializedSize"`
+
+	// AllFields *Map[FieldDescriptor,Object] `json:"allFields"`
+
+	CcGenericServices bool `json:"ccGenericServices"`
+
+	DefaultInstanceForType *FileOptions `json:"defaultInstanceForType"`
+
+	DescriptorForType *Descriptor `json:"descriptorForType"`
+
+	GoPackage string `json:"goPackage,omitempty"`
+
+	GoPackageBytes *ByteString `json:"goPackageBytes"`
+
+	InitializationErrorString string `json:"initializationErrorString,omitempty"`
+
+	Initialized bool `json:"initialized"`
+
+	JavaGenerateEqualsAndHash bool `json:"javaGenerateEqualsAndHash"`
+
+	JavaGenericServices bool `json:"javaGenericServices"`
+
+	JavaMultipleFiles bool `json:"javaMultipleFiles"`
+
+	JavaOuterClassname string `json:"javaOuterClassname,omitempty"`
+
+	JavaOuterClassnameBytes *ByteString `json:"javaOuterClassnameBytes"`
+
+	JavaPackage string `json:"javaPackage,omitempty"`
+
+	JavaPackageBytes *ByteString `json:"javaPackageBytes"`
+
+	OptimizeFor FileOptionsOptimizeMode `json:"optimizeFor"`
+
+	// ParserForType *com.google.protobuf.Parser<com.google.protobuf.DescriptorProtos$FileOptions> `json:"parserForType"`
+
+	PyGenericServices bool `json:"pyGenericServices"`
+
+	SerializedSize int32 `json:"serializedSize"`
+
 	UninterpretedOptionCount int32 `json:"uninterpretedOptionCount"`
-	//	UninterpretedOptionList *List[UninterpretedOption] `json:"uninterpretedOptionList"`
-	//	UninterpretedOptionOrBuilderList *List[? extends com.google.protobuf.DescriptorProtos$UninterpretedOptionOrBuilder] `json:"uninterpretedOptionOrBuilderList"`
+
+	// UninterpretedOptionList *List[UninterpretedOption] `json:"uninterpretedOptionList"`
+
+	// UninterpretedOptionOrBuilderList *List[? extends com.google.protobuf.DescriptorProtos$UninterpretedOptionOrBuilder] `json:"uninterpretedOptionOrBuilderList"`
+
 	UnknownFields *UnknownFieldSet `json:"unknownFields"`
 }
 
 func (self *FileOptions) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, self)
+	return swaggering.ReadPopulate(jsonReader, self)
+}
+
+func (self *FileOptions) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*FileOptions); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A FileOptions cannot absorb the values from %v", other)
 }
 
 func (self *FileOptions) MarshalJSON() ([]byte, error) {
-	return MarshalJSON(self)
+	return swaggering.MarshalJSON(self)
 }
 
 func (self *FileOptions) FormatText() string {
-	return FormatText(self)
+	return swaggering.FormatText(self)
 }
 
 func (self *FileOptions) FormatJSON() string {
-	return FormatJSON(self)
+	return swaggering.FormatJSON(self)
 }
 
 func (self *FileOptions) FieldsPresent() []string {
-	return presenceFromMap(self.present)
+	return swaggering.PresenceFromMap(self.present)
 }
 
 func (self *FileOptions) SetField(name string, value interface{}) error {
@@ -492,13 +525,21 @@ func (self *FileOptions) ClearField(name string) error {
 }
 
 func (self *FileOptions) LoadMap(from map[string]interface{}) error {
-	return loadMapIntoDTO(from, self)
+	return swaggering.LoadMapIntoDTO(from, self)
 }
 
 type FileOptionsList []*FileOptions
 
+func (self *FileOptionsList) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*FileOptionsList); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A FileOptions cannot absorb the values from %v", other)
+}
+
 func (list *FileOptionsList) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, list)
+	return swaggering.ReadPopulate(jsonReader, list)
 }
 
 func (list *FileOptionsList) FormatText() string {
@@ -511,5 +552,5 @@ func (list *FileOptionsList) FormatText() string {
 }
 
 func (list *FileOptionsList) FormatJSON() string {
-	return FormatJSON(list)
+	return swaggering.FormatJSON(list)
 }

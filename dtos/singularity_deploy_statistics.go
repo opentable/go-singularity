@@ -3,40 +3,60 @@ package dtos
 import (
 	"fmt"
 	"io"
+
+	"github.com/opentable/swaggering"
 )
 
 type SingularityDeployStatistics struct {
-	present              map[string]bool
-	AverageRuntimeMillis int64  `json:"averageRuntimeMillis"`
-	DeployId             string `json:"deployId,omitempty"`
-	//	InstanceSequentialFailureTimestamps *com.google.common.collect.ListMultimap&lt;java.lang.Integer, java.lang.Long&gt; `json:"instanceSequentialFailureTimestamps"`
+	present map[string]bool
+
+	AverageRuntimeMillis int64 `json:"averageRuntimeMillis"`
+
+	DeployId string `json:"deployId,omitempty"`
+
+	// InstanceSequentialFailureTimestamps *com.google.common.collect.ListMultimap<java.lang.Integer, java.lang.Long> `json:"instanceSequentialFailureTimestamps"`
+
 	LastFinishAt int64 `json:"lastFinishAt"`
-	//	LastTaskState *ExtendedTaskState `json:"lastTaskState"`
-	NumFailures          int32  `json:"numFailures"`
-	NumSequentialRetries int32  `json:"numSequentialRetries"`
-	NumSuccess           int32  `json:"numSuccess"`
-	NumTasks             int32  `json:"numTasks"`
-	RequestId            string `json:"requestId,omitempty"`
+
+	// LastTaskState *ExtendedTaskState `json:"lastTaskState"`
+
+	NumFailures int32 `json:"numFailures"`
+
+	NumSequentialRetries int32 `json:"numSequentialRetries"`
+
+	NumSuccess int32 `json:"numSuccess"`
+
+	NumTasks int32 `json:"numTasks"`
+
+	RequestId string `json:"requestId,omitempty"`
 }
 
 func (self *SingularityDeployStatistics) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, self)
+	return swaggering.ReadPopulate(jsonReader, self)
+}
+
+func (self *SingularityDeployStatistics) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*SingularityDeployStatistics); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A SingularityDeployStatistics cannot absorb the values from %v", other)
 }
 
 func (self *SingularityDeployStatistics) MarshalJSON() ([]byte, error) {
-	return MarshalJSON(self)
+	return swaggering.MarshalJSON(self)
 }
 
 func (self *SingularityDeployStatistics) FormatText() string {
-	return FormatText(self)
+	return swaggering.FormatText(self)
 }
 
 func (self *SingularityDeployStatistics) FormatJSON() string {
-	return FormatJSON(self)
+	return swaggering.FormatJSON(self)
 }
 
 func (self *SingularityDeployStatistics) FieldsPresent() []string {
-	return presenceFromMap(self.present)
+	return swaggering.PresenceFromMap(self.present)
 }
 
 func (self *SingularityDeployStatistics) SetField(name string, value interface{}) error {
@@ -240,13 +260,21 @@ func (self *SingularityDeployStatistics) ClearField(name string) error {
 }
 
 func (self *SingularityDeployStatistics) LoadMap(from map[string]interface{}) error {
-	return loadMapIntoDTO(from, self)
+	return swaggering.LoadMapIntoDTO(from, self)
 }
 
 type SingularityDeployStatisticsList []*SingularityDeployStatistics
 
+func (self *SingularityDeployStatisticsList) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*SingularityDeployStatisticsList); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A SingularityDeployStatistics cannot absorb the values from %v", other)
+}
+
 func (list *SingularityDeployStatisticsList) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, list)
+	return swaggering.ReadPopulate(jsonReader, list)
 }
 
 func (list *SingularityDeployStatisticsList) FormatText() string {
@@ -259,5 +287,5 @@ func (list *SingularityDeployStatisticsList) FormatText() string {
 }
 
 func (list *SingularityDeployStatisticsList) FormatJSON() string {
-	return FormatJSON(list)
+	return swaggering.FormatJSON(list)
 }

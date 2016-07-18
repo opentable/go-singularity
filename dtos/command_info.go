@@ -3,52 +3,84 @@ package dtos
 import (
 	"fmt"
 	"io"
+
+	"github.com/opentable/swaggering"
 )
 
 type CommandInfo struct {
 	present map[string]bool
-	//	AllFields *Map[FieldDescriptor,Object] `json:"allFields"`
-	ArgumentsCount            int32                   `json:"argumentsCount"`
-	ArgumentsList             StringList              `json:"argumentsList"`
-	Container                 *ContainerInfo          `json:"container"`
-	ContainerOrBuilder        *ContainerInfoOrBuilder `json:"containerOrBuilder"`
-	DefaultInstanceForType    *CommandInfo            `json:"defaultInstanceForType"`
-	DescriptorForType         *Descriptor             `json:"descriptorForType"`
-	Environment               *Environment            `json:"environment"`
-	EnvironmentOrBuilder      *EnvironmentOrBuilder   `json:"environmentOrBuilder"`
-	InitializationErrorString string                  `json:"initializationErrorString,omitempty"`
-	Initialized               bool                    `json:"initialized"`
-	//	ParserForType *com.google.protobuf.Parser&lt;org.apache.mesos.Protos$CommandInfo&gt; `json:"parserForType"`
-	SerializedSize int32            `json:"serializedSize"`
-	Shell          bool             `json:"shell"`
-	UnknownFields  *UnknownFieldSet `json:"unknownFields"`
-	UrisCount      int32            `json:"urisCount"`
-	//	UrisList *List[URI] `json:"urisList"`
-	//	UrisOrBuilderList *List[? extends org.apache.mesos.Protos$CommandInfo$URIOrBuilder] `json:"urisOrBuilderList"`
-	User       string      `json:"user,omitempty"`
-	UserBytes  *ByteString `json:"userBytes"`
-	Value      string      `json:"value,omitempty"`
+
+	// AllFields *Map[FieldDescriptor,Object] `json:"allFields"`
+
+	ArgumentsCount int32 `json:"argumentsCount"`
+
+	ArgumentsList swaggering.StringList `json:"argumentsList"`
+
+	Container *ContainerInfo `json:"container"`
+
+	ContainerOrBuilder *ContainerInfoOrBuilder `json:"containerOrBuilder"`
+
+	DefaultInstanceForType *CommandInfo `json:"defaultInstanceForType"`
+
+	DescriptorForType *Descriptor `json:"descriptorForType"`
+
+	Environment *Environment `json:"environment"`
+
+	EnvironmentOrBuilder *EnvironmentOrBuilder `json:"environmentOrBuilder"`
+
+	InitializationErrorString string `json:"initializationErrorString,omitempty"`
+
+	Initialized bool `json:"initialized"`
+
+	// ParserForType *com.google.protobuf.Parser<org.apache.mesos.Protos$CommandInfo> `json:"parserForType"`
+
+	SerializedSize int32 `json:"serializedSize"`
+
+	Shell bool `json:"shell"`
+
+	UnknownFields *UnknownFieldSet `json:"unknownFields"`
+
+	UrisCount int32 `json:"urisCount"`
+
+	// UrisList *List[URI] `json:"urisList"`
+
+	// UrisOrBuilderList *List[? extends org.apache.mesos.Protos$CommandInfo$URIOrBuilder] `json:"urisOrBuilderList"`
+
+	User string `json:"user,omitempty"`
+
+	UserBytes *ByteString `json:"userBytes"`
+
+	Value string `json:"value,omitempty"`
+
 	ValueBytes *ByteString `json:"valueBytes"`
 }
 
 func (self *CommandInfo) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, self)
+	return swaggering.ReadPopulate(jsonReader, self)
+}
+
+func (self *CommandInfo) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*CommandInfo); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A CommandInfo cannot absorb the values from %v", other)
 }
 
 func (self *CommandInfo) MarshalJSON() ([]byte, error) {
-	return MarshalJSON(self)
+	return swaggering.MarshalJSON(self)
 }
 
 func (self *CommandInfo) FormatText() string {
-	return FormatText(self)
+	return swaggering.FormatText(self)
 }
 
 func (self *CommandInfo) FormatJSON() string {
-	return FormatJSON(self)
+	return swaggering.FormatJSON(self)
 }
 
 func (self *CommandInfo) FieldsPresent() []string {
-	return presenceFromMap(self.present)
+	return swaggering.PresenceFromMap(self.present)
 }
 
 func (self *CommandInfo) SetField(name string, value interface{}) error {
@@ -70,7 +102,7 @@ func (self *CommandInfo) SetField(name string, value interface{}) error {
 		}
 
 	case "argumentsList", "ArgumentsList":
-		v, ok := value.(StringList)
+		v, ok := value.(swaggering.StringList)
 		if ok {
 			self.ArgumentsList = v
 			self.present["argumentsList"] = true
@@ -462,13 +494,21 @@ func (self *CommandInfo) ClearField(name string) error {
 }
 
 func (self *CommandInfo) LoadMap(from map[string]interface{}) error {
-	return loadMapIntoDTO(from, self)
+	return swaggering.LoadMapIntoDTO(from, self)
 }
 
 type CommandInfoList []*CommandInfo
 
+func (self *CommandInfoList) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*CommandInfoList); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A CommandInfo cannot absorb the values from %v", other)
+}
+
 func (list *CommandInfoList) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, list)
+	return swaggering.ReadPopulate(jsonReader, list)
 }
 
 func (list *CommandInfoList) FormatText() string {
@@ -481,5 +521,5 @@ func (list *CommandInfoList) FormatText() string {
 }
 
 func (list *CommandInfoList) FormatJSON() string {
-	return FormatJSON(list)
+	return swaggering.FormatJSON(list)
 }

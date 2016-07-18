@@ -3,32 +3,44 @@ package dtos
 import (
 	"fmt"
 	"io"
+
+	"github.com/opentable/swaggering"
 )
 
 type SingularityDeleteRequestRequest struct {
-	present  map[string]bool
+	present map[string]bool
+
 	ActionId string `json:"actionId,omitempty"`
-	Message  string `json:"message,omitempty"`
+
+	Message string `json:"message,omitempty"`
 }
 
 func (self *SingularityDeleteRequestRequest) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, self)
+	return swaggering.ReadPopulate(jsonReader, self)
+}
+
+func (self *SingularityDeleteRequestRequest) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*SingularityDeleteRequestRequest); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A SingularityDeleteRequestRequest cannot absorb the values from %v", other)
 }
 
 func (self *SingularityDeleteRequestRequest) MarshalJSON() ([]byte, error) {
-	return MarshalJSON(self)
+	return swaggering.MarshalJSON(self)
 }
 
 func (self *SingularityDeleteRequestRequest) FormatText() string {
-	return FormatText(self)
+	return swaggering.FormatText(self)
 }
 
 func (self *SingularityDeleteRequestRequest) FormatJSON() string {
-	return FormatJSON(self)
+	return swaggering.FormatJSON(self)
 }
 
 func (self *SingularityDeleteRequestRequest) FieldsPresent() []string {
-	return presenceFromMap(self.present)
+	return swaggering.PresenceFromMap(self.present)
 }
 
 func (self *SingularityDeleteRequestRequest) SetField(name string, value interface{}) error {
@@ -106,13 +118,21 @@ func (self *SingularityDeleteRequestRequest) ClearField(name string) error {
 }
 
 func (self *SingularityDeleteRequestRequest) LoadMap(from map[string]interface{}) error {
-	return loadMapIntoDTO(from, self)
+	return swaggering.LoadMapIntoDTO(from, self)
 }
 
 type SingularityDeleteRequestRequestList []*SingularityDeleteRequestRequest
 
+func (self *SingularityDeleteRequestRequestList) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*SingularityDeleteRequestRequestList); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A SingularityDeleteRequestRequest cannot absorb the values from %v", other)
+}
+
 func (list *SingularityDeleteRequestRequestList) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, list)
+	return swaggering.ReadPopulate(jsonReader, list)
 }
 
 func (list *SingularityDeleteRequestRequestList) FormatText() string {
@@ -125,5 +145,5 @@ func (list *SingularityDeleteRequestRequestList) FormatText() string {
 }
 
 func (list *SingularityDeleteRequestRequestList) FormatJSON() string {
-	return FormatJSON(list)
+	return swaggering.FormatJSON(list)
 }

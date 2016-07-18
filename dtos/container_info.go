@@ -3,6 +3,8 @@ package dtos
 import (
 	"fmt"
 	"io"
+
+	"github.com/opentable/swaggering"
 )
 
 type ContainerInfoType string
@@ -14,43 +16,67 @@ const (
 
 type ContainerInfo struct {
 	present map[string]bool
-	//	AllFields *Map[FieldDescriptor,Object] `json:"allFields"`
-	DefaultInstanceForType    *ContainerInfo       `json:"defaultInstanceForType"`
-	DescriptorForType         *Descriptor          `json:"descriptorForType"`
-	Docker                    *DockerInfo          `json:"docker"`
-	DockerOrBuilder           *DockerInfoOrBuilder `json:"dockerOrBuilder"`
-	Hostname                  string               `json:"hostname,omitempty"`
-	HostnameBytes             *ByteString          `json:"hostnameBytes"`
-	InitializationErrorString string               `json:"initializationErrorString,omitempty"`
-	Initialized               bool                 `json:"initialized"`
-	//	ParserForType *com.google.protobuf.Parser&lt;org.apache.mesos.Protos$ContainerInfo&gt; `json:"parserForType"`
-	SerializedSize int32             `json:"serializedSize"`
-	Type           ContainerInfoType `json:"type"`
-	UnknownFields  *UnknownFieldSet  `json:"unknownFields"`
-	VolumesCount   int32             `json:"volumesCount"`
-	//	VolumesList *List[Volume] `json:"volumesList"`
-	//	VolumesOrBuilderList *List[? extends org.apache.mesos.Protos$VolumeOrBuilder] `json:"volumesOrBuilderList"`
+
+	// AllFields *Map[FieldDescriptor,Object] `json:"allFields"`
+
+	DefaultInstanceForType *ContainerInfo `json:"defaultInstanceForType"`
+
+	DescriptorForType *Descriptor `json:"descriptorForType"`
+
+	Docker *DockerInfo `json:"docker"`
+
+	DockerOrBuilder *DockerInfoOrBuilder `json:"dockerOrBuilder"`
+
+	Hostname string `json:"hostname,omitempty"`
+
+	HostnameBytes *ByteString `json:"hostnameBytes"`
+
+	InitializationErrorString string `json:"initializationErrorString,omitempty"`
+
+	Initialized bool `json:"initialized"`
+
+	// ParserForType *com.google.protobuf.Parser<org.apache.mesos.Protos$ContainerInfo> `json:"parserForType"`
+
+	SerializedSize int32 `json:"serializedSize"`
+
+	Type ContainerInfoType `json:"type"`
+
+	UnknownFields *UnknownFieldSet `json:"unknownFields"`
+
+	VolumesCount int32 `json:"volumesCount"`
+
+	// VolumesList *List[Volume] `json:"volumesList"`
+
+	// VolumesOrBuilderList *List[? extends org.apache.mesos.Protos$VolumeOrBuilder] `json:"volumesOrBuilderList"`
 
 }
 
 func (self *ContainerInfo) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, self)
+	return swaggering.ReadPopulate(jsonReader, self)
+}
+
+func (self *ContainerInfo) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*ContainerInfo); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A ContainerInfo cannot absorb the values from %v", other)
 }
 
 func (self *ContainerInfo) MarshalJSON() ([]byte, error) {
-	return MarshalJSON(self)
+	return swaggering.MarshalJSON(self)
 }
 
 func (self *ContainerInfo) FormatText() string {
-	return FormatText(self)
+	return swaggering.FormatText(self)
 }
 
 func (self *ContainerInfo) FormatJSON() string {
-	return FormatJSON(self)
+	return swaggering.FormatJSON(self)
 }
 
 func (self *ContainerInfo) FieldsPresent() []string {
-	return presenceFromMap(self.present)
+	return swaggering.PresenceFromMap(self.present)
 }
 
 func (self *ContainerInfo) SetField(name string, value interface{}) error {
@@ -338,13 +364,21 @@ func (self *ContainerInfo) ClearField(name string) error {
 }
 
 func (self *ContainerInfo) LoadMap(from map[string]interface{}) error {
-	return loadMapIntoDTO(from, self)
+	return swaggering.LoadMapIntoDTO(from, self)
 }
 
 type ContainerInfoList []*ContainerInfo
 
+func (self *ContainerInfoList) Absorb(other swaggering.DTO) error {
+	if like, ok := other.(*ContainerInfoList); ok {
+		*self = *like
+		return nil
+	}
+	return fmt.Errorf("A ContainerInfo cannot absorb the values from %v", other)
+}
+
 func (list *ContainerInfoList) Populate(jsonReader io.ReadCloser) (err error) {
-	return ReadPopulate(jsonReader, list)
+	return swaggering.ReadPopulate(jsonReader, list)
 }
 
 func (list *ContainerInfoList) FormatText() string {
@@ -357,5 +391,5 @@ func (list *ContainerInfoList) FormatText() string {
 }
 
 func (list *ContainerInfoList) FormatJSON() string {
-	return FormatJSON(list)
+	return swaggering.FormatJSON(list)
 }
