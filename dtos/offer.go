@@ -58,7 +58,15 @@ type Offer struct {
 
 	SlaveIdOrBuilder *SlaveIDOrBuilder `json:"slaveIdOrBuilder"`
 
+	Unavailability *Unavailability `json:"unavailability"`
+
+	UnavailabilityOrBuilder *UnavailabilityOrBuilder `json:"unavailabilityOrBuilder"`
+
 	UnknownFields *UnknownFieldSet `json:"unknownFields"`
+
+	Url *URL `json:"url"`
+
+	UrlOrBuilder *URLOrBuilder `json:"urlOrBuilder"`
 }
 
 func (self *Offer) Populate(jsonReader io.ReadCloser) (err error) {
@@ -267,6 +275,26 @@ func (self *Offer) SetField(name string, value interface{}) error {
 			return fmt.Errorf("Field slaveIdOrBuilder/SlaveIdOrBuilder: value %v(%T) couldn't be cast to type *SlaveIDOrBuilder", value, value)
 		}
 
+	case "unavailability", "Unavailability":
+		v, ok := value.(*Unavailability)
+		if ok {
+			self.Unavailability = v
+			self.present["unavailability"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field unavailability/Unavailability: value %v(%T) couldn't be cast to type *Unavailability", value, value)
+		}
+
+	case "unavailabilityOrBuilder", "UnavailabilityOrBuilder":
+		v, ok := value.(*UnavailabilityOrBuilder)
+		if ok {
+			self.UnavailabilityOrBuilder = v
+			self.present["unavailabilityOrBuilder"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field unavailabilityOrBuilder/UnavailabilityOrBuilder: value %v(%T) couldn't be cast to type *UnavailabilityOrBuilder", value, value)
+		}
+
 	case "unknownFields", "UnknownFields":
 		v, ok := value.(*UnknownFieldSet)
 		if ok {
@@ -275,6 +303,26 @@ func (self *Offer) SetField(name string, value interface{}) error {
 			return nil
 		} else {
 			return fmt.Errorf("Field unknownFields/UnknownFields: value %v(%T) couldn't be cast to type *UnknownFieldSet", value, value)
+		}
+
+	case "url", "Url":
+		v, ok := value.(*URL)
+		if ok {
+			self.Url = v
+			self.present["url"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field url/Url: value %v(%T) couldn't be cast to type *URL", value, value)
+		}
+
+	case "urlOrBuilder", "UrlOrBuilder":
+		v, ok := value.(*URLOrBuilder)
+		if ok {
+			self.UrlOrBuilder = v
+			self.present["urlOrBuilder"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field urlOrBuilder/UrlOrBuilder: value %v(%T) couldn't be cast to type *URLOrBuilder", value, value)
 		}
 
 	}
@@ -421,6 +469,22 @@ func (self *Offer) GetField(name string) (interface{}, error) {
 		}
 		return nil, fmt.Errorf("Field SlaveIdOrBuilder no set on SlaveIdOrBuilder %+v", self)
 
+	case "unavailability", "Unavailability":
+		if self.present != nil {
+			if _, ok := self.present["unavailability"]; ok {
+				return self.Unavailability, nil
+			}
+		}
+		return nil, fmt.Errorf("Field Unavailability no set on Unavailability %+v", self)
+
+	case "unavailabilityOrBuilder", "UnavailabilityOrBuilder":
+		if self.present != nil {
+			if _, ok := self.present["unavailabilityOrBuilder"]; ok {
+				return self.UnavailabilityOrBuilder, nil
+			}
+		}
+		return nil, fmt.Errorf("Field UnavailabilityOrBuilder no set on UnavailabilityOrBuilder %+v", self)
+
 	case "unknownFields", "UnknownFields":
 		if self.present != nil {
 			if _, ok := self.present["unknownFields"]; ok {
@@ -428,6 +492,22 @@ func (self *Offer) GetField(name string) (interface{}, error) {
 			}
 		}
 		return nil, fmt.Errorf("Field UnknownFields no set on UnknownFields %+v", self)
+
+	case "url", "Url":
+		if self.present != nil {
+			if _, ok := self.present["url"]; ok {
+				return self.Url, nil
+			}
+		}
+		return nil, fmt.Errorf("Field Url no set on Url %+v", self)
+
+	case "urlOrBuilder", "UrlOrBuilder":
+		if self.present != nil {
+			if _, ok := self.present["urlOrBuilder"]; ok {
+				return self.UrlOrBuilder, nil
+			}
+		}
+		return nil, fmt.Errorf("Field UrlOrBuilder no set on UrlOrBuilder %+v", self)
 
 	}
 }
@@ -491,8 +571,20 @@ func (self *Offer) ClearField(name string) error {
 	case "slaveIdOrBuilder", "SlaveIdOrBuilder":
 		self.present["slaveIdOrBuilder"] = false
 
+	case "unavailability", "Unavailability":
+		self.present["unavailability"] = false
+
+	case "unavailabilityOrBuilder", "UnavailabilityOrBuilder":
+		self.present["unavailabilityOrBuilder"] = false
+
 	case "unknownFields", "UnknownFields":
 		self.present["unknownFields"] = false
+
+	case "url", "Url":
+		self.present["url"] = false
+
+	case "urlOrBuilder", "UrlOrBuilder":
+		self.present["urlOrBuilder"] = false
 
 	}
 

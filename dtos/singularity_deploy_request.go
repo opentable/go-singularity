@@ -15,6 +15,8 @@ type SingularityDeployRequest struct {
 	Message string `json:"message,omitempty"`
 
 	UnpauseOnSuccessfulDeploy bool `json:"unpauseOnSuccessfulDeploy"`
+
+	UpdatedRequest *SingularityRequest `json:"updatedRequest"`
 }
 
 func (self *SingularityDeployRequest) Populate(jsonReader io.ReadCloser) (err error) {
@@ -83,6 +85,16 @@ func (self *SingularityDeployRequest) SetField(name string, value interface{}) e
 			return fmt.Errorf("Field unpauseOnSuccessfulDeploy/UnpauseOnSuccessfulDeploy: value %v(%T) couldn't be cast to type bool", value, value)
 		}
 
+	case "updatedRequest", "UpdatedRequest":
+		v, ok := value.(*SingularityRequest)
+		if ok {
+			self.UpdatedRequest = v
+			self.present["updatedRequest"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field updatedRequest/UpdatedRequest: value %v(%T) couldn't be cast to type *SingularityRequest", value, value)
+		}
+
 	}
 }
 
@@ -115,6 +127,14 @@ func (self *SingularityDeployRequest) GetField(name string) (interface{}, error)
 		}
 		return nil, fmt.Errorf("Field UnpauseOnSuccessfulDeploy no set on UnpauseOnSuccessfulDeploy %+v", self)
 
+	case "updatedRequest", "UpdatedRequest":
+		if self.present != nil {
+			if _, ok := self.present["updatedRequest"]; ok {
+				return self.UpdatedRequest, nil
+			}
+		}
+		return nil, fmt.Errorf("Field UpdatedRequest no set on UpdatedRequest %+v", self)
+
 	}
 }
 
@@ -134,6 +154,9 @@ func (self *SingularityDeployRequest) ClearField(name string) error {
 
 	case "unpauseOnSuccessfulDeploy", "UnpauseOnSuccessfulDeploy":
 		self.present["unpauseOnSuccessfulDeploy"] = false
+
+	case "updatedRequest", "UpdatedRequest":
+		self.present["updatedRequest"] = false
 
 	}
 

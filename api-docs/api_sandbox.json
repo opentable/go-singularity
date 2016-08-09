@@ -1,5 +1,5 @@
 {
-  "apiVersion": "0.4.12-SNAPSHOT",
+  "apiVersion": "0.10.0-SNAPSHOT",
   "swaggerVersion": "1.2",
   "basePath": null,
   "resourcePath": "/api/sandbox",
@@ -7,6 +7,36 @@
     "application/json"
   ],
   "apis": [
+    {
+      "path": "/api/sandbox/{taskId}/browse",
+      "operations": [
+        {
+          "method": "GET",
+          "summary": "Retrieve information about a specific task's sandbox.",
+          "notes": "",
+          "type": "SingularitySandbox",
+          "nickname": "browse",
+          "parameters": [
+            {
+              "name": "taskId",
+              "description": "The task ID to browse",
+              "required": true,
+              "type": "string",
+              "paramType": "path",
+              "allowMultiple": false
+            },
+            {
+              "name": "path",
+              "description": "The path to browse from",
+              "required": false,
+              "type": "string",
+              "paramType": "query",
+              "allowMultiple": false
+            }
+          ]
+        }
+      ]
+    },
     {
       "path": "/api/sandbox/{taskId}/read",
       "operations": [
@@ -62,55 +92,9 @@
           ]
         }
       ]
-    },
-    {
-      "path": "/api/sandbox/{taskId}/browse",
-      "operations": [
-        {
-          "method": "GET",
-          "summary": "Retrieve information about a specific task's sandbox.",
-          "notes": "",
-          "type": "SingularitySandbox",
-          "nickname": "browse",
-          "parameters": [
-            {
-              "name": "taskId",
-              "description": "The task ID to browse",
-              "required": true,
-              "type": "string",
-              "paramType": "path",
-              "allowMultiple": false
-            },
-            {
-              "name": "path",
-              "description": "The path to browse from",
-              "required": false,
-              "type": "string",
-              "paramType": "query",
-              "allowMultiple": false
-            }
-          ]
-        }
-      ]
     }
   ],
   "models": {
-    "MesosFileChunkObject": {
-      "id": "MesosFileChunkObject",
-      "properties": {
-        "data": {
-          "type": "string"
-        },
-        "offset": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "nextOffset": {
-          "type": "integer",
-          "format": "int64"
-        }
-      }
-    },
     "SingularitySandbox": {
       "id": "SingularitySandbox",
       "description": "Represents the path to a specific task's Mesos sandbox",
@@ -133,6 +117,22 @@
         "slaveHostname": {
           "type": "string",
           "description": "Hostname of tasks's slave"
+        }
+      }
+    },
+    "MesosFileChunkObject": {
+      "id": "MesosFileChunkObject",
+      "properties": {
+        "data": {
+          "type": "string"
+        },
+        "offset": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "nextOffset": {
+          "type": "integer",
+          "format": "int64"
         }
       }
     },

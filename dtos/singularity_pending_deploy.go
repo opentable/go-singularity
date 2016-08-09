@@ -29,6 +29,8 @@ type SingularityPendingDeploy struct {
 	DeployProgress *SingularityDeployProgress `json:"deployProgress"`
 
 	LastLoadBalancerUpdate *SingularityLoadBalancerUpdate `json:"lastLoadBalancerUpdate"`
+
+	UpdatedRequest *SingularityRequest `json:"updatedRequest"`
 }
 
 func (self *SingularityPendingDeploy) Populate(jsonReader io.ReadCloser) (err error) {
@@ -107,6 +109,16 @@ func (self *SingularityPendingDeploy) SetField(name string, value interface{}) e
 			return fmt.Errorf("Field lastLoadBalancerUpdate/LastLoadBalancerUpdate: value %v(%T) couldn't be cast to type *SingularityLoadBalancerUpdate", value, value)
 		}
 
+	case "updatedRequest", "UpdatedRequest":
+		v, ok := value.(*SingularityRequest)
+		if ok {
+			self.UpdatedRequest = v
+			self.present["updatedRequest"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field updatedRequest/UpdatedRequest: value %v(%T) couldn't be cast to type *SingularityRequest", value, value)
+		}
+
 	}
 }
 
@@ -147,6 +159,14 @@ func (self *SingularityPendingDeploy) GetField(name string) (interface{}, error)
 		}
 		return nil, fmt.Errorf("Field LastLoadBalancerUpdate no set on LastLoadBalancerUpdate %+v", self)
 
+	case "updatedRequest", "UpdatedRequest":
+		if self.present != nil {
+			if _, ok := self.present["updatedRequest"]; ok {
+				return self.UpdatedRequest, nil
+			}
+		}
+		return nil, fmt.Errorf("Field UpdatedRequest no set on UpdatedRequest %+v", self)
+
 	}
 }
 
@@ -169,6 +189,9 @@ func (self *SingularityPendingDeploy) ClearField(name string) error {
 
 	case "lastLoadBalancerUpdate", "LastLoadBalancerUpdate":
 		self.present["lastLoadBalancerUpdate"] = false
+
+	case "updatedRequest", "UpdatedRequest":
+		self.present["updatedRequest"] = false
 
 	}
 

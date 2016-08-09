@@ -12,6 +12,8 @@ type Resources struct {
 
 	Cpus float64 `json:"cpus"`
 
+	DiskMb float64 `json:"diskMb"`
+
 	MemoryMb float64 `json:"memoryMb"`
 
 	NumPorts int32 `json:"numPorts"`
@@ -63,6 +65,16 @@ func (self *Resources) SetField(name string, value interface{}) error {
 			return fmt.Errorf("Field cpus/Cpus: value %v(%T) couldn't be cast to type float64", value, value)
 		}
 
+	case "diskMb", "DiskMb":
+		v, ok := value.(float64)
+		if ok {
+			self.DiskMb = v
+			self.present["diskMb"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field diskMb/DiskMb: value %v(%T) couldn't be cast to type float64", value, value)
+		}
+
 	case "memoryMb", "MemoryMb":
 		v, ok := value.(float64)
 		if ok {
@@ -99,6 +111,14 @@ func (self *Resources) GetField(name string) (interface{}, error) {
 		}
 		return nil, fmt.Errorf("Field Cpus no set on Cpus %+v", self)
 
+	case "diskMb", "DiskMb":
+		if self.present != nil {
+			if _, ok := self.present["diskMb"]; ok {
+				return self.DiskMb, nil
+			}
+		}
+		return nil, fmt.Errorf("Field DiskMb no set on DiskMb %+v", self)
+
 	case "memoryMb", "MemoryMb":
 		if self.present != nil {
 			if _, ok := self.present["memoryMb"]; ok {
@@ -128,6 +148,9 @@ func (self *Resources) ClearField(name string) error {
 
 	case "cpus", "Cpus":
 		self.present["cpus"] = false
+
+	case "diskMb", "DiskMb":
+		self.present["diskMb"] = false
 
 	case "memoryMb", "MemoryMb":
 		self.present["memoryMb"] = false

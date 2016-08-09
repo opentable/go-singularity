@@ -1,5 +1,5 @@
 {
-  "apiVersion": "0.4.12-SNAPSHOT",
+  "apiVersion": "0.10.0-SNAPSHOT",
   "swaggerVersion": "1.2",
   "basePath": null,
   "resourcePath": "/api/racks",
@@ -166,15 +166,15 @@
     "SingularityRack": {
       "id": "SingularityRack",
       "properties": {
-        "id": {
-          "type": "string"
-        },
         "currentState": {
           "$ref": "SingularityMachineStateHistoryUpdate"
         },
         "firstSeenAt": {
           "type": "integer",
           "format": "int64"
+        },
+        "id": {
+          "type": "string"
         }
       }
     },
