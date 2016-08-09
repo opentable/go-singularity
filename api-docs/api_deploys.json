@@ -1,5 +1,5 @@
 {
-  "apiVersion": "0.4.12-SNAPSHOT",
+  "apiVersion": "0.10.0-SNAPSHOT",
   "swaggerVersion": "1.2",
   "basePath": null,
   "resourcePath": "/api/deploys",
@@ -38,22 +38,6 @@
               "message": "A current deploy is in progress. It may be canceled by calling DELETE"
             }
           ]
-        }
-      ]
-    },
-    {
-      "path": "/api/deploys/pending",
-      "operations": [
-        {
-          "method": "GET",
-          "summary": "Retrieve the list of current pending deploys",
-          "notes": "",
-          "type": "array",
-          "items": {
-            "$ref": "SingularityPendingDeploy"
-          },
-          "nickname": "getPendingDeploys",
-          "parameters": []
         }
       ]
     },
@@ -119,6 +103,22 @@
           ]
         }
       ]
+    },
+    {
+      "path": "/api/deploys/pending",
+      "operations": [
+        {
+          "method": "GET",
+          "summary": "Retrieve the list of current pending deploys",
+          "notes": "",
+          "type": "array",
+          "items": {
+            "$ref": "SingularityPendingDeploy"
+          },
+          "nickname": "getPendingDeploys",
+          "parameters": []
+        }
+      ]
     }
   ],
   "models": {
@@ -136,6 +136,10 @@
         "numPorts": {
           "type": "integer",
           "format": "int32"
+        },
+        "diskMb": {
+          "type": "number",
+          "format": "double"
         }
       }
     },
@@ -240,6 +244,9 @@
         },
         "deployProgress": {
           "$ref": "SingularityDeployProgress"
+        },
+        "updatedRequest": {
+          "$ref": "SingularityRequest"
         }
       }
     },
@@ -293,17 +300,17 @@
           "type": "integer",
           "format": "int64"
         },
-        "expiringAPIRequestObject": {
-          "$ref": "T"
-        },
-        "user": {
+        "requestId": {
           "type": "string"
         },
         "actionId": {
           "type": "string"
         },
-        "requestId": {
+        "user": {
           "type": "string"
+        },
+        "expiringAPIRequestObject": {
+          "$ref": "T"
         }
       }
     },
@@ -350,9 +357,6 @@
           "type": "integer",
           "format": "int64"
         },
-        "name": {
-          "type": "string"
-        },
         "filename": {
           "type": "string"
         },
@@ -360,6 +364,9 @@
           "type": "string"
         },
         "targetFolderRelativeToTask": {
+          "type": "string"
+        },
+        "name": {
           "type": "string"
         }
       }
@@ -375,17 +382,17 @@
           "type": "integer",
           "format": "int64"
         },
-        "expiringAPIRequestObject": {
-          "$ref": "T"
-        },
-        "user": {
+        "requestId": {
           "type": "string"
         },
         "actionId": {
           "type": "string"
         },
-        "requestId": {
+        "user": {
           "type": "string"
+        },
+        "expiringAPIRequestObject": {
+          "$ref": "T"
         }
       }
     },
@@ -464,6 +471,9 @@
           "items": {
             "$ref": "S3ArtifactSignature"
           }
+        },
+        "logrotateFrequency": {
+          "$ref": "SingularityExecutorLogrotateFrequency"
         }
       }
     },
@@ -516,6 +526,9 @@
         },
         "scheduleType": {
           "$ref": "ScheduleType"
+        },
+        "scheduleTimeZone": {
+          "type": "string"
         },
         "killOldNonLongRunningTasksAfterMillis": {
           "type": "integer",
@@ -572,6 +585,15 @@
         },
         "emailConfigurationOverrides": {
           "$ref": "Map[SingularityEmailType,List[SingularityEmailDestination]]"
+        },
+        "hideEvenNumberAcrossRacksHint": {
+          "type": "boolean"
+        },
+        "taskLogErrorRegex": {
+          "type": "string"
+        },
+        "taskLogErrorRegexCaseSensitive": {
+          "type": "boolean"
         }
       }
     },
@@ -603,17 +625,17 @@
           "type": "integer",
           "format": "int64"
         },
-        "expiringAPIRequestObject": {
-          "$ref": "T"
-        },
-        "user": {
+        "requestId": {
           "type": "string"
         },
         "actionId": {
           "type": "string"
         },
-        "requestId": {
+        "user": {
           "type": "string"
+        },
+        "expiringAPIRequestObject": {
+          "$ref": "T"
         }
       }
     },
@@ -633,9 +655,6 @@
           "type": "integer",
           "format": "int64"
         },
-        "name": {
-          "type": "string"
-        },
         "filename": {
           "type": "string"
         },
@@ -643,6 +662,9 @@
           "type": "string"
         },
         "targetFolderRelativeToTask": {
+          "type": "string"
+        },
+        "name": {
           "type": "string"
         }
       }
@@ -731,7 +753,15 @@
         },
         "labels": {
           "$ref": "Map[string,string]",
-          "description": "Labels for tasks associated with this deploy"
+          "description": "Labels for all tasks associated with this deploy"
+        },
+        "taskLabels": {
+          "$ref": "Map[int,Map[string,string]]",
+          "description": "Labels for specific tasks associated with this deploy, indexed by instance number"
+        },
+        "taskEnv": {
+          "$ref": "Map[int,Map[string,string]]",
+          "description": "Map of environment variable overrides for specific task instances."
         },
         "healthcheckUri": {
           "type": "string",
@@ -801,6 +831,25 @@
           "$ref": "Map[string,Object]",
           "description": "Map (Key/Value) of options for the load balancer."
         },
+        "loadBalancerDomains": {
+          "type": "array",
+          "uniqueItems": true,
+          "description": "List of domains to host this service on, for use with the load balancer api",
+          "items": {
+            "type": "string"
+          }
+        },
+        "loadBalancerAdditionalRoutes": {
+          "type": "array",
+          "description": "Additional routes besides serviceBasePath used by this service",
+          "items": {
+            "type": "string"
+          }
+        },
+        "loadBalancerTemplate": {
+          "type": "string",
+          "description": "Name of load balancer template to use if not using the default template"
+        },
         "deployInstanceCountPerStep": {
           "type": "integer",
           "format": "int32",
@@ -819,6 +868,10 @@
           "type": "integer",
           "format": "int32",
           "description": "allowed at most this many failed tasks to be retried before failing the deploy"
+        },
+        "shell": {
+          "type": "boolean",
+          "description": "Override the shell property on the mesos task"
         }
       }
     },
@@ -832,9 +885,6 @@
             "format": "byte"
           }
         },
-        "name": {
-          "type": "string"
-        },
         "filename": {
           "type": "string"
         },
@@ -842,6 +892,9 @@
           "type": "string"
         },
         "targetFolderRelativeToTask": {
+          "type": "string"
+        },
+        "name": {
           "type": "string"
         }
       }
@@ -869,13 +922,13 @@
         "sanitizedRackId": {
           "type": "string"
         },
+        "rackId": {
+          "type": "string"
+        },
         "id": {
           "type": "string"
         },
         "host": {
-          "type": "string"
-        },
-        "rackId": {
           "type": "string"
         }
       }
@@ -924,17 +977,17 @@
           "type": "integer",
           "format": "int64"
         },
-        "expiringAPIRequestObject": {
-          "$ref": "T"
-        },
-        "user": {
+        "requestId": {
           "type": "string"
         },
         "actionId": {
           "type": "string"
         },
-        "requestId": {
+        "user": {
           "type": "string"
+        },
+        "expiringAPIRequestObject": {
+          "$ref": "T"
         }
       }
     },
@@ -948,9 +1001,6 @@
           "type": "integer",
           "format": "int64"
         },
-        "name": {
-          "type": "string"
-        },
         "filename": {
           "type": "string"
         },
@@ -958,6 +1008,9 @@
           "type": "string"
         },
         "targetFolderRelativeToTask": {
+          "type": "string"
+        },
+        "name": {
           "type": "string"
         }
       }
@@ -1011,7 +1064,12 @@
           "type": "boolean"
         },
         "network": {
-          "$ref": "SingularityDockerNetworkType"
+          "$ref": "SingularityDockerNetworkType",
+          "enum": [
+            "HOST",
+            "BRIDGE",
+            "NONE"
+          ]
         },
         "portMappings": {
           "type": "array",
@@ -1044,6 +1102,10 @@
         "message": {
           "type": "string",
           "description": "A message to show users about this deploy (metadata)"
+        },
+        "updatedRequest": {
+          "$ref": "SingularityRequest",
+          "description": "use this request data for this deploy, and update the request on successful deploy"
         }
       }
     }

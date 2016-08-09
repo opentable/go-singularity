@@ -14,6 +14,8 @@ type SingularityRunNowRequest struct {
 
 	Message string `json:"message,omitempty"`
 
+	Resources *Resources `json:"resources"`
+
 	RunId string `json:"runId,omitempty"`
 
 	SkipHealthchecks bool `json:"skipHealthchecks"`
@@ -75,6 +77,16 @@ func (self *SingularityRunNowRequest) SetField(name string, value interface{}) e
 			return fmt.Errorf("Field message/Message: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
+	case "resources", "Resources":
+		v, ok := value.(*Resources)
+		if ok {
+			self.Resources = v
+			self.present["resources"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field resources/Resources: value %v(%T) couldn't be cast to type *Resources", value, value)
+		}
+
 	case "runId", "RunId":
 		v, ok := value.(string)
 		if ok {
@@ -119,6 +131,14 @@ func (self *SingularityRunNowRequest) GetField(name string) (interface{}, error)
 		}
 		return nil, fmt.Errorf("Field Message no set on Message %+v", self)
 
+	case "resources", "Resources":
+		if self.present != nil {
+			if _, ok := self.present["resources"]; ok {
+				return self.Resources, nil
+			}
+		}
+		return nil, fmt.Errorf("Field Resources no set on Resources %+v", self)
+
 	case "runId", "RunId":
 		if self.present != nil {
 			if _, ok := self.present["runId"]; ok {
@@ -151,6 +171,9 @@ func (self *SingularityRunNowRequest) ClearField(name string) error {
 
 	case "message", "Message":
 		self.present["message"] = false
+
+	case "resources", "Resources":
+		self.present["resources"] = false
 
 	case "runId", "RunId":
 		self.present["runId"] = false

@@ -16,10 +16,6 @@ type CommandInfo struct {
 
 	ArgumentsList swaggering.StringList `json:"argumentsList"`
 
-	Container *ContainerInfo `json:"container"`
-
-	ContainerOrBuilder *ContainerInfoOrBuilder `json:"containerOrBuilder"`
-
 	DefaultInstanceForType *CommandInfo `json:"defaultInstanceForType"`
 
 	DescriptorForType *Descriptor `json:"descriptorForType"`
@@ -109,26 +105,6 @@ func (self *CommandInfo) SetField(name string, value interface{}) error {
 			return nil
 		} else {
 			return fmt.Errorf("Field argumentsList/ArgumentsList: value %v(%T) couldn't be cast to type StringList", value, value)
-		}
-
-	case "container", "Container":
-		v, ok := value.(*ContainerInfo)
-		if ok {
-			self.Container = v
-			self.present["container"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field container/Container: value %v(%T) couldn't be cast to type *ContainerInfo", value, value)
-		}
-
-	case "containerOrBuilder", "ContainerOrBuilder":
-		v, ok := value.(*ContainerInfoOrBuilder)
-		if ok {
-			self.ContainerOrBuilder = v
-			self.present["containerOrBuilder"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field containerOrBuilder/ContainerOrBuilder: value %v(%T) couldn't be cast to type *ContainerInfoOrBuilder", value, value)
 		}
 
 	case "defaultInstanceForType", "DefaultInstanceForType":
@@ -295,22 +271,6 @@ func (self *CommandInfo) GetField(name string) (interface{}, error) {
 		}
 		return nil, fmt.Errorf("Field ArgumentsList no set on ArgumentsList %+v", self)
 
-	case "container", "Container":
-		if self.present != nil {
-			if _, ok := self.present["container"]; ok {
-				return self.Container, nil
-			}
-		}
-		return nil, fmt.Errorf("Field Container no set on Container %+v", self)
-
-	case "containerOrBuilder", "ContainerOrBuilder":
-		if self.present != nil {
-			if _, ok := self.present["containerOrBuilder"]; ok {
-				return self.ContainerOrBuilder, nil
-			}
-		}
-		return nil, fmt.Errorf("Field ContainerOrBuilder no set on ContainerOrBuilder %+v", self)
-
 	case "defaultInstanceForType", "DefaultInstanceForType":
 		if self.present != nil {
 			if _, ok := self.present["defaultInstanceForType"]; ok {
@@ -439,12 +399,6 @@ func (self *CommandInfo) ClearField(name string) error {
 
 	case "argumentsList", "ArgumentsList":
 		self.present["argumentsList"] = false
-
-	case "container", "Container":
-		self.present["container"] = false
-
-	case "containerOrBuilder", "ContainerOrBuilder":
-		self.present["containerOrBuilder"] = false
 
 	case "defaultInstanceForType", "DefaultInstanceForType":
 		self.present["defaultInstanceForType"] = false

@@ -24,6 +24,8 @@ type ExecutorData struct {
 
 	LoggingTag string `json:"loggingTag,omitempty"`
 
+	// LogrotateFrequency *SingularityExecutorLogrotateFrequency `json:"logrotateFrequency"`
+
 	MaxOpenFiles int32 `json:"maxOpenFiles"`
 
 	MaxTaskThreads int32 `json:"maxTaskThreads"`

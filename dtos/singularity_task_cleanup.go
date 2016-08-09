@@ -22,6 +22,7 @@ const (
 	SingularityTaskCleanupTaskCleanupTypeDEPLOY_CANCELED            SingularityTaskCleanupTaskCleanupType = "DEPLOY_CANCELED"
 	SingularityTaskCleanupTaskCleanupTypeUNHEALTHY_NEW_TASK         SingularityTaskCleanupTaskCleanupType = "UNHEALTHY_NEW_TASK"
 	SingularityTaskCleanupTaskCleanupTypeOVERDUE_NEW_TASK           SingularityTaskCleanupTaskCleanupType = "OVERDUE_NEW_TASK"
+	SingularityTaskCleanupTaskCleanupTypeUSER_REQUESTED_DESTROY     SingularityTaskCleanupTaskCleanupType = "USER_REQUESTED_DESTROY"
 )
 
 type SingularityTaskCleanup struct {

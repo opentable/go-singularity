@@ -55,6 +55,10 @@ type DockerInfo struct {
 	SerializedSize int32 `json:"serializedSize"`
 
 	UnknownFields *UnknownFieldSet `json:"unknownFields"`
+
+	VolumeDriver string `json:"volumeDriver,omitempty"`
+
+	VolumeDriverBytes *ByteString `json:"volumeDriverBytes"`
 }
 
 func (self *DockerInfo) Populate(jsonReader io.ReadCloser) (err error) {
@@ -223,6 +227,26 @@ func (self *DockerInfo) SetField(name string, value interface{}) error {
 			return fmt.Errorf("Field unknownFields/UnknownFields: value %v(%T) couldn't be cast to type *UnknownFieldSet", value, value)
 		}
 
+	case "volumeDriver", "VolumeDriver":
+		v, ok := value.(string)
+		if ok {
+			self.VolumeDriver = v
+			self.present["volumeDriver"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field volumeDriver/VolumeDriver: value %v(%T) couldn't be cast to type string", value, value)
+		}
+
+	case "volumeDriverBytes", "VolumeDriverBytes":
+		v, ok := value.(*ByteString)
+		if ok {
+			self.VolumeDriverBytes = v
+			self.present["volumeDriverBytes"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field volumeDriverBytes/VolumeDriverBytes: value %v(%T) couldn't be cast to type *ByteString", value, value)
+		}
+
 	}
 }
 
@@ -335,6 +359,22 @@ func (self *DockerInfo) GetField(name string) (interface{}, error) {
 		}
 		return nil, fmt.Errorf("Field UnknownFields no set on UnknownFields %+v", self)
 
+	case "volumeDriver", "VolumeDriver":
+		if self.present != nil {
+			if _, ok := self.present["volumeDriver"]; ok {
+				return self.VolumeDriver, nil
+			}
+		}
+		return nil, fmt.Errorf("Field VolumeDriver no set on VolumeDriver %+v", self)
+
+	case "volumeDriverBytes", "VolumeDriverBytes":
+		if self.present != nil {
+			if _, ok := self.present["volumeDriverBytes"]; ok {
+				return self.VolumeDriverBytes, nil
+			}
+		}
+		return nil, fmt.Errorf("Field VolumeDriverBytes no set on VolumeDriverBytes %+v", self)
+
 	}
 }
 
@@ -384,6 +424,12 @@ func (self *DockerInfo) ClearField(name string) error {
 
 	case "unknownFields", "UnknownFields":
 		self.present["unknownFields"] = false
+
+	case "volumeDriver", "VolumeDriver":
+		self.present["volumeDriver"] = false
+
+	case "volumeDriverBytes", "VolumeDriverBytes":
+		self.present["volumeDriverBytes"] = false
 
 	}
 

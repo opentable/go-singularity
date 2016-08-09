@@ -1,5 +1,5 @@
 {
-  "apiVersion": "0.4.12-SNAPSHOT",
+  "apiVersion": "0.10.0-SNAPSHOT",
   "swaggerVersion": "1.2",
   "basePath": null,
   "resourcePath": "/api/requests",
@@ -7,68 +7,6 @@
     "application/json"
   ],
   "apis": [
-    {
-      "path": "/api/requests/request/{requestId}/scale",
-      "operations": [
-        {
-          "method": "PUT",
-          "summary": "Scale the number of instances up or down for a specific Request",
-          "notes": "",
-          "type": "SingularityRequestParent",
-          "nickname": "scale",
-          "consumes": [
-            "application/json"
-          ],
-          "parameters": [
-            {
-              "name": "requestId",
-              "description": "The Request ID to scale",
-              "required": true,
-              "type": "string",
-              "paramType": "path",
-              "allowMultiple": false
-            },
-            {
-              "name": "body",
-              "description": "Object to hold number of instances to request",
-              "required": false,
-              "type": "SingularityScaleRequest",
-              "paramType": "body",
-              "allowMultiple": false
-            }
-          ],
-          "responseMessages": [
-            {
-              "code": 404,
-              "message": "No Request with that ID"
-            }
-          ]
-        },
-        {
-          "method": "DELETE",
-          "summary": "Delete/cancel the expiring scale. This makes the scale request permanent.",
-          "notes": "",
-          "type": "SingularityRequestParent",
-          "nickname": "deleteExpiringScale",
-          "parameters": [
-            {
-              "name": "requestId",
-              "description": "The Request ID",
-              "required": true,
-              "type": "string",
-              "paramType": "path",
-              "allowMultiple": false
-            }
-          ],
-          "responseMessages": [
-            {
-              "code": 404,
-              "message": "No Request or expiring scale request for that ID"
-            }
-          ]
-        }
-      ]
-    },
     {
       "path": "/api/requests/request/{requestId}",
       "operations": [
@@ -178,63 +116,7 @@
       ]
     },
     {
-      "path": "/api/requests/request/{requestId}/bounce",
-      "operations": [
-        {
-          "method": "POST",
-          "summary": "Bounce a specific Singularity request. A bounce launches replacement task(s), and then kills the original task(s) if the replacement(s) are healthy.",
-          "notes": "",
-          "type": "SingularityRequestParent",
-          "nickname": "bounce",
-          "consumes": [
-            "application/json"
-          ],
-          "parameters": [
-            {
-              "name": "requestId",
-              "description": "The request ID to bounce",
-              "required": true,
-              "type": "string",
-              "paramType": "path",
-              "allowMultiple": false
-            },
-            {
-              "name": "body",
-              "description": "Bounce request options",
-              "required": false,
-              "type": "SingularityBounceRequest",
-              "paramType": "body",
-              "allowMultiple": false
-            }
-          ]
-        },
-        {
-          "method": "DELETE",
-          "summary": "Delete/cancel the expiring bounce. This makes the bounce request permanent.",
-          "notes": "",
-          "type": "SingularityRequestParent",
-          "nickname": "deleteExpiringBounce",
-          "parameters": [
-            {
-              "name": "requestId",
-              "description": "The Request ID",
-              "required": true,
-              "type": "string",
-              "paramType": "path",
-              "allowMultiple": false
-            }
-          ],
-          "responseMessages": [
-            {
-              "code": 404,
-              "message": "No Request or expiring bounce request for that ID"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "path": "/api/requests/request/{requestId}/skipHealthchecks",
+      "path": "/api/requests/request/{requestId}/skip-healthchecks",
       "operations": [
         {
           "method": "PUT",
@@ -328,6 +210,34 @@
             {
               "code": 400,
               "message": "Singularity Request is not scheduled or one-off"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "/api/requests/request/{requestId}/run/{runId}",
+      "operations": [
+        {
+          "method": "GET",
+          "summary": "Retrieve an active task by runId",
+          "notes": "",
+          "type": "SingularityTaskId",
+          "nickname": "getTaskByRunId",
+          "parameters": [
+            {
+              "name": "requestId",
+              "required": true,
+              "type": "string",
+              "paramType": "path",
+              "allowMultiple": false
+            },
+            {
+              "name": "runId",
+              "required": true,
+              "type": "string",
+              "paramType": "path",
+              "allowMultiple": false
             }
           ]
         }
@@ -487,6 +397,62 @@
       ]
     },
     {
+      "path": "/api/requests/request/{requestId}/bounce",
+      "operations": [
+        {
+          "method": "POST",
+          "summary": "Bounce a specific Singularity request. A bounce launches replacement task(s), and then kills the original task(s) if the replacement(s) are healthy.",
+          "notes": "",
+          "type": "SingularityRequestParent",
+          "nickname": "bounce",
+          "consumes": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "requestId",
+              "description": "The request ID to bounce",
+              "required": true,
+              "type": "string",
+              "paramType": "path",
+              "allowMultiple": false
+            },
+            {
+              "name": "body",
+              "description": "Bounce request options",
+              "required": false,
+              "type": "SingularityBounceRequest",
+              "paramType": "body",
+              "allowMultiple": false
+            }
+          ]
+        },
+        {
+          "method": "DELETE",
+          "summary": "Delete/cancel the expiring bounce. This makes the bounce request permanent.",
+          "notes": "",
+          "type": "SingularityRequestParent",
+          "nickname": "deleteExpiringBounce",
+          "parameters": [
+            {
+              "name": "requestId",
+              "description": "The Request ID",
+              "required": true,
+              "type": "string",
+              "paramType": "path",
+              "allowMultiple": false
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 404,
+              "message": "No Request or expiring bounce request for that ID"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "path": "/api/requests/paused",
       "operations": [
         {
@@ -567,6 +533,132 @@
       ]
     },
     {
+      "path": "/api/requests/request/{requestId}/scale",
+      "operations": [
+        {
+          "method": "DELETE",
+          "summary": "Delete/cancel the expiring scale. This makes the scale request permanent.",
+          "notes": "",
+          "type": "SingularityRequestParent",
+          "nickname": "deleteExpiringScale",
+          "parameters": [
+            {
+              "name": "requestId",
+              "description": "The Request ID",
+              "required": true,
+              "type": "string",
+              "paramType": "path",
+              "allowMultiple": false
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 404,
+              "message": "No Request or expiring scale request for that ID"
+            }
+          ]
+        },
+        {
+          "method": "PUT",
+          "summary": "Scale the number of instances up or down for a specific Request",
+          "notes": "",
+          "type": "SingularityRequestParent",
+          "nickname": "scale",
+          "consumes": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "requestId",
+              "description": "The Request ID to scale",
+              "required": true,
+              "type": "string",
+              "paramType": "path",
+              "allowMultiple": false
+            },
+            {
+              "name": "body",
+              "description": "Object to hold number of instances to request",
+              "required": false,
+              "type": "SingularityScaleRequest",
+              "paramType": "body",
+              "allowMultiple": false
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 404,
+              "message": "No Request with that ID"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "/api/requests/request/{requestId}/skipHealthchecks",
+      "operations": [
+        {
+          "method": "DELETE",
+          "summary": "Delete/cancel the expiring skipHealthchecks. This makes the skipHealthchecks request permanent.",
+          "notes": "",
+          "type": "SingularityRequestParent",
+          "nickname": "deleteExpiringSkipHealthchecksDeprecated",
+          "parameters": [
+            {
+              "name": "requestId",
+              "description": "The Request ID",
+              "required": true,
+              "type": "string",
+              "paramType": "path",
+              "allowMultiple": false
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 404,
+              "message": "No Request or expiring skipHealthchecks request for that ID"
+            }
+          ],
+          "deprecated": "true"
+        },
+        {
+          "method": "PUT",
+          "summary": "Update the skipHealthchecks field for the request, possibly temporarily",
+          "notes": "",
+          "type": "SingularityRequestParent",
+          "nickname": "skipHealthchecksDeprecated",
+          "consumes": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "requestId",
+              "description": "The Request ID to scale",
+              "required": true,
+              "type": "string",
+              "paramType": "path",
+              "allowMultiple": false
+            },
+            {
+              "name": "body",
+              "description": "SkipHealtchecks options",
+              "required": false,
+              "type": "SingularitySkipHealthchecksRequest",
+              "paramType": "body",
+              "allowMultiple": false
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 404,
+              "message": "No Request with that ID"
+            }
+          ],
+          "deprecated": "true"
+        }
+      ]
+    },
+    {
       "path": "/api/requests/lbcleanup",
       "operations": [
         {
@@ -597,6 +689,10 @@
         "numPorts": {
           "type": "integer",
           "format": "int32"
+        },
+        "diskMb": {
+          "type": "number",
+          "format": "double"
         }
       }
     },
@@ -685,10 +781,6 @@
           "type": "boolean",
           "description": "If set to true, healthchecks will be skipped for all tasks for this request until reversed"
         },
-        "message": {
-          "type": "string",
-          "description": "A message to show to users about why this action was taken"
-        },
         "durationMillis": {
           "type": "integer",
           "format": "int64",
@@ -697,6 +789,10 @@
         "actionId": {
           "type": "string",
           "description": "An id to associate with this action for metadata purposes"
+        },
+        "message": {
+          "type": "string",
+          "description": "A message to show to users about why this action was taken"
         }
       }
     },
@@ -740,6 +836,9 @@
         },
         "deployProgress": {
           "$ref": "SingularityDeployProgress"
+        },
+        "updatedRequest": {
+          "$ref": "SingularityRequest"
         }
       }
     },
@@ -810,17 +909,17 @@
           "type": "integer",
           "format": "int64"
         },
-        "expiringAPIRequestObject": {
-          "$ref": "T"
-        },
-        "user": {
+        "requestId": {
           "type": "string"
         },
         "actionId": {
           "type": "string"
         },
-        "requestId": {
+        "user": {
           "type": "string"
+        },
+        "expiringAPIRequestObject": {
+          "$ref": "T"
         }
       }
     },
@@ -906,9 +1005,6 @@
           "type": "integer",
           "format": "int64"
         },
-        "name": {
-          "type": "string"
-        },
         "filename": {
           "type": "string"
         },
@@ -916,6 +1012,9 @@
           "type": "string"
         },
         "targetFolderRelativeToTask": {
+          "type": "string"
+        },
+        "name": {
           "type": "string"
         }
       }
@@ -931,17 +1030,17 @@
           "type": "integer",
           "format": "int64"
         },
-        "expiringAPIRequestObject": {
-          "$ref": "T"
-        },
-        "user": {
+        "requestId": {
           "type": "string"
         },
         "actionId": {
           "type": "string"
         },
-        "requestId": {
+        "user": {
           "type": "string"
+        },
+        "expiringAPIRequestObject": {
+          "$ref": "T"
         }
       }
     },
@@ -1020,6 +1119,9 @@
           "items": {
             "$ref": "S3ArtifactSignature"
           }
+        },
+        "logrotateFrequency": {
+          "$ref": "SingularityExecutorLogrotateFrequency"
         }
       }
     },
@@ -1044,6 +1146,10 @@
         "skipHealthchecks": {
           "type": "boolean",
           "description": "If set to true, healthchecks will be skipped for this task run"
+        },
+        "resources": {
+          "$ref": "Resources",
+          "description": "Override the resources from the active deploy for this run"
         }
       }
     },
@@ -1059,10 +1165,6 @@
           "type": "boolean",
           "description": "If set to true, healthchecks will be skipped while scaling this request (only)"
         },
-        "message": {
-          "type": "string",
-          "description": "A message to show to users about why this action was taken"
-        },
         "durationMillis": {
           "type": "integer",
           "format": "int64",
@@ -1071,6 +1173,10 @@
         "actionId": {
           "type": "string",
           "description": "An id to associate with this action for metadata purposes"
+        },
+        "message": {
+          "type": "string",
+          "description": "A message to show to users about why this action was taken"
         }
       }
     },
@@ -1108,6 +1214,9 @@
         },
         "scheduleType": {
           "$ref": "ScheduleType"
+        },
+        "scheduleTimeZone": {
+          "type": "string"
         },
         "killOldNonLongRunningTasksAfterMillis": {
           "type": "integer",
@@ -1164,6 +1273,15 @@
         },
         "emailConfigurationOverrides": {
           "$ref": "Map[SingularityEmailType,List[SingularityEmailDestination]]"
+        },
+        "hideEvenNumberAcrossRacksHint": {
+          "type": "boolean"
+        },
+        "taskLogErrorRegex": {
+          "type": "string"
+        },
+        "taskLogErrorRegexCaseSensitive": {
+          "type": "boolean"
         }
       }
     },
@@ -1195,17 +1313,17 @@
           "type": "integer",
           "format": "int64"
         },
-        "expiringAPIRequestObject": {
-          "$ref": "T"
-        },
-        "user": {
+        "requestId": {
           "type": "string"
         },
         "actionId": {
           "type": "string"
         },
-        "requestId": {
+        "user": {
           "type": "string"
+        },
+        "expiringAPIRequestObject": {
+          "$ref": "T"
         }
       }
     },
@@ -1225,9 +1343,6 @@
           "type": "integer",
           "format": "int64"
         },
-        "name": {
-          "type": "string"
-        },
         "filename": {
           "type": "string"
         },
@@ -1235,6 +1350,9 @@
           "type": "string"
         },
         "targetFolderRelativeToTask": {
+          "type": "string"
+        },
+        "name": {
           "type": "string"
         }
       }
@@ -1323,7 +1441,15 @@
         },
         "labels": {
           "$ref": "Map[string,string]",
-          "description": "Labels for tasks associated with this deploy"
+          "description": "Labels for all tasks associated with this deploy"
+        },
+        "taskLabels": {
+          "$ref": "Map[int,Map[string,string]]",
+          "description": "Labels for specific tasks associated with this deploy, indexed by instance number"
+        },
+        "taskEnv": {
+          "$ref": "Map[int,Map[string,string]]",
+          "description": "Map of environment variable overrides for specific task instances."
         },
         "healthcheckUri": {
           "type": "string",
@@ -1393,6 +1519,25 @@
           "$ref": "Map[string,Object]",
           "description": "Map (Key/Value) of options for the load balancer."
         },
+        "loadBalancerDomains": {
+          "type": "array",
+          "uniqueItems": true,
+          "description": "List of domains to host this service on, for use with the load balancer api",
+          "items": {
+            "type": "string"
+          }
+        },
+        "loadBalancerAdditionalRoutes": {
+          "type": "array",
+          "description": "Additional routes besides serviceBasePath used by this service",
+          "items": {
+            "type": "string"
+          }
+        },
+        "loadBalancerTemplate": {
+          "type": "string",
+          "description": "Name of load balancer template to use if not using the default template"
+        },
         "deployInstanceCountPerStep": {
           "type": "integer",
           "format": "int32",
@@ -1411,6 +1556,10 @@
           "type": "integer",
           "format": "int32",
           "description": "allowed at most this many failed tasks to be retried before failing the deploy"
+        },
+        "shell": {
+          "type": "boolean",
+          "description": "Override the shell property on the mesos task"
         }
       }
     },
@@ -1466,6 +1615,9 @@
         },
         "actionId": {
           "type": "string"
+        },
+        "resources": {
+          "$ref": "Resources"
         }
       }
     },
@@ -1476,10 +1628,6 @@
           "type": "boolean",
           "description": "If set to false, tasks will be allowed to finish instead of killed immediately"
         },
-        "message": {
-          "type": "string",
-          "description": "A message to show to users about why this action was taken"
-        },
         "durationMillis": {
           "type": "integer",
           "format": "int64",
@@ -1488,6 +1636,10 @@
         "actionId": {
           "type": "string",
           "description": "An id to associate with this action for metadata purposes"
+        },
+        "message": {
+          "type": "string",
+          "description": "A message to show to users about why this action was taken"
         }
       }
     },
@@ -1501,9 +1653,6 @@
             "format": "byte"
           }
         },
-        "name": {
-          "type": "string"
-        },
         "filename": {
           "type": "string"
         },
@@ -1511,6 +1660,9 @@
           "type": "string"
         },
         "targetFolderRelativeToTask": {
+          "type": "string"
+        },
+        "name": {
           "type": "string"
         }
       }
@@ -1538,13 +1690,13 @@
         "sanitizedRackId": {
           "type": "string"
         },
+        "rackId": {
+          "type": "string"
+        },
         "id": {
           "type": "string"
         },
         "host": {
-          "type": "string"
-        },
-        "rackId": {
           "type": "string"
         }
       }
@@ -1593,17 +1745,17 @@
           "type": "integer",
           "format": "int64"
         },
-        "expiringAPIRequestObject": {
-          "$ref": "T"
-        },
-        "user": {
+        "requestId": {
           "type": "string"
         },
         "actionId": {
           "type": "string"
         },
-        "requestId": {
+        "user": {
           "type": "string"
+        },
+        "expiringAPIRequestObject": {
+          "$ref": "T"
         }
       }
     },
@@ -1617,9 +1769,6 @@
           "type": "integer",
           "format": "int64"
         },
-        "name": {
-          "type": "string"
-        },
         "filename": {
           "type": "string"
         },
@@ -1627,6 +1776,9 @@
           "type": "string"
         },
         "targetFolderRelativeToTask": {
+          "type": "string"
+        },
+        "name": {
           "type": "string"
         }
       }
@@ -1681,10 +1833,6 @@
           "type": "boolean",
           "description": "Instruct replacement tasks for this bounce only to skip healthchecks"
         },
-        "message": {
-          "type": "string",
-          "description": "A message to show to users about why this action was taken"
-        },
         "durationMillis": {
           "type": "integer",
           "format": "int64",
@@ -1693,6 +1841,10 @@
         "actionId": {
           "type": "string",
           "description": "An id to associate with this action for metadata purposes"
+        },
+        "message": {
+          "type": "string",
+          "description": "A message to show to users about why this action was taken"
         }
       }
     },
@@ -1706,7 +1858,12 @@
           "type": "boolean"
         },
         "network": {
-          "$ref": "SingularityDockerNetworkType"
+          "$ref": "SingularityDockerNetworkType",
+          "enum": [
+            "HOST",
+            "BRIDGE",
+            "NONE"
+          ]
         },
         "portMappings": {
           "type": "array",

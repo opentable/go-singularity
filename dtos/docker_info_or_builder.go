@@ -39,6 +39,10 @@ type DockerInfoOrBuilder struct {
 	// PortMappingsOrBuilderList *List[? extends org.apache.mesos.Protos$ContainerInfo$DockerInfo$PortMappingOrBuilder] `json:"portMappingsOrBuilderList"`
 
 	Privileged bool `json:"privileged"`
+
+	VolumeDriver string `json:"volumeDriver,omitempty"`
+
+	VolumeDriverBytes *ByteString `json:"volumeDriverBytes"`
 }
 
 func (self *DockerInfoOrBuilder) Populate(jsonReader io.ReadCloser) (err error) {
@@ -147,6 +151,26 @@ func (self *DockerInfoOrBuilder) SetField(name string, value interface{}) error 
 			return fmt.Errorf("Field privileged/Privileged: value %v(%T) couldn't be cast to type bool", value, value)
 		}
 
+	case "volumeDriver", "VolumeDriver":
+		v, ok := value.(string)
+		if ok {
+			self.VolumeDriver = v
+			self.present["volumeDriver"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field volumeDriver/VolumeDriver: value %v(%T) couldn't be cast to type string", value, value)
+		}
+
+	case "volumeDriverBytes", "VolumeDriverBytes":
+		v, ok := value.(*ByteString)
+		if ok {
+			self.VolumeDriverBytes = v
+			self.present["volumeDriverBytes"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field volumeDriverBytes/VolumeDriverBytes: value %v(%T) couldn't be cast to type *ByteString", value, value)
+		}
+
 	}
 }
 
@@ -211,6 +235,22 @@ func (self *DockerInfoOrBuilder) GetField(name string) (interface{}, error) {
 		}
 		return nil, fmt.Errorf("Field Privileged no set on Privileged %+v", self)
 
+	case "volumeDriver", "VolumeDriver":
+		if self.present != nil {
+			if _, ok := self.present["volumeDriver"]; ok {
+				return self.VolumeDriver, nil
+			}
+		}
+		return nil, fmt.Errorf("Field VolumeDriver no set on VolumeDriver %+v", self)
+
+	case "volumeDriverBytes", "VolumeDriverBytes":
+		if self.present != nil {
+			if _, ok := self.present["volumeDriverBytes"]; ok {
+				return self.VolumeDriverBytes, nil
+			}
+		}
+		return nil, fmt.Errorf("Field VolumeDriverBytes no set on VolumeDriverBytes %+v", self)
+
 	}
 }
 
@@ -242,6 +282,12 @@ func (self *DockerInfoOrBuilder) ClearField(name string) error {
 
 	case "privileged", "Privileged":
 		self.present["privileged"] = false
+
+	case "volumeDriver", "VolumeDriver":
+		self.present["volumeDriver"] = false
+
+	case "volumeDriverBytes", "VolumeDriverBytes":
+		self.present["volumeDriverBytes"] = false
 
 	}
 

@@ -7,6 +7,14 @@ import (
 	"github.com/opentable/swaggering"
 )
 
+type SingularityDockerInfoSingularityDockerNetworkType string
+
+const (
+	SingularityDockerInfoSingularityDockerNetworkTypeHOST   SingularityDockerInfoSingularityDockerNetworkType = "HOST"
+	SingularityDockerInfoSingularityDockerNetworkTypeBRIDGE SingularityDockerInfoSingularityDockerNetworkType = "BRIDGE"
+	SingularityDockerInfoSingularityDockerNetworkTypeNONE   SingularityDockerInfoSingularityDockerNetworkType = "NONE"
+)
+
 type SingularityDockerInfo struct {
 	present map[string]bool
 
@@ -14,7 +22,7 @@ type SingularityDockerInfo struct {
 
 	Image string `json:"image,omitempty"`
 
-	// Network *SingularityDockerNetworkType `json:"network"`
+	Network SingularityDockerInfoSingularityDockerNetworkType `json:"network"`
 
 	Parameters map[string]string `json:"parameters"`
 
@@ -79,6 +87,16 @@ func (self *SingularityDockerInfo) SetField(name string, value interface{}) erro
 			return fmt.Errorf("Field image/Image: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
+	case "network", "Network":
+		v, ok := value.(SingularityDockerInfoSingularityDockerNetworkType)
+		if ok {
+			self.Network = v
+			self.present["network"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field network/Network: value %v(%T) couldn't be cast to type SingularityDockerInfoSingularityDockerNetworkType", value, value)
+		}
+
 	case "parameters", "Parameters":
 		v, ok := value.(map[string]string)
 		if ok {
@@ -133,6 +151,14 @@ func (self *SingularityDockerInfo) GetField(name string) (interface{}, error) {
 		}
 		return nil, fmt.Errorf("Field Image no set on Image %+v", self)
 
+	case "network", "Network":
+		if self.present != nil {
+			if _, ok := self.present["network"]; ok {
+				return self.Network, nil
+			}
+		}
+		return nil, fmt.Errorf("Field Network no set on Network %+v", self)
+
 	case "parameters", "Parameters":
 		if self.present != nil {
 			if _, ok := self.present["parameters"]; ok {
@@ -173,6 +199,9 @@ func (self *SingularityDockerInfo) ClearField(name string) error {
 
 	case "image", "Image":
 		self.present["image"] = false
+
+	case "network", "Network":
+		self.present["network"] = false
 
 	case "parameters", "Parameters":
 		self.present["parameters"] = false
