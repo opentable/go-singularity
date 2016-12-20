@@ -54,7 +54,7 @@ func (self *HealthCheck) Absorb(other swaggering.DTO) error {
 		*self = *like
 		return nil
 	}
-	return fmt.Errorf("A HealthCheck cannot absorb the values from %v", other)
+	return fmt.Errorf("A HealthCheck cannot copy the values from %#v", other)
 }
 
 func (self *HealthCheck) MarshalJSON() ([]byte, error) {
@@ -431,7 +431,7 @@ func (self *HealthCheckList) Absorb(other swaggering.DTO) error {
 		*self = *like
 		return nil
 	}
-	return fmt.Errorf("A HealthCheck cannot absorb the values from %v", other)
+	return fmt.Errorf("A HealthCheckList cannot copy the values from %#v", other)
 }
 
 func (list *HealthCheckList) Populate(jsonReader io.ReadCloser) (err error) {

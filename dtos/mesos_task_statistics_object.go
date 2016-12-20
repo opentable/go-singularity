@@ -44,7 +44,7 @@ func (self *MesosTaskStatisticsObject) Absorb(other swaggering.DTO) error {
 		*self = *like
 		return nil
 	}
-	return fmt.Errorf("A MesosTaskStatisticsObject cannot absorb the values from %v", other)
+	return fmt.Errorf("A MesosTaskStatisticsObject cannot copy the values from %#v", other)
 }
 
 func (self *MesosTaskStatisticsObject) MarshalJSON() ([]byte, error) {
@@ -358,7 +358,7 @@ func (self *MesosTaskStatisticsObjectList) Absorb(other swaggering.DTO) error {
 		*self = *like
 		return nil
 	}
-	return fmt.Errorf("A MesosTaskStatisticsObject cannot absorb the values from %v", other)
+	return fmt.Errorf("A MesosTaskStatisticsObjectList cannot copy the values from %#v", other)
 }
 
 func (list *MesosTaskStatisticsObjectList) Populate(jsonReader io.ReadCloser) (err error) {

@@ -30,7 +30,7 @@ func (self *EmbeddedArtifact) Absorb(other swaggering.DTO) error {
 		*self = *like
 		return nil
 	}
-	return fmt.Errorf("A EmbeddedArtifact cannot absorb the values from %v", other)
+	return fmt.Errorf("A EmbeddedArtifact cannot copy the values from %#v", other)
 }
 
 func (self *EmbeddedArtifact) MarshalJSON() ([]byte, error) {
@@ -197,7 +197,7 @@ func (self *EmbeddedArtifactList) Absorb(other swaggering.DTO) error {
 		*self = *like
 		return nil
 	}
-	return fmt.Errorf("A EmbeddedArtifact cannot absorb the values from %v", other)
+	return fmt.Errorf("A EmbeddedArtifactList cannot copy the values from %#v", other)
 }
 
 func (list *EmbeddedArtifactList) Populate(jsonReader io.ReadCloser) (err error) {

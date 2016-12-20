@@ -28,8 +28,6 @@ type SingularityRequest struct {
 
 	Group string `json:"group,omitempty"`
 
-	HideEvenNumberAcrossRacksHint bool `json:"hideEvenNumberAcrossRacksHint"`
-
 	Id string `json:"id,omitempty"`
 
 	Instances int32 `json:"instances"`
@@ -56,8 +54,6 @@ type SingularityRequest struct {
 
 	Schedule string `json:"schedule,omitempty"`
 
-	ScheduleTimeZone string `json:"scheduleTimeZone,omitempty"`
-
 	// ScheduleType *ScheduleType `json:"scheduleType"`
 
 	ScheduledExpectedRuntimeMillis int64 `json:"scheduledExpectedRuntimeMillis"`
@@ -65,10 +61,6 @@ type SingularityRequest struct {
 	SkipHealthchecks bool `json:"skipHealthchecks"`
 
 	// SlavePlacement *SlavePlacement `json:"slavePlacement"`
-
-	TaskLogErrorRegex string `json:"taskLogErrorRegex,omitempty"`
-
-	TaskLogErrorRegexCaseSensitive bool `json:"taskLogErrorRegexCaseSensitive"`
 
 	WaitAtLeastMillisAfterTaskFinishesForReschedule int64 `json:"waitAtLeastMillisAfterTaskFinishesForReschedule"`
 }
@@ -82,7 +74,7 @@ func (self *SingularityRequest) Absorb(other swaggering.DTO) error {
 		*self = *like
 		return nil
 	}
-	return fmt.Errorf("A SingularityRequest cannot absorb the values from %v", other)
+	return fmt.Errorf("A SingularityRequest cannot copy the values from %#v", other)
 }
 
 func (self *SingularityRequest) MarshalJSON() ([]byte, error) {
@@ -137,16 +129,6 @@ func (self *SingularityRequest) SetField(name string, value interface{}) error {
 			return nil
 		} else {
 			return fmt.Errorf("Field group/Group: value %v(%T) couldn't be cast to type string", value, value)
-		}
-
-	case "hideEvenNumberAcrossRacksHint", "HideEvenNumberAcrossRacksHint":
-		v, ok := value.(bool)
-		if ok {
-			self.HideEvenNumberAcrossRacksHint = v
-			self.present["hideEvenNumberAcrossRacksHint"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field hideEvenNumberAcrossRacksHint/HideEvenNumberAcrossRacksHint: value %v(%T) couldn't be cast to type bool", value, value)
 		}
 
 	case "id", "Id":
@@ -279,16 +261,6 @@ func (self *SingularityRequest) SetField(name string, value interface{}) error {
 			return fmt.Errorf("Field schedule/Schedule: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
-	case "scheduleTimeZone", "ScheduleTimeZone":
-		v, ok := value.(string)
-		if ok {
-			self.ScheduleTimeZone = v
-			self.present["scheduleTimeZone"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field scheduleTimeZone/ScheduleTimeZone: value %v(%T) couldn't be cast to type string", value, value)
-		}
-
 	case "scheduledExpectedRuntimeMillis", "ScheduledExpectedRuntimeMillis":
 		v, ok := value.(int64)
 		if ok {
@@ -307,26 +279,6 @@ func (self *SingularityRequest) SetField(name string, value interface{}) error {
 			return nil
 		} else {
 			return fmt.Errorf("Field skipHealthchecks/SkipHealthchecks: value %v(%T) couldn't be cast to type bool", value, value)
-		}
-
-	case "taskLogErrorRegex", "TaskLogErrorRegex":
-		v, ok := value.(string)
-		if ok {
-			self.TaskLogErrorRegex = v
-			self.present["taskLogErrorRegex"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field taskLogErrorRegex/TaskLogErrorRegex: value %v(%T) couldn't be cast to type string", value, value)
-		}
-
-	case "taskLogErrorRegexCaseSensitive", "TaskLogErrorRegexCaseSensitive":
-		v, ok := value.(bool)
-		if ok {
-			self.TaskLogErrorRegexCaseSensitive = v
-			self.present["taskLogErrorRegexCaseSensitive"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field taskLogErrorRegexCaseSensitive/TaskLogErrorRegexCaseSensitive: value %v(%T) couldn't be cast to type bool", value, value)
 		}
 
 	case "waitAtLeastMillisAfterTaskFinishesForReschedule", "WaitAtLeastMillisAfterTaskFinishesForReschedule":
@@ -370,14 +322,6 @@ func (self *SingularityRequest) GetField(name string) (interface{}, error) {
 			}
 		}
 		return nil, fmt.Errorf("Field Group no set on Group %+v", self)
-
-	case "hideEvenNumberAcrossRacksHint", "HideEvenNumberAcrossRacksHint":
-		if self.present != nil {
-			if _, ok := self.present["hideEvenNumberAcrossRacksHint"]; ok {
-				return self.HideEvenNumberAcrossRacksHint, nil
-			}
-		}
-		return nil, fmt.Errorf("Field HideEvenNumberAcrossRacksHint no set on HideEvenNumberAcrossRacksHint %+v", self)
 
 	case "id", "Id":
 		if self.present != nil {
@@ -483,14 +427,6 @@ func (self *SingularityRequest) GetField(name string) (interface{}, error) {
 		}
 		return nil, fmt.Errorf("Field Schedule no set on Schedule %+v", self)
 
-	case "scheduleTimeZone", "ScheduleTimeZone":
-		if self.present != nil {
-			if _, ok := self.present["scheduleTimeZone"]; ok {
-				return self.ScheduleTimeZone, nil
-			}
-		}
-		return nil, fmt.Errorf("Field ScheduleTimeZone no set on ScheduleTimeZone %+v", self)
-
 	case "scheduledExpectedRuntimeMillis", "ScheduledExpectedRuntimeMillis":
 		if self.present != nil {
 			if _, ok := self.present["scheduledExpectedRuntimeMillis"]; ok {
@@ -506,22 +442,6 @@ func (self *SingularityRequest) GetField(name string) (interface{}, error) {
 			}
 		}
 		return nil, fmt.Errorf("Field SkipHealthchecks no set on SkipHealthchecks %+v", self)
-
-	case "taskLogErrorRegex", "TaskLogErrorRegex":
-		if self.present != nil {
-			if _, ok := self.present["taskLogErrorRegex"]; ok {
-				return self.TaskLogErrorRegex, nil
-			}
-		}
-		return nil, fmt.Errorf("Field TaskLogErrorRegex no set on TaskLogErrorRegex %+v", self)
-
-	case "taskLogErrorRegexCaseSensitive", "TaskLogErrorRegexCaseSensitive":
-		if self.present != nil {
-			if _, ok := self.present["taskLogErrorRegexCaseSensitive"]; ok {
-				return self.TaskLogErrorRegexCaseSensitive, nil
-			}
-		}
-		return nil, fmt.Errorf("Field TaskLogErrorRegexCaseSensitive no set on TaskLogErrorRegexCaseSensitive %+v", self)
 
 	case "waitAtLeastMillisAfterTaskFinishesForReschedule", "WaitAtLeastMillisAfterTaskFinishesForReschedule":
 		if self.present != nil {
@@ -550,9 +470,6 @@ func (self *SingularityRequest) ClearField(name string) error {
 
 	case "group", "Group":
 		self.present["group"] = false
-
-	case "hideEvenNumberAcrossRacksHint", "HideEvenNumberAcrossRacksHint":
-		self.present["hideEvenNumberAcrossRacksHint"] = false
 
 	case "id", "Id":
 		self.present["id"] = false
@@ -593,20 +510,11 @@ func (self *SingularityRequest) ClearField(name string) error {
 	case "schedule", "Schedule":
 		self.present["schedule"] = false
 
-	case "scheduleTimeZone", "ScheduleTimeZone":
-		self.present["scheduleTimeZone"] = false
-
 	case "scheduledExpectedRuntimeMillis", "ScheduledExpectedRuntimeMillis":
 		self.present["scheduledExpectedRuntimeMillis"] = false
 
 	case "skipHealthchecks", "SkipHealthchecks":
 		self.present["skipHealthchecks"] = false
-
-	case "taskLogErrorRegex", "TaskLogErrorRegex":
-		self.present["taskLogErrorRegex"] = false
-
-	case "taskLogErrorRegexCaseSensitive", "TaskLogErrorRegexCaseSensitive":
-		self.present["taskLogErrorRegexCaseSensitive"] = false
 
 	case "waitAtLeastMillisAfterTaskFinishesForReschedule", "WaitAtLeastMillisAfterTaskFinishesForReschedule":
 		self.present["waitAtLeastMillisAfterTaskFinishesForReschedule"] = false
@@ -627,7 +535,7 @@ func (self *SingularityRequestList) Absorb(other swaggering.DTO) error {
 		*self = *like
 		return nil
 	}
-	return fmt.Errorf("A SingularityRequest cannot absorb the values from %v", other)
+	return fmt.Errorf("A SingularityRequestList cannot copy the values from %#v", other)
 }
 
 func (list *SingularityRequestList) Populate(jsonReader io.ReadCloser) (err error) {

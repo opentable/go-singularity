@@ -22,7 +22,7 @@ func (self *SingularityMachineChangeRequest) Absorb(other swaggering.DTO) error 
 		*self = *like
 		return nil
 	}
-	return fmt.Errorf("A SingularityMachineChangeRequest cannot absorb the values from %v", other)
+	return fmt.Errorf("A SingularityMachineChangeRequest cannot copy the values from %#v", other)
 }
 
 func (self *SingularityMachineChangeRequest) MarshalJSON() ([]byte, error) {
@@ -105,7 +105,7 @@ func (self *SingularityMachineChangeRequestList) Absorb(other swaggering.DTO) er
 		*self = *like
 		return nil
 	}
-	return fmt.Errorf("A SingularityMachineChangeRequest cannot absorb the values from %v", other)
+	return fmt.Errorf("A SingularityMachineChangeRequestList cannot copy the values from %#v", other)
 }
 
 func (list *SingularityMachineChangeRequestList) Populate(jsonReader io.ReadCloser) (err error) {

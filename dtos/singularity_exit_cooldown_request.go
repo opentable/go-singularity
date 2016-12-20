@@ -26,7 +26,7 @@ func (self *SingularityExitCooldownRequest) Absorb(other swaggering.DTO) error {
 		*self = *like
 		return nil
 	}
-	return fmt.Errorf("A SingularityExitCooldownRequest cannot absorb the values from %v", other)
+	return fmt.Errorf("A SingularityExitCooldownRequest cannot copy the values from %#v", other)
 }
 
 func (self *SingularityExitCooldownRequest) MarshalJSON() ([]byte, error) {
@@ -151,7 +151,7 @@ func (self *SingularityExitCooldownRequestList) Absorb(other swaggering.DTO) err
 		*self = *like
 		return nil
 	}
-	return fmt.Errorf("A SingularityExitCooldownRequest cannot absorb the values from %v", other)
+	return fmt.Errorf("A SingularityExitCooldownRequestList cannot copy the values from %#v", other)
 }
 
 func (list *SingularityExitCooldownRequestList) Populate(jsonReader io.ReadCloser) (err error) {

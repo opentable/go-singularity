@@ -36,7 +36,7 @@ func (self *S3ArtifactSignature) Absorb(other swaggering.DTO) error {
 		*self = *like
 		return nil
 	}
-	return fmt.Errorf("A S3ArtifactSignature cannot absorb the values from %v", other)
+	return fmt.Errorf("A S3ArtifactSignature cannot copy the values from %#v", other)
 }
 
 func (self *S3ArtifactSignature) MarshalJSON() ([]byte, error) {
@@ -266,7 +266,7 @@ func (self *S3ArtifactSignatureList) Absorb(other swaggering.DTO) error {
 		*self = *like
 		return nil
 	}
-	return fmt.Errorf("A S3ArtifactSignature cannot absorb the values from %v", other)
+	return fmt.Errorf("A S3ArtifactSignatureList cannot copy the values from %#v", other)
 }
 
 func (list *S3ArtifactSignatureList) Populate(jsonReader io.ReadCloser) (err error) {

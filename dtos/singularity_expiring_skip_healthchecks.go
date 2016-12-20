@@ -32,7 +32,7 @@ func (self *SingularityExpiringSkipHealthchecks) Absorb(other swaggering.DTO) er
 		*self = *like
 		return nil
 	}
-	return fmt.Errorf("A SingularityExpiringSkipHealthchecks cannot absorb the values from %v", other)
+	return fmt.Errorf("A SingularityExpiringSkipHealthchecks cannot copy the values from %#v", other)
 }
 
 func (self *SingularityExpiringSkipHealthchecks) MarshalJSON() ([]byte, error) {
@@ -199,7 +199,7 @@ func (self *SingularityExpiringSkipHealthchecksList) Absorb(other swaggering.DTO
 		*self = *like
 		return nil
 	}
-	return fmt.Errorf("A SingularityExpiringSkipHealthchecks cannot absorb the values from %v", other)
+	return fmt.Errorf("A SingularityExpiringSkipHealthchecksList cannot copy the values from %#v", other)
 }
 
 func (list *SingularityExpiringSkipHealthchecksList) Populate(jsonReader io.ReadCloser) (err error) {

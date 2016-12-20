@@ -25,16 +25,6 @@ type ContainerInfoOrBuilder struct {
 
 	HostnameBytes *ByteString `json:"hostnameBytes"`
 
-	Mesos *MesosInfo `json:"mesos"`
-
-	MesosOrBuilder *MesosInfoOrBuilder `json:"mesosOrBuilder"`
-
-	NetworkInfosCount int32 `json:"networkInfosCount"`
-
-	// NetworkInfosList *List[NetworkInfo] `json:"networkInfosList"`
-
-	// NetworkInfosOrBuilderList *List[? extends org.apache.mesos.Protos$NetworkInfoOrBuilder] `json:"networkInfosOrBuilderList"`
-
 	Type ContainerInfoOrBuilderType `json:"type"`
 
 	VolumesCount int32 `json:"volumesCount"`
@@ -54,7 +44,7 @@ func (self *ContainerInfoOrBuilder) Absorb(other swaggering.DTO) error {
 		*self = *like
 		return nil
 	}
-	return fmt.Errorf("A ContainerInfoOrBuilder cannot absorb the values from %v", other)
+	return fmt.Errorf("A ContainerInfoOrBuilder cannot copy the values from %#v", other)
 }
 
 func (self *ContainerInfoOrBuilder) MarshalJSON() ([]byte, error) {
@@ -121,36 +111,6 @@ func (self *ContainerInfoOrBuilder) SetField(name string, value interface{}) err
 			return fmt.Errorf("Field hostnameBytes/HostnameBytes: value %v(%T) couldn't be cast to type *ByteString", value, value)
 		}
 
-	case "mesos", "Mesos":
-		v, ok := value.(*MesosInfo)
-		if ok {
-			self.Mesos = v
-			self.present["mesos"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field mesos/Mesos: value %v(%T) couldn't be cast to type *MesosInfo", value, value)
-		}
-
-	case "mesosOrBuilder", "MesosOrBuilder":
-		v, ok := value.(*MesosInfoOrBuilder)
-		if ok {
-			self.MesosOrBuilder = v
-			self.present["mesosOrBuilder"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field mesosOrBuilder/MesosOrBuilder: value %v(%T) couldn't be cast to type *MesosInfoOrBuilder", value, value)
-		}
-
-	case "networkInfosCount", "NetworkInfosCount":
-		v, ok := value.(int32)
-		if ok {
-			self.NetworkInfosCount = v
-			self.present["networkInfosCount"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field networkInfosCount/NetworkInfosCount: value %v(%T) couldn't be cast to type int32", value, value)
-		}
-
 	case "type", "Type":
 		v, ok := value.(ContainerInfoOrBuilderType)
 		if ok {
@@ -211,30 +171,6 @@ func (self *ContainerInfoOrBuilder) GetField(name string) (interface{}, error) {
 		}
 		return nil, fmt.Errorf("Field HostnameBytes no set on HostnameBytes %+v", self)
 
-	case "mesos", "Mesos":
-		if self.present != nil {
-			if _, ok := self.present["mesos"]; ok {
-				return self.Mesos, nil
-			}
-		}
-		return nil, fmt.Errorf("Field Mesos no set on Mesos %+v", self)
-
-	case "mesosOrBuilder", "MesosOrBuilder":
-		if self.present != nil {
-			if _, ok := self.present["mesosOrBuilder"]; ok {
-				return self.MesosOrBuilder, nil
-			}
-		}
-		return nil, fmt.Errorf("Field MesosOrBuilder no set on MesosOrBuilder %+v", self)
-
-	case "networkInfosCount", "NetworkInfosCount":
-		if self.present != nil {
-			if _, ok := self.present["networkInfosCount"]; ok {
-				return self.NetworkInfosCount, nil
-			}
-		}
-		return nil, fmt.Errorf("Field NetworkInfosCount no set on NetworkInfosCount %+v", self)
-
 	case "type", "Type":
 		if self.present != nil {
 			if _, ok := self.present["type"]; ok {
@@ -274,15 +210,6 @@ func (self *ContainerInfoOrBuilder) ClearField(name string) error {
 	case "hostnameBytes", "HostnameBytes":
 		self.present["hostnameBytes"] = false
 
-	case "mesos", "Mesos":
-		self.present["mesos"] = false
-
-	case "mesosOrBuilder", "MesosOrBuilder":
-		self.present["mesosOrBuilder"] = false
-
-	case "networkInfosCount", "NetworkInfosCount":
-		self.present["networkInfosCount"] = false
-
 	case "type", "Type":
 		self.present["type"] = false
 
@@ -305,7 +232,7 @@ func (self *ContainerInfoOrBuilderList) Absorb(other swaggering.DTO) error {
 		*self = *like
 		return nil
 	}
-	return fmt.Errorf("A ContainerInfoOrBuilder cannot absorb the values from %v", other)
+	return fmt.Errorf("A ContainerInfoOrBuilderList cannot copy the values from %#v", other)
 }
 
 func (list *ContainerInfoOrBuilderList) Populate(jsonReader io.ReadCloser) (err error) {

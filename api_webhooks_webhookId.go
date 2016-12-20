@@ -2,7 +2,7 @@ package singularity
 
 import "bytes"
 
-func (client *Client) DeleteWebhookDeprecated(webhookId string) (response string, err error) {
+func (client *Client) DeleteWebhook(webhookId string) (response string, err error) {
 	pathParamMap := map[string]interface{}{
 		"webhookId": webhookId,
 	}

@@ -24,7 +24,7 @@ func (self *SingularityTaskShellCommandHistory) Absorb(other swaggering.DTO) err
 		*self = *like
 		return nil
 	}
-	return fmt.Errorf("A SingularityTaskShellCommandHistory cannot absorb the values from %v", other)
+	return fmt.Errorf("A SingularityTaskShellCommandHistory cannot copy the values from %#v", other)
 }
 
 func (self *SingularityTaskShellCommandHistory) MarshalJSON() ([]byte, error) {
@@ -128,7 +128,7 @@ func (self *SingularityTaskShellCommandHistoryList) Absorb(other swaggering.DTO)
 		*self = *like
 		return nil
 	}
-	return fmt.Errorf("A SingularityTaskShellCommandHistory cannot absorb the values from %v", other)
+	return fmt.Errorf("A SingularityTaskShellCommandHistoryList cannot copy the values from %#v", other)
 }
 
 func (list *SingularityTaskShellCommandHistoryList) Populate(jsonReader io.ReadCloser) (err error) {

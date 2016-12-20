@@ -1,5 +1,5 @@
 {
-  "apiVersion": "0.10.0-SNAPSHOT",
+  "apiVersion": "0.4.12-SNAPSHOT",
   "swaggerVersion": "1.2",
   "basePath": null,
   "resourcePath": "/api/history",
@@ -38,99 +38,6 @@
       ]
     },
     {
-      "path": "/api/history/tasks",
-      "operations": [
-        {
-          "method": "GET",
-          "summary": "Retrieve the history sorted by startedAt for all inactive tasks.",
-          "notes": "",
-          "type": "array",
-          "items": {
-            "$ref": "SingularityTaskIdHistory"
-          },
-          "nickname": "getTaskHistory",
-          "parameters": [
-            {
-              "name": "requestId",
-              "description": "Optional Request ID to match",
-              "required": false,
-              "type": "string",
-              "paramType": "query",
-              "allowMultiple": false
-            },
-            {
-              "name": "deployId",
-              "description": "Optional deploy ID to match",
-              "required": false,
-              "type": "string",
-              "paramType": "query",
-              "allowMultiple": false
-            },
-            {
-              "name": "host",
-              "description": "Optional host to match",
-              "required": false,
-              "type": "string",
-              "paramType": "query",
-              "allowMultiple": false
-            },
-            {
-              "name": "lastTaskStatus",
-              "description": "Optional last task status to match",
-              "required": false,
-              "type": "string",
-              "paramType": "query",
-              "allowMultiple": false
-            },
-            {
-              "name": "startedAfter",
-              "description": "Optionally match only tasks started after",
-              "required": false,
-              "type": "integer",
-              "format": "int64",
-              "paramType": "query",
-              "allowMultiple": false
-            },
-            {
-              "name": "startedBefore",
-              "description": "Optionally match only tasks started before",
-              "required": false,
-              "type": "integer",
-              "format": "int64",
-              "paramType": "query",
-              "allowMultiple": false
-            },
-            {
-              "name": "orderDirection",
-              "description": "Sort direction",
-              "required": false,
-              "type": "string",
-              "paramType": "query",
-              "allowMultiple": false
-            },
-            {
-              "name": "count",
-              "description": "Maximum number of items to return",
-              "required": false,
-              "type": "integer",
-              "format": "int32",
-              "paramType": "query",
-              "allowMultiple": false
-            },
-            {
-              "name": "page",
-              "description": "Which page of items to view",
-              "required": false,
-              "type": "integer",
-              "format": "int32",
-              "paramType": "query",
-              "allowMultiple": false
-            }
-          ]
-        }
-      ]
-    },
-    {
       "path": "/api/history/task/{taskId}",
       "operations": [
         {
@@ -157,7 +64,7 @@
       "operations": [
         {
           "method": "GET",
-          "summary": "Retrieve the history sorted by startedAt for all inactive tasks of a specific request.",
+          "summary": "Retrieve the history for all tasks of a specific request.",
           "notes": "",
           "type": "array",
           "items": {
@@ -167,60 +74,10 @@
           "parameters": [
             {
               "name": "requestId",
-              "description": "Request ID to match",
+              "description": "Request ID to look up",
               "required": true,
               "type": "string",
               "paramType": "path",
-              "allowMultiple": false
-            },
-            {
-              "name": "deployId",
-              "description": "Optional deploy ID to match",
-              "required": false,
-              "type": "string",
-              "paramType": "query",
-              "allowMultiple": false
-            },
-            {
-              "name": "host",
-              "description": "Optional host to match",
-              "required": false,
-              "type": "string",
-              "paramType": "query",
-              "allowMultiple": false
-            },
-            {
-              "name": "lastTaskStatus",
-              "description": "Optional last task status to match",
-              "required": false,
-              "type": "string",
-              "paramType": "query",
-              "allowMultiple": false
-            },
-            {
-              "name": "startedAfter",
-              "description": "Optionally match only tasks started after",
-              "required": false,
-              "type": "integer",
-              "format": "int64",
-              "paramType": "query",
-              "allowMultiple": false
-            },
-            {
-              "name": "startedBefore",
-              "description": "Optionally match only tasks started before",
-              "required": false,
-              "type": "integer",
-              "format": "int64",
-              "paramType": "query",
-              "allowMultiple": false
-            },
-            {
-              "name": "orderDirection",
-              "description": "Sort direction",
-              "required": false,
-              "type": "string",
-              "paramType": "query",
               "allowMultiple": false
             },
             {
@@ -239,6 +96,36 @@
               "type": "integer",
               "format": "int32",
               "paramType": "query",
+              "allowMultiple": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "/api/history/request/{requestId}/run/{runId}",
+      "operations": [
+        {
+          "method": "GET",
+          "summary": "Retrieve the history for a task by runId",
+          "notes": "",
+          "type": "SingularityTaskIdHistory",
+          "nickname": "getTaskHistoryForRequestRun",
+          "parameters": [
+            {
+              "name": "requestId",
+              "description": "Request ID to look up",
+              "required": true,
+              "type": "string",
+              "paramType": "path",
+              "allowMultiple": false
+            },
+            {
+              "name": "runId",
+              "description": "runId to look up",
+              "required": true,
+              "type": "string",
+              "paramType": "path",
               "allowMultiple": false
             }
           ]
@@ -355,41 +242,11 @@
       ]
     },
     {
-      "path": "/api/history/request/{requestId}/run/{runId}",
-      "operations": [
-        {
-          "method": "GET",
-          "summary": "Retrieve the history for a task by runId",
-          "notes": "",
-          "type": "SingularityTaskIdHistory",
-          "nickname": "getTaskHistoryForRequestAndRunId",
-          "parameters": [
-            {
-              "name": "requestId",
-              "description": "Request ID to look up",
-              "required": true,
-              "type": "string",
-              "paramType": "path",
-              "allowMultiple": false
-            },
-            {
-              "name": "runId",
-              "description": "runId to look up",
-              "required": true,
-              "type": "string",
-              "paramType": "path",
-              "allowMultiple": false
-            }
-          ]
-        }
-      ]
-    },
-    {
       "path": "/api/history/request/{requestId}/deploys",
       "operations": [
         {
           "method": "GET",
-          "summary": "Get deploy history for a single request",
+          "summary": "",
           "notes": "",
           "type": "array",
           "items": {
@@ -432,7 +289,7 @@
       "operations": [
         {
           "method": "GET",
-          "summary": "Get request history for a single request",
+          "summary": "",
           "notes": "",
           "type": "array",
           "items": {
@@ -520,10 +377,6 @@
         "initialized": {
           "type": "boolean"
         },
-        "serializedSizeAsMessageSet": {
-          "type": "integer",
-          "format": "int32"
-        },
         "defaultInstanceForType": {
           "$ref": "UnknownFieldSet"
         },
@@ -531,6 +384,10 @@
           "$ref": "Parser"
         },
         "serializedSize": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "serializedSizeAsMessageSet": {
           "type": "integer",
           "format": "int32"
         }
@@ -545,6 +402,9 @@
         "initialized": {
           "type": "boolean"
         },
+        "command": {
+          "$ref": "CommandInfo"
+        },
         "defaultInstanceForType": {
           "$ref": "HealthCheck"
         },
@@ -557,17 +417,6 @@
         "serializedSize": {
           "type": "integer",
           "format": "int32"
-        },
-        "command": {
-          "$ref": "CommandInfo"
-        },
-        "delaySeconds": {
-          "type": "number",
-          "format": "double"
-        },
-        "intervalSeconds": {
-          "type": "number",
-          "format": "double"
         },
         "http": {
           "$ref": "HTTP"
@@ -584,6 +433,14 @@
           "format": "int32"
         },
         "gracePeriodSeconds": {
+          "type": "number",
+          "format": "double"
+        },
+        "delaySeconds": {
+          "type": "number",
+          "format": "double"
+        },
+        "intervalSeconds": {
           "type": "number",
           "format": "double"
         },
@@ -626,10 +483,6 @@
         "numPorts": {
           "type": "integer",
           "format": "int32"
-        },
-        "diskMb": {
-          "type": "number",
-          "format": "double"
         }
       }
     },
@@ -673,15 +526,15 @@
           "type": "integer",
           "format": "int32"
         },
+        "variablesList": {
+          "$ref": "List[Variable]"
+        },
         "variablesOrBuilderList": {
           "$ref": "List[? extends org.apache.mesos.Protos$Environment$VariableOrBuilder]"
         },
         "variablesCount": {
           "type": "integer",
           "format": "int32"
-        },
-        "variablesList": {
-          "$ref": "List[Variable]"
         },
         "allFields": {
           "$ref": "Map[FieldDescriptor,Object]"
@@ -775,70 +628,41 @@
         }
       }
     },
-    "DockerOrBuilder": {
-      "id": "DockerOrBuilder",
-      "properties": {
-        "nameBytes": {
-          "$ref": "ByteString"
-        },
-        "credential": {
-          "$ref": "Credential"
-        },
-        "credentialOrBuilder": {
-          "$ref": "CredentialOrBuilder"
-        },
-        "name": {
-          "type": "string"
-        }
-      }
-    },
-    "ImageOrBuilder": {
-      "id": "ImageOrBuilder",
-      "properties": {
-        "docker": {
-          "$ref": "Docker"
-        },
-        "dockerOrBuilder": {
-          "$ref": "DockerOrBuilder"
-        },
-        "appc": {
-          "$ref": "Appc"
-        },
-        "appcOrBuilder": {
-          "$ref": "AppcOrBuilder"
-        },
-        "type": {
-          "$ref": "Type",
-          "enum": [
-            "APPC",
-            "DOCKER"
-          ]
-        }
-      }
-    },
     "TaskInfo": {
       "id": "TaskInfo",
       "properties": {
         "unknownFields": {
           "$ref": "UnknownFieldSet"
         },
-        "data": {
-          "$ref": "ByteString"
+        "name": {
+          "type": "string"
         },
         "initialized": {
           "type": "boolean"
         },
-        "container": {
-          "$ref": "ContainerInfo"
-        },
         "labels": {
           "$ref": "Labels"
+        },
+        "container": {
+          "$ref": "ContainerInfo"
         },
         "executor": {
           "$ref": "ExecutorInfo"
         },
+        "data": {
+          "$ref": "ByteString"
+        },
         "resourcesList": {
           "$ref": "List[Resource]"
+        },
+        "slaveId": {
+          "$ref": "SlaveID"
+        },
+        "command": {
+          "$ref": "CommandInfo"
+        },
+        "taskId": {
+          "$ref": "TaskID"
         },
         "defaultInstanceForType": {
           "$ref": "TaskInfo"
@@ -890,18 +714,6 @@
           "type": "integer",
           "format": "int32"
         },
-        "taskId": {
-          "$ref": "TaskID"
-        },
-        "slaveId": {
-          "$ref": "SlaveID"
-        },
-        "command": {
-          "$ref": "CommandInfo"
-        },
-        "name": {
-          "type": "string"
-        },
         "allFields": {
           "$ref": "Map[FieldDescriptor,Object]"
         },
@@ -919,22 +731,15 @@
         "unknownFields": {
           "$ref": "UnknownFieldSet"
         },
+        "path": {
+          "type": "string"
+        },
+        "port": {
+          "type": "integer",
+          "format": "int32"
+        },
         "initialized": {
           "type": "boolean"
-        },
-        "defaultInstanceForType": {
-          "$ref": "HTTP"
-        },
-        "parserForType": {
-          "$ref": "com.google.protobuf.Parser<org.apache.mesos.Protos$HealthCheck$HTTP>"
-        },
-        "serializedSize": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "statusesCount": {
-          "type": "integer",
-          "format": "int32"
         },
         "pathBytes": {
           "$ref": "ByteString"
@@ -946,10 +751,17 @@
             "format": "int32"
           }
         },
-        "path": {
-          "type": "string"
+        "statusesCount": {
+          "type": "integer",
+          "format": "int32"
         },
-        "port": {
+        "defaultInstanceForType": {
+          "$ref": "HTTP"
+        },
+        "parserForType": {
+          "$ref": "com.google.protobuf.Parser<org.apache.mesos.Protos$HealthCheck$HTTP>"
+        },
+        "serializedSize": {
           "type": "integer",
           "format": "int32"
         },
@@ -982,214 +794,14 @@
         }
       }
     },
-    "Appc": {
-      "id": "Appc",
-      "properties": {
-        "unknownFields": {
-          "$ref": "UnknownFieldSet"
-        },
-        "initialized": {
-          "type": "boolean"
-        },
-        "labels": {
-          "$ref": "Labels"
-        },
-        "defaultInstanceForType": {
-          "$ref": "Appc"
-        },
-        "parserForType": {
-          "$ref": "com.google.protobuf.Parser<org.apache.mesos.Protos$Image$Appc>"
-        },
-        "nameBytes": {
-          "$ref": "ByteString"
-        },
-        "labelsOrBuilder": {
-          "$ref": "LabelsOrBuilder"
-        },
-        "serializedSize": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "idBytes": {
-          "$ref": "ByteString"
-        },
-        "name": {
-          "type": "string"
-        },
-        "id": {
-          "type": "string"
-        },
-        "allFields": {
-          "$ref": "Map[FieldDescriptor,Object]"
-        },
-        "descriptorForType": {
-          "$ref": "Descriptor"
-        },
-        "initializationErrorString": {
-          "type": "string"
-        }
-      }
-    },
-    "Unavailability": {
-      "id": "Unavailability",
-      "properties": {
-        "unknownFields": {
-          "$ref": "UnknownFieldSet"
-        },
-        "initialized": {
-          "type": "boolean"
-        },
-        "start": {
-          "$ref": "TimeInfo"
-        },
-        "duration": {
-          "$ref": "DurationInfo"
-        },
-        "defaultInstanceForType": {
-          "$ref": "Unavailability"
-        },
-        "parserForType": {
-          "$ref": "com.google.protobuf.Parser<org.apache.mesos.Protos$Unavailability>"
-        },
-        "serializedSize": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "startOrBuilder": {
-          "$ref": "TimeInfoOrBuilder"
-        },
-        "durationOrBuilder": {
-          "$ref": "DurationInfoOrBuilder"
-        },
-        "allFields": {
-          "$ref": "Map[FieldDescriptor,Object]"
-        },
-        "descriptorForType": {
-          "$ref": "Descriptor"
-        },
-        "initializationErrorString": {
-          "type": "string"
-        }
-      }
-    },
-    "Address": {
-      "id": "Address",
-      "properties": {
-        "unknownFields": {
-          "$ref": "UnknownFieldSet"
-        },
-        "hostname": {
-          "type": "string"
-        },
-        "initialized": {
-          "type": "boolean"
-        },
-        "hostnameBytes": {
-          "$ref": "ByteString"
-        },
-        "defaultInstanceForType": {
-          "$ref": "Address"
-        },
-        "parserForType": {
-          "$ref": "com.google.protobuf.Parser<org.apache.mesos.Protos$Address>"
-        },
-        "serializedSize": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "ip": {
-          "type": "string"
-        },
-        "ipBytes": {
-          "$ref": "ByteString"
-        },
-        "port": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "allFields": {
-          "$ref": "Map[FieldDescriptor,Object]"
-        },
-        "descriptorForType": {
-          "$ref": "Descriptor"
-        },
-        "initializationErrorString": {
-          "type": "string"
-        }
-      }
-    },
     "OfferIDOrBuilder": {
       "id": "OfferIDOrBuilder",
       "properties": {
-        "valueBytes": {
-          "$ref": "ByteString"
-        },
         "value": {
           "type": "string"
-        }
-      }
-    },
-    "URL": {
-      "id": "URL",
-      "properties": {
-        "unknownFields": {
-          "$ref": "UnknownFieldSet"
         },
-        "initialized": {
-          "type": "boolean"
-        },
-        "defaultInstanceForType": {
-          "$ref": "URL"
-        },
-        "parserForType": {
-          "$ref": "com.google.protobuf.Parser<org.apache.mesos.Protos$URL>"
-        },
-        "serializedSize": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "pathBytes": {
+        "valueBytes": {
           "$ref": "ByteString"
-        },
-        "addressOrBuilder": {
-          "$ref": "AddressOrBuilder"
-        },
-        "schemeBytes": {
-          "$ref": "ByteString"
-        },
-        "queryList": {
-          "$ref": "List[Parameter]"
-        },
-        "queryOrBuilderList": {
-          "$ref": "List[? extends org.apache.mesos.Protos$ParameterOrBuilder]"
-        },
-        "queryCount": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "fragmentBytes": {
-          "$ref": "ByteString"
-        },
-        "address": {
-          "$ref": "Address"
-        },
-        "path": {
-          "type": "string"
-        },
-        "scheme": {
-          "type": "string"
-        },
-        "fragment": {
-          "type": "string"
-        },
-        "allFields": {
-          "$ref": "Map[FieldDescriptor,Object]"
-        },
-        "descriptorForType": {
-          "$ref": "Descriptor"
-        },
-        "initializationErrorString": {
-          "type": "string"
         }
       }
     },
@@ -1256,19 +868,11 @@
     "HealthCheckOrBuilder": {
       "id": "HealthCheckOrBuilder",
       "properties": {
-        "commandOrBuilder": {
-          "$ref": "CommandInfoOrBuilder"
-        },
         "command": {
           "$ref": "CommandInfo"
         },
-        "delaySeconds": {
-          "type": "number",
-          "format": "double"
-        },
-        "intervalSeconds": {
-          "type": "number",
-          "format": "double"
+        "commandOrBuilder": {
+          "$ref": "CommandInfoOrBuilder"
         },
         "http": {
           "$ref": "HTTP"
@@ -1287,17 +891,14 @@
         "gracePeriodSeconds": {
           "type": "number",
           "format": "double"
-        }
-      }
-    },
-    "MesosInfoOrBuilder": {
-      "id": "MesosInfoOrBuilder",
-      "properties": {
-        "image": {
-          "$ref": "Image"
         },
-        "imageOrBuilder": {
-          "$ref": "ImageOrBuilder"
+        "delaySeconds": {
+          "type": "number",
+          "format": "double"
+        },
+        "intervalSeconds": {
+          "type": "number",
+          "format": "double"
         }
       }
     },
@@ -1329,43 +930,27 @@
         }
       }
     },
-    "AppcOrBuilder": {
-      "id": "AppcOrBuilder",
-      "properties": {
-        "labels": {
-          "$ref": "Labels"
-        },
-        "nameBytes": {
-          "$ref": "ByteString"
-        },
-        "labelsOrBuilder": {
-          "$ref": "LabelsOrBuilder"
-        },
-        "idBytes": {
-          "$ref": "ByteString"
-        },
-        "name": {
-          "type": "string"
-        },
-        "id": {
-          "type": "string"
-        }
-      }
-    },
     "ContainerInfo": {
       "id": "ContainerInfo",
       "properties": {
         "unknownFields": {
           "$ref": "UnknownFieldSet"
         },
-        "hostname": {
-          "type": "string"
+        "type": {
+          "$ref": "Type",
+          "enum": [
+            "DOCKER",
+            "MESOS"
+          ]
         },
         "initialized": {
           "type": "boolean"
         },
-        "hostnameBytes": {
-          "$ref": "ByteString"
+        "hostname": {
+          "type": "string"
+        },
+        "docker": {
+          "$ref": "DockerInfo"
         },
         "defaultInstanceForType": {
           "$ref": "ContainerInfo"
@@ -1377,18 +962,8 @@
           "type": "integer",
           "format": "int32"
         },
-        "docker": {
-          "$ref": "DockerInfo"
-        },
-        "networkInfosList": {
-          "$ref": "List[NetworkInfo]"
-        },
-        "networkInfosOrBuilderList": {
-          "$ref": "List[? extends org.apache.mesos.Protos$NetworkInfoOrBuilder]"
-        },
-        "networkInfosCount": {
-          "type": "integer",
-          "format": "int32"
+        "hostnameBytes": {
+          "$ref": "ByteString"
         },
         "volumesList": {
           "$ref": "List[Volume]"
@@ -1403,19 +978,6 @@
         "dockerOrBuilder": {
           "$ref": "DockerInfoOrBuilder"
         },
-        "mesos": {
-          "$ref": "MesosInfo"
-        },
-        "mesosOrBuilder": {
-          "$ref": "MesosInfoOrBuilder"
-        },
-        "type": {
-          "$ref": "Type",
-          "enum": [
-            "DOCKER",
-            "MESOS"
-          ]
-        },
         "allFields": {
           "$ref": "Map[FieldDescriptor,Object]"
         },
@@ -1424,23 +986,6 @@
         },
         "initializationErrorString": {
           "type": "string"
-        }
-      }
-    },
-    "CredentialOrBuilder": {
-      "id": "CredentialOrBuilder",
-      "properties": {
-        "secret": {
-          "type": "string"
-        },
-        "secretBytes": {
-          "$ref": "ByteString"
-        },
-        "principal": {
-          "type": "string"
-        },
-        "principalBytes": {
-          "$ref": "ByteString"
         }
       }
     },
@@ -1477,11 +1022,11 @@
     "FrameworkIDOrBuilder": {
       "id": "FrameworkIDOrBuilder",
       "properties": {
-        "valueBytes": {
-          "$ref": "ByteString"
-        },
         "value": {
           "type": "string"
+        },
+        "valueBytes": {
+          "$ref": "ByteString"
         }
       }
     },
@@ -1498,6 +1043,9 @@
           "type": "integer",
           "format": "int64"
         },
+        "name": {
+          "type": "string"
+        },
         "filename": {
           "type": "string"
         },
@@ -1505,9 +1053,6 @@
           "type": "string"
         },
         "targetFolderRelativeToTask": {
-          "type": "string"
-        },
-        "name": {
           "type": "string"
         }
       }
@@ -1658,9 +1203,6 @@
           "items": {
             "$ref": "S3ArtifactSignature"
           }
-        },
-        "logrotateFrequency": {
-          "$ref": "SingularityExecutorLogrotateFrequency"
         }
       }
     },
@@ -1669,6 +1211,9 @@
       "properties": {
         "unknownFields": {
           "$ref": "UnknownFieldSet"
+        },
+        "value": {
+          "type": "string"
         },
         "initialized": {
           "type": "boolean"
@@ -1686,9 +1231,6 @@
         "valueBytes": {
           "$ref": "ByteString"
         },
-        "value": {
-          "type": "string"
-        },
         "allFields": {
           "$ref": "Map[FieldDescriptor,Object]"
         },
@@ -1697,27 +1239,6 @@
         },
         "initializationErrorString": {
           "type": "string"
-        }
-      }
-    },
-    "AddressOrBuilder": {
-      "id": "AddressOrBuilder",
-      "properties": {
-        "hostname": {
-          "type": "string"
-        },
-        "hostnameBytes": {
-          "$ref": "ByteString"
-        },
-        "ip": {
-          "type": "string"
-        },
-        "ipBytes": {
-          "$ref": "ByteString"
-        },
-        "port": {
-          "type": "integer",
-          "format": "int32"
         }
       }
     },
@@ -1730,9 +1251,6 @@
         "initialized": {
           "type": "boolean"
         },
-        "messageSetWireFormat": {
-          "type": "boolean"
-        },
         "defaultInstanceForType": {
           "$ref": "MessageOptions"
         },
@@ -1742,6 +1260,9 @@
         "serializedSize": {
           "type": "integer",
           "format": "int32"
+        },
+        "messageSetWireFormat": {
+          "type": "boolean"
         },
         "noStandardDescriptorAccessor": {
           "type": "boolean"
@@ -1788,28 +1309,34 @@
         "publicDependencies": {
           "$ref": "List[FileDescriptor]"
         },
-        "options": {
-          "$ref": "FileOptions"
-        },
         "name": {
           "type": "string"
         },
         "package": {
           "type": "string"
+        },
+        "options": {
+          "$ref": "FileOptions"
         }
       }
     },
     "DiscoveryInfoOrBuilder": {
       "id": "DiscoveryInfoOrBuilder",
       "properties": {
-        "version": {
+        "name": {
+          "type": "string"
+        },
+        "location": {
           "type": "string"
         },
         "labels": {
           "$ref": "Labels"
         },
-        "ports": {
-          "$ref": "Ports"
+        "version": {
+          "type": "string"
+        },
+        "environment": {
+          "type": "string"
         },
         "nameBytes": {
           "$ref": "ByteString"
@@ -1825,9 +1352,6 @@
             "EXTERNAL"
           ]
         },
-        "environment": {
-          "type": "string"
-        },
         "environmentBytes": {
           "$ref": "ByteString"
         },
@@ -1837,14 +1361,11 @@
         "versionBytes": {
           "$ref": "ByteString"
         },
+        "ports": {
+          "$ref": "Ports"
+        },
         "portsOrBuilder": {
           "$ref": "PortsOrBuilder"
-        },
-        "name": {
-          "type": "string"
-        },
-        "location": {
-          "type": "string"
         }
       }
     },
@@ -1862,47 +1383,6 @@
         },
         "deployStatistics": {
           "$ref": "SingularityDeployStatistics"
-        }
-      }
-    },
-    "SingularityTaskMetadata": {
-      "id": "SingularityTaskMetadata",
-      "properties": {
-        "timestamp": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "type": {
-          "type": "string"
-        },
-        "title": {
-          "type": "string"
-        },
-        "level": {
-          "$ref": "MetadataLevel",
-          "enum": [
-            "INFO",
-            "WARN",
-            "ERROR"
-          ]
-        },
-        "message": {
-          "type": "string"
-        },
-        "user": {
-          "type": "string"
-        },
-        "taskId": {
-          "$ref": "SingularityTaskId"
-        }
-      }
-    },
-    "DurationInfoOrBuilder": {
-      "id": "DurationInfoOrBuilder",
-      "properties": {
-        "nanoseconds": {
-          "type": "integer",
-          "format": "int64"
         }
       }
     },
@@ -2008,9 +1488,6 @@
         "scheduleType": {
           "$ref": "ScheduleType"
         },
-        "scheduleTimeZone": {
-          "type": "string"
-        },
         "killOldNonLongRunningTasksAfterMillis": {
           "type": "integer",
           "format": "int64"
@@ -2066,15 +1543,6 @@
         },
         "emailConfigurationOverrides": {
           "$ref": "Map[SingularityEmailType,List[SingularityEmailDestination]]"
-        },
-        "hideEvenNumberAcrossRacksHint": {
-          "type": "boolean"
-        },
-        "taskLogErrorRegex": {
-          "type": "string"
-        },
-        "taskLogErrorRegexCaseSensitive": {
-          "type": "boolean"
         }
       }
     },
@@ -2128,24 +1596,21 @@
     "ContainerInfoOrBuilder": {
       "id": "ContainerInfoOrBuilder",
       "properties": {
+        "type": {
+          "$ref": "Type",
+          "enum": [
+            "DOCKER",
+            "MESOS"
+          ]
+        },
         "hostname": {
           "type": "string"
-        },
-        "hostnameBytes": {
-          "$ref": "ByteString"
         },
         "docker": {
           "$ref": "DockerInfo"
         },
-        "networkInfosList": {
-          "$ref": "List[NetworkInfo]"
-        },
-        "networkInfosOrBuilderList": {
-          "$ref": "List[? extends org.apache.mesos.Protos$NetworkInfoOrBuilder]"
-        },
-        "networkInfosCount": {
-          "type": "integer",
-          "format": "int32"
+        "hostnameBytes": {
+          "$ref": "ByteString"
         },
         "volumesList": {
           "$ref": "List[Volume]"
@@ -2159,19 +1624,6 @@
         },
         "dockerOrBuilder": {
           "$ref": "DockerInfoOrBuilder"
-        },
-        "mesos": {
-          "$ref": "MesosInfo"
-        },
-        "mesosOrBuilder": {
-          "$ref": "MesosInfoOrBuilder"
-        },
-        "type": {
-          "$ref": "Type",
-          "enum": [
-            "DOCKER",
-            "MESOS"
-          ]
         }
       }
     },
@@ -2224,6 +1676,9 @@
           "type": "integer",
           "format": "int64"
         },
+        "name": {
+          "type": "string"
+        },
         "filename": {
           "type": "string"
         },
@@ -2231,9 +1686,6 @@
           "type": "string"
         },
         "targetFolderRelativeToTask": {
-          "type": "string"
-        },
-        "name": {
           "type": "string"
         }
       }
@@ -2244,58 +1696,20 @@
         "unknownFields": {
           "$ref": "UnknownFieldSet"
         },
-        "hostname": {
-          "type": "string"
+        "id": {
+          "$ref": "OfferID"
         },
         "initialized": {
           "type": "boolean"
         },
-        "url": {
-          "$ref": "URL"
-        },
-        "idOrBuilder": {
-          "$ref": "OfferIDOrBuilder"
-        },
-        "frameworkId": {
-          "$ref": "FrameworkID"
-        },
-        "frameworkIdOrBuilder": {
-          "$ref": "FrameworkIDOrBuilder"
-        },
-        "hostnameBytes": {
-          "$ref": "ByteString"
-        },
-        "urlOrBuilder": {
-          "$ref": "URLOrBuilder"
-        },
-        "attributesList": {
-          "$ref": "List[Attribute]"
-        },
-        "attributesOrBuilderList": {
-          "$ref": "List[? extends org.apache.mesos.Protos$AttributeOrBuilder]"
-        },
-        "attributesCount": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "executorIdsList": {
-          "$ref": "List[ExecutorID]"
-        },
-        "executorIdsOrBuilderList": {
-          "$ref": "List[? extends org.apache.mesos.Protos$ExecutorIDOrBuilder]"
-        },
-        "executorIdsCount": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "unavailability": {
-          "$ref": "Unavailability"
-        },
-        "unavailabilityOrBuilder": {
-          "$ref": "UnavailabilityOrBuilder"
-        },
         "resourcesList": {
           "$ref": "List[Resource]"
+        },
+        "hostname": {
+          "type": "string"
+        },
+        "slaveId": {
+          "$ref": "SlaveID"
         },
         "defaultInstanceForType": {
           "$ref": "Offer"
@@ -2317,11 +1731,37 @@
           "type": "integer",
           "format": "int32"
         },
-        "slaveId": {
-          "$ref": "SlaveID"
+        "idOrBuilder": {
+          "$ref": "OfferIDOrBuilder"
         },
-        "id": {
-          "$ref": "OfferID"
+        "frameworkId": {
+          "$ref": "FrameworkID"
+        },
+        "frameworkIdOrBuilder": {
+          "$ref": "FrameworkIDOrBuilder"
+        },
+        "hostnameBytes": {
+          "$ref": "ByteString"
+        },
+        "attributesList": {
+          "$ref": "List[Attribute]"
+        },
+        "attributesOrBuilderList": {
+          "$ref": "List[? extends org.apache.mesos.Protos$AttributeOrBuilder]"
+        },
+        "attributesCount": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "executorIdsList": {
+          "$ref": "List[ExecutorID]"
+        },
+        "executorIdsOrBuilderList": {
+          "$ref": "List[? extends org.apache.mesos.Protos$ExecutorIDOrBuilder]"
+        },
+        "executorIdsCount": {
+          "type": "integer",
+          "format": "int32"
         },
         "allFields": {
           "$ref": "Map[FieldDescriptor,Object]"
@@ -2362,11 +1802,11 @@
         "extensions": {
           "$ref": "List[FieldDescriptor]"
         },
-        "options": {
-          "$ref": "MessageOptions"
-        },
         "name": {
           "type": "string"
+        },
+        "options": {
+          "$ref": "MessageOptions"
         }
       }
     },
@@ -2389,11 +1829,11 @@
           "type": "integer",
           "format": "int32"
         },
-        "portsList": {
-          "$ref": "List[Port]"
-        },
         "portsOrBuilderList": {
           "$ref": "List[? extends org.apache.mesos.Protos$PortOrBuilder]"
+        },
+        "portsList": {
+          "$ref": "List[Port]"
         },
         "portsCount": {
           "type": "integer",
@@ -2494,15 +1934,7 @@
         },
         "labels": {
           "$ref": "Map[string,string]",
-          "description": "Labels for all tasks associated with this deploy"
-        },
-        "taskLabels": {
-          "$ref": "Map[int,Map[string,string]]",
-          "description": "Labels for specific tasks associated with this deploy, indexed by instance number"
-        },
-        "taskEnv": {
-          "$ref": "Map[int,Map[string,string]]",
-          "description": "Map of environment variable overrides for specific task instances."
+          "description": "Labels for tasks associated with this deploy"
         },
         "healthcheckUri": {
           "type": "string",
@@ -2572,25 +2004,6 @@
           "$ref": "Map[string,Object]",
           "description": "Map (Key/Value) of options for the load balancer."
         },
-        "loadBalancerDomains": {
-          "type": "array",
-          "uniqueItems": true,
-          "description": "List of domains to host this service on, for use with the load balancer api",
-          "items": {
-            "type": "string"
-          }
-        },
-        "loadBalancerAdditionalRoutes": {
-          "type": "array",
-          "description": "Additional routes besides serviceBasePath used by this service",
-          "items": {
-            "type": "string"
-          }
-        },
-        "loadBalancerTemplate": {
-          "type": "string",
-          "description": "Name of load balancer template to use if not using the default template"
-        },
         "deployInstanceCountPerStep": {
           "type": "integer",
           "format": "int32",
@@ -2609,10 +2022,6 @@
           "type": "integer",
           "format": "int32",
           "description": "allowed at most this many failed tasks to be retried before failing the deploy"
-        },
-        "shell": {
-          "type": "boolean",
-          "description": "Override the shell property on the mesos task"
         }
       }
     },
@@ -2648,12 +2057,6 @@
           "items": {
             "$ref": "SingularityTaskShellCommandHistory"
           }
-        },
-        "taskMetadata": {
-          "type": "array",
-          "items": {
-            "$ref": "SingularityTaskMetadata"
-          }
         }
       }
     },
@@ -2680,9 +2083,6 @@
         },
         "message": {
           "type": "string"
-        },
-        "resources": {
-          "$ref": "Resources"
         }
       }
     },
@@ -2691,6 +2091,9 @@
       "properties": {
         "unknownFields": {
           "$ref": "UnknownFieldSet"
+        },
+        "value": {
+          "type": "string"
         },
         "initialized": {
           "type": "boolean"
@@ -2708,9 +2111,6 @@
         "valueBytes": {
           "$ref": "ByteString"
         },
-        "value": {
-          "type": "string"
-        },
         "allFields": {
           "$ref": "Map[FieldDescriptor,Object]"
         },
@@ -2725,10 +2125,10 @@
     "ByteString": {
       "id": "ByteString",
       "properties": {
-        "validUtf8": {
+        "empty": {
           "type": "boolean"
         },
-        "empty": {
+        "validUtf8": {
           "type": "boolean"
         }
       }
@@ -2739,8 +2139,8 @@
         "unknownFields": {
           "$ref": "UnknownFieldSet"
         },
-        "data": {
-          "$ref": "ByteString"
+        "name": {
+          "type": "string"
         },
         "source": {
           "type": "string"
@@ -2751,14 +2151,17 @@
         "container": {
           "$ref": "ContainerInfo"
         },
-        "frameworkId": {
-          "$ref": "FrameworkID"
-        },
-        "frameworkIdOrBuilder": {
-          "$ref": "FrameworkIDOrBuilder"
+        "data": {
+          "$ref": "ByteString"
         },
         "resourcesList": {
           "$ref": "List[Resource]"
+        },
+        "command": {
+          "$ref": "CommandInfo"
+        },
+        "executorId": {
+          "$ref": "ExecutorID"
         },
         "defaultInstanceForType": {
           "$ref": "ExecutorInfo"
@@ -2792,20 +2195,17 @@
           "type": "integer",
           "format": "int32"
         },
-        "executorId": {
-          "$ref": "ExecutorID"
+        "frameworkId": {
+          "$ref": "FrameworkID"
         },
-        "command": {
-          "$ref": "CommandInfo"
-        },
-        "executorIdOrBuilder": {
-          "$ref": "ExecutorIDOrBuilder"
+        "frameworkIdOrBuilder": {
+          "$ref": "FrameworkIDOrBuilder"
         },
         "sourceBytes": {
           "$ref": "ByteString"
         },
-        "name": {
-          "type": "string"
+        "executorIdOrBuilder": {
+          "$ref": "ExecutorIDOrBuilder"
         },
         "allFields": {
           "$ref": "Map[FieldDescriptor,Object]"
@@ -2821,66 +2221,15 @@
     "PortsOrBuilder": {
       "id": "PortsOrBuilder",
       "properties": {
-        "portsList": {
-          "$ref": "List[Port]"
-        },
         "portsOrBuilderList": {
           "$ref": "List[? extends org.apache.mesos.Protos$PortOrBuilder]"
+        },
+        "portsList": {
+          "$ref": "List[Port]"
         },
         "portsCount": {
           "type": "integer",
           "format": "int32"
-        }
-      }
-    },
-    "DurationInfo": {
-      "id": "DurationInfo",
-      "properties": {
-        "unknownFields": {
-          "$ref": "UnknownFieldSet"
-        },
-        "initialized": {
-          "type": "boolean"
-        },
-        "defaultInstanceForType": {
-          "$ref": "DurationInfo"
-        },
-        "parserForType": {
-          "$ref": "com.google.protobuf.Parser<org.apache.mesos.Protos$DurationInfo>"
-        },
-        "serializedSize": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "nanoseconds": {
-          "type": "integer",
-          "format": "int64"
-        },
-        "allFields": {
-          "$ref": "Map[FieldDescriptor,Object]"
-        },
-        "descriptorForType": {
-          "$ref": "Descriptor"
-        },
-        "initializationErrorString": {
-          "type": "string"
-        }
-      }
-    },
-    "UnavailabilityOrBuilder": {
-      "id": "UnavailabilityOrBuilder",
-      "properties": {
-        "start": {
-          "$ref": "TimeInfo"
-        },
-        "duration": {
-          "$ref": "DurationInfo"
-        },
-        "startOrBuilder": {
-          "$ref": "TimeInfoOrBuilder"
-        },
-        "durationOrBuilder": {
-          "$ref": "DurationInfoOrBuilder"
         }
       }
     },
@@ -2894,6 +2243,9 @@
             "format": "byte"
           }
         },
+        "name": {
+          "type": "string"
+        },
         "filename": {
           "type": "string"
         },
@@ -2901,48 +2253,6 @@
           "type": "string"
         },
         "targetFolderRelativeToTask": {
-          "type": "string"
-        },
-        "name": {
-          "type": "string"
-        }
-      }
-    },
-    "URLOrBuilder": {
-      "id": "URLOrBuilder",
-      "properties": {
-        "pathBytes": {
-          "$ref": "ByteString"
-        },
-        "addressOrBuilder": {
-          "$ref": "AddressOrBuilder"
-        },
-        "schemeBytes": {
-          "$ref": "ByteString"
-        },
-        "queryList": {
-          "$ref": "List[Parameter]"
-        },
-        "queryOrBuilderList": {
-          "$ref": "List[? extends org.apache.mesos.Protos$ParameterOrBuilder]"
-        },
-        "queryCount": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "fragmentBytes": {
-          "$ref": "ByteString"
-        },
-        "address": {
-          "$ref": "Address"
-        },
-        "path": {
-          "type": "string"
-        },
-        "scheme": {
-          "type": "string"
-        },
-        "fragment": {
           "type": "string"
         }
       }
@@ -2970,13 +2280,13 @@
         "sanitizedRackId": {
           "type": "string"
         },
-        "rackId": {
-          "type": "string"
-        },
         "id": {
           "type": "string"
         },
         "host": {
+          "type": "string"
+        },
+        "rackId": {
           "type": "string"
         }
       }
@@ -2984,73 +2294,22 @@
     "TaskIDOrBuilder": {
       "id": "TaskIDOrBuilder",
       "properties": {
-        "valueBytes": {
-          "$ref": "ByteString"
-        },
         "value": {
           "type": "string"
+        },
+        "valueBytes": {
+          "$ref": "ByteString"
         }
       }
     },
     "ExecutorIDOrBuilder": {
       "id": "ExecutorIDOrBuilder",
       "properties": {
-        "valueBytes": {
-          "$ref": "ByteString"
-        },
         "value": {
           "type": "string"
-        }
-      }
-    },
-    "Docker": {
-      "id": "Docker",
-      "properties": {
-        "unknownFields": {
-          "$ref": "UnknownFieldSet"
         },
-        "initialized": {
-          "type": "boolean"
-        },
-        "defaultInstanceForType": {
-          "$ref": "Docker"
-        },
-        "parserForType": {
-          "$ref": "com.google.protobuf.Parser<org.apache.mesos.Protos$Image$Docker>"
-        },
-        "nameBytes": {
+        "valueBytes": {
           "$ref": "ByteString"
-        },
-        "serializedSize": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "credential": {
-          "$ref": "Credential"
-        },
-        "credentialOrBuilder": {
-          "$ref": "CredentialOrBuilder"
-        },
-        "name": {
-          "type": "string"
-        },
-        "allFields": {
-          "$ref": "Map[FieldDescriptor,Object]"
-        },
-        "descriptorForType": {
-          "$ref": "Descriptor"
-        },
-        "initializationErrorString": {
-          "type": "string"
-        }
-      }
-    },
-    "TimeInfoOrBuilder": {
-      "id": "TimeInfoOrBuilder",
-      "properties": {
-        "nanoseconds": {
-          "type": "integer",
-          "format": "int64"
         }
       }
     },
@@ -3099,6 +2358,9 @@
           "type": "integer",
           "format": "int64"
         },
+        "name": {
+          "type": "string"
+        },
         "filename": {
           "type": "string"
         },
@@ -3106,9 +2368,6 @@
           "type": "string"
         },
         "targetFolderRelativeToTask": {
-          "type": "string"
-        },
-        "name": {
           "type": "string"
         }
       }
@@ -3122,16 +2381,6 @@
         "initialized": {
           "type": "boolean"
         },
-        "defaultInstanceForType": {
-          "$ref": "DockerInfo"
-        },
-        "parserForType": {
-          "$ref": "com.google.protobuf.Parser<org.apache.mesos.Protos$ContainerInfo$DockerInfo>"
-        },
-        "serializedSize": {
-          "type": "integer",
-          "format": "int32"
-        },
         "image": {
           "type": "string"
         },
@@ -3143,18 +2392,31 @@
             "NONE"
           ]
         },
-        "portMappingsList": {
-          "$ref": "List[PortMapping]"
+        "defaultInstanceForType": {
+          "$ref": "DockerInfo"
+        },
+        "parserForType": {
+          "$ref": "com.google.protobuf.Parser<org.apache.mesos.Protos$ContainerInfo$DockerInfo>"
+        },
+        "serializedSize": {
+          "type": "integer",
+          "format": "int32"
         },
         "portMappingsCount": {
           "type": "integer",
           "format": "int32"
         },
+        "imageBytes": {
+          "$ref": "ByteString"
+        },
+        "portMappingsList": {
+          "$ref": "List[PortMapping]"
+        },
         "portMappingsOrBuilderList": {
           "$ref": "List[? extends org.apache.mesos.Protos$ContainerInfo$DockerInfo$PortMappingOrBuilder]"
         },
-        "imageBytes": {
-          "$ref": "ByteString"
+        "privileged": {
+          "type": "boolean"
         },
         "parametersList": {
           "$ref": "List[Parameter]"
@@ -3167,15 +2429,6 @@
           "$ref": "List[? extends org.apache.mesos.Protos$ParameterOrBuilder]"
         },
         "forcePullImage": {
-          "type": "boolean"
-        },
-        "volumeDriver": {
-          "type": "string"
-        },
-        "volumeDriverBytes": {
-          "$ref": "ByteString"
-        },
-        "privileged": {
           "type": "boolean"
         },
         "allFields": {
@@ -3231,7 +2484,10 @@
     "HTTPOrBuilder": {
       "id": "HTTPOrBuilder",
       "properties": {
-        "statusesCount": {
+        "path": {
+          "type": "string"
+        },
+        "port": {
           "type": "integer",
           "format": "int32"
         },
@@ -3245,10 +2501,7 @@
             "format": "int32"
           }
         },
-        "path": {
-          "type": "string"
-        },
-        "port": {
+        "statusesCount": {
           "type": "integer",
           "format": "int32"
         }
@@ -3297,64 +2550,15 @@
     "EnvironmentOrBuilder": {
       "id": "EnvironmentOrBuilder",
       "properties": {
+        "variablesList": {
+          "$ref": "List[Variable]"
+        },
         "variablesOrBuilderList": {
           "$ref": "List[? extends org.apache.mesos.Protos$Environment$VariableOrBuilder]"
         },
         "variablesCount": {
           "type": "integer",
           "format": "int32"
-        },
-        "variablesList": {
-          "$ref": "List[Variable]"
-        }
-      }
-    },
-    "Image": {
-      "id": "Image",
-      "properties": {
-        "unknownFields": {
-          "$ref": "UnknownFieldSet"
-        },
-        "initialized": {
-          "type": "boolean"
-        },
-        "defaultInstanceForType": {
-          "$ref": "Image"
-        },
-        "parserForType": {
-          "$ref": "com.google.protobuf.Parser<org.apache.mesos.Protos$Image>"
-        },
-        "serializedSize": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "docker": {
-          "$ref": "Docker"
-        },
-        "dockerOrBuilder": {
-          "$ref": "DockerOrBuilder"
-        },
-        "appc": {
-          "$ref": "Appc"
-        },
-        "appcOrBuilder": {
-          "$ref": "AppcOrBuilder"
-        },
-        "type": {
-          "$ref": "Type",
-          "enum": [
-            "APPC",
-            "DOCKER"
-          ]
-        },
-        "allFields": {
-          "$ref": "Map[FieldDescriptor,Object]"
-        },
-        "descriptorForType": {
-          "$ref": "Descriptor"
-        },
-        "initializationErrorString": {
-          "type": "string"
         }
       }
     },
@@ -3363,6 +2567,9 @@
       "properties": {
         "unknownFields": {
           "$ref": "UnknownFieldSet"
+        },
+        "value": {
+          "type": "string"
         },
         "initialized": {
           "type": "boolean"
@@ -3379,9 +2586,6 @@
         },
         "valueBytes": {
           "$ref": "ByteString"
-        },
-        "value": {
-          "type": "string"
         },
         "allFields": {
           "$ref": "Map[FieldDescriptor,Object]"
@@ -3435,50 +2639,14 @@
         }
       }
     },
-    "MesosInfo": {
-      "id": "MesosInfo",
-      "properties": {
-        "unknownFields": {
-          "$ref": "UnknownFieldSet"
-        },
-        "initialized": {
-          "type": "boolean"
-        },
-        "defaultInstanceForType": {
-          "$ref": "MesosInfo"
-        },
-        "parserForType": {
-          "$ref": "com.google.protobuf.Parser<org.apache.mesos.Protos$ContainerInfo$MesosInfo>"
-        },
-        "serializedSize": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "image": {
-          "$ref": "Image"
-        },
-        "imageOrBuilder": {
-          "$ref": "ImageOrBuilder"
-        },
-        "allFields": {
-          "$ref": "Map[FieldDescriptor,Object]"
-        },
-        "descriptorForType": {
-          "$ref": "Descriptor"
-        },
-        "initializationErrorString": {
-          "type": "string"
-        }
-      }
-    },
     "SlaveIDOrBuilder": {
       "id": "SlaveIDOrBuilder",
       "properties": {
-        "valueBytes": {
-          "$ref": "ByteString"
-        },
         "value": {
           "type": "string"
+        },
+        "valueBytes": {
+          "$ref": "ByteString"
         }
       }
     },
@@ -3488,7 +2656,10 @@
         "unknownFields": {
           "$ref": "UnknownFieldSet"
         },
-        "version": {
+        "name": {
+          "type": "string"
+        },
+        "location": {
           "type": "string"
         },
         "initialized": {
@@ -3497,8 +2668,11 @@
         "labels": {
           "$ref": "Labels"
         },
-        "ports": {
-          "$ref": "Ports"
+        "version": {
+          "type": "string"
+        },
+        "environment": {
+          "type": "string"
         },
         "defaultInstanceForType": {
           "$ref": "DiscoveryInfo"
@@ -3524,9 +2698,6 @@
             "EXTERNAL"
           ]
         },
-        "environment": {
-          "type": "string"
-        },
         "environmentBytes": {
           "$ref": "ByteString"
         },
@@ -3536,14 +2707,11 @@
         "versionBytes": {
           "$ref": "ByteString"
         },
+        "ports": {
+          "$ref": "Ports"
+        },
         "portsOrBuilder": {
           "$ref": "PortsOrBuilder"
-        },
-        "name": {
-          "type": "string"
-        },
-        "location": {
-          "type": "string"
         },
         "allFields": {
           "$ref": "Map[FieldDescriptor,Object]"
@@ -3570,18 +2738,21 @@
             "NONE"
           ]
         },
-        "portMappingsList": {
-          "$ref": "List[PortMapping]"
-        },
         "portMappingsCount": {
           "type": "integer",
           "format": "int32"
         },
+        "imageBytes": {
+          "$ref": "ByteString"
+        },
+        "portMappingsList": {
+          "$ref": "List[PortMapping]"
+        },
         "portMappingsOrBuilderList": {
           "$ref": "List[? extends org.apache.mesos.Protos$ContainerInfo$DockerInfo$PortMappingOrBuilder]"
         },
-        "imageBytes": {
-          "$ref": "ByteString"
+        "privileged": {
+          "type": "boolean"
         },
         "parametersList": {
           "$ref": "List[Parameter]"
@@ -3595,65 +2766,17 @@
         },
         "forcePullImage": {
           "type": "boolean"
-        },
-        "volumeDriver": {
-          "type": "string"
-        },
-        "volumeDriverBytes": {
-          "$ref": "ByteString"
-        },
-        "privileged": {
-          "type": "boolean"
-        }
-      }
-    },
-    "Credential": {
-      "id": "Credential",
-      "properties": {
-        "unknownFields": {
-          "$ref": "UnknownFieldSet"
-        },
-        "initialized": {
-          "type": "boolean"
-        },
-        "secret": {
-          "type": "string"
-        },
-        "defaultInstanceForType": {
-          "$ref": "Credential"
-        },
-        "parserForType": {
-          "$ref": "com.google.protobuf.Parser<org.apache.mesos.Protos$Credential>"
-        },
-        "serializedSize": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "secretBytes": {
-          "$ref": "ByteString"
-        },
-        "principal": {
-          "type": "string"
-        },
-        "principalBytes": {
-          "$ref": "ByteString"
-        },
-        "allFields": {
-          "$ref": "Map[FieldDescriptor,Object]"
-        },
-        "descriptorForType": {
-          "$ref": "Descriptor"
-        },
-        "initializationErrorString": {
-          "type": "string"
         }
       }
     },
     "CommandInfoOrBuilder": {
       "id": "CommandInfoOrBuilder",
       "properties": {
-        "user": {
+        "value": {
           "type": "string"
+        },
+        "container": {
+          "$ref": "ContainerInfo"
         },
         "shell": {
           "type": "boolean"
@@ -3661,24 +2784,11 @@
         "environment": {
           "$ref": "Environment"
         },
-        "valueBytes": {
-          "$ref": "ByteString"
+        "user": {
+          "type": "string"
         },
-        "argumentsList": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "userBytes": {
-          "$ref": "ByteString"
-        },
-        "argumentsCount": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "environmentOrBuilder": {
-          "$ref": "EnvironmentOrBuilder"
+        "containerOrBuilder": {
+          "$ref": "ContainerInfoOrBuilder"
         },
         "urisCount": {
           "type": "integer",
@@ -3687,11 +2797,27 @@
         "urisOrBuilderList": {
           "$ref": "List[? extends org.apache.mesos.Protos$CommandInfo$URIOrBuilder]"
         },
+        "environmentOrBuilder": {
+          "$ref": "EnvironmentOrBuilder"
+        },
+        "argumentsList": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "argumentsCount": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "userBytes": {
+          "$ref": "ByteString"
+        },
         "urisList": {
           "$ref": "List[URI]"
         },
-        "value": {
-          "type": "string"
+        "valueBytes": {
+          "$ref": "ByteString"
         }
       }
     },
@@ -3701,21 +2827,14 @@
         "unknownFields": {
           "$ref": "UnknownFieldSet"
         },
+        "value": {
+          "type": "string"
+        },
         "initialized": {
           "type": "boolean"
         },
-        "defaultInstanceForType": {
-          "$ref": "CommandInfo"
-        },
-        "parserForType": {
-          "$ref": "com.google.protobuf.Parser<org.apache.mesos.Protos$CommandInfo>"
-        },
-        "serializedSize": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "user": {
-          "type": "string"
+        "container": {
+          "$ref": "ContainerInfo"
         },
         "shell": {
           "type": "boolean"
@@ -3723,24 +2842,21 @@
         "environment": {
           "$ref": "Environment"
         },
-        "valueBytes": {
-          "$ref": "ByteString"
+        "user": {
+          "type": "string"
         },
-        "argumentsList": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
+        "defaultInstanceForType": {
+          "$ref": "CommandInfo"
         },
-        "userBytes": {
-          "$ref": "ByteString"
+        "parserForType": {
+          "$ref": "com.google.protobuf.Parser<org.apache.mesos.Protos$CommandInfo>"
         },
-        "argumentsCount": {
+        "containerOrBuilder": {
+          "$ref": "ContainerInfoOrBuilder"
+        },
+        "serializedSize": {
           "type": "integer",
           "format": "int32"
-        },
-        "environmentOrBuilder": {
-          "$ref": "EnvironmentOrBuilder"
         },
         "urisCount": {
           "type": "integer",
@@ -3749,11 +2865,27 @@
         "urisOrBuilderList": {
           "$ref": "List[? extends org.apache.mesos.Protos$CommandInfo$URIOrBuilder]"
         },
+        "environmentOrBuilder": {
+          "$ref": "EnvironmentOrBuilder"
+        },
+        "argumentsList": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "argumentsCount": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "userBytes": {
+          "$ref": "ByteString"
+        },
         "urisList": {
           "$ref": "List[URI]"
         },
-        "value": {
-          "type": "string"
+        "valueBytes": {
+          "$ref": "ByteString"
         },
         "allFields": {
           "$ref": "Map[FieldDescriptor,Object]"
@@ -3803,6 +2935,9 @@
         "unknownFields": {
           "$ref": "UnknownFieldSet"
         },
+        "value": {
+          "type": "string"
+        },
         "initialized": {
           "type": "boolean"
         },
@@ -3819,43 +2954,6 @@
         "valueBytes": {
           "$ref": "ByteString"
         },
-        "value": {
-          "type": "string"
-        },
-        "allFields": {
-          "$ref": "Map[FieldDescriptor,Object]"
-        },
-        "descriptorForType": {
-          "$ref": "Descriptor"
-        },
-        "initializationErrorString": {
-          "type": "string"
-        }
-      }
-    },
-    "TimeInfo": {
-      "id": "TimeInfo",
-      "properties": {
-        "unknownFields": {
-          "$ref": "UnknownFieldSet"
-        },
-        "initialized": {
-          "type": "boolean"
-        },
-        "defaultInstanceForType": {
-          "$ref": "TimeInfo"
-        },
-        "parserForType": {
-          "$ref": "com.google.protobuf.Parser<org.apache.mesos.Protos$TimeInfo>"
-        },
-        "serializedSize": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "nanoseconds": {
-          "type": "integer",
-          "format": "int64"
-        },
         "allFields": {
           "$ref": "Map[FieldDescriptor,Object]"
         },
@@ -3870,8 +2968,8 @@
     "ExecutorInfoOrBuilder": {
       "id": "ExecutorInfoOrBuilder",
       "properties": {
-        "data": {
-          "$ref": "ByteString"
+        "name": {
+          "type": "string"
         },
         "source": {
           "type": "string"
@@ -3879,14 +2977,17 @@
         "container": {
           "$ref": "ContainerInfo"
         },
-        "frameworkId": {
-          "$ref": "FrameworkID"
-        },
-        "frameworkIdOrBuilder": {
-          "$ref": "FrameworkIDOrBuilder"
+        "data": {
+          "$ref": "ByteString"
         },
         "resourcesList": {
           "$ref": "List[Resource]"
+        },
+        "command": {
+          "$ref": "CommandInfo"
+        },
+        "executorId": {
+          "$ref": "ExecutorID"
         },
         "nameBytes": {
           "$ref": "ByteString"
@@ -3910,20 +3011,17 @@
         "discoveryOrBuilder": {
           "$ref": "DiscoveryInfoOrBuilder"
         },
-        "executorId": {
-          "$ref": "ExecutorID"
+        "frameworkId": {
+          "$ref": "FrameworkID"
         },
-        "command": {
-          "$ref": "CommandInfo"
-        },
-        "executorIdOrBuilder": {
-          "$ref": "ExecutorIDOrBuilder"
+        "frameworkIdOrBuilder": {
+          "$ref": "FrameworkIDOrBuilder"
         },
         "sourceBytes": {
           "$ref": "ByteString"
         },
-        "name": {
-          "type": "string"
+        "executorIdOrBuilder": {
+          "$ref": "ExecutorIDOrBuilder"
         }
       }
     },
@@ -3942,7 +3040,6 @@
             "TASK_STARTING",
             "TASK_RUNNING",
             "TASK_CLEANING",
-            "TASK_KILLING",
             "TASK_FINISHED",
             "TASK_FAILED",
             "TASK_KILLED",
@@ -3968,6 +3065,9 @@
         "unknownFields": {
           "$ref": "UnknownFieldSet"
         },
+        "value": {
+          "type": "string"
+        },
         "initialized": {
           "type": "boolean"
         },
@@ -3983,9 +3083,6 @@
         },
         "valueBytes": {
           "$ref": "ByteString"
-        },
-        "value": {
-          "type": "string"
         },
         "allFields": {
           "$ref": "Map[FieldDescriptor,Object]"

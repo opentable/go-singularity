@@ -35,7 +35,7 @@ func (self *LoadBalancerRequestId) Absorb(other swaggering.DTO) error {
 		*self = *like
 		return nil
 	}
-	return fmt.Errorf("A LoadBalancerRequestId cannot absorb the values from %v", other)
+	return fmt.Errorf("A LoadBalancerRequestId cannot copy the values from %#v", other)
 }
 
 func (self *LoadBalancerRequestId) MarshalJSON() ([]byte, error) {
@@ -160,7 +160,7 @@ func (self *LoadBalancerRequestIdList) Absorb(other swaggering.DTO) error {
 		*self = *like
 		return nil
 	}
-	return fmt.Errorf("A LoadBalancerRequestId cannot absorb the values from %v", other)
+	return fmt.Errorf("A LoadBalancerRequestIdList cannot copy the values from %#v", other)
 }
 
 func (list *LoadBalancerRequestIdList) Populate(jsonReader io.ReadCloser) (err error) {

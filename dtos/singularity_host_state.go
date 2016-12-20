@@ -18,8 +18,6 @@ type SingularityHostState struct {
 
 	Master bool `json:"master"`
 
-	MesosConnected bool `json:"mesosConnected"`
-
 	MesosMaster string `json:"mesosMaster,omitempty"`
 
 	MillisSinceLastOffer int64 `json:"millisSinceLastOffer"`
@@ -36,7 +34,7 @@ func (self *SingularityHostState) Absorb(other swaggering.DTO) error {
 		*self = *like
 		return nil
 	}
-	return fmt.Errorf("A SingularityHostState cannot absorb the values from %v", other)
+	return fmt.Errorf("A SingularityHostState cannot copy the values from %#v", other)
 }
 
 func (self *SingularityHostState) MarshalJSON() ([]byte, error) {
@@ -101,16 +99,6 @@ func (self *SingularityHostState) SetField(name string, value interface{}) error
 			return nil
 		} else {
 			return fmt.Errorf("Field master/Master: value %v(%T) couldn't be cast to type bool", value, value)
-		}
-
-	case "mesosConnected", "MesosConnected":
-		v, ok := value.(bool)
-		if ok {
-			self.MesosConnected = v
-			self.present["mesosConnected"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field mesosConnected/MesosConnected: value %v(%T) couldn't be cast to type bool", value, value)
 		}
 
 	case "mesosMaster", "MesosMaster":
@@ -183,14 +171,6 @@ func (self *SingularityHostState) GetField(name string) (interface{}, error) {
 		}
 		return nil, fmt.Errorf("Field Master no set on Master %+v", self)
 
-	case "mesosConnected", "MesosConnected":
-		if self.present != nil {
-			if _, ok := self.present["mesosConnected"]; ok {
-				return self.MesosConnected, nil
-			}
-		}
-		return nil, fmt.Errorf("Field MesosConnected no set on MesosConnected %+v", self)
-
 	case "mesosMaster", "MesosMaster":
 		if self.present != nil {
 			if _, ok := self.present["mesosMaster"]; ok {
@@ -238,9 +218,6 @@ func (self *SingularityHostState) ClearField(name string) error {
 	case "master", "Master":
 		self.present["master"] = false
 
-	case "mesosConnected", "MesosConnected":
-		self.present["mesosConnected"] = false
-
 	case "mesosMaster", "MesosMaster":
 		self.present["mesosMaster"] = false
 
@@ -266,7 +243,7 @@ func (self *SingularityHostStateList) Absorb(other swaggering.DTO) error {
 		*self = *like
 		return nil
 	}
-	return fmt.Errorf("A SingularityHostState cannot absorb the values from %v", other)
+	return fmt.Errorf("A SingularityHostStateList cannot copy the values from %#v", other)
 }
 
 func (list *SingularityHostStateList) Populate(jsonReader io.ReadCloser) (err error) {

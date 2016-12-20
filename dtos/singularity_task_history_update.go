@@ -15,7 +15,6 @@ const (
 	SingularityTaskHistoryUpdateExtendedTaskStateTASK_STARTING        SingularityTaskHistoryUpdateExtendedTaskState = "TASK_STARTING"
 	SingularityTaskHistoryUpdateExtendedTaskStateTASK_RUNNING         SingularityTaskHistoryUpdateExtendedTaskState = "TASK_RUNNING"
 	SingularityTaskHistoryUpdateExtendedTaskStateTASK_CLEANING        SingularityTaskHistoryUpdateExtendedTaskState = "TASK_CLEANING"
-	SingularityTaskHistoryUpdateExtendedTaskStateTASK_KILLING         SingularityTaskHistoryUpdateExtendedTaskState = "TASK_KILLING"
 	SingularityTaskHistoryUpdateExtendedTaskStateTASK_FINISHED        SingularityTaskHistoryUpdateExtendedTaskState = "TASK_FINISHED"
 	SingularityTaskHistoryUpdateExtendedTaskStateTASK_FAILED          SingularityTaskHistoryUpdateExtendedTaskState = "TASK_FAILED"
 	SingularityTaskHistoryUpdateExtendedTaskStateTASK_KILLED          SingularityTaskHistoryUpdateExtendedTaskState = "TASK_KILLED"
@@ -47,7 +46,7 @@ func (self *SingularityTaskHistoryUpdate) Absorb(other swaggering.DTO) error {
 		*self = *like
 		return nil
 	}
-	return fmt.Errorf("A SingularityTaskHistoryUpdate cannot absorb the values from %v", other)
+	return fmt.Errorf("A SingularityTaskHistoryUpdate cannot copy the values from %#v", other)
 }
 
 func (self *SingularityTaskHistoryUpdate) MarshalJSON() ([]byte, error) {
@@ -214,7 +213,7 @@ func (self *SingularityTaskHistoryUpdateList) Absorb(other swaggering.DTO) error
 		*self = *like
 		return nil
 	}
-	return fmt.Errorf("A SingularityTaskHistoryUpdate cannot absorb the values from %v", other)
+	return fmt.Errorf("A SingularityTaskHistoryUpdateList cannot copy the values from %#v", other)
 }
 
 func (list *SingularityTaskHistoryUpdateList) Populate(jsonReader io.ReadCloser) (err error) {

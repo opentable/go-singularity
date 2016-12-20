@@ -1,5 +1,5 @@
 {
-  "apiVersion": "0.10.0-SNAPSHOT",
+  "apiVersion": "0.4.12-SNAPSHOT",
   "swaggerVersion": "1.2",
   "basePath": null,
   "resourcePath": "/api/webhooks",
@@ -7,6 +7,99 @@
     "application/json"
   ],
   "apis": [
+    {
+      "path": "/api/webhooks/{webhookId}",
+      "operations": [
+        {
+          "method": "DELETE",
+          "summary": "Delete a specific webhook.",
+          "notes": "",
+          "type": "string",
+          "nickname": "deleteWebhook",
+          "parameters": [
+            {
+              "name": "webhookId",
+              "required": true,
+              "type": "string",
+              "paramType": "path",
+              "allowMultiple": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "/api/webhooks/deploy/{webhookId}",
+      "operations": [
+        {
+          "method": "GET",
+          "summary": "Retrieve a list of queued deploy updates for a specific webhook.",
+          "notes": "",
+          "type": "array",
+          "items": {
+            "$ref": "SingularityDeployUpdate"
+          },
+          "nickname": "getQueuedDeployUpdates",
+          "parameters": [
+            {
+              "name": "webhookId",
+              "required": true,
+              "type": "string",
+              "paramType": "path",
+              "allowMultiple": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "/api/webhooks/request/{webhookId}",
+      "operations": [
+        {
+          "method": "GET",
+          "summary": "Retrieve a list of queued request updates for a specific webhook.",
+          "notes": "",
+          "type": "array",
+          "items": {
+            "$ref": "SingularityRequestHistory"
+          },
+          "nickname": "getQueuedRequestUpdates",
+          "parameters": [
+            {
+              "name": "webhookId",
+              "required": true,
+              "type": "string",
+              "paramType": "path",
+              "allowMultiple": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "/api/webhooks/task/{webhookId}",
+      "operations": [
+        {
+          "method": "GET",
+          "summary": "Retrieve a list of queued task updates for a specific webhook.",
+          "notes": "",
+          "type": "array",
+          "items": {
+            "$ref": "SingularityTaskHistoryUpdate"
+          },
+          "nickname": "getQueuedTaskUpdates",
+          "parameters": [
+            {
+              "name": "webhookId",
+              "required": true,
+              "type": "string",
+              "paramType": "path",
+              "allowMultiple": false
+            }
+          ]
+        }
+      ]
+    },
     {
       "path": "/api/webhooks",
       "operations": [
@@ -36,207 +129,6 @@
               "allowMultiple": false
             }
           ]
-        },
-        {
-          "method": "DELETE",
-          "summary": "Delete a specific webhook.",
-          "notes": "",
-          "type": "string",
-          "nickname": "deleteWebhook",
-          "parameters": [
-            {
-              "name": "webhookId",
-              "required": false,
-              "type": "string",
-              "paramType": "query",
-              "allowMultiple": false
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "path": "/api/webhooks/summary",
-      "operations": [
-        {
-          "method": "GET",
-          "summary": "Retrieve a summary of each active webhook",
-          "notes": "",
-          "type": "array",
-          "items": {
-            "$ref": "SingularityWebhookSummary"
-          },
-          "nickname": "getWebhooksWithQueueSize",
-          "parameters": []
-        }
-      ]
-    },
-    {
-      "path": "/api/webhooks/{webhookId}",
-      "operations": [
-        {
-          "method": "DELETE",
-          "summary": "Delete a specific webhook.",
-          "notes": "",
-          "type": "string",
-          "nickname": "deleteWebhookDeprecated",
-          "parameters": [
-            {
-              "name": "webhookId",
-              "required": true,
-              "type": "string",
-              "paramType": "path",
-              "allowMultiple": false
-            }
-          ],
-          "deprecated": "true"
-        }
-      ]
-    },
-    {
-      "path": "/api/webhooks/deploy/{webhookId}",
-      "operations": [
-        {
-          "method": "GET",
-          "summary": "Retrieve a list of queued deploy updates for a specific webhook.",
-          "notes": "",
-          "type": "array",
-          "items": {
-            "$ref": "SingularityDeployUpdate"
-          },
-          "nickname": "getQueuedDeployUpdatesDeprecated",
-          "parameters": [
-            {
-              "name": "webhookId",
-              "required": true,
-              "type": "string",
-              "paramType": "path",
-              "allowMultiple": false
-            }
-          ],
-          "deprecated": "true"
-        }
-      ]
-    },
-    {
-      "path": "/api/webhooks/request/{webhookId}",
-      "operations": [
-        {
-          "method": "GET",
-          "summary": "Retrieve a list of queued request updates for a specific webhook.",
-          "notes": "",
-          "type": "array",
-          "items": {
-            "$ref": "SingularityRequestHistory"
-          },
-          "nickname": "getQueuedRequestUpdatesDeprecated",
-          "parameters": [
-            {
-              "name": "webhookId",
-              "required": true,
-              "type": "string",
-              "paramType": "path",
-              "allowMultiple": false
-            }
-          ],
-          "deprecated": "true"
-        }
-      ]
-    },
-    {
-      "path": "/api/webhooks/task/{webhookId}",
-      "operations": [
-        {
-          "method": "GET",
-          "summary": "Retrieve a list of queued task updates for a specific webhook.",
-          "notes": "",
-          "type": "array",
-          "items": {
-            "$ref": "SingularityTaskHistoryUpdate"
-          },
-          "nickname": "getQueuedTaskUpdatesDeprecated",
-          "parameters": [
-            {
-              "name": "webhookId",
-              "required": true,
-              "type": "string",
-              "paramType": "path",
-              "allowMultiple": false
-            }
-          ],
-          "deprecated": "true"
-        }
-      ]
-    },
-    {
-      "path": "/api/webhooks/deploy",
-      "operations": [
-        {
-          "method": "GET",
-          "summary": "Retrieve a list of queued deploy updates for a specific webhook.",
-          "notes": "",
-          "type": "array",
-          "items": {
-            "$ref": "SingularityDeployUpdate"
-          },
-          "nickname": "getQueuedDeployUpdates",
-          "parameters": [
-            {
-              "name": "webhookId",
-              "required": false,
-              "type": "string",
-              "paramType": "query",
-              "allowMultiple": false
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "path": "/api/webhooks/request",
-      "operations": [
-        {
-          "method": "GET",
-          "summary": "Retrieve a list of queued request updates for a specific webhook.",
-          "notes": "",
-          "type": "array",
-          "items": {
-            "$ref": "SingularityRequestHistory"
-          },
-          "nickname": "getQueuedRequestUpdates",
-          "parameters": [
-            {
-              "name": "webhookId",
-              "required": false,
-              "type": "string",
-              "paramType": "query",
-              "allowMultiple": false
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "path": "/api/webhooks/task",
-      "operations": [
-        {
-          "method": "GET",
-          "summary": "Retrieve a list of queued task updates for a specific webhook.",
-          "notes": "",
-          "type": "array",
-          "items": {
-            "$ref": "SingularityTaskHistoryUpdate"
-          },
-          "nickname": "getQueuedTaskUpdates",
-          "parameters": [
-            {
-              "name": "webhookId",
-              "required": false,
-              "type": "string",
-              "paramType": "query",
-              "allowMultiple": false
-            }
-          ]
         }
       ]
     }
@@ -256,10 +148,6 @@
         "numPorts": {
           "type": "integer",
           "format": "int32"
-        },
-        "diskMb": {
-          "type": "number",
-          "format": "double"
         }
       }
     },
@@ -397,6 +285,9 @@
           "type": "integer",
           "format": "int64"
         },
+        "name": {
+          "type": "string"
+        },
         "filename": {
           "type": "string"
         },
@@ -404,9 +295,6 @@
           "type": "string"
         },
         "targetFolderRelativeToTask": {
-          "type": "string"
-        },
-        "name": {
           "type": "string"
         }
       }
@@ -533,21 +421,6 @@
           "items": {
             "$ref": "S3ArtifactSignature"
           }
-        },
-        "logrotateFrequency": {
-          "$ref": "SingularityExecutorLogrotateFrequency"
-        }
-      }
-    },
-    "SingularityWebhookSummary": {
-      "id": "SingularityWebhookSummary",
-      "properties": {
-        "webhook": {
-          "$ref": "SingularityWebhook"
-        },
-        "queueSize": {
-          "type": "integer",
-          "format": "int32"
         }
       }
     },
@@ -621,9 +494,6 @@
         "scheduleType": {
           "$ref": "ScheduleType"
         },
-        "scheduleTimeZone": {
-          "type": "string"
-        },
         "killOldNonLongRunningTasksAfterMillis": {
           "type": "integer",
           "format": "int64"
@@ -679,15 +549,6 @@
         },
         "emailConfigurationOverrides": {
           "$ref": "Map[SingularityEmailType,List[SingularityEmailDestination]]"
-        },
-        "hideEvenNumberAcrossRacksHint": {
-          "type": "boolean"
-        },
-        "taskLogErrorRegex": {
-          "type": "string"
-        },
-        "taskLogErrorRegexCaseSensitive": {
-          "type": "boolean"
         }
       }
     },
@@ -761,6 +622,9 @@
           "type": "integer",
           "format": "int64"
         },
+        "name": {
+          "type": "string"
+        },
         "filename": {
           "type": "string"
         },
@@ -768,9 +632,6 @@
           "type": "string"
         },
         "targetFolderRelativeToTask": {
-          "type": "string"
-        },
-        "name": {
           "type": "string"
         }
       }
@@ -859,15 +720,7 @@
         },
         "labels": {
           "$ref": "Map[string,string]",
-          "description": "Labels for all tasks associated with this deploy"
-        },
-        "taskLabels": {
-          "$ref": "Map[int,Map[string,string]]",
-          "description": "Labels for specific tasks associated with this deploy, indexed by instance number"
-        },
-        "taskEnv": {
-          "$ref": "Map[int,Map[string,string]]",
-          "description": "Map of environment variable overrides for specific task instances."
+          "description": "Labels for tasks associated with this deploy"
         },
         "healthcheckUri": {
           "type": "string",
@@ -937,25 +790,6 @@
           "$ref": "Map[string,Object]",
           "description": "Map (Key/Value) of options for the load balancer."
         },
-        "loadBalancerDomains": {
-          "type": "array",
-          "uniqueItems": true,
-          "description": "List of domains to host this service on, for use with the load balancer api",
-          "items": {
-            "type": "string"
-          }
-        },
-        "loadBalancerAdditionalRoutes": {
-          "type": "array",
-          "description": "Additional routes besides serviceBasePath used by this service",
-          "items": {
-            "type": "string"
-          }
-        },
-        "loadBalancerTemplate": {
-          "type": "string",
-          "description": "Name of load balancer template to use if not using the default template"
-        },
         "deployInstanceCountPerStep": {
           "type": "integer",
           "format": "int32",
@@ -974,10 +808,6 @@
           "type": "integer",
           "format": "int32",
           "description": "allowed at most this many failed tasks to be retried before failing the deploy"
-        },
-        "shell": {
-          "type": "boolean",
-          "description": "Override the shell property on the mesos task"
         }
       }
     },
@@ -991,6 +821,9 @@
             "format": "byte"
           }
         },
+        "name": {
+          "type": "string"
+        },
         "filename": {
           "type": "string"
         },
@@ -998,9 +831,6 @@
           "type": "string"
         },
         "targetFolderRelativeToTask": {
-          "type": "string"
-        },
-        "name": {
           "type": "string"
         }
       }
@@ -1028,13 +858,13 @@
         "sanitizedRackId": {
           "type": "string"
         },
-        "rackId": {
-          "type": "string"
-        },
         "id": {
           "type": "string"
         },
         "host": {
+          "type": "string"
+        },
+        "rackId": {
           "type": "string"
         }
       }
@@ -1049,6 +879,9 @@
           "type": "integer",
           "format": "int64"
         },
+        "name": {
+          "type": "string"
+        },
         "filename": {
           "type": "string"
         },
@@ -1056,9 +889,6 @@
           "type": "string"
         },
         "targetFolderRelativeToTask": {
-          "type": "string"
-        },
-        "name": {
           "type": "string"
         }
       }
@@ -1148,7 +978,6 @@
             "TASK_STARTING",
             "TASK_RUNNING",
             "TASK_CLEANING",
-            "TASK_KILLING",
             "TASK_FINISHED",
             "TASK_FAILED",
             "TASK_KILLED",

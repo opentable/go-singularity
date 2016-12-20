@@ -22,7 +22,6 @@ const (
 	SingularityTaskCleanupTaskCleanupTypeDEPLOY_CANCELED            SingularityTaskCleanupTaskCleanupType = "DEPLOY_CANCELED"
 	SingularityTaskCleanupTaskCleanupTypeUNHEALTHY_NEW_TASK         SingularityTaskCleanupTaskCleanupType = "UNHEALTHY_NEW_TASK"
 	SingularityTaskCleanupTaskCleanupTypeOVERDUE_NEW_TASK           SingularityTaskCleanupTaskCleanupType = "OVERDUE_NEW_TASK"
-	SingularityTaskCleanupTaskCleanupTypeUSER_REQUESTED_DESTROY     SingularityTaskCleanupTaskCleanupType = "USER_REQUESTED_DESTROY"
 )
 
 type SingularityTaskCleanup struct {
@@ -50,7 +49,7 @@ func (self *SingularityTaskCleanup) Absorb(other swaggering.DTO) error {
 		*self = *like
 		return nil
 	}
-	return fmt.Errorf("A SingularityTaskCleanup cannot absorb the values from %v", other)
+	return fmt.Errorf("A SingularityTaskCleanup cannot copy the values from %#v", other)
 }
 
 func (self *SingularityTaskCleanup) MarshalJSON() ([]byte, error) {
@@ -238,7 +237,7 @@ func (self *SingularityTaskCleanupList) Absorb(other swaggering.DTO) error {
 		*self = *like
 		return nil
 	}
-	return fmt.Errorf("A SingularityTaskCleanup cannot absorb the values from %v", other)
+	return fmt.Errorf("A SingularityTaskCleanupList cannot copy the values from %#v", other)
 }
 
 func (list *SingularityTaskCleanupList) Populate(jsonReader io.ReadCloser) (err error) {

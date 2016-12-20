@@ -30,7 +30,7 @@ func (self *UnknownFieldSet) Absorb(other swaggering.DTO) error {
 		*self = *like
 		return nil
 	}
-	return fmt.Errorf("A UnknownFieldSet cannot absorb the values from %v", other)
+	return fmt.Errorf("A UnknownFieldSet cannot copy the values from %#v", other)
 }
 
 func (self *UnknownFieldSet) MarshalJSON() ([]byte, error) {
@@ -176,7 +176,7 @@ func (self *UnknownFieldSetList) Absorb(other swaggering.DTO) error {
 		*self = *like
 		return nil
 	}
-	return fmt.Errorf("A UnknownFieldSet cannot absorb the values from %v", other)
+	return fmt.Errorf("A UnknownFieldSetList cannot copy the values from %#v", other)
 }
 
 func (list *UnknownFieldSetList) Populate(jsonReader io.ReadCloser) (err error) {

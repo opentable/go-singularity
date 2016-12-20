@@ -24,7 +24,7 @@ func (self *OfferIDOrBuilder) Absorb(other swaggering.DTO) error {
 		*self = *like
 		return nil
 	}
-	return fmt.Errorf("A OfferIDOrBuilder cannot absorb the values from %v", other)
+	return fmt.Errorf("A OfferIDOrBuilder cannot copy the values from %#v", other)
 }
 
 func (self *OfferIDOrBuilder) MarshalJSON() ([]byte, error) {
@@ -128,7 +128,7 @@ func (self *OfferIDOrBuilderList) Absorb(other swaggering.DTO) error {
 		*self = *like
 		return nil
 	}
-	return fmt.Errorf("A OfferIDOrBuilder cannot absorb the values from %v", other)
+	return fmt.Errorf("A OfferIDOrBuilderList cannot copy the values from %#v", other)
 }
 
 func (list *OfferIDOrBuilderList) Populate(jsonReader io.ReadCloser) (err error) {

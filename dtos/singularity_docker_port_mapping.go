@@ -37,7 +37,7 @@ func (self *SingularityDockerPortMapping) Absorb(other swaggering.DTO) error {
 		*self = *like
 		return nil
 	}
-	return fmt.Errorf("A SingularityDockerPortMapping cannot absorb the values from %v", other)
+	return fmt.Errorf("A SingularityDockerPortMapping cannot copy the values from %#v", other)
 }
 
 func (self *SingularityDockerPortMapping) MarshalJSON() ([]byte, error) {
@@ -204,7 +204,7 @@ func (self *SingularityDockerPortMappingList) Absorb(other swaggering.DTO) error
 		*self = *like
 		return nil
 	}
-	return fmt.Errorf("A SingularityDockerPortMapping cannot absorb the values from %v", other)
+	return fmt.Errorf("A SingularityDockerPortMappingList cannot copy the values from %#v", other)
 }
 
 func (list *SingularityDockerPortMappingList) Populate(jsonReader io.ReadCloser) (err error) {

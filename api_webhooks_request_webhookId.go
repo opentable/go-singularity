@@ -2,7 +2,7 @@ package singularity
 
 import "github.com/opentable/go-singularity/dtos"
 
-func (client *Client) GetQueuedRequestUpdatesDeprecated(webhookId string) (response dtos.SingularityRequestHistoryList, err error) {
+func (client *Client) GetQueuedRequestUpdates(webhookId string) (response dtos.SingularityRequestHistoryList, err error) {
 	pathParamMap := map[string]interface{}{
 		"webhookId": webhookId,
 	}

@@ -40,7 +40,7 @@ func (self *TaskID) Absorb(other swaggering.DTO) error {
 		*self = *like
 		return nil
 	}
-	return fmt.Errorf("A TaskID cannot absorb the values from %v", other)
+	return fmt.Errorf("A TaskID cannot copy the values from %#v", other)
 }
 
 func (self *TaskID) MarshalJSON() ([]byte, error) {
@@ -270,7 +270,7 @@ func (self *TaskIDList) Absorb(other swaggering.DTO) error {
 		*self = *like
 		return nil
 	}
-	return fmt.Errorf("A TaskID cannot absorb the values from %v", other)
+	return fmt.Errorf("A TaskIDList cannot copy the values from %#v", other)
 }
 
 func (list *TaskIDList) Populate(jsonReader io.ReadCloser) (err error) {

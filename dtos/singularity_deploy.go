@@ -58,17 +58,11 @@ type SingularityDeploy struct {
 
 	Labels map[string]string `json:"labels"`
 
-	LoadBalancerAdditionalRoutes swaggering.StringList `json:"loadBalancerAdditionalRoutes"`
-
-	LoadBalancerDomains swaggering.StringList `json:"loadBalancerDomains"`
-
 	LoadBalancerGroups swaggering.StringList `json:"loadBalancerGroups"`
 
 	// LoadBalancerOptions *Map[string,Object] `json:"loadBalancerOptions"`
 
 	LoadBalancerPortIndex int32 `json:"loadBalancerPortIndex"`
-
-	LoadBalancerTemplate string `json:"loadBalancerTemplate,omitempty"`
 
 	MaxTaskRetries int32 `json:"maxTaskRetries"`
 
@@ -80,13 +74,7 @@ type SingularityDeploy struct {
 
 	ServiceBasePath string `json:"serviceBasePath,omitempty"`
 
-	Shell bool `json:"shell"`
-
 	SkipHealthchecksOnDeploy bool `json:"skipHealthchecksOnDeploy"`
-
-	// TaskEnv *Map[int,Map[string,string]] `json:"taskEnv"`
-
-	// TaskLabels *Map[int,Map[string,string]] `json:"taskLabels"`
 
 	Timestamp int64 `json:"timestamp"`
 
@@ -104,7 +92,7 @@ func (self *SingularityDeploy) Absorb(other swaggering.DTO) error {
 		*self = *like
 		return nil
 	}
-	return fmt.Errorf("A SingularityDeploy cannot absorb the values from %v", other)
+	return fmt.Errorf("A SingularityDeploy cannot copy the values from %#v", other)
 }
 
 func (self *SingularityDeploy) MarshalJSON() ([]byte, error) {
@@ -361,26 +349,6 @@ func (self *SingularityDeploy) SetField(name string, value interface{}) error {
 			return fmt.Errorf("Field labels/Labels: value %v(%T) couldn't be cast to type map[string]string", value, value)
 		}
 
-	case "loadBalancerAdditionalRoutes", "LoadBalancerAdditionalRoutes":
-		v, ok := value.(swaggering.StringList)
-		if ok {
-			self.LoadBalancerAdditionalRoutes = v
-			self.present["loadBalancerAdditionalRoutes"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field loadBalancerAdditionalRoutes/LoadBalancerAdditionalRoutes: value %v(%T) couldn't be cast to type StringList", value, value)
-		}
-
-	case "loadBalancerDomains", "LoadBalancerDomains":
-		v, ok := value.(swaggering.StringList)
-		if ok {
-			self.LoadBalancerDomains = v
-			self.present["loadBalancerDomains"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field loadBalancerDomains/LoadBalancerDomains: value %v(%T) couldn't be cast to type StringList", value, value)
-		}
-
 	case "loadBalancerGroups", "LoadBalancerGroups":
 		v, ok := value.(swaggering.StringList)
 		if ok {
@@ -399,16 +367,6 @@ func (self *SingularityDeploy) SetField(name string, value interface{}) error {
 			return nil
 		} else {
 			return fmt.Errorf("Field loadBalancerPortIndex/LoadBalancerPortIndex: value %v(%T) couldn't be cast to type int32", value, value)
-		}
-
-	case "loadBalancerTemplate", "LoadBalancerTemplate":
-		v, ok := value.(string)
-		if ok {
-			self.LoadBalancerTemplate = v
-			self.present["loadBalancerTemplate"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field loadBalancerTemplate/LoadBalancerTemplate: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "maxTaskRetries", "MaxTaskRetries":
@@ -459,16 +417,6 @@ func (self *SingularityDeploy) SetField(name string, value interface{}) error {
 			return nil
 		} else {
 			return fmt.Errorf("Field serviceBasePath/ServiceBasePath: value %v(%T) couldn't be cast to type string", value, value)
-		}
-
-	case "shell", "Shell":
-		v, ok := value.(bool)
-		if ok {
-			self.Shell = v
-			self.present["shell"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field shell/Shell: value %v(%T) couldn't be cast to type bool", value, value)
 		}
 
 	case "skipHealthchecksOnDeploy", "SkipHealthchecksOnDeploy":
@@ -703,22 +651,6 @@ func (self *SingularityDeploy) GetField(name string) (interface{}, error) {
 		}
 		return nil, fmt.Errorf("Field Labels no set on Labels %+v", self)
 
-	case "loadBalancerAdditionalRoutes", "LoadBalancerAdditionalRoutes":
-		if self.present != nil {
-			if _, ok := self.present["loadBalancerAdditionalRoutes"]; ok {
-				return self.LoadBalancerAdditionalRoutes, nil
-			}
-		}
-		return nil, fmt.Errorf("Field LoadBalancerAdditionalRoutes no set on LoadBalancerAdditionalRoutes %+v", self)
-
-	case "loadBalancerDomains", "LoadBalancerDomains":
-		if self.present != nil {
-			if _, ok := self.present["loadBalancerDomains"]; ok {
-				return self.LoadBalancerDomains, nil
-			}
-		}
-		return nil, fmt.Errorf("Field LoadBalancerDomains no set on LoadBalancerDomains %+v", self)
-
 	case "loadBalancerGroups", "LoadBalancerGroups":
 		if self.present != nil {
 			if _, ok := self.present["loadBalancerGroups"]; ok {
@@ -734,14 +666,6 @@ func (self *SingularityDeploy) GetField(name string) (interface{}, error) {
 			}
 		}
 		return nil, fmt.Errorf("Field LoadBalancerPortIndex no set on LoadBalancerPortIndex %+v", self)
-
-	case "loadBalancerTemplate", "LoadBalancerTemplate":
-		if self.present != nil {
-			if _, ok := self.present["loadBalancerTemplate"]; ok {
-				return self.LoadBalancerTemplate, nil
-			}
-		}
-		return nil, fmt.Errorf("Field LoadBalancerTemplate no set on LoadBalancerTemplate %+v", self)
 
 	case "maxTaskRetries", "MaxTaskRetries":
 		if self.present != nil {
@@ -782,14 +706,6 @@ func (self *SingularityDeploy) GetField(name string) (interface{}, error) {
 			}
 		}
 		return nil, fmt.Errorf("Field ServiceBasePath no set on ServiceBasePath %+v", self)
-
-	case "shell", "Shell":
-		if self.present != nil {
-			if _, ok := self.present["shell"]; ok {
-				return self.Shell, nil
-			}
-		}
-		return nil, fmt.Errorf("Field Shell no set on Shell %+v", self)
 
 	case "skipHealthchecksOnDeploy", "SkipHealthchecksOnDeploy":
 		if self.present != nil {
@@ -903,20 +819,11 @@ func (self *SingularityDeploy) ClearField(name string) error {
 	case "labels", "Labels":
 		self.present["labels"] = false
 
-	case "loadBalancerAdditionalRoutes", "LoadBalancerAdditionalRoutes":
-		self.present["loadBalancerAdditionalRoutes"] = false
-
-	case "loadBalancerDomains", "LoadBalancerDomains":
-		self.present["loadBalancerDomains"] = false
-
 	case "loadBalancerGroups", "LoadBalancerGroups":
 		self.present["loadBalancerGroups"] = false
 
 	case "loadBalancerPortIndex", "LoadBalancerPortIndex":
 		self.present["loadBalancerPortIndex"] = false
-
-	case "loadBalancerTemplate", "LoadBalancerTemplate":
-		self.present["loadBalancerTemplate"] = false
 
 	case "maxTaskRetries", "MaxTaskRetries":
 		self.present["maxTaskRetries"] = false
@@ -932,9 +839,6 @@ func (self *SingularityDeploy) ClearField(name string) error {
 
 	case "serviceBasePath", "ServiceBasePath":
 		self.present["serviceBasePath"] = false
-
-	case "shell", "Shell":
-		self.present["shell"] = false
 
 	case "skipHealthchecksOnDeploy", "SkipHealthchecksOnDeploy":
 		self.present["skipHealthchecksOnDeploy"] = false
@@ -964,7 +868,7 @@ func (self *SingularityDeployList) Absorb(other swaggering.DTO) error {
 		*self = *like
 		return nil
 	}
-	return fmt.Errorf("A SingularityDeploy cannot absorb the values from %v", other)
+	return fmt.Errorf("A SingularityDeployList cannot copy the values from %#v", other)
 }
 
 func (list *SingularityDeployList) Populate(jsonReader io.ReadCloser) (err error) {

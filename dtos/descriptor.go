@@ -40,7 +40,7 @@ func (self *Descriptor) Absorb(other swaggering.DTO) error {
 		*self = *like
 		return nil
 	}
-	return fmt.Errorf("A Descriptor cannot absorb the values from %v", other)
+	return fmt.Errorf("A Descriptor cannot copy the values from %#v", other)
 }
 
 func (self *Descriptor) MarshalJSON() ([]byte, error) {
@@ -249,7 +249,7 @@ func (self *DescriptorList) Absorb(other swaggering.DTO) error {
 		*self = *like
 		return nil
 	}
-	return fmt.Errorf("A Descriptor cannot absorb the values from %v", other)
+	return fmt.Errorf("A DescriptorList cannot copy the values from %#v", other)
 }
 
 func (list *DescriptorList) Populate(jsonReader io.ReadCloser) (err error) {

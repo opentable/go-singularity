@@ -40,7 +40,7 @@ func (self *ExecutorID) Absorb(other swaggering.DTO) error {
 		*self = *like
 		return nil
 	}
-	return fmt.Errorf("A ExecutorID cannot absorb the values from %v", other)
+	return fmt.Errorf("A ExecutorID cannot copy the values from %#v", other)
 }
 
 func (self *ExecutorID) MarshalJSON() ([]byte, error) {
@@ -270,7 +270,7 @@ func (self *ExecutorIDList) Absorb(other swaggering.DTO) error {
 		*self = *like
 		return nil
 	}
-	return fmt.Errorf("A ExecutorID cannot absorb the values from %v", other)
+	return fmt.Errorf("A ExecutorIDList cannot copy the values from %#v", other)
 }
 
 func (list *ExecutorIDList) Populate(jsonReader io.ReadCloser) (err error) {

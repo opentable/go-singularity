@@ -30,7 +30,7 @@ func (self *SingularityExpiringPause) Absorb(other swaggering.DTO) error {
 		*self = *like
 		return nil
 	}
-	return fmt.Errorf("A SingularityExpiringPause cannot absorb the values from %v", other)
+	return fmt.Errorf("A SingularityExpiringPause cannot copy the values from %#v", other)
 }
 
 func (self *SingularityExpiringPause) MarshalJSON() ([]byte, error) {
@@ -176,7 +176,7 @@ func (self *SingularityExpiringPauseList) Absorb(other swaggering.DTO) error {
 		*self = *like
 		return nil
 	}
-	return fmt.Errorf("A SingularityExpiringPause cannot absorb the values from %v", other)
+	return fmt.Errorf("A SingularityExpiringPauseList cannot copy the values from %#v", other)
 }
 
 func (list *SingularityExpiringPauseList) Populate(jsonReader io.ReadCloser) (err error) {

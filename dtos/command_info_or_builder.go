@@ -14,6 +14,10 @@ type CommandInfoOrBuilder struct {
 
 	ArgumentsList swaggering.StringList `json:"argumentsList"`
 
+	Container *ContainerInfo `json:"container"`
+
+	ContainerOrBuilder *ContainerInfoOrBuilder `json:"containerOrBuilder"`
+
 	Environment *Environment `json:"environment"`
 
 	EnvironmentOrBuilder *EnvironmentOrBuilder `json:"environmentOrBuilder"`
@@ -44,7 +48,7 @@ func (self *CommandInfoOrBuilder) Absorb(other swaggering.DTO) error {
 		*self = *like
 		return nil
 	}
-	return fmt.Errorf("A CommandInfoOrBuilder cannot absorb the values from %v", other)
+	return fmt.Errorf("A CommandInfoOrBuilder cannot copy the values from %#v", other)
 }
 
 func (self *CommandInfoOrBuilder) MarshalJSON() ([]byte, error) {
@@ -89,6 +93,26 @@ func (self *CommandInfoOrBuilder) SetField(name string, value interface{}) error
 			return nil
 		} else {
 			return fmt.Errorf("Field argumentsList/ArgumentsList: value %v(%T) couldn't be cast to type StringList", value, value)
+		}
+
+	case "container", "Container":
+		v, ok := value.(*ContainerInfo)
+		if ok {
+			self.Container = v
+			self.present["container"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field container/Container: value %v(%T) couldn't be cast to type *ContainerInfo", value, value)
+		}
+
+	case "containerOrBuilder", "ContainerOrBuilder":
+		v, ok := value.(*ContainerInfoOrBuilder)
+		if ok {
+			self.ContainerOrBuilder = v
+			self.present["containerOrBuilder"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field containerOrBuilder/ContainerOrBuilder: value %v(%T) couldn't be cast to type *ContainerInfoOrBuilder", value, value)
 		}
 
 	case "environment", "Environment":
@@ -195,6 +219,22 @@ func (self *CommandInfoOrBuilder) GetField(name string) (interface{}, error) {
 		}
 		return nil, fmt.Errorf("Field ArgumentsList no set on ArgumentsList %+v", self)
 
+	case "container", "Container":
+		if self.present != nil {
+			if _, ok := self.present["container"]; ok {
+				return self.Container, nil
+			}
+		}
+		return nil, fmt.Errorf("Field Container no set on Container %+v", self)
+
+	case "containerOrBuilder", "ContainerOrBuilder":
+		if self.present != nil {
+			if _, ok := self.present["containerOrBuilder"]; ok {
+				return self.ContainerOrBuilder, nil
+			}
+		}
+		return nil, fmt.Errorf("Field ContainerOrBuilder no set on ContainerOrBuilder %+v", self)
+
 	case "environment", "Environment":
 		if self.present != nil {
 			if _, ok := self.present["environment"]; ok {
@@ -276,6 +316,12 @@ func (self *CommandInfoOrBuilder) ClearField(name string) error {
 	case "argumentsList", "ArgumentsList":
 		self.present["argumentsList"] = false
 
+	case "container", "Container":
+		self.present["container"] = false
+
+	case "containerOrBuilder", "ContainerOrBuilder":
+		self.present["containerOrBuilder"] = false
+
 	case "environment", "Environment":
 		self.present["environment"] = false
 
@@ -316,7 +362,7 @@ func (self *CommandInfoOrBuilderList) Absorb(other swaggering.DTO) error {
 		*self = *like
 		return nil
 	}
-	return fmt.Errorf("A CommandInfoOrBuilder cannot absorb the values from %v", other)
+	return fmt.Errorf("A CommandInfoOrBuilderList cannot copy the values from %#v", other)
 }
 
 func (list *CommandInfoOrBuilderList) Populate(jsonReader io.ReadCloser) (err error) {

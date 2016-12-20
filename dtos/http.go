@@ -46,7 +46,7 @@ func (self *HTTP) Absorb(other swaggering.DTO) error {
 		*self = *like
 		return nil
 	}
-	return fmt.Errorf("A HTTP cannot absorb the values from %v", other)
+	return fmt.Errorf("A HTTP cannot copy the values from %#v", other)
 }
 
 func (self *HTTP) MarshalJSON() ([]byte, error) {
@@ -339,7 +339,7 @@ func (self *HTTPList) Absorb(other swaggering.DTO) error {
 		*self = *like
 		return nil
 	}
-	return fmt.Errorf("A HTTP cannot absorb the values from %v", other)
+	return fmt.Errorf("A HTTPList cannot copy the values from %#v", other)
 }
 
 func (list *HTTPList) Populate(jsonReader io.ReadCloser) (err error) {

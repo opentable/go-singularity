@@ -38,7 +38,7 @@ func (self *SingularityWebhook) Absorb(other swaggering.DTO) error {
 		*self = *like
 		return nil
 	}
-	return fmt.Errorf("A SingularityWebhook cannot absorb the values from %v", other)
+	return fmt.Errorf("A SingularityWebhook cannot copy the values from %#v", other)
 }
 
 func (self *SingularityWebhook) MarshalJSON() ([]byte, error) {
@@ -205,7 +205,7 @@ func (self *SingularityWebhookList) Absorb(other swaggering.DTO) error {
 		*self = *like
 		return nil
 	}
-	return fmt.Errorf("A SingularityWebhook cannot absorb the values from %v", other)
+	return fmt.Errorf("A SingularityWebhookList cannot copy the values from %#v", other)
 }
 
 func (list *SingularityWebhookList) Populate(jsonReader io.ReadCloser) (err error) {

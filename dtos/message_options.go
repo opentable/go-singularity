@@ -46,7 +46,7 @@ func (self *MessageOptions) Absorb(other swaggering.DTO) error {
 		*self = *like
 		return nil
 	}
-	return fmt.Errorf("A MessageOptions cannot absorb the values from %v", other)
+	return fmt.Errorf("A MessageOptions cannot copy the values from %#v", other)
 }
 
 func (self *MessageOptions) MarshalJSON() ([]byte, error) {
@@ -297,7 +297,7 @@ func (self *MessageOptionsList) Absorb(other swaggering.DTO) error {
 		*self = *like
 		return nil
 	}
-	return fmt.Errorf("A MessageOptions cannot absorb the values from %v", other)
+	return fmt.Errorf("A MessageOptionsList cannot copy the values from %#v", other)
 }
 
 func (list *MessageOptionsList) Populate(jsonReader io.ReadCloser) (err error) {

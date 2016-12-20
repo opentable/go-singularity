@@ -80,7 +80,7 @@ func (self *TaskInfo) Absorb(other swaggering.DTO) error {
 		*self = *like
 		return nil
 	}
-	return fmt.Errorf("A TaskInfo cannot absorb the values from %v", other)
+	return fmt.Errorf("A TaskInfo cannot copy the values from %#v", other)
 }
 
 func (self *TaskInfo) MarshalJSON() ([]byte, error) {
@@ -688,7 +688,7 @@ func (self *TaskInfoList) Absorb(other swaggering.DTO) error {
 		*self = *like
 		return nil
 	}
-	return fmt.Errorf("A TaskInfo cannot absorb the values from %v", other)
+	return fmt.Errorf("A TaskInfoList cannot copy the values from %#v", other)
 }
 
 func (list *TaskInfoList) Populate(jsonReader io.ReadCloser) (err error) {

@@ -42,7 +42,7 @@ func (self *Ports) Absorb(other swaggering.DTO) error {
 		*self = *like
 		return nil
 	}
-	return fmt.Errorf("A Ports cannot absorb the values from %v", other)
+	return fmt.Errorf("A Ports cannot copy the values from %#v", other)
 }
 
 func (self *Ports) MarshalJSON() ([]byte, error) {
@@ -251,7 +251,7 @@ func (self *PortsList) Absorb(other swaggering.DTO) error {
 		*self = *like
 		return nil
 	}
-	return fmt.Errorf("A Ports cannot absorb the values from %v", other)
+	return fmt.Errorf("A PortsList cannot copy the values from %#v", other)
 }
 
 func (list *PortsList) Populate(jsonReader io.ReadCloser) (err error) {

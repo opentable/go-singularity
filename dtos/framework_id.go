@@ -40,7 +40,7 @@ func (self *FrameworkID) Absorb(other swaggering.DTO) error {
 		*self = *like
 		return nil
 	}
-	return fmt.Errorf("A FrameworkID cannot absorb the values from %v", other)
+	return fmt.Errorf("A FrameworkID cannot copy the values from %#v", other)
 }
 
 func (self *FrameworkID) MarshalJSON() ([]byte, error) {
@@ -270,7 +270,7 @@ func (self *FrameworkIDList) Absorb(other swaggering.DTO) error {
 		*self = *like
 		return nil
 	}
-	return fmt.Errorf("A FrameworkID cannot absorb the values from %v", other)
+	return fmt.Errorf("A FrameworkIDList cannot copy the values from %#v", other)
 }
 
 func (list *FrameworkIDList) Populate(jsonReader io.ReadCloser) (err error) {

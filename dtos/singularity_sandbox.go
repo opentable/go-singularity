@@ -28,7 +28,7 @@ func (self *SingularitySandbox) Absorb(other swaggering.DTO) error {
 		*self = *like
 		return nil
 	}
-	return fmt.Errorf("A SingularitySandbox cannot absorb the values from %v", other)
+	return fmt.Errorf("A SingularitySandbox cannot copy the values from %#v", other)
 }
 
 func (self *SingularitySandbox) MarshalJSON() ([]byte, error) {
@@ -174,7 +174,7 @@ func (self *SingularitySandboxList) Absorb(other swaggering.DTO) error {
 		*self = *like
 		return nil
 	}
-	return fmt.Errorf("A SingularitySandbox cannot absorb the values from %v", other)
+	return fmt.Errorf("A SingularitySandboxList cannot copy the values from %#v", other)
 }
 
 func (list *SingularitySandboxList) Populate(jsonReader io.ReadCloser) (err error) {

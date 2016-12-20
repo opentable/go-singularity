@@ -16,8 +16,6 @@ type SingularityPendingTask struct {
 
 	PendingTaskId *SingularityPendingTaskId `json:"pendingTaskId"`
 
-	Resources *Resources `json:"resources"`
-
 	RunId string `json:"runId,omitempty"`
 
 	SkipHealthchecks bool `json:"skipHealthchecks"`
@@ -34,7 +32,7 @@ func (self *SingularityPendingTask) Absorb(other swaggering.DTO) error {
 		*self = *like
 		return nil
 	}
-	return fmt.Errorf("A SingularityPendingTask cannot absorb the values from %v", other)
+	return fmt.Errorf("A SingularityPendingTask cannot copy the values from %#v", other)
 }
 
 func (self *SingularityPendingTask) MarshalJSON() ([]byte, error) {
@@ -89,16 +87,6 @@ func (self *SingularityPendingTask) SetField(name string, value interface{}) err
 			return nil
 		} else {
 			return fmt.Errorf("Field pendingTaskId/PendingTaskId: value %v(%T) couldn't be cast to type *SingularityPendingTaskId", value, value)
-		}
-
-	case "resources", "Resources":
-		v, ok := value.(*Resources)
-		if ok {
-			self.Resources = v
-			self.present["resources"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field resources/Resources: value %v(%T) couldn't be cast to type *Resources", value, value)
 		}
 
 	case "runId", "RunId":
@@ -163,14 +151,6 @@ func (self *SingularityPendingTask) GetField(name string) (interface{}, error) {
 		}
 		return nil, fmt.Errorf("Field PendingTaskId no set on PendingTaskId %+v", self)
 
-	case "resources", "Resources":
-		if self.present != nil {
-			if _, ok := self.present["resources"]; ok {
-				return self.Resources, nil
-			}
-		}
-		return nil, fmt.Errorf("Field Resources no set on Resources %+v", self)
-
 	case "runId", "RunId":
 		if self.present != nil {
 			if _, ok := self.present["runId"]; ok {
@@ -215,9 +195,6 @@ func (self *SingularityPendingTask) ClearField(name string) error {
 	case "pendingTaskId", "PendingTaskId":
 		self.present["pendingTaskId"] = false
 
-	case "resources", "Resources":
-		self.present["resources"] = false
-
 	case "runId", "RunId":
 		self.present["runId"] = false
 
@@ -243,7 +220,7 @@ func (self *SingularityPendingTaskList) Absorb(other swaggering.DTO) error {
 		*self = *like
 		return nil
 	}
-	return fmt.Errorf("A SingularityPendingTask cannot absorb the values from %v", other)
+	return fmt.Errorf("A SingularityPendingTaskList cannot copy the values from %#v", other)
 }
 
 func (list *SingularityPendingTaskList) Populate(jsonReader io.ReadCloser) (err error) {

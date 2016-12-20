@@ -24,7 +24,7 @@ func (self *TaskIDOrBuilder) Absorb(other swaggering.DTO) error {
 		*self = *like
 		return nil
 	}
-	return fmt.Errorf("A TaskIDOrBuilder cannot absorb the values from %v", other)
+	return fmt.Errorf("A TaskIDOrBuilder cannot copy the values from %#v", other)
 }
 
 func (self *TaskIDOrBuilder) MarshalJSON() ([]byte, error) {
@@ -128,7 +128,7 @@ func (self *TaskIDOrBuilderList) Absorb(other swaggering.DTO) error {
 		*self = *like
 		return nil
 	}
-	return fmt.Errorf("A TaskIDOrBuilder cannot absorb the values from %v", other)
+	return fmt.Errorf("A TaskIDOrBuilderList cannot copy the values from %#v", other)
 }
 
 func (list *TaskIDOrBuilderList) Populate(jsonReader io.ReadCloser) (err error) {

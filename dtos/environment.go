@@ -28,7 +28,7 @@ type Environment struct {
 
 	VariablesCount int32 `json:"variablesCount"`
 
-	// VariablesList *List[Variable] `json:"variablesList"`
+	VariablesList VariableList `json:"variablesList"`
 
 	// VariablesOrBuilderList *List[? extends org.apache.mesos.Protos$Environment$VariableOrBuilder] `json:"variablesOrBuilderList"`
 
@@ -43,7 +43,7 @@ func (self *Environment) Absorb(other swaggering.DTO) error {
 		*self = *like
 		return nil
 	}
-	return fmt.Errorf("A Environment cannot absorb the values from %v", other)
+	return fmt.Errorf("A Environment cannot copy the values from %#v", other)
 }
 
 func (self *Environment) MarshalJSON() ([]byte, error) {
@@ -140,6 +140,16 @@ func (self *Environment) SetField(name string, value interface{}) error {
 			return fmt.Errorf("Field variablesCount/VariablesCount: value %v(%T) couldn't be cast to type int32", value, value)
 		}
 
+	case "variablesList", "VariablesList":
+		v, ok := value.(VariableList)
+		if ok {
+			self.VariablesList = v
+			self.present["variablesList"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field variablesList/VariablesList: value %v(%T) couldn't be cast to type VariableList", value, value)
+		}
+
 	}
 }
 
@@ -204,6 +214,14 @@ func (self *Environment) GetField(name string) (interface{}, error) {
 		}
 		return nil, fmt.Errorf("Field VariablesCount no set on VariablesCount %+v", self)
 
+	case "variablesList", "VariablesList":
+		if self.present != nil {
+			if _, ok := self.present["variablesList"]; ok {
+				return self.VariablesList, nil
+			}
+		}
+		return nil, fmt.Errorf("Field VariablesList no set on VariablesList %+v", self)
+
 	}
 }
 
@@ -236,6 +254,9 @@ func (self *Environment) ClearField(name string) error {
 	case "variablesCount", "VariablesCount":
 		self.present["variablesCount"] = false
 
+	case "variablesList", "VariablesList":
+		self.present["variablesList"] = false
+
 	}
 
 	return nil
@@ -252,7 +273,7 @@ func (self *EnvironmentList) Absorb(other swaggering.DTO) error {
 		*self = *like
 		return nil
 	}
-	return fmt.Errorf("A Environment cannot absorb the values from %v", other)
+	return fmt.Errorf("A EnvironmentList cannot copy the values from %#v", other)
 }
 
 func (list *EnvironmentList) Populate(jsonReader io.ReadCloser) (err error) {

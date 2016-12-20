@@ -27,7 +27,7 @@ func (self *LabelsOrBuilder) Absorb(other swaggering.DTO) error {
 		*self = *like
 		return nil
 	}
-	return fmt.Errorf("A LabelsOrBuilder cannot absorb the values from %v", other)
+	return fmt.Errorf("A LabelsOrBuilder cannot copy the values from %#v", other)
 }
 
 func (self *LabelsOrBuilder) MarshalJSON() ([]byte, error) {
@@ -110,7 +110,7 @@ func (self *LabelsOrBuilderList) Absorb(other swaggering.DTO) error {
 		*self = *like
 		return nil
 	}
-	return fmt.Errorf("A LabelsOrBuilder cannot absorb the values from %v", other)
+	return fmt.Errorf("A LabelsOrBuilderList cannot copy the values from %#v", other)
 }
 
 func (list *LabelsOrBuilderList) Populate(jsonReader io.ReadCloser) (err error) {

@@ -56,7 +56,7 @@ func (self *ExecutorInfoOrBuilder) Absorb(other swaggering.DTO) error {
 		*self = *like
 		return nil
 	}
-	return fmt.Errorf("A ExecutorInfoOrBuilder cannot absorb the values from %v", other)
+	return fmt.Errorf("A ExecutorInfoOrBuilder cannot copy the values from %#v", other)
 }
 
 func (self *ExecutorInfoOrBuilder) MarshalJSON() ([]byte, error) {
@@ -454,7 +454,7 @@ func (self *ExecutorInfoOrBuilderList) Absorb(other swaggering.DTO) error {
 		*self = *like
 		return nil
 	}
-	return fmt.Errorf("A ExecutorInfoOrBuilder cannot absorb the values from %v", other)
+	return fmt.Errorf("A ExecutorInfoOrBuilderList cannot copy the values from %#v", other)
 }
 
 func (list *ExecutorInfoOrBuilderList) Populate(jsonReader io.ReadCloser) (err error) {

@@ -1,3 +1,4 @@
 .models.SingularityDeploy.properties.resources["$ref"] = "Resources" |
   .models.SingularityDockerInfo.properties.network["enum"] = ["HOST", "BRIDGE", "NONE"] |
+  .models["Variable"] = { "id": "Variable", "properties": { "name": { "type": "string" }, "value":{"type":"string"}}} |
   .models.SingularityVolume.properties.mode["enum"] = ["RO", "RW"]

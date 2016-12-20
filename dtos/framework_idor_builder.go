@@ -24,7 +24,7 @@ func (self *FrameworkIDOrBuilder) Absorb(other swaggering.DTO) error {
 		*self = *like
 		return nil
 	}
-	return fmt.Errorf("A FrameworkIDOrBuilder cannot absorb the values from %v", other)
+	return fmt.Errorf("A FrameworkIDOrBuilder cannot copy the values from %#v", other)
 }
 
 func (self *FrameworkIDOrBuilder) MarshalJSON() ([]byte, error) {
@@ -128,7 +128,7 @@ func (self *FrameworkIDOrBuilderList) Absorb(other swaggering.DTO) error {
 		*self = *like
 		return nil
 	}
-	return fmt.Errorf("A FrameworkIDOrBuilder cannot absorb the values from %v", other)
+	return fmt.Errorf("A FrameworkIDOrBuilderList cannot copy the values from %#v", other)
 }
 
 func (list *FrameworkIDOrBuilderList) Populate(jsonReader io.ReadCloser) (err error) {

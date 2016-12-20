@@ -28,7 +28,7 @@ func (self *SingularityTaskShellCommandRequestId) Absorb(other swaggering.DTO) e
 		*self = *like
 		return nil
 	}
-	return fmt.Errorf("A SingularityTaskShellCommandRequestId cannot absorb the values from %v", other)
+	return fmt.Errorf("A SingularityTaskShellCommandRequestId cannot copy the values from %#v", other)
 }
 
 func (self *SingularityTaskShellCommandRequestId) MarshalJSON() ([]byte, error) {
@@ -174,7 +174,7 @@ func (self *SingularityTaskShellCommandRequestIdList) Absorb(other swaggering.DT
 		*self = *like
 		return nil
 	}
-	return fmt.Errorf("A SingularityTaskShellCommandRequestId cannot absorb the values from %v", other)
+	return fmt.Errorf("A SingularityTaskShellCommandRequestIdList cannot copy the values from %#v", other)
 }
 
 func (list *SingularityTaskShellCommandRequestIdList) Populate(jsonReader io.ReadCloser) (err error) {

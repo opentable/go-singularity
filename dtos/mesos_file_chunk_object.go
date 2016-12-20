@@ -26,7 +26,7 @@ func (self *MesosFileChunkObject) Absorb(other swaggering.DTO) error {
 		*self = *like
 		return nil
 	}
-	return fmt.Errorf("A MesosFileChunkObject cannot absorb the values from %v", other)
+	return fmt.Errorf("A MesosFileChunkObject cannot copy the values from %#v", other)
 }
 
 func (self *MesosFileChunkObject) MarshalJSON() ([]byte, error) {
@@ -151,7 +151,7 @@ func (self *MesosFileChunkObjectList) Absorb(other swaggering.DTO) error {
 		*self = *like
 		return nil
 	}
-	return fmt.Errorf("A MesosFileChunkObject cannot absorb the values from %v", other)
+	return fmt.Errorf("A MesosFileChunkObjectList cannot copy the values from %#v", other)
 }
 
 func (list *MesosFileChunkObjectList) Populate(jsonReader io.ReadCloser) (err error) {

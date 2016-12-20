@@ -70,7 +70,7 @@ func (self *DiscoveryInfo) Absorb(other swaggering.DTO) error {
 		*self = *like
 		return nil
 	}
-	return fmt.Errorf("A DiscoveryInfo cannot absorb the values from %v", other)
+	return fmt.Errorf("A DiscoveryInfo cannot copy the values from %#v", other)
 }
 
 func (self *DiscoveryInfo) MarshalJSON() ([]byte, error) {
@@ -531,7 +531,7 @@ func (self *DiscoveryInfoList) Absorb(other swaggering.DTO) error {
 		*self = *like
 		return nil
 	}
-	return fmt.Errorf("A DiscoveryInfo cannot absorb the values from %v", other)
+	return fmt.Errorf("A DiscoveryInfoList cannot copy the values from %#v", other)
 }
 
 func (list *DiscoveryInfoList) Populate(jsonReader io.ReadCloser) (err error) {

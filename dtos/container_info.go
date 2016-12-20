@@ -35,16 +35,6 @@ type ContainerInfo struct {
 
 	Initialized bool `json:"initialized"`
 
-	Mesos *MesosInfo `json:"mesos"`
-
-	MesosOrBuilder *MesosInfoOrBuilder `json:"mesosOrBuilder"`
-
-	NetworkInfosCount int32 `json:"networkInfosCount"`
-
-	// NetworkInfosList *List[NetworkInfo] `json:"networkInfosList"`
-
-	// NetworkInfosOrBuilderList *List[? extends org.apache.mesos.Protos$NetworkInfoOrBuilder] `json:"networkInfosOrBuilderList"`
-
 	// ParserForType *com.google.protobuf.Parser<org.apache.mesos.Protos$ContainerInfo> `json:"parserForType"`
 
 	SerializedSize int32 `json:"serializedSize"`
@@ -70,7 +60,7 @@ func (self *ContainerInfo) Absorb(other swaggering.DTO) error {
 		*self = *like
 		return nil
 	}
-	return fmt.Errorf("A ContainerInfo cannot absorb the values from %v", other)
+	return fmt.Errorf("A ContainerInfo cannot copy the values from %#v", other)
 }
 
 func (self *ContainerInfo) MarshalJSON() ([]byte, error) {
@@ -175,36 +165,6 @@ func (self *ContainerInfo) SetField(name string, value interface{}) error {
 			return nil
 		} else {
 			return fmt.Errorf("Field initialized/Initialized: value %v(%T) couldn't be cast to type bool", value, value)
-		}
-
-	case "mesos", "Mesos":
-		v, ok := value.(*MesosInfo)
-		if ok {
-			self.Mesos = v
-			self.present["mesos"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field mesos/Mesos: value %v(%T) couldn't be cast to type *MesosInfo", value, value)
-		}
-
-	case "mesosOrBuilder", "MesosOrBuilder":
-		v, ok := value.(*MesosInfoOrBuilder)
-		if ok {
-			self.MesosOrBuilder = v
-			self.present["mesosOrBuilder"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field mesosOrBuilder/MesosOrBuilder: value %v(%T) couldn't be cast to type *MesosInfoOrBuilder", value, value)
-		}
-
-	case "networkInfosCount", "NetworkInfosCount":
-		v, ok := value.(int32)
-		if ok {
-			self.NetworkInfosCount = v
-			self.present["networkInfosCount"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field networkInfosCount/NetworkInfosCount: value %v(%T) couldn't be cast to type int32", value, value)
 		}
 
 	case "serializedSize", "SerializedSize":
@@ -319,30 +279,6 @@ func (self *ContainerInfo) GetField(name string) (interface{}, error) {
 		}
 		return nil, fmt.Errorf("Field Initialized no set on Initialized %+v", self)
 
-	case "mesos", "Mesos":
-		if self.present != nil {
-			if _, ok := self.present["mesos"]; ok {
-				return self.Mesos, nil
-			}
-		}
-		return nil, fmt.Errorf("Field Mesos no set on Mesos %+v", self)
-
-	case "mesosOrBuilder", "MesosOrBuilder":
-		if self.present != nil {
-			if _, ok := self.present["mesosOrBuilder"]; ok {
-				return self.MesosOrBuilder, nil
-			}
-		}
-		return nil, fmt.Errorf("Field MesosOrBuilder no set on MesosOrBuilder %+v", self)
-
-	case "networkInfosCount", "NetworkInfosCount":
-		if self.present != nil {
-			if _, ok := self.present["networkInfosCount"]; ok {
-				return self.NetworkInfosCount, nil
-			}
-		}
-		return nil, fmt.Errorf("Field NetworkInfosCount no set on NetworkInfosCount %+v", self)
-
 	case "serializedSize", "SerializedSize":
 		if self.present != nil {
 			if _, ok := self.present["serializedSize"]; ok {
@@ -410,15 +346,6 @@ func (self *ContainerInfo) ClearField(name string) error {
 	case "initialized", "Initialized":
 		self.present["initialized"] = false
 
-	case "mesos", "Mesos":
-		self.present["mesos"] = false
-
-	case "mesosOrBuilder", "MesosOrBuilder":
-		self.present["mesosOrBuilder"] = false
-
-	case "networkInfosCount", "NetworkInfosCount":
-		self.present["networkInfosCount"] = false
-
 	case "serializedSize", "SerializedSize":
 		self.present["serializedSize"] = false
 
@@ -447,7 +374,7 @@ func (self *ContainerInfoList) Absorb(other swaggering.DTO) error {
 		*self = *like
 		return nil
 	}
-	return fmt.Errorf("A ContainerInfo cannot absorb the values from %v", other)
+	return fmt.Errorf("A ContainerInfoList cannot copy the values from %#v", other)
 }
 
 func (list *ContainerInfoList) Populate(jsonReader io.ReadCloser) (err error) {

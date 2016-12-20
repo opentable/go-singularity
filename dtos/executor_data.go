@@ -24,8 +24,6 @@ type ExecutorData struct {
 
 	LoggingTag string `json:"loggingTag,omitempty"`
 
-	// LogrotateFrequency *SingularityExecutorLogrotateFrequency `json:"logrotateFrequency"`
-
 	MaxOpenFiles int32 `json:"maxOpenFiles"`
 
 	MaxTaskThreads int32 `json:"maxTaskThreads"`
@@ -56,7 +54,7 @@ func (self *ExecutorData) Absorb(other swaggering.DTO) error {
 		*self = *like
 		return nil
 	}
-	return fmt.Errorf("A ExecutorData cannot absorb the values from %v", other)
+	return fmt.Errorf("A ExecutorData cannot copy the values from %#v", other)
 }
 
 func (self *ExecutorData) MarshalJSON() ([]byte, error) {
@@ -475,7 +473,7 @@ func (self *ExecutorDataList) Absorb(other swaggering.DTO) error {
 		*self = *like
 		return nil
 	}
-	return fmt.Errorf("A ExecutorData cannot absorb the values from %v", other)
+	return fmt.Errorf("A ExecutorDataList cannot copy the values from %#v", other)
 }
 
 func (list *ExecutorDataList) Populate(jsonReader io.ReadCloser) (err error) {

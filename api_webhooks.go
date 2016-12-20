@@ -28,17 +28,3 @@ func (client *Client) AddWebhook(body *dtos.SingularityWebhook) (response string
 	response = string(readBuf.Bytes())
 	return
 }
-
-func (client *Client) DeleteWebhook(webhookId string) (response string, err error) {
-	pathParamMap := map[string]interface{}{}
-
-	queryParamMap := map[string]interface{}{
-		"webhookId": webhookId,
-	}
-
-	resBody, err := client.Request("DELETE", "/api/webhooks", pathParamMap, queryParamMap)
-	readBuf := bytes.Buffer{}
-	readBuf.ReadFrom(resBody)
-	response = string(readBuf.Bytes())
-	return
-}

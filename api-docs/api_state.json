@@ -1,5 +1,5 @@
 {
-  "apiVersion": "0.10.0-SNAPSHOT",
+  "apiVersion": "0.4.12-SNAPSHOT",
   "swaggerVersion": "1.2",
   "basePath": null,
   "resourcePath": "/api/state",
@@ -7,6 +7,34 @@
     "application/json"
   ],
   "apis": [
+    {
+      "path": "/api/state",
+      "operations": [
+        {
+          "method": "GET",
+          "summary": "Retrieve information about the current state of Singularity.",
+          "notes": "",
+          "type": "SingularityState",
+          "nickname": "getState",
+          "parameters": [
+            {
+              "name": "skipCache",
+              "required": false,
+              "type": "boolean",
+              "paramType": "query",
+              "allowMultiple": false
+            },
+            {
+              "name": "includeRequestIds",
+              "required": false,
+              "type": "boolean",
+              "paramType": "query",
+              "allowMultiple": false
+            }
+          ]
+        }
+      ]
+    },
     {
       "path": "/api/state/requests/under-provisioned",
       "operations": [
@@ -54,34 +82,6 @@
           ]
         }
       ]
-    },
-    {
-      "path": "/api/state",
-      "operations": [
-        {
-          "method": "GET",
-          "summary": "Retrieve information about the current state of Singularity.",
-          "notes": "",
-          "type": "SingularityState",
-          "nickname": "getState",
-          "parameters": [
-            {
-              "name": "skipCache",
-              "required": false,
-              "type": "boolean",
-              "paramType": "query",
-              "allowMultiple": false
-            },
-            {
-              "name": "includeRequestIds",
-              "required": false,
-              "type": "boolean",
-              "paramType": "query",
-              "allowMultiple": false
-            }
-          ]
-        }
-      ]
     }
   ],
   "models": {
@@ -110,9 +110,6 @@
         },
         "mesosMaster": {
           "type": "string"
-        },
-        "mesosConnected": {
-          "type": "boolean"
         }
       }
     },

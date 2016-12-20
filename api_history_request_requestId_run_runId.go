@@ -2,7 +2,7 @@ package singularity
 
 import "github.com/opentable/go-singularity/dtos"
 
-func (client *Client) GetTaskHistoryForRequestAndRunId(requestId string, runId string) (response *dtos.SingularityTaskIdHistory, err error) {
+func (client *Client) GetTaskHistoryForRequestRun(requestId string, runId string) (response *dtos.SingularityTaskIdHistory, err error) {
 	pathParamMap := map[string]interface{}{
 		"requestId": requestId, "runId": runId,
 	}

@@ -30,7 +30,7 @@ func (self *HTTPOrBuilder) Absorb(other swaggering.DTO) error {
 		*self = *like
 		return nil
 	}
-	return fmt.Errorf("A HTTPOrBuilder cannot absorb the values from %v", other)
+	return fmt.Errorf("A HTTPOrBuilder cannot copy the values from %#v", other)
 }
 
 func (self *HTTPOrBuilder) MarshalJSON() ([]byte, error) {
@@ -197,7 +197,7 @@ func (self *HTTPOrBuilderList) Absorb(other swaggering.DTO) error {
 		*self = *like
 		return nil
 	}
-	return fmt.Errorf("A HTTPOrBuilder cannot absorb the values from %v", other)
+	return fmt.Errorf("A HTTPOrBuilderList cannot copy the values from %#v", other)
 }
 
 func (list *HTTPOrBuilderList) Populate(jsonReader io.ReadCloser) (err error) {

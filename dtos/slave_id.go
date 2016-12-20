@@ -40,7 +40,7 @@ func (self *SlaveID) Absorb(other swaggering.DTO) error {
 		*self = *like
 		return nil
 	}
-	return fmt.Errorf("A SlaveID cannot absorb the values from %v", other)
+	return fmt.Errorf("A SlaveID cannot copy the values from %#v", other)
 }
 
 func (self *SlaveID) MarshalJSON() ([]byte, error) {
@@ -270,7 +270,7 @@ func (self *SlaveIDList) Absorb(other swaggering.DTO) error {
 		*self = *like
 		return nil
 	}
-	return fmt.Errorf("A SlaveID cannot absorb the values from %v", other)
+	return fmt.Errorf("A SlaveIDList cannot copy the values from %#v", other)
 }
 
 func (list *SlaveIDList) Populate(jsonReader io.ReadCloser) (err error) {
