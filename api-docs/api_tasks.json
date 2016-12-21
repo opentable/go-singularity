@@ -509,6 +509,9 @@
         },
         "initializationErrorString": {
           "type": "string"
+        },
+        "variables": {
+          "$ref": "List[Variable]"
         }
       }
     },

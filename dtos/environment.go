@@ -26,6 +26,8 @@ type Environment struct {
 
 	UnknownFields *UnknownFieldSet `json:"unknownFields"`
 
+	Variables VariableList `json:"variables"`
+
 	VariablesCount int32 `json:"variablesCount"`
 
 	VariablesList VariableList `json:"variablesList"`
@@ -130,6 +132,16 @@ func (self *Environment) SetField(name string, value interface{}) error {
 			return fmt.Errorf("Field unknownFields/UnknownFields: value %v(%T) couldn't be cast to type *UnknownFieldSet", value, value)
 		}
 
+	case "variables", "Variables":
+		v, ok := value.(VariableList)
+		if ok {
+			self.Variables = v
+			self.present["variables"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field variables/Variables: value %v(%T) couldn't be cast to type VariableList", value, value)
+		}
+
 	case "variablesCount", "VariablesCount":
 		v, ok := value.(int32)
 		if ok {
@@ -206,6 +218,14 @@ func (self *Environment) GetField(name string) (interface{}, error) {
 		}
 		return nil, fmt.Errorf("Field UnknownFields no set on UnknownFields %+v", self)
 
+	case "variables", "Variables":
+		if self.present != nil {
+			if _, ok := self.present["variables"]; ok {
+				return self.Variables, nil
+			}
+		}
+		return nil, fmt.Errorf("Field Variables no set on Variables %+v", self)
+
 	case "variablesCount", "VariablesCount":
 		if self.present != nil {
 			if _, ok := self.present["variablesCount"]; ok {
@@ -250,6 +270,9 @@ func (self *Environment) ClearField(name string) error {
 
 	case "unknownFields", "UnknownFields":
 		self.present["unknownFields"] = false
+
+	case "variables", "Variables":
+		self.present["variables"] = false
 
 	case "variablesCount", "VariablesCount":
 		self.present["variablesCount"] = false
