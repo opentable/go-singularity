@@ -10,7 +10,7 @@ so they need a little massage before they're used.
 
 ## Development:
 
-The vast majority of this code is generated using the (swagger-client-maker.)[http://github.com/opentable/swaggering]
+The vast majority of this code is generated using the [swagger-client-maker.](http://github.com/opentable/swaggering)
 To install the tool:
 
 ```bash
