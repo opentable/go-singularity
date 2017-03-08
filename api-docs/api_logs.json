@@ -14,7 +14,7 @@
           "method": "GET",
           "summary": "Retrieve the list of logs stored in S3 for a specific task.",
           "notes": "",
-          "type": "List[SingularityS3Log]",
+          "type": "array",
           "nickname": "getS3LogsForTask",
           "parameters": [
             {
@@ -43,7 +43,10 @@
               "paramType": "query",
               "allowMultiple": false
             }
-          ]
+          ],
+          "items": {
+            "$ref": "SingularityS3Log"
+          }
         }
       ]
     },
@@ -54,7 +57,7 @@
           "method": "GET",
           "summary": "Retrieve the list of logs stored in S3 for a specific request.",
           "notes": "",
-          "type": "List[SingularityS3Log]",
+          "type": "array",
           "nickname": "getS3LogsForRequest",
           "parameters": [
             {
@@ -83,7 +86,10 @@
               "paramType": "query",
               "allowMultiple": false
             }
-          ]
+          ],
+          "items": {
+            "$ref": "SingularityS3Log"
+          }
         }
       ]
     },
@@ -94,7 +100,7 @@
           "method": "GET",
           "summary": "Retrieve the list of logs stored in S3 for a specific deploy.",
           "notes": "",
-          "type": "List[SingularityS3Log]",
+          "type": "array",
           "nickname": "getS3LogsForDeploy",
           "parameters": [
             {
@@ -131,9 +137,36 @@
               "paramType": "query",
               "allowMultiple": false
             }
-          ]
+          ],
+          "items": {
+            "$ref": "SingularityS3Log"
+          }
         }
       ]
     }
-  ]
+  ],
+  "models": {
+    "SingularityS3Log": {
+      "id": "SingularityS3Log",
+      "properties": {
+        "getUrl": {
+          "type": "string"
+        },
+        "key": {
+          "type": "string"
+        },
+        "lastModified": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "size": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "downloadUrl": {
+          "type": "string"
+        }
+      }
+    }
+  }
 }
