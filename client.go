@@ -15,8 +15,16 @@ type Client struct {
 }
 
 // NewClient builds a new Client
-func NewClient(apiBase string) (client *Client) {
-	return &Client{&swaggering.GenericClient{apiBase, swaggering.NullLogger{}, http.Client{}}}
+func NewClient(apiBase string, loggerOpt ...swaggering.Logger) (client *Client) {
+	logger := swaggering.NullLogger{}
+	if len(loggerOpt) > 0 {
+		logger = loggerOpt[0]
+	}
+	return &Client{&swaggering.GenericClient{
+		BaseURL: apiBase,
+		Logger:  logger,
+		HTTP:    http.Client{},
+	}}
 }
 
 // NewDummyClient builds a client/control pair for testing
