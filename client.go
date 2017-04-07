@@ -16,7 +16,7 @@ type Client struct {
 
 // NewClient builds a new Client
 func NewClient(apiBase string, loggerOpt ...swaggering.Logger) (client *Client) {
-	logger := swaggering.NullLogger{}
+	var logger swaggering.Logger = swaggering.NullLogger{}
 	if len(loggerOpt) > 0 {
 		logger = loggerOpt[0]
 	}
