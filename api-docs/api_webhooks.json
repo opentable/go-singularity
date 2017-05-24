@@ -1312,13 +1312,8 @@
           "description": "Controls use of the docker --privleged flag"
         },
         "network": {
-          "$ref": "com.hubspot.mesos.SingularityDockerNetworkType",
-          "description": "Docker netowkr type. Value can be BRIDGE, HOST, or NONE",
-          "enum": [
-            "HOST",
-            "BRIDGE",
-            "NONE"
-          ]
+          "$ref": "SingularityDockerNetworkType",
+          "description": "Docker netowkr type. Value can be BRIDGE, HOST, or NONE"
         },
         "portMappings": {
           "type": "array",
