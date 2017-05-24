@@ -12,6 +12,8 @@ type SingularityDeployProgress struct {
 
 	AutoAdvanceDeploySteps bool `json:"autoAdvanceDeploySteps"`
 
+	CurrentActiveInstances int32 `json:"currentActiveInstances"`
+
 	DeployInstanceCountPerStep int32 `json:"deployInstanceCountPerStep"`
 
 	DeployStepWaitTimeMs int64 `json:"deployStepWaitTimeMs"`
@@ -69,6 +71,16 @@ func (self *SingularityDeployProgress) SetField(name string, value interface{}) 
 			return nil
 		} else {
 			return fmt.Errorf("Field autoAdvanceDeploySteps/AutoAdvanceDeploySteps: value %v(%T) couldn't be cast to type bool", value, value)
+		}
+
+	case "currentActiveInstances", "CurrentActiveInstances":
+		v, ok := value.(int32)
+		if ok {
+			self.CurrentActiveInstances = v
+			self.present["currentActiveInstances"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field currentActiveInstances/CurrentActiveInstances: value %v(%T) couldn't be cast to type int32", value, value)
 		}
 
 	case "deployInstanceCountPerStep", "DeployInstanceCountPerStep":
@@ -147,6 +159,14 @@ func (self *SingularityDeployProgress) GetField(name string) (interface{}, error
 		}
 		return nil, fmt.Errorf("Field AutoAdvanceDeploySteps no set on AutoAdvanceDeploySteps %+v", self)
 
+	case "currentActiveInstances", "CurrentActiveInstances":
+		if self.present != nil {
+			if _, ok := self.present["currentActiveInstances"]; ok {
+				return self.CurrentActiveInstances, nil
+			}
+		}
+		return nil, fmt.Errorf("Field CurrentActiveInstances no set on CurrentActiveInstances %+v", self)
+
 	case "deployInstanceCountPerStep", "DeployInstanceCountPerStep":
 		if self.present != nil {
 			if _, ok := self.present["deployInstanceCountPerStep"]; ok {
@@ -208,6 +228,9 @@ func (self *SingularityDeployProgress) ClearField(name string) error {
 
 	case "autoAdvanceDeploySteps", "AutoAdvanceDeploySteps":
 		self.present["autoAdvanceDeploySteps"] = false
+
+	case "currentActiveInstances", "CurrentActiveInstances":
+		self.present["currentActiveInstances"] = false
 
 	case "deployInstanceCountPerStep", "DeployInstanceCountPerStep":
 		self.present["deployInstanceCountPerStep"] = false

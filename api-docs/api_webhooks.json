@@ -1,5 +1,5 @@
 {
-  "apiVersion": "0.4.12-SNAPSHOT",
+  "apiVersion": "0.15.0",
   "swaggerVersion": "1.2",
   "basePath": null,
   "resourcePath": "/api/webhooks",
@@ -7,99 +7,6 @@
     "application/json"
   ],
   "apis": [
-    {
-      "path": "/api/webhooks/{webhookId}",
-      "operations": [
-        {
-          "method": "DELETE",
-          "summary": "Delete a specific webhook.",
-          "notes": "",
-          "type": "string",
-          "nickname": "deleteWebhook",
-          "parameters": [
-            {
-              "name": "webhookId",
-              "required": true,
-              "type": "string",
-              "paramType": "path",
-              "allowMultiple": false
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "path": "/api/webhooks/deploy/{webhookId}",
-      "operations": [
-        {
-          "method": "GET",
-          "summary": "Retrieve a list of queued deploy updates for a specific webhook.",
-          "notes": "",
-          "type": "array",
-          "items": {
-            "$ref": "SingularityDeployUpdate"
-          },
-          "nickname": "getQueuedDeployUpdates",
-          "parameters": [
-            {
-              "name": "webhookId",
-              "required": true,
-              "type": "string",
-              "paramType": "path",
-              "allowMultiple": false
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "path": "/api/webhooks/request/{webhookId}",
-      "operations": [
-        {
-          "method": "GET",
-          "summary": "Retrieve a list of queued request updates for a specific webhook.",
-          "notes": "",
-          "type": "array",
-          "items": {
-            "$ref": "SingularityRequestHistory"
-          },
-          "nickname": "getQueuedRequestUpdates",
-          "parameters": [
-            {
-              "name": "webhookId",
-              "required": true,
-              "type": "string",
-              "paramType": "path",
-              "allowMultiple": false
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "path": "/api/webhooks/task/{webhookId}",
-      "operations": [
-        {
-          "method": "GET",
-          "summary": "Retrieve a list of queued task updates for a specific webhook.",
-          "notes": "",
-          "type": "array",
-          "items": {
-            "$ref": "SingularityTaskHistoryUpdate"
-          },
-          "nickname": "getQueuedTaskUpdates",
-          "parameters": [
-            {
-              "name": "webhookId",
-              "required": true,
-              "type": "string",
-              "paramType": "path",
-              "allowMultiple": false
-            }
-          ]
-        }
-      ]
-    },
     {
       "path": "/api/webhooks",
       "operations": [
@@ -129,28 +36,212 @@
               "allowMultiple": false
             }
           ]
+        },
+        {
+          "method": "DELETE",
+          "summary": "Delete a specific webhook.",
+          "notes": "",
+          "type": "string",
+          "nickname": "deleteWebhook",
+          "parameters": [
+            {
+              "name": "webhookId",
+              "required": false,
+              "type": "string",
+              "paramType": "query",
+              "allowMultiple": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "/api/webhooks/summary",
+      "operations": [
+        {
+          "method": "GET",
+          "summary": "Retrieve a summary of each active webhook",
+          "notes": "",
+          "type": "array",
+          "items": {
+            "$ref": "SingularityWebhookSummary"
+          },
+          "nickname": "getWebhooksWithQueueSize",
+          "parameters": []
+        }
+      ]
+    },
+    {
+      "path": "/api/webhooks/{webhookId}",
+      "operations": [
+        {
+          "method": "DELETE",
+          "summary": "Delete a specific webhook.",
+          "notes": "",
+          "type": "string",
+          "nickname": "deleteWebhookDeprecated",
+          "parameters": [
+            {
+              "name": "webhookId",
+              "required": true,
+              "type": "string",
+              "paramType": "path",
+              "allowMultiple": false
+            }
+          ],
+          "deprecated": "true"
+        }
+      ]
+    },
+    {
+      "path": "/api/webhooks/deploy/{webhookId}",
+      "operations": [
+        {
+          "method": "GET",
+          "summary": "Retrieve a list of queued deploy updates for a specific webhook.",
+          "notes": "",
+          "type": "array",
+          "items": {
+            "$ref": "SingularityDeployUpdate"
+          },
+          "nickname": "getQueuedDeployUpdatesDeprecated",
+          "parameters": [
+            {
+              "name": "webhookId",
+              "required": true,
+              "type": "string",
+              "paramType": "path",
+              "allowMultiple": false
+            }
+          ],
+          "deprecated": "true"
+        }
+      ]
+    },
+    {
+      "path": "/api/webhooks/request/{webhookId}",
+      "operations": [
+        {
+          "method": "GET",
+          "summary": "Retrieve a list of queued request updates for a specific webhook.",
+          "notes": "",
+          "type": "array",
+          "items": {
+            "$ref": "SingularityRequestHistory"
+          },
+          "nickname": "getQueuedRequestUpdatesDeprecated",
+          "parameters": [
+            {
+              "name": "webhookId",
+              "required": true,
+              "type": "string",
+              "paramType": "path",
+              "allowMultiple": false
+            }
+          ],
+          "deprecated": "true"
+        }
+      ]
+    },
+    {
+      "path": "/api/webhooks/task/{webhookId}",
+      "operations": [
+        {
+          "method": "GET",
+          "summary": "Retrieve a list of queued task updates for a specific webhook.",
+          "notes": "",
+          "type": "array",
+          "items": {
+            "$ref": "SingularityTaskHistoryUpdate"
+          },
+          "nickname": "getQueuedTaskUpdatesDeprecated",
+          "parameters": [
+            {
+              "name": "webhookId",
+              "required": true,
+              "type": "string",
+              "paramType": "path",
+              "allowMultiple": false
+            }
+          ],
+          "deprecated": "true"
+        }
+      ]
+    },
+    {
+      "path": "/api/webhooks/deploy",
+      "operations": [
+        {
+          "method": "GET",
+          "summary": "Retrieve a list of queued deploy updates for a specific webhook.",
+          "notes": "",
+          "type": "array",
+          "items": {
+            "$ref": "SingularityDeployUpdate"
+          },
+          "nickname": "getQueuedDeployUpdates",
+          "parameters": [
+            {
+              "name": "webhookId",
+              "required": false,
+              "type": "string",
+              "paramType": "query",
+              "allowMultiple": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "/api/webhooks/request",
+      "operations": [
+        {
+          "method": "GET",
+          "summary": "Retrieve a list of queued request updates for a specific webhook.",
+          "notes": "",
+          "type": "array",
+          "items": {
+            "$ref": "SingularityRequestHistory"
+          },
+          "nickname": "getQueuedRequestUpdates",
+          "parameters": [
+            {
+              "name": "webhookId",
+              "required": false,
+              "type": "string",
+              "paramType": "query",
+              "allowMultiple": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "/api/webhooks/task",
+      "operations": [
+        {
+          "method": "GET",
+          "summary": "Retrieve a list of queued task updates for a specific webhook.",
+          "notes": "",
+          "type": "array",
+          "items": {
+            "$ref": "SingularityTaskHistoryUpdate"
+          },
+          "nickname": "getQueuedTaskUpdates",
+          "parameters": [
+            {
+              "name": "webhookId",
+              "required": false,
+              "type": "string",
+              "paramType": "query",
+              "allowMultiple": false
+            }
+          ]
         }
       ]
     }
   ],
   "models": {
-    "Resources": {
-      "id": "Resources",
-      "properties": {
-        "cpus": {
-          "type": "number",
-          "format": "double"
-        },
-        "memoryMb": {
-          "type": "number",
-          "format": "double"
-        },
-        "numPorts": {
-          "type": "integer",
-          "format": "int32"
-        }
-      }
-    },
     "LoadBalancerRequestId": {
       "id": "LoadBalancerRequestId",
       "properties": {
@@ -244,9 +335,14 @@
     },
     "SingularityDockerPortMapping": {
       "id": "SingularityDockerPortMapping",
+      "required": [
+        "containerPort",
+        "hostPort"
+      ],
       "properties": {
         "containerPortType": {
           "$ref": "SingularityPortMappingType",
+          "description": "Container port. Use the port number provided (LITERAL) or the dynamically allocated port at this index (FROM_OFFER)",
           "enum": [
             "LITERAL",
             "FROM_OFFER"
@@ -254,6 +350,7 @@
         },
         "hostPortType": {
           "$ref": "SingularityPortMappingType",
+          "description": "Host port. Use the port number provided (LITERAL) or the dynamically allocated port at this index (FROM_OFFER)",
           "enum": [
             "LITERAL",
             "FROM_OFFER"
@@ -261,14 +358,17 @@
         },
         "containerPort": {
           "type": "integer",
-          "format": "int32"
+          "format": "int32",
+          "description": "Port number, or index of port from offer within the container"
         },
         "hostPort": {
           "type": "integer",
-          "format": "int32"
+          "format": "int32",
+          "description": "Port number, or index of port from offer on the host"
         },
         "protocol": {
-          "type": "string"
+          "type": "string",
+          "description": "Protocol for binding the port. Default is tcp"
         }
       }
     },
@@ -285,8 +385,8 @@
           "type": "integer",
           "format": "int64"
         },
-        "name": {
-          "type": "string"
+        "isArtifactList": {
+          "type": "boolean"
         },
         "filename": {
           "type": "string"
@@ -295,6 +395,9 @@
           "type": "string"
         },
         "targetFolderRelativeToTask": {
+          "type": "string"
+        },
+        "name": {
           "type": "string"
         }
       }
@@ -346,32 +449,57 @@
         }
       }
     },
+    "SingularityMesosArtifact": {
+      "id": "SingularityMesosArtifact",
+      "properties": {
+        "uri": {
+          "type": "string"
+        },
+        "cache": {
+          "type": "boolean"
+        },
+        "executable": {
+          "type": "boolean"
+        },
+        "extract": {
+          "type": "boolean"
+        }
+      }
+    },
     "ExecutorData": {
       "id": "ExecutorData",
+      "required": [
+        "cmd"
+      ],
       "properties": {
         "cmd": {
-          "type": "string"
+          "type": "string",
+          "description": "Command for the custom executor to run"
         },
         "embeddedArtifacts": {
           "type": "array",
+          "description": "A list of the full content of any embedded artifacts",
           "items": {
             "$ref": "EmbeddedArtifact"
           }
         },
         "externalArtifacts": {
           "type": "array",
+          "description": "A list of external artifacts for the executor to download",
           "items": {
             "$ref": "ExternalArtifact"
           }
         },
         "s3Artifacts": {
           "type": "array",
+          "description": "List of s3 artifacts for the executor to download",
           "items": {
             "$ref": "S3Artifact"
           }
         },
         "successfulExitCodes": {
           "type": "array",
+          "description": "Allowable exit codes for the task to be considered FINISHED instead of FAILED",
           "items": {
             "type": "integer",
             "format": "int32"
@@ -381,10 +509,12 @@
           "type": "string"
         },
         "user": {
-          "type": "string"
+          "type": "string",
+          "description": "Run the task process as this user"
         },
         "extraCmdLineArgs": {
           "type": "array",
+          "description": "Extra arguments in addition to any provided in the cmd field",
           "items": {
             "type": "string"
           }
@@ -397,30 +527,49 @@
         },
         "sigKillProcessesAfterMillis": {
           "type": "integer",
-          "format": "int64"
+          "format": "int64",
+          "description": "Send a sigkill to a process if it has not shut down this many millis after being sent a term signal"
         },
         "maxTaskThreads": {
           "type": "integer",
-          "format": "int32"
+          "format": "int32",
+          "description": "Maximum number of threads a task is allowed to use"
         },
         "preserveTaskSandboxAfterFinish": {
-          "type": "boolean"
-        },
-        "loggingS3Bucket": {
-          "type": "string"
+          "type": "boolean",
+          "description": "If true, do not delete files in the task sandbox after the task process has terminated"
         },
         "maxOpenFiles": {
           "type": "integer",
-          "format": "int32"
+          "format": "int32",
+          "description": "Maximum number of open files the task process is allowed"
         },
         "skipLogrotateAndCompress": {
-          "type": "boolean"
+          "type": "boolean",
+          "description": "If true, do not run logrotate or compress old log files"
         },
         "s3ArtifactSignatures": {
           "type": "array",
+          "description": "A list of signatures use to verify downloaded s3artifacts",
           "items": {
             "$ref": "S3ArtifactSignature"
           }
+        },
+        "logrotateFrequency": {
+          "$ref": "SingularityExecutorLogrotateFrequency",
+          "description": "Run logrotate this often. Can be HOURLY, DAILY, WEEKLY, MONTHLY"
+        }
+      }
+    },
+    "SingularityWebhookSummary": {
+      "id": "SingularityWebhookSummary",
+      "properties": {
+        "webhook": {
+          "$ref": "SingularityWebhook"
+        },
+        "queueSize": {
+          "type": "integer",
+          "format": "int32"
         }
       }
     },
@@ -439,6 +588,7 @@
           "enum": [
             "CREATED",
             "UPDATED",
+            "DELETING",
             "DELETED",
             "PAUSED",
             "UNPAUSED",
@@ -459,14 +609,31 @@
         }
       }
     },
+    "SingularityDockerParameter": {
+      "id": "SingularityDockerParameter",
+      "properties": {
+        "key": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
+        }
+      }
+    },
     "SingularityRequest": {
       "id": "SingularityRequest",
+      "required": [
+        "id",
+        "requestType"
+      ],
       "properties": {
         "id": {
-          "type": "string"
+          "type": "string",
+          "description": "A unique id for the request"
         },
         "requestType": {
           "$ref": "RequestType",
+          "description": "The type of request, can be SERVICE, WORKER, SCHEDULED, ON_DEMAND, or RUN_ONCE",
           "enum": [
             "SERVICE",
             "WORKER",
@@ -477,78 +644,144 @@
         },
         "owners": {
           "type": "array",
+          "description": "A list of emails for the owners of this request",
           "items": {
             "type": "string"
           }
         },
         "numRetriesOnFailure": {
           "type": "integer",
-          "format": "int32"
+          "format": "int32",
+          "description": "For scheduled jobs, retry up to this many times if the job fails"
         },
         "schedule": {
-          "type": "string"
+          "type": "string",
+          "description": "A schedule in cron, RFC5545, or quartz format"
         },
         "quartzSchedule": {
-          "type": "string"
+          "type": "string",
+          "description": "A schedule in quartz format"
         },
         "scheduleType": {
-          "$ref": "ScheduleType"
+          "$ref": "ScheduleType",
+          "description": "The type of schedule associated with the scheduled field. Can be CRON, QUARTZ, or RFC5545"
+        },
+        "scheduleTimeZone": {
+          "type": "string",
+          "description": "Time zone to use when running the"
         },
         "killOldNonLongRunningTasksAfterMillis": {
           "type": "integer",
-          "format": "int64"
+          "format": "int64",
+          "description": "For non-long-running request types, kill a task after this amount of time if it has been put into CLEANING and has not shut down"
+        },
+        "taskExecutionTimeLimitMillis": {
+          "type": "integer",
+          "format": "int64",
+          "description": "If set, don't allow any taks for this request to run for longer than this amount of time"
         },
         "scheduledExpectedRuntimeMillis": {
           "type": "integer",
-          "format": "int64"
+          "format": "int64",
+          "description": "Expected time for a non-long-running task to run. Singularity will notify owners if a task exceeds this time"
         },
         "waitAtLeastMillisAfterTaskFinishesForReschedule": {
           "type": "integer",
-          "format": "int64"
+          "format": "int64",
+          "description": "When a scheduled job finishes, wait at least this long before rescheduling it"
         },
         "instances": {
           "type": "integer",
-          "format": "int32"
+          "format": "int32",
+          "description": "A count of tasks to run for long-running requests"
         },
         "skipHealthchecks": {
-          "type": "boolean"
+          "type": "boolean",
+          "description": "If true, do not run healthchecks"
         },
         "rackSensitive": {
-          "type": "boolean"
+          "type": "boolean",
+          "description": "Spread instances for this request evenly across separate racks"
         },
         "rackAffinity": {
           "type": "array",
+          "description": "If set, prefer this specific rack when launching tasks",
           "items": {
             "type": "string"
           }
         },
         "slavePlacement": {
-          "$ref": "SlavePlacement"
+          "$ref": "SlavePlacement",
+          "description": "Strategy for determining where to place new tasks. Can be SEPARATE, OPTIMISTIC, GREEDY, SEPARATE_BY_DEPLOY, or SEPARATE_BY_REQUEST"
         },
         "requiredSlaveAttributes": {
-          "$ref": "Map[string,string]"
+          "$ref": "Map[string,string]",
+          "description": "Only allow tasks for this request to run on slaves which have these attributes"
         },
         "allowedSlaveAttributes": {
-          "$ref": "Map[string,string]"
+          "$ref": "Map[string,string]",
+          "description": "Allow tasks to run on slaves with these attributes, but do not restrict them to only these slaves"
         },
         "loadBalanced": {
-          "type": "boolean"
+          "type": "boolean",
+          "description": "Indicates that a SERVICE should be load balanced"
         },
         "group": {
-          "type": "string"
+          "type": "string",
+          "description": "Auth group associated with this request. Users in this group are allowed read/write access to this request"
+        },
+        "requiredRole": {
+          "type": "string",
+          "description": "Mesos Role required for this request. Only offers with the required role will be accepted to execute the tasks associated with the request"
+        },
+        "readWriteGroups": {
+          "type": "array",
+          "uniqueItems": true,
+          "description": "Users in these groups are allowed read/write access to this request",
+          "items": {
+            "type": "string"
+          }
         },
         "readOnlyGroups": {
           "type": "array",
           "uniqueItems": true,
+          "description": "Users in these groups are allowed read only access to this request",
           "items": {
             "type": "string"
           }
         },
         "bounceAfterScale": {
-          "type": "boolean"
+          "type": "boolean",
+          "description": "Used for SingularityUI. If true, automatically trigger a bounce after changing the request's instance count"
         },
         "emailConfigurationOverrides": {
-          "$ref": "Map[SingularityEmailType,List[SingularityEmailDestination]]"
+          "$ref": "Map[SingularityEmailType,List[SingularityEmailDestination]]",
+          "description": "Overrides for email recipients by email type for this request"
+        },
+        "hideEvenNumberAcrossRacksHint": {
+          "type": "boolean"
+        },
+        "taskLogErrorRegex": {
+          "type": "string",
+          "description": "Searching for errors in task logs to include in emails using this regex"
+        },
+        "taskLogErrorRegexCaseSensitive": {
+          "type": "boolean",
+          "description": "Determines if taskLogErrorRegex is case sensitive"
+        },
+        "taskPriorityLevel": {
+          "type": "number",
+          "format": "double",
+          "description": "a priority level from 0.0 to 1.0 for all tasks associated with the request"
+        },
+        "maxTasksPerOffer": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Do not schedule more than this many tasks using a single offer from a single mesos slave"
+        },
+        "allowBounceToSameHost": {
+          "type": "boolean",
+          "description": "If set to true, allow tasks to be scheduled on the same host as an existing active task when bouncing"
         }
       }
     },
@@ -608,22 +841,23 @@
     },
     "S3ArtifactSignature": {
       "id": "S3ArtifactSignature",
+      "description": "A file with name `filename` containing the signature (e.g. gpg signature) for an artifact with the specified `artifactFilename`. Used to verify the validity of the artifact being downloaded",
       "properties": {
         "artifactFilename": {
           "type": "string"
         },
-        "s3ObjectKey": {
+        "s3Bucket": {
           "type": "string"
         },
-        "s3Bucket": {
+        "s3ObjectKey": {
           "type": "string"
         },
         "filesize": {
           "type": "integer",
           "format": "int64"
         },
-        "name": {
-          "type": "string"
+        "isArtifactList": {
+          "type": "boolean"
         },
         "filename": {
           "type": "string"
@@ -632,6 +866,9 @@
           "type": "string"
         },
         "targetFolderRelativeToTask": {
+          "type": "string"
+        },
+        "name": {
           "type": "string"
         }
       }
@@ -681,12 +918,8 @@
           "description": "Custom Mesos executor source."
         },
         "customExecutorResources": {
-          "$ref": "Resources",
+          "$ref": "com.hubspot.mesos.Resources",
           "description": "Resources to allocate for custom mesos executor"
-        },
-        "customExecutorUser": {
-          "type": "string",
-          "description": "User to run custom executor as"
         },
         "resources": {
           "$ref": "Resources",
@@ -711,7 +944,7 @@
           "type": "array",
           "description": "List of URIs to download before executing the deploy command.",
           "items": {
-            "type": "string"
+            "$ref": "SingularityMesosArtifact"
           }
         },
         "executorData": {
@@ -720,7 +953,26 @@
         },
         "labels": {
           "$ref": "Map[string,string]",
-          "description": "Labels for tasks associated with this deploy"
+          "description": "Labels for all tasks associated with this deploy"
+        },
+        "mesosLabels": {
+          "type": "array",
+          "description": "Labels for all tasks associated with this deploy",
+          "items": {
+            "$ref": "SingularityMesosTaskLabel"
+          }
+        },
+        "taskLabels": {
+          "$ref": "Map[int,Map[string,string]]",
+          "description": "(Deprecated) Labels for specific tasks associated with this deploy, indexed by instance number"
+        },
+        "mesosTaskLabels": {
+          "$ref": "Map[int,List[SingularityMesosTaskLabel]]",
+          "description": "Labels for specific tasks associated with this deploy, indexed by instance number"
+        },
+        "taskEnv": {
+          "$ref": "Map[int,Map[string,string]]",
+          "description": "Map of environment variable overrides for specific task instances."
         },
         "healthcheckUri": {
           "type": "string",
@@ -741,12 +993,8 @@
           "format": "int32",
           "description": "Perform healthcheck on this dynamically allocated port (e.g. 0 for first port), defaults to first port"
         },
-        "skipHealthchecksOnDeploy": {
-          "type": "boolean",
-          "description": "Allows skipping of health checks when deploying."
-        },
         "healthcheckProtocol": {
-          "$ref": "HealthcheckProtocol",
+          "$ref": "com.hubspot.singularity.HealthcheckProtocol",
           "description": "Healthcheck protocol - HTTP or HTTPS"
         },
         "healthcheckMaxRetries": {
@@ -758,6 +1006,14 @@
           "type": "integer",
           "format": "int64",
           "description": "Maximum amount of time to wait before failing a deploy for healthchecks to pass."
+        },
+        "healthcheck": {
+          "$ref": "HealthcheckOptions",
+          "description": "HTTP Healthcheck settings"
+        },
+        "skipHealthchecksOnDeploy": {
+          "type": "boolean",
+          "description": "Allows skipping of health checks when deploying."
         },
         "deployHealthTimeoutSeconds": {
           "type": "integer",
@@ -790,6 +1046,33 @@
           "$ref": "Map[string,Object]",
           "description": "Map (Key/Value) of options for the load balancer."
         },
+        "loadBalancerDomains": {
+          "type": "array",
+          "uniqueItems": true,
+          "description": "List of domains to host this service on, for use with the load balancer api",
+          "items": {
+            "type": "string"
+          }
+        },
+        "loadBalancerAdditionalRoutes": {
+          "type": "array",
+          "description": "Additional routes besides serviceBasePath used by this service",
+          "items": {
+            "type": "string"
+          }
+        },
+        "loadBalancerTemplate": {
+          "type": "string",
+          "description": "Name of load balancer template to use if not using the default template"
+        },
+        "loadBalancerServiceIdOverride": {
+          "type": "string",
+          "description": "Name of load balancer Service ID to use instead of the Request ID"
+        },
+        "loadBalancerUpstreamGroup": {
+          "type": "string",
+          "description": "Group name to tag all upstreams with in load balancer"
+        },
         "deployInstanceCountPerStep": {
           "type": "integer",
           "format": "int32",
@@ -808,6 +1091,14 @@
           "type": "integer",
           "format": "int32",
           "description": "allowed at most this many failed tasks to be retried before failing the deploy"
+        },
+        "shell": {
+          "type": "boolean",
+          "description": "Override the shell property on the mesos task"
+        },
+        "user": {
+          "type": "string",
+          "description": "Run tasks as this user"
         }
       }
     },
@@ -821,9 +1112,6 @@
             "format": "byte"
           }
         },
-        "name": {
-          "type": "string"
-        },
         "filename": {
           "type": "string"
         },
@@ -831,6 +1119,9 @@
           "type": "string"
         },
         "targetFolderRelativeToTask": {
+          "type": "string"
+        },
+        "name": {
           "type": "string"
         }
       }
@@ -858,13 +1149,13 @@
         "sanitizedRackId": {
           "type": "string"
         },
-        "id": {
+        "rackId": {
           "type": "string"
         },
         "host": {
           "type": "string"
         },
-        "rackId": {
+        "id": {
           "type": "string"
         }
       }
@@ -879,8 +1170,8 @@
           "type": "integer",
           "format": "int64"
         },
-        "name": {
-          "type": "string"
+        "isArtifactList": {
+          "type": "boolean"
         },
         "filename": {
           "type": "string"
@@ -890,14 +1181,21 @@
         },
         "targetFolderRelativeToTask": {
           "type": "string"
+        },
+        "name": {
+          "type": "string"
         }
       }
     },
     "SingularityContainerInfo": {
       "id": "SingularityContainerInfo",
+      "required": [
+        "type"
+      ],
       "properties": {
         "type": {
           "$ref": "SingularityContainerType",
+          "description": "Container type, can be MESOS or DOCKER. Default is MESOS",
           "enum": [
             "MESOS",
             "DOCKER"
@@ -905,12 +1203,78 @@
         },
         "volumes": {
           "type": "array",
+          "description": "List of volumes to mount. Applicable only to DOCKER container type",
           "items": {
             "$ref": "SingularityVolume"
           }
         },
         "docker": {
-          "$ref": "SingularityDockerInfo"
+          "$ref": "SingularityDockerInfo",
+          "description": "Information specific to docker runtime settings"
+        }
+      }
+    },
+    "HealthcheckOptions": {
+      "id": "HealthcheckOptions",
+      "required": [
+        "uri"
+      ],
+      "properties": {
+        "uri": {
+          "type": "string",
+          "description": "Healthcheck uri to hit"
+        },
+        "portIndex": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Perform healthcheck on this dynamically allocated port (e.g. 0 for first port), defaults to first port"
+        },
+        "portNumber": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Perform healthcheck on this port (portIndex cannot also be used when using this setting)"
+        },
+        "protocol": {
+          "$ref": "HealthcheckProtocol",
+          "description": "Healthcheck protocol - HTTP or HTTPS"
+        },
+        "startupTimeoutSeconds": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Consider the task unhealthy/failed if the app has not started responding to healthchecks in this amount of time"
+        },
+        "startupDelaySeconds": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Wait this long before issuing the first healthcheck"
+        },
+        "startupIntervalSeconds": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Time to wait after a failed healthcheck to try again in seconds."
+        },
+        "intervalSeconds": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Time to wait after a valid but failed healthcheck response to try again in seconds."
+        },
+        "responseTimeoutSeconds": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Single healthcheck HTTP timeout in seconds."
+        },
+        "maxRetries": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Maximum number of times to retry an individual healthcheck before failing the deploy."
+        },
+        "failureStatusCodes": {
+          "type": "array",
+          "description": "Fail the healthcheck with no further retries if one of these status codes is returned",
+          "items": {
+            "type": "integer",
+            "format": "int32"
+          }
         }
       }
     },
@@ -934,15 +1298,22 @@
     },
     "SingularityDockerInfo": {
       "id": "SingularityDockerInfo",
+      "required": [
+        "image",
+        "privileged"
+      ],
       "properties": {
         "image": {
-          "type": "string"
+          "type": "string",
+          "description": "Docker image name"
         },
         "privileged": {
-          "type": "boolean"
+          "type": "boolean",
+          "description": "Controls use of the docker --privleged flag"
         },
         "network": {
-          "$ref": "SingularityDockerNetworkType",
+          "$ref": "com.hubspot.mesos.SingularityDockerNetworkType",
+          "description": "Docker netowkr type. Value can be BRIDGE, HOST, or NONE",
           "enum": [
             "HOST",
             "BRIDGE",
@@ -951,15 +1322,35 @@
         },
         "portMappings": {
           "type": "array",
+          "description": "List of port mappings",
           "items": {
             "$ref": "SingularityDockerPortMapping"
           }
         },
         "forcePullImage": {
-          "type": "boolean"
+          "type": "boolean",
+          "description": "Always run docker pull even if the image already exists locally"
         },
         "parameters": {
           "$ref": "Map[string,string]"
+        },
+        "dockerParameters": {
+          "type": "array",
+          "description": "Other docker run command line options to be set",
+          "items": {
+            "$ref": "SingularityDockerParameter"
+          }
+        }
+      }
+    },
+    "SingularityMesosTaskLabel": {
+      "id": "SingularityMesosTaskLabel",
+      "properties": {
+        "key": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string"
         }
       }
     },
@@ -978,6 +1369,7 @@
             "TASK_STARTING",
             "TASK_RUNNING",
             "TASK_CLEANING",
+            "TASK_KILLING",
             "TASK_FINISHED",
             "TASK_FAILED",
             "TASK_KILLED",
@@ -991,6 +1383,13 @@
         },
         "statusReason": {
           "type": "string"
+        },
+        "previous": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "SingularityTaskHistoryUpdate"
+          }
         },
         "taskId": {
           "$ref": "SingularityTaskId"

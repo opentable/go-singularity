@@ -1,5 +1,5 @@
 {
-  "apiVersion": "0.4.12-SNAPSHOT",
+  "apiVersion": "0.15.0",
   "swaggerVersion": "1.2",
   "basePath": null,
   "resourcePath": "/api/racks",
@@ -8,31 +8,40 @@
   ],
   "apis": [
     {
-      "path": "/api/racks/rack/{rackId}/activate",
+      "path": "/api/racks/rack/{rackId}/expiring",
       "operations": [
         {
-          "method": "POST",
-          "summary": "Activate a decomissioning rack, canceling decomission without erasing history",
+          "method": "DELETE",
+          "summary": "Delete any expiring machine state changes for this rack",
           "notes": "",
           "type": "void",
-          "nickname": "activateSlave",
+          "nickname": "deleteExpiringStateChange",
           "parameters": [
             {
               "name": "rackId",
-              "description": "Active rackId",
+              "description": "Active slaveId",
               "required": true,
               "type": "string",
               "paramType": "path",
               "allowMultiple": false
-            },
-            {
-              "name": "body",
-              "required": false,
-              "type": "SingularityMachineChangeRequest",
-              "paramType": "body",
-              "allowMultiple": false
             }
           ]
+        }
+      ]
+    },
+    {
+      "path": "/api/racks/expiring",
+      "operations": [
+        {
+          "method": "GET",
+          "summary": "Get all expiring state changes for all racks",
+          "notes": "",
+          "type": "array",
+          "items": {
+            "$ref": "SingularityExpiringMachineState"
+          },
+          "nickname": "getExpiringStateChanges",
+          "parameters": []
         }
       ]
     },
@@ -86,7 +95,7 @@
         },
         {
           "method": "DELETE",
-          "summary": "Remove a known rack, erasing history. This operation will cancel decomissioning of racks",
+          "summary": "Remove a known rack, erasing history. This operation will cancel decommissioning of racks",
           "notes": "",
           "type": "void",
           "nickname": "removeRack",
@@ -160,30 +169,86 @@
           ]
         }
       ]
+    },
+    {
+      "path": "/api/racks/rack/{rackId}/activate",
+      "operations": [
+        {
+          "method": "POST",
+          "summary": "Activate a decomissioning rack, canceling decomission without erasing history",
+          "notes": "",
+          "type": "void",
+          "nickname": "activateRack",
+          "parameters": [
+            {
+              "name": "rackId",
+              "description": "Active rackId",
+              "required": true,
+              "type": "string",
+              "paramType": "path",
+              "allowMultiple": false
+            },
+            {
+              "name": "body",
+              "required": false,
+              "type": "SingularityMachineChangeRequest",
+              "paramType": "body",
+              "allowMultiple": false
+            }
+          ]
+        }
+      ]
     }
   ],
   "models": {
+    "SingularityExpiringMachineState": {
+      "id": "SingularityExpiringMachineState",
+      "properties": {
+        "machineId": {
+          "type": "string"
+        },
+        "revertToState": {
+          "$ref": "MachineState",
+          "enum": [
+            "MISSING_ON_STARTUP",
+            "ACTIVE",
+            "STARTING_DECOMMISSION",
+            "DECOMMISSIONING",
+            "DECOMMISSIONED",
+            "DEAD",
+            "FROZEN"
+          ]
+        },
+        "killTasksOnDecommissionTimeout": {
+          "type": "boolean"
+        },
+        "startMillis": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "actionId": {
+          "type": "string"
+        },
+        "user": {
+          "type": "string"
+        },
+        "expiringAPIRequestObject": {
+          "$ref": "T"
+        }
+      }
+    },
     "SingularityRack": {
       "id": "SingularityRack",
       "properties": {
-        "id": {
-          "type": "string"
-        },
         "currentState": {
           "$ref": "SingularityMachineStateHistoryUpdate"
         },
         "firstSeenAt": {
           "type": "integer",
           "format": "int64"
-        }
-      }
-    },
-    "SingularityMachineChangeRequest": {
-      "id": "SingularityMachineChangeRequest",
-      "properties": {
-        "message": {
-          "type": "string",
-          "description": "A message to show to users about why this action was taken"
+        },
+        "id": {
+          "type": "string"
         }
       }
     },
@@ -214,6 +279,32 @@
         "timestamp": {
           "type": "integer",
           "format": "int64"
+        }
+      }
+    },
+    "SingularityMachineChangeRequest": {
+      "id": "SingularityMachineChangeRequest",
+      "properties": {
+        "revertToState": {
+          "$ref": "MachineState",
+          "description": "If a durationMillis is specified, return to this state when time has elapsed"
+        },
+        "killTasksOnDecommissionTimeout": {
+          "type": "boolean",
+          "description": "If a machine has not successfully decommissioned in durationMillis, kill the remaining tasks on the machine"
+        },
+        "durationMillis": {
+          "type": "integer",
+          "format": "int64",
+          "description": "The number of milliseconds to wait before reversing the effects of this action (letting it expire)"
+        },
+        "actionId": {
+          "type": "string",
+          "description": "An id to associate with this action for metadata purposes"
+        },
+        "message": {
+          "type": "string",
+          "description": "A message to show to users about why this action was taken"
         }
       }
     }

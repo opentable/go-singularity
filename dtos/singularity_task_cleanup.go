@@ -10,18 +10,28 @@ import (
 type SingularityTaskCleanupTaskCleanupType string
 
 const (
-	SingularityTaskCleanupTaskCleanupTypeUSER_REQUESTED             SingularityTaskCleanupTaskCleanupType = "USER_REQUESTED"
-	SingularityTaskCleanupTaskCleanupTypeUSER_REQUESTED_TASK_BOUNCE SingularityTaskCleanupTaskCleanupType = "USER_REQUESTED_TASK_BOUNCE"
-	SingularityTaskCleanupTaskCleanupTypeDECOMISSIONING             SingularityTaskCleanupTaskCleanupType = "DECOMISSIONING"
-	SingularityTaskCleanupTaskCleanupTypeSCALING_DOWN               SingularityTaskCleanupTaskCleanupType = "SCALING_DOWN"
-	SingularityTaskCleanupTaskCleanupTypeBOUNCING                   SingularityTaskCleanupTaskCleanupType = "BOUNCING"
-	SingularityTaskCleanupTaskCleanupTypeINCREMENTAL_BOUNCE         SingularityTaskCleanupTaskCleanupType = "INCREMENTAL_BOUNCE"
-	SingularityTaskCleanupTaskCleanupTypeDEPLOY_FAILED              SingularityTaskCleanupTaskCleanupType = "DEPLOY_FAILED"
-	SingularityTaskCleanupTaskCleanupTypeNEW_DEPLOY_SUCCEEDED       SingularityTaskCleanupTaskCleanupType = "NEW_DEPLOY_SUCCEEDED"
-	SingularityTaskCleanupTaskCleanupTypeDEPLOY_STEP_FINISHED       SingularityTaskCleanupTaskCleanupType = "DEPLOY_STEP_FINISHED"
-	SingularityTaskCleanupTaskCleanupTypeDEPLOY_CANCELED            SingularityTaskCleanupTaskCleanupType = "DEPLOY_CANCELED"
-	SingularityTaskCleanupTaskCleanupTypeUNHEALTHY_NEW_TASK         SingularityTaskCleanupTaskCleanupType = "UNHEALTHY_NEW_TASK"
-	SingularityTaskCleanupTaskCleanupTypeOVERDUE_NEW_TASK           SingularityTaskCleanupTaskCleanupType = "OVERDUE_NEW_TASK"
+	SingularityTaskCleanupTaskCleanupTypeUSER_REQUESTED               SingularityTaskCleanupTaskCleanupType = "USER_REQUESTED"
+	SingularityTaskCleanupTaskCleanupTypeUSER_REQUESTED_TASK_BOUNCE   SingularityTaskCleanupTaskCleanupType = "USER_REQUESTED_TASK_BOUNCE"
+	SingularityTaskCleanupTaskCleanupTypeDECOMISSIONING               SingularityTaskCleanupTaskCleanupType = "DECOMISSIONING"
+	SingularityTaskCleanupTaskCleanupTypeSCALING_DOWN                 SingularityTaskCleanupTaskCleanupType = "SCALING_DOWN"
+	SingularityTaskCleanupTaskCleanupTypeBOUNCING                     SingularityTaskCleanupTaskCleanupType = "BOUNCING"
+	SingularityTaskCleanupTaskCleanupTypeINCREMENTAL_BOUNCE           SingularityTaskCleanupTaskCleanupType = "INCREMENTAL_BOUNCE"
+	SingularityTaskCleanupTaskCleanupTypeDEPLOY_FAILED                SingularityTaskCleanupTaskCleanupType = "DEPLOY_FAILED"
+	SingularityTaskCleanupTaskCleanupTypeNEW_DEPLOY_SUCCEEDED         SingularityTaskCleanupTaskCleanupType = "NEW_DEPLOY_SUCCEEDED"
+	SingularityTaskCleanupTaskCleanupTypeDEPLOY_STEP_FINISHED         SingularityTaskCleanupTaskCleanupType = "DEPLOY_STEP_FINISHED"
+	SingularityTaskCleanupTaskCleanupTypeDEPLOY_CANCELED              SingularityTaskCleanupTaskCleanupType = "DEPLOY_CANCELED"
+	SingularityTaskCleanupTaskCleanupTypeTASK_EXCEEDED_TIME_LIMIT     SingularityTaskCleanupTaskCleanupType = "TASK_EXCEEDED_TIME_LIMIT"
+	SingularityTaskCleanupTaskCleanupTypeUNHEALTHY_NEW_TASK           SingularityTaskCleanupTaskCleanupType = "UNHEALTHY_NEW_TASK"
+	SingularityTaskCleanupTaskCleanupTypeOVERDUE_NEW_TASK             SingularityTaskCleanupTaskCleanupType = "OVERDUE_NEW_TASK"
+	SingularityTaskCleanupTaskCleanupTypeUSER_REQUESTED_DESTROY       SingularityTaskCleanupTaskCleanupType = "USER_REQUESTED_DESTROY"
+	SingularityTaskCleanupTaskCleanupTypeINCREMENTAL_DEPLOY_FAILED    SingularityTaskCleanupTaskCleanupType = "INCREMENTAL_DEPLOY_FAILED"
+	SingularityTaskCleanupTaskCleanupTypeINCREMENTAL_DEPLOY_CANCELLED SingularityTaskCleanupTaskCleanupType = "INCREMENTAL_DEPLOY_CANCELLED"
+	SingularityTaskCleanupTaskCleanupTypePRIORITY_KILL                SingularityTaskCleanupTaskCleanupType = "PRIORITY_KILL"
+	SingularityTaskCleanupTaskCleanupTypeREBALANCE_RACKS              SingularityTaskCleanupTaskCleanupType = "REBALANCE_RACKS"
+	SingularityTaskCleanupTaskCleanupTypePAUSING                      SingularityTaskCleanupTaskCleanupType = "PAUSING"
+	SingularityTaskCleanupTaskCleanupTypePAUSE                        SingularityTaskCleanupTaskCleanupType = "PAUSE"
+	SingularityTaskCleanupTaskCleanupTypeDECOMMISSION_TIMEOUT         SingularityTaskCleanupTaskCleanupType = "DECOMMISSION_TIMEOUT"
+	SingularityTaskCleanupTaskCleanupTypeREQUEST_DELETING             SingularityTaskCleanupTaskCleanupType = "REQUEST_DELETING"
 )
 
 type SingularityTaskCleanup struct {
@@ -32,6 +42,8 @@ type SingularityTaskCleanup struct {
 	CleanupType SingularityTaskCleanupTaskCleanupType `json:"cleanupType"`
 
 	Message string `json:"message,omitempty"`
+
+	RunBeforeKillId *SingularityTaskShellCommandRequestId `json:"runBeforeKillId"`
 
 	TaskId *SingularityTaskId `json:"taskId"`
 
@@ -106,6 +118,16 @@ func (self *SingularityTaskCleanup) SetField(name string, value interface{}) err
 			return fmt.Errorf("Field message/Message: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
+	case "runBeforeKillId", "RunBeforeKillId":
+		v, ok := value.(*SingularityTaskShellCommandRequestId)
+		if ok {
+			self.RunBeforeKillId = v
+			self.present["runBeforeKillId"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field runBeforeKillId/RunBeforeKillId: value %v(%T) couldn't be cast to type *SingularityTaskShellCommandRequestId", value, value)
+		}
+
 	case "taskId", "TaskId":
 		v, ok := value.(*SingularityTaskId)
 		if ok {
@@ -168,6 +190,14 @@ func (self *SingularityTaskCleanup) GetField(name string) (interface{}, error) {
 		}
 		return nil, fmt.Errorf("Field Message no set on Message %+v", self)
 
+	case "runBeforeKillId", "RunBeforeKillId":
+		if self.present != nil {
+			if _, ok := self.present["runBeforeKillId"]; ok {
+				return self.RunBeforeKillId, nil
+			}
+		}
+		return nil, fmt.Errorf("Field RunBeforeKillId no set on RunBeforeKillId %+v", self)
+
 	case "taskId", "TaskId":
 		if self.present != nil {
 			if _, ok := self.present["taskId"]; ok {
@@ -211,6 +241,9 @@ func (self *SingularityTaskCleanup) ClearField(name string) error {
 
 	case "message", "Message":
 		self.present["message"] = false
+
+	case "runBeforeKillId", "RunBeforeKillId":
+		self.present["runBeforeKillId"] = false
 
 	case "taskId", "TaskId":
 		self.present["taskId"] = false

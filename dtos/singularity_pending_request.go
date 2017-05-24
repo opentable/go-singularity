@@ -24,6 +24,7 @@ const (
 	SingularityPendingRequestPendingTypeCANCEL_BOUNCE               SingularityPendingRequestPendingType = "CANCEL_BOUNCE"
 	SingularityPendingRequestPendingTypeTASK_BOUNCE                 SingularityPendingRequestPendingType = "TASK_BOUNCE"
 	SingularityPendingRequestPendingTypeDEPLOY_CANCELLED            SingularityPendingRequestPendingType = "DEPLOY_CANCELLED"
+	SingularityPendingRequestPendingTypeDEPLOY_FAILED               SingularityPendingRequestPendingType = "DEPLOY_FAILED"
 )
 
 type SingularityPendingRequest struct {
@@ -40,6 +41,8 @@ type SingularityPendingRequest struct {
 	PendingType SingularityPendingRequestPendingType `json:"pendingType"`
 
 	RequestId string `json:"requestId,omitempty"`
+
+	Resources *Resources `json:"resources"`
 
 	RunId string `json:"runId,omitempty"`
 
@@ -146,6 +149,16 @@ func (self *SingularityPendingRequest) SetField(name string, value interface{}) 
 			return fmt.Errorf("Field requestId/RequestId: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
+	case "resources", "Resources":
+		v, ok := value.(*Resources)
+		if ok {
+			self.Resources = v
+			self.present["resources"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field resources/Resources: value %v(%T) couldn't be cast to type *Resources", value, value)
+		}
+
 	case "runId", "RunId":
 		v, ok := value.(string)
 		if ok {
@@ -242,6 +255,14 @@ func (self *SingularityPendingRequest) GetField(name string) (interface{}, error
 		}
 		return nil, fmt.Errorf("Field RequestId no set on RequestId %+v", self)
 
+	case "resources", "Resources":
+		if self.present != nil {
+			if _, ok := self.present["resources"]; ok {
+				return self.Resources, nil
+			}
+		}
+		return nil, fmt.Errorf("Field Resources no set on Resources %+v", self)
+
 	case "runId", "RunId":
 		if self.present != nil {
 			if _, ok := self.present["runId"]; ok {
@@ -302,6 +323,9 @@ func (self *SingularityPendingRequest) ClearField(name string) error {
 
 	case "requestId", "RequestId":
 		self.present["requestId"] = false
+
+	case "resources", "Resources":
+		self.present["resources"] = false
 
 	case "runId", "RunId":
 		self.present["runId"] = false

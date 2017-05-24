@@ -24,11 +24,9 @@ type SingularityDeploy struct {
 
 	CustomExecutorId string `json:"customExecutorId,omitempty"`
 
-	CustomExecutorResources *Resources `json:"customExecutorResources"`
+	// CustomExecutorResources *com.hubspot.mesos.Resources `json:"customExecutorResources"`
 
 	CustomExecutorSource string `json:"customExecutorSource,omitempty"`
-
-	CustomExecutorUser string `json:"customExecutorUser,omitempty"`
 
 	DeployHealthTimeoutSeconds int64 `json:"deployHealthTimeoutSeconds"`
 
@@ -40,6 +38,8 @@ type SingularityDeploy struct {
 
 	ExecutorData *ExecutorData `json:"executorData"`
 
+	Healthcheck *HealthcheckOptions `json:"healthcheck"`
+
 	HealthcheckIntervalSeconds int64 `json:"healthcheckIntervalSeconds"`
 
 	HealthcheckMaxRetries int32 `json:"healthcheckMaxRetries"`
@@ -48,7 +48,7 @@ type SingularityDeploy struct {
 
 	HealthcheckPortIndex int32 `json:"healthcheckPortIndex"`
 
-	// HealthcheckProtocol *HealthcheckProtocol `json:"healthcheckProtocol"`
+	// HealthcheckProtocol *com.hubspot.singularity.HealthcheckProtocol `json:"healthcheckProtocol"`
 
 	HealthcheckTimeoutSeconds int64 `json:"healthcheckTimeoutSeconds"`
 
@@ -58,13 +58,27 @@ type SingularityDeploy struct {
 
 	Labels map[string]string `json:"labels"`
 
+	LoadBalancerAdditionalRoutes swaggering.StringList `json:"loadBalancerAdditionalRoutes"`
+
+	LoadBalancerDomains swaggering.StringList `json:"loadBalancerDomains"`
+
 	LoadBalancerGroups swaggering.StringList `json:"loadBalancerGroups"`
 
 	// LoadBalancerOptions *Map[string,Object] `json:"loadBalancerOptions"`
 
 	LoadBalancerPortIndex int32 `json:"loadBalancerPortIndex"`
 
+	LoadBalancerServiceIdOverride string `json:"loadBalancerServiceIdOverride,omitempty"`
+
+	LoadBalancerTemplate string `json:"loadBalancerTemplate,omitempty"`
+
+	LoadBalancerUpstreamGroup string `json:"loadBalancerUpstreamGroup,omitempty"`
+
 	MaxTaskRetries int32 `json:"maxTaskRetries"`
+
+	MesosLabels SingularityMesosTaskLabelList `json:"mesosLabels"`
+
+	// MesosTaskLabels *Map[int,List[SingularityMesosTaskLabel]] `json:"mesosTaskLabels"`
 
 	Metadata map[string]string `json:"metadata"`
 
@@ -74,11 +88,19 @@ type SingularityDeploy struct {
 
 	ServiceBasePath string `json:"serviceBasePath,omitempty"`
 
+	Shell bool `json:"shell"`
+
 	SkipHealthchecksOnDeploy bool `json:"skipHealthchecksOnDeploy"`
+
+	// TaskEnv *Map[int,Map[string,string]] `json:"taskEnv"`
+
+	// TaskLabels *Map[int,Map[string,string]] `json:"taskLabels"`
 
 	Timestamp int64 `json:"timestamp"`
 
-	Uris swaggering.StringList `json:"uris"`
+	Uris SingularityMesosArtifactList `json:"uris"`
+
+	User string `json:"user,omitempty"`
 
 	Version string `json:"version,omitempty"`
 }
@@ -189,16 +211,6 @@ func (self *SingularityDeploy) SetField(name string, value interface{}) error {
 			return fmt.Errorf("Field customExecutorId/CustomExecutorId: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
-	case "customExecutorResources", "CustomExecutorResources":
-		v, ok := value.(*Resources)
-		if ok {
-			self.CustomExecutorResources = v
-			self.present["customExecutorResources"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field customExecutorResources/CustomExecutorResources: value %v(%T) couldn't be cast to type *Resources", value, value)
-		}
-
 	case "customExecutorSource", "CustomExecutorSource":
 		v, ok := value.(string)
 		if ok {
@@ -207,16 +219,6 @@ func (self *SingularityDeploy) SetField(name string, value interface{}) error {
 			return nil
 		} else {
 			return fmt.Errorf("Field customExecutorSource/CustomExecutorSource: value %v(%T) couldn't be cast to type string", value, value)
-		}
-
-	case "customExecutorUser", "CustomExecutorUser":
-		v, ok := value.(string)
-		if ok {
-			self.CustomExecutorUser = v
-			self.present["customExecutorUser"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field customExecutorUser/CustomExecutorUser: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "deployHealthTimeoutSeconds", "DeployHealthTimeoutSeconds":
@@ -267,6 +269,16 @@ func (self *SingularityDeploy) SetField(name string, value interface{}) error {
 			return nil
 		} else {
 			return fmt.Errorf("Field executorData/ExecutorData: value %v(%T) couldn't be cast to type *ExecutorData", value, value)
+		}
+
+	case "healthcheck", "Healthcheck":
+		v, ok := value.(*HealthcheckOptions)
+		if ok {
+			self.Healthcheck = v
+			self.present["healthcheck"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field healthcheck/Healthcheck: value %v(%T) couldn't be cast to type *HealthcheckOptions", value, value)
 		}
 
 	case "healthcheckIntervalSeconds", "HealthcheckIntervalSeconds":
@@ -349,6 +361,26 @@ func (self *SingularityDeploy) SetField(name string, value interface{}) error {
 			return fmt.Errorf("Field labels/Labels: value %v(%T) couldn't be cast to type map[string]string", value, value)
 		}
 
+	case "loadBalancerAdditionalRoutes", "LoadBalancerAdditionalRoutes":
+		v, ok := value.(swaggering.StringList)
+		if ok {
+			self.LoadBalancerAdditionalRoutes = v
+			self.present["loadBalancerAdditionalRoutes"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field loadBalancerAdditionalRoutes/LoadBalancerAdditionalRoutes: value %v(%T) couldn't be cast to type StringList", value, value)
+		}
+
+	case "loadBalancerDomains", "LoadBalancerDomains":
+		v, ok := value.(swaggering.StringList)
+		if ok {
+			self.LoadBalancerDomains = v
+			self.present["loadBalancerDomains"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field loadBalancerDomains/LoadBalancerDomains: value %v(%T) couldn't be cast to type StringList", value, value)
+		}
+
 	case "loadBalancerGroups", "LoadBalancerGroups":
 		v, ok := value.(swaggering.StringList)
 		if ok {
@@ -369,6 +401,36 @@ func (self *SingularityDeploy) SetField(name string, value interface{}) error {
 			return fmt.Errorf("Field loadBalancerPortIndex/LoadBalancerPortIndex: value %v(%T) couldn't be cast to type int32", value, value)
 		}
 
+	case "loadBalancerServiceIdOverride", "LoadBalancerServiceIdOverride":
+		v, ok := value.(string)
+		if ok {
+			self.LoadBalancerServiceIdOverride = v
+			self.present["loadBalancerServiceIdOverride"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field loadBalancerServiceIdOverride/LoadBalancerServiceIdOverride: value %v(%T) couldn't be cast to type string", value, value)
+		}
+
+	case "loadBalancerTemplate", "LoadBalancerTemplate":
+		v, ok := value.(string)
+		if ok {
+			self.LoadBalancerTemplate = v
+			self.present["loadBalancerTemplate"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field loadBalancerTemplate/LoadBalancerTemplate: value %v(%T) couldn't be cast to type string", value, value)
+		}
+
+	case "loadBalancerUpstreamGroup", "LoadBalancerUpstreamGroup":
+		v, ok := value.(string)
+		if ok {
+			self.LoadBalancerUpstreamGroup = v
+			self.present["loadBalancerUpstreamGroup"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field loadBalancerUpstreamGroup/LoadBalancerUpstreamGroup: value %v(%T) couldn't be cast to type string", value, value)
+		}
+
 	case "maxTaskRetries", "MaxTaskRetries":
 		v, ok := value.(int32)
 		if ok {
@@ -377,6 +439,16 @@ func (self *SingularityDeploy) SetField(name string, value interface{}) error {
 			return nil
 		} else {
 			return fmt.Errorf("Field maxTaskRetries/MaxTaskRetries: value %v(%T) couldn't be cast to type int32", value, value)
+		}
+
+	case "mesosLabels", "MesosLabels":
+		v, ok := value.(SingularityMesosTaskLabelList)
+		if ok {
+			self.MesosLabels = v
+			self.present["mesosLabels"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field mesosLabels/MesosLabels: value %v(%T) couldn't be cast to type SingularityMesosTaskLabelList", value, value)
 		}
 
 	case "metadata", "Metadata":
@@ -419,6 +491,16 @@ func (self *SingularityDeploy) SetField(name string, value interface{}) error {
 			return fmt.Errorf("Field serviceBasePath/ServiceBasePath: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
+	case "shell", "Shell":
+		v, ok := value.(bool)
+		if ok {
+			self.Shell = v
+			self.present["shell"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field shell/Shell: value %v(%T) couldn't be cast to type bool", value, value)
+		}
+
 	case "skipHealthchecksOnDeploy", "SkipHealthchecksOnDeploy":
 		v, ok := value.(bool)
 		if ok {
@@ -440,13 +522,23 @@ func (self *SingularityDeploy) SetField(name string, value interface{}) error {
 		}
 
 	case "uris", "Uris":
-		v, ok := value.(swaggering.StringList)
+		v, ok := value.(SingularityMesosArtifactList)
 		if ok {
 			self.Uris = v
 			self.present["uris"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field uris/Uris: value %v(%T) couldn't be cast to type StringList", value, value)
+			return fmt.Errorf("Field uris/Uris: value %v(%T) couldn't be cast to type SingularityMesosArtifactList", value, value)
+		}
+
+	case "user", "User":
+		v, ok := value.(string)
+		if ok {
+			self.User = v
+			self.present["user"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field user/User: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "version", "Version":
@@ -523,14 +615,6 @@ func (self *SingularityDeploy) GetField(name string) (interface{}, error) {
 		}
 		return nil, fmt.Errorf("Field CustomExecutorId no set on CustomExecutorId %+v", self)
 
-	case "customExecutorResources", "CustomExecutorResources":
-		if self.present != nil {
-			if _, ok := self.present["customExecutorResources"]; ok {
-				return self.CustomExecutorResources, nil
-			}
-		}
-		return nil, fmt.Errorf("Field CustomExecutorResources no set on CustomExecutorResources %+v", self)
-
 	case "customExecutorSource", "CustomExecutorSource":
 		if self.present != nil {
 			if _, ok := self.present["customExecutorSource"]; ok {
@@ -538,14 +622,6 @@ func (self *SingularityDeploy) GetField(name string) (interface{}, error) {
 			}
 		}
 		return nil, fmt.Errorf("Field CustomExecutorSource no set on CustomExecutorSource %+v", self)
-
-	case "customExecutorUser", "CustomExecutorUser":
-		if self.present != nil {
-			if _, ok := self.present["customExecutorUser"]; ok {
-				return self.CustomExecutorUser, nil
-			}
-		}
-		return nil, fmt.Errorf("Field CustomExecutorUser no set on CustomExecutorUser %+v", self)
 
 	case "deployHealthTimeoutSeconds", "DeployHealthTimeoutSeconds":
 		if self.present != nil {
@@ -586,6 +662,14 @@ func (self *SingularityDeploy) GetField(name string) (interface{}, error) {
 			}
 		}
 		return nil, fmt.Errorf("Field ExecutorData no set on ExecutorData %+v", self)
+
+	case "healthcheck", "Healthcheck":
+		if self.present != nil {
+			if _, ok := self.present["healthcheck"]; ok {
+				return self.Healthcheck, nil
+			}
+		}
+		return nil, fmt.Errorf("Field Healthcheck no set on Healthcheck %+v", self)
 
 	case "healthcheckIntervalSeconds", "HealthcheckIntervalSeconds":
 		if self.present != nil {
@@ -651,6 +735,22 @@ func (self *SingularityDeploy) GetField(name string) (interface{}, error) {
 		}
 		return nil, fmt.Errorf("Field Labels no set on Labels %+v", self)
 
+	case "loadBalancerAdditionalRoutes", "LoadBalancerAdditionalRoutes":
+		if self.present != nil {
+			if _, ok := self.present["loadBalancerAdditionalRoutes"]; ok {
+				return self.LoadBalancerAdditionalRoutes, nil
+			}
+		}
+		return nil, fmt.Errorf("Field LoadBalancerAdditionalRoutes no set on LoadBalancerAdditionalRoutes %+v", self)
+
+	case "loadBalancerDomains", "LoadBalancerDomains":
+		if self.present != nil {
+			if _, ok := self.present["loadBalancerDomains"]; ok {
+				return self.LoadBalancerDomains, nil
+			}
+		}
+		return nil, fmt.Errorf("Field LoadBalancerDomains no set on LoadBalancerDomains %+v", self)
+
 	case "loadBalancerGroups", "LoadBalancerGroups":
 		if self.present != nil {
 			if _, ok := self.present["loadBalancerGroups"]; ok {
@@ -667,6 +767,30 @@ func (self *SingularityDeploy) GetField(name string) (interface{}, error) {
 		}
 		return nil, fmt.Errorf("Field LoadBalancerPortIndex no set on LoadBalancerPortIndex %+v", self)
 
+	case "loadBalancerServiceIdOverride", "LoadBalancerServiceIdOverride":
+		if self.present != nil {
+			if _, ok := self.present["loadBalancerServiceIdOverride"]; ok {
+				return self.LoadBalancerServiceIdOverride, nil
+			}
+		}
+		return nil, fmt.Errorf("Field LoadBalancerServiceIdOverride no set on LoadBalancerServiceIdOverride %+v", self)
+
+	case "loadBalancerTemplate", "LoadBalancerTemplate":
+		if self.present != nil {
+			if _, ok := self.present["loadBalancerTemplate"]; ok {
+				return self.LoadBalancerTemplate, nil
+			}
+		}
+		return nil, fmt.Errorf("Field LoadBalancerTemplate no set on LoadBalancerTemplate %+v", self)
+
+	case "loadBalancerUpstreamGroup", "LoadBalancerUpstreamGroup":
+		if self.present != nil {
+			if _, ok := self.present["loadBalancerUpstreamGroup"]; ok {
+				return self.LoadBalancerUpstreamGroup, nil
+			}
+		}
+		return nil, fmt.Errorf("Field LoadBalancerUpstreamGroup no set on LoadBalancerUpstreamGroup %+v", self)
+
 	case "maxTaskRetries", "MaxTaskRetries":
 		if self.present != nil {
 			if _, ok := self.present["maxTaskRetries"]; ok {
@@ -674,6 +798,14 @@ func (self *SingularityDeploy) GetField(name string) (interface{}, error) {
 			}
 		}
 		return nil, fmt.Errorf("Field MaxTaskRetries no set on MaxTaskRetries %+v", self)
+
+	case "mesosLabels", "MesosLabels":
+		if self.present != nil {
+			if _, ok := self.present["mesosLabels"]; ok {
+				return self.MesosLabels, nil
+			}
+		}
+		return nil, fmt.Errorf("Field MesosLabels no set on MesosLabels %+v", self)
 
 	case "metadata", "Metadata":
 		if self.present != nil {
@@ -707,6 +839,14 @@ func (self *SingularityDeploy) GetField(name string) (interface{}, error) {
 		}
 		return nil, fmt.Errorf("Field ServiceBasePath no set on ServiceBasePath %+v", self)
 
+	case "shell", "Shell":
+		if self.present != nil {
+			if _, ok := self.present["shell"]; ok {
+				return self.Shell, nil
+			}
+		}
+		return nil, fmt.Errorf("Field Shell no set on Shell %+v", self)
+
 	case "skipHealthchecksOnDeploy", "SkipHealthchecksOnDeploy":
 		if self.present != nil {
 			if _, ok := self.present["skipHealthchecksOnDeploy"]; ok {
@@ -730,6 +870,14 @@ func (self *SingularityDeploy) GetField(name string) (interface{}, error) {
 			}
 		}
 		return nil, fmt.Errorf("Field Uris no set on Uris %+v", self)
+
+	case "user", "User":
+		if self.present != nil {
+			if _, ok := self.present["user"]; ok {
+				return self.User, nil
+			}
+		}
+		return nil, fmt.Errorf("Field User no set on User %+v", self)
 
 	case "version", "Version":
 		if self.present != nil {
@@ -771,14 +919,8 @@ func (self *SingularityDeploy) ClearField(name string) error {
 	case "customExecutorId", "CustomExecutorId":
 		self.present["customExecutorId"] = false
 
-	case "customExecutorResources", "CustomExecutorResources":
-		self.present["customExecutorResources"] = false
-
 	case "customExecutorSource", "CustomExecutorSource":
 		self.present["customExecutorSource"] = false
-
-	case "customExecutorUser", "CustomExecutorUser":
-		self.present["customExecutorUser"] = false
 
 	case "deployHealthTimeoutSeconds", "DeployHealthTimeoutSeconds":
 		self.present["deployHealthTimeoutSeconds"] = false
@@ -794,6 +936,9 @@ func (self *SingularityDeploy) ClearField(name string) error {
 
 	case "executorData", "ExecutorData":
 		self.present["executorData"] = false
+
+	case "healthcheck", "Healthcheck":
+		self.present["healthcheck"] = false
 
 	case "healthcheckIntervalSeconds", "HealthcheckIntervalSeconds":
 		self.present["healthcheckIntervalSeconds"] = false
@@ -819,14 +964,32 @@ func (self *SingularityDeploy) ClearField(name string) error {
 	case "labels", "Labels":
 		self.present["labels"] = false
 
+	case "loadBalancerAdditionalRoutes", "LoadBalancerAdditionalRoutes":
+		self.present["loadBalancerAdditionalRoutes"] = false
+
+	case "loadBalancerDomains", "LoadBalancerDomains":
+		self.present["loadBalancerDomains"] = false
+
 	case "loadBalancerGroups", "LoadBalancerGroups":
 		self.present["loadBalancerGroups"] = false
 
 	case "loadBalancerPortIndex", "LoadBalancerPortIndex":
 		self.present["loadBalancerPortIndex"] = false
 
+	case "loadBalancerServiceIdOverride", "LoadBalancerServiceIdOverride":
+		self.present["loadBalancerServiceIdOverride"] = false
+
+	case "loadBalancerTemplate", "LoadBalancerTemplate":
+		self.present["loadBalancerTemplate"] = false
+
+	case "loadBalancerUpstreamGroup", "LoadBalancerUpstreamGroup":
+		self.present["loadBalancerUpstreamGroup"] = false
+
 	case "maxTaskRetries", "MaxTaskRetries":
 		self.present["maxTaskRetries"] = false
+
+	case "mesosLabels", "MesosLabels":
+		self.present["mesosLabels"] = false
 
 	case "metadata", "Metadata":
 		self.present["metadata"] = false
@@ -840,6 +1003,9 @@ func (self *SingularityDeploy) ClearField(name string) error {
 	case "serviceBasePath", "ServiceBasePath":
 		self.present["serviceBasePath"] = false
 
+	case "shell", "Shell":
+		self.present["shell"] = false
+
 	case "skipHealthchecksOnDeploy", "SkipHealthchecksOnDeploy":
 		self.present["skipHealthchecksOnDeploy"] = false
 
@@ -848,6 +1014,9 @@ func (self *SingularityDeploy) ClearField(name string) error {
 
 	case "uris", "Uris":
 		self.present["uris"] = false
+
+	case "user", "User":
+		self.present["user"] = false
 
 	case "version", "Version":
 		self.present["version"] = false

@@ -20,9 +20,9 @@ type ExecutorData struct {
 
 	LoggingExtraFields map[string]string `json:"loggingExtraFields"`
 
-	LoggingS3Bucket string `json:"loggingS3Bucket,omitempty"`
-
 	LoggingTag string `json:"loggingTag,omitempty"`
+
+	// LogrotateFrequency *SingularityExecutorLogrotateFrequency `json:"logrotateFrequency"`
 
 	MaxOpenFiles int32 `json:"maxOpenFiles"`
 
@@ -129,16 +129,6 @@ func (self *ExecutorData) SetField(name string, value interface{}) error {
 			return nil
 		} else {
 			return fmt.Errorf("Field loggingExtraFields/LoggingExtraFields: value %v(%T) couldn't be cast to type map[string]string", value, value)
-		}
-
-	case "loggingS3Bucket", "LoggingS3Bucket":
-		v, ok := value.(string)
-		if ok {
-			self.LoggingS3Bucket = v
-			self.present["loggingS3Bucket"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field loggingS3Bucket/LoggingS3Bucket: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "loggingTag", "LoggingTag":
@@ -299,14 +289,6 @@ func (self *ExecutorData) GetField(name string) (interface{}, error) {
 		}
 		return nil, fmt.Errorf("Field LoggingExtraFields no set on LoggingExtraFields %+v", self)
 
-	case "loggingS3Bucket", "LoggingS3Bucket":
-		if self.present != nil {
-			if _, ok := self.present["loggingS3Bucket"]; ok {
-				return self.LoggingS3Bucket, nil
-			}
-		}
-		return nil, fmt.Errorf("Field LoggingS3Bucket no set on LoggingS3Bucket %+v", self)
-
 	case "loggingTag", "LoggingTag":
 		if self.present != nil {
 			if _, ok := self.present["loggingTag"]; ok {
@@ -420,9 +402,6 @@ func (self *ExecutorData) ClearField(name string) error {
 
 	case "loggingExtraFields", "LoggingExtraFields":
 		self.present["loggingExtraFields"] = false
-
-	case "loggingS3Bucket", "LoggingS3Bucket":
-		self.present["loggingS3Bucket"] = false
 
 	case "loggingTag", "LoggingTag":
 		self.present["loggingTag"] = false

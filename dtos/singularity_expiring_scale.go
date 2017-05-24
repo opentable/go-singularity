@@ -12,6 +12,8 @@ type SingularityExpiringScale struct {
 
 	ActionId string `json:"actionId,omitempty"`
 
+	Bounce bool `json:"bounce"`
+
 	// ExpiringAPIRequestObject *T `json:"expiringAPIRequestObject"`
 
 	RequestId string `json:"requestId,omitempty"`
@@ -67,6 +69,16 @@ func (self *SingularityExpiringScale) SetField(name string, value interface{}) e
 			return nil
 		} else {
 			return fmt.Errorf("Field actionId/ActionId: value %v(%T) couldn't be cast to type string", value, value)
+		}
+
+	case "bounce", "Bounce":
+		v, ok := value.(bool)
+		if ok {
+			self.Bounce = v
+			self.present["bounce"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field bounce/Bounce: value %v(%T) couldn't be cast to type bool", value, value)
 		}
 
 	case "requestId", "RequestId":
@@ -125,6 +137,14 @@ func (self *SingularityExpiringScale) GetField(name string) (interface{}, error)
 		}
 		return nil, fmt.Errorf("Field ActionId no set on ActionId %+v", self)
 
+	case "bounce", "Bounce":
+		if self.present != nil {
+			if _, ok := self.present["bounce"]; ok {
+				return self.Bounce, nil
+			}
+		}
+		return nil, fmt.Errorf("Field Bounce no set on Bounce %+v", self)
+
 	case "requestId", "RequestId":
 		if self.present != nil {
 			if _, ok := self.present["requestId"]; ok {
@@ -170,6 +190,9 @@ func (self *SingularityExpiringScale) ClearField(name string) error {
 
 	case "actionId", "ActionId":
 		self.present["actionId"] = false
+
+	case "bounce", "Bounce":
+		self.present["bounce"] = false
 
 	case "requestId", "RequestId":
 		self.present["requestId"] = false

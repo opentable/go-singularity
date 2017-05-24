@@ -2,12 +2,14 @@ package singularity
 
 import "github.com/opentable/go-singularity/dtos"
 
-func (client *Client) GetRequest(requestId string) (response *dtos.SingularityRequestParent, err error) {
+func (client *Client) GetRequest(requestId string, useWebCache bool) (response *dtos.SingularityRequestParent, err error) {
 	pathParamMap := map[string]interface{}{
 		"requestId": requestId,
 	}
 
-	queryParamMap := map[string]interface{}{}
+	queryParamMap := map[string]interface{}{
+		"useWebCache": useWebCache,
+	}
 
 	response = new(dtos.SingularityRequestParent)
 	err = client.DTORequest(response, "GET", "/api/requests/request/{requestId}", pathParamMap, queryParamMap)

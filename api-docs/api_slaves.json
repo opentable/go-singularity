@@ -1,5 +1,5 @@
 {
-  "apiVersion": "0.4.12-SNAPSHOT",
+  "apiVersion": "0.15.0",
   "swaggerVersion": "1.2",
   "basePath": null,
   "resourcePath": "/api/slaves",
@@ -8,33 +8,25 @@
   ],
   "apis": [
     {
-      "path": "/api/slaves/",
+      "path": "/api/slaves/slave/{slaveId}",
       "operations": [
         {
-          "method": "GET",
-          "summary": "Retrieve the list of all known slaves, optionally filtering by a particular state",
+          "method": "DELETE",
+          "summary": "Remove a known slave, erasing history. This operation will cancel decomissioning of the slave",
           "notes": "",
-          "type": "array",
-          "items": {
-            "$ref": "SingularitySlave"
-          },
-          "nickname": "getSlaves",
+          "type": "void",
+          "nickname": "removeSlave",
           "parameters": [
             {
-              "name": "state",
-              "description": "Optionally specify a particular state to filter slaves by",
-              "required": false,
+              "name": "slaveId",
+              "description": "Active SlaveId",
+              "required": true,
               "type": "string",
-              "paramType": "query",
+              "paramType": "path",
               "allowMultiple": false
             }
           ]
-        }
-      ]
-    },
-    {
-      "path": "/api/slaves/slave/{slaveId}",
-      "operations": [
+        },
         {
           "method": "GET",
           "summary": "Retrieve the history of a given slave",
@@ -48,23 +40,6 @@
             {
               "name": "slaveId",
               "description": "Slave ID",
-              "required": true,
-              "type": "string",
-              "paramType": "path",
-              "allowMultiple": false
-            }
-          ]
-        },
-        {
-          "method": "DELETE",
-          "summary": "Remove a known slave, erasing history. This operation will cancel decomissioning of the slave",
-          "notes": "",
-          "type": "void",
-          "nickname": "removeSlave",
-          "parameters": [
-            {
-              "name": "slaveId",
-              "description": "Active SlaveId",
               "required": true,
               "type": "string",
               "paramType": "path",
@@ -133,6 +108,91 @@
       ]
     },
     {
+      "path": "/api/slaves/slave/{slaveId}/expiring",
+      "operations": [
+        {
+          "method": "DELETE",
+          "summary": "Delete any expiring machine state changes for this slave",
+          "notes": "",
+          "type": "void",
+          "nickname": "deleteExpiringStateChange",
+          "parameters": [
+            {
+              "name": "slaveId",
+              "description": "Active slaveId",
+              "required": true,
+              "type": "string",
+              "paramType": "path",
+              "allowMultiple": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "/api/slaves/expiring",
+      "operations": [
+        {
+          "method": "GET",
+          "summary": "Get all expiring state changes for all slaves",
+          "notes": "",
+          "type": "array",
+          "items": {
+            "$ref": "SingularityExpiringMachineState"
+          },
+          "nickname": "getExpiringStateChanges",
+          "parameters": []
+        }
+      ]
+    },
+    {
+      "path": "/api/slaves/",
+      "operations": [
+        {
+          "method": "GET",
+          "summary": "Retrieve the list of all known slaves, optionally filtering by a particular state",
+          "notes": "",
+          "type": "array",
+          "items": {
+            "$ref": "SingularitySlave"
+          },
+          "nickname": "getSlaves",
+          "parameters": [
+            {
+              "name": "state",
+              "description": "Optionally specify a particular state to filter slaves by",
+              "required": false,
+              "type": "string",
+              "paramType": "query",
+              "allowMultiple": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "/api/slaves/slave/{slaveId}/details",
+      "operations": [
+        {
+          "method": "GET",
+          "summary": "Get information about a particular slave",
+          "notes": "",
+          "type": "SingularitySlave",
+          "nickname": "getSlave",
+          "parameters": [
+            {
+              "name": "slaveId",
+              "description": "Slave ID",
+              "required": true,
+              "type": "string",
+              "paramType": "path",
+              "allowMultiple": false
+            }
+          ]
+        }
+      ]
+    },
+    {
       "path": "/api/slaves/slave/{slaveId}/activate",
       "operations": [
         {
@@ -163,6 +223,76 @@
     }
   ],
   "models": {
+    "MesosResourcesObject": {
+      "id": "MesosResourcesObject",
+      "properties": {
+        "properties": {
+          "$ref": "Map[string,Object]"
+        }
+      }
+    },
+    "SingularityMachineChangeRequest": {
+      "id": "SingularityMachineChangeRequest",
+      "properties": {
+        "revertToState": {
+          "$ref": "MachineState",
+          "description": "If a durationMillis is specified, return to this state when time has elapsed"
+        },
+        "killTasksOnDecommissionTimeout": {
+          "type": "boolean",
+          "description": "If a machine has not successfully decommissioned in durationMillis, kill the remaining tasks on the machine"
+        },
+        "durationMillis": {
+          "type": "integer",
+          "format": "int64",
+          "description": "The number of milliseconds to wait before reversing the effects of this action (letting it expire)"
+        },
+        "actionId": {
+          "type": "string",
+          "description": "An id to associate with this action for metadata purposes"
+        },
+        "message": {
+          "type": "string",
+          "description": "A message to show to users about why this action was taken"
+        }
+      }
+    },
+    "SingularityExpiringMachineState": {
+      "id": "SingularityExpiringMachineState",
+      "properties": {
+        "machineId": {
+          "type": "string"
+        },
+        "revertToState": {
+          "$ref": "MachineState",
+          "enum": [
+            "MISSING_ON_STARTUP",
+            "ACTIVE",
+            "STARTING_DECOMMISSION",
+            "DECOMMISSIONING",
+            "DECOMMISSIONED",
+            "DEAD",
+            "FROZEN"
+          ]
+        },
+        "killTasksOnDecommissionTimeout": {
+          "type": "boolean"
+        },
+        "startMillis": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "actionId": {
+          "type": "string"
+        },
+        "user": {
+          "type": "string"
+        },
+        "expiringAPIRequestObject": {
+          "$ref": "T"
+        }
+      }
+    },
     "SingularitySlave": {
       "id": "SingularitySlave",
       "description": "Singularity's view of a Mesos slave",
@@ -178,8 +308,8 @@
         "attributes": {
           "$ref": "Map[string,string]"
         },
-        "id": {
-          "type": "string"
+        "resources": {
+          "$ref": "MesosResourcesObject"
         },
         "currentState": {
           "$ref": "SingularityMachineStateHistoryUpdate"
@@ -187,6 +317,9 @@
         "firstSeenAt": {
           "type": "integer",
           "format": "int64"
+        },
+        "id": {
+          "type": "string"
         }
       }
     },
@@ -217,15 +350,6 @@
         "timestamp": {
           "type": "integer",
           "format": "int64"
-        }
-      }
-    },
-    "SingularityMachineChangeRequest": {
-      "id": "SingularityMachineChangeRequest",
-      "properties": {
-        "message": {
-          "type": "string",
-          "description": "A message to show to users about why this action was taken"
         }
       }
     }

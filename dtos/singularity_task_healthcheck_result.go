@@ -16,6 +16,8 @@ type SingularityTaskHealthcheckResult struct {
 
 	ResponseBody string `json:"responseBody,omitempty"`
 
+	Startup bool `json:"startup"`
+
 	StatusCode int32 `json:"statusCode"`
 
 	TaskId *SingularityTaskId `json:"taskId"`
@@ -89,6 +91,16 @@ func (self *SingularityTaskHealthcheckResult) SetField(name string, value interf
 			return fmt.Errorf("Field responseBody/ResponseBody: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
+	case "startup", "Startup":
+		v, ok := value.(bool)
+		if ok {
+			self.Startup = v
+			self.present["startup"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field startup/Startup: value %v(%T) couldn't be cast to type bool", value, value)
+		}
+
 	case "statusCode", "StatusCode":
 		v, ok := value.(int32)
 		if ok {
@@ -151,6 +163,14 @@ func (self *SingularityTaskHealthcheckResult) GetField(name string) (interface{}
 		}
 		return nil, fmt.Errorf("Field ResponseBody no set on ResponseBody %+v", self)
 
+	case "startup", "Startup":
+		if self.present != nil {
+			if _, ok := self.present["startup"]; ok {
+				return self.Startup, nil
+			}
+		}
+		return nil, fmt.Errorf("Field Startup no set on Startup %+v", self)
+
 	case "statusCode", "StatusCode":
 		if self.present != nil {
 			if _, ok := self.present["statusCode"]; ok {
@@ -194,6 +214,9 @@ func (self *SingularityTaskHealthcheckResult) ClearField(name string) error {
 
 	case "responseBody", "ResponseBody":
 		self.present["responseBody"] = false
+
+	case "startup", "Startup":
+		self.present["startup"] = false
 
 	case "statusCode", "StatusCode":
 		self.present["statusCode"] = false

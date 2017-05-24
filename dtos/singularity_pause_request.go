@@ -17,6 +17,8 @@ type SingularityPauseRequest struct {
 	KillTasks bool `json:"killTasks"`
 
 	Message string `json:"message,omitempty"`
+
+	RunShellCommandBeforeKill *SingularityShellCommand `json:"runShellCommandBeforeKill"`
 }
 
 func (self *SingularityPauseRequest) Populate(jsonReader io.ReadCloser) (err error) {
@@ -95,6 +97,16 @@ func (self *SingularityPauseRequest) SetField(name string, value interface{}) er
 			return fmt.Errorf("Field message/Message: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
+	case "runShellCommandBeforeKill", "RunShellCommandBeforeKill":
+		v, ok := value.(*SingularityShellCommand)
+		if ok {
+			self.RunShellCommandBeforeKill = v
+			self.present["runShellCommandBeforeKill"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field runShellCommandBeforeKill/RunShellCommandBeforeKill: value %v(%T) couldn't be cast to type *SingularityShellCommand", value, value)
+		}
+
 	}
 }
 
@@ -135,6 +147,14 @@ func (self *SingularityPauseRequest) GetField(name string) (interface{}, error) 
 		}
 		return nil, fmt.Errorf("Field Message no set on Message %+v", self)
 
+	case "runShellCommandBeforeKill", "RunShellCommandBeforeKill":
+		if self.present != nil {
+			if _, ok := self.present["runShellCommandBeforeKill"]; ok {
+				return self.RunShellCommandBeforeKill, nil
+			}
+		}
+		return nil, fmt.Errorf("Field RunShellCommandBeforeKill no set on RunShellCommandBeforeKill %+v", self)
+
 	}
 }
 
@@ -157,6 +177,9 @@ func (self *SingularityPauseRequest) ClearField(name string) error {
 
 	case "message", "Message":
 		self.present["message"] = false
+
+	case "runShellCommandBeforeKill", "RunShellCommandBeforeKill":
+		self.present["runShellCommandBeforeKill"] = false
 
 	}
 

@@ -14,6 +14,8 @@ type S3Artifact struct {
 
 	Filesize int64 `json:"filesize"`
 
+	IsArtifactList bool `json:"isArtifactList"`
+
 	Md5sum string `json:"md5sum,omitempty"`
 
 	Name string `json:"name,omitempty"`
@@ -79,6 +81,16 @@ func (self *S3Artifact) SetField(name string, value interface{}) error {
 			return nil
 		} else {
 			return fmt.Errorf("Field filesize/Filesize: value %v(%T) couldn't be cast to type int64", value, value)
+		}
+
+	case "isArtifactList", "IsArtifactList":
+		v, ok := value.(bool)
+		if ok {
+			self.IsArtifactList = v
+			self.present["isArtifactList"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field isArtifactList/IsArtifactList: value %v(%T) couldn't be cast to type bool", value, value)
 		}
 
 	case "md5sum", "Md5sum":
@@ -155,6 +167,14 @@ func (self *S3Artifact) GetField(name string) (interface{}, error) {
 		}
 		return nil, fmt.Errorf("Field Filesize no set on Filesize %+v", self)
 
+	case "isArtifactList", "IsArtifactList":
+		if self.present != nil {
+			if _, ok := self.present["isArtifactList"]; ok {
+				return self.IsArtifactList, nil
+			}
+		}
+		return nil, fmt.Errorf("Field IsArtifactList no set on IsArtifactList %+v", self)
+
 	case "md5sum", "Md5sum":
 		if self.present != nil {
 			if _, ok := self.present["md5sum"]; ok {
@@ -211,6 +231,9 @@ func (self *S3Artifact) ClearField(name string) error {
 
 	case "filesize", "Filesize":
 		self.present["filesize"] = false
+
+	case "isArtifactList", "IsArtifactList":
+		self.present["isArtifactList"] = false
 
 	case "md5sum", "Md5sum":
 		self.present["md5sum"] = false

@@ -21,6 +21,8 @@ type SingularitySlave struct {
 	Id string `json:"id,omitempty"`
 
 	RackId string `json:"rackId,omitempty"`
+
+	Resources *MesosResourcesObject `json:"resources"`
 }
 
 func (self *SingularitySlave) Populate(jsonReader io.ReadCloser) (err error) {
@@ -119,6 +121,16 @@ func (self *SingularitySlave) SetField(name string, value interface{}) error {
 			return fmt.Errorf("Field rackId/RackId: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
+	case "resources", "Resources":
+		v, ok := value.(*MesosResourcesObject)
+		if ok {
+			self.Resources = v
+			self.present["resources"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field resources/Resources: value %v(%T) couldn't be cast to type *MesosResourcesObject", value, value)
+		}
+
 	}
 }
 
@@ -175,6 +187,14 @@ func (self *SingularitySlave) GetField(name string) (interface{}, error) {
 		}
 		return nil, fmt.Errorf("Field RackId no set on RackId %+v", self)
 
+	case "resources", "Resources":
+		if self.present != nil {
+			if _, ok := self.present["resources"]; ok {
+				return self.Resources, nil
+			}
+		}
+		return nil, fmt.Errorf("Field Resources no set on Resources %+v", self)
+
 	}
 }
 
@@ -203,6 +223,9 @@ func (self *SingularitySlave) ClearField(name string) error {
 
 	case "rackId", "RackId":
 		self.present["rackId"] = false
+
+	case "resources", "Resources":
+		self.present["resources"] = false
 
 	}
 
