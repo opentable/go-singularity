@@ -1,57 +1,9 @@
 {
-  "apiVersion": "0.4.12-SNAPSHOT",
+  "apiVersion": "0.15.0",
   "swaggerVersion": "1.2",
   "basePath": null,
   "resourcePath": "/api/test",
   "apis": [
-    {
-      "path": "/api/test/exception",
-      "operations": [
-        {
-          "method": "POST",
-          "summary": "Trigger an exception.",
-          "notes": "",
-          "type": "void",
-          "nickname": "throwException",
-          "parameters": [
-            {
-              "name": "message",
-              "defaultValue": "test exception",
-              "required": false,
-              "type": "string",
-              "paramType": "query",
-              "allowMultiple": false
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "path": "/api/test/start",
-      "operations": [
-        {
-          "method": "POST",
-          "summary": "Start the Mesos scheduler driver.",
-          "notes": "",
-          "type": "void",
-          "nickname": "start",
-          "parameters": []
-        }
-      ]
-    },
-    {
-      "path": "/api/test/stop",
-      "operations": [
-        {
-          "method": "POST",
-          "summary": "Stop the Mesos scheduler driver.",
-          "notes": "",
-          "type": "void",
-          "nickname": "stop",
-          "parameters": []
-        }
-      ]
-    },
     {
       "path": "/api/test/abort",
       "operations": [
@@ -115,6 +67,80 @@
           "notes": "",
           "type": "void",
           "nickname": "setNotLeader",
+          "parameters": []
+        }
+      ]
+    },
+    {
+      "path": "/api/test/reconcile",
+      "operations": [
+        {
+          "method": "POST",
+          "summary": "Start task reconciliation",
+          "notes": "",
+          "type": "void",
+          "nickname": "startTaskReconciliation",
+          "parameters": []
+        }
+      ]
+    },
+    {
+      "path": "/api/test/purge-history",
+      "operations": [
+        {
+          "method": "POST",
+          "summary": "Run history purge",
+          "notes": "",
+          "type": "void",
+          "nickname": "runHistoryPurge",
+          "parameters": []
+        }
+      ]
+    },
+    {
+      "path": "/api/test/exception",
+      "operations": [
+        {
+          "method": "POST",
+          "summary": "Trigger an exception.",
+          "notes": "",
+          "type": "void",
+          "nickname": "throwException",
+          "parameters": [
+            {
+              "name": "message",
+              "defaultValue": "test exception",
+              "required": false,
+              "type": "string",
+              "paramType": "query",
+              "allowMultiple": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "/api/test/start",
+      "operations": [
+        {
+          "method": "POST",
+          "summary": "Start the Mesos scheduler driver.",
+          "notes": "",
+          "type": "void",
+          "nickname": "start",
+          "parameters": []
+        }
+      ]
+    },
+    {
+      "path": "/api/test/stop",
+      "operations": [
+        {
+          "method": "POST",
+          "summary": "Stop the Mesos scheduler driver.",
+          "notes": "",
+          "type": "void",
+          "nickname": "stop",
           "parameters": []
         }
       ]

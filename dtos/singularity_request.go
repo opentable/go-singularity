@@ -20,6 +20,8 @@ const (
 type SingularityRequest struct {
 	present map[string]bool
 
+	AllowBounceToSameHost bool `json:"allowBounceToSameHost"`
+
 	AllowedSlaveAttributes map[string]string `json:"allowedSlaveAttributes"`
 
 	BounceAfterScale bool `json:"bounceAfterScale"`
@@ -28,6 +30,8 @@ type SingularityRequest struct {
 
 	Group string `json:"group,omitempty"`
 
+	HideEvenNumberAcrossRacksHint bool `json:"hideEvenNumberAcrossRacksHint"`
+
 	Id string `json:"id,omitempty"`
 
 	Instances int32 `json:"instances"`
@@ -35,6 +39,8 @@ type SingularityRequest struct {
 	KillOldNonLongRunningTasksAfterMillis int64 `json:"killOldNonLongRunningTasksAfterMillis"`
 
 	LoadBalanced bool `json:"loadBalanced"`
+
+	MaxTasksPerOffer int32 `json:"maxTasksPerOffer"`
 
 	NumRetriesOnFailure int32 `json:"numRetriesOnFailure"`
 
@@ -48,11 +54,17 @@ type SingularityRequest struct {
 
 	ReadOnlyGroups swaggering.StringList `json:"readOnlyGroups"`
 
+	ReadWriteGroups swaggering.StringList `json:"readWriteGroups"`
+
 	RequestType SingularityRequestRequestType `json:"requestType"`
+
+	RequiredRole string `json:"requiredRole,omitempty"`
 
 	RequiredSlaveAttributes map[string]string `json:"requiredSlaveAttributes"`
 
 	Schedule string `json:"schedule,omitempty"`
+
+	ScheduleTimeZone string `json:"scheduleTimeZone,omitempty"`
 
 	// ScheduleType *ScheduleType `json:"scheduleType"`
 
@@ -61,6 +73,14 @@ type SingularityRequest struct {
 	SkipHealthchecks bool `json:"skipHealthchecks"`
 
 	// SlavePlacement *SlavePlacement `json:"slavePlacement"`
+
+	TaskExecutionTimeLimitMillis int64 `json:"taskExecutionTimeLimitMillis"`
+
+	TaskLogErrorRegex string `json:"taskLogErrorRegex,omitempty"`
+
+	TaskLogErrorRegexCaseSensitive bool `json:"taskLogErrorRegexCaseSensitive"`
+
+	TaskPriorityLevel float64 `json:"taskPriorityLevel"`
 
 	WaitAtLeastMillisAfterTaskFinishesForReschedule int64 `json:"waitAtLeastMillisAfterTaskFinishesForReschedule"`
 }
@@ -101,6 +121,16 @@ func (self *SingularityRequest) SetField(name string, value interface{}) error {
 	default:
 		return fmt.Errorf("No such field %s on SingularityRequest", name)
 
+	case "allowBounceToSameHost", "AllowBounceToSameHost":
+		v, ok := value.(bool)
+		if ok {
+			self.AllowBounceToSameHost = v
+			self.present["allowBounceToSameHost"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field allowBounceToSameHost/AllowBounceToSameHost: value %v(%T) couldn't be cast to type bool", value, value)
+		}
+
 	case "allowedSlaveAttributes", "AllowedSlaveAttributes":
 		v, ok := value.(map[string]string)
 		if ok {
@@ -129,6 +159,16 @@ func (self *SingularityRequest) SetField(name string, value interface{}) error {
 			return nil
 		} else {
 			return fmt.Errorf("Field group/Group: value %v(%T) couldn't be cast to type string", value, value)
+		}
+
+	case "hideEvenNumberAcrossRacksHint", "HideEvenNumberAcrossRacksHint":
+		v, ok := value.(bool)
+		if ok {
+			self.HideEvenNumberAcrossRacksHint = v
+			self.present["hideEvenNumberAcrossRacksHint"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field hideEvenNumberAcrossRacksHint/HideEvenNumberAcrossRacksHint: value %v(%T) couldn't be cast to type bool", value, value)
 		}
 
 	case "id", "Id":
@@ -169,6 +209,16 @@ func (self *SingularityRequest) SetField(name string, value interface{}) error {
 			return nil
 		} else {
 			return fmt.Errorf("Field loadBalanced/LoadBalanced: value %v(%T) couldn't be cast to type bool", value, value)
+		}
+
+	case "maxTasksPerOffer", "MaxTasksPerOffer":
+		v, ok := value.(int32)
+		if ok {
+			self.MaxTasksPerOffer = v
+			self.present["maxTasksPerOffer"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field maxTasksPerOffer/MaxTasksPerOffer: value %v(%T) couldn't be cast to type int32", value, value)
 		}
 
 	case "numRetriesOnFailure", "NumRetriesOnFailure":
@@ -231,6 +281,16 @@ func (self *SingularityRequest) SetField(name string, value interface{}) error {
 			return fmt.Errorf("Field readOnlyGroups/ReadOnlyGroups: value %v(%T) couldn't be cast to type StringList", value, value)
 		}
 
+	case "readWriteGroups", "ReadWriteGroups":
+		v, ok := value.(swaggering.StringList)
+		if ok {
+			self.ReadWriteGroups = v
+			self.present["readWriteGroups"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field readWriteGroups/ReadWriteGroups: value %v(%T) couldn't be cast to type StringList", value, value)
+		}
+
 	case "requestType", "RequestType":
 		v, ok := value.(SingularityRequestRequestType)
 		if ok {
@@ -239,6 +299,16 @@ func (self *SingularityRequest) SetField(name string, value interface{}) error {
 			return nil
 		} else {
 			return fmt.Errorf("Field requestType/RequestType: value %v(%T) couldn't be cast to type SingularityRequestRequestType", value, value)
+		}
+
+	case "requiredRole", "RequiredRole":
+		v, ok := value.(string)
+		if ok {
+			self.RequiredRole = v
+			self.present["requiredRole"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field requiredRole/RequiredRole: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "requiredSlaveAttributes", "RequiredSlaveAttributes":
@@ -261,6 +331,16 @@ func (self *SingularityRequest) SetField(name string, value interface{}) error {
 			return fmt.Errorf("Field schedule/Schedule: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
+	case "scheduleTimeZone", "ScheduleTimeZone":
+		v, ok := value.(string)
+		if ok {
+			self.ScheduleTimeZone = v
+			self.present["scheduleTimeZone"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field scheduleTimeZone/ScheduleTimeZone: value %v(%T) couldn't be cast to type string", value, value)
+		}
+
 	case "scheduledExpectedRuntimeMillis", "ScheduledExpectedRuntimeMillis":
 		v, ok := value.(int64)
 		if ok {
@@ -281,6 +361,46 @@ func (self *SingularityRequest) SetField(name string, value interface{}) error {
 			return fmt.Errorf("Field skipHealthchecks/SkipHealthchecks: value %v(%T) couldn't be cast to type bool", value, value)
 		}
 
+	case "taskExecutionTimeLimitMillis", "TaskExecutionTimeLimitMillis":
+		v, ok := value.(int64)
+		if ok {
+			self.TaskExecutionTimeLimitMillis = v
+			self.present["taskExecutionTimeLimitMillis"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field taskExecutionTimeLimitMillis/TaskExecutionTimeLimitMillis: value %v(%T) couldn't be cast to type int64", value, value)
+		}
+
+	case "taskLogErrorRegex", "TaskLogErrorRegex":
+		v, ok := value.(string)
+		if ok {
+			self.TaskLogErrorRegex = v
+			self.present["taskLogErrorRegex"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field taskLogErrorRegex/TaskLogErrorRegex: value %v(%T) couldn't be cast to type string", value, value)
+		}
+
+	case "taskLogErrorRegexCaseSensitive", "TaskLogErrorRegexCaseSensitive":
+		v, ok := value.(bool)
+		if ok {
+			self.TaskLogErrorRegexCaseSensitive = v
+			self.present["taskLogErrorRegexCaseSensitive"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field taskLogErrorRegexCaseSensitive/TaskLogErrorRegexCaseSensitive: value %v(%T) couldn't be cast to type bool", value, value)
+		}
+
+	case "taskPriorityLevel", "TaskPriorityLevel":
+		v, ok := value.(float64)
+		if ok {
+			self.TaskPriorityLevel = v
+			self.present["taskPriorityLevel"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field taskPriorityLevel/TaskPriorityLevel: value %v(%T) couldn't be cast to type float64", value, value)
+		}
+
 	case "waitAtLeastMillisAfterTaskFinishesForReschedule", "WaitAtLeastMillisAfterTaskFinishesForReschedule":
 		v, ok := value.(int64)
 		if ok {
@@ -298,6 +418,14 @@ func (self *SingularityRequest) GetField(name string) (interface{}, error) {
 	switch name {
 	default:
 		return nil, fmt.Errorf("No such field %s on SingularityRequest", name)
+
+	case "allowBounceToSameHost", "AllowBounceToSameHost":
+		if self.present != nil {
+			if _, ok := self.present["allowBounceToSameHost"]; ok {
+				return self.AllowBounceToSameHost, nil
+			}
+		}
+		return nil, fmt.Errorf("Field AllowBounceToSameHost no set on AllowBounceToSameHost %+v", self)
 
 	case "allowedSlaveAttributes", "AllowedSlaveAttributes":
 		if self.present != nil {
@@ -322,6 +450,14 @@ func (self *SingularityRequest) GetField(name string) (interface{}, error) {
 			}
 		}
 		return nil, fmt.Errorf("Field Group no set on Group %+v", self)
+
+	case "hideEvenNumberAcrossRacksHint", "HideEvenNumberAcrossRacksHint":
+		if self.present != nil {
+			if _, ok := self.present["hideEvenNumberAcrossRacksHint"]; ok {
+				return self.HideEvenNumberAcrossRacksHint, nil
+			}
+		}
+		return nil, fmt.Errorf("Field HideEvenNumberAcrossRacksHint no set on HideEvenNumberAcrossRacksHint %+v", self)
 
 	case "id", "Id":
 		if self.present != nil {
@@ -354,6 +490,14 @@ func (self *SingularityRequest) GetField(name string) (interface{}, error) {
 			}
 		}
 		return nil, fmt.Errorf("Field LoadBalanced no set on LoadBalanced %+v", self)
+
+	case "maxTasksPerOffer", "MaxTasksPerOffer":
+		if self.present != nil {
+			if _, ok := self.present["maxTasksPerOffer"]; ok {
+				return self.MaxTasksPerOffer, nil
+			}
+		}
+		return nil, fmt.Errorf("Field MaxTasksPerOffer no set on MaxTasksPerOffer %+v", self)
 
 	case "numRetriesOnFailure", "NumRetriesOnFailure":
 		if self.present != nil {
@@ -403,6 +547,14 @@ func (self *SingularityRequest) GetField(name string) (interface{}, error) {
 		}
 		return nil, fmt.Errorf("Field ReadOnlyGroups no set on ReadOnlyGroups %+v", self)
 
+	case "readWriteGroups", "ReadWriteGroups":
+		if self.present != nil {
+			if _, ok := self.present["readWriteGroups"]; ok {
+				return self.ReadWriteGroups, nil
+			}
+		}
+		return nil, fmt.Errorf("Field ReadWriteGroups no set on ReadWriteGroups %+v", self)
+
 	case "requestType", "RequestType":
 		if self.present != nil {
 			if _, ok := self.present["requestType"]; ok {
@@ -410,6 +562,14 @@ func (self *SingularityRequest) GetField(name string) (interface{}, error) {
 			}
 		}
 		return nil, fmt.Errorf("Field RequestType no set on RequestType %+v", self)
+
+	case "requiredRole", "RequiredRole":
+		if self.present != nil {
+			if _, ok := self.present["requiredRole"]; ok {
+				return self.RequiredRole, nil
+			}
+		}
+		return nil, fmt.Errorf("Field RequiredRole no set on RequiredRole %+v", self)
 
 	case "requiredSlaveAttributes", "RequiredSlaveAttributes":
 		if self.present != nil {
@@ -427,6 +587,14 @@ func (self *SingularityRequest) GetField(name string) (interface{}, error) {
 		}
 		return nil, fmt.Errorf("Field Schedule no set on Schedule %+v", self)
 
+	case "scheduleTimeZone", "ScheduleTimeZone":
+		if self.present != nil {
+			if _, ok := self.present["scheduleTimeZone"]; ok {
+				return self.ScheduleTimeZone, nil
+			}
+		}
+		return nil, fmt.Errorf("Field ScheduleTimeZone no set on ScheduleTimeZone %+v", self)
+
 	case "scheduledExpectedRuntimeMillis", "ScheduledExpectedRuntimeMillis":
 		if self.present != nil {
 			if _, ok := self.present["scheduledExpectedRuntimeMillis"]; ok {
@@ -442,6 +610,38 @@ func (self *SingularityRequest) GetField(name string) (interface{}, error) {
 			}
 		}
 		return nil, fmt.Errorf("Field SkipHealthchecks no set on SkipHealthchecks %+v", self)
+
+	case "taskExecutionTimeLimitMillis", "TaskExecutionTimeLimitMillis":
+		if self.present != nil {
+			if _, ok := self.present["taskExecutionTimeLimitMillis"]; ok {
+				return self.TaskExecutionTimeLimitMillis, nil
+			}
+		}
+		return nil, fmt.Errorf("Field TaskExecutionTimeLimitMillis no set on TaskExecutionTimeLimitMillis %+v", self)
+
+	case "taskLogErrorRegex", "TaskLogErrorRegex":
+		if self.present != nil {
+			if _, ok := self.present["taskLogErrorRegex"]; ok {
+				return self.TaskLogErrorRegex, nil
+			}
+		}
+		return nil, fmt.Errorf("Field TaskLogErrorRegex no set on TaskLogErrorRegex %+v", self)
+
+	case "taskLogErrorRegexCaseSensitive", "TaskLogErrorRegexCaseSensitive":
+		if self.present != nil {
+			if _, ok := self.present["taskLogErrorRegexCaseSensitive"]; ok {
+				return self.TaskLogErrorRegexCaseSensitive, nil
+			}
+		}
+		return nil, fmt.Errorf("Field TaskLogErrorRegexCaseSensitive no set on TaskLogErrorRegexCaseSensitive %+v", self)
+
+	case "taskPriorityLevel", "TaskPriorityLevel":
+		if self.present != nil {
+			if _, ok := self.present["taskPriorityLevel"]; ok {
+				return self.TaskPriorityLevel, nil
+			}
+		}
+		return nil, fmt.Errorf("Field TaskPriorityLevel no set on TaskPriorityLevel %+v", self)
 
 	case "waitAtLeastMillisAfterTaskFinishesForReschedule", "WaitAtLeastMillisAfterTaskFinishesForReschedule":
 		if self.present != nil {
@@ -462,6 +662,9 @@ func (self *SingularityRequest) ClearField(name string) error {
 	default:
 		return fmt.Errorf("No such field %s on SingularityRequest", name)
 
+	case "allowBounceToSameHost", "AllowBounceToSameHost":
+		self.present["allowBounceToSameHost"] = false
+
 	case "allowedSlaveAttributes", "AllowedSlaveAttributes":
 		self.present["allowedSlaveAttributes"] = false
 
@@ -470,6 +673,9 @@ func (self *SingularityRequest) ClearField(name string) error {
 
 	case "group", "Group":
 		self.present["group"] = false
+
+	case "hideEvenNumberAcrossRacksHint", "HideEvenNumberAcrossRacksHint":
+		self.present["hideEvenNumberAcrossRacksHint"] = false
 
 	case "id", "Id":
 		self.present["id"] = false
@@ -482,6 +688,9 @@ func (self *SingularityRequest) ClearField(name string) error {
 
 	case "loadBalanced", "LoadBalanced":
 		self.present["loadBalanced"] = false
+
+	case "maxTasksPerOffer", "MaxTasksPerOffer":
+		self.present["maxTasksPerOffer"] = false
 
 	case "numRetriesOnFailure", "NumRetriesOnFailure":
 		self.present["numRetriesOnFailure"] = false
@@ -501,8 +710,14 @@ func (self *SingularityRequest) ClearField(name string) error {
 	case "readOnlyGroups", "ReadOnlyGroups":
 		self.present["readOnlyGroups"] = false
 
+	case "readWriteGroups", "ReadWriteGroups":
+		self.present["readWriteGroups"] = false
+
 	case "requestType", "RequestType":
 		self.present["requestType"] = false
+
+	case "requiredRole", "RequiredRole":
+		self.present["requiredRole"] = false
 
 	case "requiredSlaveAttributes", "RequiredSlaveAttributes":
 		self.present["requiredSlaveAttributes"] = false
@@ -510,11 +725,26 @@ func (self *SingularityRequest) ClearField(name string) error {
 	case "schedule", "Schedule":
 		self.present["schedule"] = false
 
+	case "scheduleTimeZone", "ScheduleTimeZone":
+		self.present["scheduleTimeZone"] = false
+
 	case "scheduledExpectedRuntimeMillis", "ScheduledExpectedRuntimeMillis":
 		self.present["scheduledExpectedRuntimeMillis"] = false
 
 	case "skipHealthchecks", "SkipHealthchecks":
 		self.present["skipHealthchecks"] = false
+
+	case "taskExecutionTimeLimitMillis", "TaskExecutionTimeLimitMillis":
+		self.present["taskExecutionTimeLimitMillis"] = false
+
+	case "taskLogErrorRegex", "TaskLogErrorRegex":
+		self.present["taskLogErrorRegex"] = false
+
+	case "taskLogErrorRegexCaseSensitive", "TaskLogErrorRegexCaseSensitive":
+		self.present["taskLogErrorRegexCaseSensitive"] = false
+
+	case "taskPriorityLevel", "TaskPriorityLevel":
+		self.present["taskPriorityLevel"] = false
 
 	case "waitAtLeastMillisAfterTaskFinishesForReschedule", "WaitAtLeastMillisAfterTaskFinishesForReschedule":
 		self.present["waitAtLeastMillisAfterTaskFinishesForReschedule"] = false

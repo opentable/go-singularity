@@ -10,11 +10,15 @@ import (
 type SingularityPendingTask struct {
 	present map[string]bool
 
+	ActionId string `json:"actionId,omitempty"`
+
 	CmdLineArgsList swaggering.StringList `json:"cmdLineArgsList"`
 
 	Message string `json:"message,omitempty"`
 
 	PendingTaskId *SingularityPendingTaskId `json:"pendingTaskId"`
+
+	Resources *Resources `json:"resources"`
 
 	RunId string `json:"runId,omitempty"`
 
@@ -59,6 +63,16 @@ func (self *SingularityPendingTask) SetField(name string, value interface{}) err
 	default:
 		return fmt.Errorf("No such field %s on SingularityPendingTask", name)
 
+	case "actionId", "ActionId":
+		v, ok := value.(string)
+		if ok {
+			self.ActionId = v
+			self.present["actionId"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field actionId/ActionId: value %v(%T) couldn't be cast to type string", value, value)
+		}
+
 	case "cmdLineArgsList", "CmdLineArgsList":
 		v, ok := value.(swaggering.StringList)
 		if ok {
@@ -87,6 +101,16 @@ func (self *SingularityPendingTask) SetField(name string, value interface{}) err
 			return nil
 		} else {
 			return fmt.Errorf("Field pendingTaskId/PendingTaskId: value %v(%T) couldn't be cast to type *SingularityPendingTaskId", value, value)
+		}
+
+	case "resources", "Resources":
+		v, ok := value.(*Resources)
+		if ok {
+			self.Resources = v
+			self.present["resources"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field resources/Resources: value %v(%T) couldn't be cast to type *Resources", value, value)
 		}
 
 	case "runId", "RunId":
@@ -127,6 +151,14 @@ func (self *SingularityPendingTask) GetField(name string) (interface{}, error) {
 	default:
 		return nil, fmt.Errorf("No such field %s on SingularityPendingTask", name)
 
+	case "actionId", "ActionId":
+		if self.present != nil {
+			if _, ok := self.present["actionId"]; ok {
+				return self.ActionId, nil
+			}
+		}
+		return nil, fmt.Errorf("Field ActionId no set on ActionId %+v", self)
+
 	case "cmdLineArgsList", "CmdLineArgsList":
 		if self.present != nil {
 			if _, ok := self.present["cmdLineArgsList"]; ok {
@@ -150,6 +182,14 @@ func (self *SingularityPendingTask) GetField(name string) (interface{}, error) {
 			}
 		}
 		return nil, fmt.Errorf("Field PendingTaskId no set on PendingTaskId %+v", self)
+
+	case "resources", "Resources":
+		if self.present != nil {
+			if _, ok := self.present["resources"]; ok {
+				return self.Resources, nil
+			}
+		}
+		return nil, fmt.Errorf("Field Resources no set on Resources %+v", self)
 
 	case "runId", "RunId":
 		if self.present != nil {
@@ -186,6 +226,9 @@ func (self *SingularityPendingTask) ClearField(name string) error {
 	default:
 		return fmt.Errorf("No such field %s on SingularityPendingTask", name)
 
+	case "actionId", "ActionId":
+		self.present["actionId"] = false
+
 	case "cmdLineArgsList", "CmdLineArgsList":
 		self.present["cmdLineArgsList"] = false
 
@@ -194,6 +237,9 @@ func (self *SingularityPendingTask) ClearField(name string) error {
 
 	case "pendingTaskId", "PendingTaskId":
 		self.present["pendingTaskId"] = false
+
+	case "resources", "Resources":
+		self.present["resources"] = false
 
 	case "runId", "RunId":
 		self.present["runId"] = false

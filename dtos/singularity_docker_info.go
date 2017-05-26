@@ -7,22 +7,16 @@ import (
 	"github.com/opentable/swaggering"
 )
 
-type SingularityDockerInfoSingularityDockerNetworkType string
-
-const (
-	SingularityDockerInfoSingularityDockerNetworkTypeHOST   SingularityDockerInfoSingularityDockerNetworkType = "HOST"
-	SingularityDockerInfoSingularityDockerNetworkTypeBRIDGE SingularityDockerInfoSingularityDockerNetworkType = "BRIDGE"
-	SingularityDockerInfoSingularityDockerNetworkTypeNONE   SingularityDockerInfoSingularityDockerNetworkType = "NONE"
-)
-
 type SingularityDockerInfo struct {
 	present map[string]bool
+
+	DockerParameters SingularityDockerParameterList `json:"dockerParameters"`
 
 	ForcePullImage bool `json:"forcePullImage"`
 
 	Image string `json:"image,omitempty"`
 
-	Network SingularityDockerInfoSingularityDockerNetworkType `json:"network"`
+	// Network *SingularityDockerNetworkType `json:"network"`
 
 	Parameters map[string]string `json:"parameters"`
 
@@ -67,6 +61,16 @@ func (self *SingularityDockerInfo) SetField(name string, value interface{}) erro
 	default:
 		return fmt.Errorf("No such field %s on SingularityDockerInfo", name)
 
+	case "dockerParameters", "DockerParameters":
+		v, ok := value.(SingularityDockerParameterList)
+		if ok {
+			self.DockerParameters = v
+			self.present["dockerParameters"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field dockerParameters/DockerParameters: value %v(%T) couldn't be cast to type SingularityDockerParameterList", value, value)
+		}
+
 	case "forcePullImage", "ForcePullImage":
 		v, ok := value.(bool)
 		if ok {
@@ -85,16 +89,6 @@ func (self *SingularityDockerInfo) SetField(name string, value interface{}) erro
 			return nil
 		} else {
 			return fmt.Errorf("Field image/Image: value %v(%T) couldn't be cast to type string", value, value)
-		}
-
-	case "network", "Network":
-		v, ok := value.(SingularityDockerInfoSingularityDockerNetworkType)
-		if ok {
-			self.Network = v
-			self.present["network"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field network/Network: value %v(%T) couldn't be cast to type SingularityDockerInfoSingularityDockerNetworkType", value, value)
 		}
 
 	case "parameters", "Parameters":
@@ -135,6 +129,14 @@ func (self *SingularityDockerInfo) GetField(name string) (interface{}, error) {
 	default:
 		return nil, fmt.Errorf("No such field %s on SingularityDockerInfo", name)
 
+	case "dockerParameters", "DockerParameters":
+		if self.present != nil {
+			if _, ok := self.present["dockerParameters"]; ok {
+				return self.DockerParameters, nil
+			}
+		}
+		return nil, fmt.Errorf("Field DockerParameters no set on DockerParameters %+v", self)
+
 	case "forcePullImage", "ForcePullImage":
 		if self.present != nil {
 			if _, ok := self.present["forcePullImage"]; ok {
@@ -150,14 +152,6 @@ func (self *SingularityDockerInfo) GetField(name string) (interface{}, error) {
 			}
 		}
 		return nil, fmt.Errorf("Field Image no set on Image %+v", self)
-
-	case "network", "Network":
-		if self.present != nil {
-			if _, ok := self.present["network"]; ok {
-				return self.Network, nil
-			}
-		}
-		return nil, fmt.Errorf("Field Network no set on Network %+v", self)
 
 	case "parameters", "Parameters":
 		if self.present != nil {
@@ -194,14 +188,14 @@ func (self *SingularityDockerInfo) ClearField(name string) error {
 	default:
 		return fmt.Errorf("No such field %s on SingularityDockerInfo", name)
 
+	case "dockerParameters", "DockerParameters":
+		self.present["dockerParameters"] = false
+
 	case "forcePullImage", "ForcePullImage":
 		self.present["forcePullImage"] = false
 
 	case "image", "Image":
 		self.present["image"] = false
-
-	case "network", "Network":
-		self.present["network"] = false
 
 	case "parameters", "Parameters":
 		self.present["parameters"] = false

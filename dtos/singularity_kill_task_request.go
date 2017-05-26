@@ -16,6 +16,8 @@ type SingularityKillTaskRequest struct {
 
 	Override bool `json:"override"`
 
+	RunShellCommandBeforeKill *SingularityShellCommand `json:"runShellCommandBeforeKill"`
+
 	WaitForReplacementTask bool `json:"waitForReplacementTask"`
 }
 
@@ -85,6 +87,16 @@ func (self *SingularityKillTaskRequest) SetField(name string, value interface{})
 			return fmt.Errorf("Field override/Override: value %v(%T) couldn't be cast to type bool", value, value)
 		}
 
+	case "runShellCommandBeforeKill", "RunShellCommandBeforeKill":
+		v, ok := value.(*SingularityShellCommand)
+		if ok {
+			self.RunShellCommandBeforeKill = v
+			self.present["runShellCommandBeforeKill"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field runShellCommandBeforeKill/RunShellCommandBeforeKill: value %v(%T) couldn't be cast to type *SingularityShellCommand", value, value)
+		}
+
 	case "waitForReplacementTask", "WaitForReplacementTask":
 		v, ok := value.(bool)
 		if ok {
@@ -127,6 +139,14 @@ func (self *SingularityKillTaskRequest) GetField(name string) (interface{}, erro
 		}
 		return nil, fmt.Errorf("Field Override no set on Override %+v", self)
 
+	case "runShellCommandBeforeKill", "RunShellCommandBeforeKill":
+		if self.present != nil {
+			if _, ok := self.present["runShellCommandBeforeKill"]; ok {
+				return self.RunShellCommandBeforeKill, nil
+			}
+		}
+		return nil, fmt.Errorf("Field RunShellCommandBeforeKill no set on RunShellCommandBeforeKill %+v", self)
+
 	case "waitForReplacementTask", "WaitForReplacementTask":
 		if self.present != nil {
 			if _, ok := self.present["waitForReplacementTask"]; ok {
@@ -154,6 +174,9 @@ func (self *SingularityKillTaskRequest) ClearField(name string) error {
 
 	case "override", "Override":
 		self.present["override"] = false
+
+	case "runShellCommandBeforeKill", "RunShellCommandBeforeKill":
+		self.present["runShellCommandBeforeKill"] = false
 
 	case "waitForReplacementTask", "WaitForReplacementTask":
 		self.present["waitForReplacementTask"] = false

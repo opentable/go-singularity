@@ -10,10 +10,6 @@ import (
 type SingularityTask struct {
 	present map[string]bool
 
-	MesosTask *TaskInfo `json:"mesosTask"`
-
-	Offer *Offer `json:"offer"`
-
 	RackId string `json:"rackId,omitempty"`
 
 	TaskId *SingularityTaskId `json:"taskId"`
@@ -57,26 +53,6 @@ func (self *SingularityTask) SetField(name string, value interface{}) error {
 	default:
 		return fmt.Errorf("No such field %s on SingularityTask", name)
 
-	case "mesosTask", "MesosTask":
-		v, ok := value.(*TaskInfo)
-		if ok {
-			self.MesosTask = v
-			self.present["mesosTask"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field mesosTask/MesosTask: value %v(%T) couldn't be cast to type *TaskInfo", value, value)
-		}
-
-	case "offer", "Offer":
-		v, ok := value.(*Offer)
-		if ok {
-			self.Offer = v
-			self.present["offer"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field offer/Offer: value %v(%T) couldn't be cast to type *Offer", value, value)
-		}
-
 	case "rackId", "RackId":
 		v, ok := value.(string)
 		if ok {
@@ -115,22 +91,6 @@ func (self *SingularityTask) GetField(name string) (interface{}, error) {
 	default:
 		return nil, fmt.Errorf("No such field %s on SingularityTask", name)
 
-	case "mesosTask", "MesosTask":
-		if self.present != nil {
-			if _, ok := self.present["mesosTask"]; ok {
-				return self.MesosTask, nil
-			}
-		}
-		return nil, fmt.Errorf("Field MesosTask no set on MesosTask %+v", self)
-
-	case "offer", "Offer":
-		if self.present != nil {
-			if _, ok := self.present["offer"]; ok {
-				return self.Offer, nil
-			}
-		}
-		return nil, fmt.Errorf("Field Offer no set on Offer %+v", self)
-
 	case "rackId", "RackId":
 		if self.present != nil {
 			if _, ok := self.present["rackId"]; ok {
@@ -165,12 +125,6 @@ func (self *SingularityTask) ClearField(name string) error {
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on SingularityTask", name)
-
-	case "mesosTask", "MesosTask":
-		self.present["mesosTask"] = false
-
-	case "offer", "Offer":
-		self.present["offer"] = false
 
 	case "rackId", "RackId":
 		self.present["rackId"] = false

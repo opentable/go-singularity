@@ -12,6 +12,7 @@ type SingularityRequestHistoryRequestHistoryType string
 const (
 	SingularityRequestHistoryRequestHistoryTypeCREATED             SingularityRequestHistoryRequestHistoryType = "CREATED"
 	SingularityRequestHistoryRequestHistoryTypeUPDATED             SingularityRequestHistoryRequestHistoryType = "UPDATED"
+	SingularityRequestHistoryRequestHistoryTypeDELETING            SingularityRequestHistoryRequestHistoryType = "DELETING"
 	SingularityRequestHistoryRequestHistoryTypeDELETED             SingularityRequestHistoryRequestHistoryType = "DELETED"
 	SingularityRequestHistoryRequestHistoryTypePAUSED              SingularityRequestHistoryRequestHistoryType = "PAUSED"
 	SingularityRequestHistoryRequestHistoryTypeUNPAUSED            SingularityRequestHistoryRequestHistoryType = "UNPAUSED"

@@ -28,7 +28,7 @@ func (self *SingularityTaskMetadataRequest) Absorb(other swaggering.DTO) error {
 		*self = *like
 		return nil
 	}
-	return fmt.Errorf("A SingularityTaskMetadataRequest cannot absorb the values from %v", other)
+	return fmt.Errorf("A SingularityTaskMetadataRequest cannot copy the values from %#v", other)
 }
 
 func (self *SingularityTaskMetadataRequest) MarshalJSON() ([]byte, error) {
@@ -153,7 +153,7 @@ func (self *SingularityTaskMetadataRequestList) Absorb(other swaggering.DTO) err
 		*self = *like
 		return nil
 	}
-	return fmt.Errorf("A SingularityTaskMetadataRequest cannot absorb the values from %v", other)
+	return fmt.Errorf("A SingularityTaskMetadataRequestList cannot copy the values from %#v", other)
 }
 
 func (list *SingularityTaskMetadataRequestList) Populate(jsonReader io.ReadCloser) (err error) {

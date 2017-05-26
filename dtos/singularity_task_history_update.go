@@ -15,6 +15,7 @@ const (
 	SingularityTaskHistoryUpdateExtendedTaskStateTASK_STARTING        SingularityTaskHistoryUpdateExtendedTaskState = "TASK_STARTING"
 	SingularityTaskHistoryUpdateExtendedTaskStateTASK_RUNNING         SingularityTaskHistoryUpdateExtendedTaskState = "TASK_RUNNING"
 	SingularityTaskHistoryUpdateExtendedTaskStateTASK_CLEANING        SingularityTaskHistoryUpdateExtendedTaskState = "TASK_CLEANING"
+	SingularityTaskHistoryUpdateExtendedTaskStateTASK_KILLING         SingularityTaskHistoryUpdateExtendedTaskState = "TASK_KILLING"
 	SingularityTaskHistoryUpdateExtendedTaskStateTASK_FINISHED        SingularityTaskHistoryUpdateExtendedTaskState = "TASK_FINISHED"
 	SingularityTaskHistoryUpdateExtendedTaskStateTASK_FAILED          SingularityTaskHistoryUpdateExtendedTaskState = "TASK_FAILED"
 	SingularityTaskHistoryUpdateExtendedTaskStateTASK_KILLED          SingularityTaskHistoryUpdateExtendedTaskState = "TASK_KILLED"
@@ -25,6 +26,8 @@ const (
 
 type SingularityTaskHistoryUpdate struct {
 	present map[string]bool
+
+	Previous SingularityTaskHistoryUpdateList `json:"previous"`
 
 	StatusMessage string `json:"statusMessage,omitempty"`
 
@@ -72,6 +75,16 @@ func (self *SingularityTaskHistoryUpdate) SetField(name string, value interface{
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on SingularityTaskHistoryUpdate", name)
+
+	case "previous", "Previous":
+		v, ok := value.(SingularityTaskHistoryUpdateList)
+		if ok {
+			self.Previous = v
+			self.present["previous"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field previous/Previous: value %v(%T) couldn't be cast to type SingularityTaskHistoryUpdateList", value, value)
+		}
 
 	case "statusMessage", "StatusMessage":
 		v, ok := value.(string)
@@ -131,6 +144,14 @@ func (self *SingularityTaskHistoryUpdate) GetField(name string) (interface{}, er
 	default:
 		return nil, fmt.Errorf("No such field %s on SingularityTaskHistoryUpdate", name)
 
+	case "previous", "Previous":
+		if self.present != nil {
+			if _, ok := self.present["previous"]; ok {
+				return self.Previous, nil
+			}
+		}
+		return nil, fmt.Errorf("Field Previous no set on Previous %+v", self)
+
 	case "statusMessage", "StatusMessage":
 		if self.present != nil {
 			if _, ok := self.present["statusMessage"]; ok {
@@ -181,6 +202,9 @@ func (self *SingularityTaskHistoryUpdate) ClearField(name string) error {
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on SingularityTaskHistoryUpdate", name)
+
+	case "previous", "Previous":
+		self.present["previous"] = false
 
 	case "statusMessage", "StatusMessage":
 		self.present["statusMessage"] = false

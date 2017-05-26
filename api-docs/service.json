@@ -1,22 +1,38 @@
 {
-  "apiVersion": "0.4.12-SNAPSHOT",
+  "apiVersion": "0.15.0",
   "swaggerVersion": "1.2",
   "apis": [
     {
-      "path": "/api_webhooks.{format}",
-      "description": "Manages Singularity webhooks."
+      "path": "/api_test.{format}",
+      "description": "Misc testing endpoints."
+    },
+    {
+      "path": "/api_logs.{format}",
+      "description": "Manages Singularity task logs stored in S3."
+    },
+    {
+      "path": "/api_sandbox.{format}",
+      "description": "Provides a proxy to Mesos sandboxes."
     },
     {
       "path": "/api_tasks.{format}",
       "description": "Manages Singularity tasks."
     },
     {
-      "path": "/api_slaves.{format}",
-      "description": "Manages Singularity slaves."
+      "path": "/api_disasters.{format}",
+      "description": "Manages Singularity Deploys for existing requests"
     },
     {
-      "path": "/api_test.{format}",
-      "description": "Misc testing endpoints."
+      "path": "/api_priority.{format}",
+      "description": "Manages whether or not to schedule tasks based on their priority levels."
+    },
+    {
+      "path": "/api_usage.{format}",
+      "description": "Provides usage data about slaves and tasks"
+    },
+    {
+      "path": "/api_slaves.{format}",
+      "description": "Manages Singularity slaves."
     },
     {
       "path": "/api_history.{format}",
@@ -27,16 +43,20 @@
       "description": "Provides information about the current state of Singularity."
     },
     {
-      "path": "/api_sandbox.{format}",
-      "description": "Provides a proxy to Mesos sandboxes."
-    },
-    {
-      "path": "/api_logs.{format}",
-      "description": "Manages Singularity task logs stored in S3."
-    },
-    {
       "path": "/api_racks.{format}",
       "description": "Manages Singularity racks."
+    },
+    {
+      "path": "/api_webhooks.{format}",
+      "description": "Manages Singularity webhooks."
+    },
+    {
+      "path": "/api_disasters.{format}",
+      "description": "Manages Singularity Deploys for existing requests"
+    },
+    {
+      "path": "/api_groups.{format}",
+      "description": "Manages Singularity Request Groups, which are collections of one or more Singularity Requests"
     },
     {
       "path": "/api_requests.{format}",

@@ -10,6 +10,8 @@ import (
 type SingularityState struct {
 	present map[string]bool
 
+	ActiveDeploys SingularityDeployMarkerList `json:"activeDeploys"`
+
 	ActiveRacks int32 `json:"activeRacks"`
 
 	ActiveRequests int32 `json:"activeRequests"`
@@ -21,6 +23,8 @@ type SingularityState struct {
 	AllRequests int32 `json:"allRequests"`
 
 	AuthDatastoreHealthy bool `json:"authDatastoreHealthy"`
+
+	AvgStatusUpdateDelayMs int64 `json:"avgStatusUpdateDelayMs"`
 
 	CleaningRequests int32 `json:"cleaningRequests"`
 
@@ -50,15 +54,21 @@ type SingularityState struct {
 
 	LateTasks int32 `json:"lateTasks"`
 
+	LaunchingTasks int32 `json:"launchingTasks"`
+
 	LbCleanupRequests int32 `json:"lbCleanupRequests"`
 
 	LbCleanupTasks int32 `json:"lbCleanupTasks"`
 
 	MaxTaskLag int64 `json:"maxTaskLag"`
 
+	MinimumPriorityLevel float64 `json:"minimumPriorityLevel"`
+
 	NumDeploys int32 `json:"numDeploys"`
 
 	OldestDeploy int64 `json:"oldestDeploy"`
+
+	OldestDeployStep int64 `json:"oldestDeployStep"`
 
 	OverProvisionedRequestIds swaggering.StringList `json:"overProvisionedRequestIds"`
 
@@ -114,6 +124,16 @@ func (self *SingularityState) SetField(name string, value interface{}) error {
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on SingularityState", name)
+
+	case "activeDeploys", "ActiveDeploys":
+		v, ok := value.(SingularityDeployMarkerList)
+		if ok {
+			self.ActiveDeploys = v
+			self.present["activeDeploys"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field activeDeploys/ActiveDeploys: value %v(%T) couldn't be cast to type SingularityDeployMarkerList", value, value)
+		}
 
 	case "activeRacks", "ActiveRacks":
 		v, ok := value.(int32)
@@ -173,6 +193,16 @@ func (self *SingularityState) SetField(name string, value interface{}) error {
 			return nil
 		} else {
 			return fmt.Errorf("Field authDatastoreHealthy/AuthDatastoreHealthy: value %v(%T) couldn't be cast to type bool", value, value)
+		}
+
+	case "avgStatusUpdateDelayMs", "AvgStatusUpdateDelayMs":
+		v, ok := value.(int64)
+		if ok {
+			self.AvgStatusUpdateDelayMs = v
+			self.present["avgStatusUpdateDelayMs"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field avgStatusUpdateDelayMs/AvgStatusUpdateDelayMs: value %v(%T) couldn't be cast to type int64", value, value)
 		}
 
 	case "cleaningRequests", "CleaningRequests":
@@ -315,6 +345,16 @@ func (self *SingularityState) SetField(name string, value interface{}) error {
 			return fmt.Errorf("Field lateTasks/LateTasks: value %v(%T) couldn't be cast to type int32", value, value)
 		}
 
+	case "launchingTasks", "LaunchingTasks":
+		v, ok := value.(int32)
+		if ok {
+			self.LaunchingTasks = v
+			self.present["launchingTasks"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field launchingTasks/LaunchingTasks: value %v(%T) couldn't be cast to type int32", value, value)
+		}
+
 	case "lbCleanupRequests", "LbCleanupRequests":
 		v, ok := value.(int32)
 		if ok {
@@ -345,6 +385,16 @@ func (self *SingularityState) SetField(name string, value interface{}) error {
 			return fmt.Errorf("Field maxTaskLag/MaxTaskLag: value %v(%T) couldn't be cast to type int64", value, value)
 		}
 
+	case "minimumPriorityLevel", "MinimumPriorityLevel":
+		v, ok := value.(float64)
+		if ok {
+			self.MinimumPriorityLevel = v
+			self.present["minimumPriorityLevel"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field minimumPriorityLevel/MinimumPriorityLevel: value %v(%T) couldn't be cast to type float64", value, value)
+		}
+
 	case "numDeploys", "NumDeploys":
 		v, ok := value.(int32)
 		if ok {
@@ -363,6 +413,16 @@ func (self *SingularityState) SetField(name string, value interface{}) error {
 			return nil
 		} else {
 			return fmt.Errorf("Field oldestDeploy/OldestDeploy: value %v(%T) couldn't be cast to type int64", value, value)
+		}
+
+	case "oldestDeployStep", "OldestDeployStep":
+		v, ok := value.(int64)
+		if ok {
+			self.OldestDeployStep = v
+			self.present["oldestDeployStep"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field oldestDeployStep/OldestDeployStep: value %v(%T) couldn't be cast to type int64", value, value)
 		}
 
 	case "overProvisionedRequestIds", "OverProvisionedRequestIds":
@@ -463,6 +523,14 @@ func (self *SingularityState) GetField(name string) (interface{}, error) {
 	default:
 		return nil, fmt.Errorf("No such field %s on SingularityState", name)
 
+	case "activeDeploys", "ActiveDeploys":
+		if self.present != nil {
+			if _, ok := self.present["activeDeploys"]; ok {
+				return self.ActiveDeploys, nil
+			}
+		}
+		return nil, fmt.Errorf("Field ActiveDeploys no set on ActiveDeploys %+v", self)
+
 	case "activeRacks", "ActiveRacks":
 		if self.present != nil {
 			if _, ok := self.present["activeRacks"]; ok {
@@ -510,6 +578,14 @@ func (self *SingularityState) GetField(name string) (interface{}, error) {
 			}
 		}
 		return nil, fmt.Errorf("Field AuthDatastoreHealthy no set on AuthDatastoreHealthy %+v", self)
+
+	case "avgStatusUpdateDelayMs", "AvgStatusUpdateDelayMs":
+		if self.present != nil {
+			if _, ok := self.present["avgStatusUpdateDelayMs"]; ok {
+				return self.AvgStatusUpdateDelayMs, nil
+			}
+		}
+		return nil, fmt.Errorf("Field AvgStatusUpdateDelayMs no set on AvgStatusUpdateDelayMs %+v", self)
 
 	case "cleaningRequests", "CleaningRequests":
 		if self.present != nil {
@@ -623,6 +699,14 @@ func (self *SingularityState) GetField(name string) (interface{}, error) {
 		}
 		return nil, fmt.Errorf("Field LateTasks no set on LateTasks %+v", self)
 
+	case "launchingTasks", "LaunchingTasks":
+		if self.present != nil {
+			if _, ok := self.present["launchingTasks"]; ok {
+				return self.LaunchingTasks, nil
+			}
+		}
+		return nil, fmt.Errorf("Field LaunchingTasks no set on LaunchingTasks %+v", self)
+
 	case "lbCleanupRequests", "LbCleanupRequests":
 		if self.present != nil {
 			if _, ok := self.present["lbCleanupRequests"]; ok {
@@ -647,6 +731,14 @@ func (self *SingularityState) GetField(name string) (interface{}, error) {
 		}
 		return nil, fmt.Errorf("Field MaxTaskLag no set on MaxTaskLag %+v", self)
 
+	case "minimumPriorityLevel", "MinimumPriorityLevel":
+		if self.present != nil {
+			if _, ok := self.present["minimumPriorityLevel"]; ok {
+				return self.MinimumPriorityLevel, nil
+			}
+		}
+		return nil, fmt.Errorf("Field MinimumPriorityLevel no set on MinimumPriorityLevel %+v", self)
+
 	case "numDeploys", "NumDeploys":
 		if self.present != nil {
 			if _, ok := self.present["numDeploys"]; ok {
@@ -662,6 +754,14 @@ func (self *SingularityState) GetField(name string) (interface{}, error) {
 			}
 		}
 		return nil, fmt.Errorf("Field OldestDeploy no set on OldestDeploy %+v", self)
+
+	case "oldestDeployStep", "OldestDeployStep":
+		if self.present != nil {
+			if _, ok := self.present["oldestDeployStep"]; ok {
+				return self.OldestDeployStep, nil
+			}
+		}
+		return nil, fmt.Errorf("Field OldestDeployStep no set on OldestDeployStep %+v", self)
 
 	case "overProvisionedRequestIds", "OverProvisionedRequestIds":
 		if self.present != nil {
@@ -746,6 +846,9 @@ func (self *SingularityState) ClearField(name string) error {
 	default:
 		return fmt.Errorf("No such field %s on SingularityState", name)
 
+	case "activeDeploys", "ActiveDeploys":
+		self.present["activeDeploys"] = false
+
 	case "activeRacks", "ActiveRacks":
 		self.present["activeRacks"] = false
 
@@ -763,6 +866,9 @@ func (self *SingularityState) ClearField(name string) error {
 
 	case "authDatastoreHealthy", "AuthDatastoreHealthy":
 		self.present["authDatastoreHealthy"] = false
+
+	case "avgStatusUpdateDelayMs", "AvgStatusUpdateDelayMs":
+		self.present["avgStatusUpdateDelayMs"] = false
 
 	case "cleaningRequests", "CleaningRequests":
 		self.present["cleaningRequests"] = false
@@ -806,6 +912,9 @@ func (self *SingularityState) ClearField(name string) error {
 	case "lateTasks", "LateTasks":
 		self.present["lateTasks"] = false
 
+	case "launchingTasks", "LaunchingTasks":
+		self.present["launchingTasks"] = false
+
 	case "lbCleanupRequests", "LbCleanupRequests":
 		self.present["lbCleanupRequests"] = false
 
@@ -815,11 +924,17 @@ func (self *SingularityState) ClearField(name string) error {
 	case "maxTaskLag", "MaxTaskLag":
 		self.present["maxTaskLag"] = false
 
+	case "minimumPriorityLevel", "MinimumPriorityLevel":
+		self.present["minimumPriorityLevel"] = false
+
 	case "numDeploys", "NumDeploys":
 		self.present["numDeploys"] = false
 
 	case "oldestDeploy", "OldestDeploy":
 		self.present["oldestDeploy"] = false
+
+	case "oldestDeployStep", "OldestDeployStep":
+		self.present["oldestDeployStep"] = false
 
 	case "overProvisionedRequestIds", "OverProvisionedRequestIds":
 		self.present["overProvisionedRequestIds"] = false

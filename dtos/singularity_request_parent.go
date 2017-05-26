@@ -11,6 +11,7 @@ type SingularityRequestParentRequestState string
 
 const (
 	SingularityRequestParentRequestStateACTIVE               SingularityRequestParentRequestState = "ACTIVE"
+	SingularityRequestParentRequestStateDELETING             SingularityRequestParentRequestState = "DELETING"
 	SingularityRequestParentRequestStateDELETED              SingularityRequestParentRequestState = "DELETED"
 	SingularityRequestParentRequestStatePAUSED               SingularityRequestParentRequestState = "PAUSED"
 	SingularityRequestParentRequestStateSYSTEM_COOLDOWN      SingularityRequestParentRequestState = "SYSTEM_COOLDOWN"

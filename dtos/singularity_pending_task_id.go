@@ -24,6 +24,7 @@ const (
 	SingularityPendingTaskIdPendingTypeCANCEL_BOUNCE               SingularityPendingTaskIdPendingType = "CANCEL_BOUNCE"
 	SingularityPendingTaskIdPendingTypeTASK_BOUNCE                 SingularityPendingTaskIdPendingType = "TASK_BOUNCE"
 	SingularityPendingTaskIdPendingTypeDEPLOY_CANCELLED            SingularityPendingTaskIdPendingType = "DEPLOY_CANCELLED"
+	SingularityPendingTaskIdPendingTypeDEPLOY_FAILED               SingularityPendingTaskIdPendingType = "DEPLOY_FAILED"
 )
 
 type SingularityPendingTaskId struct {

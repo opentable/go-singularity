@@ -12,7 +12,11 @@ type SingularityScaleRequest struct {
 
 	ActionId string `json:"actionId,omitempty"`
 
+	Bounce bool `json:"bounce"`
+
 	DurationMillis int64 `json:"durationMillis"`
+
+	Incremental bool `json:"incremental"`
 
 	Instances int32 `json:"instances"`
 
@@ -67,6 +71,16 @@ func (self *SingularityScaleRequest) SetField(name string, value interface{}) er
 			return fmt.Errorf("Field actionId/ActionId: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
+	case "bounce", "Bounce":
+		v, ok := value.(bool)
+		if ok {
+			self.Bounce = v
+			self.present["bounce"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field bounce/Bounce: value %v(%T) couldn't be cast to type bool", value, value)
+		}
+
 	case "durationMillis", "DurationMillis":
 		v, ok := value.(int64)
 		if ok {
@@ -75,6 +89,16 @@ func (self *SingularityScaleRequest) SetField(name string, value interface{}) er
 			return nil
 		} else {
 			return fmt.Errorf("Field durationMillis/DurationMillis: value %v(%T) couldn't be cast to type int64", value, value)
+		}
+
+	case "incremental", "Incremental":
+		v, ok := value.(bool)
+		if ok {
+			self.Incremental = v
+			self.present["incremental"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field incremental/Incremental: value %v(%T) couldn't be cast to type bool", value, value)
 		}
 
 	case "instances", "Instances":
@@ -123,6 +147,14 @@ func (self *SingularityScaleRequest) GetField(name string) (interface{}, error) 
 		}
 		return nil, fmt.Errorf("Field ActionId no set on ActionId %+v", self)
 
+	case "bounce", "Bounce":
+		if self.present != nil {
+			if _, ok := self.present["bounce"]; ok {
+				return self.Bounce, nil
+			}
+		}
+		return nil, fmt.Errorf("Field Bounce no set on Bounce %+v", self)
+
 	case "durationMillis", "DurationMillis":
 		if self.present != nil {
 			if _, ok := self.present["durationMillis"]; ok {
@@ -130,6 +162,14 @@ func (self *SingularityScaleRequest) GetField(name string) (interface{}, error) 
 			}
 		}
 		return nil, fmt.Errorf("Field DurationMillis no set on DurationMillis %+v", self)
+
+	case "incremental", "Incremental":
+		if self.present != nil {
+			if _, ok := self.present["incremental"]; ok {
+				return self.Incremental, nil
+			}
+		}
+		return nil, fmt.Errorf("Field Incremental no set on Incremental %+v", self)
 
 	case "instances", "Instances":
 		if self.present != nil {
@@ -169,8 +209,14 @@ func (self *SingularityScaleRequest) ClearField(name string) error {
 	case "actionId", "ActionId":
 		self.present["actionId"] = false
 
+	case "bounce", "Bounce":
+		self.present["bounce"] = false
+
 	case "durationMillis", "DurationMillis":
 		self.present["durationMillis"] = false
+
+	case "incremental", "Incremental":
+		self.present["incremental"] = false
 
 	case "instances", "Instances":
 		self.present["instances"] = false

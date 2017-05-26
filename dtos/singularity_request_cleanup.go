@@ -31,6 +31,8 @@ type SingularityRequestCleanup struct {
 
 	RequestId string `json:"requestId,omitempty"`
 
+	RunShellCommandBeforeKill *SingularityShellCommand `json:"runShellCommandBeforeKill"`
+
 	SkipHealthchecks bool `json:"skipHealthchecks"`
 
 	Timestamp int64 `json:"timestamp"`
@@ -134,6 +136,16 @@ func (self *SingularityRequestCleanup) SetField(name string, value interface{}) 
 			return fmt.Errorf("Field requestId/RequestId: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
+	case "runShellCommandBeforeKill", "RunShellCommandBeforeKill":
+		v, ok := value.(*SingularityShellCommand)
+		if ok {
+			self.RunShellCommandBeforeKill = v
+			self.present["runShellCommandBeforeKill"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field runShellCommandBeforeKill/RunShellCommandBeforeKill: value %v(%T) couldn't be cast to type *SingularityShellCommand", value, value)
+		}
+
 	case "skipHealthchecks", "SkipHealthchecks":
 		v, ok := value.(bool)
 		if ok {
@@ -220,6 +232,14 @@ func (self *SingularityRequestCleanup) GetField(name string) (interface{}, error
 		}
 		return nil, fmt.Errorf("Field RequestId no set on RequestId %+v", self)
 
+	case "runShellCommandBeforeKill", "RunShellCommandBeforeKill":
+		if self.present != nil {
+			if _, ok := self.present["runShellCommandBeforeKill"]; ok {
+				return self.RunShellCommandBeforeKill, nil
+			}
+		}
+		return nil, fmt.Errorf("Field RunShellCommandBeforeKill no set on RunShellCommandBeforeKill %+v", self)
+
 	case "skipHealthchecks", "SkipHealthchecks":
 		if self.present != nil {
 			if _, ok := self.present["skipHealthchecks"]; ok {
@@ -272,6 +292,9 @@ func (self *SingularityRequestCleanup) ClearField(name string) error {
 
 	case "requestId", "RequestId":
 		self.present["requestId"] = false
+
+	case "runShellCommandBeforeKill", "RunShellCommandBeforeKill":
+		self.present["runShellCommandBeforeKill"] = false
 
 	case "skipHealthchecks", "SkipHealthchecks":
 		self.present["skipHealthchecks"] = false

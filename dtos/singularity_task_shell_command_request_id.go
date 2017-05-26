@@ -10,8 +10,6 @@ import (
 type SingularityTaskShellCommandRequestId struct {
 	present map[string]bool
 
-	Id string `json:"id,omitempty"`
-
 	Name string `json:"name,omitempty"`
 
 	TaskId *SingularityTaskId `json:"taskId"`
@@ -55,16 +53,6 @@ func (self *SingularityTaskShellCommandRequestId) SetField(name string, value in
 	default:
 		return fmt.Errorf("No such field %s on SingularityTaskShellCommandRequestId", name)
 
-	case "id", "Id":
-		v, ok := value.(string)
-		if ok {
-			self.Id = v
-			self.present["id"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field id/Id: value %v(%T) couldn't be cast to type string", value, value)
-		}
-
 	case "name", "Name":
 		v, ok := value.(string)
 		if ok {
@@ -103,14 +91,6 @@ func (self *SingularityTaskShellCommandRequestId) GetField(name string) (interfa
 	default:
 		return nil, fmt.Errorf("No such field %s on SingularityTaskShellCommandRequestId", name)
 
-	case "id", "Id":
-		if self.present != nil {
-			if _, ok := self.present["id"]; ok {
-				return self.Id, nil
-			}
-		}
-		return nil, fmt.Errorf("Field Id no set on Id %+v", self)
-
 	case "name", "Name":
 		if self.present != nil {
 			if _, ok := self.present["name"]; ok {
@@ -145,9 +125,6 @@ func (self *SingularityTaskShellCommandRequestId) ClearField(name string) error 
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on SingularityTaskShellCommandRequestId", name)
-
-	case "id", "Id":
-		self.present["id"] = false
 
 	case "name", "Name":
 		self.present["name"] = false

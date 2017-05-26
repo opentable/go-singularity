@@ -2,7 +2,7 @@ package singularity
 
 import "github.com/opentable/go-singularity/dtos"
 
-func (client *Client) ActivateSlave(rackId string, body *dtos.SingularityMachineChangeRequest) (err error) {
+func (client *Client) ActivateRack(rackId string, body *dtos.SingularityMachineChangeRequest) (err error) {
 	pathParamMap := map[string]interface{}{
 		"rackId": rackId,
 	}
