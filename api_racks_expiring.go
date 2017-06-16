@@ -2,7 +2,7 @@ package singularity
 
 import "github.com/opentable/go-singularity/dtos"
 
-func (client *Client) GetExpiringStateChanges() (response dtos.SingularityExpiringMachineStateList, err error) {
+func (client *Client) GetExpiringRackStateChanges() (response dtos.SingularityExpiringMachineStateList, err error) {
 	pathParamMap := map[string]interface{}{}
 
 	queryParamMap := map[string]interface{}{}

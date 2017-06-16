@@ -1,5 +1,5 @@
 {
-  "apiVersion": "0.15.0",
+  "apiVersion": "0.15.1",
   "swaggerVersion": "1.2",
   "basePath": null,
   "resourcePath": "/api/history",
@@ -102,6 +102,256 @@
               "required": false,
               "type": "string",
               "paramType": "query",
+              "allowMultiple": false
+            },
+            {
+              "name": "count",
+              "description": "Maximum number of items to return",
+              "required": false,
+              "type": "integer",
+              "format": "int32",
+              "paramType": "query",
+              "allowMultiple": false
+            },
+            {
+              "name": "page",
+              "description": "Which page of items to view",
+              "required": false,
+              "type": "integer",
+              "format": "int32",
+              "paramType": "query",
+              "allowMultiple": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "/api/history/task/{taskId}",
+      "operations": [
+        {
+          "method": "GET",
+          "summary": "Retrieve the history for a specific task.",
+          "notes": "",
+          "type": "SingularityTaskHistory",
+          "nickname": "getHistoryForTask",
+          "parameters": [
+            {
+              "name": "taskId",
+              "description": "Task ID to look up",
+              "required": true,
+              "type": "string",
+              "paramType": "path",
+              "allowMultiple": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "/api/history/request/{requestId}/tasks",
+      "operations": [
+        {
+          "method": "GET",
+          "summary": "Retrieve the history sorted by startedAt for all inactive tasks of a specific request.",
+          "notes": "",
+          "type": "array",
+          "items": {
+            "$ref": "SingularityTaskIdHistory"
+          },
+          "nickname": "getTaskHistoryForRequest",
+          "parameters": [
+            {
+              "name": "requestId",
+              "description": "Request ID to match",
+              "required": true,
+              "type": "string",
+              "paramType": "path",
+              "allowMultiple": false
+            },
+            {
+              "name": "deployId",
+              "description": "Optional deploy ID to match",
+              "required": false,
+              "type": "string",
+              "paramType": "query",
+              "allowMultiple": false
+            },
+            {
+              "name": "runId",
+              "description": "Optional runId to match",
+              "required": false,
+              "type": "string",
+              "paramType": "query",
+              "allowMultiple": false
+            },
+            {
+              "name": "host",
+              "description": "Optional host to match",
+              "required": false,
+              "type": "string",
+              "paramType": "query",
+              "allowMultiple": false
+            },
+            {
+              "name": "lastTaskStatus",
+              "description": "Optional last task status to match",
+              "required": false,
+              "type": "string",
+              "paramType": "query",
+              "allowMultiple": false
+            },
+            {
+              "name": "startedBefore",
+              "description": "Optionally match only tasks started before",
+              "required": false,
+              "type": "integer",
+              "format": "int64",
+              "paramType": "query",
+              "allowMultiple": false
+            },
+            {
+              "name": "startedAfter",
+              "description": "Optionally match only tasks started after",
+              "required": false,
+              "type": "integer",
+              "format": "int64",
+              "paramType": "query",
+              "allowMultiple": false
+            },
+            {
+              "name": "updatedBefore",
+              "description": "Optionally match tasks last updated before",
+              "required": false,
+              "type": "integer",
+              "format": "int64",
+              "paramType": "query",
+              "allowMultiple": false
+            },
+            {
+              "name": "updatedAfter",
+              "description": "Optionally match tasks last updated after",
+              "required": false,
+              "type": "integer",
+              "format": "int64",
+              "paramType": "query",
+              "allowMultiple": false
+            },
+            {
+              "name": "orderDirection",
+              "description": "Sort direction",
+              "required": false,
+              "type": "string",
+              "paramType": "query",
+              "allowMultiple": false
+            },
+            {
+              "name": "count",
+              "description": "Maximum number of items to return",
+              "required": false,
+              "type": "integer",
+              "format": "int32",
+              "paramType": "query",
+              "allowMultiple": false
+            },
+            {
+              "name": "page",
+              "description": "Which page of items to view",
+              "required": false,
+              "type": "integer",
+              "format": "int32",
+              "paramType": "query",
+              "allowMultiple": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "/api/history/request/{requestId}/tasks/active",
+      "operations": [
+        {
+          "method": "GET",
+          "summary": "Retrieve the history for all active tasks of a specific request.",
+          "notes": "",
+          "type": "array",
+          "items": {
+            "$ref": "SingularityTaskIdHistory"
+          },
+          "nickname": "getTaskHistoryForActiveRequest",
+          "parameters": [
+            {
+              "name": "requestId",
+              "description": "Request ID to look up",
+              "required": true,
+              "type": "string",
+              "paramType": "path",
+              "allowMultiple": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "/api/history/request/{requestId}/deploy/{deployId}/tasks/active",
+      "operations": [
+        {
+          "method": "GET",
+          "summary": "Retrieve the task history for a specific deploy.",
+          "notes": "",
+          "type": "array",
+          "items": {
+            "$ref": "SingularityTaskIdHistory"
+          },
+          "nickname": "getActiveDeployTasks",
+          "parameters": [
+            {
+              "name": "requestId",
+              "description": "Request ID for deploy",
+              "required": true,
+              "type": "string",
+              "paramType": "path",
+              "allowMultiple": false
+            },
+            {
+              "name": "deployId",
+              "description": "Deploy ID",
+              "required": true,
+              "type": "string",
+              "paramType": "path",
+              "allowMultiple": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "/api/history/request/{requestId}/deploy/{deployId}/tasks/inactive",
+      "operations": [
+        {
+          "method": "GET",
+          "summary": "Retrieve the task history for a specific deploy.",
+          "notes": "",
+          "type": "array",
+          "items": {
+            "$ref": "SingularityTaskIdHistory"
+          },
+          "nickname": "getInactiveDeployTasks",
+          "parameters": [
+            {
+              "name": "requestId",
+              "description": "Request ID for deploy",
+              "required": true,
+              "type": "string",
+              "paramType": "path",
+              "allowMultiple": false
+            },
+            {
+              "name": "deployId",
+              "description": "Deploy ID",
+              "required": true,
+              "type": "string",
+              "paramType": "path",
               "allowMultiple": false
             },
             {
@@ -436,256 +686,6 @@
               "required": true,
               "type": "string",
               "paramType": "path",
-              "allowMultiple": false
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "path": "/api/history/task/{taskId}",
-      "operations": [
-        {
-          "method": "GET",
-          "summary": "Retrieve the history for a specific task.",
-          "notes": "",
-          "type": "SingularityTaskHistory",
-          "nickname": "getHistoryForTask",
-          "parameters": [
-            {
-              "name": "taskId",
-              "description": "Task ID to look up",
-              "required": true,
-              "type": "string",
-              "paramType": "path",
-              "allowMultiple": false
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "path": "/api/history/request/{requestId}/tasks/active",
-      "operations": [
-        {
-          "method": "GET",
-          "summary": "Retrieve the history for all active tasks of a specific request.",
-          "notes": "",
-          "type": "array",
-          "items": {
-            "$ref": "SingularityTaskIdHistory"
-          },
-          "nickname": "getTaskHistoryForActiveRequest",
-          "parameters": [
-            {
-              "name": "requestId",
-              "description": "Request ID to look up",
-              "required": true,
-              "type": "string",
-              "paramType": "path",
-              "allowMultiple": false
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "path": "/api/history/request/{requestId}/tasks",
-      "operations": [
-        {
-          "method": "GET",
-          "summary": "Retrieve the history sorted by startedAt for all inactive tasks of a specific request.",
-          "notes": "",
-          "type": "array",
-          "items": {
-            "$ref": "SingularityTaskIdHistory"
-          },
-          "nickname": "getTaskHistoryForRequest",
-          "parameters": [
-            {
-              "name": "requestId",
-              "description": "Request ID to match",
-              "required": true,
-              "type": "string",
-              "paramType": "path",
-              "allowMultiple": false
-            },
-            {
-              "name": "deployId",
-              "description": "Optional deploy ID to match",
-              "required": false,
-              "type": "string",
-              "paramType": "query",
-              "allowMultiple": false
-            },
-            {
-              "name": "runId",
-              "description": "Optional runId to match",
-              "required": false,
-              "type": "string",
-              "paramType": "query",
-              "allowMultiple": false
-            },
-            {
-              "name": "host",
-              "description": "Optional host to match",
-              "required": false,
-              "type": "string",
-              "paramType": "query",
-              "allowMultiple": false
-            },
-            {
-              "name": "lastTaskStatus",
-              "description": "Optional last task status to match",
-              "required": false,
-              "type": "string",
-              "paramType": "query",
-              "allowMultiple": false
-            },
-            {
-              "name": "startedBefore",
-              "description": "Optionally match only tasks started before",
-              "required": false,
-              "type": "integer",
-              "format": "int64",
-              "paramType": "query",
-              "allowMultiple": false
-            },
-            {
-              "name": "startedAfter",
-              "description": "Optionally match only tasks started after",
-              "required": false,
-              "type": "integer",
-              "format": "int64",
-              "paramType": "query",
-              "allowMultiple": false
-            },
-            {
-              "name": "updatedBefore",
-              "description": "Optionally match tasks last updated before",
-              "required": false,
-              "type": "integer",
-              "format": "int64",
-              "paramType": "query",
-              "allowMultiple": false
-            },
-            {
-              "name": "updatedAfter",
-              "description": "Optionally match tasks last updated after",
-              "required": false,
-              "type": "integer",
-              "format": "int64",
-              "paramType": "query",
-              "allowMultiple": false
-            },
-            {
-              "name": "orderDirection",
-              "description": "Sort direction",
-              "required": false,
-              "type": "string",
-              "paramType": "query",
-              "allowMultiple": false
-            },
-            {
-              "name": "count",
-              "description": "Maximum number of items to return",
-              "required": false,
-              "type": "integer",
-              "format": "int32",
-              "paramType": "query",
-              "allowMultiple": false
-            },
-            {
-              "name": "page",
-              "description": "Which page of items to view",
-              "required": false,
-              "type": "integer",
-              "format": "int32",
-              "paramType": "query",
-              "allowMultiple": false
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "path": "/api/history/request/{requestId}/deploy/{deployId}/tasks/active",
-      "operations": [
-        {
-          "method": "GET",
-          "summary": "Retrieve the task history for a specific deploy.",
-          "notes": "",
-          "type": "array",
-          "items": {
-            "$ref": "SingularityTaskIdHistory"
-          },
-          "nickname": "getActiveDeployTasks",
-          "parameters": [
-            {
-              "name": "requestId",
-              "description": "Request ID for deploy",
-              "required": true,
-              "type": "string",
-              "paramType": "path",
-              "allowMultiple": false
-            },
-            {
-              "name": "deployId",
-              "description": "Deploy ID",
-              "required": true,
-              "type": "string",
-              "paramType": "path",
-              "allowMultiple": false
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "path": "/api/history/request/{requestId}/deploy/{deployId}/tasks/inactive",
-      "operations": [
-        {
-          "method": "GET",
-          "summary": "Retrieve the task history for a specific deploy.",
-          "notes": "",
-          "type": "array",
-          "items": {
-            "$ref": "SingularityTaskIdHistory"
-          },
-          "nickname": "getInactiveDeployTasks",
-          "parameters": [
-            {
-              "name": "requestId",
-              "description": "Request ID for deploy",
-              "required": true,
-              "type": "string",
-              "paramType": "path",
-              "allowMultiple": false
-            },
-            {
-              "name": "deployId",
-              "description": "Deploy ID",
-              "required": true,
-              "type": "string",
-              "paramType": "path",
-              "allowMultiple": false
-            },
-            {
-              "name": "count",
-              "description": "Maximum number of items to return",
-              "required": false,
-              "type": "integer",
-              "format": "int32",
-              "paramType": "query",
-              "allowMultiple": false
-            },
-            {
-              "name": "page",
-              "description": "Which page of items to view",
-              "required": false,
-              "type": "integer",
-              "format": "int32",
-              "paramType": "query",
               "allowMultiple": false
             }
           ]

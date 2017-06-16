@@ -1,6 +1,6 @@
 package singularity
 
-func (client *Client) DeleteExpiringStateChange(rackId string) (err error) {
+func (client *Client) DeleteExpiringRackStateChange(rackId string) (err error) {
 	pathParamMap := map[string]interface{}{
 		"rackId": rackId,
 	}

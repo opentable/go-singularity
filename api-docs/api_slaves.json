@@ -1,5 +1,5 @@
 {
-  "apiVersion": "0.15.0",
+  "apiVersion": "0.15.1",
   "swaggerVersion": "1.2",
   "basePath": null,
   "resourcePath": "/api/slaves",
@@ -8,8 +8,82 @@
   ],
   "apis": [
     {
+      "path": "/api/slaves/slave/{slaveId}/activate",
+      "operations": [
+        {
+          "method": "POST",
+          "summary": "Activate a decomissioning slave, canceling decomission without erasing history",
+          "notes": "",
+          "type": "void",
+          "nickname": "reactivateSlave",
+          "parameters": [
+            {
+              "name": "slaveId",
+              "description": "Active slaveId",
+              "required": true,
+              "type": "string",
+              "paramType": "path",
+              "allowMultiple": false
+            },
+            {
+              "name": "body",
+              "required": false,
+              "type": "SingularityMachineChangeRequest",
+              "paramType": "body",
+              "allowMultiple": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "/api/slaves/",
+      "operations": [
+        {
+          "method": "GET",
+          "summary": "Retrieve the list of all known slaves, optionally filtering by a particular state",
+          "notes": "",
+          "type": "array",
+          "items": {
+            "$ref": "SingularitySlave"
+          },
+          "nickname": "getSlaves",
+          "parameters": [
+            {
+              "name": "state",
+              "description": "Optionally specify a particular state to filter slaves by",
+              "required": false,
+              "type": "string",
+              "paramType": "query",
+              "allowMultiple": false
+            }
+          ]
+        }
+      ]
+    },
+    {
       "path": "/api/slaves/slave/{slaveId}",
       "operations": [
+        {
+          "method": "GET",
+          "summary": "Retrieve the history of a given slave",
+          "notes": "",
+          "type": "array",
+          "items": {
+            "$ref": "SingularityMachineStateHistoryUpdate"
+          },
+          "nickname": "getSlaveHistory",
+          "parameters": [
+            {
+              "name": "slaveId",
+              "description": "Slave ID",
+              "required": true,
+              "type": "string",
+              "paramType": "path",
+              "allowMultiple": false
+            }
+          ]
+        },
         {
           "method": "DELETE",
           "summary": "Remove a known slave, erasing history. This operation will cancel decomissioning of the slave",
@@ -26,16 +100,18 @@
               "allowMultiple": false
             }
           ]
-        },
+        }
+      ]
+    },
+    {
+      "path": "/api/slaves/slave/{slaveId}/details",
+      "operations": [
         {
           "method": "GET",
-          "summary": "Retrieve the history of a given slave",
+          "summary": "Get information about a particular slave",
           "notes": "",
-          "type": "array",
-          "items": {
-            "$ref": "SingularityMachineStateHistoryUpdate"
-          },
-          "nickname": "getSlaveHistory",
+          "type": "SingularitySlave",
+          "nickname": "getSlave",
           "parameters": [
             {
               "name": "slaveId",
@@ -115,7 +191,7 @@
           "summary": "Delete any expiring machine state changes for this slave",
           "notes": "",
           "type": "void",
-          "nickname": "deleteExpiringStateChange",
+          "nickname": "deleteExpiringSlaveStateChange",
           "parameters": [
             {
               "name": "slaveId",
@@ -140,84 +216,8 @@
           "items": {
             "$ref": "SingularityExpiringMachineState"
           },
-          "nickname": "getExpiringStateChanges",
+          "nickname": "getExpiringSlaveStateChanges",
           "parameters": []
-        }
-      ]
-    },
-    {
-      "path": "/api/slaves/",
-      "operations": [
-        {
-          "method": "GET",
-          "summary": "Retrieve the list of all known slaves, optionally filtering by a particular state",
-          "notes": "",
-          "type": "array",
-          "items": {
-            "$ref": "SingularitySlave"
-          },
-          "nickname": "getSlaves",
-          "parameters": [
-            {
-              "name": "state",
-              "description": "Optionally specify a particular state to filter slaves by",
-              "required": false,
-              "type": "string",
-              "paramType": "query",
-              "allowMultiple": false
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "path": "/api/slaves/slave/{slaveId}/details",
-      "operations": [
-        {
-          "method": "GET",
-          "summary": "Get information about a particular slave",
-          "notes": "",
-          "type": "SingularitySlave",
-          "nickname": "getSlave",
-          "parameters": [
-            {
-              "name": "slaveId",
-              "description": "Slave ID",
-              "required": true,
-              "type": "string",
-              "paramType": "path",
-              "allowMultiple": false
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "path": "/api/slaves/slave/{slaveId}/activate",
-      "operations": [
-        {
-          "method": "POST",
-          "summary": "Activate a decomissioning slave, canceling decomission without erasing history",
-          "notes": "",
-          "type": "void",
-          "nickname": "reactivateSlave",
-          "parameters": [
-            {
-              "name": "slaveId",
-              "description": "Active slaveId",
-              "required": true,
-              "type": "string",
-              "paramType": "path",
-              "allowMultiple": false
-            },
-            {
-              "name": "body",
-              "required": false,
-              "type": "SingularityMachineChangeRequest",
-              "paramType": "body",
-              "allowMultiple": false
-            }
-          ]
         }
       ]
     }

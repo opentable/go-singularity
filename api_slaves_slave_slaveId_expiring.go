@@ -1,6 +1,6 @@
 package singularity
 
-func (client *Client) DeleteExpiringStateChange(slaveId string) (err error) {
+func (client *Client) DeleteExpiringSlaveStateChange(slaveId string) (err error) {
 	pathParamMap := map[string]interface{}{
 		"slaveId": slaveId,
 	}

@@ -1,5 +1,5 @@
 {
-  "apiVersion": "0.15.0",
+  "apiVersion": "0.15.1",
   "swaggerVersion": "1.2",
   "basePath": null,
   "resourcePath": "/api/test",

@@ -1,5 +1,5 @@
 {
-  "apiVersion": "0.15.0",
+  "apiVersion": "0.15.1",
   "swaggerVersion": "1.2",
   "basePath": null,
   "resourcePath": "/api/webhooks",
@@ -7,54 +7,6 @@
     "application/json"
   ],
   "apis": [
-    {
-      "path": "/api/webhooks",
-      "operations": [
-        {
-          "method": "GET",
-          "summary": "Retrieve a list of active webhooks.",
-          "notes": "",
-          "type": "array",
-          "items": {
-            "$ref": "SingularityWebhook"
-          },
-          "nickname": "getActiveWebhooks",
-          "parameters": []
-        },
-        {
-          "method": "POST",
-          "summary": "Add a new webhook.",
-          "notes": "",
-          "type": "string",
-          "nickname": "addWebhook",
-          "parameters": [
-            {
-              "name": "body",
-              "required": false,
-              "type": "SingularityWebhook",
-              "paramType": "body",
-              "allowMultiple": false
-            }
-          ]
-        },
-        {
-          "method": "DELETE",
-          "summary": "Delete a specific webhook.",
-          "notes": "",
-          "type": "string",
-          "nickname": "deleteWebhook",
-          "parameters": [
-            {
-              "name": "webhookId",
-              "required": false,
-              "type": "string",
-              "paramType": "query",
-              "allowMultiple": false
-            }
-          ]
-        }
-      ]
-    },
     {
       "path": "/api/webhooks/summary",
       "operations": [
@@ -140,6 +92,54 @@
             }
           ],
           "deprecated": "true"
+        }
+      ]
+    },
+    {
+      "path": "/api/webhooks",
+      "operations": [
+        {
+          "method": "POST",
+          "summary": "Add a new webhook.",
+          "notes": "",
+          "type": "string",
+          "nickname": "addWebhook",
+          "parameters": [
+            {
+              "name": "body",
+              "required": false,
+              "type": "SingularityWebhook",
+              "paramType": "body",
+              "allowMultiple": false
+            }
+          ]
+        },
+        {
+          "method": "DELETE",
+          "summary": "Delete a specific webhook.",
+          "notes": "",
+          "type": "string",
+          "nickname": "deleteWebhook",
+          "parameters": [
+            {
+              "name": "webhookId",
+              "required": false,
+              "type": "string",
+              "paramType": "query",
+              "allowMultiple": false
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "summary": "Retrieve a list of active webhooks.",
+          "notes": "",
+          "type": "array",
+          "items": {
+            "$ref": "SingularityWebhook"
+          },
+          "nickname": "getActiveWebhooks",
+          "parameters": []
         }
       ]
     },

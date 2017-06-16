@@ -1,5 +1,5 @@
 {
-  "apiVersion": "0.15.0",
+  "apiVersion": "0.15.1",
   "swaggerVersion": "1.2",
   "basePath": null,
   "resourcePath": "/api/requests",
@@ -125,6 +125,68 @@
             {
               "code": 409,
               "message": "Request object is being cleaned. Try again shortly"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "/api/requests/request/{requestId}/skip-healthchecks",
+      "operations": [
+        {
+          "method": "PUT",
+          "summary": "Update the skipHealthchecks field for the request, possibly temporarily",
+          "notes": "",
+          "type": "SingularityRequestParent",
+          "nickname": "skipHealthchecks",
+          "consumes": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "requestId",
+              "description": "The Request ID to scale",
+              "required": true,
+              "type": "string",
+              "paramType": "path",
+              "allowMultiple": false
+            },
+            {
+              "name": "body",
+              "description": "SkipHealtchecks options",
+              "required": false,
+              "type": "SingularitySkipHealthchecksRequest",
+              "paramType": "body",
+              "allowMultiple": false
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 404,
+              "message": "No Request with that ID"
+            }
+          ]
+        },
+        {
+          "method": "DELETE",
+          "summary": "Delete/cancel the expiring skipHealthchecks. This makes the skipHealthchecks request permanent.",
+          "notes": "",
+          "type": "SingularityRequestParent",
+          "nickname": "deleteExpiringSkipHealthchecks",
+          "parameters": [
+            {
+              "name": "requestId",
+              "description": "The Request ID",
+              "required": true,
+              "type": "string",
+              "paramType": "path",
+              "allowMultiple": false
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 404,
+              "message": "No Request or expiring skipHealthchecks request for that ID"
             }
           ]
         }
@@ -347,68 +409,6 @@
             {
               "code": 409,
               "message": "Request is not paused"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "path": "/api/requests/request/{requestId}/skip-healthchecks",
-      "operations": [
-        {
-          "method": "PUT",
-          "summary": "Update the skipHealthchecks field for the request, possibly temporarily",
-          "notes": "",
-          "type": "SingularityRequestParent",
-          "nickname": "skipHealthchecks",
-          "consumes": [
-            "application/json"
-          ],
-          "parameters": [
-            {
-              "name": "requestId",
-              "description": "The Request ID to scale",
-              "required": true,
-              "type": "string",
-              "paramType": "path",
-              "allowMultiple": false
-            },
-            {
-              "name": "body",
-              "description": "SkipHealtchecks options",
-              "required": false,
-              "type": "SingularitySkipHealthchecksRequest",
-              "paramType": "body",
-              "allowMultiple": false
-            }
-          ],
-          "responseMessages": [
-            {
-              "code": 404,
-              "message": "No Request with that ID"
-            }
-          ]
-        },
-        {
-          "method": "DELETE",
-          "summary": "Delete/cancel the expiring skipHealthchecks. This makes the skipHealthchecks request permanent.",
-          "notes": "",
-          "type": "SingularityRequestParent",
-          "nickname": "deleteExpiringSkipHealthchecks",
-          "parameters": [
-            {
-              "name": "requestId",
-              "description": "The Request ID",
-              "required": true,
-              "type": "string",
-              "paramType": "path",
-              "allowMultiple": false
-            }
-          ],
-          "responseMessages": [
-            {
-              "code": 404,
-              "message": "No Request or expiring skipHealthchecks request for that ID"
             }
           ]
         }

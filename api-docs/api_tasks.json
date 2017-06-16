@@ -1,5 +1,5 @@
 {
-  "apiVersion": "0.15.0",
+  "apiVersion": "0.15.1",
   "swaggerVersion": "1.2",
   "basePath": null,
   "resourcePath": "/api/tasks",
@@ -7,6 +7,27 @@
     "application/json"
   ],
   "apis": [
+    {
+      "path": "/api/tasks/task/{taskId}/statistics",
+      "operations": [
+        {
+          "method": "GET",
+          "summary": "Retrieve statistics about a specific active task.",
+          "notes": "",
+          "type": "MesosTaskStatisticsObject",
+          "nickname": "getTaskStatistics",
+          "parameters": [
+            {
+              "name": "taskId",
+              "required": true,
+              "type": "string",
+              "paramType": "path",
+              "allowMultiple": false
+            }
+          ]
+        }
+      ]
+    },
     {
       "path": "/api/tasks/scheduled",
       "operations": [
@@ -32,6 +53,166 @@
       ]
     },
     {
+      "path": "/api/tasks/task/{taskId}/cleanup",
+      "operations": [
+        {
+          "method": "GET",
+          "summary": "Get the cleanup object for the task, if it exists",
+          "notes": "",
+          "type": "SingularityTaskCleanup",
+          "nickname": "getTaskCleanup",
+          "parameters": [
+            {
+              "name": "taskId",
+              "required": true,
+              "type": "string",
+              "paramType": "path",
+              "allowMultiple": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "/api/tasks/task/{taskId}",
+      "operations": [
+        {
+          "method": "DELETE",
+          "summary": "Attempt to kill task, optionally overriding an existing cleanup request (that may be waiting for replacement tasks to become healthy)",
+          "notes": "",
+          "type": "SingularityTaskCleanup",
+          "nickname": "killTask",
+          "consumes": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "taskId",
+              "required": true,
+              "type": "string",
+              "paramType": "path",
+              "allowMultiple": false
+            },
+            {
+              "name": "body",
+              "required": false,
+              "type": "SingularityKillTaskRequest",
+              "paramType": "body",
+              "allowMultiple": false
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 409,
+              "message": "Task already has a cleanup request (can be overridden with override=true)"
+            }
+          ]
+        },
+        {
+          "method": "GET",
+          "summary": "Retrieve information about a specific active task.",
+          "notes": "",
+          "type": "SingularityTask",
+          "nickname": "getActiveTask",
+          "parameters": [
+            {
+              "name": "taskId",
+              "required": true,
+              "type": "string",
+              "paramType": "path",
+              "allowMultiple": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "/api/tasks/task/{taskId}/metadata",
+      "operations": [
+        {
+          "method": "POST",
+          "summary": "Post metadata about a task that will be persisted along with it and displayed in the UI",
+          "notes": "",
+          "type": "void",
+          "nickname": "postTaskMetadata",
+          "consumes": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "taskId",
+              "required": true,
+              "type": "string",
+              "paramType": "path",
+              "allowMultiple": false
+            },
+            {
+              "name": "body",
+              "required": false,
+              "type": "SingularityTaskMetadataRequest",
+              "paramType": "body",
+              "allowMultiple": false
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 400,
+              "message": "Invalid metadata object or doesn't match allowed types"
+            },
+            {
+              "code": 404,
+              "message": "Task doesn't exist"
+            },
+            {
+              "code": 409,
+              "message": "Metadata with this type/timestamp already existed"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "/api/tasks/task/{taskId}/command",
+      "operations": [
+        {
+          "method": "POST",
+          "summary": "Run a configured shell command against the given task",
+          "notes": "",
+          "type": "SingularityTaskShellCommandRequest",
+          "nickname": "runShellCommand",
+          "consumes": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "taskId",
+              "required": true,
+              "type": "string",
+              "paramType": "path",
+              "allowMultiple": false
+            },
+            {
+              "name": "body",
+              "required": false,
+              "type": "SingularityShellCommand",
+              "paramType": "body",
+              "allowMultiple": false
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 400,
+              "message": "Given shell command option doesn't exist"
+            },
+            {
+              "code": 403,
+              "message": "Given shell command doesn't exist"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "path": "/api/tasks/scheduled/ids",
       "operations": [
         {
@@ -48,6 +229,27 @@
               "required": false,
               "type": "boolean",
               "paramType": "query",
+              "allowMultiple": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "/api/tasks/scheduled/task/{pendingTaskId}",
+      "operations": [
+        {
+          "method": "GET",
+          "summary": "Retrieve information about a pending task.",
+          "notes": "",
+          "type": "SingularityTaskRequest",
+          "nickname": "getPendingTask",
+          "parameters": [
+            {
+              "name": "pendingTaskId",
+              "required": true,
+              "type": "string",
+              "paramType": "path",
               "allowMultiple": false
             }
           ]
@@ -188,208 +390,6 @@
           },
           "nickname": "getLbCleanupTasks",
           "parameters": []
-        }
-      ]
-    },
-    {
-      "path": "/api/tasks/task/{taskId}",
-      "operations": [
-        {
-          "method": "GET",
-          "summary": "Retrieve information about a specific active task.",
-          "notes": "",
-          "type": "SingularityTask",
-          "nickname": "getActiveTask",
-          "parameters": [
-            {
-              "name": "taskId",
-              "required": true,
-              "type": "string",
-              "paramType": "path",
-              "allowMultiple": false
-            }
-          ]
-        },
-        {
-          "method": "DELETE",
-          "summary": "Attempt to kill task, optionally overriding an existing cleanup request (that may be waiting for replacement tasks to become healthy)",
-          "notes": "",
-          "type": "SingularityTaskCleanup",
-          "nickname": "killTask",
-          "consumes": [
-            "application/json"
-          ],
-          "parameters": [
-            {
-              "name": "taskId",
-              "required": true,
-              "type": "string",
-              "paramType": "path",
-              "allowMultiple": false
-            },
-            {
-              "name": "body",
-              "required": false,
-              "type": "SingularityKillTaskRequest",
-              "paramType": "body",
-              "allowMultiple": false
-            }
-          ],
-          "responseMessages": [
-            {
-              "code": 409,
-              "message": "Task already has a cleanup request (can be overridden with override=true)"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "path": "/api/tasks/task/{taskId}/statistics",
-      "operations": [
-        {
-          "method": "GET",
-          "summary": "Retrieve statistics about a specific active task.",
-          "notes": "",
-          "type": "MesosTaskStatisticsObject",
-          "nickname": "getTaskStatistics",
-          "parameters": [
-            {
-              "name": "taskId",
-              "required": true,
-              "type": "string",
-              "paramType": "path",
-              "allowMultiple": false
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "path": "/api/tasks/task/{taskId}/cleanup",
-      "operations": [
-        {
-          "method": "GET",
-          "summary": "Get the cleanup object for the task, if it exists",
-          "notes": "",
-          "type": "SingularityTaskCleanup",
-          "nickname": "getTaskCleanup",
-          "parameters": [
-            {
-              "name": "taskId",
-              "required": true,
-              "type": "string",
-              "paramType": "path",
-              "allowMultiple": false
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "path": "/api/tasks/task/{taskId}/metadata",
-      "operations": [
-        {
-          "method": "POST",
-          "summary": "Post metadata about a task that will be persisted along with it and displayed in the UI",
-          "notes": "",
-          "type": "void",
-          "nickname": "postTaskMetadata",
-          "consumes": [
-            "application/json"
-          ],
-          "parameters": [
-            {
-              "name": "taskId",
-              "required": true,
-              "type": "string",
-              "paramType": "path",
-              "allowMultiple": false
-            },
-            {
-              "name": "body",
-              "required": false,
-              "type": "SingularityTaskMetadataRequest",
-              "paramType": "body",
-              "allowMultiple": false
-            }
-          ],
-          "responseMessages": [
-            {
-              "code": 400,
-              "message": "Invalid metadata object or doesn't match allowed types"
-            },
-            {
-              "code": 404,
-              "message": "Task doesn't exist"
-            },
-            {
-              "code": 409,
-              "message": "Metadata with this type/timestamp already existed"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "path": "/api/tasks/task/{taskId}/command",
-      "operations": [
-        {
-          "method": "POST",
-          "summary": "Run a configured shell command against the given task",
-          "notes": "",
-          "type": "SingularityTaskShellCommandRequest",
-          "nickname": "runShellCommand",
-          "consumes": [
-            "application/json"
-          ],
-          "parameters": [
-            {
-              "name": "taskId",
-              "required": true,
-              "type": "string",
-              "paramType": "path",
-              "allowMultiple": false
-            },
-            {
-              "name": "body",
-              "required": false,
-              "type": "SingularityShellCommand",
-              "paramType": "body",
-              "allowMultiple": false
-            }
-          ],
-          "responseMessages": [
-            {
-              "code": 400,
-              "message": "Given shell command option doesn't exist"
-            },
-            {
-              "code": 403,
-              "message": "Given shell command doesn't exist"
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "path": "/api/tasks/scheduled/task/{pendingTaskId}",
-      "operations": [
-        {
-          "method": "GET",
-          "summary": "Retrieve information about a pending task.",
-          "notes": "",
-          "type": "SingularityTaskRequest",
-          "nickname": "getPendingTask",
-          "parameters": [
-            {
-              "name": "pendingTaskId",
-              "required": true,
-              "type": "string",
-              "paramType": "path",
-              "allowMultiple": false
-            }
-          ]
         }
       ]
     }
