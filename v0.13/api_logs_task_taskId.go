@@ -1,6 +1,6 @@
 package singularity
 
-import "github.com/opentable/go-singularity/dtos"
+import "github.com/opentable/go-singularity/v0.13/dtos"
 
 func (client *Client) GetS3LogsForTask(taskId string, start int64, end int64) (response dtos.SingularityS3LogList, err error) {
 	pathParamMap := map[string]interface{}{

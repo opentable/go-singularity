@@ -3,7 +3,7 @@ package singularity
 import (
 	"bytes"
 
-	"github.com/opentable/go-singularity/dtos"
+	"github.com/opentable/go-singularity/v0.13/dtos"
 )
 
 func (client *Client) GetActiveWebhooks() (response dtos.SingularityWebhookList, err error) {

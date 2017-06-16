@@ -1,6 +1,6 @@
 package singularity
 
-import "github.com/opentable/go-singularity/dtos"
+import "github.com/opentable/go-singularity/v0.13/dtos"
 
 func (client *Client) Bounce(requestId string, body *dtos.SingularityBounceRequest) (response *dtos.SingularityRequestParent, err error) {
 	pathParamMap := map[string]interface{}{

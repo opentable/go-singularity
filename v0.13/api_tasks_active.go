@@ -1,6 +1,6 @@
 package singularity
 
-import "github.com/opentable/go-singularity/dtos"
+import "github.com/opentable/go-singularity/v0.13/dtos"
 
 func (client *Client) GetActiveTasks() (response dtos.SingularityTaskList, err error) {
 	pathParamMap := map[string]interface{}{}
