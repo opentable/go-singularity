@@ -191,7 +191,7 @@
           "summary": "Delete any expiring machine state changes for this slave",
           "notes": "",
           "type": "void",
-          "nickname": "deleteExpiringStateChange",
+          "nickname": "deleteExpiringSlaveStateChange",
           "parameters": [
             {
               "name": "slaveId",
@@ -216,7 +216,7 @@
           "items": {
             "$ref": "SingularityExpiringMachineState"
           },
-          "nickname": "getExpiringStateChanges",
+          "nickname": "getExpiringSlaveStateChanges",
           "parameters": []
         }
       ]
