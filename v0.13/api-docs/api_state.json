@@ -1,0 +1,263 @@
+{
+  "apiVersion": "0.4.12-SNAPSHOT",
+  "swaggerVersion": "1.2",
+  "basePath": null,
+  "resourcePath": "/api/state",
+  "produces": [
+    "application/json"
+  ],
+  "apis": [
+    {
+      "path": "/api/state",
+      "operations": [
+        {
+          "method": "GET",
+          "summary": "Retrieve information about the current state of Singularity.",
+          "notes": "",
+          "type": "SingularityState",
+          "nickname": "getState",
+          "parameters": [
+            {
+              "name": "skipCache",
+              "required": false,
+              "type": "boolean",
+              "paramType": "query",
+              "allowMultiple": false
+            },
+            {
+              "name": "includeRequestIds",
+              "required": false,
+              "type": "boolean",
+              "paramType": "query",
+              "allowMultiple": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "/api/state/requests/under-provisioned",
+      "operations": [
+        {
+          "method": "GET",
+          "summary": "Retrieve the list of under-provisioned request IDs.",
+          "notes": "",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "nickname": "getUnderProvisionedRequestIds",
+          "parameters": [
+            {
+              "name": "skipCache",
+              "required": false,
+              "type": "boolean",
+              "paramType": "query",
+              "allowMultiple": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "/api/state/requests/over-provisioned",
+      "operations": [
+        {
+          "method": "GET",
+          "summary": "Retrieve the list of over-provisioned request IDs.",
+          "notes": "",
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "nickname": "getOverProvisionedRequestIds",
+          "parameters": [
+            {
+              "name": "skipCache",
+              "required": false,
+              "type": "boolean",
+              "paramType": "query",
+              "allowMultiple": false
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "models": {
+    "SingularityHostState": {
+      "id": "SingularityHostState",
+      "properties": {
+        "master": {
+          "type": "boolean"
+        },
+        "uptime": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "driverStatus": {
+          "type": "string"
+        },
+        "millisSinceLastOffer": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "hostAddress": {
+          "type": "string"
+        },
+        "hostname": {
+          "type": "string"
+        },
+        "mesosMaster": {
+          "type": "string"
+        }
+      }
+    },
+    "SingularityState": {
+      "id": "SingularityState",
+      "properties": {
+        "activeTasks": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "pausedRequests": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "activeRequests": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "cooldownRequests": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "scheduledTasks": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "lateTasks": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "futureTasks": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "cleaningTasks": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "lbCleanupTasks": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "lbCleanupRequests": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "maxTaskLag": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "pendingRequests": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "cleaningRequests": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "finishedRequests": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "activeSlaves": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "deadSlaves": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "decommissioningSlaves": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "unknownSlaves": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "activeRacks": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "deadRacks": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "decommissioningRacks": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "unknownRacks": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "oldestDeploy": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "numDeploys": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "generatedAt": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "hostStates": {
+          "type": "array",
+          "items": {
+            "$ref": "SingularityHostState"
+          }
+        },
+        "overProvisionedRequestIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "underProvisionedRequestIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "overProvisionedRequests": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "underProvisionedRequests": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "authDatastoreHealthy": {
+          "type": "boolean"
+        },
+        "decomissioningSlaves": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "decomissioningRacks": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "allRequests": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    }
+  }
+}

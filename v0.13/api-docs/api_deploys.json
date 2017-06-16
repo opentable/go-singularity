@@ -1,0 +1,1056 @@
+{
+  "apiVersion": "0.4.12-SNAPSHOT",
+  "swaggerVersion": "1.2",
+  "basePath": null,
+  "resourcePath": "/api/deploys",
+  "produces": [
+    "application/json"
+  ],
+  "apis": [
+    {
+      "path": "/api/deploys",
+      "operations": [
+        {
+          "method": "POST",
+          "summary": "Start a new deployment for a Request",
+          "notes": "",
+          "type": "SingularityRequestParent",
+          "nickname": "deploy",
+          "consumes": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "body",
+              "required": true,
+              "type": "SingularityDeployRequest",
+              "paramType": "body",
+              "allowMultiple": false
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 400,
+              "message": "Deploy object is invalid"
+            },
+            {
+              "code": 409,
+              "message": "A current deploy is in progress. It may be canceled by calling DELETE"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "/api/deploys/pending",
+      "operations": [
+        {
+          "method": "GET",
+          "summary": "Retrieve the list of current pending deploys",
+          "notes": "",
+          "type": "array",
+          "items": {
+            "$ref": "SingularityPendingDeploy"
+          },
+          "nickname": "getPendingDeploys",
+          "parameters": []
+        }
+      ]
+    },
+    {
+      "path": "/api/deploys/deploy/{deployId}/request/{requestId}",
+      "operations": [
+        {
+          "method": "DELETE",
+          "summary": "Cancel a pending deployment (best effort - the deploy may still succeed or fail)",
+          "notes": "",
+          "type": "SingularityRequestParent",
+          "nickname": "cancelDeploy",
+          "parameters": [
+            {
+              "name": "requestId",
+              "description": "The Singularity Request Id from which the deployment is removed.",
+              "required": true,
+              "type": "string",
+              "paramType": "path",
+              "allowMultiple": false
+            },
+            {
+              "name": "deployId",
+              "description": "The Singularity Deploy Id that should be removed.",
+              "required": true,
+              "type": "string",
+              "paramType": "path",
+              "allowMultiple": false
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 400,
+              "message": "Deploy is not in the pending state pending or is not not present"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "/api/deploys/update",
+      "operations": [
+        {
+          "method": "POST",
+          "summary": "Update the target active instance count for a pending deploy",
+          "notes": "",
+          "type": "SingularityRequestParent",
+          "nickname": "updatePendingDeploy",
+          "parameters": [
+            {
+              "name": "body",
+              "required": true,
+              "type": "SingularityUpdatePendingDeployRequest",
+              "paramType": "body",
+              "allowMultiple": false
+            }
+          ],
+          "responseMessages": [
+            {
+              "code": 400,
+              "message": "Deploy is not in the pending state pending or is not not present"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "models": {
+    "Resources": {
+      "id": "Resources",
+      "properties": {
+        "cpus": {
+          "type": "number",
+          "format": "double"
+        },
+        "memoryMb": {
+          "type": "number",
+          "format": "double"
+        },
+        "numPorts": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "LoadBalancerRequestId": {
+      "id": "LoadBalancerRequestId",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "requestType": {
+          "$ref": "LoadBalancerRequestType",
+          "enum": [
+            "ADD",
+            "REMOVE",
+            "DEPLOY",
+            "DELETE"
+          ]
+        },
+        "attemptNumber": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "SingularityRequestDeployState": {
+      "id": "SingularityRequestDeployState",
+      "properties": {
+        "requestId": {
+          "type": "string"
+        },
+        "activeDeploy": {
+          "$ref": "SingularityDeployMarker"
+        },
+        "pendingDeploy": {
+          "$ref": "SingularityDeployMarker"
+        }
+      }
+    },
+    "SingularityRequestParent": {
+      "id": "SingularityRequestParent",
+      "properties": {
+        "request": {
+          "$ref": "SingularityRequest"
+        },
+        "state": {
+          "$ref": "RequestState",
+          "enum": [
+            "ACTIVE",
+            "DELETED",
+            "PAUSED",
+            "SYSTEM_COOLDOWN",
+            "FINISHED",
+            "DEPLOYING_TO_UNPAUSE"
+          ]
+        },
+        "requestDeployState": {
+          "$ref": "SingularityRequestDeployState"
+        },
+        "activeDeploy": {
+          "$ref": "SingularityDeploy"
+        },
+        "pendingDeploy": {
+          "$ref": "SingularityDeploy"
+        },
+        "pendingDeployState": {
+          "$ref": "SingularityPendingDeploy"
+        },
+        "expiringBounce": {
+          "$ref": "SingularityExpiringBounce"
+        },
+        "expiringPause": {
+          "$ref": "SingularityExpiringPause"
+        },
+        "expiringScale": {
+          "$ref": "SingularityExpiringScale"
+        },
+        "expiringSkipHealthchecks": {
+          "$ref": "SingularityExpiringSkipHealthchecks"
+        }
+      }
+    },
+    "SingularityPendingDeploy": {
+      "id": "SingularityPendingDeploy",
+      "properties": {
+        "deployMarker": {
+          "$ref": "SingularityDeployMarker"
+        },
+        "lastLoadBalancerUpdate": {
+          "$ref": "SingularityLoadBalancerUpdate"
+        },
+        "currentDeployState": {
+          "$ref": "DeployState",
+          "enum": [
+            "SUCCEEDED",
+            "FAILED_INTERNAL_STATE",
+            "CANCELING",
+            "WAITING",
+            "OVERDUE",
+            "FAILED",
+            "CANCELED"
+          ]
+        },
+        "deployProgress": {
+          "$ref": "SingularityDeployProgress"
+        }
+      }
+    },
+    "SingularityLoadBalancerUpdate": {
+      "id": "SingularityLoadBalancerUpdate",
+      "properties": {
+        "loadBalancerState": {
+          "$ref": "BaragonRequestState",
+          "enum": [
+            "UNKNOWN",
+            "FAILED",
+            "WAITING",
+            "SUCCESS",
+            "CANCELING",
+            "CANCELED",
+            "INVALID_REQUEST_NOOP"
+          ]
+        },
+        "message": {
+          "type": "string"
+        },
+        "timestamp": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "uri": {
+          "type": "string"
+        },
+        "method": {
+          "$ref": "LoadBalancerMethod",
+          "enum": [
+            "PRE_ENQUEUE",
+            "ENQUEUE",
+            "CHECK_STATE",
+            "CANCEL",
+            "DELETE"
+          ]
+        },
+        "loadBalancerRequestId": {
+          "$ref": "LoadBalancerRequestId"
+        }
+      }
+    },
+    "SingularityExpiringSkipHealthchecks": {
+      "id": "SingularityExpiringSkipHealthchecks",
+      "properties": {
+        "revertToSkipHealthchecks": {
+          "type": "boolean"
+        },
+        "startMillis": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "expiringAPIRequestObject": {
+          "$ref": "T"
+        },
+        "user": {
+          "type": "string"
+        },
+        "actionId": {
+          "type": "string"
+        },
+        "requestId": {
+          "type": "string"
+        }
+      }
+    },
+    "SingularityDockerPortMapping": {
+      "id": "SingularityDockerPortMapping",
+      "properties": {
+        "containerPortType": {
+          "$ref": "SingularityPortMappingType",
+          "enum": [
+            "LITERAL",
+            "FROM_OFFER"
+          ]
+        },
+        "hostPortType": {
+          "$ref": "SingularityPortMappingType",
+          "enum": [
+            "LITERAL",
+            "FROM_OFFER"
+          ]
+        },
+        "containerPort": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "hostPort": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "protocol": {
+          "type": "string"
+        }
+      }
+    },
+    "S3Artifact": {
+      "id": "S3Artifact",
+      "properties": {
+        "s3Bucket": {
+          "type": "string"
+        },
+        "s3ObjectKey": {
+          "type": "string"
+        },
+        "filesize": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        },
+        "filename": {
+          "type": "string"
+        },
+        "md5sum": {
+          "type": "string"
+        },
+        "targetFolderRelativeToTask": {
+          "type": "string"
+        }
+      }
+    },
+    "SingularityExpiringScale": {
+      "id": "SingularityExpiringScale",
+      "properties": {
+        "revertToInstances": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "startMillis": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "expiringAPIRequestObject": {
+          "$ref": "T"
+        },
+        "user": {
+          "type": "string"
+        },
+        "actionId": {
+          "type": "string"
+        },
+        "requestId": {
+          "type": "string"
+        }
+      }
+    },
+    "ExecutorData": {
+      "id": "ExecutorData",
+      "properties": {
+        "cmd": {
+          "type": "string"
+        },
+        "embeddedArtifacts": {
+          "type": "array",
+          "items": {
+            "$ref": "EmbeddedArtifact"
+          }
+        },
+        "externalArtifacts": {
+          "type": "array",
+          "items": {
+            "$ref": "ExternalArtifact"
+          }
+        },
+        "s3Artifacts": {
+          "type": "array",
+          "items": {
+            "$ref": "S3Artifact"
+          }
+        },
+        "successfulExitCodes": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "runningSentinel": {
+          "type": "string"
+        },
+        "user": {
+          "type": "string"
+        },
+        "extraCmdLineArgs": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "loggingTag": {
+          "type": "string"
+        },
+        "loggingExtraFields": {
+          "$ref": "Map[string,string]"
+        },
+        "sigKillProcessesAfterMillis": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "maxTaskThreads": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "preserveTaskSandboxAfterFinish": {
+          "type": "boolean"
+        },
+        "loggingS3Bucket": {
+          "type": "string"
+        },
+        "maxOpenFiles": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "skipLogrotateAndCompress": {
+          "type": "boolean"
+        },
+        "s3ArtifactSignatures": {
+          "type": "array",
+          "items": {
+            "$ref": "S3ArtifactSignature"
+          }
+        }
+      }
+    },
+    "SingularityUpdatePendingDeployRequest": {
+      "id": "SingularityUpdatePendingDeployRequest",
+      "properties": {
+        "requestId": {
+          "type": "string"
+        },
+        "deployId": {
+          "type": "string"
+        },
+        "targetActiveInstances": {
+          "type": "integer",
+          "format": "int32"
+        }
+      }
+    },
+    "SingularityRequest": {
+      "id": "SingularityRequest",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "requestType": {
+          "$ref": "RequestType",
+          "enum": [
+            "SERVICE",
+            "WORKER",
+            "SCHEDULED",
+            "ON_DEMAND",
+            "RUN_ONCE"
+          ]
+        },
+        "owners": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "numRetriesOnFailure": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "schedule": {
+          "type": "string"
+        },
+        "quartzSchedule": {
+          "type": "string"
+        },
+        "scheduleType": {
+          "$ref": "ScheduleType"
+        },
+        "killOldNonLongRunningTasksAfterMillis": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "scheduledExpectedRuntimeMillis": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "waitAtLeastMillisAfterTaskFinishesForReschedule": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "instances": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "skipHealthchecks": {
+          "type": "boolean"
+        },
+        "rackSensitive": {
+          "type": "boolean"
+        },
+        "rackAffinity": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "slavePlacement": {
+          "$ref": "SlavePlacement"
+        },
+        "requiredSlaveAttributes": {
+          "$ref": "Map[string,string]"
+        },
+        "allowedSlaveAttributes": {
+          "$ref": "Map[string,string]"
+        },
+        "loadBalanced": {
+          "type": "boolean"
+        },
+        "group": {
+          "type": "string"
+        },
+        "readOnlyGroups": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "type": "string"
+          }
+        },
+        "bounceAfterScale": {
+          "type": "boolean"
+        },
+        "emailConfigurationOverrides": {
+          "$ref": "Map[SingularityEmailType,List[SingularityEmailDestination]]"
+        }
+      }
+    },
+    "SingularityDeployMarker": {
+      "id": "SingularityDeployMarker",
+      "properties": {
+        "requestId": {
+          "type": "string"
+        },
+        "deployId": {
+          "type": "string"
+        },
+        "timestamp": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "user": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    },
+    "SingularityExpiringPause": {
+      "id": "SingularityExpiringPause",
+      "properties": {
+        "startMillis": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "expiringAPIRequestObject": {
+          "$ref": "T"
+        },
+        "user": {
+          "type": "string"
+        },
+        "actionId": {
+          "type": "string"
+        },
+        "requestId": {
+          "type": "string"
+        }
+      }
+    },
+    "S3ArtifactSignature": {
+      "id": "S3ArtifactSignature",
+      "properties": {
+        "artifactFilename": {
+          "type": "string"
+        },
+        "s3ObjectKey": {
+          "type": "string"
+        },
+        "s3Bucket": {
+          "type": "string"
+        },
+        "filesize": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        },
+        "filename": {
+          "type": "string"
+        },
+        "md5sum": {
+          "type": "string"
+        },
+        "targetFolderRelativeToTask": {
+          "type": "string"
+        }
+      }
+    },
+    "SingularityDeploy": {
+      "id": "SingularityDeploy",
+      "required": [
+        "requestId",
+        "id"
+      ],
+      "properties": {
+        "requestId": {
+          "type": "string",
+          "description": "Singularity Request Id which is associated with this deploy."
+        },
+        "id": {
+          "type": "string",
+          "description": "Singularity deploy id."
+        },
+        "version": {
+          "type": "string",
+          "description": "Deploy version"
+        },
+        "timestamp": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Deploy timestamp."
+        },
+        "metadata": {
+          "$ref": "Map[string,string]",
+          "description": "Map of metadata key/value pairs associated with the deployment."
+        },
+        "containerInfo": {
+          "$ref": "SingularityContainerInfo",
+          "description": "Container information for deployment into a container."
+        },
+        "customExecutorCmd": {
+          "type": "string",
+          "description": "Custom Mesos executor"
+        },
+        "customExecutorId": {
+          "type": "string",
+          "description": "Custom Mesos executor id."
+        },
+        "customExecutorSource": {
+          "type": "string",
+          "description": "Custom Mesos executor source."
+        },
+        "customExecutorResources": {
+          "$ref": "Resources",
+          "description": "Resources to allocate for custom mesos executor"
+        },
+        "customExecutorUser": {
+          "type": "string",
+          "description": "User to run custom executor as"
+        },
+        "resources": {
+          "$ref": "Resources",
+          "description": "Resources required for this deploy."
+        },
+        "command": {
+          "type": "string",
+          "description": "Command to execute for this deployment."
+        },
+        "arguments": {
+          "type": "array",
+          "description": "Command arguments.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "env": {
+          "$ref": "Map[string,string]",
+          "description": "Map of environment variable definitions."
+        },
+        "uris": {
+          "type": "array",
+          "description": "List of URIs to download before executing the deploy command.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "executorData": {
+          "$ref": "ExecutorData",
+          "description": "Executor specific information"
+        },
+        "labels": {
+          "$ref": "Map[string,string]",
+          "description": "Labels for tasks associated with this deploy"
+        },
+        "healthcheckUri": {
+          "type": "string",
+          "description": "Deployment Healthcheck URI, if specified will be called after TASK_RUNNING."
+        },
+        "healthcheckIntervalSeconds": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Time to wait after a failed healthcheck to try again in seconds."
+        },
+        "healthcheckTimeoutSeconds": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Single healthcheck HTTP timeout in seconds."
+        },
+        "healthcheckPortIndex": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Perform healthcheck on this dynamically allocated port (e.g. 0 for first port), defaults to first port"
+        },
+        "skipHealthchecksOnDeploy": {
+          "type": "boolean",
+          "description": "Allows skipping of health checks when deploying."
+        },
+        "healthcheckProtocol": {
+          "$ref": "HealthcheckProtocol",
+          "description": "Healthcheck protocol - HTTP or HTTPS"
+        },
+        "healthcheckMaxRetries": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Maximum number of times to retry an individual healthcheck before failing the deploy."
+        },
+        "healthcheckMaxTotalTimeoutSeconds": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Maximum amount of time to wait before failing a deploy for healthchecks to pass."
+        },
+        "deployHealthTimeoutSeconds": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Number of seconds that Singularity waits for this service to become healthy (for it to download artifacts, start running, and optionally pass healthchecks.)"
+        },
+        "considerHealthyAfterRunningForSeconds": {
+          "type": "integer",
+          "format": "int64",
+          "description": "Number of seconds that a service must be healthy to consider the deployment to be successful."
+        },
+        "serviceBasePath": {
+          "type": "string",
+          "description": "The base path for the API exposed by the deploy. Used in conjunction with the Load balancer API."
+        },
+        "loadBalancerGroups": {
+          "type": "array",
+          "uniqueItems": true,
+          "description": "List of load balancer groups associated with this deployment.",
+          "items": {
+            "type": "string"
+          }
+        },
+        "loadBalancerPortIndex": {
+          "type": "integer",
+          "format": "int32",
+          "description": "Send this port to the load balancer api (e.g. 0 for first port), defaults to first port"
+        },
+        "loadBalancerOptions": {
+          "$ref": "Map[string,Object]",
+          "description": "Map (Key/Value) of options for the load balancer."
+        },
+        "deployInstanceCountPerStep": {
+          "type": "integer",
+          "format": "int32",
+          "description": "deploy this many instances at a time"
+        },
+        "deployStepWaitTimeMs": {
+          "type": "integer",
+          "format": "int32",
+          "description": "wait this long between deploy steps"
+        },
+        "autoAdvanceDeploySteps": {
+          "type": "boolean",
+          "description": "automatically advance to the next target instance count after `deployStepWaitTimeMs` seconds"
+        },
+        "maxTaskRetries": {
+          "type": "integer",
+          "format": "int32",
+          "description": "allowed at most this many failed tasks to be retried before failing the deploy"
+        }
+      }
+    },
+    "EmbeddedArtifact": {
+      "id": "EmbeddedArtifact",
+      "properties": {
+        "content": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "byte"
+          }
+        },
+        "name": {
+          "type": "string"
+        },
+        "filename": {
+          "type": "string"
+        },
+        "md5sum": {
+          "type": "string"
+        },
+        "targetFolderRelativeToTask": {
+          "type": "string"
+        }
+      }
+    },
+    "SingularityTaskId": {
+      "id": "SingularityTaskId",
+      "properties": {
+        "requestId": {
+          "type": "string"
+        },
+        "deployId": {
+          "type": "string"
+        },
+        "startedAt": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "instanceNo": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "sanitizedHost": {
+          "type": "string"
+        },
+        "sanitizedRackId": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "host": {
+          "type": "string"
+        },
+        "rackId": {
+          "type": "string"
+        }
+      }
+    },
+    "SingularityDeployProgress": {
+      "id": "SingularityDeployProgress",
+      "properties": {
+        "targetActiveInstances": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "deployInstanceCountPerStep": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "deployStepWaitTimeMs": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "stepComplete": {
+          "type": "boolean"
+        },
+        "autoAdvanceDeploySteps": {
+          "type": "boolean"
+        },
+        "failedDeployTasks": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "SingularityTaskId"
+          }
+        },
+        "timestamp": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "SingularityExpiringBounce": {
+      "id": "SingularityExpiringBounce",
+      "properties": {
+        "deployId": {
+          "type": "string"
+        },
+        "startMillis": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "expiringAPIRequestObject": {
+          "$ref": "T"
+        },
+        "user": {
+          "type": "string"
+        },
+        "actionId": {
+          "type": "string"
+        },
+        "requestId": {
+          "type": "string"
+        }
+      }
+    },
+    "ExternalArtifact": {
+      "id": "ExternalArtifact",
+      "properties": {
+        "url": {
+          "type": "string"
+        },
+        "filesize": {
+          "type": "integer",
+          "format": "int64"
+        },
+        "name": {
+          "type": "string"
+        },
+        "filename": {
+          "type": "string"
+        },
+        "md5sum": {
+          "type": "string"
+        },
+        "targetFolderRelativeToTask": {
+          "type": "string"
+        }
+      }
+    },
+    "SingularityContainerInfo": {
+      "id": "SingularityContainerInfo",
+      "properties": {
+        "type": {
+          "$ref": "SingularityContainerType",
+          "enum": [
+            "MESOS",
+            "DOCKER"
+          ]
+        },
+        "volumes": {
+          "type": "array",
+          "items": {
+            "$ref": "SingularityVolume"
+          }
+        },
+        "docker": {
+          "$ref": "SingularityDockerInfo"
+        }
+      }
+    },
+    "SingularityVolume": {
+      "id": "SingularityVolume",
+      "properties": {
+        "containerPath": {
+          "type": "string"
+        },
+        "hostPath": {
+          "type": "string"
+        },
+        "mode": {
+          "$ref": "SingularityDockerVolumeMode",
+          "enum": [
+            "RO",
+            "RW"
+          ]
+        }
+      }
+    },
+    "SingularityDockerInfo": {
+      "id": "SingularityDockerInfo",
+      "properties": {
+        "image": {
+          "type": "string"
+        },
+        "privileged": {
+          "type": "boolean"
+        },
+        "network": {
+          "$ref": "SingularityDockerNetworkType",
+          "enum": [
+            "HOST",
+            "BRIDGE",
+            "NONE"
+          ]
+        },
+        "portMappings": {
+          "type": "array",
+          "items": {
+            "$ref": "SingularityDockerPortMapping"
+          }
+        },
+        "forcePullImage": {
+          "type": "boolean"
+        },
+        "parameters": {
+          "$ref": "Map[string,string]"
+        }
+      }
+    },
+    "SingularityDeployRequest": {
+      "id": "SingularityDeployRequest",
+      "required": [
+        "deploy"
+      ],
+      "properties": {
+        "unpauseOnSuccessfulDeploy": {
+          "type": "boolean",
+          "description": "If deploy is successful, also unpause the request"
+        },
+        "deploy": {
+          "$ref": "SingularityDeploy",
+          "description": "The Singularity deploy object, containing all the required details about the Deploy"
+        },
+        "message": {
+          "type": "string",
+          "description": "A message to show users about this deploy (metadata)"
+        }
+      }
+    }
+  }
+}
