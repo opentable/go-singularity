@@ -1,0 +1,233 @@
+{
+  "apiVersion": "0.4.12-SNAPSHOT",
+  "swaggerVersion": "1.2",
+  "basePath": null,
+  "resourcePath": "/api/slaves",
+  "produces": [
+    "application/json"
+  ],
+  "apis": [
+    {
+      "path": "/api/slaves/",
+      "operations": [
+        {
+          "method": "GET",
+          "summary": "Retrieve the list of all known slaves, optionally filtering by a particular state",
+          "notes": "",
+          "type": "array",
+          "items": {
+            "$ref": "SingularitySlave"
+          },
+          "nickname": "getSlaves",
+          "parameters": [
+            {
+              "name": "state",
+              "description": "Optionally specify a particular state to filter slaves by",
+              "required": false,
+              "type": "string",
+              "paramType": "query",
+              "allowMultiple": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "/api/slaves/slave/{slaveId}",
+      "operations": [
+        {
+          "method": "GET",
+          "summary": "Retrieve the history of a given slave",
+          "notes": "",
+          "type": "array",
+          "items": {
+            "$ref": "SingularityMachineStateHistoryUpdate"
+          },
+          "nickname": "getSlaveHistory",
+          "parameters": [
+            {
+              "name": "slaveId",
+              "description": "Slave ID",
+              "required": true,
+              "type": "string",
+              "paramType": "path",
+              "allowMultiple": false
+            }
+          ]
+        },
+        {
+          "method": "DELETE",
+          "summary": "Remove a known slave, erasing history. This operation will cancel decomissioning of the slave",
+          "notes": "",
+          "type": "void",
+          "nickname": "removeSlave",
+          "parameters": [
+            {
+              "name": "slaveId",
+              "description": "Active SlaveId",
+              "required": true,
+              "type": "string",
+              "paramType": "path",
+              "allowMultiple": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "/api/slaves/slave/{slaveId}/decommission",
+      "operations": [
+        {
+          "method": "POST",
+          "summary": "Begin decommissioning a specific active slave",
+          "notes": "",
+          "type": "void",
+          "nickname": "decommissionSlave",
+          "parameters": [
+            {
+              "name": "slaveId",
+              "description": "Active slaveId",
+              "required": true,
+              "type": "string",
+              "paramType": "path",
+              "allowMultiple": false
+            },
+            {
+              "name": "body",
+              "required": false,
+              "type": "SingularityMachineChangeRequest",
+              "paramType": "body",
+              "allowMultiple": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "/api/slaves/slave/{slaveId}/freeze",
+      "operations": [
+        {
+          "method": "POST",
+          "summary": "Freeze tasks on a specific slave",
+          "notes": "",
+          "type": "void",
+          "nickname": "freezeSlave",
+          "parameters": [
+            {
+              "name": "slaveId",
+              "description": "Slave ID",
+              "required": true,
+              "type": "string",
+              "paramType": "path",
+              "allowMultiple": false
+            },
+            {
+              "name": "body",
+              "required": false,
+              "type": "SingularityMachineChangeRequest",
+              "paramType": "body",
+              "allowMultiple": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "/api/slaves/slave/{slaveId}/activate",
+      "operations": [
+        {
+          "method": "POST",
+          "summary": "Activate a decomissioning slave, canceling decomission without erasing history",
+          "notes": "",
+          "type": "void",
+          "nickname": "reactivateSlave",
+          "parameters": [
+            {
+              "name": "slaveId",
+              "description": "Active slaveId",
+              "required": true,
+              "type": "string",
+              "paramType": "path",
+              "allowMultiple": false
+            },
+            {
+              "name": "body",
+              "required": false,
+              "type": "SingularityMachineChangeRequest",
+              "paramType": "body",
+              "allowMultiple": false
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "models": {
+    "SingularitySlave": {
+      "id": "SingularitySlave",
+      "description": "Singularity's view of a Mesos slave",
+      "properties": {
+        "host": {
+          "type": "string",
+          "description": "Slave hostname"
+        },
+        "rackId": {
+          "type": "string",
+          "description": "Slave rack ID"
+        },
+        "attributes": {
+          "$ref": "Map[string,string]"
+        },
+        "id": {
+          "type": "string"
+        },
+        "currentState": {
+          "$ref": "SingularityMachineStateHistoryUpdate"
+        },
+        "firstSeenAt": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "SingularityMachineStateHistoryUpdate": {
+      "id": "SingularityMachineStateHistoryUpdate",
+      "properties": {
+        "objectId": {
+          "type": "string"
+        },
+        "state": {
+          "$ref": "MachineState",
+          "enum": [
+            "MISSING_ON_STARTUP",
+            "ACTIVE",
+            "STARTING_DECOMMISSION",
+            "DECOMMISSIONING",
+            "DECOMMISSIONED",
+            "DEAD",
+            "FROZEN"
+          ]
+        },
+        "user": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "timestamp": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "SingularityMachineChangeRequest": {
+      "id": "SingularityMachineChangeRequest",
+      "properties": {
+        "message": {
+          "type": "string",
+          "description": "A message to show to users about why this action was taken"
+        }
+      }
+    }
+  }
+}

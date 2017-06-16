@@ -1,0 +1,221 @@
+{
+  "apiVersion": "0.4.12-SNAPSHOT",
+  "swaggerVersion": "1.2",
+  "basePath": null,
+  "resourcePath": "/api/racks",
+  "produces": [
+    "application/json"
+  ],
+  "apis": [
+    {
+      "path": "/api/racks/rack/{rackId}/activate",
+      "operations": [
+        {
+          "method": "POST",
+          "summary": "Activate a decomissioning rack, canceling decomission without erasing history",
+          "notes": "",
+          "type": "void",
+          "nickname": "activateSlave",
+          "parameters": [
+            {
+              "name": "rackId",
+              "description": "Active rackId",
+              "required": true,
+              "type": "string",
+              "paramType": "path",
+              "allowMultiple": false
+            },
+            {
+              "name": "body",
+              "required": false,
+              "type": "SingularityMachineChangeRequest",
+              "paramType": "body",
+              "allowMultiple": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "/api/racks/",
+      "operations": [
+        {
+          "method": "GET",
+          "summary": "Retrieve the list of all known racks, optionally filtering by a particular state",
+          "notes": "",
+          "type": "array",
+          "items": {
+            "$ref": "SingularityRack"
+          },
+          "nickname": "getRacks",
+          "parameters": [
+            {
+              "name": "state",
+              "description": "Optionally specify a particular state to filter racks by",
+              "required": false,
+              "type": "string",
+              "paramType": "query",
+              "allowMultiple": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "/api/racks/rack/{rackId}",
+      "operations": [
+        {
+          "method": "GET",
+          "summary": "Retrieve the history of a given rack",
+          "notes": "",
+          "type": "array",
+          "items": {
+            "$ref": "SingularityMachineStateHistoryUpdate"
+          },
+          "nickname": "getRackHistory",
+          "parameters": [
+            {
+              "name": "rackId",
+              "description": "Rack ID",
+              "required": true,
+              "type": "string",
+              "paramType": "path",
+              "allowMultiple": false
+            }
+          ]
+        },
+        {
+          "method": "DELETE",
+          "summary": "Remove a known rack, erasing history. This operation will cancel decomissioning of racks",
+          "notes": "",
+          "type": "void",
+          "nickname": "removeRack",
+          "parameters": [
+            {
+              "name": "rackId",
+              "description": "Rack ID",
+              "required": true,
+              "type": "string",
+              "paramType": "path",
+              "allowMultiple": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "/api/racks/rack/{rackId}/decommission",
+      "operations": [
+        {
+          "method": "POST",
+          "summary": "Begin decommissioning a specific active rack",
+          "notes": "",
+          "type": "void",
+          "nickname": "decommissionRack",
+          "parameters": [
+            {
+              "name": "rackId",
+              "description": "Active rack ID",
+              "required": true,
+              "type": "string",
+              "paramType": "path",
+              "allowMultiple": false
+            },
+            {
+              "name": "body",
+              "required": false,
+              "type": "SingularityMachineChangeRequest",
+              "paramType": "body",
+              "allowMultiple": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "path": "/api/racks/rack/{rackId}/freeze",
+      "operations": [
+        {
+          "method": "POST",
+          "summary": "Freeze a specific rack",
+          "notes": "",
+          "type": "void",
+          "nickname": "freezeRack",
+          "parameters": [
+            {
+              "name": "rackId",
+              "description": "Rack ID",
+              "required": true,
+              "type": "string",
+              "paramType": "path",
+              "allowMultiple": false
+            },
+            {
+              "name": "body",
+              "required": false,
+              "type": "SingularityMachineChangeRequest",
+              "paramType": "body",
+              "allowMultiple": false
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "models": {
+    "SingularityRack": {
+      "id": "SingularityRack",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "currentState": {
+          "$ref": "SingularityMachineStateHistoryUpdate"
+        },
+        "firstSeenAt": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    },
+    "SingularityMachineChangeRequest": {
+      "id": "SingularityMachineChangeRequest",
+      "properties": {
+        "message": {
+          "type": "string",
+          "description": "A message to show to users about why this action was taken"
+        }
+      }
+    },
+    "SingularityMachineStateHistoryUpdate": {
+      "id": "SingularityMachineStateHistoryUpdate",
+      "properties": {
+        "objectId": {
+          "type": "string"
+        },
+        "state": {
+          "$ref": "MachineState",
+          "enum": [
+            "MISSING_ON_STARTUP",
+            "ACTIVE",
+            "STARTING_DECOMMISSION",
+            "DECOMMISSIONING",
+            "DECOMMISSIONED",
+            "DEAD",
+            "FROZEN"
+          ]
+        },
+        "user": {
+          "type": "string"
+        },
+        "message": {
+          "type": "string"
+        },
+        "timestamp": {
+          "type": "integer",
+          "format": "int64"
+        }
+      }
+    }
+  }
+}
