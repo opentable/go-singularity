@@ -13,6 +13,10 @@ so they need a little massage before they're used.
 The vast majority of this code is generated using the [swagger-client-maker.](http://github.com/opentable/swaggering)
 To install the tool:
 
+### Quickstart
 ```bash
 go get github.com/opentable/swaggering/cmd/swagger-client-maker
+
+mkdir dtos
+swagger-client-maker --import-name=github.com/opentable/go-singularity --client-package=singularity api-docs/ .
 ```
