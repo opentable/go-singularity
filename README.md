@@ -13,6 +13,10 @@ so they need a little massage before they're used.
 The vast majority of this code is generated using the [swagger-client-maker.](http://github.com/opentable/swaggering)
 To install the tool:
 
+### Singularity
+Should you need to build Singularity, the incantation is:
+```mvn compile -Dbasepom.check.fail-extended=false```
+
 ### Quickstart
 ```bash
 go get github.com/opentable/swaggering/cmd/swagger-client-maker
