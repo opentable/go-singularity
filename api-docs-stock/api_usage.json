@@ -1,0 +1,7 @@
+{
+  "apiVersion" : "0.15.1",
+  "swaggerVersion" : "1.2",
+  "basePath" : null,
+  "resourcePath" : "/api/usage",
+  "produces" : [ "application/json" ]
+}

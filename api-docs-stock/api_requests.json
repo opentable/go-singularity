@@ -1,0 +1,1975 @@
+{
+  "apiVersion" : "0.15.1",
+  "swaggerVersion" : "1.2",
+  "basePath" : null,
+  "resourcePath" : "/api/requests",
+  "produces" : [ "application/json" ],
+  "apis" : [ {
+    "path" : "/api/requests/request/{requestId}",
+    "operations" : [ {
+      "method" : "GET",
+      "summary" : "Retrieve a specific Request by ID",
+      "notes" : "",
+      "type" : "SingularityRequestParent",
+      "nickname" : "getRequest",
+      "parameters" : [ {
+        "name" : "requestId",
+        "description" : "Request ID",
+        "required" : true,
+        "type" : "string",
+        "paramType" : "path",
+        "allowMultiple" : false
+      }, {
+        "name" : "useWebCache",
+        "required" : false,
+        "type" : "boolean",
+        "paramType" : "query",
+        "allowMultiple" : false
+      } ],
+      "responseMessages" : [ {
+        "code" : 404,
+        "message" : "No Request with that ID"
+      } ]
+    }, {
+      "method" : "DELETE",
+      "summary" : "Delete a specific Request by ID and return the deleted Request",
+      "notes" : "",
+      "type" : "SingularityRequest",
+      "nickname" : "deleteRequest",
+      "consumes" : [ "application/json" ],
+      "parameters" : [ {
+        "name" : "requestId",
+        "description" : "The request ID to delete.",
+        "required" : true,
+        "type" : "string",
+        "paramType" : "path",
+        "allowMultiple" : false
+      }, {
+        "name" : "body",
+        "description" : "Delete options",
+        "required" : false,
+        "type" : "SingularityDeleteRequestRequest",
+        "paramType" : "body",
+        "allowMultiple" : false
+      } ],
+      "responseMessages" : [ {
+        "code" : 404,
+        "message" : "No Request with that ID"
+      } ]
+    } ]
+  }, {
+    "path" : "/api/requests",
+    "operations" : [ {
+      "method" : "GET",
+      "summary" : "Retrieve the list of all requests",
+      "notes" : "",
+      "type" : "array",
+      "items" : {
+        "$ref" : "SingularityRequestParent"
+      },
+      "nickname" : "getRequests",
+      "parameters" : [ {
+        "name" : "useWebCache",
+        "required" : false,
+        "type" : "boolean",
+        "paramType" : "query",
+        "allowMultiple" : false
+      } ]
+    }, {
+      "method" : "POST",
+      "summary" : "Create or update a Singularity Request",
+      "notes" : "",
+      "type" : "SingularityRequestParent",
+      "nickname" : "postRequest",
+      "consumes" : [ "application/json" ],
+      "parameters" : [ {
+        "name" : "body",
+        "description" : "The Singularity request to create or update",
+        "required" : false,
+        "type" : "SingularityRequest",
+        "paramType" : "body",
+        "allowMultiple" : false
+      } ],
+      "responseMessages" : [ {
+        "code" : 400,
+        "message" : "Request object is invalid"
+      }, {
+        "code" : 409,
+        "message" : "Request object is being cleaned. Try again shortly"
+      } ]
+    } ]
+  }, {
+    "path" : "/api/requests/request/{requestId}/bounce",
+    "operations" : [ {
+      "method" : "POST",
+      "summary" : "Bounce a specific Singularity request. A bounce launches replacement task(s), and then kills the original task(s) if the replacement(s) are healthy.",
+      "notes" : "",
+      "type" : "SingularityRequestParent",
+      "nickname" : "bounce",
+      "consumes" : [ "application/json" ],
+      "parameters" : [ {
+        "name" : "requestId",
+        "description" : "The request ID to bounce",
+        "required" : true,
+        "type" : "string",
+        "paramType" : "path",
+        "allowMultiple" : false
+      }, {
+        "name" : "body",
+        "description" : "Bounce request options",
+        "required" : false,
+        "type" : "SingularityBounceRequest",
+        "paramType" : "body",
+        "allowMultiple" : false
+      } ]
+    }, {
+      "method" : "DELETE",
+      "summary" : "Delete/cancel the expiring bounce. This makes the bounce request permanent.",
+      "notes" : "",
+      "type" : "SingularityRequestParent",
+      "nickname" : "deleteExpiringBounce",
+      "parameters" : [ {
+        "name" : "requestId",
+        "description" : "The Request ID",
+        "required" : true,
+        "type" : "string",
+        "paramType" : "path",
+        "allowMultiple" : false
+      } ],
+      "responseMessages" : [ {
+        "code" : 404,
+        "message" : "No Request or expiring bounce request for that ID"
+      } ]
+    } ]
+  }, {
+    "path" : "/api/requests/request/{requestId}/run",
+    "operations" : [ {
+      "method" : "POST",
+      "summary" : "Schedule a one-off or scheduled Singularity request for immediate execution.",
+      "notes" : "",
+      "type" : "SingularityRequestParent",
+      "nickname" : "scheduleImmediately",
+      "consumes" : [ "application/json" ],
+      "parameters" : [ {
+        "name" : "requestId",
+        "description" : "The request ID to run",
+        "required" : true,
+        "type" : "string",
+        "paramType" : "path",
+        "allowMultiple" : false
+      }, {
+        "name" : "body",
+        "required" : false,
+        "type" : "SingularityRunNowRequest",
+        "paramType" : "body",
+        "allowMultiple" : false
+      } ],
+      "responseMessages" : [ {
+        "code" : 400,
+        "message" : "Singularity Request is not scheduled or one-off"
+      } ]
+    } ]
+  }, {
+    "path" : "/api/requests/request/{requestId}/run/{runId}",
+    "operations" : [ {
+      "method" : "GET",
+      "summary" : "Retrieve an active task by runId",
+      "notes" : "",
+      "type" : "SingularityTaskId",
+      "nickname" : "getTaskByRunId",
+      "parameters" : [ {
+        "name" : "requestId",
+        "required" : true,
+        "type" : "string",
+        "paramType" : "path",
+        "allowMultiple" : false
+      }, {
+        "name" : "runId",
+        "required" : true,
+        "type" : "string",
+        "paramType" : "path",
+        "allowMultiple" : false
+      } ]
+    } ]
+  }, {
+    "path" : "/api/requests/request/{requestId}/pause",
+    "operations" : [ {
+      "method" : "POST",
+      "summary" : "Pause a Singularity request, future tasks will not run until it is manually unpaused. API can optionally choose to kill existing tasks",
+      "notes" : "",
+      "type" : "SingularityRequestParent",
+      "nickname" : "pause",
+      "consumes" : [ "application/json" ],
+      "parameters" : [ {
+        "name" : "requestId",
+        "description" : "The request ID to pause",
+        "required" : true,
+        "type" : "string",
+        "paramType" : "path",
+        "allowMultiple" : false
+      }, {
+        "name" : "body",
+        "description" : "Pause Request Options",
+        "required" : false,
+        "type" : "SingularityPauseRequest",
+        "paramType" : "body",
+        "allowMultiple" : false
+      } ],
+      "responseMessages" : [ {
+        "code" : 409,
+        "message" : "Request is already paused or being cleaned"
+      } ]
+    }, {
+      "method" : "DELETE",
+      "summary" : "Delete/cancel the expiring pause. This makes the pause request permanent.",
+      "notes" : "",
+      "type" : "SingularityRequestParent",
+      "nickname" : "deleteExpiringPause",
+      "parameters" : [ {
+        "name" : "requestId",
+        "description" : "The Request ID",
+        "required" : true,
+        "type" : "string",
+        "paramType" : "path",
+        "allowMultiple" : false
+      } ],
+      "responseMessages" : [ {
+        "code" : 404,
+        "message" : "No Request or expiring pause request for that ID"
+      } ]
+    } ]
+  }, {
+    "path" : "/api/requests/request/{requestId}/skip-healthchecks",
+    "operations" : [ {
+      "method" : "PUT",
+      "summary" : "Update the skipHealthchecks field for the request, possibly temporarily",
+      "notes" : "",
+      "type" : "SingularityRequestParent",
+      "nickname" : "skipHealthchecks",
+      "consumes" : [ "application/json" ],
+      "parameters" : [ {
+        "name" : "requestId",
+        "description" : "The Request ID to scale",
+        "required" : true,
+        "type" : "string",
+        "paramType" : "path",
+        "allowMultiple" : false
+      }, {
+        "name" : "body",
+        "description" : "SkipHealtchecks options",
+        "required" : false,
+        "type" : "SingularitySkipHealthchecksRequest",
+        "paramType" : "body",
+        "allowMultiple" : false
+      } ],
+      "responseMessages" : [ {
+        "code" : 404,
+        "message" : "No Request with that ID"
+      } ]
+    }, {
+      "method" : "DELETE",
+      "summary" : "Delete/cancel the expiring skipHealthchecks. This makes the skipHealthchecks request permanent.",
+      "notes" : "",
+      "type" : "SingularityRequestParent",
+      "nickname" : "deleteExpiringSkipHealthchecks",
+      "parameters" : [ {
+        "name" : "requestId",
+        "description" : "The Request ID",
+        "required" : true,
+        "type" : "string",
+        "paramType" : "path",
+        "allowMultiple" : false
+      } ],
+      "responseMessages" : [ {
+        "code" : 404,
+        "message" : "No Request or expiring skipHealthchecks request for that ID"
+      } ]
+    } ]
+  }, {
+    "path" : "/api/requests/request/{requestId}/unpause",
+    "operations" : [ {
+      "method" : "POST",
+      "summary" : "Unpause a Singularity Request, scheduling new tasks immediately",
+      "notes" : "",
+      "type" : "SingularityRequestParent",
+      "nickname" : "unpause",
+      "consumes" : [ "application/json" ],
+      "parameters" : [ {
+        "name" : "requestId",
+        "description" : "The request ID to unpause",
+        "required" : true,
+        "type" : "string",
+        "paramType" : "path",
+        "allowMultiple" : false
+      }, {
+        "name" : "body",
+        "required" : false,
+        "type" : "SingularityUnpauseRequest",
+        "paramType" : "body",
+        "allowMultiple" : false
+      } ],
+      "responseMessages" : [ {
+        "code" : 409,
+        "message" : "Request is not paused"
+      } ]
+    } ]
+  }, {
+    "path" : "/api/requests/request/{requestId}/exit-cooldown",
+    "operations" : [ {
+      "method" : "POST",
+      "summary" : "Immediately exits cooldown, scheduling new tasks immediately",
+      "notes" : "",
+      "type" : "SingularityRequestParent",
+      "nickname" : "exitCooldown",
+      "consumes" : [ "application/json" ],
+      "parameters" : [ {
+        "name" : "requestId",
+        "required" : true,
+        "type" : "string",
+        "paramType" : "path",
+        "allowMultiple" : false
+      }, {
+        "name" : "body",
+        "required" : false,
+        "type" : "SingularityExitCooldownRequest",
+        "paramType" : "body",
+        "allowMultiple" : false
+      } ],
+      "responseMessages" : [ {
+        "code" : 409,
+        "message" : "Request is not in cooldown"
+      } ]
+    } ]
+  }, {
+    "path" : "/api/requests/active",
+    "operations" : [ {
+      "method" : "GET",
+      "summary" : "Retrieve the list of active requests",
+      "notes" : "",
+      "type" : "array",
+      "items" : {
+        "$ref" : "SingularityRequestParent"
+      },
+      "nickname" : "getActiveRequests",
+      "parameters" : [ {
+        "name" : "useWebCache",
+        "required" : false,
+        "type" : "boolean",
+        "paramType" : "query",
+        "allowMultiple" : false
+      } ]
+    } ]
+  }, {
+    "path" : "/api/requests/paused",
+    "operations" : [ {
+      "method" : "GET",
+      "summary" : "Retrieve the list of paused requests",
+      "notes" : "",
+      "type" : "array",
+      "items" : {
+        "$ref" : "SingularityRequestParent"
+      },
+      "nickname" : "getPausedRequests",
+      "parameters" : [ {
+        "name" : "useWebCache",
+        "required" : false,
+        "type" : "boolean",
+        "paramType" : "query",
+        "allowMultiple" : false
+      } ]
+    } ]
+  }, {
+    "path" : "/api/requests/cooldown",
+    "operations" : [ {
+      "method" : "GET",
+      "summary" : "Retrieve the list of requests in system cooldown",
+      "notes" : "",
+      "type" : "array",
+      "items" : {
+        "$ref" : "SingularityRequestParent"
+      },
+      "nickname" : "getCooldownRequests",
+      "parameters" : [ {
+        "name" : "useWebCache",
+        "required" : false,
+        "type" : "boolean",
+        "paramType" : "query",
+        "allowMultiple" : false
+      } ]
+    } ]
+  }, {
+    "path" : "/api/requests/finished",
+    "operations" : [ {
+      "method" : "GET",
+      "summary" : "Retreive the list of finished requests (Scheduled requests which have exhausted their schedules)",
+      "notes" : "",
+      "type" : "array",
+      "items" : {
+        "$ref" : "SingularityRequestParent"
+      },
+      "nickname" : "getFinishedRequests",
+      "parameters" : [ {
+        "name" : "useWebCache",
+        "required" : false,
+        "type" : "boolean",
+        "paramType" : "query",
+        "allowMultiple" : false
+      } ]
+    } ]
+  }, {
+    "path" : "/api/requests/queued/pending",
+    "operations" : [ {
+      "method" : "GET",
+      "summary" : "Retrieve the list of pending requests",
+      "notes" : "",
+      "type" : "array",
+      "items" : {
+        "$ref" : "SingularityPendingRequest"
+      },
+      "nickname" : "getPendingRequests",
+      "parameters" : [ ]
+    } ]
+  }, {
+    "path" : "/api/requests/queued/cleanup",
+    "operations" : [ {
+      "method" : "GET",
+      "summary" : "Retrieve the list of requests being cleaned up",
+      "notes" : "",
+      "type" : "array",
+      "items" : {
+        "$ref" : "SingularityRequestCleanup"
+      },
+      "nickname" : "getCleanupRequests",
+      "parameters" : [ ]
+    } ]
+  }, {
+    "path" : "/api/requests/request/{requestId}/scale",
+    "operations" : [ {
+      "method" : "DELETE",
+      "summary" : "Delete/cancel the expiring scale. This makes the scale request permanent.",
+      "notes" : "",
+      "type" : "SingularityRequestParent",
+      "nickname" : "deleteExpiringScale",
+      "parameters" : [ {
+        "name" : "requestId",
+        "description" : "The Request ID",
+        "required" : true,
+        "type" : "string",
+        "paramType" : "path",
+        "allowMultiple" : false
+      } ],
+      "responseMessages" : [ {
+        "code" : 404,
+        "message" : "No Request or expiring scale request for that ID"
+      } ]
+    }, {
+      "method" : "PUT",
+      "summary" : "Scale the number of instances up or down for a specific Request",
+      "notes" : "",
+      "type" : "SingularityRequestParent",
+      "nickname" : "scale",
+      "consumes" : [ "application/json" ],
+      "parameters" : [ {
+        "name" : "requestId",
+        "description" : "The Request ID to scale",
+        "required" : true,
+        "type" : "string",
+        "paramType" : "path",
+        "allowMultiple" : false
+      }, {
+        "name" : "body",
+        "description" : "Object to hold number of instances to request",
+        "required" : false,
+        "type" : "SingularityScaleRequest",
+        "paramType" : "body",
+        "allowMultiple" : false
+      } ],
+      "responseMessages" : [ {
+        "code" : 404,
+        "message" : "No Request with that ID"
+      } ]
+    } ]
+  }, {
+    "path" : "/api/requests/request/{requestId}/skipHealthchecks",
+    "operations" : [ {
+      "method" : "DELETE",
+      "summary" : "Delete/cancel the expiring skipHealthchecks. This makes the skipHealthchecks request permanent.",
+      "notes" : "",
+      "type" : "SingularityRequestParent",
+      "nickname" : "deleteExpiringSkipHealthchecksDeprecated",
+      "parameters" : [ {
+        "name" : "requestId",
+        "description" : "The Request ID",
+        "required" : true,
+        "type" : "string",
+        "paramType" : "path",
+        "allowMultiple" : false
+      } ],
+      "responseMessages" : [ {
+        "code" : 404,
+        "message" : "No Request or expiring skipHealthchecks request for that ID"
+      } ],
+      "deprecated" : "true"
+    }, {
+      "method" : "PUT",
+      "summary" : "Update the skipHealthchecks field for the request, possibly temporarily",
+      "notes" : "",
+      "type" : "SingularityRequestParent",
+      "nickname" : "skipHealthchecksDeprecated",
+      "consumes" : [ "application/json" ],
+      "parameters" : [ {
+        "name" : "requestId",
+        "description" : "The Request ID to scale",
+        "required" : true,
+        "type" : "string",
+        "paramType" : "path",
+        "allowMultiple" : false
+      }, {
+        "name" : "body",
+        "description" : "SkipHealtchecks options",
+        "required" : false,
+        "type" : "SingularitySkipHealthchecksRequest",
+        "paramType" : "body",
+        "allowMultiple" : false
+      } ],
+      "responseMessages" : [ {
+        "code" : 404,
+        "message" : "No Request with that ID"
+      } ],
+      "deprecated" : "true"
+    } ]
+  }, {
+    "path" : "/api/requests/lbcleanup",
+    "operations" : [ {
+      "method" : "GET",
+      "summary" : "Retrieve the list of tasks being cleaned from load balancers.",
+      "notes" : "",
+      "items" : {
+        "type" : "string"
+      },
+      "nickname" : "getLbCleanupRequests",
+      "parameters" : [ {
+        "name" : "useWebCache",
+        "required" : false,
+        "type" : "boolean",
+        "paramType" : "query",
+        "allowMultiple" : false
+      } ]
+    } ]
+  } ],
+  "models" : {
+    "Resources" : {
+      "id" : "Resources",
+      "properties" : {
+        "cpus" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "memoryMb" : {
+          "type" : "number",
+          "format" : "double"
+        },
+        "numPorts" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "diskMb" : {
+          "type" : "number",
+          "format" : "double"
+        }
+      }
+    },
+    "LoadBalancerRequestId" : {
+      "id" : "LoadBalancerRequestId",
+      "properties" : {
+        "id" : {
+          "type" : "string"
+        },
+        "requestType" : {
+          "$ref" : "LoadBalancerRequestType",
+          "enum" : [ "ADD", "REMOVE", "DEPLOY", "DELETE" ]
+        },
+        "attemptNumber" : {
+          "type" : "integer",
+          "format" : "int32"
+        }
+      }
+    },
+    "SingularityRequestDeployState" : {
+      "id" : "SingularityRequestDeployState",
+      "properties" : {
+        "requestId" : {
+          "type" : "string"
+        },
+        "activeDeploy" : {
+          "$ref" : "SingularityDeployMarker"
+        },
+        "pendingDeploy" : {
+          "$ref" : "SingularityDeployMarker"
+        }
+      }
+    },
+    "SingularityRequestParent" : {
+      "id" : "SingularityRequestParent",
+      "properties" : {
+        "request" : {
+          "$ref" : "SingularityRequest"
+        },
+        "state" : {
+          "$ref" : "RequestState",
+          "enum" : [ "ACTIVE", "DELETING", "DELETED", "PAUSED", "SYSTEM_COOLDOWN", "FINISHED", "DEPLOYING_TO_UNPAUSE" ]
+        },
+        "requestDeployState" : {
+          "$ref" : "SingularityRequestDeployState"
+        },
+        "activeDeploy" : {
+          "$ref" : "SingularityDeploy"
+        },
+        "pendingDeploy" : {
+          "$ref" : "SingularityDeploy"
+        },
+        "pendingDeployState" : {
+          "$ref" : "SingularityPendingDeploy"
+        },
+        "expiringBounce" : {
+          "$ref" : "SingularityExpiringBounce"
+        },
+        "expiringPause" : {
+          "$ref" : "SingularityExpiringPause"
+        },
+        "expiringScale" : {
+          "$ref" : "SingularityExpiringScale"
+        },
+        "expiringSkipHealthchecks" : {
+          "$ref" : "SingularityExpiringSkipHealthchecks"
+        }
+      }
+    },
+    "SingularitySkipHealthchecksRequest" : {
+      "id" : "SingularitySkipHealthchecksRequest",
+      "properties" : {
+        "skipHealthchecks" : {
+          "type" : "boolean",
+          "description" : "If set to true, healthchecks will be skipped for all tasks for this request until reversed"
+        },
+        "durationMillis" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "The number of milliseconds to wait before reversing the effects of this action (letting it expire)"
+        },
+        "actionId" : {
+          "type" : "string",
+          "description" : "An id to associate with this action for metadata purposes"
+        },
+        "message" : {
+          "type" : "string",
+          "description" : "A message to show to users about why this action was taken"
+        }
+      }
+    },
+    "SingularityShellCommand" : {
+      "id" : "SingularityShellCommand",
+      "required" : [ "name" ],
+      "properties" : {
+        "name" : {
+          "type" : "string",
+          "description" : "Name of the shell command to run"
+        },
+        "options" : {
+          "type" : "array",
+          "description" : "Additional options related to the shell command",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "user" : {
+          "type" : "string",
+          "description" : "User who requested the shell command"
+        },
+        "logfileName" : {
+          "type" : "string",
+          "description" : "File name for shell command output"
+        }
+      }
+    },
+    "SingularityExitCooldownRequest" : {
+      "id" : "SingularityExitCooldownRequest",
+      "properties" : {
+        "message" : {
+          "type" : "string",
+          "description" : "A message to show to users about why this action was taken"
+        },
+        "actionId" : {
+          "type" : "string",
+          "description" : "An id to associate with this action for metadata purposes"
+        },
+        "skipHealthchecks" : {
+          "type" : "boolean",
+          "description" : "Instruct new tasks that are scheduled immediately while executing cooldown to skip healthchecks"
+        }
+      }
+    },
+    "SingularityPendingDeploy" : {
+      "id" : "SingularityPendingDeploy",
+      "properties" : {
+        "deployMarker" : {
+          "$ref" : "SingularityDeployMarker"
+        },
+        "lastLoadBalancerUpdate" : {
+          "$ref" : "SingularityLoadBalancerUpdate"
+        },
+        "currentDeployState" : {
+          "$ref" : "DeployState",
+          "enum" : [ "SUCCEEDED", "FAILED_INTERNAL_STATE", "CANCELING", "WAITING", "OVERDUE", "FAILED", "CANCELED" ]
+        },
+        "deployProgress" : {
+          "$ref" : "SingularityDeployProgress"
+        },
+        "updatedRequest" : {
+          "$ref" : "SingularityRequest"
+        }
+      }
+    },
+    "SingularityUnpauseRequest" : {
+      "id" : "SingularityUnpauseRequest",
+      "properties" : {
+        "message" : {
+          "type" : "string",
+          "description" : "A message to show to users about why this action was taken"
+        },
+        "actionId" : {
+          "type" : "string",
+          "description" : "An id to associate with this action for metadata purposes"
+        },
+        "skipHealthchecks" : {
+          "type" : "boolean",
+          "description" : "If set to true, instructs new tasks that are scheduled immediately while unpausing to skip healthchecks"
+        }
+      }
+    },
+    "SingularityLoadBalancerUpdate" : {
+      "id" : "SingularityLoadBalancerUpdate",
+      "properties" : {
+        "loadBalancerState" : {
+          "$ref" : "BaragonRequestState",
+          "enum" : [ "UNKNOWN", "FAILED", "WAITING", "SUCCESS", "CANCELING", "CANCELED", "INVALID_REQUEST_NOOP" ]
+        },
+        "message" : {
+          "type" : "string"
+        },
+        "timestamp" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "uri" : {
+          "type" : "string"
+        },
+        "method" : {
+          "$ref" : "LoadBalancerMethod",
+          "enum" : [ "PRE_ENQUEUE", "ENQUEUE", "CHECK_STATE", "CANCEL", "DELETE" ]
+        },
+        "loadBalancerRequestId" : {
+          "$ref" : "LoadBalancerRequestId"
+        }
+      }
+    },
+    "SingularityExpiringSkipHealthchecks" : {
+      "id" : "SingularityExpiringSkipHealthchecks",
+      "properties" : {
+        "revertToSkipHealthchecks" : {
+          "type" : "boolean"
+        },
+        "requestId" : {
+          "type" : "string"
+        },
+        "startMillis" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "actionId" : {
+          "type" : "string"
+        },
+        "user" : {
+          "type" : "string"
+        },
+        "expiringAPIRequestObject" : {
+          "$ref" : "T"
+        }
+      }
+    },
+    "SingularityRequestCleanup" : {
+      "id" : "SingularityRequestCleanup",
+      "properties" : {
+        "user" : {
+          "type" : "string"
+        },
+        "cleanupType" : {
+          "$ref" : "RequestCleanupType",
+          "enum" : [ "DELETING", "PAUSING", "BOUNCE", "INCREMENTAL_BOUNCE" ]
+        },
+        "killTasks" : {
+          "type" : "boolean"
+        },
+        "skipHealthchecks" : {
+          "type" : "boolean"
+        },
+        "deployId" : {
+          "type" : "string"
+        },
+        "timestamp" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "requestId" : {
+          "type" : "string"
+        },
+        "message" : {
+          "type" : "string"
+        },
+        "actionId" : {
+          "type" : "string"
+        },
+        "runShellCommandBeforeKill" : {
+          "$ref" : "SingularityShellCommand"
+        }
+      }
+    },
+    "SingularityDockerPortMapping" : {
+      "id" : "SingularityDockerPortMapping",
+      "required" : [ "containerPort", "hostPort" ],
+      "properties" : {
+        "containerPortType" : {
+          "$ref" : "SingularityPortMappingType",
+          "description" : "Container port. Use the port number provided (LITERAL) or the dynamically allocated port at this index (FROM_OFFER)",
+          "enum" : [ "LITERAL", "FROM_OFFER" ]
+        },
+        "hostPortType" : {
+          "$ref" : "SingularityPortMappingType",
+          "description" : "Host port. Use the port number provided (LITERAL) or the dynamically allocated port at this index (FROM_OFFER)",
+          "enum" : [ "LITERAL", "FROM_OFFER" ]
+        },
+        "containerPort" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "Port number, or index of port from offer within the container"
+        },
+        "hostPort" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "Port number, or index of port from offer on the host"
+        },
+        "protocol" : {
+          "type" : "string",
+          "description" : "Protocol for binding the port. Default is tcp"
+        }
+      }
+    },
+    "S3Artifact" : {
+      "id" : "S3Artifact",
+      "properties" : {
+        "s3Bucket" : {
+          "type" : "string"
+        },
+        "s3ObjectKey" : {
+          "type" : "string"
+        },
+        "filesize" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "isArtifactList" : {
+          "type" : "boolean"
+        },
+        "filename" : {
+          "type" : "string"
+        },
+        "md5sum" : {
+          "type" : "string"
+        },
+        "targetFolderRelativeToTask" : {
+          "type" : "string"
+        },
+        "name" : {
+          "type" : "string"
+        }
+      }
+    },
+    "SingularityExpiringScale" : {
+      "id" : "SingularityExpiringScale",
+      "properties" : {
+        "revertToInstances" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "bounce" : {
+          "type" : "boolean"
+        },
+        "requestId" : {
+          "type" : "string"
+        },
+        "startMillis" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "actionId" : {
+          "type" : "string"
+        },
+        "user" : {
+          "type" : "string"
+        },
+        "expiringAPIRequestObject" : {
+          "$ref" : "T"
+        }
+      }
+    },
+    "SingularityMesosArtifact" : {
+      "id" : "SingularityMesosArtifact",
+      "properties" : {
+        "uri" : {
+          "type" : "string"
+        },
+        "cache" : {
+          "type" : "boolean"
+        },
+        "executable" : {
+          "type" : "boolean"
+        },
+        "extract" : {
+          "type" : "boolean"
+        }
+      }
+    },
+    "ExecutorData" : {
+      "id" : "ExecutorData",
+      "required" : [ "cmd" ],
+      "properties" : {
+        "cmd" : {
+          "type" : "string",
+          "description" : "Command for the custom executor to run"
+        },
+        "embeddedArtifacts" : {
+          "type" : "array",
+          "description" : "A list of the full content of any embedded artifacts",
+          "items" : {
+            "$ref" : "EmbeddedArtifact"
+          }
+        },
+        "externalArtifacts" : {
+          "type" : "array",
+          "description" : "A list of external artifacts for the executor to download",
+          "items" : {
+            "$ref" : "ExternalArtifact"
+          }
+        },
+        "s3Artifacts" : {
+          "type" : "array",
+          "description" : "List of s3 artifacts for the executor to download",
+          "items" : {
+            "$ref" : "S3Artifact"
+          }
+        },
+        "successfulExitCodes" : {
+          "type" : "array",
+          "description" : "Allowable exit codes for the task to be considered FINISHED instead of FAILED",
+          "items" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        },
+        "runningSentinel" : {
+          "type" : "string"
+        },
+        "user" : {
+          "type" : "string",
+          "description" : "Run the task process as this user"
+        },
+        "extraCmdLineArgs" : {
+          "type" : "array",
+          "description" : "Extra arguments in addition to any provided in the cmd field",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "loggingTag" : {
+          "type" : "string"
+        },
+        "loggingExtraFields" : {
+          "$ref" : "Map[string,string]"
+        },
+        "sigKillProcessesAfterMillis" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "Send a sigkill to a process if it has not shut down this many millis after being sent a term signal"
+        },
+        "maxTaskThreads" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "Maximum number of threads a task is allowed to use"
+        },
+        "preserveTaskSandboxAfterFinish" : {
+          "type" : "boolean",
+          "description" : "If true, do not delete files in the task sandbox after the task process has terminated"
+        },
+        "maxOpenFiles" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "Maximum number of open files the task process is allowed"
+        },
+        "skipLogrotateAndCompress" : {
+          "type" : "boolean",
+          "description" : "If true, do not run logrotate or compress old log files"
+        },
+        "s3ArtifactSignatures" : {
+          "type" : "array",
+          "description" : "A list of signatures use to verify downloaded s3artifacts",
+          "items" : {
+            "$ref" : "S3ArtifactSignature"
+          }
+        },
+        "logrotateFrequency" : {
+          "$ref" : "SingularityExecutorLogrotateFrequency",
+          "description" : "Run logrotate this often. Can be HOURLY, DAILY, WEEKLY, MONTHLY"
+        }
+      }
+    },
+    "SingularityRunNowRequest" : {
+      "id" : "SingularityRunNowRequest",
+      "properties" : {
+        "message" : {
+          "type" : "string",
+          "description" : "A message to show to users about why this action was taken"
+        },
+        "runId" : {
+          "type" : "string",
+          "description" : "An id to associate with this request which will be associated with the corresponding launched tasks"
+        },
+        "commandLineArgs" : {
+          "type" : "array",
+          "description" : "Command line arguments to be passed to the task",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "skipHealthchecks" : {
+          "type" : "boolean",
+          "description" : "If set to true, healthchecks will be skipped for this task run"
+        },
+        "resources" : {
+          "$ref" : "Resources",
+          "description" : "Override the resources from the active deploy for this run"
+        }
+      }
+    },
+    "SingularityScaleRequest" : {
+      "id" : "SingularityScaleRequest",
+      "properties" : {
+        "instances" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "The number of instances to scale to"
+        },
+        "skipHealthchecks" : {
+          "type" : "boolean",
+          "description" : "If set to true, healthchecks will be skipped while scaling this request (only)"
+        },
+        "bounce" : {
+          "type" : "boolean",
+          "description" : "Bounce the request to get to the new scale"
+        },
+        "incremental" : {
+          "type" : "boolean",
+          "description" : "If present and set to true, old tasks will be killed as soon as replacement tasks are available, instead of waiting for all replacement tasks to be healthy"
+        },
+        "durationMillis" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "The number of milliseconds to wait before reversing the effects of this action (letting it expire)"
+        },
+        "actionId" : {
+          "type" : "string",
+          "description" : "An id to associate with this action for metadata purposes"
+        },
+        "message" : {
+          "type" : "string",
+          "description" : "A message to show to users about why this action was taken"
+        }
+      }
+    },
+    "SingularityDockerParameter" : {
+      "id" : "SingularityDockerParameter",
+      "properties" : {
+        "key" : {
+          "type" : "string"
+        },
+        "value" : {
+          "type" : "string"
+        }
+      }
+    },
+    "SingularityRequest" : {
+      "id" : "SingularityRequest",
+      "required" : [ "id", "requestType" ],
+      "properties" : {
+        "id" : {
+          "type" : "string",
+          "description" : "A unique id for the request"
+        },
+        "requestType" : {
+          "$ref" : "RequestType",
+          "description" : "The type of request, can be SERVICE, WORKER, SCHEDULED, ON_DEMAND, or RUN_ONCE",
+          "enum" : [ "SERVICE", "WORKER", "SCHEDULED", "ON_DEMAND", "RUN_ONCE" ]
+        },
+        "owners" : {
+          "type" : "array",
+          "description" : "A list of emails for the owners of this request",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "numRetriesOnFailure" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "For scheduled jobs, retry up to this many times if the job fails"
+        },
+        "schedule" : {
+          "type" : "string",
+          "description" : "A schedule in cron, RFC5545, or quartz format"
+        },
+        "quartzSchedule" : {
+          "type" : "string",
+          "description" : "A schedule in quartz format"
+        },
+        "scheduleType" : {
+          "$ref" : "ScheduleType",
+          "description" : "The type of schedule associated with the scheduled field. Can be CRON, QUARTZ, or RFC5545"
+        },
+        "scheduleTimeZone" : {
+          "type" : "string",
+          "description" : "Time zone to use when running the"
+        },
+        "killOldNonLongRunningTasksAfterMillis" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "For non-long-running request types, kill a task after this amount of time if it has been put into CLEANING and has not shut down"
+        },
+        "taskExecutionTimeLimitMillis" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "If set, don't allow any taks for this request to run for longer than this amount of time"
+        },
+        "scheduledExpectedRuntimeMillis" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "Expected time for a non-long-running task to run. Singularity will notify owners if a task exceeds this time"
+        },
+        "waitAtLeastMillisAfterTaskFinishesForReschedule" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "When a scheduled job finishes, wait at least this long before rescheduling it"
+        },
+        "instances" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "A count of tasks to run for long-running requests"
+        },
+        "skipHealthchecks" : {
+          "type" : "boolean",
+          "description" : "If true, do not run healthchecks"
+        },
+        "rackSensitive" : {
+          "type" : "boolean",
+          "description" : "Spread instances for this request evenly across separate racks"
+        },
+        "rackAffinity" : {
+          "type" : "array",
+          "description" : "If set, prefer this specific rack when launching tasks",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "slavePlacement" : {
+          "$ref" : "SlavePlacement",
+          "description" : "Strategy for determining where to place new tasks. Can be SEPARATE, OPTIMISTIC, GREEDY, SEPARATE_BY_DEPLOY, or SEPARATE_BY_REQUEST"
+        },
+        "requiredSlaveAttributes" : {
+          "$ref" : "Map[string,string]",
+          "description" : "Only allow tasks for this request to run on slaves which have these attributes"
+        },
+        "allowedSlaveAttributes" : {
+          "$ref" : "Map[string,string]",
+          "description" : "Allow tasks to run on slaves with these attributes, but do not restrict them to only these slaves"
+        },
+        "loadBalanced" : {
+          "type" : "boolean",
+          "description" : "Indicates that a SERVICE should be load balanced"
+        },
+        "group" : {
+          "type" : "string",
+          "description" : "Auth group associated with this request. Users in this group are allowed read/write access to this request"
+        },
+        "requiredRole" : {
+          "type" : "string",
+          "description" : "Mesos Role required for this request. Only offers with the required role will be accepted to execute the tasks associated with the request"
+        },
+        "readWriteGroups" : {
+          "type" : "array",
+          "uniqueItems" : true,
+          "description" : "Users in these groups are allowed read/write access to this request",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "readOnlyGroups" : {
+          "type" : "array",
+          "uniqueItems" : true,
+          "description" : "Users in these groups are allowed read only access to this request",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "bounceAfterScale" : {
+          "type" : "boolean",
+          "description" : "Used for SingularityUI. If true, automatically trigger a bounce after changing the request's instance count"
+        },
+        "emailConfigurationOverrides" : {
+          "$ref" : "Map[SingularityEmailType,List[SingularityEmailDestination]]",
+          "description" : "Overrides for email recipients by email type for this request"
+        },
+        "hideEvenNumberAcrossRacksHint" : {
+          "type" : "boolean"
+        },
+        "taskLogErrorRegex" : {
+          "type" : "string",
+          "description" : "Searching for errors in task logs to include in emails using this regex"
+        },
+        "taskLogErrorRegexCaseSensitive" : {
+          "type" : "boolean",
+          "description" : "Determines if taskLogErrorRegex is case sensitive"
+        },
+        "taskPriorityLevel" : {
+          "type" : "number",
+          "format" : "double",
+          "description" : "a priority level from 0.0 to 1.0 for all tasks associated with the request"
+        },
+        "maxTasksPerOffer" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "Do not schedule more than this many tasks using a single offer from a single mesos slave"
+        },
+        "allowBounceToSameHost" : {
+          "type" : "boolean",
+          "description" : "If set to true, allow tasks to be scheduled on the same host as an existing active task when bouncing"
+        }
+      }
+    },
+    "SingularityDeployMarker" : {
+      "id" : "SingularityDeployMarker",
+      "properties" : {
+        "requestId" : {
+          "type" : "string"
+        },
+        "deployId" : {
+          "type" : "string"
+        },
+        "timestamp" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "user" : {
+          "type" : "string"
+        },
+        "message" : {
+          "type" : "string"
+        }
+      }
+    },
+    "SingularityExpiringPause" : {
+      "id" : "SingularityExpiringPause",
+      "properties" : {
+        "requestId" : {
+          "type" : "string"
+        },
+        "startMillis" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "actionId" : {
+          "type" : "string"
+        },
+        "user" : {
+          "type" : "string"
+        },
+        "expiringAPIRequestObject" : {
+          "$ref" : "T"
+        }
+      }
+    },
+    "S3ArtifactSignature" : {
+      "id" : "S3ArtifactSignature",
+      "description" : "A file with name `filename` containing the signature (e.g. gpg signature) for an artifact with the specified `artifactFilename`. Used to verify the validity of the artifact being downloaded",
+      "properties" : {
+        "artifactFilename" : {
+          "type" : "string"
+        },
+        "s3Bucket" : {
+          "type" : "string"
+        },
+        "s3ObjectKey" : {
+          "type" : "string"
+        },
+        "filesize" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "isArtifactList" : {
+          "type" : "boolean"
+        },
+        "filename" : {
+          "type" : "string"
+        },
+        "md5sum" : {
+          "type" : "string"
+        },
+        "targetFolderRelativeToTask" : {
+          "type" : "string"
+        },
+        "name" : {
+          "type" : "string"
+        }
+      }
+    },
+    "SingularityDeploy" : {
+      "id" : "SingularityDeploy",
+      "required" : [ "requestId", "id" ],
+      "properties" : {
+        "requestId" : {
+          "type" : "string",
+          "description" : "Singularity Request Id which is associated with this deploy."
+        },
+        "id" : {
+          "type" : "string",
+          "description" : "Singularity deploy id."
+        },
+        "version" : {
+          "type" : "string",
+          "description" : "Deploy version"
+        },
+        "timestamp" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "Deploy timestamp."
+        },
+        "metadata" : {
+          "$ref" : "Map[string,string]",
+          "description" : "Map of metadata key/value pairs associated with the deployment."
+        },
+        "containerInfo" : {
+          "$ref" : "SingularityContainerInfo",
+          "description" : "Container information for deployment into a container."
+        },
+        "customExecutorCmd" : {
+          "type" : "string",
+          "description" : "Custom Mesos executor"
+        },
+        "customExecutorId" : {
+          "type" : "string",
+          "description" : "Custom Mesos executor id."
+        },
+        "customExecutorSource" : {
+          "type" : "string",
+          "description" : "Custom Mesos executor source."
+        },
+        "customExecutorResources" : {
+          "$ref" : "com.hubspot.mesos.Resources",
+          "description" : "Resources to allocate for custom mesos executor"
+        },
+        "resources" : {
+          "$ref" : "com.hubspot.mesos.Resources",
+          "description" : "Resources required for this deploy."
+        },
+        "command" : {
+          "type" : "string",
+          "description" : "Command to execute for this deployment."
+        },
+        "arguments" : {
+          "type" : "array",
+          "description" : "Command arguments.",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "env" : {
+          "$ref" : "Map[string,string]",
+          "description" : "Map of environment variable definitions."
+        },
+        "uris" : {
+          "type" : "array",
+          "description" : "List of URIs to download before executing the deploy command.",
+          "items" : {
+            "$ref" : "SingularityMesosArtifact"
+          }
+        },
+        "executorData" : {
+          "$ref" : "ExecutorData",
+          "description" : "Executor specific information"
+        },
+        "labels" : {
+          "$ref" : "Map[string,string]",
+          "description" : "Labels for all tasks associated with this deploy"
+        },
+        "mesosLabels" : {
+          "type" : "array",
+          "description" : "Labels for all tasks associated with this deploy",
+          "items" : {
+            "$ref" : "SingularityMesosTaskLabel"
+          }
+        },
+        "taskLabels" : {
+          "$ref" : "Map[int,Map[string,string]]",
+          "description" : "(Deprecated) Labels for specific tasks associated with this deploy, indexed by instance number"
+        },
+        "mesosTaskLabels" : {
+          "$ref" : "Map[int,List[SingularityMesosTaskLabel]]",
+          "description" : "Labels for specific tasks associated with this deploy, indexed by instance number"
+        },
+        "taskEnv" : {
+          "$ref" : "Map[int,Map[string,string]]",
+          "description" : "Map of environment variable overrides for specific task instances."
+        },
+        "healthcheckUri" : {
+          "type" : "string",
+          "description" : "Deployment Healthcheck URI, if specified will be called after TASK_RUNNING."
+        },
+        "healthcheckIntervalSeconds" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "Time to wait after a failed healthcheck to try again in seconds."
+        },
+        "healthcheckTimeoutSeconds" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "Single healthcheck HTTP timeout in seconds."
+        },
+        "healthcheckPortIndex" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "Perform healthcheck on this dynamically allocated port (e.g. 0 for first port), defaults to first port"
+        },
+        "healthcheckProtocol" : {
+          "$ref" : "com.hubspot.singularity.HealthcheckProtocol",
+          "description" : "Healthcheck protocol - HTTP or HTTPS"
+        },
+        "healthcheckMaxRetries" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "Maximum number of times to retry an individual healthcheck before failing the deploy."
+        },
+        "healthcheckMaxTotalTimeoutSeconds" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "Maximum amount of time to wait before failing a deploy for healthchecks to pass."
+        },
+        "healthcheck" : {
+          "$ref" : "HealthcheckOptions",
+          "description" : "HTTP Healthcheck settings"
+        },
+        "skipHealthchecksOnDeploy" : {
+          "type" : "boolean",
+          "description" : "Allows skipping of health checks when deploying."
+        },
+        "deployHealthTimeoutSeconds" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "Number of seconds that Singularity waits for this service to become healthy (for it to download artifacts, start running, and optionally pass healthchecks.)"
+        },
+        "considerHealthyAfterRunningForSeconds" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "Number of seconds that a service must be healthy to consider the deployment to be successful."
+        },
+        "serviceBasePath" : {
+          "type" : "string",
+          "description" : "The base path for the API exposed by the deploy. Used in conjunction with the Load balancer API."
+        },
+        "loadBalancerGroups" : {
+          "type" : "array",
+          "uniqueItems" : true,
+          "description" : "List of load balancer groups associated with this deployment.",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "loadBalancerPortIndex" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "Send this port to the load balancer api (e.g. 0 for first port), defaults to first port"
+        },
+        "loadBalancerOptions" : {
+          "$ref" : "Map[string,Object]",
+          "description" : "Map (Key/Value) of options for the load balancer."
+        },
+        "loadBalancerDomains" : {
+          "type" : "array",
+          "uniqueItems" : true,
+          "description" : "List of domains to host this service on, for use with the load balancer api",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "loadBalancerAdditionalRoutes" : {
+          "type" : "array",
+          "description" : "Additional routes besides serviceBasePath used by this service",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "loadBalancerTemplate" : {
+          "type" : "string",
+          "description" : "Name of load balancer template to use if not using the default template"
+        },
+        "loadBalancerServiceIdOverride" : {
+          "type" : "string",
+          "description" : "Name of load balancer Service ID to use instead of the Request ID"
+        },
+        "loadBalancerUpstreamGroup" : {
+          "type" : "string",
+          "description" : "Group name to tag all upstreams with in load balancer"
+        },
+        "deployInstanceCountPerStep" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "deploy this many instances at a time"
+        },
+        "deployStepWaitTimeMs" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "wait this long between deploy steps"
+        },
+        "autoAdvanceDeploySteps" : {
+          "type" : "boolean",
+          "description" : "automatically advance to the next target instance count after `deployStepWaitTimeMs` seconds"
+        },
+        "maxTaskRetries" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "allowed at most this many failed tasks to be retried before failing the deploy"
+        },
+        "shell" : {
+          "type" : "boolean",
+          "description" : "Override the shell property on the mesos task"
+        },
+        "user" : {
+          "type" : "string",
+          "description" : "Run tasks as this user"
+        }
+      }
+    },
+    "SingularityPendingRequest" : {
+      "id" : "SingularityPendingRequest",
+      "properties" : {
+        "requestId" : {
+          "type" : "string"
+        },
+        "deployId" : {
+          "type" : "string"
+        },
+        "timestamp" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "pendingType" : {
+          "$ref" : "PendingType",
+          "enum" : [ "IMMEDIATE", "ONEOFF", "BOUNCE", "NEW_DEPLOY", "NEXT_DEPLOY_STEP", "UNPAUSED", "RETRY", "UPDATED_REQUEST", "DECOMISSIONED_SLAVE_OR_RACK", "TASK_DONE", "STARTUP", "CANCEL_BOUNCE", "TASK_BOUNCE", "DEPLOY_CANCELLED", "DEPLOY_FAILED" ]
+        },
+        "user" : {
+          "type" : "string"
+        },
+        "cmdLineArgsList" : {
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "runId" : {
+          "type" : "string"
+        },
+        "skipHealthchecks" : {
+          "type" : "boolean"
+        },
+        "message" : {
+          "type" : "string"
+        },
+        "actionId" : {
+          "type" : "string"
+        },
+        "resources" : {
+          "$ref" : "Resources"
+        }
+      }
+    },
+    "SingularityPauseRequest" : {
+      "id" : "SingularityPauseRequest",
+      "properties" : {
+        "killTasks" : {
+          "type" : "boolean",
+          "description" : "If set to false, tasks will be allowed to finish instead of killed immediately"
+        },
+        "runShellCommandBeforeKill" : {
+          "$ref" : "SingularityShellCommand",
+          "description" : "Attempt to run this shell command on each task before it is shut down"
+        },
+        "durationMillis" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "The number of milliseconds to wait before reversing the effects of this action (letting it expire)"
+        },
+        "actionId" : {
+          "type" : "string",
+          "description" : "An id to associate with this action for metadata purposes"
+        },
+        "message" : {
+          "type" : "string",
+          "description" : "A message to show to users about why this action was taken"
+        }
+      }
+    },
+    "EmbeddedArtifact" : {
+      "id" : "EmbeddedArtifact",
+      "properties" : {
+        "content" : {
+          "type" : "array",
+          "items" : {
+            "type" : "string",
+            "format" : "byte"
+          }
+        },
+        "filename" : {
+          "type" : "string"
+        },
+        "md5sum" : {
+          "type" : "string"
+        },
+        "targetFolderRelativeToTask" : {
+          "type" : "string"
+        },
+        "name" : {
+          "type" : "string"
+        }
+      }
+    },
+    "SingularityTaskId" : {
+      "id" : "SingularityTaskId",
+      "properties" : {
+        "requestId" : {
+          "type" : "string"
+        },
+        "deployId" : {
+          "type" : "string"
+        },
+        "startedAt" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "instanceNo" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "sanitizedHost" : {
+          "type" : "string"
+        },
+        "sanitizedRackId" : {
+          "type" : "string"
+        },
+        "rackId" : {
+          "type" : "string"
+        },
+        "host" : {
+          "type" : "string"
+        },
+        "id" : {
+          "type" : "string"
+        }
+      }
+    },
+    "SingularityDeployProgress" : {
+      "id" : "SingularityDeployProgress",
+      "properties" : {
+        "targetActiveInstances" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "currentActiveInstances" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "deployInstanceCountPerStep" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "deployStepWaitTimeMs" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "stepComplete" : {
+          "type" : "boolean"
+        },
+        "autoAdvanceDeploySteps" : {
+          "type" : "boolean"
+        },
+        "failedDeployTasks" : {
+          "type" : "array",
+          "uniqueItems" : true,
+          "items" : {
+            "$ref" : "SingularityTaskId"
+          }
+        },
+        "timestamp" : {
+          "type" : "integer",
+          "format" : "int64"
+        }
+      }
+    },
+    "SingularityExpiringBounce" : {
+      "id" : "SingularityExpiringBounce",
+      "properties" : {
+        "deployId" : {
+          "type" : "string"
+        },
+        "requestId" : {
+          "type" : "string"
+        },
+        "startMillis" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "actionId" : {
+          "type" : "string"
+        },
+        "user" : {
+          "type" : "string"
+        },
+        "expiringAPIRequestObject" : {
+          "$ref" : "T"
+        }
+      }
+    },
+    "ExternalArtifact" : {
+      "id" : "ExternalArtifact",
+      "properties" : {
+        "url" : {
+          "type" : "string"
+        },
+        "filesize" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "isArtifactList" : {
+          "type" : "boolean"
+        },
+        "filename" : {
+          "type" : "string"
+        },
+        "md5sum" : {
+          "type" : "string"
+        },
+        "targetFolderRelativeToTask" : {
+          "type" : "string"
+        },
+        "name" : {
+          "type" : "string"
+        }
+      }
+    },
+    "SingularityContainerInfo" : {
+      "id" : "SingularityContainerInfo",
+      "required" : [ "type" ],
+      "properties" : {
+        "type" : {
+          "$ref" : "SingularityContainerType",
+          "description" : "Container type, can be MESOS or DOCKER. Default is MESOS",
+          "enum" : [ "MESOS", "DOCKER" ]
+        },
+        "volumes" : {
+          "type" : "array",
+          "description" : "List of volumes to mount. Applicable only to DOCKER container type",
+          "items" : {
+            "$ref" : "SingularityVolume"
+          }
+        },
+        "docker" : {
+          "$ref" : "SingularityDockerInfo",
+          "description" : "Information specific to docker runtime settings"
+        }
+      }
+    },
+    "HealthcheckOptions" : {
+      "id" : "HealthcheckOptions",
+      "required" : [ "uri" ],
+      "properties" : {
+        "uri" : {
+          "type" : "string",
+          "description" : "Healthcheck uri to hit"
+        },
+        "portIndex" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "Perform healthcheck on this dynamically allocated port (e.g. 0 for first port), defaults to first port"
+        },
+        "portNumber" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "Perform healthcheck on this port (portIndex cannot also be used when using this setting)"
+        },
+        "protocol" : {
+          "$ref" : "HealthcheckProtocol",
+          "description" : "Healthcheck protocol - HTTP or HTTPS"
+        },
+        "startupTimeoutSeconds" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "Consider the task unhealthy/failed if the app has not started responding to healthchecks in this amount of time"
+        },
+        "startupDelaySeconds" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "Wait this long before issuing the first healthcheck"
+        },
+        "startupIntervalSeconds" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "Time to wait after a failed healthcheck to try again in seconds."
+        },
+        "intervalSeconds" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "Time to wait after a valid but failed healthcheck response to try again in seconds."
+        },
+        "responseTimeoutSeconds" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "Single healthcheck HTTP timeout in seconds."
+        },
+        "maxRetries" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "Maximum number of times to retry an individual healthcheck before failing the deploy."
+        },
+        "failureStatusCodes" : {
+          "type" : "array",
+          "description" : "Fail the healthcheck with no further retries if one of these status codes is returned",
+          "items" : {
+            "type" : "integer",
+            "format" : "int32"
+          }
+        }
+      }
+    },
+    "SingularityVolume" : {
+      "id" : "SingularityVolume",
+      "properties" : {
+        "containerPath" : {
+          "type" : "string"
+        },
+        "hostPath" : {
+          "type" : "string"
+        },
+        "mode" : {
+          "$ref" : "SingularityDockerVolumeMode"
+        }
+      }
+    },
+    "SingularityBounceRequest" : {
+      "id" : "SingularityBounceRequest",
+      "properties" : {
+        "incremental" : {
+          "type" : "boolean",
+          "description" : "If present and set to true, old tasks will be killed as soon as replacement tasks are available, instead of waiting for all replacement tasks to be healthy"
+        },
+        "skipHealthchecks" : {
+          "type" : "boolean",
+          "description" : "Instruct replacement tasks for this bounce only to skip healthchecks"
+        },
+        "runShellCommandBeforeKill" : {
+          "$ref" : "SingularityShellCommand",
+          "description" : "Attempt to run this shell command on each task before it is shut down"
+        },
+        "durationMillis" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "The number of milliseconds to wait before reversing the effects of this action (letting it expire)"
+        },
+        "actionId" : {
+          "type" : "string",
+          "description" : "An id to associate with this action for metadata purposes"
+        },
+        "message" : {
+          "type" : "string",
+          "description" : "A message to show to users about why this action was taken"
+        }
+      }
+    },
+    "SingularityDockerInfo" : {
+      "id" : "SingularityDockerInfo",
+      "required" : [ "image", "privileged" ],
+      "properties" : {
+        "image" : {
+          "type" : "string",
+          "description" : "Docker image name"
+        },
+        "privileged" : {
+          "type" : "boolean",
+          "description" : "Controls use of the docker --privleged flag"
+        },
+        "network" : {
+          "$ref" : "com.hubspot.mesos.SingularityDockerNetworkType",
+          "description" : "Docker netowkr type. Value can be BRIDGE, HOST, or NONE"
+        },
+        "portMappings" : {
+          "type" : "array",
+          "description" : "List of port mappings",
+          "items" : {
+            "$ref" : "SingularityDockerPortMapping"
+          }
+        },
+        "forcePullImage" : {
+          "type" : "boolean",
+          "description" : "Always run docker pull even if the image already exists locally"
+        },
+        "parameters" : {
+          "$ref" : "Map[string,string]"
+        },
+        "dockerParameters" : {
+          "type" : "array",
+          "description" : "Other docker run command line options to be set",
+          "items" : {
+            "$ref" : "SingularityDockerParameter"
+          }
+        }
+      }
+    },
+    "SingularityDeleteRequestRequest" : {
+      "id" : "SingularityDeleteRequestRequest",
+      "properties" : {
+        "message" : {
+          "type" : "string",
+          "description" : "A message to show to users about why this action was taken"
+        },
+        "actionId" : {
+          "type" : "string",
+          "description" : "An id to associate with this action for metadata purposes"
+        }
+      }
+    },
+    "SingularityMesosTaskLabel" : {
+      "id" : "SingularityMesosTaskLabel",
+      "properties" : {
+        "key" : {
+          "type" : "string"
+        },
+        "value" : {
+          "type" : "string"
+        }
+      }
+    }
+  }
+}

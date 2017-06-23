@@ -1,0 +1,116 @@
+{
+  "apiVersion" : "0.15.1",
+  "swaggerVersion" : "1.2",
+  "basePath" : null,
+  "resourcePath" : "/api/test",
+  "apis" : [ {
+    "path" : "/api/test/abort",
+    "operations" : [ {
+      "method" : "POST",
+      "summary" : "Abort the Mesos scheduler driver.",
+      "notes" : "",
+      "type" : "void",
+      "nickname" : "abort",
+      "parameters" : [ ]
+    } ]
+  }, {
+    "path" : "/api/test/scheduler/statusUpdate/{taskId}/{taskState}",
+    "operations" : [ {
+      "method" : "POST",
+      "summary" : "Force an update for a specific task.",
+      "notes" : "",
+      "type" : "void",
+      "nickname" : "statusUpdate",
+      "parameters" : [ {
+        "name" : "taskId",
+        "required" : true,
+        "type" : "string",
+        "paramType" : "path",
+        "allowMultiple" : false
+      }, {
+        "name" : "taskState",
+        "required" : true,
+        "type" : "string",
+        "paramType" : "path",
+        "allowMultiple" : false
+      } ]
+    } ]
+  }, {
+    "path" : "/api/test/leader",
+    "operations" : [ {
+      "method" : "POST",
+      "summary" : "Make this instance of Singularity believe it's elected leader.",
+      "notes" : "",
+      "type" : "void",
+      "nickname" : "setLeader",
+      "parameters" : [ ]
+    } ]
+  }, {
+    "path" : "/api/test/notleader",
+    "operations" : [ {
+      "method" : "POST",
+      "summary" : "Make this instanceo of Singularity believe it's lost leadership.",
+      "notes" : "",
+      "type" : "void",
+      "nickname" : "setNotLeader",
+      "parameters" : [ ]
+    } ]
+  }, {
+    "path" : "/api/test/reconcile",
+    "operations" : [ {
+      "method" : "POST",
+      "summary" : "Start task reconciliation",
+      "notes" : "",
+      "type" : "void",
+      "nickname" : "startTaskReconciliation",
+      "parameters" : [ ]
+    } ]
+  }, {
+    "path" : "/api/test/purge-history",
+    "operations" : [ {
+      "method" : "POST",
+      "summary" : "Run history purge",
+      "notes" : "",
+      "type" : "void",
+      "nickname" : "runHistoryPurge",
+      "parameters" : [ ]
+    } ]
+  }, {
+    "path" : "/api/test/exception",
+    "operations" : [ {
+      "method" : "POST",
+      "summary" : "Trigger an exception.",
+      "notes" : "",
+      "type" : "void",
+      "nickname" : "throwException",
+      "parameters" : [ {
+        "name" : "message",
+        "defaultValue" : "test exception",
+        "required" : false,
+        "type" : "string",
+        "paramType" : "query",
+        "allowMultiple" : false
+      } ]
+    } ]
+  }, {
+    "path" : "/api/test/start",
+    "operations" : [ {
+      "method" : "POST",
+      "summary" : "Start the Mesos scheduler driver.",
+      "notes" : "",
+      "type" : "void",
+      "nickname" : "start",
+      "parameters" : [ ]
+    } ]
+  }, {
+    "path" : "/api/test/stop",
+    "operations" : [ {
+      "method" : "POST",
+      "summary" : "Stop the Mesos scheduler driver.",
+      "notes" : "",
+      "type" : "void",
+      "nickname" : "stop",
+      "parameters" : [ ]
+    } ]
+  } ]
+}

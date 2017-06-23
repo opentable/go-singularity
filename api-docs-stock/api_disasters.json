@@ -1,0 +1,283 @@
+{
+  "apiVersion" : "0.15.1",
+  "swaggerVersion" : "1.2",
+  "basePath" : null,
+  "resourcePath" : "/api/disasters",
+  "produces" : [ "application/json" ],
+  "apis" : [ {
+    "path" : "/api/disasters/stats",
+    "operations" : [ {
+      "method" : "GET",
+      "summary" : "Get current data related to disaster detection",
+      "notes" : "",
+      "type" : "SingularityDisastersData",
+      "nickname" : "disasterStats",
+      "parameters" : [ ]
+    } ]
+  }, {
+    "path" : "/api/disasters/active",
+    "operations" : [ {
+      "method" : "GET",
+      "summary" : "Get a list of current active disasters",
+      "notes" : "",
+      "type" : "array",
+      "items" : {
+        "type" : "string"
+      },
+      "nickname" : "activeDisasters",
+      "parameters" : [ ]
+    } ]
+  }, {
+    "path" : "/api/disasters/disable",
+    "operations" : [ {
+      "method" : "POST",
+      "summary" : "Do not allow the automated poller to disable actions when a disaster is detected",
+      "notes" : "",
+      "type" : "void",
+      "nickname" : "disableAutomatedDisasterCreation",
+      "parameters" : [ ]
+    } ]
+  }, {
+    "path" : "/api/disasters/enable",
+    "operations" : [ {
+      "method" : "POST",
+      "summary" : "Allow the automated poller to disable actions when a disaster is detected",
+      "notes" : "",
+      "type" : "void",
+      "nickname" : "enableAutomatedDisasterCreation",
+      "parameters" : [ ]
+    } ]
+  }, {
+    "path" : "/api/disasters/active/{type}",
+    "operations" : [ {
+      "method" : "DELETE",
+      "summary" : "Remove an active disaster (make it inactive)",
+      "notes" : "",
+      "type" : "void",
+      "nickname" : "removeDisaster",
+      "parameters" : [ {
+        "name" : "type",
+        "required" : true,
+        "type" : "string",
+        "paramType" : "path",
+        "allowMultiple" : false,
+        "enum" : [ "EXCESSIVE_TASK_LAG", "LOST_SLAVES", "LOST_TASKS", "USER_INITIATED" ]
+      } ]
+    }, {
+      "method" : "POST",
+      "summary" : "Create a new active disaster",
+      "notes" : "",
+      "type" : "void",
+      "nickname" : "newDisaster",
+      "parameters" : [ {
+        "name" : "type",
+        "required" : true,
+        "type" : "string",
+        "paramType" : "path",
+        "allowMultiple" : false,
+        "enum" : [ "EXCESSIVE_TASK_LAG", "LOST_SLAVES", "LOST_TASKS", "USER_INITIATED" ]
+      } ]
+    } ]
+  }, {
+    "path" : "/api/disasters/disabled-actions",
+    "operations" : [ {
+      "method" : "GET",
+      "summary" : "Get a list of actions that are currently disable",
+      "notes" : "",
+      "type" : "array",
+      "items" : {
+        "$ref" : "SingularityDisabledAction"
+      },
+      "nickname" : "disabledActions",
+      "parameters" : [ ]
+    } ]
+  }, {
+    "path" : "/api/disasters/disabled-actions/{action}",
+    "operations" : [ {
+      "method" : "POST",
+      "summary" : "Disable a specific action",
+      "notes" : "",
+      "type" : "void",
+      "nickname" : "disableAction",
+      "parameters" : [ {
+        "name" : "action",
+        "required" : true,
+        "type" : "string",
+        "paramType" : "path",
+        "allowMultiple" : false,
+        "enum" : [ "BOUNCE_REQUEST", "SCALE_REQUEST", "REMOVE_REQUEST", "CREATE_REQUEST", "UPDATE_REQUEST", "VIEW_REQUEST", "PAUSE_REQUEST", "KILL_TASK", "BOUNCE_TASK", "RUN_SHELL_COMMAND", "ADD_METADATA", "DEPLOY", "CANCEL_DEPLOY", "ADD_WEBHOOK", "REMOVE_WEBHOOK", "VIEW_WEBHOOKS", "TASK_RECONCILIATION", "STARTUP_TASK_RECONCILIATION", "RUN_HEALTH_CHECKS", "ADD_DISASTER", "REMOVE_DISASTER", "DISABLE_ACTION", "ENABLE_ACTION", "VIEW_DISASTERS", "FREEZE_SLAVE", "ACTIVATE_SLAVE", "DECOMMISSION_SLAVE", "VIEW_SLAVES", "FREEZE_RACK", "ACTIVATE_RACK", "DECOMMISSION_RACK", "VIEW_RACKS", "SEND_EMAIL", "PROCESS_OFFERS", "CACHE_OFFERS", "EXPENSIVE_API_CALLS", "RUN_CLEANUP_POLLER", "RUN_DEPLOY_POLLER", "RUN_SCHEDULER_POLLER", "RUN_EXPIRING_ACTION_POLLER" ]
+      }, {
+        "name" : "body",
+        "required" : false,
+        "type" : "SingularityDisabledActionRequest",
+        "paramType" : "body",
+        "allowMultiple" : false
+      } ]
+    }, {
+      "method" : "DELETE",
+      "summary" : "Re-enable a specific action if it has been disabled",
+      "notes" : "",
+      "type" : "void",
+      "nickname" : "enableAction",
+      "parameters" : [ {
+        "name" : "action",
+        "required" : true,
+        "type" : "string",
+        "paramType" : "path",
+        "allowMultiple" : false,
+        "enum" : [ "BOUNCE_REQUEST", "SCALE_REQUEST", "REMOVE_REQUEST", "CREATE_REQUEST", "UPDATE_REQUEST", "VIEW_REQUEST", "PAUSE_REQUEST", "KILL_TASK", "BOUNCE_TASK", "RUN_SHELL_COMMAND", "ADD_METADATA", "DEPLOY", "CANCEL_DEPLOY", "ADD_WEBHOOK", "REMOVE_WEBHOOK", "VIEW_WEBHOOKS", "TASK_RECONCILIATION", "STARTUP_TASK_RECONCILIATION", "RUN_HEALTH_CHECKS", "ADD_DISASTER", "REMOVE_DISASTER", "DISABLE_ACTION", "ENABLE_ACTION", "VIEW_DISASTERS", "FREEZE_SLAVE", "ACTIVATE_SLAVE", "DECOMMISSION_SLAVE", "VIEW_SLAVES", "FREEZE_RACK", "ACTIVATE_RACK", "DECOMMISSION_RACK", "VIEW_RACKS", "SEND_EMAIL", "PROCESS_OFFERS", "CACHE_OFFERS", "EXPENSIVE_API_CALLS", "RUN_CLEANUP_POLLER", "RUN_DEPLOY_POLLER", "RUN_SCHEDULER_POLLER", "RUN_EXPIRING_ACTION_POLLER" ]
+      } ]
+    } ]
+  }, {
+    "path" : "/api/disasters/task-credits",
+    "operations" : [ {
+      "method" : "POST",
+      "summary" : "Add task credits, enables task credit system if not already enabled",
+      "notes" : "",
+      "type" : "void",
+      "nickname" : "addTaskCredits",
+      "parameters" : [ {
+        "name" : "credits",
+        "required" : false,
+        "type" : "integer",
+        "format" : "int32",
+        "paramType" : "query",
+        "allowMultiple" : false
+      } ]
+    }, {
+      "method" : "DELETE",
+      "summary" : "Disable task credit system",
+      "notes" : "",
+      "type" : "void",
+      "nickname" : "disableTaskCredits",
+      "parameters" : [ ]
+    }, {
+      "method" : "GET",
+      "summary" : "Get task credit data",
+      "notes" : "",
+      "type" : "SingularityTaskCredits",
+      "nickname" : "getTaskCreditData",
+      "parameters" : [ ]
+    } ]
+  } ],
+  "models" : {
+    "SingularityDisasterDataPoint" : {
+      "id" : "SingularityDisasterDataPoint",
+      "properties" : {
+        "timestamp" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "numActiveTasks" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "numPendingTasks" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "numLateTasks" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "avgTaskLagMillis" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "numLostTasks" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "numActiveSlaves" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "numLostSlaves" : {
+          "type" : "integer",
+          "format" : "int32"
+        }
+      }
+    },
+    "SingularityDisastersData" : {
+      "id" : "SingularityDisastersData",
+      "properties" : {
+        "stats" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "SingularityDisasterDataPoint"
+          }
+        },
+        "disasters" : {
+          "type" : "array",
+          "items" : {
+            "$ref" : "SingularityDisaster"
+          }
+        },
+        "automatedActionsDisabled" : {
+          "type" : "boolean"
+        }
+      }
+    },
+    "SingularityDisabledActionRequest" : {
+      "id" : "SingularityDisabledActionRequest",
+      "required" : [ "type" ],
+      "properties" : {
+        "type" : {
+          "$ref" : "SingularityAction",
+          "description" : "The type of action to disable",
+          "enum" : [ "BOUNCE_REQUEST", "SCALE_REQUEST", "REMOVE_REQUEST", "CREATE_REQUEST", "UPDATE_REQUEST", "VIEW_REQUEST", "PAUSE_REQUEST", "KILL_TASK", "BOUNCE_TASK", "RUN_SHELL_COMMAND", "ADD_METADATA", "DEPLOY", "CANCEL_DEPLOY", "ADD_WEBHOOK", "REMOVE_WEBHOOK", "VIEW_WEBHOOKS", "TASK_RECONCILIATION", "STARTUP_TASK_RECONCILIATION", "RUN_HEALTH_CHECKS", "ADD_DISASTER", "REMOVE_DISASTER", "DISABLE_ACTION", "ENABLE_ACTION", "VIEW_DISASTERS", "FREEZE_SLAVE", "ACTIVATE_SLAVE", "DECOMMISSION_SLAVE", "VIEW_SLAVES", "FREEZE_RACK", "ACTIVATE_RACK", "DECOMMISSION_RACK", "VIEW_RACKS", "SEND_EMAIL", "PROCESS_OFFERS", "CACHE_OFFERS", "EXPENSIVE_API_CALLS", "RUN_CLEANUP_POLLER", "RUN_DEPLOY_POLLER", "RUN_SCHEDULER_POLLER", "RUN_EXPIRING_ACTION_POLLER" ]
+        },
+        "message" : {
+          "type" : "string",
+          "description" : "An optional message/reason for disabling the action specified"
+        }
+      }
+    },
+    "SingularityDisaster" : {
+      "id" : "SingularityDisaster",
+      "properties" : {
+        "type" : {
+          "$ref" : "SingularityDisasterType",
+          "enum" : [ "EXCESSIVE_TASK_LAG", "LOST_SLAVES", "LOST_TASKS", "USER_INITIATED" ]
+        },
+        "active" : {
+          "type" : "boolean"
+        }
+      }
+    },
+    "SingularityTaskCredits" : {
+      "id" : "SingularityTaskCredits",
+      "properties" : {
+        "enabled" : {
+          "type" : "boolean"
+        },
+        "remaining" : {
+          "type" : "integer",
+          "format" : "int32"
+        }
+      }
+    },
+    "SingularityDisabledAction" : {
+      "id" : "SingularityDisabledAction",
+      "properties" : {
+        "type" : {
+          "$ref" : "SingularityAction",
+          "enum" : [ "BOUNCE_REQUEST", "SCALE_REQUEST", "REMOVE_REQUEST", "CREATE_REQUEST", "UPDATE_REQUEST", "VIEW_REQUEST", "PAUSE_REQUEST", "KILL_TASK", "BOUNCE_TASK", "RUN_SHELL_COMMAND", "ADD_METADATA", "DEPLOY", "CANCEL_DEPLOY", "ADD_WEBHOOK", "REMOVE_WEBHOOK", "VIEW_WEBHOOKS", "TASK_RECONCILIATION", "STARTUP_TASK_RECONCILIATION", "RUN_HEALTH_CHECKS", "ADD_DISASTER", "REMOVE_DISASTER", "DISABLE_ACTION", "ENABLE_ACTION", "VIEW_DISASTERS", "FREEZE_SLAVE", "ACTIVATE_SLAVE", "DECOMMISSION_SLAVE", "VIEW_SLAVES", "FREEZE_RACK", "ACTIVATE_RACK", "DECOMMISSION_RACK", "VIEW_RACKS", "SEND_EMAIL", "PROCESS_OFFERS", "CACHE_OFFERS", "EXPENSIVE_API_CALLS", "RUN_CLEANUP_POLLER", "RUN_DEPLOY_POLLER", "RUN_SCHEDULER_POLLER", "RUN_EXPIRING_ACTION_POLLER" ]
+        },
+        "message" : {
+          "type" : "string"
+        },
+        "user" : {
+          "type" : "string"
+        },
+        "automaticallyClearable" : {
+          "type" : "boolean"
+        },
+        "expiresAt" : {
+          "type" : "integer",
+          "format" : "int64"
+        }
+      }
+    }
+  }
+}

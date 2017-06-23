@@ -1,0 +1,284 @@
+{
+  "apiVersion" : "0.15.1",
+  "swaggerVersion" : "1.2",
+  "basePath" : null,
+  "resourcePath" : "/api/logs",
+  "produces" : [ "application/json" ],
+  "apis" : [ {
+    "path" : "/api/logs/task/{taskId}",
+    "operations" : [ {
+      "method" : "GET",
+      "summary" : "Retrieve the list of logs stored in S3 for a specific task.",
+      "notes" : "",
+      "type" : "List[SingularityS3LogMetadata]",
+      "nickname" : "getS3LogsForTask",
+      "parameters" : [ {
+        "name" : "taskId",
+        "description" : "The task ID to search for",
+        "required" : true,
+        "type" : "string",
+        "paramType" : "path",
+        "allowMultiple" : false
+      }, {
+        "name" : "start",
+        "description" : "Start timestamp (millis, 13 digit)",
+        "required" : false,
+        "type" : "integer",
+        "format" : "int64",
+        "paramType" : "query",
+        "allowMultiple" : false
+      }, {
+        "name" : "end",
+        "description" : "End timestamp (mills, 13 digit)",
+        "required" : false,
+        "type" : "integer",
+        "format" : "int64",
+        "paramType" : "query",
+        "allowMultiple" : false
+      }, {
+        "name" : "excludeMetadata",
+        "description" : "Exclude custom object metadata",
+        "required" : false,
+        "type" : "boolean",
+        "paramType" : "query",
+        "allowMultiple" : false
+      }, {
+        "name" : "list",
+        "description" : "Do not generate download/get urls, only list the files and metadata",
+        "required" : false,
+        "type" : "boolean",
+        "paramType" : "query",
+        "allowMultiple" : false
+      } ]
+    } ]
+  }, {
+    "path" : "/api/logs/request/{requestId}",
+    "operations" : [ {
+      "method" : "GET",
+      "summary" : "Retrieve the list of logs stored in S3 for a specific request.",
+      "notes" : "",
+      "type" : "List[SingularityS3LogMetadata]",
+      "nickname" : "getS3LogsForRequest",
+      "parameters" : [ {
+        "name" : "requestId",
+        "description" : "The request ID to search for",
+        "required" : true,
+        "type" : "string",
+        "paramType" : "path",
+        "allowMultiple" : false
+      }, {
+        "name" : "start",
+        "description" : "Start timestamp (millis, 13 digit)",
+        "required" : false,
+        "type" : "integer",
+        "format" : "int64",
+        "paramType" : "query",
+        "allowMultiple" : false
+      }, {
+        "name" : "end",
+        "description" : "End timestamp (mills, 13 digit)",
+        "required" : false,
+        "type" : "integer",
+        "format" : "int64",
+        "paramType" : "query",
+        "allowMultiple" : false
+      }, {
+        "name" : "excludeMetadata",
+        "description" : "Exclude custom object metadata",
+        "required" : false,
+        "type" : "boolean",
+        "paramType" : "query",
+        "allowMultiple" : false
+      }, {
+        "name" : "list",
+        "description" : "Do not generate download/get urls, only list the files and metadata",
+        "required" : false,
+        "type" : "boolean",
+        "paramType" : "query",
+        "allowMultiple" : false
+      }, {
+        "name" : "maxPerPage",
+        "description" : "Max number of results to return per bucket searched",
+        "required" : false,
+        "type" : "integer",
+        "format" : "int32",
+        "paramType" : "query",
+        "allowMultiple" : false
+      } ]
+    } ]
+  }, {
+    "path" : "/api/logs/request/{requestId}/deploy/{deployId}",
+    "operations" : [ {
+      "method" : "GET",
+      "summary" : "Retrieve the list of logs stored in S3 for a specific deploy.",
+      "notes" : "",
+      "type" : "List[SingularityS3LogMetadata]",
+      "nickname" : "getS3LogsForDeploy",
+      "parameters" : [ {
+        "name" : "requestId",
+        "description" : "The request ID to search for",
+        "required" : true,
+        "type" : "string",
+        "paramType" : "path",
+        "allowMultiple" : false
+      }, {
+        "name" : "deployId",
+        "description" : "The deploy ID to search for",
+        "required" : true,
+        "type" : "string",
+        "paramType" : "path",
+        "allowMultiple" : false
+      }, {
+        "name" : "start",
+        "description" : "Start timestamp (millis, 13 digit)",
+        "required" : false,
+        "type" : "integer",
+        "format" : "int64",
+        "paramType" : "query",
+        "allowMultiple" : false
+      }, {
+        "name" : "end",
+        "description" : "End timestamp (mills, 13 digit)",
+        "required" : false,
+        "type" : "integer",
+        "format" : "int64",
+        "paramType" : "query",
+        "allowMultiple" : false
+      }, {
+        "name" : "excludeMetadata",
+        "description" : "Exclude custom object metadata",
+        "required" : false,
+        "type" : "boolean",
+        "paramType" : "query",
+        "allowMultiple" : false
+      }, {
+        "name" : "list",
+        "description" : "Do not generate download/get urls, only list the files and metadata",
+        "required" : false,
+        "type" : "boolean",
+        "paramType" : "query",
+        "allowMultiple" : false
+      }, {
+        "name" : "maxPerPage",
+        "description" : "Max number of results to return per bucket searched",
+        "required" : false,
+        "type" : "integer",
+        "format" : "int32",
+        "paramType" : "query",
+        "allowMultiple" : false
+      } ]
+    } ]
+  }, {
+    "path" : "/api/logs/search",
+    "operations" : [ {
+      "method" : "POST",
+      "summary" : "Retrieve a paginated list of logs stored in S3",
+      "notes" : "",
+      "type" : "SingularityS3SearchResult",
+      "nickname" : "getPaginatedS3Logs",
+      "consumes" : [ "application/json" ],
+      "parameters" : [ {
+        "name" : "body",
+        "required" : true,
+        "type" : "SingularityS3SearchRequest",
+        "paramType" : "body",
+        "allowMultiple" : false
+      } ]
+    } ]
+  } ],
+  "models" : {
+    "SingularityS3SearchRequest" : {
+      "id" : "SingularityS3SearchRequest",
+      "properties" : {
+        "requestsAndDeploys" : {
+          "$ref" : "Map[string,List[string]]",
+          "description" : "A map of request IDs to a list of deploy ids to search"
+        },
+        "taskIds" : {
+          "type" : "array",
+          "description" : "A list of task IDs to search for",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "start" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "Start timestamp (millis, 13 digit)"
+        },
+        "end" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "End timestamp (millis, 13 digit)"
+        },
+        "excludeMetadata" : {
+          "type" : "boolean",
+          "description" : "if true, do not query for custom start/end time metadata"
+        },
+        "listOnly" : {
+          "type" : "boolean",
+          "description" : "If true, do not generate download/get urls, only list objects"
+        },
+        "maxPerPage" : {
+          "type" : "integer",
+          "format" : "int32",
+          "description" : "Target number of results to return"
+        },
+        "continuationTokens" : {
+          "$ref" : "Map[string,ContinuationToken]",
+          "description" : "S3 continuation tokens, return these to Singularity to continue searching subsequent pages of results"
+        }
+      }
+    },
+    "SingularityS3SearchResult" : {
+      "id" : "SingularityS3SearchResult",
+      "required" : [ "lastPage" ],
+      "properties" : {
+        "continuationTokens" : {
+          "$ref" : "Map[string,ContinuationToken]",
+          "description" : "S3 continuation tokens, return these to Singularity to continue searching subsequent pages of results"
+        },
+        "lastPage" : {
+          "type" : "boolean",
+          "description" : "If true, there are no further results for any bucket + prefix being searched"
+        },
+        "results" : {
+          "type" : "array",
+          "description" : "List of S3 log metadata",
+          "items" : {
+            "$ref" : "SingularityS3LogMetadata"
+          }
+        }
+      }
+    },
+    "SingularityS3LogMetadata" : {
+      "id" : "SingularityS3LogMetadata",
+      "properties" : {
+        "key" : {
+          "type" : "string",
+          "description" : "S3 key"
+        },
+        "lastModified" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "Last modified time"
+        },
+        "size" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "File size (in bytes)"
+        },
+        "startTime" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "Time the log file started being written to"
+        },
+        "endTime" : {
+          "type" : "integer",
+          "format" : "int64",
+          "description" : "Time the log file was finished being written to"
+        }
+      }
+    }
+  }
+}

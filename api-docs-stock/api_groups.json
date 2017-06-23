@@ -1,0 +1,88 @@
+{
+  "apiVersion" : "0.15.1",
+  "swaggerVersion" : "1.2",
+  "basePath" : null,
+  "resourcePath" : "/api/groups",
+  "produces" : [ "application/json" ],
+  "apis" : [ {
+    "path" : "/api/groups/group/{requestGroupId}",
+    "operations" : [ {
+      "method" : "GET",
+      "summary" : "Get a specific Singularity request group by ID",
+      "notes" : "",
+      "type" : "SingularityRequestGroup",
+      "nickname" : "getRequestGroup",
+      "parameters" : [ {
+        "name" : "requestGroupId",
+        "required" : true,
+        "type" : "string",
+        "paramType" : "path",
+        "allowMultiple" : false
+      } ]
+    }, {
+      "method" : "DELETE",
+      "summary" : "Delete a specific Singularity request group by ID",
+      "notes" : "",
+      "type" : "void",
+      "nickname" : "deleteRequestGroup",
+      "parameters" : [ {
+        "name" : "requestGroupId",
+        "required" : true,
+        "type" : "string",
+        "paramType" : "path",
+        "allowMultiple" : false
+      } ]
+    } ]
+  }, {
+    "path" : "/api/groups",
+    "operations" : [ {
+      "method" : "GET",
+      "summary" : "Get a list of Singularity request groups",
+      "notes" : "",
+      "type" : "array",
+      "items" : {
+        "$ref" : "SingularityRequestGroup"
+      },
+      "nickname" : "getRequestGroupIds",
+      "parameters" : [ {
+        "name" : "useWebCache",
+        "required" : false,
+        "type" : "boolean",
+        "paramType" : "query",
+        "allowMultiple" : false
+      } ]
+    }, {
+      "method" : "POST",
+      "summary" : "Create a Singularity request group",
+      "notes" : "",
+      "type" : "SingularityRequestGroup",
+      "nickname" : "saveRequestGroup",
+      "parameters" : [ {
+        "name" : "body",
+        "required" : false,
+        "type" : "SingularityRequestGroup",
+        "paramType" : "body",
+        "allowMultiple" : false
+      } ]
+    } ]
+  } ],
+  "models" : {
+    "SingularityRequestGroup" : {
+      "id" : "SingularityRequestGroup",
+      "properties" : {
+        "id" : {
+          "type" : "string"
+        },
+        "requestIds" : {
+          "type" : "array",
+          "items" : {
+            "type" : "string"
+          }
+        },
+        "metadata" : {
+          "$ref" : "Map[string,string]"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,99 @@
+{
+  "apiVersion" : "0.15.1",
+  "swaggerVersion" : "1.2",
+  "basePath" : null,
+  "resourcePath" : "/api/priority",
+  "produces" : [ "application/json" ],
+  "apis" : [ {
+    "path" : "/api/priority/freeze",
+    "operations" : [ {
+      "method" : "DELETE",
+      "summary" : "Stops the active priority freeze.",
+      "notes" : "",
+      "type" : "void",
+      "nickname" : "deleteActivePriorityFreeze",
+      "parameters" : [ ],
+      "responseMessages" : [ {
+        "code" : 202,
+        "message" : "The active priority freeze was deleted."
+      }, {
+        "code" : 400,
+        "message" : "There was no active priority freeze to delete."
+      } ]
+    }, {
+      "method" : "POST",
+      "summary" : "Stop scheduling tasks below a certain priority level.",
+      "notes" : "",
+      "type" : "SingularityPriorityFreezeParent",
+      "nickname" : "createPriorityFreeze",
+      "parameters" : [ {
+        "name" : "body",
+        "required" : false,
+        "type" : "SingularityPriorityFreeze",
+        "paramType" : "body",
+        "allowMultiple" : false
+      } ],
+      "responseMessages" : [ {
+        "code" : 200,
+        "message" : "The priority freeze request was accepted."
+      }, {
+        "code" : 400,
+        "message" : "There was a validation error with the priority freeze request."
+      } ]
+    }, {
+      "method" : "GET",
+      "summary" : "Get information about the active priority freeze.",
+      "notes" : "",
+      "type" : "SingularityPriorityFreezeParent",
+      "nickname" : "getActivePriorityFreeze",
+      "parameters" : [ ],
+      "responseMessages" : [ {
+        "code" : 200,
+        "message" : "The active priority freeze."
+      }, {
+        "code" : 404,
+        "message" : "There was no active priority freeze."
+      } ]
+    } ]
+  } ],
+  "models" : {
+    "SingularityPriorityFreezeParent" : {
+      "id" : "SingularityPriorityFreezeParent",
+      "properties" : {
+        "priorityFreeze" : {
+          "$ref" : "SingularityPriorityFreeze"
+        },
+        "timestamp" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "user" : {
+          "type" : "string"
+        }
+      }
+    },
+    "SingularityPriorityFreeze" : {
+      "id" : "SingularityPriorityFreeze",
+      "required" : [ "minimumPriorityLevel", "killTasks" ],
+      "properties" : {
+        "minimumPriorityLevel" : {
+          "type" : "number",
+          "format" : "double",
+          "description" : "Kill (if killTasks is true) or do not launch (if killTasks is false) tasks below this priority level"
+        },
+        "killTasks" : {
+          "type" : "boolean",
+          "description" : "If true, kill currently running tasks, and do not launch new tasks below the minimumPriorityLevel. If false, do not launch new tasks below minimumPriorityLevel"
+        },
+        "message" : {
+          "type" : "string",
+          "description" : "An optional message/reason for creating the priority kill"
+        },
+        "actionId" : {
+          "type" : "string",
+          "description" : "A unique ID for this priority kill"
+        }
+      }
+    }
+  }
+}
