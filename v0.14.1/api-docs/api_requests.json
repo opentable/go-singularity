@@ -2125,7 +2125,12 @@
         },
         "network": {
           "$ref": "SingularityDockerNetworkType",
-          "description": "Docker netowkr type. Value can be BRIDGE, HOST, or NONE"
+          "description": "Docker netowkr type. Value can be BRIDGE, HOST, or NONE",
+          "enum": [
+            "HOST",
+            "BRIDGE",
+            "NONE"
+          ]
         },
         "portMappings": {
           "type": "array",

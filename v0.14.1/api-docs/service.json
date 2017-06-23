@@ -39,10 +39,6 @@
       "description": "Manages whether or not to schedule tasks based on their priority levels."
     },
     {
-      "path": "/api_disasters.{format}",
-      "description": "Manages Singularity Deploys for existing requests"
-    },
-    {
       "path": "/api_tasks.{format}",
       "description": "Manages Singularity tasks."
     },
