@@ -1,9 +1,0 @@
-{
-  "apiVersion": "0.15.1",
-  "swaggerVersion": "1.2",
-  "basePath": null,
-  "resourcePath": "/api/disasters",
-  "produces": [
-    "application/json"
-  ]
-}
