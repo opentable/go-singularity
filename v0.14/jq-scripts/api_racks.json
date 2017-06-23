@@ -1,2 +1,0 @@
-.apis[].operations[] |= if .nickname == "deleteExpiringStateChange" then .nickname = "deleteExpiringRackStateChange" else . end  |
-  .apis[].operations[] |= if .nickname == "getExpiringStateChanges" then .nickname = "getExpiringRackStateChanges" else . end 
