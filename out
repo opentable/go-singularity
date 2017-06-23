@@ -1,0 +1,386 @@
+Processing:api-docs/api_racks.json
+Processing:api-docs/api_state.json
+Processing:api-docs/api_priority.json
+Processing:api-docs/api_test.json
+Processing:api-docs/api_history.json
+Processing:api-docs/api_usage.json
+Processing:api-docs/api_sandbox.json
+Processing:api-docs/api_logs.json
+Processing:api-docs/api_tasks.json
+Processing:api-docs/api_slaves.json
+Processing:api-docs/api_webhooks.json
+Processing:api-docs/api_requests.json
+Processing:api-docs/api_groups.json
+Processing:api-docs/api_deploys.json
+Resolving types
+[0xc42000d100 0xc42000d280 0xc42000d340 0xc42000d480 0xc42000d580 0xc42000de40 0xc42000de80 0xc42000df80 0xc42038a080 0xc42038a640 0xc42038a780 0xc42038adc0 0xc42000ca00 0xc42000cac0]
+  Found 99 apis
+  Found 188 models
+Model: SingularityExpiringMachineState
+Rendering to dtos/singularity_expiring_machine_state.go
+Model: SingularityRack
+Rendering to dtos/singularity_rack.go
+Model: SingularityMachineStateHistoryUpdate
+Rendering to dtos/singularity_machine_state_history_update.go
+Model: SingularityMachineChangeRequest
+Rendering to dtos/singularity_machine_change_request.go
+Model: SingularityDeployMarker
+Rendering to dtos/singularity_deploy_marker.go
+Model: SingularityState
+Rendering to dtos/singularity_state.go
+Model: SingularityTaskReconciliationStatistics
+Rendering to dtos/singularity_task_reconciliation_statistics.go
+Model: SingularityHostState
+Rendering to dtos/singularity_host_state.go
+Model: SingularityPriorityFreezeParent
+Rendering to dtos/singularity_priority_freeze_parent.go
+Model: SingularityPriorityFreeze
+Rendering to dtos/singularity_priority_freeze.go
+Model: SingularityPendingTaskId
+Rendering to dtos/singularity_pending_task_id.go
+Model: SingularityDeploy
+Rendering to dtos/singularity_deploy.go
+Model: SingularityPendingTask
+Rendering to dtos/singularity_pending_task.go
+Model: SingularityTask
+Rendering to dtos/singularity_task.go
+Model: ExternalArtifact
+Rendering to dtos/external_artifact.go
+Model: SingularityVolume
+Rendering to dtos/singularity_volume.go
+Model: SingularityTaskShellCommandHistory
+Rendering to dtos/singularity_task_shell_command_history.go
+Model: SingularityRequest
+Rendering to dtos/singularity_request.go
+Model: SingularityTaskHealthcheckResult
+Rendering to dtos/singularity_task_healthcheck_result.go
+Model: SingularityDeployResult
+Rendering to dtos/singularity_deploy_result.go
+Model: SingularityTaskRequest
+Rendering to dtos/singularity_task_request.go
+Model: SingularityTaskShellCommandRequestId
+Rendering to dtos/singularity_task_shell_command_request_id.go
+Model: SingularityDockerPortMapping
+Rendering to dtos/singularity_docker_port_mapping.go
+Model: SingularityDeployFailure
+Rendering to dtos/singularity_deploy_failure.go
+Model: SingularityTaskId
+Rendering to dtos/singularity_task_id.go
+Model: SingularityLoadBalancerUpdate
+Rendering to dtos/singularity_load_balancer_update.go
+Model: S3Artifact
+Rendering to dtos/s3_artifact.go
+Model: ExecutorData
+Rendering to dtos/executor_data.go
+Model: SingularityDeployHistory
+Rendering to dtos/singularity_deploy_history.go
+Model: SingularityTaskMetadata
+Rendering to dtos/singularity_task_metadata.go
+Model: Resources
+Rendering to dtos/resources.go
+Model: SingularityMesosArtifact
+Rendering to dtos/singularity_mesos_artifact.go
+Model: SingularityRequestHistory
+Rendering to dtos/singularity_request_history.go
+Model: SingularityTaskIdHistory
+Rendering to dtos/singularity_task_id_history.go
+Model: SingularityShellCommand
+Rendering to dtos/singularity_shell_command.go
+Model: SingularityTaskHistory
+Rendering to dtos/singularity_task_history.go
+Model: EmbeddedArtifact
+Rendering to dtos/embedded_artifact.go
+Model: SingularityContainerInfo
+Rendering to dtos/singularity_container_info.go
+Model: HealthcheckOptions
+Rendering to dtos/healthcheck_options.go
+Model: SingularityDeployStatistics
+Rendering to dtos/singularity_deploy_statistics.go
+Model: SingularityTaskHistoryUpdate
+Rendering to dtos/singularity_task_history_update.go
+Model: SingularityTaskShellCommandUpdate
+Rendering to dtos/singularity_task_shell_command_update.go
+Model: SingularityTaskShellCommandRequest
+Rendering to dtos/singularity_task_shell_command_request.go
+Model: S3ArtifactSignature
+Rendering to dtos/s3_artifact_signature.go
+Model: SingularityDockerInfo
+Rendering to dtos/singularity_docker_info.go
+Model: Set
+Rendering to dtos/set.go
+Model: LoadBalancerRequestId
+Rendering to dtos/load_balancer_request_id.go
+Model: SingularityDockerParameter
+Rendering to dtos/singularity_docker_parameter.go
+Model: SingularityMesosTaskLabel
+Rendering to dtos/singularity_mesos_task_label.go
+Model: SingularitySandbox
+Rendering to dtos/singularity_sandbox.go
+Model: MesosFileChunkObject
+Rendering to dtos/mesos_file_chunk_object.go
+Model: SingularitySandboxFile
+Rendering to dtos/singularity_sandbox_file.go
+Model: SingularityS3Log
+Rendering to dtos/singularity_s3_log.go
+Model: SingularityS3SearchRequest
+Rendering to dtos/singularity_s3_search_request.go
+Model: SingularityKillTaskRequest
+Rendering to dtos/singularity_kill_task_request.go
+Model: MesosTaskStatisticsObject
+Rendering to dtos/mesos_task_statistics_object.go
+Model: SingularityKilledTaskIdRecord
+Rendering to dtos/singularity_killed_task_id_record.go
+Model: SingularityTaskMetadataRequest
+Rendering to dtos/singularity_task_metadata_request.go
+Model: SingularityTaskCleanup
+Rendering to dtos/singularity_task_cleanup.go
+Model: MesosResourcesObject
+Rendering to dtos/mesos_resources_object.go
+Model: SingularitySlave
+Rendering to dtos/singularity_slave.go
+Model: SingularityWebhook
+Rendering to dtos/singularity_webhook.go
+Model: SingularityDeployUpdate
+Rendering to dtos/singularity_deploy_update.go
+Model: SingularityWebhookSummary
+Rendering to dtos/singularity_webhook_summary.go
+Model: SingularityExitCooldownRequest
+Rendering to dtos/singularity_exit_cooldown_request.go
+Model: SingularityDeployProgress
+Rendering to dtos/singularity_deploy_progress.go
+Model: SingularityExpiringBounce
+Rendering to dtos/singularity_expiring_bounce.go
+Model: SingularityRequestCleanup
+Rendering to dtos/singularity_request_cleanup.go
+Model: SingularityExpiringPause
+Rendering to dtos/singularity_expiring_pause.go
+Model: SingularityExpiringScale
+Rendering to dtos/singularity_expiring_scale.go
+Model: SingularityUnpauseRequest
+Rendering to dtos/singularity_unpause_request.go
+Model: SingularityPendingDeploy
+Rendering to dtos/singularity_pending_deploy.go
+Model: SingularityExpiringSkipHealthchecks
+Rendering to dtos/singularity_expiring_skip_healthchecks.go
+Model: SingularityDeleteRequestRequest
+Rendering to dtos/singularity_delete_request_request.go
+Model: SingularityBounceRequest
+Rendering to dtos/singularity_bounce_request.go
+Model: SingularityRequestDeployState
+Rendering to dtos/singularity_request_deploy_state.go
+Model: SingularityRunNowRequest
+Rendering to dtos/singularity_run_now_request.go
+Model: SingularityPendingRequest
+Rendering to dtos/singularity_pending_request.go
+Model: SingularityRequestParent
+Rendering to dtos/singularity_request_parent.go
+Model: SingularitySkipHealthchecksRequest
+Rendering to dtos/singularity_skip_healthchecks_request.go
+Model: SingularityScaleRequest
+Rendering to dtos/singularity_scale_request.go
+Model: SingularityPauseRequest
+Rendering to dtos/singularity_pause_request.go
+Model: SingularityRequestGroup
+Rendering to dtos/singularity_request_group.go
+Model: SingularityUpdatePendingDeployRequest
+Rendering to dtos/singularity_update_pending_deploy_request.go
+Model: SingularityDeployRequest
+Rendering to dtos/singularity_deploy_request.go
+API: /api/racks/rack/{rackId}/expiring
+Rendering to api_racks_rack_rackId_expiring.go
+API: /api/racks/expiring
+Rendering to api_racks_expiring.go
+API: /api/racks/
+Rendering to api_racks_.go
+API: /api/racks/rack/{rackId}
+Rendering to api_racks_rack_rackId.go
+API: /api/racks/rack/{rackId}/decommission
+Rendering to api_racks_rack_rackId_decommission.go
+API: /api/racks/rack/{rackId}/freeze
+Rendering to api_racks_rack_rackId_freeze.go
+API: /api/racks/rack/{rackId}/activate
+Rendering to api_racks_rack_rackId_activate.go
+API: /api/state/requests/under-provisioned
+Rendering to api_state_requests_under-provisioned.go
+API: /api/state/requests/over-provisioned
+Rendering to api_state_requests_over-provisioned.go
+API: /api/state/task-reconciliation
+Rendering to api_state_task-reconciliation.go
+API: /api/state
+Rendering to api_state.go
+API: /api/priority/freeze
+Rendering to api_priority_freeze.go
+API: /api/test/abort
+Rendering to api_test_abort.go
+API: /api/test/scheduler/statusUpdate/{taskId}/{taskState}
+Rendering to api_test_scheduler_statusUpdate_taskId_taskState.go
+API: /api/test/leader
+Rendering to api_test_leader.go
+API: /api/test/notleader
+Rendering to api_test_notleader.go
+API: /api/test/reconcile
+Rendering to api_test_reconcile.go
+API: /api/test/purge-history
+Rendering to api_test_purge-history.go
+API: /api/test/exception
+Rendering to api_test_exception.go
+API: /api/test/start
+Rendering to api_test_start.go
+API: /api/test/stop
+Rendering to api_test_stop.go
+API: /api/history/tasks
+Rendering to api_history_tasks.go
+API: /api/history/request/{requestId}/deploy/{deployId}
+Rendering to api_history_request_requestId_deploy_deployId.go
+API: /api/history/task/{taskId}
+Rendering to api_history_task_taskId.go
+API: /api/history/request/{requestId}/tasks
+Rendering to api_history_request_requestId_tasks.go
+API: /api/history/request/{requestId}/tasks/active
+Rendering to api_history_request_requestId_tasks_active.go
+API: /api/history/request/{requestId}/deploy/{deployId}/tasks/active
+Rendering to api_history_request_requestId_deploy_deployId_tasks_active.go
+API: /api/history/request/{requestId}/deploy/{deployId}/tasks/inactive
+Rendering to api_history_request_requestId_deploy_deployId_tasks_inactive.go
+API: /api/history/request/{requestId}/deploy/{deployId}/tasks/inactive/withmetadata
+Rendering to api_history_request_requestId_deploy_deployId_tasks_inactive_withmetadata.go
+API: /api/history/tasks/withmetadata
+Rendering to api_history_tasks_withmetadata.go
+API: /api/history/request/{requestId}/tasks/withmetadata
+Rendering to api_history_request_requestId_tasks_withmetadata.go
+API: /api/history/request/{requestId}/run/{runId}
+Rendering to api_history_request_requestId_run_runId.go
+API: /api/history/request/{requestId}/deploys
+Rendering to api_history_request_requestId_deploys.go
+API: /api/history/request/{requestId}/deploys/withmetadata
+Rendering to api_history_request_requestId_deploys_withmetadata.go
+API: /api/history/request/{requestId}/requests
+Rendering to api_history_request_requestId_requests.go
+API: /api/history/request/{requestId}/requests/withmetadata
+Rendering to api_history_request_requestId_requests_withmetadata.go
+API: /api/history/requests/search
+Rendering to api_history_requests_search.go
+API: /api/history/request/{requestId}/command-line-args
+Rendering to api_history_request_requestId_command-line-args.go
+API: /api/sandbox/{taskId}/browse
+Rendering to api_sandbox_taskId_browse.go
+API: /api/sandbox/{taskId}/read
+Rendering to api_sandbox_taskId_read.go
+API: /api/logs/task/{taskId}
+Rendering to api_logs_task_taskId.go
+API: /api/logs/request/{requestId}
+Rendering to api_logs_request_requestId.go
+API: /api/logs/request/{requestId}/deploy/{deployId}
+Rendering to api_logs_request_requestId_deploy_deployId.go
+API: /api/logs/search
+Rendering to api_logs_search.go
+API: /api/tasks/scheduled/ids
+Rendering to api_tasks_scheduled_ids.go
+API: /api/tasks/scheduled
+Rendering to api_tasks_scheduled.go
+API: /api/tasks/task/{taskId}/cleanup
+Rendering to api_tasks_task_taskId_cleanup.go
+API: /api/tasks/task/{taskId}
+Rendering to api_tasks_task_taskId.go
+API: /api/tasks/task/{taskId}/metadata
+Rendering to api_tasks_task_taskId_metadata.go
+API: /api/tasks/task/{taskId}/command
+Rendering to api_tasks_task_taskId_command.go
+API: /api/tasks/scheduled/task/{pendingTaskId}
+Rendering to api_tasks_scheduled_task_pendingTaskId.go
+API: /api/tasks/scheduled/request/{requestId}
+Rendering to api_tasks_scheduled_request_requestId.go
+API: /api/tasks/active/slave/{slaveId}
+Rendering to api_tasks_active_slave_slaveId.go
+API: /api/tasks/active
+Rendering to api_tasks_active.go
+API: /api/tasks/cleaning
+Rendering to api_tasks_cleaning.go
+API: /api/tasks/killed
+Rendering to api_tasks_killed.go
+API: /api/tasks/lbcleanup
+Rendering to api_tasks_lbcleanup.go
+API: /api/tasks/task/{taskId}/statistics
+Rendering to api_tasks_task_taskId_statistics.go
+API: /api/slaves/slave/{slaveId}/activate
+Rendering to api_slaves_slave_slaveId_activate.go
+API: /api/slaves/
+Rendering to api_slaves_.go
+API: /api/slaves/slave/{slaveId}
+Rendering to api_slaves_slave_slaveId.go
+API: /api/slaves/slave/{slaveId}/details
+Rendering to api_slaves_slave_slaveId_details.go
+API: /api/slaves/slave/{slaveId}/decommission
+Rendering to api_slaves_slave_slaveId_decommission.go
+API: /api/slaves/slave/{slaveId}/freeze
+Rendering to api_slaves_slave_slaveId_freeze.go
+API: /api/slaves/slave/{slaveId}/expiring
+Rendering to api_slaves_slave_slaveId_expiring.go
+API: /api/slaves/expiring
+Rendering to api_slaves_expiring.go
+API: /api/webhooks
+Rendering to api_webhooks.go
+API: /api/webhooks/summary
+Rendering to api_webhooks_summary.go
+API: /api/webhooks/{webhookId}
+Rendering to api_webhooks_webhookId.go
+API: /api/webhooks/deploy/{webhookId}
+Rendering to api_webhooks_deploy_webhookId.go
+API: /api/webhooks/request/{webhookId}
+Rendering to api_webhooks_request_webhookId.go
+API: /api/webhooks/task/{webhookId}
+Rendering to api_webhooks_task_webhookId.go
+API: /api/webhooks/deploy
+Rendering to api_webhooks_deploy.go
+API: /api/webhooks/request
+Rendering to api_webhooks_request.go
+API: /api/webhooks/task
+Rendering to api_webhooks_task.go
+API: /api/requests/request/{requestId}
+Rendering to api_requests_request_requestId.go
+API: /api/requests
+Rendering to api_requests.go
+API: /api/requests/request/{requestId}/bounce
+Rendering to api_requests_request_requestId_bounce.go
+API: /api/requests/request/{requestId}/run
+Rendering to api_requests_request_requestId_run.go
+API: /api/requests/request/{requestId}/run/{runId}
+Rendering to api_requests_request_requestId_run_runId.go
+API: /api/requests/request/{requestId}/pause
+Rendering to api_requests_request_requestId_pause.go
+API: /api/requests/request/{requestId}/skip-healthchecks
+Rendering to api_requests_request_requestId_skip-healthchecks.go
+API: /api/requests/request/{requestId}/unpause
+Rendering to api_requests_request_requestId_unpause.go
+API: /api/requests/request/{requestId}/exit-cooldown
+Rendering to api_requests_request_requestId_exit-cooldown.go
+API: /api/requests/active
+Rendering to api_requests_active.go
+API: /api/requests/paused
+Rendering to api_requests_paused.go
+API: /api/requests/cooldown
+Rendering to api_requests_cooldown.go
+API: /api/requests/finished
+Rendering to api_requests_finished.go
+API: /api/requests/queued/pending
+Rendering to api_requests_queued_pending.go
+API: /api/requests/queued/cleanup
+Rendering to api_requests_queued_cleanup.go
+API: /api/requests/request/{requestId}/scale
+Rendering to api_requests_request_requestId_scale.go
+API: /api/requests/request/{requestId}/skipHealthchecks
+Rendering to api_requests_request_requestId_skipHealthchecks.go
+API: /api/requests/lbcleanup
+Rendering to api_requests_lbcleanup.go
+API: /api/groups/group/{requestGroupId}
+Rendering to api_groups_group_requestGroupId.go
+API: /api/groups
+Rendering to api_groups.go
+API: /api/deploys
+Rendering to api_deploys.go
+API: /api/deploys/pending
+Rendering to api_deploys_pending.go
+API: /api/deploys/deploy/{deployId}/request/{requestId}
+Rendering to api_deploys_deploy_deployId_request_requestId.go
+API: /api/deploys/update
+Rendering to api_deploys_update.go
