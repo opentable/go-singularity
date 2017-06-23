@@ -1,0 +1,6 @@
+( .apis[] | select(.path == "/api/history/request/{requestId}/run/{runId}") |
+  .operations[] | select(.nickname == "getTaskHistoryForRequest") | .nickname ) |= "getTaskHistoryForRequestRun" |
+( .apis[] | select(.path ==  "/api/history/request/{requestId}/tasks/active") |
+  .operations[] | select(.nickname == "getTaskHistoryForRequest") | .nickname ) |= "getTaskHistoryForActiveRequest" |
+  .models.SingularityDockerInfo.properties.network["$ref"] = "SingularityDockerNetworkType" |
+  .models.SingularityVolume.properties.mode["enum"] = ["RO", "RW"]

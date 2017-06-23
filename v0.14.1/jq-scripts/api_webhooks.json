@@ -1,0 +1,3 @@
+.models.SingularityDeploy.properties.resources["$ref"] = "Resources" |
+  .models.SingularityDockerInfo.properties.network["$ref"] = "SingularityDockerNetworkType" |
+  .models.SingularityVolume.properties.mode["enum"] = ["RO", "RW"]

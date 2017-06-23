@@ -1,0 +1,12 @@
+.models["SingularityS3Log"] = {
+  "id": "SingularityS3Log",
+  "properties": {
+    "getUrl": { "type": "string" },
+    "key": { "type": "string" },
+    "lastModified": { "type": "integer", "format": "int64" },
+    "size": { "type": "integer", "format": "int64" },
+    "downloadUrl": { "type": "string" }
+  }
+} |
+( .apis[].operations[].type ) = "array" |
+( .apis[].operations[].items ) = { "$ref": "SingularityS3Log" }
