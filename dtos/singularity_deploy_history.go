@@ -10,13 +10,13 @@ import (
 type SingularityDeployHistory struct {
 	present map[string]bool
 
-	Deploy *SingularityDeploy `json:"deploy"`
-
 	DeployMarker *SingularityDeployMarker `json:"deployMarker"`
 
-	DeployResult *SingularityDeployResult `json:"deployResult"`
+	Deploy *SingularityDeploy `json:"deploy"`
 
 	DeployStatistics *SingularityDeployStatistics `json:"deployStatistics"`
+
+	DeployResult *SingularityDeployResult `json:"deployResult"`
 }
 
 func (self *SingularityDeployHistory) Populate(jsonReader io.ReadCloser) (err error) {
@@ -55,16 +55,6 @@ func (self *SingularityDeployHistory) SetField(name string, value interface{}) e
 	default:
 		return fmt.Errorf("No such field %s on SingularityDeployHistory", name)
 
-	case "deploy", "Deploy":
-		v, ok := value.(*SingularityDeploy)
-		if ok {
-			self.Deploy = v
-			self.present["deploy"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field deploy/Deploy: value %v(%T) couldn't be cast to type *SingularityDeploy", value, value)
-		}
-
 	case "deployMarker", "DeployMarker":
 		v, ok := value.(*SingularityDeployMarker)
 		if ok {
@@ -75,14 +65,14 @@ func (self *SingularityDeployHistory) SetField(name string, value interface{}) e
 			return fmt.Errorf("Field deployMarker/DeployMarker: value %v(%T) couldn't be cast to type *SingularityDeployMarker", value, value)
 		}
 
-	case "deployResult", "DeployResult":
-		v, ok := value.(*SingularityDeployResult)
+	case "deploy", "Deploy":
+		v, ok := value.(*SingularityDeploy)
 		if ok {
-			self.DeployResult = v
-			self.present["deployResult"] = true
+			self.Deploy = v
+			self.present["deploy"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field deployResult/DeployResult: value %v(%T) couldn't be cast to type *SingularityDeployResult", value, value)
+			return fmt.Errorf("Field deploy/Deploy: value %v(%T) couldn't be cast to type *SingularityDeploy", value, value)
 		}
 
 	case "deployStatistics", "DeployStatistics":
@@ -95,6 +85,16 @@ func (self *SingularityDeployHistory) SetField(name string, value interface{}) e
 			return fmt.Errorf("Field deployStatistics/DeployStatistics: value %v(%T) couldn't be cast to type *SingularityDeployStatistics", value, value)
 		}
 
+	case "deployResult", "DeployResult":
+		v, ok := value.(*SingularityDeployResult)
+		if ok {
+			self.DeployResult = v
+			self.present["deployResult"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field deployResult/DeployResult: value %v(%T) couldn't be cast to type *SingularityDeployResult", value, value)
+		}
+
 	}
 }
 
@@ -102,14 +102,6 @@ func (self *SingularityDeployHistory) GetField(name string) (interface{}, error)
 	switch name {
 	default:
 		return nil, fmt.Errorf("No such field %s on SingularityDeployHistory", name)
-
-	case "deploy", "Deploy":
-		if self.present != nil {
-			if _, ok := self.present["deploy"]; ok {
-				return self.Deploy, nil
-			}
-		}
-		return nil, fmt.Errorf("Field Deploy no set on Deploy %+v", self)
 
 	case "deployMarker", "DeployMarker":
 		if self.present != nil {
@@ -119,13 +111,13 @@ func (self *SingularityDeployHistory) GetField(name string) (interface{}, error)
 		}
 		return nil, fmt.Errorf("Field DeployMarker no set on DeployMarker %+v", self)
 
-	case "deployResult", "DeployResult":
+	case "deploy", "Deploy":
 		if self.present != nil {
-			if _, ok := self.present["deployResult"]; ok {
-				return self.DeployResult, nil
+			if _, ok := self.present["deploy"]; ok {
+				return self.Deploy, nil
 			}
 		}
-		return nil, fmt.Errorf("Field DeployResult no set on DeployResult %+v", self)
+		return nil, fmt.Errorf("Field Deploy no set on Deploy %+v", self)
 
 	case "deployStatistics", "DeployStatistics":
 		if self.present != nil {
@@ -134,6 +126,14 @@ func (self *SingularityDeployHistory) GetField(name string) (interface{}, error)
 			}
 		}
 		return nil, fmt.Errorf("Field DeployStatistics no set on DeployStatistics %+v", self)
+
+	case "deployResult", "DeployResult":
+		if self.present != nil {
+			if _, ok := self.present["deployResult"]; ok {
+				return self.DeployResult, nil
+			}
+		}
+		return nil, fmt.Errorf("Field DeployResult no set on DeployResult %+v", self)
 
 	}
 }
@@ -146,17 +146,17 @@ func (self *SingularityDeployHistory) ClearField(name string) error {
 	default:
 		return fmt.Errorf("No such field %s on SingularityDeployHistory", name)
 
-	case "deploy", "Deploy":
-		self.present["deploy"] = false
-
 	case "deployMarker", "DeployMarker":
 		self.present["deployMarker"] = false
 
-	case "deployResult", "DeployResult":
-		self.present["deployResult"] = false
+	case "deploy", "Deploy":
+		self.present["deploy"] = false
 
 	case "deployStatistics", "DeployStatistics":
 		self.present["deployStatistics"] = false
+
+	case "deployResult", "DeployResult":
+		self.present["deployResult"] = false
 
 	}
 

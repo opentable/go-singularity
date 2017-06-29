@@ -7,10 +7,27 @@ import (
 	"github.com/opentable/swaggering"
 )
 
+type SingularityTaskIdHistoryExtendedTaskState string
+
+const (
+	SingularityTaskIdHistoryExtendedTaskStateTASK_LAUNCHED        SingularityTaskIdHistoryExtendedTaskState = "TASK_LAUNCHED"
+	SingularityTaskIdHistoryExtendedTaskStateTASK_STAGING         SingularityTaskIdHistoryExtendedTaskState = "TASK_STAGING"
+	SingularityTaskIdHistoryExtendedTaskStateTASK_STARTING        SingularityTaskIdHistoryExtendedTaskState = "TASK_STARTING"
+	SingularityTaskIdHistoryExtendedTaskStateTASK_RUNNING         SingularityTaskIdHistoryExtendedTaskState = "TASK_RUNNING"
+	SingularityTaskIdHistoryExtendedTaskStateTASK_CLEANING        SingularityTaskIdHistoryExtendedTaskState = "TASK_CLEANING"
+	SingularityTaskIdHistoryExtendedTaskStateTASK_KILLING         SingularityTaskIdHistoryExtendedTaskState = "TASK_KILLING"
+	SingularityTaskIdHistoryExtendedTaskStateTASK_FINISHED        SingularityTaskIdHistoryExtendedTaskState = "TASK_FINISHED"
+	SingularityTaskIdHistoryExtendedTaskStateTASK_FAILED          SingularityTaskIdHistoryExtendedTaskState = "TASK_FAILED"
+	SingularityTaskIdHistoryExtendedTaskStateTASK_KILLED          SingularityTaskIdHistoryExtendedTaskState = "TASK_KILLED"
+	SingularityTaskIdHistoryExtendedTaskStateTASK_LOST            SingularityTaskIdHistoryExtendedTaskState = "TASK_LOST"
+	SingularityTaskIdHistoryExtendedTaskStateTASK_LOST_WHILE_DOWN SingularityTaskIdHistoryExtendedTaskState = "TASK_LOST_WHILE_DOWN"
+	SingularityTaskIdHistoryExtendedTaskStateTASK_ERROR           SingularityTaskIdHistoryExtendedTaskState = "TASK_ERROR"
+)
+
 type SingularityTaskIdHistory struct {
 	present map[string]bool
 
-	// LastTaskState *ExtendedTaskState `json:"lastTaskState"`
+	LastTaskState SingularityTaskIdHistoryExtendedTaskState `json:"lastTaskState"`
 
 	RunId string `json:"runId,omitempty"`
 
@@ -55,6 +72,16 @@ func (self *SingularityTaskIdHistory) SetField(name string, value interface{}) e
 	default:
 		return fmt.Errorf("No such field %s on SingularityTaskIdHistory", name)
 
+	case "lastTaskState", "LastTaskState":
+		v, ok := value.(SingularityTaskIdHistoryExtendedTaskState)
+		if ok {
+			self.LastTaskState = v
+			self.present["lastTaskState"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field lastTaskState/LastTaskState: value %v(%T) couldn't be cast to type SingularityTaskIdHistoryExtendedTaskState", value, value)
+		}
+
 	case "runId", "RunId":
 		v, ok := value.(string)
 		if ok {
@@ -93,6 +120,14 @@ func (self *SingularityTaskIdHistory) GetField(name string) (interface{}, error)
 	default:
 		return nil, fmt.Errorf("No such field %s on SingularityTaskIdHistory", name)
 
+	case "lastTaskState", "LastTaskState":
+		if self.present != nil {
+			if _, ok := self.present["lastTaskState"]; ok {
+				return self.LastTaskState, nil
+			}
+		}
+		return nil, fmt.Errorf("Field LastTaskState no set on LastTaskState %+v", self)
+
 	case "runId", "RunId":
 		if self.present != nil {
 			if _, ok := self.present["runId"]; ok {
@@ -127,6 +162,9 @@ func (self *SingularityTaskIdHistory) ClearField(name string) error {
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on SingularityTaskIdHistory", name)
+
+	case "lastTaskState", "LastTaskState":
+		self.present["lastTaskState"] = false
 
 	case "runId", "RunId":
 		self.present["runId"] = false

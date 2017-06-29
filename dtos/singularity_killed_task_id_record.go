@@ -7,20 +7,56 @@ import (
 	"github.com/opentable/swaggering"
 )
 
+type SingularityKilledTaskIdRecordRequestCleanupType string
+
+const (
+	SingularityKilledTaskIdRecordRequestCleanupTypeDELETING           SingularityKilledTaskIdRecordRequestCleanupType = "DELETING"
+	SingularityKilledTaskIdRecordRequestCleanupTypePAUSING            SingularityKilledTaskIdRecordRequestCleanupType = "PAUSING"
+	SingularityKilledTaskIdRecordRequestCleanupTypeBOUNCE             SingularityKilledTaskIdRecordRequestCleanupType = "BOUNCE"
+	SingularityKilledTaskIdRecordRequestCleanupTypeINCREMENTAL_BOUNCE SingularityKilledTaskIdRecordRequestCleanupType = "INCREMENTAL_BOUNCE"
+)
+
+type SingularityKilledTaskIdRecordTaskCleanupType string
+
+const (
+	SingularityKilledTaskIdRecordTaskCleanupTypeUSER_REQUESTED               SingularityKilledTaskIdRecordTaskCleanupType = "USER_REQUESTED"
+	SingularityKilledTaskIdRecordTaskCleanupTypeUSER_REQUESTED_TASK_BOUNCE   SingularityKilledTaskIdRecordTaskCleanupType = "USER_REQUESTED_TASK_BOUNCE"
+	SingularityKilledTaskIdRecordTaskCleanupTypeDECOMISSIONING               SingularityKilledTaskIdRecordTaskCleanupType = "DECOMISSIONING"
+	SingularityKilledTaskIdRecordTaskCleanupTypeSCALING_DOWN                 SingularityKilledTaskIdRecordTaskCleanupType = "SCALING_DOWN"
+	SingularityKilledTaskIdRecordTaskCleanupTypeBOUNCING                     SingularityKilledTaskIdRecordTaskCleanupType = "BOUNCING"
+	SingularityKilledTaskIdRecordTaskCleanupTypeINCREMENTAL_BOUNCE           SingularityKilledTaskIdRecordTaskCleanupType = "INCREMENTAL_BOUNCE"
+	SingularityKilledTaskIdRecordTaskCleanupTypeDEPLOY_FAILED                SingularityKilledTaskIdRecordTaskCleanupType = "DEPLOY_FAILED"
+	SingularityKilledTaskIdRecordTaskCleanupTypeNEW_DEPLOY_SUCCEEDED         SingularityKilledTaskIdRecordTaskCleanupType = "NEW_DEPLOY_SUCCEEDED"
+	SingularityKilledTaskIdRecordTaskCleanupTypeDEPLOY_STEP_FINISHED         SingularityKilledTaskIdRecordTaskCleanupType = "DEPLOY_STEP_FINISHED"
+	SingularityKilledTaskIdRecordTaskCleanupTypeDEPLOY_CANCELED              SingularityKilledTaskIdRecordTaskCleanupType = "DEPLOY_CANCELED"
+	SingularityKilledTaskIdRecordTaskCleanupTypeTASK_EXCEEDED_TIME_LIMIT     SingularityKilledTaskIdRecordTaskCleanupType = "TASK_EXCEEDED_TIME_LIMIT"
+	SingularityKilledTaskIdRecordTaskCleanupTypeUNHEALTHY_NEW_TASK           SingularityKilledTaskIdRecordTaskCleanupType = "UNHEALTHY_NEW_TASK"
+	SingularityKilledTaskIdRecordTaskCleanupTypeOVERDUE_NEW_TASK             SingularityKilledTaskIdRecordTaskCleanupType = "OVERDUE_NEW_TASK"
+	SingularityKilledTaskIdRecordTaskCleanupTypeUSER_REQUESTED_DESTROY       SingularityKilledTaskIdRecordTaskCleanupType = "USER_REQUESTED_DESTROY"
+	SingularityKilledTaskIdRecordTaskCleanupTypeINCREMENTAL_DEPLOY_FAILED    SingularityKilledTaskIdRecordTaskCleanupType = "INCREMENTAL_DEPLOY_FAILED"
+	SingularityKilledTaskIdRecordTaskCleanupTypeINCREMENTAL_DEPLOY_CANCELLED SingularityKilledTaskIdRecordTaskCleanupType = "INCREMENTAL_DEPLOY_CANCELLED"
+	SingularityKilledTaskIdRecordTaskCleanupTypePRIORITY_KILL                SingularityKilledTaskIdRecordTaskCleanupType = "PRIORITY_KILL"
+	SingularityKilledTaskIdRecordTaskCleanupTypeREBALANCE_RACKS              SingularityKilledTaskIdRecordTaskCleanupType = "REBALANCE_RACKS"
+	SingularityKilledTaskIdRecordTaskCleanupTypePAUSING                      SingularityKilledTaskIdRecordTaskCleanupType = "PAUSING"
+	SingularityKilledTaskIdRecordTaskCleanupTypePAUSE                        SingularityKilledTaskIdRecordTaskCleanupType = "PAUSE"
+	SingularityKilledTaskIdRecordTaskCleanupTypeDECOMMISSION_TIMEOUT         SingularityKilledTaskIdRecordTaskCleanupType = "DECOMMISSION_TIMEOUT"
+	SingularityKilledTaskIdRecordTaskCleanupTypeREQUEST_DELETING             SingularityKilledTaskIdRecordTaskCleanupType = "REQUEST_DELETING"
+)
+
 type SingularityKilledTaskIdRecord struct {
 	present map[string]bool
 
 	OriginalTimestamp int64 `json:"originalTimestamp"`
 
-	// RequestCleanupType *RequestCleanupType `json:"requestCleanupType"`
+	Timestamp int64 `json:"timestamp"`
+
+	RequestCleanupType SingularityKilledTaskIdRecordRequestCleanupType `json:"requestCleanupType"`
+
+	TaskCleanupType SingularityKilledTaskIdRecordTaskCleanupType `json:"taskCleanupType"`
 
 	Retries int32 `json:"retries"`
 
-	// TaskCleanupType *TaskCleanupType `json:"taskCleanupType"`
-
 	TaskId *SingularityTaskId `json:"taskId"`
-
-	Timestamp int64 `json:"timestamp"`
 }
 
 func (self *SingularityKilledTaskIdRecord) Populate(jsonReader io.ReadCloser) (err error) {
@@ -69,6 +105,36 @@ func (self *SingularityKilledTaskIdRecord) SetField(name string, value interface
 			return fmt.Errorf("Field originalTimestamp/OriginalTimestamp: value %v(%T) couldn't be cast to type int64", value, value)
 		}
 
+	case "timestamp", "Timestamp":
+		v, ok := value.(int64)
+		if ok {
+			self.Timestamp = v
+			self.present["timestamp"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field timestamp/Timestamp: value %v(%T) couldn't be cast to type int64", value, value)
+		}
+
+	case "requestCleanupType", "RequestCleanupType":
+		v, ok := value.(SingularityKilledTaskIdRecordRequestCleanupType)
+		if ok {
+			self.RequestCleanupType = v
+			self.present["requestCleanupType"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field requestCleanupType/RequestCleanupType: value %v(%T) couldn't be cast to type SingularityKilledTaskIdRecordRequestCleanupType", value, value)
+		}
+
+	case "taskCleanupType", "TaskCleanupType":
+		v, ok := value.(SingularityKilledTaskIdRecordTaskCleanupType)
+		if ok {
+			self.TaskCleanupType = v
+			self.present["taskCleanupType"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field taskCleanupType/TaskCleanupType: value %v(%T) couldn't be cast to type SingularityKilledTaskIdRecordTaskCleanupType", value, value)
+		}
+
 	case "retries", "Retries":
 		v, ok := value.(int32)
 		if ok {
@@ -89,16 +155,6 @@ func (self *SingularityKilledTaskIdRecord) SetField(name string, value interface
 			return fmt.Errorf("Field taskId/TaskId: value %v(%T) couldn't be cast to type *SingularityTaskId", value, value)
 		}
 
-	case "timestamp", "Timestamp":
-		v, ok := value.(int64)
-		if ok {
-			self.Timestamp = v
-			self.present["timestamp"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field timestamp/Timestamp: value %v(%T) couldn't be cast to type int64", value, value)
-		}
-
 	}
 }
 
@@ -114,6 +170,30 @@ func (self *SingularityKilledTaskIdRecord) GetField(name string) (interface{}, e
 			}
 		}
 		return nil, fmt.Errorf("Field OriginalTimestamp no set on OriginalTimestamp %+v", self)
+
+	case "timestamp", "Timestamp":
+		if self.present != nil {
+			if _, ok := self.present["timestamp"]; ok {
+				return self.Timestamp, nil
+			}
+		}
+		return nil, fmt.Errorf("Field Timestamp no set on Timestamp %+v", self)
+
+	case "requestCleanupType", "RequestCleanupType":
+		if self.present != nil {
+			if _, ok := self.present["requestCleanupType"]; ok {
+				return self.RequestCleanupType, nil
+			}
+		}
+		return nil, fmt.Errorf("Field RequestCleanupType no set on RequestCleanupType %+v", self)
+
+	case "taskCleanupType", "TaskCleanupType":
+		if self.present != nil {
+			if _, ok := self.present["taskCleanupType"]; ok {
+				return self.TaskCleanupType, nil
+			}
+		}
+		return nil, fmt.Errorf("Field TaskCleanupType no set on TaskCleanupType %+v", self)
 
 	case "retries", "Retries":
 		if self.present != nil {
@@ -131,14 +211,6 @@ func (self *SingularityKilledTaskIdRecord) GetField(name string) (interface{}, e
 		}
 		return nil, fmt.Errorf("Field TaskId no set on TaskId %+v", self)
 
-	case "timestamp", "Timestamp":
-		if self.present != nil {
-			if _, ok := self.present["timestamp"]; ok {
-				return self.Timestamp, nil
-			}
-		}
-		return nil, fmt.Errorf("Field Timestamp no set on Timestamp %+v", self)
-
 	}
 }
 
@@ -153,14 +225,20 @@ func (self *SingularityKilledTaskIdRecord) ClearField(name string) error {
 	case "originalTimestamp", "OriginalTimestamp":
 		self.present["originalTimestamp"] = false
 
+	case "timestamp", "Timestamp":
+		self.present["timestamp"] = false
+
+	case "requestCleanupType", "RequestCleanupType":
+		self.present["requestCleanupType"] = false
+
+	case "taskCleanupType", "TaskCleanupType":
+		self.present["taskCleanupType"] = false
+
 	case "retries", "Retries":
 		self.present["retries"] = false
 
 	case "taskId", "TaskId":
 		self.present["taskId"] = false
-
-	case "timestamp", "Timestamp":
-		self.present["timestamp"] = false
 
 	}
 

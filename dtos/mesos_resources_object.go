@@ -10,8 +10,7 @@ import (
 type MesosResourcesObject struct {
 	present map[string]bool
 
-	// Properties *Map[string,Object] `json:"properties"`
-
+	Properties map[string]interface{} `json:"properties"`
 }
 
 func (self *MesosResourcesObject) Populate(jsonReader io.ReadCloser) (err error) {
@@ -50,6 +49,16 @@ func (self *MesosResourcesObject) SetField(name string, value interface{}) error
 	default:
 		return fmt.Errorf("No such field %s on MesosResourcesObject", name)
 
+	case "properties", "Properties":
+		v, ok := value.(map[string]interface{})
+		if ok {
+			self.Properties = v
+			self.present["properties"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field properties/Properties: value %v(%T) couldn't be cast to type map[string]interface{}", value, value)
+		}
+
 	}
 }
 
@@ -57,6 +66,14 @@ func (self *MesosResourcesObject) GetField(name string) (interface{}, error) {
 	switch name {
 	default:
 		return nil, fmt.Errorf("No such field %s on MesosResourcesObject", name)
+
+	case "properties", "Properties":
+		if self.present != nil {
+			if _, ok := self.present["properties"]; ok {
+				return self.Properties, nil
+			}
+		}
+		return nil, fmt.Errorf("Field Properties no set on Properties %+v", self)
 
 	}
 }
@@ -68,6 +85,9 @@ func (self *MesosResourcesObject) ClearField(name string) error {
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on MesosResourcesObject", name)
+
+	case "properties", "Properties":
+		self.present["properties"] = false
 
 	}
 

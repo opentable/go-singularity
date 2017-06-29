@@ -10,16 +10,15 @@ import (
 type SingularityMachineChangeRequest struct {
 	present map[string]bool
 
-	ActionId string `json:"actionId,omitempty"`
-
-	DurationMillis int64 `json:"durationMillis"`
+	// Invalid field: RevertToState *notfound.MachineState `json:"revertToState"`
 
 	KillTasksOnDecommissionTimeout bool `json:"killTasksOnDecommissionTimeout"`
 
+	DurationMillis int64 `json:"durationMillis"`
+
+	ActionId string `json:"actionId,omitempty"`
+
 	Message string `json:"message,omitempty"`
-
-	// RevertToState *MachineState `json:"revertToState"`
-
 }
 
 func (self *SingularityMachineChangeRequest) Populate(jsonReader io.ReadCloser) (err error) {
@@ -58,14 +57,14 @@ func (self *SingularityMachineChangeRequest) SetField(name string, value interfa
 	default:
 		return fmt.Errorf("No such field %s on SingularityMachineChangeRequest", name)
 
-	case "actionId", "ActionId":
-		v, ok := value.(string)
+	case "killTasksOnDecommissionTimeout", "KillTasksOnDecommissionTimeout":
+		v, ok := value.(bool)
 		if ok {
-			self.ActionId = v
-			self.present["actionId"] = true
+			self.KillTasksOnDecommissionTimeout = v
+			self.present["killTasksOnDecommissionTimeout"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field actionId/ActionId: value %v(%T) couldn't be cast to type string", value, value)
+			return fmt.Errorf("Field killTasksOnDecommissionTimeout/KillTasksOnDecommissionTimeout: value %v(%T) couldn't be cast to type bool", value, value)
 		}
 
 	case "durationMillis", "DurationMillis":
@@ -78,14 +77,14 @@ func (self *SingularityMachineChangeRequest) SetField(name string, value interfa
 			return fmt.Errorf("Field durationMillis/DurationMillis: value %v(%T) couldn't be cast to type int64", value, value)
 		}
 
-	case "killTasksOnDecommissionTimeout", "KillTasksOnDecommissionTimeout":
-		v, ok := value.(bool)
+	case "actionId", "ActionId":
+		v, ok := value.(string)
 		if ok {
-			self.KillTasksOnDecommissionTimeout = v
-			self.present["killTasksOnDecommissionTimeout"] = true
+			self.ActionId = v
+			self.present["actionId"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field killTasksOnDecommissionTimeout/KillTasksOnDecommissionTimeout: value %v(%T) couldn't be cast to type bool", value, value)
+			return fmt.Errorf("Field actionId/ActionId: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "message", "Message":
@@ -106,13 +105,13 @@ func (self *SingularityMachineChangeRequest) GetField(name string) (interface{},
 	default:
 		return nil, fmt.Errorf("No such field %s on SingularityMachineChangeRequest", name)
 
-	case "actionId", "ActionId":
+	case "killTasksOnDecommissionTimeout", "KillTasksOnDecommissionTimeout":
 		if self.present != nil {
-			if _, ok := self.present["actionId"]; ok {
-				return self.ActionId, nil
+			if _, ok := self.present["killTasksOnDecommissionTimeout"]; ok {
+				return self.KillTasksOnDecommissionTimeout, nil
 			}
 		}
-		return nil, fmt.Errorf("Field ActionId no set on ActionId %+v", self)
+		return nil, fmt.Errorf("Field KillTasksOnDecommissionTimeout no set on KillTasksOnDecommissionTimeout %+v", self)
 
 	case "durationMillis", "DurationMillis":
 		if self.present != nil {
@@ -122,13 +121,13 @@ func (self *SingularityMachineChangeRequest) GetField(name string) (interface{},
 		}
 		return nil, fmt.Errorf("Field DurationMillis no set on DurationMillis %+v", self)
 
-	case "killTasksOnDecommissionTimeout", "KillTasksOnDecommissionTimeout":
+	case "actionId", "ActionId":
 		if self.present != nil {
-			if _, ok := self.present["killTasksOnDecommissionTimeout"]; ok {
-				return self.KillTasksOnDecommissionTimeout, nil
+			if _, ok := self.present["actionId"]; ok {
+				return self.ActionId, nil
 			}
 		}
-		return nil, fmt.Errorf("Field KillTasksOnDecommissionTimeout no set on KillTasksOnDecommissionTimeout %+v", self)
+		return nil, fmt.Errorf("Field ActionId no set on ActionId %+v", self)
 
 	case "message", "Message":
 		if self.present != nil {
@@ -149,14 +148,14 @@ func (self *SingularityMachineChangeRequest) ClearField(name string) error {
 	default:
 		return fmt.Errorf("No such field %s on SingularityMachineChangeRequest", name)
 
-	case "actionId", "ActionId":
-		self.present["actionId"] = false
+	case "killTasksOnDecommissionTimeout", "KillTasksOnDecommissionTimeout":
+		self.present["killTasksOnDecommissionTimeout"] = false
 
 	case "durationMillis", "DurationMillis":
 		self.present["durationMillis"] = false
 
-	case "killTasksOnDecommissionTimeout", "KillTasksOnDecommissionTimeout":
-		self.present["killTasksOnDecommissionTimeout"] = false
+	case "actionId", "ActionId":
+		self.present["actionId"] = false
 
 	case "message", "Message":
 		self.present["message"] = false

@@ -24,11 +24,11 @@ type SingularityMachineStateHistoryUpdate struct {
 
 	Message string `json:"message,omitempty"`
 
+	Timestamp int64 `json:"timestamp"`
+
 	ObjectId string `json:"objectId,omitempty"`
 
 	State SingularityMachineStateHistoryUpdateMachineState `json:"state"`
-
-	Timestamp int64 `json:"timestamp"`
 
 	User string `json:"user,omitempty"`
 }
@@ -79,6 +79,16 @@ func (self *SingularityMachineStateHistoryUpdate) SetField(name string, value in
 			return fmt.Errorf("Field message/Message: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
+	case "timestamp", "Timestamp":
+		v, ok := value.(int64)
+		if ok {
+			self.Timestamp = v
+			self.present["timestamp"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field timestamp/Timestamp: value %v(%T) couldn't be cast to type int64", value, value)
+		}
+
 	case "objectId", "ObjectId":
 		v, ok := value.(string)
 		if ok {
@@ -97,16 +107,6 @@ func (self *SingularityMachineStateHistoryUpdate) SetField(name string, value in
 			return nil
 		} else {
 			return fmt.Errorf("Field state/State: value %v(%T) couldn't be cast to type SingularityMachineStateHistoryUpdateMachineState", value, value)
-		}
-
-	case "timestamp", "Timestamp":
-		v, ok := value.(int64)
-		if ok {
-			self.Timestamp = v
-			self.present["timestamp"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field timestamp/Timestamp: value %v(%T) couldn't be cast to type int64", value, value)
 		}
 
 	case "user", "User":
@@ -135,6 +135,14 @@ func (self *SingularityMachineStateHistoryUpdate) GetField(name string) (interfa
 		}
 		return nil, fmt.Errorf("Field Message no set on Message %+v", self)
 
+	case "timestamp", "Timestamp":
+		if self.present != nil {
+			if _, ok := self.present["timestamp"]; ok {
+				return self.Timestamp, nil
+			}
+		}
+		return nil, fmt.Errorf("Field Timestamp no set on Timestamp %+v", self)
+
 	case "objectId", "ObjectId":
 		if self.present != nil {
 			if _, ok := self.present["objectId"]; ok {
@@ -150,14 +158,6 @@ func (self *SingularityMachineStateHistoryUpdate) GetField(name string) (interfa
 			}
 		}
 		return nil, fmt.Errorf("Field State no set on State %+v", self)
-
-	case "timestamp", "Timestamp":
-		if self.present != nil {
-			if _, ok := self.present["timestamp"]; ok {
-				return self.Timestamp, nil
-			}
-		}
-		return nil, fmt.Errorf("Field Timestamp no set on Timestamp %+v", self)
 
 	case "user", "User":
 		if self.present != nil {
@@ -181,14 +181,14 @@ func (self *SingularityMachineStateHistoryUpdate) ClearField(name string) error 
 	case "message", "Message":
 		self.present["message"] = false
 
+	case "timestamp", "Timestamp":
+		self.present["timestamp"] = false
+
 	case "objectId", "ObjectId":
 		self.present["objectId"] = false
 
 	case "state", "State":
 		self.present["state"] = false
-
-	case "timestamp", "Timestamp":
-		self.present["timestamp"] = false
 
 	case "user", "User":
 		self.present["user"] = false

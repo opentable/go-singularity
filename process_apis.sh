@@ -11,7 +11,7 @@ for f in ${1}/*.json; do
   name=$(basename "$f")
   jqscript=jq-scripts/${name}
   if [ -f "${jqscript}" ]; then
-    jq -f "${jqscript}" "$f" > "api-docs/${name}"
+    jq -f "${jqscript}" "$f" > "api-docs/${name}" || echo "in file ${jqscript}"
   else
     jq . "$f" > "api-docs/${name}"
   fi

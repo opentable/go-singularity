@@ -82,7 +82,7 @@ func (self *SingularityShellCommand) SetField(name string, value interface{}) er
 			self.present["options"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field options/Options: value %v(%T) couldn't be cast to type StringList", value, value)
+			return fmt.Errorf("Field options/Options: value %v(%T) couldn't be cast to type swaggering.StringList", value, value)
 		}
 
 	case "user", "User":

@@ -1,3 +1,9 @@
 .models.SingularityDeploy.properties.resources["$ref"] = "Resources" |
+  .models.SingularityDeploy.properties.customExecutorResources["$ref"] = "Resources" |
+  .models.SingularityDeploy.properties.healthcheckProtocol["$ref"] = "HealthcheckProtocol" |
+  .models.SingularityDeploy.properties.healthcheckProtocol["enum"] = ["http", "https"] |
+  .models.SingularityRequest.properties.slavePlacement["enum"] = [ "SEPARATE", "OPTIMISTIC", "GREEDY", "SEPARATE_BY_DEPLOY", "SEPARATE_BY_REQUEST", "SPREAD_ALL_SLAVES" ] |
+  .models.SingularityRequest.properties.scheduleType["enum"] = [ "CRON", "QUARTZ", "RFC5545" ] |
+  .models.HealthcheckOptions.properties.protocol["enum"] = ["http", "https"] |
   .models.SingularityDockerInfo.properties.network["$ref"] = "SingularityDockerNetworkType" |
   .models.SingularityVolume.properties.mode["enum"] = ["RO", "RW"]

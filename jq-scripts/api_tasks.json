@@ -1,6 +1,22 @@
 .models.SingularityDeploy.properties.resources["$ref"] = "Resources" |
+  .models.SingularityDeploy.properties.customExecutorResources["$ref"] = "Resources" |
+  .models.SingularityDeploy.properties.healthcheckProtocol["$ref"] = "HealthcheckProtocol" |
+  .models.SingularityDeploy.properties.healthcheckProtocol["enum"] = ["http", "https"] |
+  .models.SingularityRequest.properties.slavePlacement["enum"] = [ "SEPARATE", "OPTIMISTIC", "GREEDY", "SEPARATE_BY_DEPLOY", "SEPARATE_BY_REQUEST", "SPREAD_ALL_SLAVES" ] |
+  .models.SingularityRequest.properties.scheduleType["enum"] = [ "CRON", "QUARTZ", "RFC5545" ] |
+  .models.HealthcheckOptions.properties.protocol["enum"] = ["http", "https"] |
   .models.SingularityDockerInfo.properties.network["$ref"] = "SingularityDockerNetworkType" |
   .models.SingularityDockerInfo.properties.network["enum"] = ["HOST", "BRIDGE", "NONE"] |
   .models["Variable"] = { "id": "Variable", "properties": { "name": { "type": "string" }, "value":{"type":"string"}}} |
   .models.Environment.properties.variables = { "$ref": "List[Variable]" } |
+  .models.SingularityTaskMetadataRequest.properties.level["enum"] = ["INFO", "WARN", "ERROR"] |
+  .models.SingularityKilledTaskIdRecord.properties.requestCleanupType["enum"] = [ "DELETING", "PAUSING", "BOUNCE", "INCREMENTAL_BOUNCE" ]|
+  .models.SingularityKilledTaskIdRecord.properties.taskCleanupType["enum"] = [
+    "USER_REQUESTED", "USER_REQUESTED_TASK_BOUNCE", "DECOMISSIONING",
+    "SCALING_DOWN", "BOUNCING", "INCREMENTAL_BOUNCE", "DEPLOY_FAILED",
+    "NEW_DEPLOY_SUCCEEDED", "DEPLOY_STEP_FINISHED", "DEPLOY_CANCELED",
+    "TASK_EXCEEDED_TIME_LIMIT", "UNHEALTHY_NEW_TASK", "OVERDUE_NEW_TASK",
+    "USER_REQUESTED_DESTROY", "INCREMENTAL_DEPLOY_FAILED",
+    "INCREMENTAL_DEPLOY_CANCELLED", "PRIORITY_KILL", "REBALANCE_RACKS",
+    "PAUSING", "PAUSE", "DECOMMISSION_TIMEOUT", "REQUEST_DELETING" ] |
   .models.SingularityVolume.properties.mode["enum"] = ["RO", "RW"]

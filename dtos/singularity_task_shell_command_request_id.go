@@ -10,9 +10,9 @@ import (
 type SingularityTaskShellCommandRequestId struct {
 	present map[string]bool
 
-	Name string `json:"name,omitempty"`
-
 	TaskId *SingularityTaskId `json:"taskId"`
+
+	Name string `json:"name,omitempty"`
 
 	Timestamp int64 `json:"timestamp"`
 }
@@ -53,16 +53,6 @@ func (self *SingularityTaskShellCommandRequestId) SetField(name string, value in
 	default:
 		return fmt.Errorf("No such field %s on SingularityTaskShellCommandRequestId", name)
 
-	case "name", "Name":
-		v, ok := value.(string)
-		if ok {
-			self.Name = v
-			self.present["name"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field name/Name: value %v(%T) couldn't be cast to type string", value, value)
-		}
-
 	case "taskId", "TaskId":
 		v, ok := value.(*SingularityTaskId)
 		if ok {
@@ -71,6 +61,16 @@ func (self *SingularityTaskShellCommandRequestId) SetField(name string, value in
 			return nil
 		} else {
 			return fmt.Errorf("Field taskId/TaskId: value %v(%T) couldn't be cast to type *SingularityTaskId", value, value)
+		}
+
+	case "name", "Name":
+		v, ok := value.(string)
+		if ok {
+			self.Name = v
+			self.present["name"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field name/Name: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "timestamp", "Timestamp":
@@ -91,14 +91,6 @@ func (self *SingularityTaskShellCommandRequestId) GetField(name string) (interfa
 	default:
 		return nil, fmt.Errorf("No such field %s on SingularityTaskShellCommandRequestId", name)
 
-	case "name", "Name":
-		if self.present != nil {
-			if _, ok := self.present["name"]; ok {
-				return self.Name, nil
-			}
-		}
-		return nil, fmt.Errorf("Field Name no set on Name %+v", self)
-
 	case "taskId", "TaskId":
 		if self.present != nil {
 			if _, ok := self.present["taskId"]; ok {
@@ -106,6 +98,14 @@ func (self *SingularityTaskShellCommandRequestId) GetField(name string) (interfa
 			}
 		}
 		return nil, fmt.Errorf("Field TaskId no set on TaskId %+v", self)
+
+	case "name", "Name":
+		if self.present != nil {
+			if _, ok := self.present["name"]; ok {
+				return self.Name, nil
+			}
+		}
+		return nil, fmt.Errorf("Field Name no set on Name %+v", self)
 
 	case "timestamp", "Timestamp":
 		if self.present != nil {
@@ -126,11 +126,11 @@ func (self *SingularityTaskShellCommandRequestId) ClearField(name string) error 
 	default:
 		return fmt.Errorf("No such field %s on SingularityTaskShellCommandRequestId", name)
 
-	case "name", "Name":
-		self.present["name"] = false
-
 	case "taskId", "TaskId":
 		self.present["taskId"] = false
+
+	case "name", "Name":
+		self.present["name"] = false
 
 	case "timestamp", "Timestamp":
 		self.present["timestamp"] = false

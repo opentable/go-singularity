@@ -12,9 +12,9 @@ type MesosFileChunkObject struct {
 
 	Data string `json:"data,omitempty"`
 
-	NextOffset int64 `json:"nextOffset"`
-
 	Offset int64 `json:"offset"`
+
+	NextOffset int64 `json:"nextOffset"`
 }
 
 func (self *MesosFileChunkObject) Populate(jsonReader io.ReadCloser) (err error) {
@@ -63,16 +63,6 @@ func (self *MesosFileChunkObject) SetField(name string, value interface{}) error
 			return fmt.Errorf("Field data/Data: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
-	case "nextOffset", "NextOffset":
-		v, ok := value.(int64)
-		if ok {
-			self.NextOffset = v
-			self.present["nextOffset"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field nextOffset/NextOffset: value %v(%T) couldn't be cast to type int64", value, value)
-		}
-
 	case "offset", "Offset":
 		v, ok := value.(int64)
 		if ok {
@@ -81,6 +71,16 @@ func (self *MesosFileChunkObject) SetField(name string, value interface{}) error
 			return nil
 		} else {
 			return fmt.Errorf("Field offset/Offset: value %v(%T) couldn't be cast to type int64", value, value)
+		}
+
+	case "nextOffset", "NextOffset":
+		v, ok := value.(int64)
+		if ok {
+			self.NextOffset = v
+			self.present["nextOffset"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field nextOffset/NextOffset: value %v(%T) couldn't be cast to type int64", value, value)
 		}
 
 	}
@@ -99,14 +99,6 @@ func (self *MesosFileChunkObject) GetField(name string) (interface{}, error) {
 		}
 		return nil, fmt.Errorf("Field Data no set on Data %+v", self)
 
-	case "nextOffset", "NextOffset":
-		if self.present != nil {
-			if _, ok := self.present["nextOffset"]; ok {
-				return self.NextOffset, nil
-			}
-		}
-		return nil, fmt.Errorf("Field NextOffset no set on NextOffset %+v", self)
-
 	case "offset", "Offset":
 		if self.present != nil {
 			if _, ok := self.present["offset"]; ok {
@@ -114,6 +106,14 @@ func (self *MesosFileChunkObject) GetField(name string) (interface{}, error) {
 			}
 		}
 		return nil, fmt.Errorf("Field Offset no set on Offset %+v", self)
+
+	case "nextOffset", "NextOffset":
+		if self.present != nil {
+			if _, ok := self.present["nextOffset"]; ok {
+				return self.NextOffset, nil
+			}
+		}
+		return nil, fmt.Errorf("Field NextOffset no set on NextOffset %+v", self)
 
 	}
 }
@@ -129,11 +129,11 @@ func (self *MesosFileChunkObject) ClearField(name string) error {
 	case "data", "Data":
 		self.present["data"] = false
 
-	case "nextOffset", "NextOffset":
-		self.present["nextOffset"] = false
-
 	case "offset", "Offset":
 		self.present["offset"] = false
+
+	case "nextOffset", "NextOffset":
+		self.present["nextOffset"] = false
 
 	}
 

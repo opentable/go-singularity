@@ -10,13 +10,13 @@ import (
 type EmbeddedArtifact struct {
 	present map[string]bool
 
+	Name string `json:"name,omitempty"`
+
 	Content swaggering.StringList `json:"content"`
 
 	Filename string `json:"filename,omitempty"`
 
 	Md5sum string `json:"md5sum,omitempty"`
-
-	Name string `json:"name,omitempty"`
 
 	TargetFolderRelativeToTask string `json:"targetFolderRelativeToTask,omitempty"`
 }
@@ -57,6 +57,16 @@ func (self *EmbeddedArtifact) SetField(name string, value interface{}) error {
 	default:
 		return fmt.Errorf("No such field %s on EmbeddedArtifact", name)
 
+	case "name", "Name":
+		v, ok := value.(string)
+		if ok {
+			self.Name = v
+			self.present["name"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field name/Name: value %v(%T) couldn't be cast to type string", value, value)
+		}
+
 	case "content", "Content":
 		v, ok := value.(swaggering.StringList)
 		if ok {
@@ -64,7 +74,7 @@ func (self *EmbeddedArtifact) SetField(name string, value interface{}) error {
 			self.present["content"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field content/Content: value %v(%T) couldn't be cast to type StringList", value, value)
+			return fmt.Errorf("Field content/Content: value %v(%T) couldn't be cast to type swaggering.StringList", value, value)
 		}
 
 	case "filename", "Filename":
@@ -87,16 +97,6 @@ func (self *EmbeddedArtifact) SetField(name string, value interface{}) error {
 			return fmt.Errorf("Field md5sum/Md5sum: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
-	case "name", "Name":
-		v, ok := value.(string)
-		if ok {
-			self.Name = v
-			self.present["name"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field name/Name: value %v(%T) couldn't be cast to type string", value, value)
-		}
-
 	case "targetFolderRelativeToTask", "TargetFolderRelativeToTask":
 		v, ok := value.(string)
 		if ok {
@@ -114,6 +114,14 @@ func (self *EmbeddedArtifact) GetField(name string) (interface{}, error) {
 	switch name {
 	default:
 		return nil, fmt.Errorf("No such field %s on EmbeddedArtifact", name)
+
+	case "name", "Name":
+		if self.present != nil {
+			if _, ok := self.present["name"]; ok {
+				return self.Name, nil
+			}
+		}
+		return nil, fmt.Errorf("Field Name no set on Name %+v", self)
 
 	case "content", "Content":
 		if self.present != nil {
@@ -139,14 +147,6 @@ func (self *EmbeddedArtifact) GetField(name string) (interface{}, error) {
 		}
 		return nil, fmt.Errorf("Field Md5sum no set on Md5sum %+v", self)
 
-	case "name", "Name":
-		if self.present != nil {
-			if _, ok := self.present["name"]; ok {
-				return self.Name, nil
-			}
-		}
-		return nil, fmt.Errorf("Field Name no set on Name %+v", self)
-
 	case "targetFolderRelativeToTask", "TargetFolderRelativeToTask":
 		if self.present != nil {
 			if _, ok := self.present["targetFolderRelativeToTask"]; ok {
@@ -166,6 +166,9 @@ func (self *EmbeddedArtifact) ClearField(name string) error {
 	default:
 		return fmt.Errorf("No such field %s on EmbeddedArtifact", name)
 
+	case "name", "Name":
+		self.present["name"] = false
+
 	case "content", "Content":
 		self.present["content"] = false
 
@@ -174,9 +177,6 @@ func (self *EmbeddedArtifact) ClearField(name string) error {
 
 	case "md5sum", "Md5sum":
 		self.present["md5sum"] = false
-
-	case "name", "Name":
-		self.present["name"] = false
 
 	case "targetFolderRelativeToTask", "TargetFolderRelativeToTask":
 		self.present["targetFolderRelativeToTask"] = false

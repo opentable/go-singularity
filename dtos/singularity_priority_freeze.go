@@ -10,13 +10,13 @@ import (
 type SingularityPriorityFreeze struct {
 	present map[string]bool
 
-	ActionId string `json:"actionId,omitempty"`
+	MinimumPriorityLevel float64 `json:"minimumPriorityLevel"`
 
 	KillTasks bool `json:"killTasks"`
 
 	Message string `json:"message,omitempty"`
 
-	MinimumPriorityLevel float64 `json:"minimumPriorityLevel"`
+	ActionId string `json:"actionId,omitempty"`
 }
 
 func (self *SingularityPriorityFreeze) Populate(jsonReader io.ReadCloser) (err error) {
@@ -55,14 +55,14 @@ func (self *SingularityPriorityFreeze) SetField(name string, value interface{}) 
 	default:
 		return fmt.Errorf("No such field %s on SingularityPriorityFreeze", name)
 
-	case "actionId", "ActionId":
-		v, ok := value.(string)
+	case "minimumPriorityLevel", "MinimumPriorityLevel":
+		v, ok := value.(float64)
 		if ok {
-			self.ActionId = v
-			self.present["actionId"] = true
+			self.MinimumPriorityLevel = v
+			self.present["minimumPriorityLevel"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field actionId/ActionId: value %v(%T) couldn't be cast to type string", value, value)
+			return fmt.Errorf("Field minimumPriorityLevel/MinimumPriorityLevel: value %v(%T) couldn't be cast to type float64", value, value)
 		}
 
 	case "killTasks", "KillTasks":
@@ -85,14 +85,14 @@ func (self *SingularityPriorityFreeze) SetField(name string, value interface{}) 
 			return fmt.Errorf("Field message/Message: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
-	case "minimumPriorityLevel", "MinimumPriorityLevel":
-		v, ok := value.(float64)
+	case "actionId", "ActionId":
+		v, ok := value.(string)
 		if ok {
-			self.MinimumPriorityLevel = v
-			self.present["minimumPriorityLevel"] = true
+			self.ActionId = v
+			self.present["actionId"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field minimumPriorityLevel/MinimumPriorityLevel: value %v(%T) couldn't be cast to type float64", value, value)
+			return fmt.Errorf("Field actionId/ActionId: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	}
@@ -103,13 +103,13 @@ func (self *SingularityPriorityFreeze) GetField(name string) (interface{}, error
 	default:
 		return nil, fmt.Errorf("No such field %s on SingularityPriorityFreeze", name)
 
-	case "actionId", "ActionId":
+	case "minimumPriorityLevel", "MinimumPriorityLevel":
 		if self.present != nil {
-			if _, ok := self.present["actionId"]; ok {
-				return self.ActionId, nil
+			if _, ok := self.present["minimumPriorityLevel"]; ok {
+				return self.MinimumPriorityLevel, nil
 			}
 		}
-		return nil, fmt.Errorf("Field ActionId no set on ActionId %+v", self)
+		return nil, fmt.Errorf("Field MinimumPriorityLevel no set on MinimumPriorityLevel %+v", self)
 
 	case "killTasks", "KillTasks":
 		if self.present != nil {
@@ -127,13 +127,13 @@ func (self *SingularityPriorityFreeze) GetField(name string) (interface{}, error
 		}
 		return nil, fmt.Errorf("Field Message no set on Message %+v", self)
 
-	case "minimumPriorityLevel", "MinimumPriorityLevel":
+	case "actionId", "ActionId":
 		if self.present != nil {
-			if _, ok := self.present["minimumPriorityLevel"]; ok {
-				return self.MinimumPriorityLevel, nil
+			if _, ok := self.present["actionId"]; ok {
+				return self.ActionId, nil
 			}
 		}
-		return nil, fmt.Errorf("Field MinimumPriorityLevel no set on MinimumPriorityLevel %+v", self)
+		return nil, fmt.Errorf("Field ActionId no set on ActionId %+v", self)
 
 	}
 }
@@ -146,8 +146,8 @@ func (self *SingularityPriorityFreeze) ClearField(name string) error {
 	default:
 		return fmt.Errorf("No such field %s on SingularityPriorityFreeze", name)
 
-	case "actionId", "ActionId":
-		self.present["actionId"] = false
+	case "minimumPriorityLevel", "MinimumPriorityLevel":
+		self.present["minimumPriorityLevel"] = false
 
 	case "killTasks", "KillTasks":
 		self.present["killTasks"] = false
@@ -155,8 +155,8 @@ func (self *SingularityPriorityFreeze) ClearField(name string) error {
 	case "message", "Message":
 		self.present["message"] = false
 
-	case "minimumPriorityLevel", "MinimumPriorityLevel":
-		self.present["minimumPriorityLevel"] = false
+	case "actionId", "ActionId":
+		self.present["actionId"] = false
 
 	}
 

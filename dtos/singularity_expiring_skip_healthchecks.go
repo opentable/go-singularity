@@ -12,15 +12,15 @@ type SingularityExpiringSkipHealthchecks struct {
 
 	ActionId string `json:"actionId,omitempty"`
 
-	// ExpiringAPIRequestObject *T `json:"expiringAPIRequestObject"`
+	User string `json:"user,omitempty"`
 
-	RequestId string `json:"requestId,omitempty"`
+	// Invalid field: ExpiringAPIRequestObject *notfound.T `json:"expiringAPIRequestObject"`
 
 	RevertToSkipHealthchecks bool `json:"revertToSkipHealthchecks"`
 
-	StartMillis int64 `json:"startMillis"`
+	RequestId string `json:"requestId,omitempty"`
 
-	User string `json:"user,omitempty"`
+	StartMillis int64 `json:"startMillis"`
 }
 
 func (self *SingularityExpiringSkipHealthchecks) Populate(jsonReader io.ReadCloser) (err error) {
@@ -69,14 +69,14 @@ func (self *SingularityExpiringSkipHealthchecks) SetField(name string, value int
 			return fmt.Errorf("Field actionId/ActionId: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
-	case "requestId", "RequestId":
+	case "user", "User":
 		v, ok := value.(string)
 		if ok {
-			self.RequestId = v
-			self.present["requestId"] = true
+			self.User = v
+			self.present["user"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field requestId/RequestId: value %v(%T) couldn't be cast to type string", value, value)
+			return fmt.Errorf("Field user/User: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "revertToSkipHealthchecks", "RevertToSkipHealthchecks":
@@ -89,6 +89,16 @@ func (self *SingularityExpiringSkipHealthchecks) SetField(name string, value int
 			return fmt.Errorf("Field revertToSkipHealthchecks/RevertToSkipHealthchecks: value %v(%T) couldn't be cast to type bool", value, value)
 		}
 
+	case "requestId", "RequestId":
+		v, ok := value.(string)
+		if ok {
+			self.RequestId = v
+			self.present["requestId"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field requestId/RequestId: value %v(%T) couldn't be cast to type string", value, value)
+		}
+
 	case "startMillis", "StartMillis":
 		v, ok := value.(int64)
 		if ok {
@@ -97,16 +107,6 @@ func (self *SingularityExpiringSkipHealthchecks) SetField(name string, value int
 			return nil
 		} else {
 			return fmt.Errorf("Field startMillis/StartMillis: value %v(%T) couldn't be cast to type int64", value, value)
-		}
-
-	case "user", "User":
-		v, ok := value.(string)
-		if ok {
-			self.User = v
-			self.present["user"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field user/User: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	}
@@ -125,13 +125,13 @@ func (self *SingularityExpiringSkipHealthchecks) GetField(name string) (interfac
 		}
 		return nil, fmt.Errorf("Field ActionId no set on ActionId %+v", self)
 
-	case "requestId", "RequestId":
+	case "user", "User":
 		if self.present != nil {
-			if _, ok := self.present["requestId"]; ok {
-				return self.RequestId, nil
+			if _, ok := self.present["user"]; ok {
+				return self.User, nil
 			}
 		}
-		return nil, fmt.Errorf("Field RequestId no set on RequestId %+v", self)
+		return nil, fmt.Errorf("Field User no set on User %+v", self)
 
 	case "revertToSkipHealthchecks", "RevertToSkipHealthchecks":
 		if self.present != nil {
@@ -141,6 +141,14 @@ func (self *SingularityExpiringSkipHealthchecks) GetField(name string) (interfac
 		}
 		return nil, fmt.Errorf("Field RevertToSkipHealthchecks no set on RevertToSkipHealthchecks %+v", self)
 
+	case "requestId", "RequestId":
+		if self.present != nil {
+			if _, ok := self.present["requestId"]; ok {
+				return self.RequestId, nil
+			}
+		}
+		return nil, fmt.Errorf("Field RequestId no set on RequestId %+v", self)
+
 	case "startMillis", "StartMillis":
 		if self.present != nil {
 			if _, ok := self.present["startMillis"]; ok {
@@ -148,14 +156,6 @@ func (self *SingularityExpiringSkipHealthchecks) GetField(name string) (interfac
 			}
 		}
 		return nil, fmt.Errorf("Field StartMillis no set on StartMillis %+v", self)
-
-	case "user", "User":
-		if self.present != nil {
-			if _, ok := self.present["user"]; ok {
-				return self.User, nil
-			}
-		}
-		return nil, fmt.Errorf("Field User no set on User %+v", self)
 
 	}
 }
@@ -171,17 +171,17 @@ func (self *SingularityExpiringSkipHealthchecks) ClearField(name string) error {
 	case "actionId", "ActionId":
 		self.present["actionId"] = false
 
-	case "requestId", "RequestId":
-		self.present["requestId"] = false
+	case "user", "User":
+		self.present["user"] = false
 
 	case "revertToSkipHealthchecks", "RevertToSkipHealthchecks":
 		self.present["revertToSkipHealthchecks"] = false
 
+	case "requestId", "RequestId":
+		self.present["requestId"] = false
+
 	case "startMillis", "StartMillis":
 		self.present["startMillis"] = false
-
-	case "user", "User":
-		self.present["user"] = false
 
 	}
 
