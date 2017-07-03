@@ -10,10 +10,6 @@ import (
 type SingularityS3SearchRequest struct {
 	present map[string]bool
 
-	ExcludeMetadata bool `json:"excludeMetadata"`
-
-	ListOnly bool `json:"listOnly"`
-
 	MaxPerPage int32 `json:"maxPerPage"`
 
 	// Invalid field: ContinuationTokens *notfound.Map[string,ContinuationToken] `json:"continuationTokens"`
@@ -25,6 +21,10 @@ type SingularityS3SearchRequest struct {
 	Start int64 `json:"start"`
 
 	End int64 `json:"end"`
+
+	ExcludeMetadata bool `json:"excludeMetadata"`
+
+	ListOnly bool `json:"listOnly"`
 }
 
 func (self *SingularityS3SearchRequest) Populate(jsonReader io.ReadCloser) (err error) {
@@ -62,26 +62,6 @@ func (self *SingularityS3SearchRequest) SetField(name string, value interface{})
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on SingularityS3SearchRequest", name)
-
-	case "excludeMetadata", "ExcludeMetadata":
-		v, ok := value.(bool)
-		if ok {
-			self.ExcludeMetadata = v
-			self.present["excludeMetadata"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field excludeMetadata/ExcludeMetadata: value %v(%T) couldn't be cast to type bool", value, value)
-		}
-
-	case "listOnly", "ListOnly":
-		v, ok := value.(bool)
-		if ok {
-			self.ListOnly = v
-			self.present["listOnly"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field listOnly/ListOnly: value %v(%T) couldn't be cast to type bool", value, value)
-		}
 
 	case "maxPerPage", "MaxPerPage":
 		v, ok := value.(int32)
@@ -133,6 +113,26 @@ func (self *SingularityS3SearchRequest) SetField(name string, value interface{})
 			return fmt.Errorf("Field end/End: value %v(%T) couldn't be cast to type int64", value, value)
 		}
 
+	case "excludeMetadata", "ExcludeMetadata":
+		v, ok := value.(bool)
+		if ok {
+			self.ExcludeMetadata = v
+			self.present["excludeMetadata"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field excludeMetadata/ExcludeMetadata: value %v(%T) couldn't be cast to type bool", value, value)
+		}
+
+	case "listOnly", "ListOnly":
+		v, ok := value.(bool)
+		if ok {
+			self.ListOnly = v
+			self.present["listOnly"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field listOnly/ListOnly: value %v(%T) couldn't be cast to type bool", value, value)
+		}
+
 	}
 }
 
@@ -140,22 +140,6 @@ func (self *SingularityS3SearchRequest) GetField(name string) (interface{}, erro
 	switch name {
 	default:
 		return nil, fmt.Errorf("No such field %s on SingularityS3SearchRequest", name)
-
-	case "excludeMetadata", "ExcludeMetadata":
-		if self.present != nil {
-			if _, ok := self.present["excludeMetadata"]; ok {
-				return self.ExcludeMetadata, nil
-			}
-		}
-		return nil, fmt.Errorf("Field ExcludeMetadata no set on ExcludeMetadata %+v", self)
-
-	case "listOnly", "ListOnly":
-		if self.present != nil {
-			if _, ok := self.present["listOnly"]; ok {
-				return self.ListOnly, nil
-			}
-		}
-		return nil, fmt.Errorf("Field ListOnly no set on ListOnly %+v", self)
 
 	case "maxPerPage", "MaxPerPage":
 		if self.present != nil {
@@ -197,6 +181,22 @@ func (self *SingularityS3SearchRequest) GetField(name string) (interface{}, erro
 		}
 		return nil, fmt.Errorf("Field End no set on End %+v", self)
 
+	case "excludeMetadata", "ExcludeMetadata":
+		if self.present != nil {
+			if _, ok := self.present["excludeMetadata"]; ok {
+				return self.ExcludeMetadata, nil
+			}
+		}
+		return nil, fmt.Errorf("Field ExcludeMetadata no set on ExcludeMetadata %+v", self)
+
+	case "listOnly", "ListOnly":
+		if self.present != nil {
+			if _, ok := self.present["listOnly"]; ok {
+				return self.ListOnly, nil
+			}
+		}
+		return nil, fmt.Errorf("Field ListOnly no set on ListOnly %+v", self)
+
 	}
 }
 
@@ -207,12 +207,6 @@ func (self *SingularityS3SearchRequest) ClearField(name string) error {
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on SingularityS3SearchRequest", name)
-
-	case "excludeMetadata", "ExcludeMetadata":
-		self.present["excludeMetadata"] = false
-
-	case "listOnly", "ListOnly":
-		self.present["listOnly"] = false
 
 	case "maxPerPage", "MaxPerPage":
 		self.present["maxPerPage"] = false
@@ -228,6 +222,12 @@ func (self *SingularityS3SearchRequest) ClearField(name string) error {
 
 	case "end", "End":
 		self.present["end"] = false
+
+	case "excludeMetadata", "ExcludeMetadata":
+		self.present["excludeMetadata"] = false
+
+	case "listOnly", "ListOnly":
+		self.present["listOnly"] = false
 
 	}
 

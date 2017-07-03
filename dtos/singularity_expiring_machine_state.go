@@ -22,8 +22,6 @@ const (
 type SingularityExpiringMachineState struct {
 	present map[string]bool
 
-	StartMillis int64 `json:"startMillis"`
-
 	ActionId string `json:"actionId,omitempty"`
 
 	User string `json:"user,omitempty"`
@@ -35,6 +33,8 @@ type SingularityExpiringMachineState struct {
 	RevertToState SingularityExpiringMachineStateMachineState `json:"revertToState"`
 
 	KillTasksOnDecommissionTimeout bool `json:"killTasksOnDecommissionTimeout"`
+
+	StartMillis int64 `json:"startMillis"`
 }
 
 func (self *SingularityExpiringMachineState) Populate(jsonReader io.ReadCloser) (err error) {
@@ -72,16 +72,6 @@ func (self *SingularityExpiringMachineState) SetField(name string, value interfa
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on SingularityExpiringMachineState", name)
-
-	case "startMillis", "StartMillis":
-		v, ok := value.(int64)
-		if ok {
-			self.StartMillis = v
-			self.present["startMillis"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field startMillis/StartMillis: value %v(%T) couldn't be cast to type int64", value, value)
-		}
 
 	case "actionId", "ActionId":
 		v, ok := value.(string)
@@ -133,6 +123,16 @@ func (self *SingularityExpiringMachineState) SetField(name string, value interfa
 			return fmt.Errorf("Field killTasksOnDecommissionTimeout/KillTasksOnDecommissionTimeout: value %v(%T) couldn't be cast to type bool", value, value)
 		}
 
+	case "startMillis", "StartMillis":
+		v, ok := value.(int64)
+		if ok {
+			self.StartMillis = v
+			self.present["startMillis"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field startMillis/StartMillis: value %v(%T) couldn't be cast to type int64", value, value)
+		}
+
 	}
 }
 
@@ -140,14 +140,6 @@ func (self *SingularityExpiringMachineState) GetField(name string) (interface{},
 	switch name {
 	default:
 		return nil, fmt.Errorf("No such field %s on SingularityExpiringMachineState", name)
-
-	case "startMillis", "StartMillis":
-		if self.present != nil {
-			if _, ok := self.present["startMillis"]; ok {
-				return self.StartMillis, nil
-			}
-		}
-		return nil, fmt.Errorf("Field StartMillis no set on StartMillis %+v", self)
 
 	case "actionId", "ActionId":
 		if self.present != nil {
@@ -189,6 +181,14 @@ func (self *SingularityExpiringMachineState) GetField(name string) (interface{},
 		}
 		return nil, fmt.Errorf("Field KillTasksOnDecommissionTimeout no set on KillTasksOnDecommissionTimeout %+v", self)
 
+	case "startMillis", "StartMillis":
+		if self.present != nil {
+			if _, ok := self.present["startMillis"]; ok {
+				return self.StartMillis, nil
+			}
+		}
+		return nil, fmt.Errorf("Field StartMillis no set on StartMillis %+v", self)
+
 	}
 }
 
@@ -199,9 +199,6 @@ func (self *SingularityExpiringMachineState) ClearField(name string) error {
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on SingularityExpiringMachineState", name)
-
-	case "startMillis", "StartMillis":
-		self.present["startMillis"] = false
 
 	case "actionId", "ActionId":
 		self.present["actionId"] = false
@@ -217,6 +214,9 @@ func (self *SingularityExpiringMachineState) ClearField(name string) error {
 
 	case "killTasksOnDecommissionTimeout", "KillTasksOnDecommissionTimeout":
 		self.present["killTasksOnDecommissionTimeout"] = false
+
+	case "startMillis", "StartMillis":
+		self.present["startMillis"] = false
 
 	}
 

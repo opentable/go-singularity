@@ -12,7 +12,7 @@
   .models.SingularityDockerInfo.properties.network["$ref"] = "SingularityDockerNetworkType" |
   .models.SingularityDockerInfo.properties.network["enum"] = ["HOST", "BRIDGE", "NONE"] |
   .models.SingularityVolume.properties.mode["enum"] = ["RO", "RW"] |
-  .models.SingularityDeployStatistics.properties.instanceSequentialFailureTimestamps["$ref"] = "Map[int,int]" |
+  .models.SingularityDeployStatistics.properties.instanceSequentialFailureTimestamps["$ref"] = "Map[int,List[int]]" |
   .models.SingularityDeployStatistics.properties.lastTaskState["enum"] = [
     "TASK_LAUNCHED", "TASK_STAGING", "TASK_STARTING", "TASK_RUNNING",
     "TASK_CLEANING", "TASK_KILLING", "TASK_FINISHED", "TASK_FAILED",

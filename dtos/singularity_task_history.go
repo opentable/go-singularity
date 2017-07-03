@@ -10,6 +10,8 @@ import (
 type SingularityTaskHistory struct {
 	present map[string]bool
 
+	Directory string `json:"directory,omitempty"`
+
 	ContainerId string `json:"containerId,omitempty"`
 
 	Task *SingularityTask `json:"task"`
@@ -23,8 +25,6 @@ type SingularityTaskHistory struct {
 	TaskMetadata SingularityTaskMetadataList `json:"taskMetadata"`
 
 	TaskUpdates SingularityTaskHistoryUpdateList `json:"taskUpdates"`
-
-	Directory string `json:"directory,omitempty"`
 }
 
 func (self *SingularityTaskHistory) Populate(jsonReader io.ReadCloser) (err error) {
@@ -62,6 +62,16 @@ func (self *SingularityTaskHistory) SetField(name string, value interface{}) err
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on SingularityTaskHistory", name)
+
+	case "directory", "Directory":
+		v, ok := value.(string)
+		if ok {
+			self.Directory = v
+			self.present["directory"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field directory/Directory: value %v(%T) couldn't be cast to type string", value, value)
+		}
 
 	case "containerId", "ContainerId":
 		v, ok := value.(string)
@@ -133,16 +143,6 @@ func (self *SingularityTaskHistory) SetField(name string, value interface{}) err
 			return fmt.Errorf("Field taskUpdates/TaskUpdates: value %v(%T) couldn't be cast to type SingularityTaskHistoryUpdateList", value, value)
 		}
 
-	case "directory", "Directory":
-		v, ok := value.(string)
-		if ok {
-			self.Directory = v
-			self.present["directory"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field directory/Directory: value %v(%T) couldn't be cast to type string", value, value)
-		}
-
 	}
 }
 
@@ -150,6 +150,14 @@ func (self *SingularityTaskHistory) GetField(name string) (interface{}, error) {
 	switch name {
 	default:
 		return nil, fmt.Errorf("No such field %s on SingularityTaskHistory", name)
+
+	case "directory", "Directory":
+		if self.present != nil {
+			if _, ok := self.present["directory"]; ok {
+				return self.Directory, nil
+			}
+		}
+		return nil, fmt.Errorf("Field Directory no set on Directory %+v", self)
 
 	case "containerId", "ContainerId":
 		if self.present != nil {
@@ -207,14 +215,6 @@ func (self *SingularityTaskHistory) GetField(name string) (interface{}, error) {
 		}
 		return nil, fmt.Errorf("Field TaskUpdates no set on TaskUpdates %+v", self)
 
-	case "directory", "Directory":
-		if self.present != nil {
-			if _, ok := self.present["directory"]; ok {
-				return self.Directory, nil
-			}
-		}
-		return nil, fmt.Errorf("Field Directory no set on Directory %+v", self)
-
 	}
 }
 
@@ -225,6 +225,9 @@ func (self *SingularityTaskHistory) ClearField(name string) error {
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on SingularityTaskHistory", name)
+
+	case "directory", "Directory":
+		self.present["directory"] = false
 
 	case "containerId", "ContainerId":
 		self.present["containerId"] = false
@@ -246,9 +249,6 @@ func (self *SingularityTaskHistory) ClearField(name string) error {
 
 	case "taskUpdates", "TaskUpdates":
 		self.present["taskUpdates"] = false
-
-	case "directory", "Directory":
-		self.present["directory"] = false
 
 	}
 

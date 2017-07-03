@@ -46,6 +46,10 @@ const (
 type SingularityKilledTaskIdRecord struct {
 	present map[string]bool
 
+	Retries int32 `json:"retries"`
+
+	TaskId *SingularityTaskId `json:"taskId"`
+
 	OriginalTimestamp int64 `json:"originalTimestamp"`
 
 	Timestamp int64 `json:"timestamp"`
@@ -53,10 +57,6 @@ type SingularityKilledTaskIdRecord struct {
 	RequestCleanupType SingularityKilledTaskIdRecordRequestCleanupType `json:"requestCleanupType"`
 
 	TaskCleanupType SingularityKilledTaskIdRecordTaskCleanupType `json:"taskCleanupType"`
-
-	Retries int32 `json:"retries"`
-
-	TaskId *SingularityTaskId `json:"taskId"`
 }
 
 func (self *SingularityKilledTaskIdRecord) Populate(jsonReader io.ReadCloser) (err error) {
@@ -94,6 +94,26 @@ func (self *SingularityKilledTaskIdRecord) SetField(name string, value interface
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on SingularityKilledTaskIdRecord", name)
+
+	case "retries", "Retries":
+		v, ok := value.(int32)
+		if ok {
+			self.Retries = v
+			self.present["retries"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field retries/Retries: value %v(%T) couldn't be cast to type int32", value, value)
+		}
+
+	case "taskId", "TaskId":
+		v, ok := value.(*SingularityTaskId)
+		if ok {
+			self.TaskId = v
+			self.present["taskId"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field taskId/TaskId: value %v(%T) couldn't be cast to type *SingularityTaskId", value, value)
+		}
 
 	case "originalTimestamp", "OriginalTimestamp":
 		v, ok := value.(int64)
@@ -135,26 +155,6 @@ func (self *SingularityKilledTaskIdRecord) SetField(name string, value interface
 			return fmt.Errorf("Field taskCleanupType/TaskCleanupType: value %v(%T) couldn't be cast to type SingularityKilledTaskIdRecordTaskCleanupType", value, value)
 		}
 
-	case "retries", "Retries":
-		v, ok := value.(int32)
-		if ok {
-			self.Retries = v
-			self.present["retries"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field retries/Retries: value %v(%T) couldn't be cast to type int32", value, value)
-		}
-
-	case "taskId", "TaskId":
-		v, ok := value.(*SingularityTaskId)
-		if ok {
-			self.TaskId = v
-			self.present["taskId"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field taskId/TaskId: value %v(%T) couldn't be cast to type *SingularityTaskId", value, value)
-		}
-
 	}
 }
 
@@ -162,6 +162,22 @@ func (self *SingularityKilledTaskIdRecord) GetField(name string) (interface{}, e
 	switch name {
 	default:
 		return nil, fmt.Errorf("No such field %s on SingularityKilledTaskIdRecord", name)
+
+	case "retries", "Retries":
+		if self.present != nil {
+			if _, ok := self.present["retries"]; ok {
+				return self.Retries, nil
+			}
+		}
+		return nil, fmt.Errorf("Field Retries no set on Retries %+v", self)
+
+	case "taskId", "TaskId":
+		if self.present != nil {
+			if _, ok := self.present["taskId"]; ok {
+				return self.TaskId, nil
+			}
+		}
+		return nil, fmt.Errorf("Field TaskId no set on TaskId %+v", self)
 
 	case "originalTimestamp", "OriginalTimestamp":
 		if self.present != nil {
@@ -195,22 +211,6 @@ func (self *SingularityKilledTaskIdRecord) GetField(name string) (interface{}, e
 		}
 		return nil, fmt.Errorf("Field TaskCleanupType no set on TaskCleanupType %+v", self)
 
-	case "retries", "Retries":
-		if self.present != nil {
-			if _, ok := self.present["retries"]; ok {
-				return self.Retries, nil
-			}
-		}
-		return nil, fmt.Errorf("Field Retries no set on Retries %+v", self)
-
-	case "taskId", "TaskId":
-		if self.present != nil {
-			if _, ok := self.present["taskId"]; ok {
-				return self.TaskId, nil
-			}
-		}
-		return nil, fmt.Errorf("Field TaskId no set on TaskId %+v", self)
-
 	}
 }
 
@@ -221,6 +221,12 @@ func (self *SingularityKilledTaskIdRecord) ClearField(name string) error {
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on SingularityKilledTaskIdRecord", name)
+
+	case "retries", "Retries":
+		self.present["retries"] = false
+
+	case "taskId", "TaskId":
+		self.present["taskId"] = false
 
 	case "originalTimestamp", "OriginalTimestamp":
 		self.present["originalTimestamp"] = false
@@ -233,12 +239,6 @@ func (self *SingularityKilledTaskIdRecord) ClearField(name string) error {
 
 	case "taskCleanupType", "TaskCleanupType":
 		self.present["taskCleanupType"] = false
-
-	case "retries", "Retries":
-		self.present["retries"] = false
-
-	case "taskId", "TaskId":
-		self.present["taskId"] = false
 
 	}
 

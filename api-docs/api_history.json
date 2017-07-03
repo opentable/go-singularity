@@ -2377,7 +2377,7 @@
           "format": "int32"
         },
         "instanceSequentialFailureTimestamps": {
-          "$ref": "Map[int,int]"
+          "$ref": "Map[int,List[int]]"
         },
         "lastFinishAt": {
           "type": "integer",

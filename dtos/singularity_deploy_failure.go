@@ -25,11 +25,11 @@ const (
 type SingularityDeployFailure struct {
 	present map[string]bool
 
-	Message string `json:"message,omitempty"`
-
 	Reason SingularityDeployFailureSingularityDeployFailureReason `json:"reason"`
 
 	TaskId *SingularityTaskId `json:"taskId"`
+
+	Message string `json:"message,omitempty"`
 }
 
 func (self *SingularityDeployFailure) Populate(jsonReader io.ReadCloser) (err error) {
@@ -68,16 +68,6 @@ func (self *SingularityDeployFailure) SetField(name string, value interface{}) e
 	default:
 		return fmt.Errorf("No such field %s on SingularityDeployFailure", name)
 
-	case "message", "Message":
-		v, ok := value.(string)
-		if ok {
-			self.Message = v
-			self.present["message"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field message/Message: value %v(%T) couldn't be cast to type string", value, value)
-		}
-
 	case "reason", "Reason":
 		v, ok := value.(SingularityDeployFailureSingularityDeployFailureReason)
 		if ok {
@@ -98,6 +88,16 @@ func (self *SingularityDeployFailure) SetField(name string, value interface{}) e
 			return fmt.Errorf("Field taskId/TaskId: value %v(%T) couldn't be cast to type *SingularityTaskId", value, value)
 		}
 
+	case "message", "Message":
+		v, ok := value.(string)
+		if ok {
+			self.Message = v
+			self.present["message"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field message/Message: value %v(%T) couldn't be cast to type string", value, value)
+		}
+
 	}
 }
 
@@ -105,14 +105,6 @@ func (self *SingularityDeployFailure) GetField(name string) (interface{}, error)
 	switch name {
 	default:
 		return nil, fmt.Errorf("No such field %s on SingularityDeployFailure", name)
-
-	case "message", "Message":
-		if self.present != nil {
-			if _, ok := self.present["message"]; ok {
-				return self.Message, nil
-			}
-		}
-		return nil, fmt.Errorf("Field Message no set on Message %+v", self)
 
 	case "reason", "Reason":
 		if self.present != nil {
@@ -130,6 +122,14 @@ func (self *SingularityDeployFailure) GetField(name string) (interface{}, error)
 		}
 		return nil, fmt.Errorf("Field TaskId no set on TaskId %+v", self)
 
+	case "message", "Message":
+		if self.present != nil {
+			if _, ok := self.present["message"]; ok {
+				return self.Message, nil
+			}
+		}
+		return nil, fmt.Errorf("Field Message no set on Message %+v", self)
+
 	}
 }
 
@@ -141,14 +141,14 @@ func (self *SingularityDeployFailure) ClearField(name string) error {
 	default:
 		return fmt.Errorf("No such field %s on SingularityDeployFailure", name)
 
-	case "message", "Message":
-		self.present["message"] = false
-
 	case "reason", "Reason":
 		self.present["reason"] = false
 
 	case "taskId", "TaskId":
 		self.present["taskId"] = false
+
+	case "message", "Message":
+		self.present["message"] = false
 
 	}
 

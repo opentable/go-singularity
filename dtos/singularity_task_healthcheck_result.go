@@ -10,12 +10,6 @@ import (
 type SingularityTaskHealthcheckResult struct {
 	present map[string]bool
 
-	Timestamp int64 `json:"timestamp"`
-
-	TaskId *SingularityTaskId `json:"taskId"`
-
-	StatusCode int32 `json:"statusCode"`
-
 	DurationMillis int64 `json:"durationMillis"`
 
 	ResponseBody string `json:"responseBody,omitempty"`
@@ -23,6 +17,12 @@ type SingularityTaskHealthcheckResult struct {
 	ErrorMessage string `json:"errorMessage,omitempty"`
 
 	Startup bool `json:"startup"`
+
+	Timestamp int64 `json:"timestamp"`
+
+	TaskId *SingularityTaskId `json:"taskId"`
+
+	StatusCode int32 `json:"statusCode"`
 }
 
 func (self *SingularityTaskHealthcheckResult) Populate(jsonReader io.ReadCloser) (err error) {
@@ -60,36 +60,6 @@ func (self *SingularityTaskHealthcheckResult) SetField(name string, value interf
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on SingularityTaskHealthcheckResult", name)
-
-	case "timestamp", "Timestamp":
-		v, ok := value.(int64)
-		if ok {
-			self.Timestamp = v
-			self.present["timestamp"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field timestamp/Timestamp: value %v(%T) couldn't be cast to type int64", value, value)
-		}
-
-	case "taskId", "TaskId":
-		v, ok := value.(*SingularityTaskId)
-		if ok {
-			self.TaskId = v
-			self.present["taskId"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field taskId/TaskId: value %v(%T) couldn't be cast to type *SingularityTaskId", value, value)
-		}
-
-	case "statusCode", "StatusCode":
-		v, ok := value.(int32)
-		if ok {
-			self.StatusCode = v
-			self.present["statusCode"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field statusCode/StatusCode: value %v(%T) couldn't be cast to type int32", value, value)
-		}
 
 	case "durationMillis", "DurationMillis":
 		v, ok := value.(int64)
@@ -131,6 +101,36 @@ func (self *SingularityTaskHealthcheckResult) SetField(name string, value interf
 			return fmt.Errorf("Field startup/Startup: value %v(%T) couldn't be cast to type bool", value, value)
 		}
 
+	case "timestamp", "Timestamp":
+		v, ok := value.(int64)
+		if ok {
+			self.Timestamp = v
+			self.present["timestamp"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field timestamp/Timestamp: value %v(%T) couldn't be cast to type int64", value, value)
+		}
+
+	case "taskId", "TaskId":
+		v, ok := value.(*SingularityTaskId)
+		if ok {
+			self.TaskId = v
+			self.present["taskId"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field taskId/TaskId: value %v(%T) couldn't be cast to type *SingularityTaskId", value, value)
+		}
+
+	case "statusCode", "StatusCode":
+		v, ok := value.(int32)
+		if ok {
+			self.StatusCode = v
+			self.present["statusCode"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field statusCode/StatusCode: value %v(%T) couldn't be cast to type int32", value, value)
+		}
+
 	}
 }
 
@@ -138,30 +138,6 @@ func (self *SingularityTaskHealthcheckResult) GetField(name string) (interface{}
 	switch name {
 	default:
 		return nil, fmt.Errorf("No such field %s on SingularityTaskHealthcheckResult", name)
-
-	case "timestamp", "Timestamp":
-		if self.present != nil {
-			if _, ok := self.present["timestamp"]; ok {
-				return self.Timestamp, nil
-			}
-		}
-		return nil, fmt.Errorf("Field Timestamp no set on Timestamp %+v", self)
-
-	case "taskId", "TaskId":
-		if self.present != nil {
-			if _, ok := self.present["taskId"]; ok {
-				return self.TaskId, nil
-			}
-		}
-		return nil, fmt.Errorf("Field TaskId no set on TaskId %+v", self)
-
-	case "statusCode", "StatusCode":
-		if self.present != nil {
-			if _, ok := self.present["statusCode"]; ok {
-				return self.StatusCode, nil
-			}
-		}
-		return nil, fmt.Errorf("Field StatusCode no set on StatusCode %+v", self)
 
 	case "durationMillis", "DurationMillis":
 		if self.present != nil {
@@ -195,6 +171,30 @@ func (self *SingularityTaskHealthcheckResult) GetField(name string) (interface{}
 		}
 		return nil, fmt.Errorf("Field Startup no set on Startup %+v", self)
 
+	case "timestamp", "Timestamp":
+		if self.present != nil {
+			if _, ok := self.present["timestamp"]; ok {
+				return self.Timestamp, nil
+			}
+		}
+		return nil, fmt.Errorf("Field Timestamp no set on Timestamp %+v", self)
+
+	case "taskId", "TaskId":
+		if self.present != nil {
+			if _, ok := self.present["taskId"]; ok {
+				return self.TaskId, nil
+			}
+		}
+		return nil, fmt.Errorf("Field TaskId no set on TaskId %+v", self)
+
+	case "statusCode", "StatusCode":
+		if self.present != nil {
+			if _, ok := self.present["statusCode"]; ok {
+				return self.StatusCode, nil
+			}
+		}
+		return nil, fmt.Errorf("Field StatusCode no set on StatusCode %+v", self)
+
 	}
 }
 
@@ -205,15 +205,6 @@ func (self *SingularityTaskHealthcheckResult) ClearField(name string) error {
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on SingularityTaskHealthcheckResult", name)
-
-	case "timestamp", "Timestamp":
-		self.present["timestamp"] = false
-
-	case "taskId", "TaskId":
-		self.present["taskId"] = false
-
-	case "statusCode", "StatusCode":
-		self.present["statusCode"] = false
 
 	case "durationMillis", "DurationMillis":
 		self.present["durationMillis"] = false
@@ -226,6 +217,15 @@ func (self *SingularityTaskHealthcheckResult) ClearField(name string) error {
 
 	case "startup", "Startup":
 		self.present["startup"] = false
+
+	case "timestamp", "Timestamp":
+		self.present["timestamp"] = false
+
+	case "taskId", "TaskId":
+		self.present["taskId"] = false
+
+	case "statusCode", "StatusCode":
+		self.present["statusCode"] = false
 
 	}
 

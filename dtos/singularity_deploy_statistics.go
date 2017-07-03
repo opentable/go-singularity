@@ -33,7 +33,9 @@ type SingularityDeployStatistics struct {
 
 	NumSequentialRetries int32 `json:"numSequentialRetries"`
 
-	InstanceSequentialFailureTimestamps map[int64]int64 `json:"instanceSequentialFailureTimestamps"`
+	InstanceSequentialFailureTimestamps map[int64][]int64 `json:"instanceSequentialFailureTimestamps"`
+
+	LastTaskState SingularityDeployStatisticsExtendedTaskState `json:"lastTaskState"`
 
 	AverageRuntimeMillis int64 `json:"averageRuntimeMillis"`
 
@@ -44,8 +46,6 @@ type SingularityDeployStatistics struct {
 	NumFailures int32 `json:"numFailures"`
 
 	LastFinishAt int64 `json:"lastFinishAt"`
-
-	LastTaskState SingularityDeployStatisticsExtendedTaskState `json:"lastTaskState"`
 }
 
 func (self *SingularityDeployStatistics) Populate(jsonReader io.ReadCloser) (err error) {
@@ -115,13 +115,23 @@ func (self *SingularityDeployStatistics) SetField(name string, value interface{}
 		}
 
 	case "instanceSequentialFailureTimestamps", "InstanceSequentialFailureTimestamps":
-		v, ok := value.(map[int64]int64)
+		v, ok := value.(map[int64][]int64)
 		if ok {
 			self.InstanceSequentialFailureTimestamps = v
 			self.present["instanceSequentialFailureTimestamps"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field instanceSequentialFailureTimestamps/InstanceSequentialFailureTimestamps: value %v(%T) couldn't be cast to type map[int64]int64", value, value)
+			return fmt.Errorf("Field instanceSequentialFailureTimestamps/InstanceSequentialFailureTimestamps: value %v(%T) couldn't be cast to type map[int64][]int64", value, value)
+		}
+
+	case "lastTaskState", "LastTaskState":
+		v, ok := value.(SingularityDeployStatisticsExtendedTaskState)
+		if ok {
+			self.LastTaskState = v
+			self.present["lastTaskState"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field lastTaskState/LastTaskState: value %v(%T) couldn't be cast to type SingularityDeployStatisticsExtendedTaskState", value, value)
 		}
 
 	case "averageRuntimeMillis", "AverageRuntimeMillis":
@@ -174,16 +184,6 @@ func (self *SingularityDeployStatistics) SetField(name string, value interface{}
 			return fmt.Errorf("Field lastFinishAt/LastFinishAt: value %v(%T) couldn't be cast to type int64", value, value)
 		}
 
-	case "lastTaskState", "LastTaskState":
-		v, ok := value.(SingularityDeployStatisticsExtendedTaskState)
-		if ok {
-			self.LastTaskState = v
-			self.present["lastTaskState"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field lastTaskState/LastTaskState: value %v(%T) couldn't be cast to type SingularityDeployStatisticsExtendedTaskState", value, value)
-		}
-
 	}
 }
 
@@ -223,6 +223,14 @@ func (self *SingularityDeployStatistics) GetField(name string) (interface{}, err
 			}
 		}
 		return nil, fmt.Errorf("Field InstanceSequentialFailureTimestamps no set on InstanceSequentialFailureTimestamps %+v", self)
+
+	case "lastTaskState", "LastTaskState":
+		if self.present != nil {
+			if _, ok := self.present["lastTaskState"]; ok {
+				return self.LastTaskState, nil
+			}
+		}
+		return nil, fmt.Errorf("Field LastTaskState no set on LastTaskState %+v", self)
 
 	case "averageRuntimeMillis", "AverageRuntimeMillis":
 		if self.present != nil {
@@ -264,14 +272,6 @@ func (self *SingularityDeployStatistics) GetField(name string) (interface{}, err
 		}
 		return nil, fmt.Errorf("Field LastFinishAt no set on LastFinishAt %+v", self)
 
-	case "lastTaskState", "LastTaskState":
-		if self.present != nil {
-			if _, ok := self.present["lastTaskState"]; ok {
-				return self.LastTaskState, nil
-			}
-		}
-		return nil, fmt.Errorf("Field LastTaskState no set on LastTaskState %+v", self)
-
 	}
 }
 
@@ -295,6 +295,9 @@ func (self *SingularityDeployStatistics) ClearField(name string) error {
 	case "instanceSequentialFailureTimestamps", "InstanceSequentialFailureTimestamps":
 		self.present["instanceSequentialFailureTimestamps"] = false
 
+	case "lastTaskState", "LastTaskState":
+		self.present["lastTaskState"] = false
+
 	case "averageRuntimeMillis", "AverageRuntimeMillis":
 		self.present["averageRuntimeMillis"] = false
 
@@ -309,9 +312,6 @@ func (self *SingularityDeployStatistics) ClearField(name string) error {
 
 	case "lastFinishAt", "LastFinishAt":
 		self.present["lastFinishAt"] = false
-
-	case "lastTaskState", "LastTaskState":
-		self.present["lastTaskState"] = false
 
 	}
 

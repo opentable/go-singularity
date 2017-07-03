@@ -18,12 +18,6 @@ const (
 type SingularityDockerInfo struct {
 	present map[string]bool
 
-	ForcePullImage bool `json:"forcePullImage"`
-
-	Parameters map[string]string `json:"parameters"`
-
-	DockerParameters SingularityDockerParameterList `json:"dockerParameters"`
-
 	Image string `json:"image,omitempty"`
 
 	Privileged bool `json:"privileged"`
@@ -31,6 +25,12 @@ type SingularityDockerInfo struct {
 	Network SingularityDockerInfoSingularityDockerNetworkType `json:"network"`
 
 	PortMappings SingularityDockerPortMappingList `json:"portMappings"`
+
+	ForcePullImage bool `json:"forcePullImage"`
+
+	Parameters map[string]string `json:"parameters"`
+
+	DockerParameters SingularityDockerParameterList `json:"dockerParameters"`
 }
 
 func (self *SingularityDockerInfo) Populate(jsonReader io.ReadCloser) (err error) {
@@ -68,36 +68,6 @@ func (self *SingularityDockerInfo) SetField(name string, value interface{}) erro
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on SingularityDockerInfo", name)
-
-	case "forcePullImage", "ForcePullImage":
-		v, ok := value.(bool)
-		if ok {
-			self.ForcePullImage = v
-			self.present["forcePullImage"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field forcePullImage/ForcePullImage: value %v(%T) couldn't be cast to type bool", value, value)
-		}
-
-	case "parameters", "Parameters":
-		v, ok := value.(map[string]string)
-		if ok {
-			self.Parameters = v
-			self.present["parameters"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field parameters/Parameters: value %v(%T) couldn't be cast to type map[string]string", value, value)
-		}
-
-	case "dockerParameters", "DockerParameters":
-		v, ok := value.(SingularityDockerParameterList)
-		if ok {
-			self.DockerParameters = v
-			self.present["dockerParameters"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field dockerParameters/DockerParameters: value %v(%T) couldn't be cast to type SingularityDockerParameterList", value, value)
-		}
 
 	case "image", "Image":
 		v, ok := value.(string)
@@ -139,6 +109,36 @@ func (self *SingularityDockerInfo) SetField(name string, value interface{}) erro
 			return fmt.Errorf("Field portMappings/PortMappings: value %v(%T) couldn't be cast to type SingularityDockerPortMappingList", value, value)
 		}
 
+	case "forcePullImage", "ForcePullImage":
+		v, ok := value.(bool)
+		if ok {
+			self.ForcePullImage = v
+			self.present["forcePullImage"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field forcePullImage/ForcePullImage: value %v(%T) couldn't be cast to type bool", value, value)
+		}
+
+	case "parameters", "Parameters":
+		v, ok := value.(map[string]string)
+		if ok {
+			self.Parameters = v
+			self.present["parameters"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field parameters/Parameters: value %v(%T) couldn't be cast to type map[string]string", value, value)
+		}
+
+	case "dockerParameters", "DockerParameters":
+		v, ok := value.(SingularityDockerParameterList)
+		if ok {
+			self.DockerParameters = v
+			self.present["dockerParameters"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field dockerParameters/DockerParameters: value %v(%T) couldn't be cast to type SingularityDockerParameterList", value, value)
+		}
+
 	}
 }
 
@@ -146,30 +146,6 @@ func (self *SingularityDockerInfo) GetField(name string) (interface{}, error) {
 	switch name {
 	default:
 		return nil, fmt.Errorf("No such field %s on SingularityDockerInfo", name)
-
-	case "forcePullImage", "ForcePullImage":
-		if self.present != nil {
-			if _, ok := self.present["forcePullImage"]; ok {
-				return self.ForcePullImage, nil
-			}
-		}
-		return nil, fmt.Errorf("Field ForcePullImage no set on ForcePullImage %+v", self)
-
-	case "parameters", "Parameters":
-		if self.present != nil {
-			if _, ok := self.present["parameters"]; ok {
-				return self.Parameters, nil
-			}
-		}
-		return nil, fmt.Errorf("Field Parameters no set on Parameters %+v", self)
-
-	case "dockerParameters", "DockerParameters":
-		if self.present != nil {
-			if _, ok := self.present["dockerParameters"]; ok {
-				return self.DockerParameters, nil
-			}
-		}
-		return nil, fmt.Errorf("Field DockerParameters no set on DockerParameters %+v", self)
 
 	case "image", "Image":
 		if self.present != nil {
@@ -203,6 +179,30 @@ func (self *SingularityDockerInfo) GetField(name string) (interface{}, error) {
 		}
 		return nil, fmt.Errorf("Field PortMappings no set on PortMappings %+v", self)
 
+	case "forcePullImage", "ForcePullImage":
+		if self.present != nil {
+			if _, ok := self.present["forcePullImage"]; ok {
+				return self.ForcePullImage, nil
+			}
+		}
+		return nil, fmt.Errorf("Field ForcePullImage no set on ForcePullImage %+v", self)
+
+	case "parameters", "Parameters":
+		if self.present != nil {
+			if _, ok := self.present["parameters"]; ok {
+				return self.Parameters, nil
+			}
+		}
+		return nil, fmt.Errorf("Field Parameters no set on Parameters %+v", self)
+
+	case "dockerParameters", "DockerParameters":
+		if self.present != nil {
+			if _, ok := self.present["dockerParameters"]; ok {
+				return self.DockerParameters, nil
+			}
+		}
+		return nil, fmt.Errorf("Field DockerParameters no set on DockerParameters %+v", self)
+
 	}
 }
 
@@ -213,15 +213,6 @@ func (self *SingularityDockerInfo) ClearField(name string) error {
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on SingularityDockerInfo", name)
-
-	case "forcePullImage", "ForcePullImage":
-		self.present["forcePullImage"] = false
-
-	case "parameters", "Parameters":
-		self.present["parameters"] = false
-
-	case "dockerParameters", "DockerParameters":
-		self.present["dockerParameters"] = false
 
 	case "image", "Image":
 		self.present["image"] = false
@@ -234,6 +225,15 @@ func (self *SingularityDockerInfo) ClearField(name string) error {
 
 	case "portMappings", "PortMappings":
 		self.present["portMappings"] = false
+
+	case "forcePullImage", "ForcePullImage":
+		self.present["forcePullImage"] = false
+
+	case "parameters", "Parameters":
+		self.present["parameters"] = false
+
+	case "dockerParameters", "DockerParameters":
+		self.present["dockerParameters"] = false
 
 	}
 

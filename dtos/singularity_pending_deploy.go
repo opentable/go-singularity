@@ -22,15 +22,15 @@ const (
 type SingularityPendingDeploy struct {
 	present map[string]bool
 
+	DeployMarker *SingularityDeployMarker `json:"deployMarker"`
+
+	LastLoadBalancerUpdate *SingularityLoadBalancerUpdate `json:"lastLoadBalancerUpdate"`
+
 	CurrentDeployState SingularityPendingDeployDeployState `json:"currentDeployState"`
 
 	DeployProgress *SingularityDeployProgress `json:"deployProgress"`
 
 	UpdatedRequest *SingularityRequest `json:"updatedRequest"`
-
-	DeployMarker *SingularityDeployMarker `json:"deployMarker"`
-
-	LastLoadBalancerUpdate *SingularityLoadBalancerUpdate `json:"lastLoadBalancerUpdate"`
 }
 
 func (self *SingularityPendingDeploy) Populate(jsonReader io.ReadCloser) (err error) {
@@ -69,6 +69,26 @@ func (self *SingularityPendingDeploy) SetField(name string, value interface{}) e
 	default:
 		return fmt.Errorf("No such field %s on SingularityPendingDeploy", name)
 
+	case "deployMarker", "DeployMarker":
+		v, ok := value.(*SingularityDeployMarker)
+		if ok {
+			self.DeployMarker = v
+			self.present["deployMarker"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field deployMarker/DeployMarker: value %v(%T) couldn't be cast to type *SingularityDeployMarker", value, value)
+		}
+
+	case "lastLoadBalancerUpdate", "LastLoadBalancerUpdate":
+		v, ok := value.(*SingularityLoadBalancerUpdate)
+		if ok {
+			self.LastLoadBalancerUpdate = v
+			self.present["lastLoadBalancerUpdate"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field lastLoadBalancerUpdate/LastLoadBalancerUpdate: value %v(%T) couldn't be cast to type *SingularityLoadBalancerUpdate", value, value)
+		}
+
 	case "currentDeployState", "CurrentDeployState":
 		v, ok := value.(SingularityPendingDeployDeployState)
 		if ok {
@@ -99,26 +119,6 @@ func (self *SingularityPendingDeploy) SetField(name string, value interface{}) e
 			return fmt.Errorf("Field updatedRequest/UpdatedRequest: value %v(%T) couldn't be cast to type *SingularityRequest", value, value)
 		}
 
-	case "deployMarker", "DeployMarker":
-		v, ok := value.(*SingularityDeployMarker)
-		if ok {
-			self.DeployMarker = v
-			self.present["deployMarker"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field deployMarker/DeployMarker: value %v(%T) couldn't be cast to type *SingularityDeployMarker", value, value)
-		}
-
-	case "lastLoadBalancerUpdate", "LastLoadBalancerUpdate":
-		v, ok := value.(*SingularityLoadBalancerUpdate)
-		if ok {
-			self.LastLoadBalancerUpdate = v
-			self.present["lastLoadBalancerUpdate"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field lastLoadBalancerUpdate/LastLoadBalancerUpdate: value %v(%T) couldn't be cast to type *SingularityLoadBalancerUpdate", value, value)
-		}
-
 	}
 }
 
@@ -126,6 +126,22 @@ func (self *SingularityPendingDeploy) GetField(name string) (interface{}, error)
 	switch name {
 	default:
 		return nil, fmt.Errorf("No such field %s on SingularityPendingDeploy", name)
+
+	case "deployMarker", "DeployMarker":
+		if self.present != nil {
+			if _, ok := self.present["deployMarker"]; ok {
+				return self.DeployMarker, nil
+			}
+		}
+		return nil, fmt.Errorf("Field DeployMarker no set on DeployMarker %+v", self)
+
+	case "lastLoadBalancerUpdate", "LastLoadBalancerUpdate":
+		if self.present != nil {
+			if _, ok := self.present["lastLoadBalancerUpdate"]; ok {
+				return self.LastLoadBalancerUpdate, nil
+			}
+		}
+		return nil, fmt.Errorf("Field LastLoadBalancerUpdate no set on LastLoadBalancerUpdate %+v", self)
 
 	case "currentDeployState", "CurrentDeployState":
 		if self.present != nil {
@@ -151,22 +167,6 @@ func (self *SingularityPendingDeploy) GetField(name string) (interface{}, error)
 		}
 		return nil, fmt.Errorf("Field UpdatedRequest no set on UpdatedRequest %+v", self)
 
-	case "deployMarker", "DeployMarker":
-		if self.present != nil {
-			if _, ok := self.present["deployMarker"]; ok {
-				return self.DeployMarker, nil
-			}
-		}
-		return nil, fmt.Errorf("Field DeployMarker no set on DeployMarker %+v", self)
-
-	case "lastLoadBalancerUpdate", "LastLoadBalancerUpdate":
-		if self.present != nil {
-			if _, ok := self.present["lastLoadBalancerUpdate"]; ok {
-				return self.LastLoadBalancerUpdate, nil
-			}
-		}
-		return nil, fmt.Errorf("Field LastLoadBalancerUpdate no set on LastLoadBalancerUpdate %+v", self)
-
 	}
 }
 
@@ -178,6 +178,12 @@ func (self *SingularityPendingDeploy) ClearField(name string) error {
 	default:
 		return fmt.Errorf("No such field %s on SingularityPendingDeploy", name)
 
+	case "deployMarker", "DeployMarker":
+		self.present["deployMarker"] = false
+
+	case "lastLoadBalancerUpdate", "LastLoadBalancerUpdate":
+		self.present["lastLoadBalancerUpdate"] = false
+
 	case "currentDeployState", "CurrentDeployState":
 		self.present["currentDeployState"] = false
 
@@ -186,12 +192,6 @@ func (self *SingularityPendingDeploy) ClearField(name string) error {
 
 	case "updatedRequest", "UpdatedRequest":
 		self.present["updatedRequest"] = false
-
-	case "deployMarker", "DeployMarker":
-		self.present["deployMarker"] = false
-
-	case "lastLoadBalancerUpdate", "LastLoadBalancerUpdate":
-		self.present["lastLoadBalancerUpdate"] = false
 
 	}
 

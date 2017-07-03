@@ -10,11 +10,11 @@ import (
 type SingularityRequestDeployState struct {
 	present map[string]bool
 
+	RequestId string `json:"requestId,omitempty"`
+
 	ActiveDeploy *SingularityDeployMarker `json:"activeDeploy"`
 
 	PendingDeploy *SingularityDeployMarker `json:"pendingDeploy"`
-
-	RequestId string `json:"requestId,omitempty"`
 }
 
 func (self *SingularityRequestDeployState) Populate(jsonReader io.ReadCloser) (err error) {
@@ -53,6 +53,16 @@ func (self *SingularityRequestDeployState) SetField(name string, value interface
 	default:
 		return fmt.Errorf("No such field %s on SingularityRequestDeployState", name)
 
+	case "requestId", "RequestId":
+		v, ok := value.(string)
+		if ok {
+			self.RequestId = v
+			self.present["requestId"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field requestId/RequestId: value %v(%T) couldn't be cast to type string", value, value)
+		}
+
 	case "activeDeploy", "ActiveDeploy":
 		v, ok := value.(*SingularityDeployMarker)
 		if ok {
@@ -73,16 +83,6 @@ func (self *SingularityRequestDeployState) SetField(name string, value interface
 			return fmt.Errorf("Field pendingDeploy/PendingDeploy: value %v(%T) couldn't be cast to type *SingularityDeployMarker", value, value)
 		}
 
-	case "requestId", "RequestId":
-		v, ok := value.(string)
-		if ok {
-			self.RequestId = v
-			self.present["requestId"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field requestId/RequestId: value %v(%T) couldn't be cast to type string", value, value)
-		}
-
 	}
 }
 
@@ -90,6 +90,14 @@ func (self *SingularityRequestDeployState) GetField(name string) (interface{}, e
 	switch name {
 	default:
 		return nil, fmt.Errorf("No such field %s on SingularityRequestDeployState", name)
+
+	case "requestId", "RequestId":
+		if self.present != nil {
+			if _, ok := self.present["requestId"]; ok {
+				return self.RequestId, nil
+			}
+		}
+		return nil, fmt.Errorf("Field RequestId no set on RequestId %+v", self)
 
 	case "activeDeploy", "ActiveDeploy":
 		if self.present != nil {
@@ -107,14 +115,6 @@ func (self *SingularityRequestDeployState) GetField(name string) (interface{}, e
 		}
 		return nil, fmt.Errorf("Field PendingDeploy no set on PendingDeploy %+v", self)
 
-	case "requestId", "RequestId":
-		if self.present != nil {
-			if _, ok := self.present["requestId"]; ok {
-				return self.RequestId, nil
-			}
-		}
-		return nil, fmt.Errorf("Field RequestId no set on RequestId %+v", self)
-
 	}
 }
 
@@ -126,14 +126,14 @@ func (self *SingularityRequestDeployState) ClearField(name string) error {
 	default:
 		return fmt.Errorf("No such field %s on SingularityRequestDeployState", name)
 
+	case "requestId", "RequestId":
+		self.present["requestId"] = false
+
 	case "activeDeploy", "ActiveDeploy":
 		self.present["activeDeploy"] = false
 
 	case "pendingDeploy", "PendingDeploy":
 		self.present["pendingDeploy"] = false
-
-	case "requestId", "RequestId":
-		self.present["requestId"] = false
 
 	}
 

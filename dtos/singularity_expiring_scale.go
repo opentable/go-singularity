@@ -10,6 +10,10 @@ import (
 type SingularityExpiringScale struct {
 	present map[string]bool
 
+	User string `json:"user,omitempty"`
+
+	// Invalid field: ExpiringAPIRequestObject *notfound.T `json:"expiringAPIRequestObject"`
+
 	RevertToInstances int32 `json:"revertToInstances"`
 
 	Bounce bool `json:"bounce"`
@@ -19,11 +23,6 @@ type SingularityExpiringScale struct {
 	StartMillis int64 `json:"startMillis"`
 
 	ActionId string `json:"actionId,omitempty"`
-
-	User string `json:"user,omitempty"`
-
-	// Invalid field: ExpiringAPIRequestObject *notfound.T `json:"expiringAPIRequestObject"`
-
 }
 
 func (self *SingularityExpiringScale) Populate(jsonReader io.ReadCloser) (err error) {
@@ -61,6 +60,16 @@ func (self *SingularityExpiringScale) SetField(name string, value interface{}) e
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on SingularityExpiringScale", name)
+
+	case "user", "User":
+		v, ok := value.(string)
+		if ok {
+			self.User = v
+			self.present["user"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field user/User: value %v(%T) couldn't be cast to type string", value, value)
+		}
 
 	case "revertToInstances", "RevertToInstances":
 		v, ok := value.(int32)
@@ -112,16 +121,6 @@ func (self *SingularityExpiringScale) SetField(name string, value interface{}) e
 			return fmt.Errorf("Field actionId/ActionId: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
-	case "user", "User":
-		v, ok := value.(string)
-		if ok {
-			self.User = v
-			self.present["user"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field user/User: value %v(%T) couldn't be cast to type string", value, value)
-		}
-
 	}
 }
 
@@ -129,6 +128,14 @@ func (self *SingularityExpiringScale) GetField(name string) (interface{}, error)
 	switch name {
 	default:
 		return nil, fmt.Errorf("No such field %s on SingularityExpiringScale", name)
+
+	case "user", "User":
+		if self.present != nil {
+			if _, ok := self.present["user"]; ok {
+				return self.User, nil
+			}
+		}
+		return nil, fmt.Errorf("Field User no set on User %+v", self)
 
 	case "revertToInstances", "RevertToInstances":
 		if self.present != nil {
@@ -170,14 +177,6 @@ func (self *SingularityExpiringScale) GetField(name string) (interface{}, error)
 		}
 		return nil, fmt.Errorf("Field ActionId no set on ActionId %+v", self)
 
-	case "user", "User":
-		if self.present != nil {
-			if _, ok := self.present["user"]; ok {
-				return self.User, nil
-			}
-		}
-		return nil, fmt.Errorf("Field User no set on User %+v", self)
-
 	}
 }
 
@@ -188,6 +187,9 @@ func (self *SingularityExpiringScale) ClearField(name string) error {
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on SingularityExpiringScale", name)
+
+	case "user", "User":
+		self.present["user"] = false
 
 	case "revertToInstances", "RevertToInstances":
 		self.present["revertToInstances"] = false
@@ -203,9 +205,6 @@ func (self *SingularityExpiringScale) ClearField(name string) error {
 
 	case "actionId", "ActionId":
 		self.present["actionId"] = false
-
-	case "user", "User":
-		self.present["user"] = false
 
 	}
 

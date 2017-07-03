@@ -10,13 +10,13 @@ import (
 type SingularitySkipHealthchecksRequest struct {
 	present map[string]bool
 
-	Message string `json:"message,omitempty"`
-
 	SkipHealthchecks bool `json:"skipHealthchecks"`
 
 	DurationMillis int64 `json:"durationMillis"`
 
 	ActionId string `json:"actionId,omitempty"`
+
+	Message string `json:"message,omitempty"`
 }
 
 func (self *SingularitySkipHealthchecksRequest) Populate(jsonReader io.ReadCloser) (err error) {
@@ -55,16 +55,6 @@ func (self *SingularitySkipHealthchecksRequest) SetField(name string, value inte
 	default:
 		return fmt.Errorf("No such field %s on SingularitySkipHealthchecksRequest", name)
 
-	case "message", "Message":
-		v, ok := value.(string)
-		if ok {
-			self.Message = v
-			self.present["message"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field message/Message: value %v(%T) couldn't be cast to type string", value, value)
-		}
-
 	case "skipHealthchecks", "SkipHealthchecks":
 		v, ok := value.(bool)
 		if ok {
@@ -95,6 +85,16 @@ func (self *SingularitySkipHealthchecksRequest) SetField(name string, value inte
 			return fmt.Errorf("Field actionId/ActionId: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
+	case "message", "Message":
+		v, ok := value.(string)
+		if ok {
+			self.Message = v
+			self.present["message"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field message/Message: value %v(%T) couldn't be cast to type string", value, value)
+		}
+
 	}
 }
 
@@ -102,14 +102,6 @@ func (self *SingularitySkipHealthchecksRequest) GetField(name string) (interface
 	switch name {
 	default:
 		return nil, fmt.Errorf("No such field %s on SingularitySkipHealthchecksRequest", name)
-
-	case "message", "Message":
-		if self.present != nil {
-			if _, ok := self.present["message"]; ok {
-				return self.Message, nil
-			}
-		}
-		return nil, fmt.Errorf("Field Message no set on Message %+v", self)
 
 	case "skipHealthchecks", "SkipHealthchecks":
 		if self.present != nil {
@@ -135,6 +127,14 @@ func (self *SingularitySkipHealthchecksRequest) GetField(name string) (interface
 		}
 		return nil, fmt.Errorf("Field ActionId no set on ActionId %+v", self)
 
+	case "message", "Message":
+		if self.present != nil {
+			if _, ok := self.present["message"]; ok {
+				return self.Message, nil
+			}
+		}
+		return nil, fmt.Errorf("Field Message no set on Message %+v", self)
+
 	}
 }
 
@@ -146,9 +146,6 @@ func (self *SingularitySkipHealthchecksRequest) ClearField(name string) error {
 	default:
 		return fmt.Errorf("No such field %s on SingularitySkipHealthchecksRequest", name)
 
-	case "message", "Message":
-		self.present["message"] = false
-
 	case "skipHealthchecks", "SkipHealthchecks":
 		self.present["skipHealthchecks"] = false
 
@@ -157,6 +154,9 @@ func (self *SingularitySkipHealthchecksRequest) ClearField(name string) error {
 
 	case "actionId", "ActionId":
 		self.present["actionId"] = false
+
+	case "message", "Message":
+		self.present["message"] = false
 
 	}
 

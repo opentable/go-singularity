@@ -10,9 +10,9 @@ import (
 type SingularityMesosTaskLabel struct {
 	present map[string]bool
 
-	Value string `json:"value,omitempty"`
-
 	Key string `json:"key,omitempty"`
+
+	Value string `json:"value,omitempty"`
 }
 
 func (self *SingularityMesosTaskLabel) Populate(jsonReader io.ReadCloser) (err error) {
@@ -51,16 +51,6 @@ func (self *SingularityMesosTaskLabel) SetField(name string, value interface{}) 
 	default:
 		return fmt.Errorf("No such field %s on SingularityMesosTaskLabel", name)
 
-	case "value", "Value":
-		v, ok := value.(string)
-		if ok {
-			self.Value = v
-			self.present["value"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field value/Value: value %v(%T) couldn't be cast to type string", value, value)
-		}
-
 	case "key", "Key":
 		v, ok := value.(string)
 		if ok {
@@ -71,6 +61,16 @@ func (self *SingularityMesosTaskLabel) SetField(name string, value interface{}) 
 			return fmt.Errorf("Field key/Key: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
+	case "value", "Value":
+		v, ok := value.(string)
+		if ok {
+			self.Value = v
+			self.present["value"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field value/Value: value %v(%T) couldn't be cast to type string", value, value)
+		}
+
 	}
 }
 
@@ -79,14 +79,6 @@ func (self *SingularityMesosTaskLabel) GetField(name string) (interface{}, error
 	default:
 		return nil, fmt.Errorf("No such field %s on SingularityMesosTaskLabel", name)
 
-	case "value", "Value":
-		if self.present != nil {
-			if _, ok := self.present["value"]; ok {
-				return self.Value, nil
-			}
-		}
-		return nil, fmt.Errorf("Field Value no set on Value %+v", self)
-
 	case "key", "Key":
 		if self.present != nil {
 			if _, ok := self.present["key"]; ok {
@@ -94,6 +86,14 @@ func (self *SingularityMesosTaskLabel) GetField(name string) (interface{}, error
 			}
 		}
 		return nil, fmt.Errorf("Field Key no set on Key %+v", self)
+
+	case "value", "Value":
+		if self.present != nil {
+			if _, ok := self.present["value"]; ok {
+				return self.Value, nil
+			}
+		}
+		return nil, fmt.Errorf("Field Value no set on Value %+v", self)
 
 	}
 }
@@ -106,11 +106,11 @@ func (self *SingularityMesosTaskLabel) ClearField(name string) error {
 	default:
 		return fmt.Errorf("No such field %s on SingularityMesosTaskLabel", name)
 
-	case "value", "Value":
-		self.present["value"] = false
-
 	case "key", "Key":
 		self.present["key"] = false
+
+	case "value", "Value":
+		self.present["value"] = false
 
 	}
 

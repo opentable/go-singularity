@@ -10,6 +10,8 @@ import (
 type SingularityRunNowRequest struct {
 	present map[string]bool
 
+	Resources *Resources `json:"resources"`
+
 	Message string `json:"message,omitempty"`
 
 	RunId string `json:"runId,omitempty"`
@@ -17,8 +19,6 @@ type SingularityRunNowRequest struct {
 	CommandLineArgs swaggering.StringList `json:"commandLineArgs"`
 
 	SkipHealthchecks bool `json:"skipHealthchecks"`
-
-	Resources *Resources `json:"resources"`
 }
 
 func (self *SingularityRunNowRequest) Populate(jsonReader io.ReadCloser) (err error) {
@@ -56,6 +56,16 @@ func (self *SingularityRunNowRequest) SetField(name string, value interface{}) e
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on SingularityRunNowRequest", name)
+
+	case "resources", "Resources":
+		v, ok := value.(*Resources)
+		if ok {
+			self.Resources = v
+			self.present["resources"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field resources/Resources: value %v(%T) couldn't be cast to type *Resources", value, value)
+		}
 
 	case "message", "Message":
 		v, ok := value.(string)
@@ -97,16 +107,6 @@ func (self *SingularityRunNowRequest) SetField(name string, value interface{}) e
 			return fmt.Errorf("Field skipHealthchecks/SkipHealthchecks: value %v(%T) couldn't be cast to type bool", value, value)
 		}
 
-	case "resources", "Resources":
-		v, ok := value.(*Resources)
-		if ok {
-			self.Resources = v
-			self.present["resources"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field resources/Resources: value %v(%T) couldn't be cast to type *Resources", value, value)
-		}
-
 	}
 }
 
@@ -114,6 +114,14 @@ func (self *SingularityRunNowRequest) GetField(name string) (interface{}, error)
 	switch name {
 	default:
 		return nil, fmt.Errorf("No such field %s on SingularityRunNowRequest", name)
+
+	case "resources", "Resources":
+		if self.present != nil {
+			if _, ok := self.present["resources"]; ok {
+				return self.Resources, nil
+			}
+		}
+		return nil, fmt.Errorf("Field Resources no set on Resources %+v", self)
 
 	case "message", "Message":
 		if self.present != nil {
@@ -147,14 +155,6 @@ func (self *SingularityRunNowRequest) GetField(name string) (interface{}, error)
 		}
 		return nil, fmt.Errorf("Field SkipHealthchecks no set on SkipHealthchecks %+v", self)
 
-	case "resources", "Resources":
-		if self.present != nil {
-			if _, ok := self.present["resources"]; ok {
-				return self.Resources, nil
-			}
-		}
-		return nil, fmt.Errorf("Field Resources no set on Resources %+v", self)
-
 	}
 }
 
@@ -165,6 +165,9 @@ func (self *SingularityRunNowRequest) ClearField(name string) error {
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on SingularityRunNowRequest", name)
+
+	case "resources", "Resources":
+		self.present["resources"] = false
 
 	case "message", "Message":
 		self.present["message"] = false
@@ -177,9 +180,6 @@ func (self *SingularityRunNowRequest) ClearField(name string) error {
 
 	case "skipHealthchecks", "SkipHealthchecks":
 		self.present["skipHealthchecks"] = false
-
-	case "resources", "Resources":
-		self.present["resources"] = false
 
 	}
 
