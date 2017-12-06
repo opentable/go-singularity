@@ -24,17 +24,17 @@ type SingularityExpiringMachineState struct {
 
 	ActionId string `json:"actionId,omitempty"`
 
-	// ExpiringAPIRequestObject *T `json:"expiringAPIRequestObject"`
+	User string `json:"user,omitempty"`
 
-	KillTasksOnDecommissionTimeout bool `json:"killTasksOnDecommissionTimeout"`
+	// Invalid field: ExpiringAPIRequestObject *notfound.T `json:"expiringAPIRequestObject"`
 
 	MachineId string `json:"machineId,omitempty"`
 
 	RevertToState SingularityExpiringMachineStateMachineState `json:"revertToState"`
 
-	StartMillis int64 `json:"startMillis"`
+	KillTasksOnDecommissionTimeout bool `json:"killTasksOnDecommissionTimeout"`
 
-	User string `json:"user,omitempty"`
+	StartMillis int64 `json:"startMillis"`
 }
 
 func (self *SingularityExpiringMachineState) Populate(jsonReader io.ReadCloser) (err error) {
@@ -83,14 +83,14 @@ func (self *SingularityExpiringMachineState) SetField(name string, value interfa
 			return fmt.Errorf("Field actionId/ActionId: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
-	case "killTasksOnDecommissionTimeout", "KillTasksOnDecommissionTimeout":
-		v, ok := value.(bool)
+	case "user", "User":
+		v, ok := value.(string)
 		if ok {
-			self.KillTasksOnDecommissionTimeout = v
-			self.present["killTasksOnDecommissionTimeout"] = true
+			self.User = v
+			self.present["user"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field killTasksOnDecommissionTimeout/KillTasksOnDecommissionTimeout: value %v(%T) couldn't be cast to type bool", value, value)
+			return fmt.Errorf("Field user/User: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "machineId", "MachineId":
@@ -113,6 +113,16 @@ func (self *SingularityExpiringMachineState) SetField(name string, value interfa
 			return fmt.Errorf("Field revertToState/RevertToState: value %v(%T) couldn't be cast to type SingularityExpiringMachineStateMachineState", value, value)
 		}
 
+	case "killTasksOnDecommissionTimeout", "KillTasksOnDecommissionTimeout":
+		v, ok := value.(bool)
+		if ok {
+			self.KillTasksOnDecommissionTimeout = v
+			self.present["killTasksOnDecommissionTimeout"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field killTasksOnDecommissionTimeout/KillTasksOnDecommissionTimeout: value %v(%T) couldn't be cast to type bool", value, value)
+		}
+
 	case "startMillis", "StartMillis":
 		v, ok := value.(int64)
 		if ok {
@@ -121,16 +131,6 @@ func (self *SingularityExpiringMachineState) SetField(name string, value interfa
 			return nil
 		} else {
 			return fmt.Errorf("Field startMillis/StartMillis: value %v(%T) couldn't be cast to type int64", value, value)
-		}
-
-	case "user", "User":
-		v, ok := value.(string)
-		if ok {
-			self.User = v
-			self.present["user"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field user/User: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	}
@@ -149,13 +149,13 @@ func (self *SingularityExpiringMachineState) GetField(name string) (interface{},
 		}
 		return nil, fmt.Errorf("Field ActionId no set on ActionId %+v", self)
 
-	case "killTasksOnDecommissionTimeout", "KillTasksOnDecommissionTimeout":
+	case "user", "User":
 		if self.present != nil {
-			if _, ok := self.present["killTasksOnDecommissionTimeout"]; ok {
-				return self.KillTasksOnDecommissionTimeout, nil
+			if _, ok := self.present["user"]; ok {
+				return self.User, nil
 			}
 		}
-		return nil, fmt.Errorf("Field KillTasksOnDecommissionTimeout no set on KillTasksOnDecommissionTimeout %+v", self)
+		return nil, fmt.Errorf("Field User no set on User %+v", self)
 
 	case "machineId", "MachineId":
 		if self.present != nil {
@@ -173,6 +173,14 @@ func (self *SingularityExpiringMachineState) GetField(name string) (interface{},
 		}
 		return nil, fmt.Errorf("Field RevertToState no set on RevertToState %+v", self)
 
+	case "killTasksOnDecommissionTimeout", "KillTasksOnDecommissionTimeout":
+		if self.present != nil {
+			if _, ok := self.present["killTasksOnDecommissionTimeout"]; ok {
+				return self.KillTasksOnDecommissionTimeout, nil
+			}
+		}
+		return nil, fmt.Errorf("Field KillTasksOnDecommissionTimeout no set on KillTasksOnDecommissionTimeout %+v", self)
+
 	case "startMillis", "StartMillis":
 		if self.present != nil {
 			if _, ok := self.present["startMillis"]; ok {
@@ -180,14 +188,6 @@ func (self *SingularityExpiringMachineState) GetField(name string) (interface{},
 			}
 		}
 		return nil, fmt.Errorf("Field StartMillis no set on StartMillis %+v", self)
-
-	case "user", "User":
-		if self.present != nil {
-			if _, ok := self.present["user"]; ok {
-				return self.User, nil
-			}
-		}
-		return nil, fmt.Errorf("Field User no set on User %+v", self)
 
 	}
 }
@@ -203,8 +203,8 @@ func (self *SingularityExpiringMachineState) ClearField(name string) error {
 	case "actionId", "ActionId":
 		self.present["actionId"] = false
 
-	case "killTasksOnDecommissionTimeout", "KillTasksOnDecommissionTimeout":
-		self.present["killTasksOnDecommissionTimeout"] = false
+	case "user", "User":
+		self.present["user"] = false
 
 	case "machineId", "MachineId":
 		self.present["machineId"] = false
@@ -212,11 +212,11 @@ func (self *SingularityExpiringMachineState) ClearField(name string) error {
 	case "revertToState", "RevertToState":
 		self.present["revertToState"] = false
 
+	case "killTasksOnDecommissionTimeout", "KillTasksOnDecommissionTimeout":
+		self.present["killTasksOnDecommissionTimeout"] = false
+
 	case "startMillis", "StartMillis":
 		self.present["startMillis"] = false
-
-	case "user", "User":
-		self.present["user"] = false
 
 	}
 

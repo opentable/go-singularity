@@ -30,13 +30,13 @@ type SingularityRequestHistory struct {
 
 	CreatedAt int64 `json:"createdAt"`
 
-	EventType SingularityRequestHistoryRequestHistoryType `json:"eventType"`
+	User string `json:"user,omitempty"`
 
-	Message string `json:"message,omitempty"`
+	EventType SingularityRequestHistoryRequestHistoryType `json:"eventType"`
 
 	Request *SingularityRequest `json:"request"`
 
-	User string `json:"user,omitempty"`
+	Message string `json:"message,omitempty"`
 }
 
 func (self *SingularityRequestHistory) Populate(jsonReader io.ReadCloser) (err error) {
@@ -85,6 +85,16 @@ func (self *SingularityRequestHistory) SetField(name string, value interface{}) 
 			return fmt.Errorf("Field createdAt/CreatedAt: value %v(%T) couldn't be cast to type int64", value, value)
 		}
 
+	case "user", "User":
+		v, ok := value.(string)
+		if ok {
+			self.User = v
+			self.present["user"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field user/User: value %v(%T) couldn't be cast to type string", value, value)
+		}
+
 	case "eventType", "EventType":
 		v, ok := value.(SingularityRequestHistoryRequestHistoryType)
 		if ok {
@@ -93,16 +103,6 @@ func (self *SingularityRequestHistory) SetField(name string, value interface{}) 
 			return nil
 		} else {
 			return fmt.Errorf("Field eventType/EventType: value %v(%T) couldn't be cast to type SingularityRequestHistoryRequestHistoryType", value, value)
-		}
-
-	case "message", "Message":
-		v, ok := value.(string)
-		if ok {
-			self.Message = v
-			self.present["message"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field message/Message: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "request", "Request":
@@ -115,14 +115,14 @@ func (self *SingularityRequestHistory) SetField(name string, value interface{}) 
 			return fmt.Errorf("Field request/Request: value %v(%T) couldn't be cast to type *SingularityRequest", value, value)
 		}
 
-	case "user", "User":
+	case "message", "Message":
 		v, ok := value.(string)
 		if ok {
-			self.User = v
-			self.present["user"] = true
+			self.Message = v
+			self.present["message"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field user/User: value %v(%T) couldn't be cast to type string", value, value)
+			return fmt.Errorf("Field message/Message: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	}
@@ -141,6 +141,14 @@ func (self *SingularityRequestHistory) GetField(name string) (interface{}, error
 		}
 		return nil, fmt.Errorf("Field CreatedAt no set on CreatedAt %+v", self)
 
+	case "user", "User":
+		if self.present != nil {
+			if _, ok := self.present["user"]; ok {
+				return self.User, nil
+			}
+		}
+		return nil, fmt.Errorf("Field User no set on User %+v", self)
+
 	case "eventType", "EventType":
 		if self.present != nil {
 			if _, ok := self.present["eventType"]; ok {
@@ -148,14 +156,6 @@ func (self *SingularityRequestHistory) GetField(name string) (interface{}, error
 			}
 		}
 		return nil, fmt.Errorf("Field EventType no set on EventType %+v", self)
-
-	case "message", "Message":
-		if self.present != nil {
-			if _, ok := self.present["message"]; ok {
-				return self.Message, nil
-			}
-		}
-		return nil, fmt.Errorf("Field Message no set on Message %+v", self)
 
 	case "request", "Request":
 		if self.present != nil {
@@ -165,13 +165,13 @@ func (self *SingularityRequestHistory) GetField(name string) (interface{}, error
 		}
 		return nil, fmt.Errorf("Field Request no set on Request %+v", self)
 
-	case "user", "User":
+	case "message", "Message":
 		if self.present != nil {
-			if _, ok := self.present["user"]; ok {
-				return self.User, nil
+			if _, ok := self.present["message"]; ok {
+				return self.Message, nil
 			}
 		}
-		return nil, fmt.Errorf("Field User no set on User %+v", self)
+		return nil, fmt.Errorf("Field Message no set on Message %+v", self)
 
 	}
 }
@@ -187,17 +187,17 @@ func (self *SingularityRequestHistory) ClearField(name string) error {
 	case "createdAt", "CreatedAt":
 		self.present["createdAt"] = false
 
+	case "user", "User":
+		self.present["user"] = false
+
 	case "eventType", "EventType":
 		self.present["eventType"] = false
-
-	case "message", "Message":
-		self.present["message"] = false
 
 	case "request", "Request":
 		self.present["request"] = false
 
-	case "user", "User":
-		self.present["user"] = false
+	case "message", "Message":
+		self.present["message"] = false
 
 	}
 

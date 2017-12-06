@@ -10,17 +10,17 @@ import (
 type SingularityScaleRequest struct {
 	present map[string]bool
 
-	ActionId string `json:"actionId,omitempty"`
-
 	Bounce bool `json:"bounce"`
-
-	DurationMillis int64 `json:"durationMillis"`
 
 	Incremental bool `json:"incremental"`
 
-	Instances int32 `json:"instances"`
+	DurationMillis int64 `json:"durationMillis"`
+
+	ActionId string `json:"actionId,omitempty"`
 
 	Message string `json:"message,omitempty"`
+
+	Instances int32 `json:"instances"`
 
 	SkipHealthchecks bool `json:"skipHealthchecks"`
 }
@@ -61,16 +61,6 @@ func (self *SingularityScaleRequest) SetField(name string, value interface{}) er
 	default:
 		return fmt.Errorf("No such field %s on SingularityScaleRequest", name)
 
-	case "actionId", "ActionId":
-		v, ok := value.(string)
-		if ok {
-			self.ActionId = v
-			self.present["actionId"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field actionId/ActionId: value %v(%T) couldn't be cast to type string", value, value)
-		}
-
 	case "bounce", "Bounce":
 		v, ok := value.(bool)
 		if ok {
@@ -79,16 +69,6 @@ func (self *SingularityScaleRequest) SetField(name string, value interface{}) er
 			return nil
 		} else {
 			return fmt.Errorf("Field bounce/Bounce: value %v(%T) couldn't be cast to type bool", value, value)
-		}
-
-	case "durationMillis", "DurationMillis":
-		v, ok := value.(int64)
-		if ok {
-			self.DurationMillis = v
-			self.present["durationMillis"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field durationMillis/DurationMillis: value %v(%T) couldn't be cast to type int64", value, value)
 		}
 
 	case "incremental", "Incremental":
@@ -101,14 +81,24 @@ func (self *SingularityScaleRequest) SetField(name string, value interface{}) er
 			return fmt.Errorf("Field incremental/Incremental: value %v(%T) couldn't be cast to type bool", value, value)
 		}
 
-	case "instances", "Instances":
-		v, ok := value.(int32)
+	case "durationMillis", "DurationMillis":
+		v, ok := value.(int64)
 		if ok {
-			self.Instances = v
-			self.present["instances"] = true
+			self.DurationMillis = v
+			self.present["durationMillis"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field instances/Instances: value %v(%T) couldn't be cast to type int32", value, value)
+			return fmt.Errorf("Field durationMillis/DurationMillis: value %v(%T) couldn't be cast to type int64", value, value)
+		}
+
+	case "actionId", "ActionId":
+		v, ok := value.(string)
+		if ok {
+			self.ActionId = v
+			self.present["actionId"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field actionId/ActionId: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "message", "Message":
@@ -119,6 +109,16 @@ func (self *SingularityScaleRequest) SetField(name string, value interface{}) er
 			return nil
 		} else {
 			return fmt.Errorf("Field message/Message: value %v(%T) couldn't be cast to type string", value, value)
+		}
+
+	case "instances", "Instances":
+		v, ok := value.(int32)
+		if ok {
+			self.Instances = v
+			self.present["instances"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field instances/Instances: value %v(%T) couldn't be cast to type int32", value, value)
 		}
 
 	case "skipHealthchecks", "SkipHealthchecks":
@@ -139,14 +139,6 @@ func (self *SingularityScaleRequest) GetField(name string) (interface{}, error) 
 	default:
 		return nil, fmt.Errorf("No such field %s on SingularityScaleRequest", name)
 
-	case "actionId", "ActionId":
-		if self.present != nil {
-			if _, ok := self.present["actionId"]; ok {
-				return self.ActionId, nil
-			}
-		}
-		return nil, fmt.Errorf("Field ActionId no set on ActionId %+v", self)
-
 	case "bounce", "Bounce":
 		if self.present != nil {
 			if _, ok := self.present["bounce"]; ok {
@@ -154,14 +146,6 @@ func (self *SingularityScaleRequest) GetField(name string) (interface{}, error) 
 			}
 		}
 		return nil, fmt.Errorf("Field Bounce no set on Bounce %+v", self)
-
-	case "durationMillis", "DurationMillis":
-		if self.present != nil {
-			if _, ok := self.present["durationMillis"]; ok {
-				return self.DurationMillis, nil
-			}
-		}
-		return nil, fmt.Errorf("Field DurationMillis no set on DurationMillis %+v", self)
 
 	case "incremental", "Incremental":
 		if self.present != nil {
@@ -171,13 +155,21 @@ func (self *SingularityScaleRequest) GetField(name string) (interface{}, error) 
 		}
 		return nil, fmt.Errorf("Field Incremental no set on Incremental %+v", self)
 
-	case "instances", "Instances":
+	case "durationMillis", "DurationMillis":
 		if self.present != nil {
-			if _, ok := self.present["instances"]; ok {
-				return self.Instances, nil
+			if _, ok := self.present["durationMillis"]; ok {
+				return self.DurationMillis, nil
 			}
 		}
-		return nil, fmt.Errorf("Field Instances no set on Instances %+v", self)
+		return nil, fmt.Errorf("Field DurationMillis no set on DurationMillis %+v", self)
+
+	case "actionId", "ActionId":
+		if self.present != nil {
+			if _, ok := self.present["actionId"]; ok {
+				return self.ActionId, nil
+			}
+		}
+		return nil, fmt.Errorf("Field ActionId no set on ActionId %+v", self)
 
 	case "message", "Message":
 		if self.present != nil {
@@ -186,6 +178,14 @@ func (self *SingularityScaleRequest) GetField(name string) (interface{}, error) 
 			}
 		}
 		return nil, fmt.Errorf("Field Message no set on Message %+v", self)
+
+	case "instances", "Instances":
+		if self.present != nil {
+			if _, ok := self.present["instances"]; ok {
+				return self.Instances, nil
+			}
+		}
+		return nil, fmt.Errorf("Field Instances no set on Instances %+v", self)
 
 	case "skipHealthchecks", "SkipHealthchecks":
 		if self.present != nil {
@@ -206,23 +206,23 @@ func (self *SingularityScaleRequest) ClearField(name string) error {
 	default:
 		return fmt.Errorf("No such field %s on SingularityScaleRequest", name)
 
-	case "actionId", "ActionId":
-		self.present["actionId"] = false
-
 	case "bounce", "Bounce":
 		self.present["bounce"] = false
-
-	case "durationMillis", "DurationMillis":
-		self.present["durationMillis"] = false
 
 	case "incremental", "Incremental":
 		self.present["incremental"] = false
 
-	case "instances", "Instances":
-		self.present["instances"] = false
+	case "durationMillis", "DurationMillis":
+		self.present["durationMillis"] = false
+
+	case "actionId", "ActionId":
+		self.present["actionId"] = false
 
 	case "message", "Message":
 		self.present["message"] = false
+
+	case "instances", "Instances":
+		self.present["instances"] = false
 
 	case "skipHealthchecks", "SkipHealthchecks":
 		self.present["skipHealthchecks"] = false

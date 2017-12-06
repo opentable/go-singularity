@@ -10,19 +10,19 @@ import (
 type SingularityTaskHealthcheckResult struct {
 	present map[string]bool
 
-	DurationMillis int64 `json:"durationMillis"`
-
-	ErrorMessage string `json:"errorMessage,omitempty"`
-
-	ResponseBody string `json:"responseBody,omitempty"`
-
-	Startup bool `json:"startup"`
-
-	StatusCode int32 `json:"statusCode"`
+	Timestamp int64 `json:"timestamp"`
 
 	TaskId *SingularityTaskId `json:"taskId"`
 
-	Timestamp int64 `json:"timestamp"`
+	StatusCode int32 `json:"statusCode"`
+
+	DurationMillis int64 `json:"durationMillis"`
+
+	ResponseBody string `json:"responseBody,omitempty"`
+
+	ErrorMessage string `json:"errorMessage,omitempty"`
+
+	Startup bool `json:"startup"`
 }
 
 func (self *SingularityTaskHealthcheckResult) Populate(jsonReader io.ReadCloser) (err error) {
@@ -61,54 +61,14 @@ func (self *SingularityTaskHealthcheckResult) SetField(name string, value interf
 	default:
 		return fmt.Errorf("No such field %s on SingularityTaskHealthcheckResult", name)
 
-	case "durationMillis", "DurationMillis":
+	case "timestamp", "Timestamp":
 		v, ok := value.(int64)
 		if ok {
-			self.DurationMillis = v
-			self.present["durationMillis"] = true
+			self.Timestamp = v
+			self.present["timestamp"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field durationMillis/DurationMillis: value %v(%T) couldn't be cast to type int64", value, value)
-		}
-
-	case "errorMessage", "ErrorMessage":
-		v, ok := value.(string)
-		if ok {
-			self.ErrorMessage = v
-			self.present["errorMessage"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field errorMessage/ErrorMessage: value %v(%T) couldn't be cast to type string", value, value)
-		}
-
-	case "responseBody", "ResponseBody":
-		v, ok := value.(string)
-		if ok {
-			self.ResponseBody = v
-			self.present["responseBody"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field responseBody/ResponseBody: value %v(%T) couldn't be cast to type string", value, value)
-		}
-
-	case "startup", "Startup":
-		v, ok := value.(bool)
-		if ok {
-			self.Startup = v
-			self.present["startup"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field startup/Startup: value %v(%T) couldn't be cast to type bool", value, value)
-		}
-
-	case "statusCode", "StatusCode":
-		v, ok := value.(int32)
-		if ok {
-			self.StatusCode = v
-			self.present["statusCode"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field statusCode/StatusCode: value %v(%T) couldn't be cast to type int32", value, value)
+			return fmt.Errorf("Field timestamp/Timestamp: value %v(%T) couldn't be cast to type int64", value, value)
 		}
 
 	case "taskId", "TaskId":
@@ -121,14 +81,54 @@ func (self *SingularityTaskHealthcheckResult) SetField(name string, value interf
 			return fmt.Errorf("Field taskId/TaskId: value %v(%T) couldn't be cast to type *SingularityTaskId", value, value)
 		}
 
-	case "timestamp", "Timestamp":
-		v, ok := value.(int64)
+	case "statusCode", "StatusCode":
+		v, ok := value.(int32)
 		if ok {
-			self.Timestamp = v
-			self.present["timestamp"] = true
+			self.StatusCode = v
+			self.present["statusCode"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field timestamp/Timestamp: value %v(%T) couldn't be cast to type int64", value, value)
+			return fmt.Errorf("Field statusCode/StatusCode: value %v(%T) couldn't be cast to type int32", value, value)
+		}
+
+	case "durationMillis", "DurationMillis":
+		v, ok := value.(int64)
+		if ok {
+			self.DurationMillis = v
+			self.present["durationMillis"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field durationMillis/DurationMillis: value %v(%T) couldn't be cast to type int64", value, value)
+		}
+
+	case "responseBody", "ResponseBody":
+		v, ok := value.(string)
+		if ok {
+			self.ResponseBody = v
+			self.present["responseBody"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field responseBody/ResponseBody: value %v(%T) couldn't be cast to type string", value, value)
+		}
+
+	case "errorMessage", "ErrorMessage":
+		v, ok := value.(string)
+		if ok {
+			self.ErrorMessage = v
+			self.present["errorMessage"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field errorMessage/ErrorMessage: value %v(%T) couldn't be cast to type string", value, value)
+		}
+
+	case "startup", "Startup":
+		v, ok := value.(bool)
+		if ok {
+			self.Startup = v
+			self.present["startup"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field startup/Startup: value %v(%T) couldn't be cast to type bool", value, value)
 		}
 
 	}
@@ -139,45 +139,13 @@ func (self *SingularityTaskHealthcheckResult) GetField(name string) (interface{}
 	default:
 		return nil, fmt.Errorf("No such field %s on SingularityTaskHealthcheckResult", name)
 
-	case "durationMillis", "DurationMillis":
+	case "timestamp", "Timestamp":
 		if self.present != nil {
-			if _, ok := self.present["durationMillis"]; ok {
-				return self.DurationMillis, nil
+			if _, ok := self.present["timestamp"]; ok {
+				return self.Timestamp, nil
 			}
 		}
-		return nil, fmt.Errorf("Field DurationMillis no set on DurationMillis %+v", self)
-
-	case "errorMessage", "ErrorMessage":
-		if self.present != nil {
-			if _, ok := self.present["errorMessage"]; ok {
-				return self.ErrorMessage, nil
-			}
-		}
-		return nil, fmt.Errorf("Field ErrorMessage no set on ErrorMessage %+v", self)
-
-	case "responseBody", "ResponseBody":
-		if self.present != nil {
-			if _, ok := self.present["responseBody"]; ok {
-				return self.ResponseBody, nil
-			}
-		}
-		return nil, fmt.Errorf("Field ResponseBody no set on ResponseBody %+v", self)
-
-	case "startup", "Startup":
-		if self.present != nil {
-			if _, ok := self.present["startup"]; ok {
-				return self.Startup, nil
-			}
-		}
-		return nil, fmt.Errorf("Field Startup no set on Startup %+v", self)
-
-	case "statusCode", "StatusCode":
-		if self.present != nil {
-			if _, ok := self.present["statusCode"]; ok {
-				return self.StatusCode, nil
-			}
-		}
-		return nil, fmt.Errorf("Field StatusCode no set on StatusCode %+v", self)
+		return nil, fmt.Errorf("Field Timestamp no set on Timestamp %+v", self)
 
 	case "taskId", "TaskId":
 		if self.present != nil {
@@ -187,13 +155,45 @@ func (self *SingularityTaskHealthcheckResult) GetField(name string) (interface{}
 		}
 		return nil, fmt.Errorf("Field TaskId no set on TaskId %+v", self)
 
-	case "timestamp", "Timestamp":
+	case "statusCode", "StatusCode":
 		if self.present != nil {
-			if _, ok := self.present["timestamp"]; ok {
-				return self.Timestamp, nil
+			if _, ok := self.present["statusCode"]; ok {
+				return self.StatusCode, nil
 			}
 		}
-		return nil, fmt.Errorf("Field Timestamp no set on Timestamp %+v", self)
+		return nil, fmt.Errorf("Field StatusCode no set on StatusCode %+v", self)
+
+	case "durationMillis", "DurationMillis":
+		if self.present != nil {
+			if _, ok := self.present["durationMillis"]; ok {
+				return self.DurationMillis, nil
+			}
+		}
+		return nil, fmt.Errorf("Field DurationMillis no set on DurationMillis %+v", self)
+
+	case "responseBody", "ResponseBody":
+		if self.present != nil {
+			if _, ok := self.present["responseBody"]; ok {
+				return self.ResponseBody, nil
+			}
+		}
+		return nil, fmt.Errorf("Field ResponseBody no set on ResponseBody %+v", self)
+
+	case "errorMessage", "ErrorMessage":
+		if self.present != nil {
+			if _, ok := self.present["errorMessage"]; ok {
+				return self.ErrorMessage, nil
+			}
+		}
+		return nil, fmt.Errorf("Field ErrorMessage no set on ErrorMessage %+v", self)
+
+	case "startup", "Startup":
+		if self.present != nil {
+			if _, ok := self.present["startup"]; ok {
+				return self.Startup, nil
+			}
+		}
+		return nil, fmt.Errorf("Field Startup no set on Startup %+v", self)
 
 	}
 }
@@ -206,26 +206,26 @@ func (self *SingularityTaskHealthcheckResult) ClearField(name string) error {
 	default:
 		return fmt.Errorf("No such field %s on SingularityTaskHealthcheckResult", name)
 
-	case "durationMillis", "DurationMillis":
-		self.present["durationMillis"] = false
-
-	case "errorMessage", "ErrorMessage":
-		self.present["errorMessage"] = false
-
-	case "responseBody", "ResponseBody":
-		self.present["responseBody"] = false
-
-	case "startup", "Startup":
-		self.present["startup"] = false
-
-	case "statusCode", "StatusCode":
-		self.present["statusCode"] = false
+	case "timestamp", "Timestamp":
+		self.present["timestamp"] = false
 
 	case "taskId", "TaskId":
 		self.present["taskId"] = false
 
-	case "timestamp", "Timestamp":
-		self.present["timestamp"] = false
+	case "statusCode", "StatusCode":
+		self.present["statusCode"] = false
+
+	case "durationMillis", "DurationMillis":
+		self.present["durationMillis"] = false
+
+	case "responseBody", "ResponseBody":
+		self.present["responseBody"] = false
+
+	case "errorMessage", "ErrorMessage":
+		self.present["errorMessage"] = false
+
+	case "startup", "Startup":
+		self.present["startup"] = false
 
 	}
 

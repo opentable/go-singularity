@@ -19,11 +19,11 @@ const (
 type LoadBalancerRequestId struct {
 	present map[string]bool
 
-	AttemptNumber int32 `json:"attemptNumber"`
-
 	Id string `json:"id,omitempty"`
 
 	RequestType LoadBalancerRequestIdLoadBalancerRequestType `json:"requestType"`
+
+	AttemptNumber int32 `json:"attemptNumber"`
 }
 
 func (self *LoadBalancerRequestId) Populate(jsonReader io.ReadCloser) (err error) {
@@ -62,16 +62,6 @@ func (self *LoadBalancerRequestId) SetField(name string, value interface{}) erro
 	default:
 		return fmt.Errorf("No such field %s on LoadBalancerRequestId", name)
 
-	case "attemptNumber", "AttemptNumber":
-		v, ok := value.(int32)
-		if ok {
-			self.AttemptNumber = v
-			self.present["attemptNumber"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field attemptNumber/AttemptNumber: value %v(%T) couldn't be cast to type int32", value, value)
-		}
-
 	case "id", "Id":
 		v, ok := value.(string)
 		if ok {
@@ -92,6 +82,16 @@ func (self *LoadBalancerRequestId) SetField(name string, value interface{}) erro
 			return fmt.Errorf("Field requestType/RequestType: value %v(%T) couldn't be cast to type LoadBalancerRequestIdLoadBalancerRequestType", value, value)
 		}
 
+	case "attemptNumber", "AttemptNumber":
+		v, ok := value.(int32)
+		if ok {
+			self.AttemptNumber = v
+			self.present["attemptNumber"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field attemptNumber/AttemptNumber: value %v(%T) couldn't be cast to type int32", value, value)
+		}
+
 	}
 }
 
@@ -99,14 +99,6 @@ func (self *LoadBalancerRequestId) GetField(name string) (interface{}, error) {
 	switch name {
 	default:
 		return nil, fmt.Errorf("No such field %s on LoadBalancerRequestId", name)
-
-	case "attemptNumber", "AttemptNumber":
-		if self.present != nil {
-			if _, ok := self.present["attemptNumber"]; ok {
-				return self.AttemptNumber, nil
-			}
-		}
-		return nil, fmt.Errorf("Field AttemptNumber no set on AttemptNumber %+v", self)
 
 	case "id", "Id":
 		if self.present != nil {
@@ -124,6 +116,14 @@ func (self *LoadBalancerRequestId) GetField(name string) (interface{}, error) {
 		}
 		return nil, fmt.Errorf("Field RequestType no set on RequestType %+v", self)
 
+	case "attemptNumber", "AttemptNumber":
+		if self.present != nil {
+			if _, ok := self.present["attemptNumber"]; ok {
+				return self.AttemptNumber, nil
+			}
+		}
+		return nil, fmt.Errorf("Field AttemptNumber no set on AttemptNumber %+v", self)
+
 	}
 }
 
@@ -135,14 +135,14 @@ func (self *LoadBalancerRequestId) ClearField(name string) error {
 	default:
 		return fmt.Errorf("No such field %s on LoadBalancerRequestId", name)
 
-	case "attemptNumber", "AttemptNumber":
-		self.present["attemptNumber"] = false
-
 	case "id", "Id":
 		self.present["id"] = false
 
 	case "requestType", "RequestType":
 		self.present["requestType"] = false
+
+	case "attemptNumber", "AttemptNumber":
+		self.present["attemptNumber"] = false
 
 	}
 

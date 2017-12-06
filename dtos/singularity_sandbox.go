@@ -10,11 +10,11 @@ import (
 type SingularitySandbox struct {
 	present map[string]bool
 
-	CurrentDirectory string `json:"currentDirectory,omitempty"`
-
 	Files SingularitySandboxFileList `json:"files"`
 
 	FullPathToRoot string `json:"fullPathToRoot,omitempty"`
+
+	CurrentDirectory string `json:"currentDirectory,omitempty"`
 
 	SlaveHostname string `json:"slaveHostname,omitempty"`
 }
@@ -55,16 +55,6 @@ func (self *SingularitySandbox) SetField(name string, value interface{}) error {
 	default:
 		return fmt.Errorf("No such field %s on SingularitySandbox", name)
 
-	case "currentDirectory", "CurrentDirectory":
-		v, ok := value.(string)
-		if ok {
-			self.CurrentDirectory = v
-			self.present["currentDirectory"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field currentDirectory/CurrentDirectory: value %v(%T) couldn't be cast to type string", value, value)
-		}
-
 	case "files", "Files":
 		v, ok := value.(SingularitySandboxFileList)
 		if ok {
@@ -85,6 +75,16 @@ func (self *SingularitySandbox) SetField(name string, value interface{}) error {
 			return fmt.Errorf("Field fullPathToRoot/FullPathToRoot: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
+	case "currentDirectory", "CurrentDirectory":
+		v, ok := value.(string)
+		if ok {
+			self.CurrentDirectory = v
+			self.present["currentDirectory"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field currentDirectory/CurrentDirectory: value %v(%T) couldn't be cast to type string", value, value)
+		}
+
 	case "slaveHostname", "SlaveHostname":
 		v, ok := value.(string)
 		if ok {
@@ -103,14 +103,6 @@ func (self *SingularitySandbox) GetField(name string) (interface{}, error) {
 	default:
 		return nil, fmt.Errorf("No such field %s on SingularitySandbox", name)
 
-	case "currentDirectory", "CurrentDirectory":
-		if self.present != nil {
-			if _, ok := self.present["currentDirectory"]; ok {
-				return self.CurrentDirectory, nil
-			}
-		}
-		return nil, fmt.Errorf("Field CurrentDirectory no set on CurrentDirectory %+v", self)
-
 	case "files", "Files":
 		if self.present != nil {
 			if _, ok := self.present["files"]; ok {
@@ -126,6 +118,14 @@ func (self *SingularitySandbox) GetField(name string) (interface{}, error) {
 			}
 		}
 		return nil, fmt.Errorf("Field FullPathToRoot no set on FullPathToRoot %+v", self)
+
+	case "currentDirectory", "CurrentDirectory":
+		if self.present != nil {
+			if _, ok := self.present["currentDirectory"]; ok {
+				return self.CurrentDirectory, nil
+			}
+		}
+		return nil, fmt.Errorf("Field CurrentDirectory no set on CurrentDirectory %+v", self)
 
 	case "slaveHostname", "SlaveHostname":
 		if self.present != nil {
@@ -146,14 +146,14 @@ func (self *SingularitySandbox) ClearField(name string) error {
 	default:
 		return fmt.Errorf("No such field %s on SingularitySandbox", name)
 
-	case "currentDirectory", "CurrentDirectory":
-		self.present["currentDirectory"] = false
-
 	case "files", "Files":
 		self.present["files"] = false
 
 	case "fullPathToRoot", "FullPathToRoot":
 		self.present["fullPathToRoot"] = false
+
+	case "currentDirectory", "CurrentDirectory":
+		self.present["currentDirectory"] = false
 
 	case "slaveHostname", "SlaveHostname":
 		self.present["slaveHostname"] = false

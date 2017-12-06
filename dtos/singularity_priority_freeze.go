@@ -10,13 +10,13 @@ import (
 type SingularityPriorityFreeze struct {
 	present map[string]bool
 
-	ActionId string `json:"actionId,omitempty"`
-
-	KillTasks bool `json:"killTasks"`
-
 	Message string `json:"message,omitempty"`
 
+	ActionId string `json:"actionId,omitempty"`
+
 	MinimumPriorityLevel float64 `json:"minimumPriorityLevel"`
+
+	KillTasks bool `json:"killTasks"`
 }
 
 func (self *SingularityPriorityFreeze) Populate(jsonReader io.ReadCloser) (err error) {
@@ -55,26 +55,6 @@ func (self *SingularityPriorityFreeze) SetField(name string, value interface{}) 
 	default:
 		return fmt.Errorf("No such field %s on SingularityPriorityFreeze", name)
 
-	case "actionId", "ActionId":
-		v, ok := value.(string)
-		if ok {
-			self.ActionId = v
-			self.present["actionId"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field actionId/ActionId: value %v(%T) couldn't be cast to type string", value, value)
-		}
-
-	case "killTasks", "KillTasks":
-		v, ok := value.(bool)
-		if ok {
-			self.KillTasks = v
-			self.present["killTasks"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field killTasks/KillTasks: value %v(%T) couldn't be cast to type bool", value, value)
-		}
-
 	case "message", "Message":
 		v, ok := value.(string)
 		if ok {
@@ -83,6 +63,16 @@ func (self *SingularityPriorityFreeze) SetField(name string, value interface{}) 
 			return nil
 		} else {
 			return fmt.Errorf("Field message/Message: value %v(%T) couldn't be cast to type string", value, value)
+		}
+
+	case "actionId", "ActionId":
+		v, ok := value.(string)
+		if ok {
+			self.ActionId = v
+			self.present["actionId"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field actionId/ActionId: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "minimumPriorityLevel", "MinimumPriorityLevel":
@@ -95,6 +85,16 @@ func (self *SingularityPriorityFreeze) SetField(name string, value interface{}) 
 			return fmt.Errorf("Field minimumPriorityLevel/MinimumPriorityLevel: value %v(%T) couldn't be cast to type float64", value, value)
 		}
 
+	case "killTasks", "KillTasks":
+		v, ok := value.(bool)
+		if ok {
+			self.KillTasks = v
+			self.present["killTasks"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field killTasks/KillTasks: value %v(%T) couldn't be cast to type bool", value, value)
+		}
+
 	}
 }
 
@@ -102,22 +102,6 @@ func (self *SingularityPriorityFreeze) GetField(name string) (interface{}, error
 	switch name {
 	default:
 		return nil, fmt.Errorf("No such field %s on SingularityPriorityFreeze", name)
-
-	case "actionId", "ActionId":
-		if self.present != nil {
-			if _, ok := self.present["actionId"]; ok {
-				return self.ActionId, nil
-			}
-		}
-		return nil, fmt.Errorf("Field ActionId no set on ActionId %+v", self)
-
-	case "killTasks", "KillTasks":
-		if self.present != nil {
-			if _, ok := self.present["killTasks"]; ok {
-				return self.KillTasks, nil
-			}
-		}
-		return nil, fmt.Errorf("Field KillTasks no set on KillTasks %+v", self)
 
 	case "message", "Message":
 		if self.present != nil {
@@ -127,6 +111,14 @@ func (self *SingularityPriorityFreeze) GetField(name string) (interface{}, error
 		}
 		return nil, fmt.Errorf("Field Message no set on Message %+v", self)
 
+	case "actionId", "ActionId":
+		if self.present != nil {
+			if _, ok := self.present["actionId"]; ok {
+				return self.ActionId, nil
+			}
+		}
+		return nil, fmt.Errorf("Field ActionId no set on ActionId %+v", self)
+
 	case "minimumPriorityLevel", "MinimumPriorityLevel":
 		if self.present != nil {
 			if _, ok := self.present["minimumPriorityLevel"]; ok {
@@ -134,6 +126,14 @@ func (self *SingularityPriorityFreeze) GetField(name string) (interface{}, error
 			}
 		}
 		return nil, fmt.Errorf("Field MinimumPriorityLevel no set on MinimumPriorityLevel %+v", self)
+
+	case "killTasks", "KillTasks":
+		if self.present != nil {
+			if _, ok := self.present["killTasks"]; ok {
+				return self.KillTasks, nil
+			}
+		}
+		return nil, fmt.Errorf("Field KillTasks no set on KillTasks %+v", self)
 
 	}
 }
@@ -146,17 +146,17 @@ func (self *SingularityPriorityFreeze) ClearField(name string) error {
 	default:
 		return fmt.Errorf("No such field %s on SingularityPriorityFreeze", name)
 
-	case "actionId", "ActionId":
-		self.present["actionId"] = false
-
-	case "killTasks", "KillTasks":
-		self.present["killTasks"] = false
-
 	case "message", "Message":
 		self.present["message"] = false
 
+	case "actionId", "ActionId":
+		self.present["actionId"] = false
+
 	case "minimumPriorityLevel", "MinimumPriorityLevel":
 		self.present["minimumPriorityLevel"] = false
+
+	case "killTasks", "KillTasks":
+		self.present["killTasks"] = false
 
 	}
 

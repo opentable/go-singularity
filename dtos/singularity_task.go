@@ -10,11 +10,11 @@ import (
 type SingularityTask struct {
 	present map[string]bool
 
+	TaskRequest *SingularityTaskRequest `json:"taskRequest"`
+
 	RackId string `json:"rackId,omitempty"`
 
 	TaskId *SingularityTaskId `json:"taskId"`
-
-	TaskRequest *SingularityTaskRequest `json:"taskRequest"`
 }
 
 func (self *SingularityTask) Populate(jsonReader io.ReadCloser) (err error) {
@@ -53,6 +53,16 @@ func (self *SingularityTask) SetField(name string, value interface{}) error {
 	default:
 		return fmt.Errorf("No such field %s on SingularityTask", name)
 
+	case "taskRequest", "TaskRequest":
+		v, ok := value.(*SingularityTaskRequest)
+		if ok {
+			self.TaskRequest = v
+			self.present["taskRequest"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field taskRequest/TaskRequest: value %v(%T) couldn't be cast to type *SingularityTaskRequest", value, value)
+		}
+
 	case "rackId", "RackId":
 		v, ok := value.(string)
 		if ok {
@@ -73,16 +83,6 @@ func (self *SingularityTask) SetField(name string, value interface{}) error {
 			return fmt.Errorf("Field taskId/TaskId: value %v(%T) couldn't be cast to type *SingularityTaskId", value, value)
 		}
 
-	case "taskRequest", "TaskRequest":
-		v, ok := value.(*SingularityTaskRequest)
-		if ok {
-			self.TaskRequest = v
-			self.present["taskRequest"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field taskRequest/TaskRequest: value %v(%T) couldn't be cast to type *SingularityTaskRequest", value, value)
-		}
-
 	}
 }
 
@@ -90,6 +90,14 @@ func (self *SingularityTask) GetField(name string) (interface{}, error) {
 	switch name {
 	default:
 		return nil, fmt.Errorf("No such field %s on SingularityTask", name)
+
+	case "taskRequest", "TaskRequest":
+		if self.present != nil {
+			if _, ok := self.present["taskRequest"]; ok {
+				return self.TaskRequest, nil
+			}
+		}
+		return nil, fmt.Errorf("Field TaskRequest no set on TaskRequest %+v", self)
 
 	case "rackId", "RackId":
 		if self.present != nil {
@@ -107,14 +115,6 @@ func (self *SingularityTask) GetField(name string) (interface{}, error) {
 		}
 		return nil, fmt.Errorf("Field TaskId no set on TaskId %+v", self)
 
-	case "taskRequest", "TaskRequest":
-		if self.present != nil {
-			if _, ok := self.present["taskRequest"]; ok {
-				return self.TaskRequest, nil
-			}
-		}
-		return nil, fmt.Errorf("Field TaskRequest no set on TaskRequest %+v", self)
-
 	}
 }
 
@@ -126,14 +126,14 @@ func (self *SingularityTask) ClearField(name string) error {
 	default:
 		return fmt.Errorf("No such field %s on SingularityTask", name)
 
+	case "taskRequest", "TaskRequest":
+		self.present["taskRequest"] = false
+
 	case "rackId", "RackId":
 		self.present["rackId"] = false
 
 	case "taskId", "TaskId":
 		self.present["taskId"] = false
-
-	case "taskRequest", "TaskRequest":
-		self.present["taskRequest"] = false
 
 	}
 

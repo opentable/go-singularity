@@ -10,9 +10,7 @@ import (
 type SingularityTaskHistory struct {
 	present map[string]bool
 
-	ContainerId string `json:"containerId,omitempty"`
-
-	Directory string `json:"directory,omitempty"`
+	Task *SingularityTask `json:"task"`
 
 	HealthcheckResults SingularityTaskHealthcheckResultList `json:"healthcheckResults"`
 
@@ -20,11 +18,13 @@ type SingularityTaskHistory struct {
 
 	ShellCommandHistory SingularityTaskShellCommandHistoryList `json:"shellCommandHistory"`
 
-	Task *SingularityTask `json:"task"`
-
 	TaskMetadata SingularityTaskMetadataList `json:"taskMetadata"`
 
 	TaskUpdates SingularityTaskHistoryUpdateList `json:"taskUpdates"`
+
+	Directory string `json:"directory,omitempty"`
+
+	ContainerId string `json:"containerId,omitempty"`
 }
 
 func (self *SingularityTaskHistory) Populate(jsonReader io.ReadCloser) (err error) {
@@ -63,24 +63,14 @@ func (self *SingularityTaskHistory) SetField(name string, value interface{}) err
 	default:
 		return fmt.Errorf("No such field %s on SingularityTaskHistory", name)
 
-	case "containerId", "ContainerId":
-		v, ok := value.(string)
+	case "task", "Task":
+		v, ok := value.(*SingularityTask)
 		if ok {
-			self.ContainerId = v
-			self.present["containerId"] = true
+			self.Task = v
+			self.present["task"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field containerId/ContainerId: value %v(%T) couldn't be cast to type string", value, value)
-		}
-
-	case "directory", "Directory":
-		v, ok := value.(string)
-		if ok {
-			self.Directory = v
-			self.present["directory"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field directory/Directory: value %v(%T) couldn't be cast to type string", value, value)
+			return fmt.Errorf("Field task/Task: value %v(%T) couldn't be cast to type *SingularityTask", value, value)
 		}
 
 	case "healthcheckResults", "HealthcheckResults":
@@ -113,16 +103,6 @@ func (self *SingularityTaskHistory) SetField(name string, value interface{}) err
 			return fmt.Errorf("Field shellCommandHistory/ShellCommandHistory: value %v(%T) couldn't be cast to type SingularityTaskShellCommandHistoryList", value, value)
 		}
 
-	case "task", "Task":
-		v, ok := value.(*SingularityTask)
-		if ok {
-			self.Task = v
-			self.present["task"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field task/Task: value %v(%T) couldn't be cast to type *SingularityTask", value, value)
-		}
-
 	case "taskMetadata", "TaskMetadata":
 		v, ok := value.(SingularityTaskMetadataList)
 		if ok {
@@ -143,6 +123,26 @@ func (self *SingularityTaskHistory) SetField(name string, value interface{}) err
 			return fmt.Errorf("Field taskUpdates/TaskUpdates: value %v(%T) couldn't be cast to type SingularityTaskHistoryUpdateList", value, value)
 		}
 
+	case "directory", "Directory":
+		v, ok := value.(string)
+		if ok {
+			self.Directory = v
+			self.present["directory"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field directory/Directory: value %v(%T) couldn't be cast to type string", value, value)
+		}
+
+	case "containerId", "ContainerId":
+		v, ok := value.(string)
+		if ok {
+			self.ContainerId = v
+			self.present["containerId"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field containerId/ContainerId: value %v(%T) couldn't be cast to type string", value, value)
+		}
+
 	}
 }
 
@@ -151,21 +151,13 @@ func (self *SingularityTaskHistory) GetField(name string) (interface{}, error) {
 	default:
 		return nil, fmt.Errorf("No such field %s on SingularityTaskHistory", name)
 
-	case "containerId", "ContainerId":
+	case "task", "Task":
 		if self.present != nil {
-			if _, ok := self.present["containerId"]; ok {
-				return self.ContainerId, nil
+			if _, ok := self.present["task"]; ok {
+				return self.Task, nil
 			}
 		}
-		return nil, fmt.Errorf("Field ContainerId no set on ContainerId %+v", self)
-
-	case "directory", "Directory":
-		if self.present != nil {
-			if _, ok := self.present["directory"]; ok {
-				return self.Directory, nil
-			}
-		}
-		return nil, fmt.Errorf("Field Directory no set on Directory %+v", self)
+		return nil, fmt.Errorf("Field Task no set on Task %+v", self)
 
 	case "healthcheckResults", "HealthcheckResults":
 		if self.present != nil {
@@ -191,14 +183,6 @@ func (self *SingularityTaskHistory) GetField(name string) (interface{}, error) {
 		}
 		return nil, fmt.Errorf("Field ShellCommandHistory no set on ShellCommandHistory %+v", self)
 
-	case "task", "Task":
-		if self.present != nil {
-			if _, ok := self.present["task"]; ok {
-				return self.Task, nil
-			}
-		}
-		return nil, fmt.Errorf("Field Task no set on Task %+v", self)
-
 	case "taskMetadata", "TaskMetadata":
 		if self.present != nil {
 			if _, ok := self.present["taskMetadata"]; ok {
@@ -215,6 +199,22 @@ func (self *SingularityTaskHistory) GetField(name string) (interface{}, error) {
 		}
 		return nil, fmt.Errorf("Field TaskUpdates no set on TaskUpdates %+v", self)
 
+	case "directory", "Directory":
+		if self.present != nil {
+			if _, ok := self.present["directory"]; ok {
+				return self.Directory, nil
+			}
+		}
+		return nil, fmt.Errorf("Field Directory no set on Directory %+v", self)
+
+	case "containerId", "ContainerId":
+		if self.present != nil {
+			if _, ok := self.present["containerId"]; ok {
+				return self.ContainerId, nil
+			}
+		}
+		return nil, fmt.Errorf("Field ContainerId no set on ContainerId %+v", self)
+
 	}
 }
 
@@ -226,11 +226,8 @@ func (self *SingularityTaskHistory) ClearField(name string) error {
 	default:
 		return fmt.Errorf("No such field %s on SingularityTaskHistory", name)
 
-	case "containerId", "ContainerId":
-		self.present["containerId"] = false
-
-	case "directory", "Directory":
-		self.present["directory"] = false
+	case "task", "Task":
+		self.present["task"] = false
 
 	case "healthcheckResults", "HealthcheckResults":
 		self.present["healthcheckResults"] = false
@@ -241,14 +238,17 @@ func (self *SingularityTaskHistory) ClearField(name string) error {
 	case "shellCommandHistory", "ShellCommandHistory":
 		self.present["shellCommandHistory"] = false
 
-	case "task", "Task":
-		self.present["task"] = false
-
 	case "taskMetadata", "TaskMetadata":
 		self.present["taskMetadata"] = false
 
 	case "taskUpdates", "TaskUpdates":
 		self.present["taskUpdates"] = false
+
+	case "directory", "Directory":
+		self.present["directory"] = false
+
+	case "containerId", "ContainerId":
+		self.present["containerId"] = false
 
 	}
 

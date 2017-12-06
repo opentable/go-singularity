@@ -16,9 +16,9 @@ type EmbeddedArtifact struct {
 
 	Md5sum string `json:"md5sum,omitempty"`
 
-	Name string `json:"name,omitempty"`
-
 	TargetFolderRelativeToTask string `json:"targetFolderRelativeToTask,omitempty"`
+
+	Name string `json:"name,omitempty"`
 }
 
 func (self *EmbeddedArtifact) Populate(jsonReader io.ReadCloser) (err error) {
@@ -64,7 +64,7 @@ func (self *EmbeddedArtifact) SetField(name string, value interface{}) error {
 			self.present["content"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field content/Content: value %v(%T) couldn't be cast to type StringList", value, value)
+			return fmt.Errorf("Field content/Content: value %v(%T) couldn't be cast to type swaggering.StringList", value, value)
 		}
 
 	case "filename", "Filename":
@@ -87,16 +87,6 @@ func (self *EmbeddedArtifact) SetField(name string, value interface{}) error {
 			return fmt.Errorf("Field md5sum/Md5sum: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
-	case "name", "Name":
-		v, ok := value.(string)
-		if ok {
-			self.Name = v
-			self.present["name"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field name/Name: value %v(%T) couldn't be cast to type string", value, value)
-		}
-
 	case "targetFolderRelativeToTask", "TargetFolderRelativeToTask":
 		v, ok := value.(string)
 		if ok {
@@ -105,6 +95,16 @@ func (self *EmbeddedArtifact) SetField(name string, value interface{}) error {
 			return nil
 		} else {
 			return fmt.Errorf("Field targetFolderRelativeToTask/TargetFolderRelativeToTask: value %v(%T) couldn't be cast to type string", value, value)
+		}
+
+	case "name", "Name":
+		v, ok := value.(string)
+		if ok {
+			self.Name = v
+			self.present["name"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field name/Name: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	}
@@ -139,14 +139,6 @@ func (self *EmbeddedArtifact) GetField(name string) (interface{}, error) {
 		}
 		return nil, fmt.Errorf("Field Md5sum no set on Md5sum %+v", self)
 
-	case "name", "Name":
-		if self.present != nil {
-			if _, ok := self.present["name"]; ok {
-				return self.Name, nil
-			}
-		}
-		return nil, fmt.Errorf("Field Name no set on Name %+v", self)
-
 	case "targetFolderRelativeToTask", "TargetFolderRelativeToTask":
 		if self.present != nil {
 			if _, ok := self.present["targetFolderRelativeToTask"]; ok {
@@ -154,6 +146,14 @@ func (self *EmbeddedArtifact) GetField(name string) (interface{}, error) {
 			}
 		}
 		return nil, fmt.Errorf("Field TargetFolderRelativeToTask no set on TargetFolderRelativeToTask %+v", self)
+
+	case "name", "Name":
+		if self.present != nil {
+			if _, ok := self.present["name"]; ok {
+				return self.Name, nil
+			}
+		}
+		return nil, fmt.Errorf("Field Name no set on Name %+v", self)
 
 	}
 }
@@ -175,11 +175,11 @@ func (self *EmbeddedArtifact) ClearField(name string) error {
 	case "md5sum", "Md5sum":
 		self.present["md5sum"] = false
 
-	case "name", "Name":
-		self.present["name"] = false
-
 	case "targetFolderRelativeToTask", "TargetFolderRelativeToTask":
 		self.present["targetFolderRelativeToTask"] = false
+
+	case "name", "Name":
+		self.present["name"] = false
 
 	}
 

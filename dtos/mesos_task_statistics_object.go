@@ -10,29 +10,29 @@ import (
 type MesosTaskStatisticsObject struct {
 	present map[string]bool
 
-	CpusLimit int32 `json:"cpusLimit"`
-
-	CpusNrPeriods int64 `json:"cpusNrPeriods"`
-
 	CpusNrThrottled int64 `json:"cpusNrThrottled"`
-
-	CpusSystemTimeSecs float64 `json:"cpusSystemTimeSecs"`
 
 	CpusThrottledTimeSecs float64 `json:"cpusThrottledTimeSecs"`
 
-	CpusUserTimeSecs float64 `json:"cpusUserTimeSecs"`
-
 	MemAnonBytes int64 `json:"memAnonBytes"`
 
-	MemFileBytes int64 `json:"memFileBytes"`
-
 	MemLimitBytes int64 `json:"memLimitBytes"`
+
+	Timestamp float64 `json:"timestamp"`
 
 	MemMappedFileBytes int64 `json:"memMappedFileBytes"`
 
 	MemRssBytes int64 `json:"memRssBytes"`
 
-	Timestamp float64 `json:"timestamp"`
+	CpusLimit int32 `json:"cpusLimit"`
+
+	CpusNrPeriods int64 `json:"cpusNrPeriods"`
+
+	CpusSystemTimeSecs float64 `json:"cpusSystemTimeSecs"`
+
+	CpusUserTimeSecs float64 `json:"cpusUserTimeSecs"`
+
+	MemFileBytes int64 `json:"memFileBytes"`
 }
 
 func (self *MesosTaskStatisticsObject) Populate(jsonReader io.ReadCloser) (err error) {
@@ -71,26 +71,6 @@ func (self *MesosTaskStatisticsObject) SetField(name string, value interface{}) 
 	default:
 		return fmt.Errorf("No such field %s on MesosTaskStatisticsObject", name)
 
-	case "cpusLimit", "CpusLimit":
-		v, ok := value.(int32)
-		if ok {
-			self.CpusLimit = v
-			self.present["cpusLimit"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field cpusLimit/CpusLimit: value %v(%T) couldn't be cast to type int32", value, value)
-		}
-
-	case "cpusNrPeriods", "CpusNrPeriods":
-		v, ok := value.(int64)
-		if ok {
-			self.CpusNrPeriods = v
-			self.present["cpusNrPeriods"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field cpusNrPeriods/CpusNrPeriods: value %v(%T) couldn't be cast to type int64", value, value)
-		}
-
 	case "cpusNrThrottled", "CpusNrThrottled":
 		v, ok := value.(int64)
 		if ok {
@@ -99,16 +79,6 @@ func (self *MesosTaskStatisticsObject) SetField(name string, value interface{}) 
 			return nil
 		} else {
 			return fmt.Errorf("Field cpusNrThrottled/CpusNrThrottled: value %v(%T) couldn't be cast to type int64", value, value)
-		}
-
-	case "cpusSystemTimeSecs", "CpusSystemTimeSecs":
-		v, ok := value.(float64)
-		if ok {
-			self.CpusSystemTimeSecs = v
-			self.present["cpusSystemTimeSecs"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field cpusSystemTimeSecs/CpusSystemTimeSecs: value %v(%T) couldn't be cast to type float64", value, value)
 		}
 
 	case "cpusThrottledTimeSecs", "CpusThrottledTimeSecs":
@@ -121,16 +91,6 @@ func (self *MesosTaskStatisticsObject) SetField(name string, value interface{}) 
 			return fmt.Errorf("Field cpusThrottledTimeSecs/CpusThrottledTimeSecs: value %v(%T) couldn't be cast to type float64", value, value)
 		}
 
-	case "cpusUserTimeSecs", "CpusUserTimeSecs":
-		v, ok := value.(float64)
-		if ok {
-			self.CpusUserTimeSecs = v
-			self.present["cpusUserTimeSecs"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field cpusUserTimeSecs/CpusUserTimeSecs: value %v(%T) couldn't be cast to type float64", value, value)
-		}
-
 	case "memAnonBytes", "MemAnonBytes":
 		v, ok := value.(int64)
 		if ok {
@@ -141,16 +101,6 @@ func (self *MesosTaskStatisticsObject) SetField(name string, value interface{}) 
 			return fmt.Errorf("Field memAnonBytes/MemAnonBytes: value %v(%T) couldn't be cast to type int64", value, value)
 		}
 
-	case "memFileBytes", "MemFileBytes":
-		v, ok := value.(int64)
-		if ok {
-			self.MemFileBytes = v
-			self.present["memFileBytes"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field memFileBytes/MemFileBytes: value %v(%T) couldn't be cast to type int64", value, value)
-		}
-
 	case "memLimitBytes", "MemLimitBytes":
 		v, ok := value.(int64)
 		if ok {
@@ -159,6 +109,16 @@ func (self *MesosTaskStatisticsObject) SetField(name string, value interface{}) 
 			return nil
 		} else {
 			return fmt.Errorf("Field memLimitBytes/MemLimitBytes: value %v(%T) couldn't be cast to type int64", value, value)
+		}
+
+	case "timestamp", "Timestamp":
+		v, ok := value.(float64)
+		if ok {
+			self.Timestamp = v
+			self.present["timestamp"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field timestamp/Timestamp: value %v(%T) couldn't be cast to type float64", value, value)
 		}
 
 	case "memMappedFileBytes", "MemMappedFileBytes":
@@ -181,14 +141,54 @@ func (self *MesosTaskStatisticsObject) SetField(name string, value interface{}) 
 			return fmt.Errorf("Field memRssBytes/MemRssBytes: value %v(%T) couldn't be cast to type int64", value, value)
 		}
 
-	case "timestamp", "Timestamp":
-		v, ok := value.(float64)
+	case "cpusLimit", "CpusLimit":
+		v, ok := value.(int32)
 		if ok {
-			self.Timestamp = v
-			self.present["timestamp"] = true
+			self.CpusLimit = v
+			self.present["cpusLimit"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field timestamp/Timestamp: value %v(%T) couldn't be cast to type float64", value, value)
+			return fmt.Errorf("Field cpusLimit/CpusLimit: value %v(%T) couldn't be cast to type int32", value, value)
+		}
+
+	case "cpusNrPeriods", "CpusNrPeriods":
+		v, ok := value.(int64)
+		if ok {
+			self.CpusNrPeriods = v
+			self.present["cpusNrPeriods"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field cpusNrPeriods/CpusNrPeriods: value %v(%T) couldn't be cast to type int64", value, value)
+		}
+
+	case "cpusSystemTimeSecs", "CpusSystemTimeSecs":
+		v, ok := value.(float64)
+		if ok {
+			self.CpusSystemTimeSecs = v
+			self.present["cpusSystemTimeSecs"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field cpusSystemTimeSecs/CpusSystemTimeSecs: value %v(%T) couldn't be cast to type float64", value, value)
+		}
+
+	case "cpusUserTimeSecs", "CpusUserTimeSecs":
+		v, ok := value.(float64)
+		if ok {
+			self.CpusUserTimeSecs = v
+			self.present["cpusUserTimeSecs"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field cpusUserTimeSecs/CpusUserTimeSecs: value %v(%T) couldn't be cast to type float64", value, value)
+		}
+
+	case "memFileBytes", "MemFileBytes":
+		v, ok := value.(int64)
+		if ok {
+			self.MemFileBytes = v
+			self.present["memFileBytes"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field memFileBytes/MemFileBytes: value %v(%T) couldn't be cast to type int64", value, value)
 		}
 
 	}
@@ -199,22 +199,6 @@ func (self *MesosTaskStatisticsObject) GetField(name string) (interface{}, error
 	default:
 		return nil, fmt.Errorf("No such field %s on MesosTaskStatisticsObject", name)
 
-	case "cpusLimit", "CpusLimit":
-		if self.present != nil {
-			if _, ok := self.present["cpusLimit"]; ok {
-				return self.CpusLimit, nil
-			}
-		}
-		return nil, fmt.Errorf("Field CpusLimit no set on CpusLimit %+v", self)
-
-	case "cpusNrPeriods", "CpusNrPeriods":
-		if self.present != nil {
-			if _, ok := self.present["cpusNrPeriods"]; ok {
-				return self.CpusNrPeriods, nil
-			}
-		}
-		return nil, fmt.Errorf("Field CpusNrPeriods no set on CpusNrPeriods %+v", self)
-
 	case "cpusNrThrottled", "CpusNrThrottled":
 		if self.present != nil {
 			if _, ok := self.present["cpusNrThrottled"]; ok {
@@ -222,14 +206,6 @@ func (self *MesosTaskStatisticsObject) GetField(name string) (interface{}, error
 			}
 		}
 		return nil, fmt.Errorf("Field CpusNrThrottled no set on CpusNrThrottled %+v", self)
-
-	case "cpusSystemTimeSecs", "CpusSystemTimeSecs":
-		if self.present != nil {
-			if _, ok := self.present["cpusSystemTimeSecs"]; ok {
-				return self.CpusSystemTimeSecs, nil
-			}
-		}
-		return nil, fmt.Errorf("Field CpusSystemTimeSecs no set on CpusSystemTimeSecs %+v", self)
 
 	case "cpusThrottledTimeSecs", "CpusThrottledTimeSecs":
 		if self.present != nil {
@@ -239,14 +215,6 @@ func (self *MesosTaskStatisticsObject) GetField(name string) (interface{}, error
 		}
 		return nil, fmt.Errorf("Field CpusThrottledTimeSecs no set on CpusThrottledTimeSecs %+v", self)
 
-	case "cpusUserTimeSecs", "CpusUserTimeSecs":
-		if self.present != nil {
-			if _, ok := self.present["cpusUserTimeSecs"]; ok {
-				return self.CpusUserTimeSecs, nil
-			}
-		}
-		return nil, fmt.Errorf("Field CpusUserTimeSecs no set on CpusUserTimeSecs %+v", self)
-
 	case "memAnonBytes", "MemAnonBytes":
 		if self.present != nil {
 			if _, ok := self.present["memAnonBytes"]; ok {
@@ -255,14 +223,6 @@ func (self *MesosTaskStatisticsObject) GetField(name string) (interface{}, error
 		}
 		return nil, fmt.Errorf("Field MemAnonBytes no set on MemAnonBytes %+v", self)
 
-	case "memFileBytes", "MemFileBytes":
-		if self.present != nil {
-			if _, ok := self.present["memFileBytes"]; ok {
-				return self.MemFileBytes, nil
-			}
-		}
-		return nil, fmt.Errorf("Field MemFileBytes no set on MemFileBytes %+v", self)
-
 	case "memLimitBytes", "MemLimitBytes":
 		if self.present != nil {
 			if _, ok := self.present["memLimitBytes"]; ok {
@@ -270,6 +230,14 @@ func (self *MesosTaskStatisticsObject) GetField(name string) (interface{}, error
 			}
 		}
 		return nil, fmt.Errorf("Field MemLimitBytes no set on MemLimitBytes %+v", self)
+
+	case "timestamp", "Timestamp":
+		if self.present != nil {
+			if _, ok := self.present["timestamp"]; ok {
+				return self.Timestamp, nil
+			}
+		}
+		return nil, fmt.Errorf("Field Timestamp no set on Timestamp %+v", self)
 
 	case "memMappedFileBytes", "MemMappedFileBytes":
 		if self.present != nil {
@@ -287,13 +255,45 @@ func (self *MesosTaskStatisticsObject) GetField(name string) (interface{}, error
 		}
 		return nil, fmt.Errorf("Field MemRssBytes no set on MemRssBytes %+v", self)
 
-	case "timestamp", "Timestamp":
+	case "cpusLimit", "CpusLimit":
 		if self.present != nil {
-			if _, ok := self.present["timestamp"]; ok {
-				return self.Timestamp, nil
+			if _, ok := self.present["cpusLimit"]; ok {
+				return self.CpusLimit, nil
 			}
 		}
-		return nil, fmt.Errorf("Field Timestamp no set on Timestamp %+v", self)
+		return nil, fmt.Errorf("Field CpusLimit no set on CpusLimit %+v", self)
+
+	case "cpusNrPeriods", "CpusNrPeriods":
+		if self.present != nil {
+			if _, ok := self.present["cpusNrPeriods"]; ok {
+				return self.CpusNrPeriods, nil
+			}
+		}
+		return nil, fmt.Errorf("Field CpusNrPeriods no set on CpusNrPeriods %+v", self)
+
+	case "cpusSystemTimeSecs", "CpusSystemTimeSecs":
+		if self.present != nil {
+			if _, ok := self.present["cpusSystemTimeSecs"]; ok {
+				return self.CpusSystemTimeSecs, nil
+			}
+		}
+		return nil, fmt.Errorf("Field CpusSystemTimeSecs no set on CpusSystemTimeSecs %+v", self)
+
+	case "cpusUserTimeSecs", "CpusUserTimeSecs":
+		if self.present != nil {
+			if _, ok := self.present["cpusUserTimeSecs"]; ok {
+				return self.CpusUserTimeSecs, nil
+			}
+		}
+		return nil, fmt.Errorf("Field CpusUserTimeSecs no set on CpusUserTimeSecs %+v", self)
+
+	case "memFileBytes", "MemFileBytes":
+		if self.present != nil {
+			if _, ok := self.present["memFileBytes"]; ok {
+				return self.MemFileBytes, nil
+			}
+		}
+		return nil, fmt.Errorf("Field MemFileBytes no set on MemFileBytes %+v", self)
 
 	}
 }
@@ -306,32 +306,20 @@ func (self *MesosTaskStatisticsObject) ClearField(name string) error {
 	default:
 		return fmt.Errorf("No such field %s on MesosTaskStatisticsObject", name)
 
-	case "cpusLimit", "CpusLimit":
-		self.present["cpusLimit"] = false
-
-	case "cpusNrPeriods", "CpusNrPeriods":
-		self.present["cpusNrPeriods"] = false
-
 	case "cpusNrThrottled", "CpusNrThrottled":
 		self.present["cpusNrThrottled"] = false
-
-	case "cpusSystemTimeSecs", "CpusSystemTimeSecs":
-		self.present["cpusSystemTimeSecs"] = false
 
 	case "cpusThrottledTimeSecs", "CpusThrottledTimeSecs":
 		self.present["cpusThrottledTimeSecs"] = false
 
-	case "cpusUserTimeSecs", "CpusUserTimeSecs":
-		self.present["cpusUserTimeSecs"] = false
-
 	case "memAnonBytes", "MemAnonBytes":
 		self.present["memAnonBytes"] = false
 
-	case "memFileBytes", "MemFileBytes":
-		self.present["memFileBytes"] = false
-
 	case "memLimitBytes", "MemLimitBytes":
 		self.present["memLimitBytes"] = false
+
+	case "timestamp", "Timestamp":
+		self.present["timestamp"] = false
 
 	case "memMappedFileBytes", "MemMappedFileBytes":
 		self.present["memMappedFileBytes"] = false
@@ -339,8 +327,20 @@ func (self *MesosTaskStatisticsObject) ClearField(name string) error {
 	case "memRssBytes", "MemRssBytes":
 		self.present["memRssBytes"] = false
 
-	case "timestamp", "Timestamp":
-		self.present["timestamp"] = false
+	case "cpusLimit", "CpusLimit":
+		self.present["cpusLimit"] = false
+
+	case "cpusNrPeriods", "CpusNrPeriods":
+		self.present["cpusNrPeriods"] = false
+
+	case "cpusSystemTimeSecs", "CpusSystemTimeSecs":
+		self.present["cpusSystemTimeSecs"] = false
+
+	case "cpusUserTimeSecs", "CpusUserTimeSecs":
+		self.present["cpusUserTimeSecs"] = false
+
+	case "memFileBytes", "MemFileBytes":
+		self.present["memFileBytes"] = false
 
 	}
 

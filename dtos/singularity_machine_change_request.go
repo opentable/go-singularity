@@ -12,14 +12,13 @@ type SingularityMachineChangeRequest struct {
 
 	ActionId string `json:"actionId,omitempty"`
 
-	DurationMillis int64 `json:"durationMillis"`
+	Message string `json:"message,omitempty"`
+
+	// Invalid field: RevertToState *notfound.MachineState `json:"revertToState"`
 
 	KillTasksOnDecommissionTimeout bool `json:"killTasksOnDecommissionTimeout"`
 
-	Message string `json:"message,omitempty"`
-
-	// RevertToState *MachineState `json:"revertToState"`
-
+	DurationMillis int64 `json:"durationMillis"`
 }
 
 func (self *SingularityMachineChangeRequest) Populate(jsonReader io.ReadCloser) (err error) {
@@ -68,14 +67,14 @@ func (self *SingularityMachineChangeRequest) SetField(name string, value interfa
 			return fmt.Errorf("Field actionId/ActionId: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
-	case "durationMillis", "DurationMillis":
-		v, ok := value.(int64)
+	case "message", "Message":
+		v, ok := value.(string)
 		if ok {
-			self.DurationMillis = v
-			self.present["durationMillis"] = true
+			self.Message = v
+			self.present["message"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field durationMillis/DurationMillis: value %v(%T) couldn't be cast to type int64", value, value)
+			return fmt.Errorf("Field message/Message: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "killTasksOnDecommissionTimeout", "KillTasksOnDecommissionTimeout":
@@ -88,14 +87,14 @@ func (self *SingularityMachineChangeRequest) SetField(name string, value interfa
 			return fmt.Errorf("Field killTasksOnDecommissionTimeout/KillTasksOnDecommissionTimeout: value %v(%T) couldn't be cast to type bool", value, value)
 		}
 
-	case "message", "Message":
-		v, ok := value.(string)
+	case "durationMillis", "DurationMillis":
+		v, ok := value.(int64)
 		if ok {
-			self.Message = v
-			self.present["message"] = true
+			self.DurationMillis = v
+			self.present["durationMillis"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field message/Message: value %v(%T) couldn't be cast to type string", value, value)
+			return fmt.Errorf("Field durationMillis/DurationMillis: value %v(%T) couldn't be cast to type int64", value, value)
 		}
 
 	}
@@ -114,13 +113,13 @@ func (self *SingularityMachineChangeRequest) GetField(name string) (interface{},
 		}
 		return nil, fmt.Errorf("Field ActionId no set on ActionId %+v", self)
 
-	case "durationMillis", "DurationMillis":
+	case "message", "Message":
 		if self.present != nil {
-			if _, ok := self.present["durationMillis"]; ok {
-				return self.DurationMillis, nil
+			if _, ok := self.present["message"]; ok {
+				return self.Message, nil
 			}
 		}
-		return nil, fmt.Errorf("Field DurationMillis no set on DurationMillis %+v", self)
+		return nil, fmt.Errorf("Field Message no set on Message %+v", self)
 
 	case "killTasksOnDecommissionTimeout", "KillTasksOnDecommissionTimeout":
 		if self.present != nil {
@@ -130,13 +129,13 @@ func (self *SingularityMachineChangeRequest) GetField(name string) (interface{},
 		}
 		return nil, fmt.Errorf("Field KillTasksOnDecommissionTimeout no set on KillTasksOnDecommissionTimeout %+v", self)
 
-	case "message", "Message":
+	case "durationMillis", "DurationMillis":
 		if self.present != nil {
-			if _, ok := self.present["message"]; ok {
-				return self.Message, nil
+			if _, ok := self.present["durationMillis"]; ok {
+				return self.DurationMillis, nil
 			}
 		}
-		return nil, fmt.Errorf("Field Message no set on Message %+v", self)
+		return nil, fmt.Errorf("Field DurationMillis no set on DurationMillis %+v", self)
 
 	}
 }
@@ -152,14 +151,14 @@ func (self *SingularityMachineChangeRequest) ClearField(name string) error {
 	case "actionId", "ActionId":
 		self.present["actionId"] = false
 
-	case "durationMillis", "DurationMillis":
-		self.present["durationMillis"] = false
+	case "message", "Message":
+		self.present["message"] = false
 
 	case "killTasksOnDecommissionTimeout", "KillTasksOnDecommissionTimeout":
 		self.present["killTasksOnDecommissionTimeout"] = false
 
-	case "message", "Message":
-		self.present["message"] = false
+	case "durationMillis", "DurationMillis":
+		self.present["durationMillis"] = false
 
 	}
 

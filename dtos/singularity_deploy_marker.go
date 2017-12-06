@@ -10,11 +10,11 @@ import (
 type SingularityDeployMarker struct {
 	present map[string]bool
 
-	DeployId string `json:"deployId,omitempty"`
-
 	Message string `json:"message,omitempty"`
 
 	RequestId string `json:"requestId,omitempty"`
+
+	DeployId string `json:"deployId,omitempty"`
 
 	Timestamp int64 `json:"timestamp"`
 
@@ -57,16 +57,6 @@ func (self *SingularityDeployMarker) SetField(name string, value interface{}) er
 	default:
 		return fmt.Errorf("No such field %s on SingularityDeployMarker", name)
 
-	case "deployId", "DeployId":
-		v, ok := value.(string)
-		if ok {
-			self.DeployId = v
-			self.present["deployId"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field deployId/DeployId: value %v(%T) couldn't be cast to type string", value, value)
-		}
-
 	case "message", "Message":
 		v, ok := value.(string)
 		if ok {
@@ -85,6 +75,16 @@ func (self *SingularityDeployMarker) SetField(name string, value interface{}) er
 			return nil
 		} else {
 			return fmt.Errorf("Field requestId/RequestId: value %v(%T) couldn't be cast to type string", value, value)
+		}
+
+	case "deployId", "DeployId":
+		v, ok := value.(string)
+		if ok {
+			self.DeployId = v
+			self.present["deployId"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field deployId/DeployId: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "timestamp", "Timestamp":
@@ -115,14 +115,6 @@ func (self *SingularityDeployMarker) GetField(name string) (interface{}, error) 
 	default:
 		return nil, fmt.Errorf("No such field %s on SingularityDeployMarker", name)
 
-	case "deployId", "DeployId":
-		if self.present != nil {
-			if _, ok := self.present["deployId"]; ok {
-				return self.DeployId, nil
-			}
-		}
-		return nil, fmt.Errorf("Field DeployId no set on DeployId %+v", self)
-
 	case "message", "Message":
 		if self.present != nil {
 			if _, ok := self.present["message"]; ok {
@@ -138,6 +130,14 @@ func (self *SingularityDeployMarker) GetField(name string) (interface{}, error) 
 			}
 		}
 		return nil, fmt.Errorf("Field RequestId no set on RequestId %+v", self)
+
+	case "deployId", "DeployId":
+		if self.present != nil {
+			if _, ok := self.present["deployId"]; ok {
+				return self.DeployId, nil
+			}
+		}
+		return nil, fmt.Errorf("Field DeployId no set on DeployId %+v", self)
 
 	case "timestamp", "Timestamp":
 		if self.present != nil {
@@ -166,14 +166,14 @@ func (self *SingularityDeployMarker) ClearField(name string) error {
 	default:
 		return fmt.Errorf("No such field %s on SingularityDeployMarker", name)
 
-	case "deployId", "DeployId":
-		self.present["deployId"] = false
-
 	case "message", "Message":
 		self.present["message"] = false
 
 	case "requestId", "RequestId":
 		self.present["requestId"] = false
+
+	case "deployId", "DeployId":
+		self.present["deployId"] = false
 
 	case "timestamp", "Timestamp":
 		self.present["timestamp"] = false

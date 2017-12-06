@@ -10,15 +10,15 @@ import (
 type SingularityS3Log struct {
 	present map[string]bool
 
-	DownloadUrl string `json:"downloadUrl,omitempty"`
-
-	GetUrl string `json:"getUrl,omitempty"`
-
 	Key string `json:"key,omitempty"`
 
 	LastModified int64 `json:"lastModified"`
 
 	Size int64 `json:"size"`
+
+	DownloadUrl string `json:"downloadUrl,omitempty"`
+
+	GetUrl string `json:"getUrl,omitempty"`
 }
 
 func (self *SingularityS3Log) Populate(jsonReader io.ReadCloser) (err error) {
@@ -57,26 +57,6 @@ func (self *SingularityS3Log) SetField(name string, value interface{}) error {
 	default:
 		return fmt.Errorf("No such field %s on SingularityS3Log", name)
 
-	case "downloadUrl", "DownloadUrl":
-		v, ok := value.(string)
-		if ok {
-			self.DownloadUrl = v
-			self.present["downloadUrl"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field downloadUrl/DownloadUrl: value %v(%T) couldn't be cast to type string", value, value)
-		}
-
-	case "getUrl", "GetUrl":
-		v, ok := value.(string)
-		if ok {
-			self.GetUrl = v
-			self.present["getUrl"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field getUrl/GetUrl: value %v(%T) couldn't be cast to type string", value, value)
-		}
-
 	case "key", "Key":
 		v, ok := value.(string)
 		if ok {
@@ -107,6 +87,26 @@ func (self *SingularityS3Log) SetField(name string, value interface{}) error {
 			return fmt.Errorf("Field size/Size: value %v(%T) couldn't be cast to type int64", value, value)
 		}
 
+	case "downloadUrl", "DownloadUrl":
+		v, ok := value.(string)
+		if ok {
+			self.DownloadUrl = v
+			self.present["downloadUrl"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field downloadUrl/DownloadUrl: value %v(%T) couldn't be cast to type string", value, value)
+		}
+
+	case "getUrl", "GetUrl":
+		v, ok := value.(string)
+		if ok {
+			self.GetUrl = v
+			self.present["getUrl"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field getUrl/GetUrl: value %v(%T) couldn't be cast to type string", value, value)
+		}
+
 	}
 }
 
@@ -114,22 +114,6 @@ func (self *SingularityS3Log) GetField(name string) (interface{}, error) {
 	switch name {
 	default:
 		return nil, fmt.Errorf("No such field %s on SingularityS3Log", name)
-
-	case "downloadUrl", "DownloadUrl":
-		if self.present != nil {
-			if _, ok := self.present["downloadUrl"]; ok {
-				return self.DownloadUrl, nil
-			}
-		}
-		return nil, fmt.Errorf("Field DownloadUrl no set on DownloadUrl %+v", self)
-
-	case "getUrl", "GetUrl":
-		if self.present != nil {
-			if _, ok := self.present["getUrl"]; ok {
-				return self.GetUrl, nil
-			}
-		}
-		return nil, fmt.Errorf("Field GetUrl no set on GetUrl %+v", self)
 
 	case "key", "Key":
 		if self.present != nil {
@@ -155,6 +139,22 @@ func (self *SingularityS3Log) GetField(name string) (interface{}, error) {
 		}
 		return nil, fmt.Errorf("Field Size no set on Size %+v", self)
 
+	case "downloadUrl", "DownloadUrl":
+		if self.present != nil {
+			if _, ok := self.present["downloadUrl"]; ok {
+				return self.DownloadUrl, nil
+			}
+		}
+		return nil, fmt.Errorf("Field DownloadUrl no set on DownloadUrl %+v", self)
+
+	case "getUrl", "GetUrl":
+		if self.present != nil {
+			if _, ok := self.present["getUrl"]; ok {
+				return self.GetUrl, nil
+			}
+		}
+		return nil, fmt.Errorf("Field GetUrl no set on GetUrl %+v", self)
+
 	}
 }
 
@@ -166,12 +166,6 @@ func (self *SingularityS3Log) ClearField(name string) error {
 	default:
 		return fmt.Errorf("No such field %s on SingularityS3Log", name)
 
-	case "downloadUrl", "DownloadUrl":
-		self.present["downloadUrl"] = false
-
-	case "getUrl", "GetUrl":
-		self.present["getUrl"] = false
-
 	case "key", "Key":
 		self.present["key"] = false
 
@@ -180,6 +174,12 @@ func (self *SingularityS3Log) ClearField(name string) error {
 
 	case "size", "Size":
 		self.present["size"] = false
+
+	case "downloadUrl", "DownloadUrl":
+		self.present["downloadUrl"] = false
+
+	case "getUrl", "GetUrl":
+		self.present["getUrl"] = false
 
 	}
 

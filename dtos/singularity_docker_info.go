@@ -18,19 +18,19 @@ const (
 type SingularityDockerInfo struct {
 	present map[string]bool
 
-	DockerParameters SingularityDockerParameterList `json:"dockerParameters"`
+	Parameters map[string]string `json:"parameters"`
 
-	ForcePullImage bool `json:"forcePullImage"`
+	DockerParameters SingularityDockerParameterList `json:"dockerParameters"`
 
 	Image string `json:"image,omitempty"`
 
-	Network SingularityDockerInfoSingularityDockerNetworkType `json:"network"`
+	Privileged bool `json:"privileged"`
 
-	Parameters map[string]string `json:"parameters"`
+	Network SingularityDockerInfoSingularityDockerNetworkType `json:"network"`
 
 	PortMappings SingularityDockerPortMappingList `json:"portMappings"`
 
-	Privileged bool `json:"privileged"`
+	ForcePullImage bool `json:"forcePullImage"`
 }
 
 func (self *SingularityDockerInfo) Populate(jsonReader io.ReadCloser) (err error) {
@@ -69,6 +69,16 @@ func (self *SingularityDockerInfo) SetField(name string, value interface{}) erro
 	default:
 		return fmt.Errorf("No such field %s on SingularityDockerInfo", name)
 
+	case "parameters", "Parameters":
+		v, ok := value.(map[string]string)
+		if ok {
+			self.Parameters = v
+			self.present["parameters"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field parameters/Parameters: value %v(%T) couldn't be cast to type map[string]string", value, value)
+		}
+
 	case "dockerParameters", "DockerParameters":
 		v, ok := value.(SingularityDockerParameterList)
 		if ok {
@@ -77,16 +87,6 @@ func (self *SingularityDockerInfo) SetField(name string, value interface{}) erro
 			return nil
 		} else {
 			return fmt.Errorf("Field dockerParameters/DockerParameters: value %v(%T) couldn't be cast to type SingularityDockerParameterList", value, value)
-		}
-
-	case "forcePullImage", "ForcePullImage":
-		v, ok := value.(bool)
-		if ok {
-			self.ForcePullImage = v
-			self.present["forcePullImage"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field forcePullImage/ForcePullImage: value %v(%T) couldn't be cast to type bool", value, value)
 		}
 
 	case "image", "Image":
@@ -99,6 +99,16 @@ func (self *SingularityDockerInfo) SetField(name string, value interface{}) erro
 			return fmt.Errorf("Field image/Image: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
+	case "privileged", "Privileged":
+		v, ok := value.(bool)
+		if ok {
+			self.Privileged = v
+			self.present["privileged"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field privileged/Privileged: value %v(%T) couldn't be cast to type bool", value, value)
+		}
+
 	case "network", "Network":
 		v, ok := value.(SingularityDockerInfoSingularityDockerNetworkType)
 		if ok {
@@ -107,16 +117,6 @@ func (self *SingularityDockerInfo) SetField(name string, value interface{}) erro
 			return nil
 		} else {
 			return fmt.Errorf("Field network/Network: value %v(%T) couldn't be cast to type SingularityDockerInfoSingularityDockerNetworkType", value, value)
-		}
-
-	case "parameters", "Parameters":
-		v, ok := value.(map[string]string)
-		if ok {
-			self.Parameters = v
-			self.present["parameters"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field parameters/Parameters: value %v(%T) couldn't be cast to type map[string]string", value, value)
 		}
 
 	case "portMappings", "PortMappings":
@@ -129,14 +129,14 @@ func (self *SingularityDockerInfo) SetField(name string, value interface{}) erro
 			return fmt.Errorf("Field portMappings/PortMappings: value %v(%T) couldn't be cast to type SingularityDockerPortMappingList", value, value)
 		}
 
-	case "privileged", "Privileged":
+	case "forcePullImage", "ForcePullImage":
 		v, ok := value.(bool)
 		if ok {
-			self.Privileged = v
-			self.present["privileged"] = true
+			self.ForcePullImage = v
+			self.present["forcePullImage"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field privileged/Privileged: value %v(%T) couldn't be cast to type bool", value, value)
+			return fmt.Errorf("Field forcePullImage/ForcePullImage: value %v(%T) couldn't be cast to type bool", value, value)
 		}
 
 	}
@@ -147,6 +147,14 @@ func (self *SingularityDockerInfo) GetField(name string) (interface{}, error) {
 	default:
 		return nil, fmt.Errorf("No such field %s on SingularityDockerInfo", name)
 
+	case "parameters", "Parameters":
+		if self.present != nil {
+			if _, ok := self.present["parameters"]; ok {
+				return self.Parameters, nil
+			}
+		}
+		return nil, fmt.Errorf("Field Parameters no set on Parameters %+v", self)
+
 	case "dockerParameters", "DockerParameters":
 		if self.present != nil {
 			if _, ok := self.present["dockerParameters"]; ok {
@@ -154,14 +162,6 @@ func (self *SingularityDockerInfo) GetField(name string) (interface{}, error) {
 			}
 		}
 		return nil, fmt.Errorf("Field DockerParameters no set on DockerParameters %+v", self)
-
-	case "forcePullImage", "ForcePullImage":
-		if self.present != nil {
-			if _, ok := self.present["forcePullImage"]; ok {
-				return self.ForcePullImage, nil
-			}
-		}
-		return nil, fmt.Errorf("Field ForcePullImage no set on ForcePullImage %+v", self)
 
 	case "image", "Image":
 		if self.present != nil {
@@ -171,6 +171,14 @@ func (self *SingularityDockerInfo) GetField(name string) (interface{}, error) {
 		}
 		return nil, fmt.Errorf("Field Image no set on Image %+v", self)
 
+	case "privileged", "Privileged":
+		if self.present != nil {
+			if _, ok := self.present["privileged"]; ok {
+				return self.Privileged, nil
+			}
+		}
+		return nil, fmt.Errorf("Field Privileged no set on Privileged %+v", self)
+
 	case "network", "Network":
 		if self.present != nil {
 			if _, ok := self.present["network"]; ok {
@@ -178,14 +186,6 @@ func (self *SingularityDockerInfo) GetField(name string) (interface{}, error) {
 			}
 		}
 		return nil, fmt.Errorf("Field Network no set on Network %+v", self)
-
-	case "parameters", "Parameters":
-		if self.present != nil {
-			if _, ok := self.present["parameters"]; ok {
-				return self.Parameters, nil
-			}
-		}
-		return nil, fmt.Errorf("Field Parameters no set on Parameters %+v", self)
 
 	case "portMappings", "PortMappings":
 		if self.present != nil {
@@ -195,13 +195,13 @@ func (self *SingularityDockerInfo) GetField(name string) (interface{}, error) {
 		}
 		return nil, fmt.Errorf("Field PortMappings no set on PortMappings %+v", self)
 
-	case "privileged", "Privileged":
+	case "forcePullImage", "ForcePullImage":
 		if self.present != nil {
-			if _, ok := self.present["privileged"]; ok {
-				return self.Privileged, nil
+			if _, ok := self.present["forcePullImage"]; ok {
+				return self.ForcePullImage, nil
 			}
 		}
-		return nil, fmt.Errorf("Field Privileged no set on Privileged %+v", self)
+		return nil, fmt.Errorf("Field ForcePullImage no set on ForcePullImage %+v", self)
 
 	}
 }
@@ -214,26 +214,26 @@ func (self *SingularityDockerInfo) ClearField(name string) error {
 	default:
 		return fmt.Errorf("No such field %s on SingularityDockerInfo", name)
 
+	case "parameters", "Parameters":
+		self.present["parameters"] = false
+
 	case "dockerParameters", "DockerParameters":
 		self.present["dockerParameters"] = false
-
-	case "forcePullImage", "ForcePullImage":
-		self.present["forcePullImage"] = false
 
 	case "image", "Image":
 		self.present["image"] = false
 
+	case "privileged", "Privileged":
+		self.present["privileged"] = false
+
 	case "network", "Network":
 		self.present["network"] = false
-
-	case "parameters", "Parameters":
-		self.present["parameters"] = false
 
 	case "portMappings", "PortMappings":
 		self.present["portMappings"] = false
 
-	case "privileged", "Privileged":
-		self.present["privileged"] = false
+	case "forcePullImage", "ForcePullImage":
+		self.present["forcePullImage"] = false
 
 	}
 
