@@ -10,13 +10,13 @@ import (
 type Resources struct {
 	present map[string]bool
 
-	NumPorts int32 `json:"numPorts"`
-
-	DiskMb float64 `json:"diskMb"`
-
 	Cpus float64 `json:"cpus"`
 
 	MemoryMb float64 `json:"memoryMb"`
+
+	NumPorts int32 `json:"numPorts"`
+
+	DiskMb float64 `json:"diskMb"`
 }
 
 func (self *Resources) Populate(jsonReader io.ReadCloser) (err error) {
@@ -55,26 +55,6 @@ func (self *Resources) SetField(name string, value interface{}) error {
 	default:
 		return fmt.Errorf("No such field %s on Resources", name)
 
-	case "numPorts", "NumPorts":
-		v, ok := value.(int32)
-		if ok {
-			self.NumPorts = v
-			self.present["numPorts"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field numPorts/NumPorts: value %v(%T) couldn't be cast to type int32", value, value)
-		}
-
-	case "diskMb", "DiskMb":
-		v, ok := value.(float64)
-		if ok {
-			self.DiskMb = v
-			self.present["diskMb"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field diskMb/DiskMb: value %v(%T) couldn't be cast to type float64", value, value)
-		}
-
 	case "cpus", "Cpus":
 		v, ok := value.(float64)
 		if ok {
@@ -95,6 +75,26 @@ func (self *Resources) SetField(name string, value interface{}) error {
 			return fmt.Errorf("Field memoryMb/MemoryMb: value %v(%T) couldn't be cast to type float64", value, value)
 		}
 
+	case "numPorts", "NumPorts":
+		v, ok := value.(int32)
+		if ok {
+			self.NumPorts = v
+			self.present["numPorts"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field numPorts/NumPorts: value %v(%T) couldn't be cast to type int32", value, value)
+		}
+
+	case "diskMb", "DiskMb":
+		v, ok := value.(float64)
+		if ok {
+			self.DiskMb = v
+			self.present["diskMb"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field diskMb/DiskMb: value %v(%T) couldn't be cast to type float64", value, value)
+		}
+
 	}
 }
 
@@ -102,22 +102,6 @@ func (self *Resources) GetField(name string) (interface{}, error) {
 	switch name {
 	default:
 		return nil, fmt.Errorf("No such field %s on Resources", name)
-
-	case "numPorts", "NumPorts":
-		if self.present != nil {
-			if _, ok := self.present["numPorts"]; ok {
-				return self.NumPorts, nil
-			}
-		}
-		return nil, fmt.Errorf("Field NumPorts no set on NumPorts %+v", self)
-
-	case "diskMb", "DiskMb":
-		if self.present != nil {
-			if _, ok := self.present["diskMb"]; ok {
-				return self.DiskMb, nil
-			}
-		}
-		return nil, fmt.Errorf("Field DiskMb no set on DiskMb %+v", self)
 
 	case "cpus", "Cpus":
 		if self.present != nil {
@@ -135,6 +119,22 @@ func (self *Resources) GetField(name string) (interface{}, error) {
 		}
 		return nil, fmt.Errorf("Field MemoryMb no set on MemoryMb %+v", self)
 
+	case "numPorts", "NumPorts":
+		if self.present != nil {
+			if _, ok := self.present["numPorts"]; ok {
+				return self.NumPorts, nil
+			}
+		}
+		return nil, fmt.Errorf("Field NumPorts no set on NumPorts %+v", self)
+
+	case "diskMb", "DiskMb":
+		if self.present != nil {
+			if _, ok := self.present["diskMb"]; ok {
+				return self.DiskMb, nil
+			}
+		}
+		return nil, fmt.Errorf("Field DiskMb no set on DiskMb %+v", self)
+
 	}
 }
 
@@ -146,17 +146,17 @@ func (self *Resources) ClearField(name string) error {
 	default:
 		return fmt.Errorf("No such field %s on Resources", name)
 
-	case "numPorts", "NumPorts":
-		self.present["numPorts"] = false
-
-	case "diskMb", "DiskMb":
-		self.present["diskMb"] = false
-
 	case "cpus", "Cpus":
 		self.present["cpus"] = false
 
 	case "memoryMb", "MemoryMb":
 		self.present["memoryMb"] = false
+
+	case "numPorts", "NumPorts":
+		self.present["numPorts"] = false
+
+	case "diskMb", "DiskMb":
+		self.present["diskMb"] = false
 
 	}
 

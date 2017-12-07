@@ -13,7 +13,7 @@ func (client *Client) GetTaskHistory(requestId string, deployId string, runId st
 	}
 
 	response = make(dtos.SingularityTaskIdHistoryList, 0)
-	err = client.DTORequest(&response, "GET", "/api/history/tasks", pathParamMap, queryParamMap)
+	err = client.DTORequest("singularity-gettaskhistory", &response, "GET", "/api/history/tasks", pathParamMap, queryParamMap)
 
 	return
 }
@@ -25,7 +25,7 @@ func (client *Client) GetDeploy(requestId string, deployId string) (response *dt
 	queryParamMap := map[string]interface{}{}
 
 	response = new(dtos.SingularityDeployHistory)
-	err = client.DTORequest(response, "GET", "/api/history/request/{requestId}/deploy/{deployId}", pathParamMap, queryParamMap)
+	err = client.DTORequest("singularity-getdeploy", response, "GET", "/api/history/request/{requestId}/deploy/{deployId}", pathParamMap, queryParamMap)
 
 	return
 }
@@ -37,7 +37,7 @@ func (client *Client) GetHistoryForTask(taskId string) (response *dtos.Singulari
 	queryParamMap := map[string]interface{}{}
 
 	response = new(dtos.SingularityTaskHistory)
-	err = client.DTORequest(response, "GET", "/api/history/task/{taskId}", pathParamMap, queryParamMap)
+	err = client.DTORequest("singularity-gethistoryfortask", response, "GET", "/api/history/task/{taskId}", pathParamMap, queryParamMap)
 
 	return
 }
@@ -51,7 +51,7 @@ func (client *Client) GetTaskHistoryForRequest(requestId string, deployId string
 	}
 
 	response = make(dtos.SingularityTaskIdHistoryList, 0)
-	err = client.DTORequest(&response, "GET", "/api/history/request/{requestId}/tasks", pathParamMap, queryParamMap)
+	err = client.DTORequest("singularity-gettaskhistoryforrequest", &response, "GET", "/api/history/request/{requestId}/tasks", pathParamMap, queryParamMap)
 
 	return
 }
@@ -63,7 +63,7 @@ func (client *Client) GetTaskHistoryForActiveRequest(requestId string) (response
 	queryParamMap := map[string]interface{}{}
 
 	response = make(dtos.SingularityTaskIdHistoryList, 0)
-	err = client.DTORequest(&response, "GET", "/api/history/request/{requestId}/tasks/active", pathParamMap, queryParamMap)
+	err = client.DTORequest("singularity-gettaskhistoryforactiverequest", &response, "GET", "/api/history/request/{requestId}/tasks/active", pathParamMap, queryParamMap)
 
 	return
 }
@@ -75,7 +75,7 @@ func (client *Client) GetActiveDeployTasks(requestId string, deployId string) (r
 	queryParamMap := map[string]interface{}{}
 
 	response = make(dtos.SingularityTaskIdHistoryList, 0)
-	err = client.DTORequest(&response, "GET", "/api/history/request/{requestId}/deploy/{deployId}/tasks/active", pathParamMap, queryParamMap)
+	err = client.DTORequest("singularity-getactivedeploytasks", &response, "GET", "/api/history/request/{requestId}/deploy/{deployId}/tasks/active", pathParamMap, queryParamMap)
 
 	return
 }
@@ -89,7 +89,7 @@ func (client *Client) GetInactiveDeployTasks(requestId string, deployId string, 
 	}
 
 	response = make(dtos.SingularityTaskIdHistoryList, 0)
-	err = client.DTORequest(&response, "GET", "/api/history/request/{requestId}/deploy/{deployId}/tasks/inactive", pathParamMap, queryParamMap)
+	err = client.DTORequest("singularity-getinactivedeploytasks", &response, "GET", "/api/history/request/{requestId}/deploy/{deployId}/tasks/inactive", pathParamMap, queryParamMap)
 
 	return
 }
@@ -103,7 +103,7 @@ func (client *Client) GetInactiveDeployTasksWithMetadata(requestId string, deplo
 	}
 
 	response = make(dtos.SingularityTaskIdHistoryList, 0)
-	err = client.DTORequest(&response, "GET", "/api/history/request/{requestId}/deploy/{deployId}/tasks/inactive/withmetadata", pathParamMap, queryParamMap)
+	err = client.DTORequest("singularity-getinactivedeploytaskswithmetadata", &response, "GET", "/api/history/request/{requestId}/deploy/{deployId}/tasks/inactive/withmetadata", pathParamMap, queryParamMap)
 
 	return
 }
@@ -115,7 +115,7 @@ func (client *Client) GetTaskHistoryWithMetadata(requestId string, deployId stri
 	}
 
 	response = make(dtos.SingularityTaskIdHistoryList, 0)
-	err = client.DTORequest(&response, "GET", "/api/history/tasks/withmetadata", pathParamMap, queryParamMap)
+	err = client.DTORequest("singularity-gettaskhistorywithmetadata", &response, "GET", "/api/history/tasks/withmetadata", pathParamMap, queryParamMap)
 
 	return
 }
@@ -129,7 +129,7 @@ func (client *Client) GetTaskHistoryForRequestWithMetadata(requestId string, dep
 	}
 
 	response = make(dtos.SingularityTaskIdHistoryList, 0)
-	err = client.DTORequest(&response, "GET", "/api/history/request/{requestId}/tasks/withmetadata", pathParamMap, queryParamMap)
+	err = client.DTORequest("singularity-gettaskhistoryforrequestwithmetadata", &response, "GET", "/api/history/request/{requestId}/tasks/withmetadata", pathParamMap, queryParamMap)
 
 	return
 }
@@ -141,7 +141,7 @@ func (client *Client) GetTaskHistoryForRequestAndRunId(requestId string, runId s
 	queryParamMap := map[string]interface{}{}
 
 	response = new(dtos.SingularityTaskIdHistory)
-	err = client.DTORequest(response, "GET", "/api/history/request/{requestId}/run/{runId}", pathParamMap, queryParamMap)
+	err = client.DTORequest("singularity-gettaskhistoryforrequestandrunid", response, "GET", "/api/history/request/{requestId}/run/{runId}", pathParamMap, queryParamMap)
 
 	return
 }
@@ -155,7 +155,7 @@ func (client *Client) GetDeploys(requestId string, count int32, page int32) (res
 	}
 
 	response = make(dtos.SingularityDeployHistoryList, 0)
-	err = client.DTORequest(&response, "GET", "/api/history/request/{requestId}/deploys", pathParamMap, queryParamMap)
+	err = client.DTORequest("singularity-getdeploys", &response, "GET", "/api/history/request/{requestId}/deploys", pathParamMap, queryParamMap)
 
 	return
 }
@@ -169,7 +169,7 @@ func (client *Client) GetDeploysWithMetadata(requestId string, count int32, page
 	}
 
 	response = make(dtos.SingularityDeployHistoryList, 0)
-	err = client.DTORequest(&response, "GET", "/api/history/request/{requestId}/deploys/withmetadata", pathParamMap, queryParamMap)
+	err = client.DTORequest("singularity-getdeployswithmetadata", &response, "GET", "/api/history/request/{requestId}/deploys/withmetadata", pathParamMap, queryParamMap)
 
 	return
 }
@@ -183,7 +183,7 @@ func (client *Client) GetRequestHistoryForRequest(requestId string, count int32,
 	}
 
 	response = make(dtos.SingularityRequestHistoryList, 0)
-	err = client.DTORequest(&response, "GET", "/api/history/request/{requestId}/requests", pathParamMap, queryParamMap)
+	err = client.DTORequest("singularity-getrequesthistoryforrequest", &response, "GET", "/api/history/request/{requestId}/requests", pathParamMap, queryParamMap)
 
 	return
 }
@@ -197,7 +197,7 @@ func (client *Client) GetRequestHistoryForRequestWithMetadata(requestId string, 
 	}
 
 	response = make(dtos.SingularityRequestHistoryList, 0)
-	err = client.DTORequest(&response, "GET", "/api/history/request/{requestId}/requests/withmetadata", pathParamMap, queryParamMap)
+	err = client.DTORequest("singularity-getrequesthistoryforrequestwithmetadata", &response, "GET", "/api/history/request/{requestId}/requests/withmetadata", pathParamMap, queryParamMap)
 
 	return
 }
@@ -209,7 +209,7 @@ func (client *Client) GetRequestHistoryForRequestLike(requestIdLike string, coun
 	}
 
 	response = make(swaggering.StringList, 0)
-	err = client.DTORequest(&response, "GET", "/api/history/requests/search", pathParamMap, queryParamMap)
+	err = client.DTORequest("singularity-getrequesthistoryforrequestlike", &response, "GET", "/api/history/requests/search", pathParamMap, queryParamMap)
 
 	return
 }
@@ -223,7 +223,7 @@ func (client *Client) GetRecentCommandLineArgs(requestId string, count int32) (r
 	}
 
 	response = new(dtos.Set)
-	err = client.DTORequest(response, "GET", "/api/history/request/{requestId}/command-line-args", pathParamMap, queryParamMap)
+	err = client.DTORequest("singularity-getrecentcommandlineargs", response, "GET", "/api/history/request/{requestId}/command-line-args", pathParamMap, queryParamMap)
 
 	return
 }

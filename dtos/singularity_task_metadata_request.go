@@ -18,13 +18,13 @@ const (
 type SingularityTaskMetadataRequest struct {
 	present map[string]bool
 
-	Message string `json:"message,omitempty"`
-
-	Level SingularityTaskMetadataRequestMetadataLevel `json:"level"`
-
 	Type string `json:"type,omitempty"`
 
 	Title string `json:"title,omitempty"`
+
+	Message string `json:"message,omitempty"`
+
+	Level SingularityTaskMetadataRequestMetadataLevel `json:"level"`
 }
 
 func (self *SingularityTaskMetadataRequest) Populate(jsonReader io.ReadCloser) (err error) {
@@ -73,14 +73,14 @@ func (self *SingularityTaskMetadataRequest) SetField(name string, value interfac
 			return fmt.Errorf("Field type/Type: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
-	case "level", "Level":
-		v, ok := value.(SingularityTaskMetadataRequestMetadataLevel)
+	case "title", "Title":
+		v, ok := value.(string)
 		if ok {
-			self.Level = v
-			self.present["level"] = true
+			self.Title = v
+			self.present["title"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field level/Level: value %v(%T) couldn't be cast to type SingularityTaskMetadataRequestMetadataLevel", value, value)
+			return fmt.Errorf("Field title/Title: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "message", "Message":
@@ -93,14 +93,14 @@ func (self *SingularityTaskMetadataRequest) SetField(name string, value interfac
 			return fmt.Errorf("Field message/Message: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
-	case "title", "Title":
-		v, ok := value.(string)
+	case "level", "Level":
+		v, ok := value.(SingularityTaskMetadataRequestMetadataLevel)
 		if ok {
-			self.Title = v
-			self.present["title"] = true
+			self.Level = v
+			self.present["level"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field title/Title: value %v(%T) couldn't be cast to type string", value, value)
+			return fmt.Errorf("Field level/Level: value %v(%T) couldn't be cast to type SingularityTaskMetadataRequestMetadataLevel", value, value)
 		}
 
 	}
@@ -119,13 +119,13 @@ func (self *SingularityTaskMetadataRequest) GetField(name string) (interface{}, 
 		}
 		return nil, fmt.Errorf("Field Type no set on Type %+v", self)
 
-	case "level", "Level":
+	case "title", "Title":
 		if self.present != nil {
-			if _, ok := self.present["level"]; ok {
-				return self.Level, nil
+			if _, ok := self.present["title"]; ok {
+				return self.Title, nil
 			}
 		}
-		return nil, fmt.Errorf("Field Level no set on Level %+v", self)
+		return nil, fmt.Errorf("Field Title no set on Title %+v", self)
 
 	case "message", "Message":
 		if self.present != nil {
@@ -135,13 +135,13 @@ func (self *SingularityTaskMetadataRequest) GetField(name string) (interface{}, 
 		}
 		return nil, fmt.Errorf("Field Message no set on Message %+v", self)
 
-	case "title", "Title":
+	case "level", "Level":
 		if self.present != nil {
-			if _, ok := self.present["title"]; ok {
-				return self.Title, nil
+			if _, ok := self.present["level"]; ok {
+				return self.Level, nil
 			}
 		}
-		return nil, fmt.Errorf("Field Title no set on Title %+v", self)
+		return nil, fmt.Errorf("Field Level no set on Level %+v", self)
 
 	}
 }
@@ -157,14 +157,14 @@ func (self *SingularityTaskMetadataRequest) ClearField(name string) error {
 	case "type", "Type":
 		self.present["type"] = false
 
-	case "level", "Level":
-		self.present["level"] = false
+	case "title", "Title":
+		self.present["title"] = false
 
 	case "message", "Message":
 		self.present["message"] = false
 
-	case "title", "Title":
-		self.present["title"] = false
+	case "level", "Level":
+		self.present["level"] = false
 
 	}
 

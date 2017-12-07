@@ -21,9 +21,6 @@ type SingularityExpiringSkipHealthchecks struct {
 	ActionId string `json:"actionId,omitempty"`
 
 	User string `json:"user,omitempty"`
-
-	// Invalid field: ExpiringAPIRequestObject *notfound.T `json:"expiringAPIRequestObject"`
-
 }
 
 func (self *SingularityExpiringSkipHealthchecks) Populate(jsonReader io.ReadCloser) (err error) {

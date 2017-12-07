@@ -10,6 +10,10 @@ import (
 type S3Artifact struct {
 	present map[string]bool
 
+	Filesize int64 `json:"filesize"`
+
+	IsArtifactList bool `json:"isArtifactList"`
+
 	Filename string `json:"filename,omitempty"`
 
 	Md5sum string `json:"md5sum,omitempty"`
@@ -21,10 +25,6 @@ type S3Artifact struct {
 	S3Bucket string `json:"s3Bucket,omitempty"`
 
 	S3ObjectKey string `json:"s3ObjectKey,omitempty"`
-
-	Filesize int64 `json:"filesize"`
-
-	IsArtifactList bool `json:"isArtifactList"`
 }
 
 func (self *S3Artifact) Populate(jsonReader io.ReadCloser) (err error) {
@@ -63,6 +63,26 @@ func (self *S3Artifact) SetField(name string, value interface{}) error {
 	default:
 		return fmt.Errorf("No such field %s on S3Artifact", name)
 
+	case "filesize", "Filesize":
+		v, ok := value.(int64)
+		if ok {
+			self.Filesize = v
+			self.present["filesize"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field filesize/Filesize: value %v(%T) couldn't be cast to type int64", value, value)
+		}
+
+	case "isArtifactList", "IsArtifactList":
+		v, ok := value.(bool)
+		if ok {
+			self.IsArtifactList = v
+			self.present["isArtifactList"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field isArtifactList/IsArtifactList: value %v(%T) couldn't be cast to type bool", value, value)
+		}
+
 	case "filename", "Filename":
 		v, ok := value.(string)
 		if ok {
@@ -81,16 +101,6 @@ func (self *S3Artifact) SetField(name string, value interface{}) error {
 			return nil
 		} else {
 			return fmt.Errorf("Field md5sum/Md5sum: value %v(%T) couldn't be cast to type string", value, value)
-		}
-
-	case "targetFolderRelativeToTask", "TargetFolderRelativeToTask":
-		v, ok := value.(string)
-		if ok {
-			self.TargetFolderRelativeToTask = v
-			self.present["targetFolderRelativeToTask"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field targetFolderRelativeToTask/TargetFolderRelativeToTask: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "targetFolderRelativeToTask", "TargetFolderRelativeToTask":
@@ -133,26 +143,6 @@ func (self *S3Artifact) SetField(name string, value interface{}) error {
 			return fmt.Errorf("Field s3ObjectKey/S3ObjectKey: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
-	case "filesize", "Filesize":
-		v, ok := value.(int64)
-		if ok {
-			self.Filesize = v
-			self.present["filesize"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field filesize/Filesize: value %v(%T) couldn't be cast to type int64", value, value)
-		}
-
-	case "isArtifactList", "IsArtifactList":
-		v, ok := value.(bool)
-		if ok {
-			self.IsArtifactList = v
-			self.present["isArtifactList"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field isArtifactList/IsArtifactList: value %v(%T) couldn't be cast to type bool", value, value)
-		}
-
 	}
 }
 
@@ -160,6 +150,22 @@ func (self *S3Artifact) GetField(name string) (interface{}, error) {
 	switch name {
 	default:
 		return nil, fmt.Errorf("No such field %s on S3Artifact", name)
+
+	case "filesize", "Filesize":
+		if self.present != nil {
+			if _, ok := self.present["filesize"]; ok {
+				return self.Filesize, nil
+			}
+		}
+		return nil, fmt.Errorf("Field Filesize no set on Filesize %+v", self)
+
+	case "isArtifactList", "IsArtifactList":
+		if self.present != nil {
+			if _, ok := self.present["isArtifactList"]; ok {
+				return self.IsArtifactList, nil
+			}
+		}
+		return nil, fmt.Errorf("Field IsArtifactList no set on IsArtifactList %+v", self)
 
 	case "filename", "Filename":
 		if self.present != nil {
@@ -209,22 +215,6 @@ func (self *S3Artifact) GetField(name string) (interface{}, error) {
 		}
 		return nil, fmt.Errorf("Field S3ObjectKey no set on S3ObjectKey %+v", self)
 
-	case "filesize", "Filesize":
-		if self.present != nil {
-			if _, ok := self.present["filesize"]; ok {
-				return self.Filesize, nil
-			}
-		}
-		return nil, fmt.Errorf("Field Filesize no set on Filesize %+v", self)
-
-	case "isArtifactList", "IsArtifactList":
-		if self.present != nil {
-			if _, ok := self.present["isArtifactList"]; ok {
-				return self.IsArtifactList, nil
-			}
-		}
-		return nil, fmt.Errorf("Field IsArtifactList no set on IsArtifactList %+v", self)
-
 	}
 }
 
@@ -235,6 +225,12 @@ func (self *S3Artifact) ClearField(name string) error {
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on S3Artifact", name)
+
+	case "filesize", "Filesize":
+		self.present["filesize"] = false
+
+	case "isArtifactList", "IsArtifactList":
+		self.present["isArtifactList"] = false
 
 	case "filename", "Filename":
 		self.present["filename"] = false
@@ -253,12 +249,6 @@ func (self *S3Artifact) ClearField(name string) error {
 
 	case "s3ObjectKey", "S3ObjectKey":
 		self.present["s3ObjectKey"] = false
-
-	case "filesize", "Filesize":
-		self.present["filesize"] = false
-
-	case "isArtifactList", "IsArtifactList":
-		self.present["isArtifactList"] = false
 
 	}
 

@@ -10,13 +10,13 @@ import (
 type SingularityTaskShellCommandRequest struct {
 	present map[string]bool
 
-	Timestamp int64 `json:"timestamp"`
-
 	TaskId *SingularityTaskId `json:"taskId"`
 
 	User string `json:"user,omitempty"`
 
 	ShellCommand *SingularityShellCommand `json:"shellCommand"`
+
+	Timestamp int64 `json:"timestamp"`
 }
 
 func (self *SingularityTaskShellCommandRequest) Populate(jsonReader io.ReadCloser) (err error) {
@@ -55,16 +55,6 @@ func (self *SingularityTaskShellCommandRequest) SetField(name string, value inte
 	default:
 		return fmt.Errorf("No such field %s on SingularityTaskShellCommandRequest", name)
 
-	case "timestamp", "Timestamp":
-		v, ok := value.(int64)
-		if ok {
-			self.Timestamp = v
-			self.present["timestamp"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field timestamp/Timestamp: value %v(%T) couldn't be cast to type int64", value, value)
-		}
-
 	case "taskId", "TaskId":
 		v, ok := value.(*SingularityTaskId)
 		if ok {
@@ -95,6 +85,16 @@ func (self *SingularityTaskShellCommandRequest) SetField(name string, value inte
 			return fmt.Errorf("Field shellCommand/ShellCommand: value %v(%T) couldn't be cast to type *SingularityShellCommand", value, value)
 		}
 
+	case "timestamp", "Timestamp":
+		v, ok := value.(int64)
+		if ok {
+			self.Timestamp = v
+			self.present["timestamp"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field timestamp/Timestamp: value %v(%T) couldn't be cast to type int64", value, value)
+		}
+
 	}
 }
 
@@ -102,14 +102,6 @@ func (self *SingularityTaskShellCommandRequest) GetField(name string) (interface
 	switch name {
 	default:
 		return nil, fmt.Errorf("No such field %s on SingularityTaskShellCommandRequest", name)
-
-	case "timestamp", "Timestamp":
-		if self.present != nil {
-			if _, ok := self.present["timestamp"]; ok {
-				return self.Timestamp, nil
-			}
-		}
-		return nil, fmt.Errorf("Field Timestamp no set on Timestamp %+v", self)
 
 	case "taskId", "TaskId":
 		if self.present != nil {
@@ -135,6 +127,14 @@ func (self *SingularityTaskShellCommandRequest) GetField(name string) (interface
 		}
 		return nil, fmt.Errorf("Field ShellCommand no set on ShellCommand %+v", self)
 
+	case "timestamp", "Timestamp":
+		if self.present != nil {
+			if _, ok := self.present["timestamp"]; ok {
+				return self.Timestamp, nil
+			}
+		}
+		return nil, fmt.Errorf("Field Timestamp no set on Timestamp %+v", self)
+
 	}
 }
 
@@ -146,9 +146,6 @@ func (self *SingularityTaskShellCommandRequest) ClearField(name string) error {
 	default:
 		return fmt.Errorf("No such field %s on SingularityTaskShellCommandRequest", name)
 
-	case "timestamp", "Timestamp":
-		self.present["timestamp"] = false
-
 	case "taskId", "TaskId":
 		self.present["taskId"] = false
 
@@ -157,6 +154,9 @@ func (self *SingularityTaskShellCommandRequest) ClearField(name string) error {
 
 	case "shellCommand", "ShellCommand":
 		self.present["shellCommand"] = false
+
+	case "timestamp", "Timestamp":
+		self.present["timestamp"] = false
 
 	}
 

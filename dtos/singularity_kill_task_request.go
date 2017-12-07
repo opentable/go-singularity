@@ -10,6 +10,8 @@ import (
 type SingularityKillTaskRequest struct {
 	present map[string]bool
 
+	RunShellCommandBeforeKill *SingularityShellCommand `json:"runShellCommandBeforeKill"`
+
 	Message string `json:"message,omitempty"`
 
 	Override bool `json:"override"`
@@ -17,8 +19,6 @@ type SingularityKillTaskRequest struct {
 	ActionId string `json:"actionId,omitempty"`
 
 	WaitForReplacementTask bool `json:"waitForReplacementTask"`
-
-	RunShellCommandBeforeKill *SingularityShellCommand `json:"runShellCommandBeforeKill"`
 }
 
 func (self *SingularityKillTaskRequest) Populate(jsonReader io.ReadCloser) (err error) {
@@ -56,6 +56,16 @@ func (self *SingularityKillTaskRequest) SetField(name string, value interface{})
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on SingularityKillTaskRequest", name)
+
+	case "runShellCommandBeforeKill", "RunShellCommandBeforeKill":
+		v, ok := value.(*SingularityShellCommand)
+		if ok {
+			self.RunShellCommandBeforeKill = v
+			self.present["runShellCommandBeforeKill"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field runShellCommandBeforeKill/RunShellCommandBeforeKill: value %v(%T) couldn't be cast to type *SingularityShellCommand", value, value)
+		}
 
 	case "message", "Message":
 		v, ok := value.(string)
@@ -97,16 +107,6 @@ func (self *SingularityKillTaskRequest) SetField(name string, value interface{})
 			return fmt.Errorf("Field waitForReplacementTask/WaitForReplacementTask: value %v(%T) couldn't be cast to type bool", value, value)
 		}
 
-	case "runShellCommandBeforeKill", "RunShellCommandBeforeKill":
-		v, ok := value.(*SingularityShellCommand)
-		if ok {
-			self.RunShellCommandBeforeKill = v
-			self.present["runShellCommandBeforeKill"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field runShellCommandBeforeKill/RunShellCommandBeforeKill: value %v(%T) couldn't be cast to type *SingularityShellCommand", value, value)
-		}
-
 	}
 }
 
@@ -114,6 +114,14 @@ func (self *SingularityKillTaskRequest) GetField(name string) (interface{}, erro
 	switch name {
 	default:
 		return nil, fmt.Errorf("No such field %s on SingularityKillTaskRequest", name)
+
+	case "runShellCommandBeforeKill", "RunShellCommandBeforeKill":
+		if self.present != nil {
+			if _, ok := self.present["runShellCommandBeforeKill"]; ok {
+				return self.RunShellCommandBeforeKill, nil
+			}
+		}
+		return nil, fmt.Errorf("Field RunShellCommandBeforeKill no set on RunShellCommandBeforeKill %+v", self)
 
 	case "message", "Message":
 		if self.present != nil {
@@ -147,14 +155,6 @@ func (self *SingularityKillTaskRequest) GetField(name string) (interface{}, erro
 		}
 		return nil, fmt.Errorf("Field WaitForReplacementTask no set on WaitForReplacementTask %+v", self)
 
-	case "runShellCommandBeforeKill", "RunShellCommandBeforeKill":
-		if self.present != nil {
-			if _, ok := self.present["runShellCommandBeforeKill"]; ok {
-				return self.RunShellCommandBeforeKill, nil
-			}
-		}
-		return nil, fmt.Errorf("Field RunShellCommandBeforeKill no set on RunShellCommandBeforeKill %+v", self)
-
 	}
 }
 
@@ -165,6 +165,9 @@ func (self *SingularityKillTaskRequest) ClearField(name string) error {
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on SingularityKillTaskRequest", name)
+
+	case "runShellCommandBeforeKill", "RunShellCommandBeforeKill":
+		self.present["runShellCommandBeforeKill"] = false
 
 	case "message", "Message":
 		self.present["message"] = false
@@ -177,9 +180,6 @@ func (self *SingularityKillTaskRequest) ClearField(name string) error {
 
 	case "waitForReplacementTask", "WaitForReplacementTask":
 		self.present["waitForReplacementTask"] = false
-
-	case "runShellCommandBeforeKill", "RunShellCommandBeforeKill":
-		self.present["runShellCommandBeforeKill"] = false
 
 	}
 

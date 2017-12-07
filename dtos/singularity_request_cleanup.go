@@ -19,25 +19,25 @@ const (
 type SingularityRequestCleanup struct {
 	present map[string]bool
 
-	User string `json:"user,omitempty"`
-
 	CleanupType SingularityRequestCleanupRequestCleanupType `json:"cleanupType"`
 
-	KillTasks bool `json:"killTasks"`
+	RunShellCommandBeforeKill *SingularityShellCommand `json:"runShellCommandBeforeKill"`
+
+	User string `json:"user,omitempty"`
 
 	SkipHealthchecks bool `json:"skipHealthchecks"`
 
 	DeployId string `json:"deployId,omitempty"`
 
+	Timestamp int64 `json:"timestamp"`
+
 	RequestId string `json:"requestId,omitempty"`
 
 	Message string `json:"message,omitempty"`
 
-	DeployId string `json:"deployId,omitempty"`
-
 	ActionId string `json:"actionId,omitempty"`
 
-	RunShellCommandBeforeKill *SingularityShellCommand `json:"runShellCommandBeforeKill"`
+	KillTasks bool `json:"killTasks"`
 }
 
 func (self *SingularityRequestCleanup) Populate(jsonReader io.ReadCloser) (err error) {
@@ -76,6 +76,26 @@ func (self *SingularityRequestCleanup) SetField(name string, value interface{}) 
 	default:
 		return fmt.Errorf("No such field %s on SingularityRequestCleanup", name)
 
+	case "cleanupType", "CleanupType":
+		v, ok := value.(SingularityRequestCleanupRequestCleanupType)
+		if ok {
+			self.CleanupType = v
+			self.present["cleanupType"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field cleanupType/CleanupType: value %v(%T) couldn't be cast to type SingularityRequestCleanupRequestCleanupType", value, value)
+		}
+
+	case "runShellCommandBeforeKill", "RunShellCommandBeforeKill":
+		v, ok := value.(*SingularityShellCommand)
+		if ok {
+			self.RunShellCommandBeforeKill = v
+			self.present["runShellCommandBeforeKill"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field runShellCommandBeforeKill/RunShellCommandBeforeKill: value %v(%T) couldn't be cast to type *SingularityShellCommand", value, value)
+		}
+
 	case "user", "User":
 		v, ok := value.(string)
 		if ok {
@@ -84,26 +104,6 @@ func (self *SingularityRequestCleanup) SetField(name string, value interface{}) 
 			return nil
 		} else {
 			return fmt.Errorf("Field user/User: value %v(%T) couldn't be cast to type string", value, value)
-		}
-
-	case "timestamp", "Timestamp":
-		v, ok := value.(int64)
-		if ok {
-			self.Timestamp = v
-			self.present["timestamp"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field timestamp/Timestamp: value %v(%T) couldn't be cast to type int64", value, value)
-		}
-
-	case "killTasks", "KillTasks":
-		v, ok := value.(bool)
-		if ok {
-			self.KillTasks = v
-			self.present["killTasks"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field killTasks/KillTasks: value %v(%T) couldn't be cast to type bool", value, value)
 		}
 
 	case "skipHealthchecks", "SkipHealthchecks":
@@ -126,14 +126,24 @@ func (self *SingularityRequestCleanup) SetField(name string, value interface{}) 
 			return fmt.Errorf("Field deployId/DeployId: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
-	case "user", "User":
-		v, ok := value.(string)
+	case "timestamp", "Timestamp":
+		v, ok := value.(int64)
 		if ok {
-			self.User = v
-			self.present["user"] = true
+			self.Timestamp = v
+			self.present["timestamp"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field user/User: value %v(%T) couldn't be cast to type string", value, value)
+			return fmt.Errorf("Field timestamp/Timestamp: value %v(%T) couldn't be cast to type int64", value, value)
+		}
+
+	case "requestId", "RequestId":
+		v, ok := value.(string)
+		if ok {
+			self.RequestId = v
+			self.present["requestId"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field requestId/RequestId: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "message", "Message":
@@ -146,16 +156,6 @@ func (self *SingularityRequestCleanup) SetField(name string, value interface{}) 
 			return fmt.Errorf("Field message/Message: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
-	case "deployId", "DeployId":
-		v, ok := value.(string)
-		if ok {
-			self.DeployId = v
-			self.present["deployId"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field deployId/DeployId: value %v(%T) couldn't be cast to type string", value, value)
-		}
-
 	case "actionId", "ActionId":
 		v, ok := value.(string)
 		if ok {
@@ -166,14 +166,14 @@ func (self *SingularityRequestCleanup) SetField(name string, value interface{}) 
 			return fmt.Errorf("Field actionId/ActionId: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
-	case "runShellCommandBeforeKill", "RunShellCommandBeforeKill":
-		v, ok := value.(*SingularityShellCommand)
+	case "killTasks", "KillTasks":
+		v, ok := value.(bool)
 		if ok {
-			self.RunShellCommandBeforeKill = v
-			self.present["runShellCommandBeforeKill"] = true
+			self.KillTasks = v
+			self.present["killTasks"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field runShellCommandBeforeKill/RunShellCommandBeforeKill: value %v(%T) couldn't be cast to type *SingularityShellCommand", value, value)
+			return fmt.Errorf("Field killTasks/KillTasks: value %v(%T) couldn't be cast to type bool", value, value)
 		}
 
 	}
@@ -184,6 +184,22 @@ func (self *SingularityRequestCleanup) GetField(name string) (interface{}, error
 	default:
 		return nil, fmt.Errorf("No such field %s on SingularityRequestCleanup", name)
 
+	case "cleanupType", "CleanupType":
+		if self.present != nil {
+			if _, ok := self.present["cleanupType"]; ok {
+				return self.CleanupType, nil
+			}
+		}
+		return nil, fmt.Errorf("Field CleanupType no set on CleanupType %+v", self)
+
+	case "runShellCommandBeforeKill", "RunShellCommandBeforeKill":
+		if self.present != nil {
+			if _, ok := self.present["runShellCommandBeforeKill"]; ok {
+				return self.RunShellCommandBeforeKill, nil
+			}
+		}
+		return nil, fmt.Errorf("Field RunShellCommandBeforeKill no set on RunShellCommandBeforeKill %+v", self)
+
 	case "user", "User":
 		if self.present != nil {
 			if _, ok := self.present["user"]; ok {
@@ -191,22 +207,6 @@ func (self *SingularityRequestCleanup) GetField(name string) (interface{}, error
 			}
 		}
 		return nil, fmt.Errorf("Field User no set on User %+v", self)
-
-	case "cleanupType", "CleanupType":
-		if self.present != nil {
-			if _, ok := self.present["killTasks"]; ok {
-				return self.KillTasks, nil
-			}
-		}
-		return nil, fmt.Errorf("Field KillTasks no set on KillTasks %+v", self)
-
-	case "killTasks", "KillTasks":
-		if self.present != nil {
-			if _, ok := self.present["requestId"]; ok {
-				return self.RequestId, nil
-			}
-		}
-		return nil, fmt.Errorf("Field RequestId no set on RequestId %+v", self)
 
 	case "skipHealthchecks", "SkipHealthchecks":
 		if self.present != nil {
@@ -224,6 +224,14 @@ func (self *SingularityRequestCleanup) GetField(name string) (interface{}, error
 		}
 		return nil, fmt.Errorf("Field DeployId no set on DeployId %+v", self)
 
+	case "timestamp", "Timestamp":
+		if self.present != nil {
+			if _, ok := self.present["timestamp"]; ok {
+				return self.Timestamp, nil
+			}
+		}
+		return nil, fmt.Errorf("Field Timestamp no set on Timestamp %+v", self)
+
 	case "requestId", "RequestId":
 		if self.present != nil {
 			if _, ok := self.present["requestId"]; ok {
@@ -240,14 +248,6 @@ func (self *SingularityRequestCleanup) GetField(name string) (interface{}, error
 		}
 		return nil, fmt.Errorf("Field Message no set on Message %+v", self)
 
-	case "deployId", "DeployId":
-		if self.present != nil {
-			if _, ok := self.present["deployId"]; ok {
-				return self.DeployId, nil
-			}
-		}
-		return nil, fmt.Errorf("Field DeployId no set on DeployId %+v", self)
-
 	case "actionId", "ActionId":
 		if self.present != nil {
 			if _, ok := self.present["actionId"]; ok {
@@ -256,13 +256,13 @@ func (self *SingularityRequestCleanup) GetField(name string) (interface{}, error
 		}
 		return nil, fmt.Errorf("Field ActionId no set on ActionId %+v", self)
 
-	case "runShellCommandBeforeKill", "RunShellCommandBeforeKill":
+	case "killTasks", "KillTasks":
 		if self.present != nil {
-			if _, ok := self.present["runShellCommandBeforeKill"]; ok {
-				return self.RunShellCommandBeforeKill, nil
+			if _, ok := self.present["killTasks"]; ok {
+				return self.KillTasks, nil
 			}
 		}
-		return nil, fmt.Errorf("Field RunShellCommandBeforeKill no set on RunShellCommandBeforeKill %+v", self)
+		return nil, fmt.Errorf("Field KillTasks no set on KillTasks %+v", self)
 
 	}
 }
@@ -275,14 +275,14 @@ func (self *SingularityRequestCleanup) ClearField(name string) error {
 	default:
 		return fmt.Errorf("No such field %s on SingularityRequestCleanup", name)
 
-	case "user", "User":
-		self.present["user"] = false
-
 	case "cleanupType", "CleanupType":
 		self.present["cleanupType"] = false
 
-	case "killTasks", "KillTasks":
-		self.present["killTasks"] = false
+	case "runShellCommandBeforeKill", "RunShellCommandBeforeKill":
+		self.present["runShellCommandBeforeKill"] = false
+
+	case "user", "User":
+		self.present["user"] = false
 
 	case "skipHealthchecks", "SkipHealthchecks":
 		self.present["skipHealthchecks"] = false
@@ -290,20 +290,20 @@ func (self *SingularityRequestCleanup) ClearField(name string) error {
 	case "deployId", "DeployId":
 		self.present["deployId"] = false
 
+	case "timestamp", "Timestamp":
+		self.present["timestamp"] = false
+
 	case "requestId", "RequestId":
 		self.present["requestId"] = false
 
 	case "message", "Message":
 		self.present["message"] = false
 
-	case "deployId", "DeployId":
-		self.present["deployId"] = false
-
 	case "actionId", "ActionId":
 		self.present["actionId"] = false
 
-	case "runShellCommandBeforeKill", "RunShellCommandBeforeKill":
-		self.present["runShellCommandBeforeKill"] = false
+	case "killTasks", "KillTasks":
+		self.present["killTasks"] = false
 
 	}
 

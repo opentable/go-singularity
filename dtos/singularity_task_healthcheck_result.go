@@ -10,7 +10,7 @@ import (
 type SingularityTaskHealthcheckResult struct {
 	present map[string]bool
 
-	StatusCode int32 `json:"statusCode"`
+	DurationMillis int64 `json:"durationMillis"`
 
 	ResponseBody string `json:"responseBody,omitempty"`
 
@@ -60,16 +60,6 @@ func (self *SingularityTaskHealthcheckResult) SetField(name string, value interf
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on SingularityTaskHealthcheckResult", name)
-
-	case "statusCode", "StatusCode":
-		v, ok := value.(int32)
-		if ok {
-			self.StatusCode = v
-			self.present["statusCode"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field statusCode/StatusCode: value %v(%T) couldn't be cast to type int32", value, value)
-		}
 
 	case "durationMillis", "DurationMillis":
 		v, ok := value.(int64)
@@ -149,13 +139,13 @@ func (self *SingularityTaskHealthcheckResult) GetField(name string) (interface{}
 	default:
 		return nil, fmt.Errorf("No such field %s on SingularityTaskHealthcheckResult", name)
 
-	case "statusCode", "StatusCode":
+	case "durationMillis", "DurationMillis":
 		if self.present != nil {
-			if _, ok := self.present["statusCode"]; ok {
-				return self.StatusCode, nil
+			if _, ok := self.present["durationMillis"]; ok {
+				return self.DurationMillis, nil
 			}
 		}
-		return nil, fmt.Errorf("Field StatusCode no set on StatusCode %+v", self)
+		return nil, fmt.Errorf("Field DurationMillis no set on DurationMillis %+v", self)
 
 	case "responseBody", "ResponseBody":
 		if self.present != nil {
@@ -215,9 +205,6 @@ func (self *SingularityTaskHealthcheckResult) ClearField(name string) error {
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on SingularityTaskHealthcheckResult", name)
-
-	case "statusCode", "StatusCode":
-		self.present["statusCode"] = false
 
 	case "durationMillis", "DurationMillis":
 		self.present["durationMillis"] = false

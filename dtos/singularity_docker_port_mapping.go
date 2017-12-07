@@ -19,7 +19,7 @@ type SingularityDockerPortMapping struct {
 
 	Protocol string `json:"protocol,omitempty"`
 
-	ContainerPort int32 `json:"containerPort"`
+	ContainerPortType SingularityDockerPortMappingSingularityPortMappingType `json:"containerPortType"`
 
 	HostPortType SingularityDockerPortMappingSingularityPortMappingType `json:"hostPortType"`
 
@@ -74,14 +74,14 @@ func (self *SingularityDockerPortMapping) SetField(name string, value interface{
 			return fmt.Errorf("Field protocol/Protocol: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
-	case "containerPort", "ContainerPort":
-		v, ok := value.(int32)
+	case "containerPortType", "ContainerPortType":
+		v, ok := value.(SingularityDockerPortMappingSingularityPortMappingType)
 		if ok {
-			self.ContainerPort = v
-			self.present["containerPort"] = true
+			self.ContainerPortType = v
+			self.present["containerPortType"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field containerPort/ContainerPort: value %v(%T) couldn't be cast to type int32", value, value)
+			return fmt.Errorf("Field containerPortType/ContainerPortType: value %v(%T) couldn't be cast to type SingularityDockerPortMappingSingularityPortMappingType", value, value)
 		}
 
 	case "hostPortType", "HostPortType":
@@ -114,16 +114,6 @@ func (self *SingularityDockerPortMapping) SetField(name string, value interface{
 			return fmt.Errorf("Field hostPort/HostPort: value %v(%T) couldn't be cast to type int32", value, value)
 		}
 
-	case "containerPortType", "ContainerPortType":
-		v, ok := value.(SingularityDockerPortMappingSingularityPortMappingType)
-		if ok {
-			self.ContainerPortType = v
-			self.present["containerPortType"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field containerPortType/ContainerPortType: value %v(%T) couldn't be cast to type SingularityDockerPortMappingSingularityPortMappingType", value, value)
-		}
-
 	}
 }
 
@@ -140,13 +130,13 @@ func (self *SingularityDockerPortMapping) GetField(name string) (interface{}, er
 		}
 		return nil, fmt.Errorf("Field Protocol no set on Protocol %+v", self)
 
-	case "containerPort", "ContainerPort":
+	case "containerPortType", "ContainerPortType":
 		if self.present != nil {
-			if _, ok := self.present["containerPort"]; ok {
-				return self.ContainerPort, nil
+			if _, ok := self.present["containerPortType"]; ok {
+				return self.ContainerPortType, nil
 			}
 		}
-		return nil, fmt.Errorf("Field ContainerPort no set on ContainerPort %+v", self)
+		return nil, fmt.Errorf("Field ContainerPortType no set on ContainerPortType %+v", self)
 
 	case "hostPortType", "HostPortType":
 		if self.present != nil {
@@ -171,14 +161,6 @@ func (self *SingularityDockerPortMapping) GetField(name string) (interface{}, er
 			}
 		}
 		return nil, fmt.Errorf("Field HostPort no set on HostPort %+v", self)
-
-	case "containerPortType", "ContainerPortType":
-		if self.present != nil {
-			if _, ok := self.present["containerPortType"]; ok {
-				return self.ContainerPortType, nil
-			}
-		}
-		return nil, fmt.Errorf("Field ContainerPortType no set on ContainerPortType %+v", self)
 
 	}
 }
@@ -205,9 +187,6 @@ func (self *SingularityDockerPortMapping) ClearField(name string) error {
 
 	case "hostPort", "HostPort":
 		self.present["hostPort"] = false
-
-	case "containerPortType", "ContainerPortType":
-		self.present["containerPortType"] = false
 
 	}
 

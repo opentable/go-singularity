@@ -10,7 +10,7 @@ func (client *Client) GetRequestGroup(requestGroupId string) (response *dtos.Sin
 	queryParamMap := map[string]interface{}{}
 
 	response = new(dtos.SingularityRequestGroup)
-	err = client.DTORequest(response, "GET", "/api/groups/group/{requestGroupId}", pathParamMap, queryParamMap)
+	err = client.DTORequest("singularity-getrequestgroup", response, "GET", "/api/groups/group/{requestGroupId}", pathParamMap, queryParamMap)
 
 	return
 }

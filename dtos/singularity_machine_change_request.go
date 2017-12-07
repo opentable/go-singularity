@@ -10,8 +10,6 @@ import (
 type SingularityMachineChangeRequest struct {
 	present map[string]bool
 
-	// Invalid field: RevertToState *notfound.MachineState `json:"revertToState"`
-
 	KillTasksOnDecommissionTimeout bool `json:"killTasksOnDecommissionTimeout"`
 
 	DurationMillis int64 `json:"durationMillis"`
@@ -19,6 +17,9 @@ type SingularityMachineChangeRequest struct {
 	ActionId string `json:"actionId,omitempty"`
 
 	Message string `json:"message,omitempty"`
+
+	// Invalid field: RevertToState *notfound.MachineState `json:"revertToState"`
+
 }
 
 func (self *SingularityMachineChangeRequest) Populate(jsonReader io.ReadCloser) (err error) {

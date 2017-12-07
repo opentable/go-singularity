@@ -7,16 +7,6 @@ import (
 	"github.com/opentable/swaggering"
 )
 
-type SingularityLoadBalancerUpdateLoadBalancerMethod string
-
-const (
-	SingularityLoadBalancerUpdateLoadBalancerMethodPRE_ENQUEUE SingularityLoadBalancerUpdateLoadBalancerMethod = "PRE_ENQUEUE"
-	SingularityLoadBalancerUpdateLoadBalancerMethodENQUEUE     SingularityLoadBalancerUpdateLoadBalancerMethod = "ENQUEUE"
-	SingularityLoadBalancerUpdateLoadBalancerMethodCHECK_STATE SingularityLoadBalancerUpdateLoadBalancerMethod = "CHECK_STATE"
-	SingularityLoadBalancerUpdateLoadBalancerMethodCANCEL      SingularityLoadBalancerUpdateLoadBalancerMethod = "CANCEL"
-	SingularityLoadBalancerUpdateLoadBalancerMethodDELETE      SingularityLoadBalancerUpdateLoadBalancerMethod = "DELETE"
-)
-
 type SingularityLoadBalancerUpdateBaragonRequestState string
 
 const (
@@ -29,12 +19,18 @@ const (
 	SingularityLoadBalancerUpdateBaragonRequestStateINVALID_REQUEST_NOOP SingularityLoadBalancerUpdateBaragonRequestState = "INVALID_REQUEST_NOOP"
 )
 
+type SingularityLoadBalancerUpdateLoadBalancerMethod string
+
+const (
+	SingularityLoadBalancerUpdateLoadBalancerMethodPRE_ENQUEUE SingularityLoadBalancerUpdateLoadBalancerMethod = "PRE_ENQUEUE"
+	SingularityLoadBalancerUpdateLoadBalancerMethodENQUEUE     SingularityLoadBalancerUpdateLoadBalancerMethod = "ENQUEUE"
+	SingularityLoadBalancerUpdateLoadBalancerMethodCHECK_STATE SingularityLoadBalancerUpdateLoadBalancerMethod = "CHECK_STATE"
+	SingularityLoadBalancerUpdateLoadBalancerMethodCANCEL      SingularityLoadBalancerUpdateLoadBalancerMethod = "CANCEL"
+	SingularityLoadBalancerUpdateLoadBalancerMethodDELETE      SingularityLoadBalancerUpdateLoadBalancerMethod = "DELETE"
+)
+
 type SingularityLoadBalancerUpdate struct {
 	present map[string]bool
-
-	Uri string `json:"uri,omitempty"`
-
-	Method SingularityLoadBalancerUpdateLoadBalancerMethod `json:"method"`
 
 	LoadBalancerRequestId *LoadBalancerRequestId `json:"loadBalancerRequestId"`
 
@@ -43,6 +39,10 @@ type SingularityLoadBalancerUpdate struct {
 	Message string `json:"message,omitempty"`
 
 	Timestamp int64 `json:"timestamp"`
+
+	Uri string `json:"uri,omitempty"`
+
+	Method SingularityLoadBalancerUpdateLoadBalancerMethod `json:"method"`
 }
 
 func (self *SingularityLoadBalancerUpdate) Populate(jsonReader io.ReadCloser) (err error) {
@@ -80,26 +80,6 @@ func (self *SingularityLoadBalancerUpdate) SetField(name string, value interface
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on SingularityLoadBalancerUpdate", name)
-
-	case "uri", "Uri":
-		v, ok := value.(string)
-		if ok {
-			self.Uri = v
-			self.present["uri"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field uri/Uri: value %v(%T) couldn't be cast to type string", value, value)
-		}
-
-	case "method", "Method":
-		v, ok := value.(SingularityLoadBalancerUpdateLoadBalancerMethod)
-		if ok {
-			self.Method = v
-			self.present["method"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field method/Method: value %v(%T) couldn't be cast to type SingularityLoadBalancerUpdateLoadBalancerMethod", value, value)
-		}
 
 	case "loadBalancerRequestId", "LoadBalancerRequestId":
 		v, ok := value.(*LoadBalancerRequestId)
@@ -141,6 +121,26 @@ func (self *SingularityLoadBalancerUpdate) SetField(name string, value interface
 			return fmt.Errorf("Field timestamp/Timestamp: value %v(%T) couldn't be cast to type int64", value, value)
 		}
 
+	case "uri", "Uri":
+		v, ok := value.(string)
+		if ok {
+			self.Uri = v
+			self.present["uri"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field uri/Uri: value %v(%T) couldn't be cast to type string", value, value)
+		}
+
+	case "method", "Method":
+		v, ok := value.(SingularityLoadBalancerUpdateLoadBalancerMethod)
+		if ok {
+			self.Method = v
+			self.present["method"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field method/Method: value %v(%T) couldn't be cast to type SingularityLoadBalancerUpdateLoadBalancerMethod", value, value)
+		}
+
 	}
 }
 
@@ -148,22 +148,6 @@ func (self *SingularityLoadBalancerUpdate) GetField(name string) (interface{}, e
 	switch name {
 	default:
 		return nil, fmt.Errorf("No such field %s on SingularityLoadBalancerUpdate", name)
-
-	case "uri", "Uri":
-		if self.present != nil {
-			if _, ok := self.present["uri"]; ok {
-				return self.Uri, nil
-			}
-		}
-		return nil, fmt.Errorf("Field Uri no set on Uri %+v", self)
-
-	case "method", "Method":
-		if self.present != nil {
-			if _, ok := self.present["method"]; ok {
-				return self.Method, nil
-			}
-		}
-		return nil, fmt.Errorf("Field Method no set on Method %+v", self)
 
 	case "loadBalancerRequestId", "LoadBalancerRequestId":
 		if self.present != nil {
@@ -197,6 +181,22 @@ func (self *SingularityLoadBalancerUpdate) GetField(name string) (interface{}, e
 		}
 		return nil, fmt.Errorf("Field Timestamp no set on Timestamp %+v", self)
 
+	case "uri", "Uri":
+		if self.present != nil {
+			if _, ok := self.present["uri"]; ok {
+				return self.Uri, nil
+			}
+		}
+		return nil, fmt.Errorf("Field Uri no set on Uri %+v", self)
+
+	case "method", "Method":
+		if self.present != nil {
+			if _, ok := self.present["method"]; ok {
+				return self.Method, nil
+			}
+		}
+		return nil, fmt.Errorf("Field Method no set on Method %+v", self)
+
 	}
 }
 
@@ -207,12 +207,6 @@ func (self *SingularityLoadBalancerUpdate) ClearField(name string) error {
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on SingularityLoadBalancerUpdate", name)
-
-	case "uri", "Uri":
-		self.present["uri"] = false
-
-	case "method", "Method":
-		self.present["method"] = false
 
 	case "loadBalancerRequestId", "LoadBalancerRequestId":
 		self.present["loadBalancerRequestId"] = false
@@ -225,6 +219,12 @@ func (self *SingularityLoadBalancerUpdate) ClearField(name string) error {
 
 	case "timestamp", "Timestamp":
 		self.present["timestamp"] = false
+
+	case "uri", "Uri":
+		self.present["uri"] = false
+
+	case "method", "Method":
+		self.present["method"] = false
 
 	}
 

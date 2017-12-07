@@ -10,6 +10,12 @@ import (
 type SingularityScaleRequest struct {
 	present map[string]bool
 
+	SkipHealthchecks bool `json:"skipHealthchecks"`
+
+	Bounce bool `json:"bounce"`
+
+	Incremental bool `json:"incremental"`
+
 	DurationMillis int64 `json:"durationMillis"`
 
 	ActionId string `json:"actionId,omitempty"`
@@ -17,12 +23,6 @@ type SingularityScaleRequest struct {
 	Message string `json:"message,omitempty"`
 
 	Instances int32 `json:"instances"`
-
-	SkipHealthchecks bool `json:"skipHealthchecks"`
-
-	Bounce bool `json:"bounce"`
-
-	Incremental bool `json:"incremental"`
 }
 
 func (self *SingularityScaleRequest) Populate(jsonReader io.ReadCloser) (err error) {
@@ -60,6 +60,36 @@ func (self *SingularityScaleRequest) SetField(name string, value interface{}) er
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on SingularityScaleRequest", name)
+
+	case "skipHealthchecks", "SkipHealthchecks":
+		v, ok := value.(bool)
+		if ok {
+			self.SkipHealthchecks = v
+			self.present["skipHealthchecks"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field skipHealthchecks/SkipHealthchecks: value %v(%T) couldn't be cast to type bool", value, value)
+		}
+
+	case "bounce", "Bounce":
+		v, ok := value.(bool)
+		if ok {
+			self.Bounce = v
+			self.present["bounce"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field bounce/Bounce: value %v(%T) couldn't be cast to type bool", value, value)
+		}
+
+	case "incremental", "Incremental":
+		v, ok := value.(bool)
+		if ok {
+			self.Incremental = v
+			self.present["incremental"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field incremental/Incremental: value %v(%T) couldn't be cast to type bool", value, value)
+		}
 
 	case "durationMillis", "DurationMillis":
 		v, ok := value.(int64)
@@ -101,36 +131,6 @@ func (self *SingularityScaleRequest) SetField(name string, value interface{}) er
 			return fmt.Errorf("Field instances/Instances: value %v(%T) couldn't be cast to type int32", value, value)
 		}
 
-	case "skipHealthchecks", "SkipHealthchecks":
-		v, ok := value.(bool)
-		if ok {
-			self.SkipHealthchecks = v
-			self.present["skipHealthchecks"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field skipHealthchecks/SkipHealthchecks: value %v(%T) couldn't be cast to type bool", value, value)
-		}
-
-	case "bounce", "Bounce":
-		v, ok := value.(bool)
-		if ok {
-			self.Bounce = v
-			self.present["bounce"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field bounce/Bounce: value %v(%T) couldn't be cast to type bool", value, value)
-		}
-
-	case "incremental", "Incremental":
-		v, ok := value.(bool)
-		if ok {
-			self.Incremental = v
-			self.present["incremental"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field incremental/Incremental: value %v(%T) couldn't be cast to type bool", value, value)
-		}
-
 	}
 }
 
@@ -138,6 +138,30 @@ func (self *SingularityScaleRequest) GetField(name string) (interface{}, error) 
 	switch name {
 	default:
 		return nil, fmt.Errorf("No such field %s on SingularityScaleRequest", name)
+
+	case "skipHealthchecks", "SkipHealthchecks":
+		if self.present != nil {
+			if _, ok := self.present["skipHealthchecks"]; ok {
+				return self.SkipHealthchecks, nil
+			}
+		}
+		return nil, fmt.Errorf("Field SkipHealthchecks no set on SkipHealthchecks %+v", self)
+
+	case "bounce", "Bounce":
+		if self.present != nil {
+			if _, ok := self.present["bounce"]; ok {
+				return self.Bounce, nil
+			}
+		}
+		return nil, fmt.Errorf("Field Bounce no set on Bounce %+v", self)
+
+	case "incremental", "Incremental":
+		if self.present != nil {
+			if _, ok := self.present["incremental"]; ok {
+				return self.Incremental, nil
+			}
+		}
+		return nil, fmt.Errorf("Field Incremental no set on Incremental %+v", self)
 
 	case "durationMillis", "DurationMillis":
 		if self.present != nil {
@@ -171,30 +195,6 @@ func (self *SingularityScaleRequest) GetField(name string) (interface{}, error) 
 		}
 		return nil, fmt.Errorf("Field Instances no set on Instances %+v", self)
 
-	case "skipHealthchecks", "SkipHealthchecks":
-		if self.present != nil {
-			if _, ok := self.present["skipHealthchecks"]; ok {
-				return self.SkipHealthchecks, nil
-			}
-		}
-		return nil, fmt.Errorf("Field SkipHealthchecks no set on SkipHealthchecks %+v", self)
-
-	case "bounce", "Bounce":
-		if self.present != nil {
-			if _, ok := self.present["bounce"]; ok {
-				return self.Bounce, nil
-			}
-		}
-		return nil, fmt.Errorf("Field Bounce no set on Bounce %+v", self)
-
-	case "incremental", "Incremental":
-		if self.present != nil {
-			if _, ok := self.present["incremental"]; ok {
-				return self.Incremental, nil
-			}
-		}
-		return nil, fmt.Errorf("Field Incremental no set on Incremental %+v", self)
-
 	}
 }
 
@@ -205,6 +205,15 @@ func (self *SingularityScaleRequest) ClearField(name string) error {
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on SingularityScaleRequest", name)
+
+	case "skipHealthchecks", "SkipHealthchecks":
+		self.present["skipHealthchecks"] = false
+
+	case "bounce", "Bounce":
+		self.present["bounce"] = false
+
+	case "incremental", "Incremental":
+		self.present["incremental"] = false
 
 	case "durationMillis", "DurationMillis":
 		self.present["durationMillis"] = false
@@ -217,15 +226,6 @@ func (self *SingularityScaleRequest) ClearField(name string) error {
 
 	case "instances", "Instances":
 		self.present["instances"] = false
-
-	case "skipHealthchecks", "SkipHealthchecks":
-		self.present["skipHealthchecks"] = false
-
-	case "bounce", "Bounce":
-		self.present["bounce"] = false
-
-	case "incremental", "Incremental":
-		self.present["incremental"] = false
 
 	}
 

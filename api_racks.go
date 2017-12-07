@@ -9,7 +9,7 @@ func (client *Client) GetExpiringRackStateChanges() (response dtos.SingularityEx
 	queryParamMap := map[string]interface{}{}
 
 	response = make(dtos.SingularityExpiringMachineStateList, 0)
-	err = client.DTORequest(&response, "GET", "/api/racks/expiring", pathParamMap, queryParamMap)
+	err = client.DTORequest("singularity-getexpiringrackstatechanges", &response, "GET", "/api/racks/expiring", pathParamMap, queryParamMap)
 
 	return
 }
@@ -21,7 +21,7 @@ func (client *Client) GetRacks(state string) (response dtos.SingularityRackList,
 	}
 
 	response = make(dtos.SingularityRackList, 0)
-	err = client.DTORequest(&response, "GET", "/api/racks/", pathParamMap, queryParamMap)
+	err = client.DTORequest("singularity-getracks", &response, "GET", "/api/racks/", pathParamMap, queryParamMap)
 
 	return
 }
@@ -33,7 +33,7 @@ func (client *Client) GetRackHistory(rackId string) (response dtos.SingularityMa
 	queryParamMap := map[string]interface{}{}
 
 	response = make(dtos.SingularityMachineStateHistoryUpdateList, 0)
-	err = client.DTORequest(&response, "GET", "/api/racks/rack/{rackId}", pathParamMap, queryParamMap)
+	err = client.DTORequest("singularity-getrackhistory", &response, "GET", "/api/racks/rack/{rackId}", pathParamMap, queryParamMap)
 
 	return
 }

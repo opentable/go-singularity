@@ -27,6 +27,8 @@ const (
 type SingularityTaskIdHistory struct {
 	present map[string]bool
 
+	UpdatedAt int64 `json:"updatedAt"`
+
 	LastTaskState SingularityTaskIdHistoryExtendedTaskState `json:"lastTaskState"`
 
 	RunId string `json:"runId,omitempty"`
@@ -70,6 +72,16 @@ func (self *SingularityTaskIdHistory) SetField(name string, value interface{}) e
 	default:
 		return fmt.Errorf("No such field %s on SingularityTaskIdHistory", name)
 
+	case "updatedAt", "UpdatedAt":
+		v, ok := value.(int64)
+		if ok {
+			self.UpdatedAt = v
+			self.present["updatedAt"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field updatedAt/UpdatedAt: value %v(%T) couldn't be cast to type int64", value, value)
+		}
+
 	case "lastTaskState", "LastTaskState":
 		v, ok := value.(SingularityTaskIdHistoryExtendedTaskState)
 		if ok {
@@ -108,6 +120,14 @@ func (self *SingularityTaskIdHistory) GetField(name string) (interface{}, error)
 	default:
 		return nil, fmt.Errorf("No such field %s on SingularityTaskIdHistory", name)
 
+	case "updatedAt", "UpdatedAt":
+		if self.present != nil {
+			if _, ok := self.present["updatedAt"]; ok {
+				return self.UpdatedAt, nil
+			}
+		}
+		return nil, fmt.Errorf("Field UpdatedAt no set on UpdatedAt %+v", self)
+
 	case "lastTaskState", "LastTaskState":
 		if self.present != nil {
 			if _, ok := self.present["lastTaskState"]; ok {
@@ -142,6 +162,9 @@ func (self *SingularityTaskIdHistory) ClearField(name string) error {
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on SingularityTaskIdHistory", name)
+
+	case "updatedAt", "UpdatedAt":
+		self.present["updatedAt"] = false
 
 	case "lastTaskState", "LastTaskState":
 		self.present["lastTaskState"] = false
