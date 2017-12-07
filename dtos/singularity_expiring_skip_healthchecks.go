@@ -10,6 +10,8 @@ import (
 type SingularityExpiringSkipHealthchecks struct {
 	present map[string]bool
 
+	// Invalid field: ExpiringAPIRequestObject *notfound.T `json:"expiringAPIRequestObject"`
+
 	RevertToSkipHealthchecks bool `json:"revertToSkipHealthchecks"`
 
 	RequestId string `json:"requestId,omitempty"`

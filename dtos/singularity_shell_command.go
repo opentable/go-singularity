@@ -10,13 +10,13 @@ import (
 type SingularityShellCommand struct {
 	present map[string]bool
 
-	User string `json:"user,omitempty"`
-
-	LogfileName string `json:"logfileName,omitempty"`
-
 	Name string `json:"name,omitempty"`
 
 	Options swaggering.StringList `json:"options"`
+
+	User string `json:"user,omitempty"`
+
+	LogfileName string `json:"logfileName,omitempty"`
 }
 
 func (self *SingularityShellCommand) Populate(jsonReader io.ReadCloser) (err error) {
@@ -55,26 +55,6 @@ func (self *SingularityShellCommand) SetField(name string, value interface{}) er
 	default:
 		return fmt.Errorf("No such field %s on SingularityShellCommand", name)
 
-	case "user", "User":
-		v, ok := value.(string)
-		if ok {
-			self.User = v
-			self.present["user"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field user/User: value %v(%T) couldn't be cast to type string", value, value)
-		}
-
-	case "logfileName", "LogfileName":
-		v, ok := value.(string)
-		if ok {
-			self.LogfileName = v
-			self.present["logfileName"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field logfileName/LogfileName: value %v(%T) couldn't be cast to type string", value, value)
-		}
-
 	case "name", "Name":
 		v, ok := value.(string)
 		if ok {
@@ -95,6 +75,26 @@ func (self *SingularityShellCommand) SetField(name string, value interface{}) er
 			return fmt.Errorf("Field options/Options: value %v(%T) couldn't be cast to type swaggering.StringList", value, value)
 		}
 
+	case "user", "User":
+		v, ok := value.(string)
+		if ok {
+			self.User = v
+			self.present["user"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field user/User: value %v(%T) couldn't be cast to type string", value, value)
+		}
+
+	case "logfileName", "LogfileName":
+		v, ok := value.(string)
+		if ok {
+			self.LogfileName = v
+			self.present["logfileName"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field logfileName/LogfileName: value %v(%T) couldn't be cast to type string", value, value)
+		}
+
 	}
 }
 
@@ -102,22 +102,6 @@ func (self *SingularityShellCommand) GetField(name string) (interface{}, error) 
 	switch name {
 	default:
 		return nil, fmt.Errorf("No such field %s on SingularityShellCommand", name)
-
-	case "user", "User":
-		if self.present != nil {
-			if _, ok := self.present["user"]; ok {
-				return self.User, nil
-			}
-		}
-		return nil, fmt.Errorf("Field User no set on User %+v", self)
-
-	case "logfileName", "LogfileName":
-		if self.present != nil {
-			if _, ok := self.present["logfileName"]; ok {
-				return self.LogfileName, nil
-			}
-		}
-		return nil, fmt.Errorf("Field LogfileName no set on LogfileName %+v", self)
 
 	case "name", "Name":
 		if self.present != nil {
@@ -135,6 +119,22 @@ func (self *SingularityShellCommand) GetField(name string) (interface{}, error) 
 		}
 		return nil, fmt.Errorf("Field Options no set on Options %+v", self)
 
+	case "user", "User":
+		if self.present != nil {
+			if _, ok := self.present["user"]; ok {
+				return self.User, nil
+			}
+		}
+		return nil, fmt.Errorf("Field User no set on User %+v", self)
+
+	case "logfileName", "LogfileName":
+		if self.present != nil {
+			if _, ok := self.present["logfileName"]; ok {
+				return self.LogfileName, nil
+			}
+		}
+		return nil, fmt.Errorf("Field LogfileName no set on LogfileName %+v", self)
+
 	}
 }
 
@@ -146,17 +146,17 @@ func (self *SingularityShellCommand) ClearField(name string) error {
 	default:
 		return fmt.Errorf("No such field %s on SingularityShellCommand", name)
 
-	case "user", "User":
-		self.present["user"] = false
-
-	case "logfileName", "LogfileName":
-		self.present["logfileName"] = false
-
 	case "name", "Name":
 		self.present["name"] = false
 
 	case "options", "Options":
 		self.present["options"] = false
+
+	case "user", "User":
+		self.present["user"] = false
+
+	case "logfileName", "LogfileName":
+		self.present["logfileName"] = false
 
 	}
 

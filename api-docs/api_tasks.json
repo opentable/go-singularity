@@ -901,7 +901,12 @@
         },
         "scheduleType": {
           "$ref": "ScheduleType",
-          "description": "The type of schedule associated with the scheduled field. Can be CRON, QUARTZ, or RFC5545"
+          "description": "The type of schedule associated with the scheduled field. Can be CRON, QUARTZ, or RFC5545",
+          "enum": [
+            "CRON",
+            "QUARTZ",
+            "RFC5545"
+          ]
         },
         "scheduleTimeZone": {
           "type": "string",
@@ -949,7 +954,15 @@
         },
         "slavePlacement": {
           "$ref": "SlavePlacement",
-          "description": "Strategy for determining where to place new tasks. Can be SEPARATE, OPTIMISTIC, GREEDY, SEPARATE_BY_DEPLOY, or SEPARATE_BY_REQUEST"
+          "description": "Strategy for determining where to place new tasks. Can be SEPARATE, OPTIMISTIC, GREEDY, SEPARATE_BY_DEPLOY, or SEPARATE_BY_REQUEST",
+          "enum": [
+            "SEPARATE",
+            "OPTIMISTIC",
+            "GREEDY",
+            "SEPARATE_BY_DEPLOY",
+            "SEPARATE_BY_REQUEST",
+            "SPREAD_ALL_SLAVES"
+          ]
         },
         "requiredSlaveAttributes": {
           "$ref": "Map[string,string]",
@@ -1101,7 +1114,7 @@
           "description": "Custom Mesos executor source."
         },
         "customExecutorResources": {
-          "$ref": "com.hubspot.mesos.Resources",
+          "$ref": "Resources",
           "description": "Resources to allocate for custom mesos executor"
         },
         "resources": {
@@ -1177,8 +1190,12 @@
           "description": "Perform healthcheck on this dynamically allocated port (e.g. 0 for first port), defaults to first port"
         },
         "healthcheckProtocol": {
-          "$ref": "com.hubspot.singularity.HealthcheckProtocol",
-          "description": "Healthcheck protocol - HTTP or HTTPS"
+          "$ref": "HealthcheckProtocol",
+          "description": "Healthcheck protocol - HTTP or HTTPS",
+          "enum": [
+            "http",
+            "https"
+          ]
         },
         "healthcheckMaxRetries": {
           "type": "integer",
@@ -1465,7 +1482,11 @@
         },
         "protocol": {
           "$ref": "HealthcheckProtocol",
-          "description": "Healthcheck protocol - HTTP or HTTPS"
+          "description": "Healthcheck protocol - HTTP or HTTPS",
+          "enum": [
+            "http",
+            "https"
+          ]
         },
         "startupTimeoutSeconds": {
           "type": "integer",
@@ -1540,10 +1561,40 @@
           "format": "int64"
         },
         "requestCleanupType": {
-          "$ref": "RequestCleanupType"
+          "$ref": "RequestCleanupType",
+          "enum": [
+            "DELETING",
+            "PAUSING",
+            "BOUNCE",
+            "INCREMENTAL_BOUNCE"
+          ]
         },
         "taskCleanupType": {
-          "$ref": "TaskCleanupType"
+          "$ref": "TaskCleanupType",
+          "enum": [
+            "USER_REQUESTED",
+            "USER_REQUESTED_TASK_BOUNCE",
+            "DECOMISSIONING",
+            "SCALING_DOWN",
+            "BOUNCING",
+            "INCREMENTAL_BOUNCE",
+            "DEPLOY_FAILED",
+            "NEW_DEPLOY_SUCCEEDED",
+            "DEPLOY_STEP_FINISHED",
+            "DEPLOY_CANCELED",
+            "TASK_EXCEEDED_TIME_LIMIT",
+            "UNHEALTHY_NEW_TASK",
+            "OVERDUE_NEW_TASK",
+            "USER_REQUESTED_DESTROY",
+            "INCREMENTAL_DEPLOY_FAILED",
+            "INCREMENTAL_DEPLOY_CANCELLED",
+            "PRIORITY_KILL",
+            "REBALANCE_RACKS",
+            "PAUSING",
+            "PAUSE",
+            "DECOMMISSION_TIMEOUT",
+            "REQUEST_DELETING"
+          ]
         },
         "retries": {
           "type": "integer",
@@ -1619,7 +1670,12 @@
         },
         "level": {
           "$ref": "MetadataLevel",
-          "description": "Level of metadata, can be INFO, WARN, or ERROR"
+          "description": "Level of metadata, can be INFO, WARN, or ERROR",
+          "enum": [
+            "INFO",
+            "WARN",
+            "ERROR"
+          ]
         }
       }
     },

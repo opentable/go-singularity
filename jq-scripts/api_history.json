@@ -2,6 +2,23 @@
   .operations[] | select(.nickname == "getTaskHistoryForRequest") | .nickname ) |= "getTaskHistoryForRequestRun" |
 ( .apis[] | select(.path ==  "/api/history/request/{requestId}/tasks/active") |
   .operations[] | select(.nickname == "getTaskHistoryForRequest") | .nickname ) |= "getTaskHistoryForActiveRequest" |
+  .models.SingularityDeploy.properties.customExecutorResources["$ref"] = "Resources" |
+  .models.SingularityDeploy.properties.resources["$ref"] = "Resources" |
+  .models.SingularityDeploy.properties.healthcheckProtocol["$ref"] = "HealthcheckProtocol" |
+  .models.SingularityDeploy.properties.healthcheckProtocol["enum"] = ["http", "https"] |
+  .models.SingularityRequest.properties.slavePlacement["enum"] = [ "SEPARATE", "OPTIMISTIC", "GREEDY", "SEPARATE_BY_DEPLOY", "SEPARATE_BY_REQUEST", "SPREAD_ALL_SLAVES" ] |
+  .models.SingularityRequest.properties.scheduleType["enum"] = [ "CRON", "QUARTZ", "RFC5545" ] |
+  .models.HealthcheckOptions.properties.protocol["enum"] = ["http", "https"] |
   .models.SingularityDockerInfo.properties.network["$ref"] = "SingularityDockerNetworkType" |
   .models.SingularityDockerInfo.properties.network["enum"] = ["HOST", "BRIDGE", "NONE"] |
-  .models.SingularityVolume.properties.mode["enum"] = ["RO", "RW"]
+  .models.SingularityVolume.properties.mode["enum"] = ["RO", "RW"] |
+  .models.SingularityDeployStatistics.properties.instanceSequentialFailureTimestamps["$ref"] = "Map[int,List[int]]" |
+  .models.SingularityDeployStatistics.properties.lastTaskState["enum"] = [
+    "TASK_LAUNCHED", "TASK_STAGING", "TASK_STARTING", "TASK_RUNNING",
+    "TASK_CLEANING", "TASK_KILLING", "TASK_FINISHED", "TASK_FAILED",
+    "TASK_KILLED", "TASK_LOST", "TASK_LOST_WHILE_DOWN", "TASK_ERROR" ] |
+  .models.ExecutorData.properties.logrotateFrequency["enum"] = ["HOURLY", "DAILY", "WEEKLY", "MONTHLY"] |
+  .models.SingularityTaskIdHistory.properties.lastTaskState["enum"] = [
+    "TASK_LAUNCHED", "TASK_STAGING", "TASK_STARTING", "TASK_RUNNING",
+    "TASK_CLEANING", "TASK_KILLING", "TASK_FINISHED", "TASK_FAILED",
+    "TASK_KILLED", "TASK_LOST", "TASK_LOST_WHILE_DOWN", "TASK_ERROR" ]

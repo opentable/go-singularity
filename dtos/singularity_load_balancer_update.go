@@ -7,6 +7,16 @@ import (
 	"github.com/opentable/swaggering"
 )
 
+type SingularityLoadBalancerUpdateLoadBalancerMethod string
+
+const (
+	SingularityLoadBalancerUpdateLoadBalancerMethodPRE_ENQUEUE SingularityLoadBalancerUpdateLoadBalancerMethod = "PRE_ENQUEUE"
+	SingularityLoadBalancerUpdateLoadBalancerMethodENQUEUE     SingularityLoadBalancerUpdateLoadBalancerMethod = "ENQUEUE"
+	SingularityLoadBalancerUpdateLoadBalancerMethodCHECK_STATE SingularityLoadBalancerUpdateLoadBalancerMethod = "CHECK_STATE"
+	SingularityLoadBalancerUpdateLoadBalancerMethodCANCEL      SingularityLoadBalancerUpdateLoadBalancerMethod = "CANCEL"
+	SingularityLoadBalancerUpdateLoadBalancerMethodDELETE      SingularityLoadBalancerUpdateLoadBalancerMethod = "DELETE"
+)
+
 type SingularityLoadBalancerUpdateBaragonRequestState string
 
 const (
@@ -19,30 +29,20 @@ const (
 	SingularityLoadBalancerUpdateBaragonRequestStateINVALID_REQUEST_NOOP SingularityLoadBalancerUpdateBaragonRequestState = "INVALID_REQUEST_NOOP"
 )
 
-type SingularityLoadBalancerUpdateLoadBalancerMethod string
-
-const (
-	SingularityLoadBalancerUpdateLoadBalancerMethodPRE_ENQUEUE SingularityLoadBalancerUpdateLoadBalancerMethod = "PRE_ENQUEUE"
-	SingularityLoadBalancerUpdateLoadBalancerMethodENQUEUE     SingularityLoadBalancerUpdateLoadBalancerMethod = "ENQUEUE"
-	SingularityLoadBalancerUpdateLoadBalancerMethodCHECK_STATE SingularityLoadBalancerUpdateLoadBalancerMethod = "CHECK_STATE"
-	SingularityLoadBalancerUpdateLoadBalancerMethodCANCEL      SingularityLoadBalancerUpdateLoadBalancerMethod = "CANCEL"
-	SingularityLoadBalancerUpdateLoadBalancerMethodDELETE      SingularityLoadBalancerUpdateLoadBalancerMethod = "DELETE"
-)
-
 type SingularityLoadBalancerUpdate struct {
 	present map[string]bool
-
-	LoadBalancerState SingularityLoadBalancerUpdateBaragonRequestState `json:"loadBalancerState"`
-
-	Message string `json:"message,omitempty"`
-
-	Timestamp int64 `json:"timestamp"`
 
 	Uri string `json:"uri,omitempty"`
 
 	Method SingularityLoadBalancerUpdateLoadBalancerMethod `json:"method"`
 
 	LoadBalancerRequestId *LoadBalancerRequestId `json:"loadBalancerRequestId"`
+
+	LoadBalancerState SingularityLoadBalancerUpdateBaragonRequestState `json:"loadBalancerState"`
+
+	Message string `json:"message,omitempty"`
+
+	Timestamp int64 `json:"timestamp"`
 }
 
 func (self *SingularityLoadBalancerUpdate) Populate(jsonReader io.ReadCloser) (err error) {
@@ -81,36 +81,6 @@ func (self *SingularityLoadBalancerUpdate) SetField(name string, value interface
 	default:
 		return fmt.Errorf("No such field %s on SingularityLoadBalancerUpdate", name)
 
-	case "loadBalancerState", "LoadBalancerState":
-		v, ok := value.(SingularityLoadBalancerUpdateBaragonRequestState)
-		if ok {
-			self.LoadBalancerState = v
-			self.present["loadBalancerState"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field loadBalancerState/LoadBalancerState: value %v(%T) couldn't be cast to type SingularityLoadBalancerUpdateBaragonRequestState", value, value)
-		}
-
-	case "message", "Message":
-		v, ok := value.(string)
-		if ok {
-			self.Message = v
-			self.present["message"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field message/Message: value %v(%T) couldn't be cast to type string", value, value)
-		}
-
-	case "timestamp", "Timestamp":
-		v, ok := value.(int64)
-		if ok {
-			self.Timestamp = v
-			self.present["timestamp"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field timestamp/Timestamp: value %v(%T) couldn't be cast to type int64", value, value)
-		}
-
 	case "uri", "Uri":
 		v, ok := value.(string)
 		if ok {
@@ -141,6 +111,36 @@ func (self *SingularityLoadBalancerUpdate) SetField(name string, value interface
 			return fmt.Errorf("Field loadBalancerRequestId/LoadBalancerRequestId: value %v(%T) couldn't be cast to type *LoadBalancerRequestId", value, value)
 		}
 
+	case "loadBalancerState", "LoadBalancerState":
+		v, ok := value.(SingularityLoadBalancerUpdateBaragonRequestState)
+		if ok {
+			self.LoadBalancerState = v
+			self.present["loadBalancerState"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field loadBalancerState/LoadBalancerState: value %v(%T) couldn't be cast to type SingularityLoadBalancerUpdateBaragonRequestState", value, value)
+		}
+
+	case "message", "Message":
+		v, ok := value.(string)
+		if ok {
+			self.Message = v
+			self.present["message"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field message/Message: value %v(%T) couldn't be cast to type string", value, value)
+		}
+
+	case "timestamp", "Timestamp":
+		v, ok := value.(int64)
+		if ok {
+			self.Timestamp = v
+			self.present["timestamp"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field timestamp/Timestamp: value %v(%T) couldn't be cast to type int64", value, value)
+		}
+
 	}
 }
 
@@ -148,30 +148,6 @@ func (self *SingularityLoadBalancerUpdate) GetField(name string) (interface{}, e
 	switch name {
 	default:
 		return nil, fmt.Errorf("No such field %s on SingularityLoadBalancerUpdate", name)
-
-	case "loadBalancerState", "LoadBalancerState":
-		if self.present != nil {
-			if _, ok := self.present["loadBalancerState"]; ok {
-				return self.LoadBalancerState, nil
-			}
-		}
-		return nil, fmt.Errorf("Field LoadBalancerState no set on LoadBalancerState %+v", self)
-
-	case "message", "Message":
-		if self.present != nil {
-			if _, ok := self.present["message"]; ok {
-				return self.Message, nil
-			}
-		}
-		return nil, fmt.Errorf("Field Message no set on Message %+v", self)
-
-	case "timestamp", "Timestamp":
-		if self.present != nil {
-			if _, ok := self.present["timestamp"]; ok {
-				return self.Timestamp, nil
-			}
-		}
-		return nil, fmt.Errorf("Field Timestamp no set on Timestamp %+v", self)
 
 	case "uri", "Uri":
 		if self.present != nil {
@@ -197,6 +173,30 @@ func (self *SingularityLoadBalancerUpdate) GetField(name string) (interface{}, e
 		}
 		return nil, fmt.Errorf("Field LoadBalancerRequestId no set on LoadBalancerRequestId %+v", self)
 
+	case "loadBalancerState", "LoadBalancerState":
+		if self.present != nil {
+			if _, ok := self.present["loadBalancerState"]; ok {
+				return self.LoadBalancerState, nil
+			}
+		}
+		return nil, fmt.Errorf("Field LoadBalancerState no set on LoadBalancerState %+v", self)
+
+	case "message", "Message":
+		if self.present != nil {
+			if _, ok := self.present["message"]; ok {
+				return self.Message, nil
+			}
+		}
+		return nil, fmt.Errorf("Field Message no set on Message %+v", self)
+
+	case "timestamp", "Timestamp":
+		if self.present != nil {
+			if _, ok := self.present["timestamp"]; ok {
+				return self.Timestamp, nil
+			}
+		}
+		return nil, fmt.Errorf("Field Timestamp no set on Timestamp %+v", self)
+
 	}
 }
 
@@ -208,15 +208,6 @@ func (self *SingularityLoadBalancerUpdate) ClearField(name string) error {
 	default:
 		return fmt.Errorf("No such field %s on SingularityLoadBalancerUpdate", name)
 
-	case "loadBalancerState", "LoadBalancerState":
-		self.present["loadBalancerState"] = false
-
-	case "message", "Message":
-		self.present["message"] = false
-
-	case "timestamp", "Timestamp":
-		self.present["timestamp"] = false
-
 	case "uri", "Uri":
 		self.present["uri"] = false
 
@@ -225,6 +216,15 @@ func (self *SingularityLoadBalancerUpdate) ClearField(name string) error {
 
 	case "loadBalancerRequestId", "LoadBalancerRequestId":
 		self.present["loadBalancerRequestId"] = false
+
+	case "loadBalancerState", "LoadBalancerState":
+		self.present["loadBalancerState"] = false
+
+	case "message", "Message":
+		self.present["message"] = false
+
+	case "timestamp", "Timestamp":
+		self.present["timestamp"] = false
 
 	}
 

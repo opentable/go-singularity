@@ -10,6 +10,8 @@ import (
 type SingularityExpiringBounce struct {
 	present map[string]bool
 
+	// Invalid field: ExpiringAPIRequestObject *notfound.T `json:"expiringAPIRequestObject"`
+
 	DeployId string `json:"deployId,omitempty"`
 
 	RequestId string `json:"requestId,omitempty"`

@@ -17,13 +17,13 @@ const (
 type SingularityDeployUpdate struct {
 	present map[string]bool
 
-	DeployMarker *SingularityDeployMarker `json:"deployMarker"`
-
 	Deploy *SingularityDeploy `json:"deploy"`
 
 	EventType SingularityDeployUpdateDeployEventType `json:"eventType"`
 
-	DeployResult *SingularityDeployResult `json:"deployResult"`
+	Deploy *SingularityDeploy `json:"deploy"`
+
+	DeployMarker *SingularityDeployMarker `json:"deployMarker"`
 }
 
 func (self *SingularityDeployUpdate) Populate(jsonReader io.ReadCloser) (err error) {
@@ -62,16 +62,6 @@ func (self *SingularityDeployUpdate) SetField(name string, value interface{}) er
 	default:
 		return fmt.Errorf("No such field %s on SingularityDeployUpdate", name)
 
-	case "deployMarker", "DeployMarker":
-		v, ok := value.(*SingularityDeployMarker)
-		if ok {
-			self.DeployMarker = v
-			self.present["deployMarker"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field deployMarker/DeployMarker: value %v(%T) couldn't be cast to type *SingularityDeployMarker", value, value)
-		}
-
 	case "deploy", "Deploy":
 		v, ok := value.(*SingularityDeploy)
 		if ok {
@@ -92,6 +82,26 @@ func (self *SingularityDeployUpdate) SetField(name string, value interface{}) er
 			return fmt.Errorf("Field eventType/EventType: value %v(%T) couldn't be cast to type SingularityDeployUpdateDeployEventType", value, value)
 		}
 
+	case "deploy", "Deploy":
+		v, ok := value.(*SingularityDeploy)
+		if ok {
+			self.Deploy = v
+			self.present["deploy"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field deploy/Deploy: value %v(%T) couldn't be cast to type *SingularityDeploy", value, value)
+		}
+
+	case "deployMarker", "DeployMarker":
+		v, ok := value.(*SingularityDeployMarker)
+		if ok {
+			self.DeployMarker = v
+			self.present["deployMarker"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field deployMarker/DeployMarker: value %v(%T) couldn't be cast to type *SingularityDeployMarker", value, value)
+		}
+
 	case "deployResult", "DeployResult":
 		v, ok := value.(*SingularityDeployResult)
 		if ok {
@@ -110,14 +120,6 @@ func (self *SingularityDeployUpdate) GetField(name string) (interface{}, error) 
 	default:
 		return nil, fmt.Errorf("No such field %s on SingularityDeployUpdate", name)
 
-	case "deployMarker", "DeployMarker":
-		if self.present != nil {
-			if _, ok := self.present["deployMarker"]; ok {
-				return self.DeployMarker, nil
-			}
-		}
-		return nil, fmt.Errorf("Field DeployMarker no set on DeployMarker %+v", self)
-
 	case "deploy", "Deploy":
 		if self.present != nil {
 			if _, ok := self.present["deploy"]; ok {
@@ -133,6 +135,22 @@ func (self *SingularityDeployUpdate) GetField(name string) (interface{}, error) 
 			}
 		}
 		return nil, fmt.Errorf("Field EventType no set on EventType %+v", self)
+
+	case "deploy", "Deploy":
+		if self.present != nil {
+			if _, ok := self.present["deploy"]; ok {
+				return self.Deploy, nil
+			}
+		}
+		return nil, fmt.Errorf("Field Deploy no set on Deploy %+v", self)
+
+	case "deployMarker", "DeployMarker":
+		if self.present != nil {
+			if _, ok := self.present["deployMarker"]; ok {
+				return self.DeployMarker, nil
+			}
+		}
+		return nil, fmt.Errorf("Field DeployMarker no set on DeployMarker %+v", self)
 
 	case "deployResult", "DeployResult":
 		if self.present != nil {
@@ -153,14 +171,17 @@ func (self *SingularityDeployUpdate) ClearField(name string) error {
 	default:
 		return fmt.Errorf("No such field %s on SingularityDeployUpdate", name)
 
-	case "deployMarker", "DeployMarker":
-		self.present["deployMarker"] = false
-
 	case "deploy", "Deploy":
 		self.present["deploy"] = false
 
 	case "eventType", "EventType":
 		self.present["eventType"] = false
+
+	case "deploy", "Deploy":
+		self.present["deploy"] = false
+
+	case "deployMarker", "DeployMarker":
+		self.present["deployMarker"] = false
 
 	case "deployResult", "DeployResult":
 		self.present["deployResult"] = false

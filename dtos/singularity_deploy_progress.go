@@ -10,8 +10,6 @@ import (
 type SingularityDeployProgress struct {
 	present map[string]bool
 
-	DeployStepWaitTimeMs int64 `json:"deployStepWaitTimeMs"`
-
 	StepComplete bool `json:"stepComplete"`
 
 	AutoAdvanceDeploySteps bool `json:"autoAdvanceDeploySteps"`
@@ -25,6 +23,8 @@ type SingularityDeployProgress struct {
 	CurrentActiveInstances int32 `json:"currentActiveInstances"`
 
 	DeployInstanceCountPerStep int32 `json:"deployInstanceCountPerStep"`
+
+	DeployStepWaitTimeMs int64 `json:"deployStepWaitTimeMs"`
 }
 
 func (self *SingularityDeployProgress) Populate(jsonReader io.ReadCloser) (err error) {
@@ -62,16 +62,6 @@ func (self *SingularityDeployProgress) SetField(name string, value interface{}) 
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on SingularityDeployProgress", name)
-
-	case "deployStepWaitTimeMs", "DeployStepWaitTimeMs":
-		v, ok := value.(int64)
-		if ok {
-			self.DeployStepWaitTimeMs = v
-			self.present["deployStepWaitTimeMs"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field deployStepWaitTimeMs/DeployStepWaitTimeMs: value %v(%T) couldn't be cast to type int64", value, value)
-		}
 
 	case "stepComplete", "StepComplete":
 		v, ok := value.(bool)
@@ -143,6 +133,16 @@ func (self *SingularityDeployProgress) SetField(name string, value interface{}) 
 			return fmt.Errorf("Field deployInstanceCountPerStep/DeployInstanceCountPerStep: value %v(%T) couldn't be cast to type int32", value, value)
 		}
 
+	case "deployStepWaitTimeMs", "DeployStepWaitTimeMs":
+		v, ok := value.(int64)
+		if ok {
+			self.DeployStepWaitTimeMs = v
+			self.present["deployStepWaitTimeMs"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field deployStepWaitTimeMs/DeployStepWaitTimeMs: value %v(%T) couldn't be cast to type int64", value, value)
+		}
+
 	}
 }
 
@@ -150,14 +150,6 @@ func (self *SingularityDeployProgress) GetField(name string) (interface{}, error
 	switch name {
 	default:
 		return nil, fmt.Errorf("No such field %s on SingularityDeployProgress", name)
-
-	case "deployStepWaitTimeMs", "DeployStepWaitTimeMs":
-		if self.present != nil {
-			if _, ok := self.present["deployStepWaitTimeMs"]; ok {
-				return self.DeployStepWaitTimeMs, nil
-			}
-		}
-		return nil, fmt.Errorf("Field DeployStepWaitTimeMs no set on DeployStepWaitTimeMs %+v", self)
 
 	case "stepComplete", "StepComplete":
 		if self.present != nil {
@@ -215,6 +207,14 @@ func (self *SingularityDeployProgress) GetField(name string) (interface{}, error
 		}
 		return nil, fmt.Errorf("Field DeployInstanceCountPerStep no set on DeployInstanceCountPerStep %+v", self)
 
+	case "deployStepWaitTimeMs", "DeployStepWaitTimeMs":
+		if self.present != nil {
+			if _, ok := self.present["deployStepWaitTimeMs"]; ok {
+				return self.DeployStepWaitTimeMs, nil
+			}
+		}
+		return nil, fmt.Errorf("Field DeployStepWaitTimeMs no set on DeployStepWaitTimeMs %+v", self)
+
 	}
 }
 
@@ -225,9 +225,6 @@ func (self *SingularityDeployProgress) ClearField(name string) error {
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on SingularityDeployProgress", name)
-
-	case "deployStepWaitTimeMs", "DeployStepWaitTimeMs":
-		self.present["deployStepWaitTimeMs"] = false
 
 	case "stepComplete", "StepComplete":
 		self.present["stepComplete"] = false
@@ -249,6 +246,9 @@ func (self *SingularityDeployProgress) ClearField(name string) error {
 
 	case "deployInstanceCountPerStep", "DeployInstanceCountPerStep":
 		self.present["deployInstanceCountPerStep"] = false
+
+	case "deployStepWaitTimeMs", "DeployStepWaitTimeMs":
+		self.present["deployStepWaitTimeMs"] = false
 
 	}
 

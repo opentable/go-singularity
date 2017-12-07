@@ -22,25 +22,25 @@ const (
 type SingularityRequestParent struct {
 	present map[string]bool
 
+	PendingDeploy *SingularityDeploy `json:"pendingDeploy"`
+
+	PendingDeployState *SingularityPendingDeploy `json:"pendingDeployState"`
+
 	ExpiringBounce *SingularityExpiringBounce `json:"expiringBounce"`
 
 	ExpiringPause *SingularityExpiringPause `json:"expiringPause"`
 
-	ExpiringScale *SingularityExpiringScale `json:"expiringScale"`
-
 	Request *SingularityRequest `json:"request"`
-
-	State SingularityRequestParentRequestState `json:"state"`
-
-	PendingDeployState *SingularityPendingDeploy `json:"pendingDeployState"`
-
-	ExpiringSkipHealthchecks *SingularityExpiringSkipHealthchecks `json:"expiringSkipHealthchecks"`
 
 	RequestDeployState *SingularityRequestDeployState `json:"requestDeployState"`
 
-	ActiveDeploy *SingularityDeploy `json:"activeDeploy"`
+	ExpiringScale *SingularityExpiringScale `json:"expiringScale"`
 
-	PendingDeploy *SingularityDeploy `json:"pendingDeploy"`
+	ExpiringSkipHealthchecks *SingularityExpiringSkipHealthchecks `json:"expiringSkipHealthchecks"`
+
+	State SingularityRequestParentRequestState `json:"state"`
+
+	ActiveDeploy *SingularityDeploy `json:"activeDeploy"`
 }
 
 func (self *SingularityRequestParent) Populate(jsonReader io.ReadCloser) (err error) {
@@ -79,6 +79,26 @@ func (self *SingularityRequestParent) SetField(name string, value interface{}) e
 	default:
 		return fmt.Errorf("No such field %s on SingularityRequestParent", name)
 
+	case "pendingDeploy", "PendingDeploy":
+		v, ok := value.(*SingularityDeploy)
+		if ok {
+			self.PendingDeploy = v
+			self.present["pendingDeploy"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field pendingDeploy/PendingDeploy: value %v(%T) couldn't be cast to type *SingularityDeploy", value, value)
+		}
+
+	case "pendingDeployState", "PendingDeployState":
+		v, ok := value.(*SingularityPendingDeploy)
+		if ok {
+			self.PendingDeployState = v
+			self.present["pendingDeployState"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field pendingDeployState/PendingDeployState: value %v(%T) couldn't be cast to type *SingularityPendingDeploy", value, value)
+		}
+
 	case "expiringBounce", "ExpiringBounce":
 		v, ok := value.(*SingularityExpiringBounce)
 		if ok {
@@ -99,48 +119,8 @@ func (self *SingularityRequestParent) SetField(name string, value interface{}) e
 			return fmt.Errorf("Field expiringPause/ExpiringPause: value %v(%T) couldn't be cast to type *SingularityExpiringPause", value, value)
 		}
 
-	case "expiringScale", "ExpiringScale":
-		v, ok := value.(*SingularityExpiringScale)
-		if ok {
-			self.ExpiringScale = v
-			self.present["expiringScale"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field expiringScale/ExpiringScale: value %v(%T) couldn't be cast to type *SingularityExpiringScale", value, value)
-		}
-
 	case "request", "Request":
 		v, ok := value.(*SingularityRequest)
-		if ok {
-			self.Request = v
-			self.present["request"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field request/Request: value %v(%T) couldn't be cast to type *SingularityRequest", value, value)
-		}
-
-	case "state", "State":
-		v, ok := value.(SingularityRequestParentRequestState)
-		if ok {
-			self.State = v
-			self.present["state"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field state/State: value %v(%T) couldn't be cast to type SingularityRequestParentRequestState", value, value)
-		}
-
-	case "pendingDeployState", "PendingDeployState":
-		v, ok := value.(*SingularityPendingDeploy)
-		if ok {
-			self.PendingDeployState = v
-			self.present["pendingDeployState"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field pendingDeployState/PendingDeployState: value %v(%T) couldn't be cast to type *SingularityPendingDeploy", value, value)
-		}
-
-	case "expiringSkipHealthchecks", "ExpiringSkipHealthchecks":
-		v, ok := value.(*SingularityExpiringSkipHealthchecks)
 		if ok {
 			self.ExpiringSkipHealthchecks = v
 			self.present["expiringSkipHealthchecks"] = true
@@ -159,8 +139,28 @@ func (self *SingularityRequestParent) SetField(name string, value interface{}) e
 			return fmt.Errorf("Field requestDeployState/RequestDeployState: value %v(%T) couldn't be cast to type *SingularityRequestDeployState", value, value)
 		}
 
-	case "activeDeploy", "ActiveDeploy":
-		v, ok := value.(*SingularityDeploy)
+	case "expiringScale", "ExpiringScale":
+		v, ok := value.(*SingularityExpiringScale)
+		if ok {
+			self.ExpiringScale = v
+			self.present["expiringScale"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field expiringScale/ExpiringScale: value %v(%T) couldn't be cast to type *SingularityExpiringScale", value, value)
+		}
+
+	case "expiringSkipHealthchecks", "ExpiringSkipHealthchecks":
+		v, ok := value.(*SingularityExpiringSkipHealthchecks)
+		if ok {
+			self.ExpiringSkipHealthchecks = v
+			self.present["expiringSkipHealthchecks"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field expiringSkipHealthchecks/ExpiringSkipHealthchecks: value %v(%T) couldn't be cast to type *SingularityExpiringSkipHealthchecks", value, value)
+		}
+
+	case "state", "State":
+		v, ok := value.(SingularityRequestParentRequestState)
 		if ok {
 			self.ActiveDeploy = v
 			self.present["activeDeploy"] = true
@@ -179,6 +179,16 @@ func (self *SingularityRequestParent) SetField(name string, value interface{}) e
 			return fmt.Errorf("Field pendingDeploy/PendingDeploy: value %v(%T) couldn't be cast to type *SingularityDeploy", value, value)
 		}
 
+	case "activeDeploy", "ActiveDeploy":
+		v, ok := value.(*SingularityDeploy)
+		if ok {
+			self.ActiveDeploy = v
+			self.present["activeDeploy"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field activeDeploy/ActiveDeploy: value %v(%T) couldn't be cast to type *SingularityDeploy", value, value)
+		}
+
 	}
 }
 
@@ -186,6 +196,22 @@ func (self *SingularityRequestParent) GetField(name string) (interface{}, error)
 	switch name {
 	default:
 		return nil, fmt.Errorf("No such field %s on SingularityRequestParent", name)
+
+	case "pendingDeploy", "PendingDeploy":
+		if self.present != nil {
+			if _, ok := self.present["pendingDeploy"]; ok {
+				return self.PendingDeploy, nil
+			}
+		}
+		return nil, fmt.Errorf("Field PendingDeploy no set on PendingDeploy %+v", self)
+
+	case "pendingDeployState", "PendingDeployState":
+		if self.present != nil {
+			if _, ok := self.present["pendingDeployState"]; ok {
+				return self.PendingDeployState, nil
+			}
+		}
+		return nil, fmt.Errorf("Field PendingDeployState no set on PendingDeployState %+v", self)
 
 	case "expiringBounce", "ExpiringBounce":
 		if self.present != nil {
@@ -203,39 +229,7 @@ func (self *SingularityRequestParent) GetField(name string) (interface{}, error)
 		}
 		return nil, fmt.Errorf("Field ExpiringPause no set on ExpiringPause %+v", self)
 
-	case "expiringScale", "ExpiringScale":
-		if self.present != nil {
-			if _, ok := self.present["expiringScale"]; ok {
-				return self.ExpiringScale, nil
-			}
-		}
-		return nil, fmt.Errorf("Field ExpiringScale no set on ExpiringScale %+v", self)
-
 	case "request", "Request":
-		if self.present != nil {
-			if _, ok := self.present["request"]; ok {
-				return self.Request, nil
-			}
-		}
-		return nil, fmt.Errorf("Field Request no set on Request %+v", self)
-
-	case "state", "State":
-		if self.present != nil {
-			if _, ok := self.present["state"]; ok {
-				return self.State, nil
-			}
-		}
-		return nil, fmt.Errorf("Field State no set on State %+v", self)
-
-	case "pendingDeployState", "PendingDeployState":
-		if self.present != nil {
-			if _, ok := self.present["pendingDeployState"]; ok {
-				return self.PendingDeployState, nil
-			}
-		}
-		return nil, fmt.Errorf("Field PendingDeployState no set on PendingDeployState %+v", self)
-
-	case "expiringSkipHealthchecks", "ExpiringSkipHealthchecks":
 		if self.present != nil {
 			if _, ok := self.present["expiringSkipHealthchecks"]; ok {
 				return self.ExpiringSkipHealthchecks, nil
@@ -251,7 +245,23 @@ func (self *SingularityRequestParent) GetField(name string) (interface{}, error)
 		}
 		return nil, fmt.Errorf("Field RequestDeployState no set on RequestDeployState %+v", self)
 
-	case "activeDeploy", "ActiveDeploy":
+	case "expiringScale", "ExpiringScale":
+		if self.present != nil {
+			if _, ok := self.present["expiringScale"]; ok {
+				return self.ExpiringScale, nil
+			}
+		}
+		return nil, fmt.Errorf("Field ExpiringScale no set on ExpiringScale %+v", self)
+
+	case "expiringSkipHealthchecks", "ExpiringSkipHealthchecks":
+		if self.present != nil {
+			if _, ok := self.present["expiringSkipHealthchecks"]; ok {
+				return self.ExpiringSkipHealthchecks, nil
+			}
+		}
+		return nil, fmt.Errorf("Field ExpiringSkipHealthchecks no set on ExpiringSkipHealthchecks %+v", self)
+
+	case "state", "State":
 		if self.present != nil {
 			if _, ok := self.present["activeDeploy"]; ok {
 				return self.ActiveDeploy, nil
@@ -267,6 +277,14 @@ func (self *SingularityRequestParent) GetField(name string) (interface{}, error)
 		}
 		return nil, fmt.Errorf("Field PendingDeploy no set on PendingDeploy %+v", self)
 
+	case "activeDeploy", "ActiveDeploy":
+		if self.present != nil {
+			if _, ok := self.present["activeDeploy"]; ok {
+				return self.ActiveDeploy, nil
+			}
+		}
+		return nil, fmt.Errorf("Field ActiveDeploy no set on ActiveDeploy %+v", self)
+
 	}
 }
 
@@ -278,35 +296,35 @@ func (self *SingularityRequestParent) ClearField(name string) error {
 	default:
 		return fmt.Errorf("No such field %s on SingularityRequestParent", name)
 
+	case "pendingDeploy", "PendingDeploy":
+		self.present["pendingDeploy"] = false
+
+	case "pendingDeployState", "PendingDeployState":
+		self.present["pendingDeployState"] = false
+
 	case "expiringBounce", "ExpiringBounce":
 		self.present["expiringBounce"] = false
 
 	case "expiringPause", "ExpiringPause":
 		self.present["expiringPause"] = false
 
-	case "expiringScale", "ExpiringScale":
-		self.present["expiringScale"] = false
-
 	case "request", "Request":
 		self.present["request"] = false
-
-	case "state", "State":
-		self.present["state"] = false
-
-	case "pendingDeployState", "PendingDeployState":
-		self.present["pendingDeployState"] = false
-
-	case "expiringSkipHealthchecks", "ExpiringSkipHealthchecks":
-		self.present["expiringSkipHealthchecks"] = false
 
 	case "requestDeployState", "RequestDeployState":
 		self.present["requestDeployState"] = false
 
+	case "expiringScale", "ExpiringScale":
+		self.present["expiringScale"] = false
+
+	case "expiringSkipHealthchecks", "ExpiringSkipHealthchecks":
+		self.present["expiringSkipHealthchecks"] = false
+
+	case "state", "State":
+		self.present["state"] = false
+
 	case "activeDeploy", "ActiveDeploy":
 		self.present["activeDeploy"] = false
-
-	case "pendingDeploy", "PendingDeploy":
-		self.present["pendingDeploy"] = false
 
 	}
 

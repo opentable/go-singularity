@@ -1397,7 +1397,13 @@
         },
         "logrotateFrequency": {
           "$ref": "SingularityExecutorLogrotateFrequency",
-          "description": "Run logrotate this often. Can be HOURLY, DAILY, WEEKLY, MONTHLY"
+          "description": "Run logrotate this often. Can be HOURLY, DAILY, WEEKLY, MONTHLY",
+          "enum": [
+            "HOURLY",
+            "DAILY",
+            "WEEKLY",
+            "MONTHLY"
+          ]
         }
       }
     },
@@ -1573,7 +1579,12 @@
         },
         "scheduleType": {
           "$ref": "ScheduleType",
-          "description": "The type of schedule associated with the scheduled field. Can be CRON, QUARTZ, or RFC5545"
+          "description": "The type of schedule associated with the scheduled field. Can be CRON, QUARTZ, or RFC5545",
+          "enum": [
+            "CRON",
+            "QUARTZ",
+            "RFC5545"
+          ]
         },
         "scheduleTimeZone": {
           "type": "string",
@@ -1621,7 +1632,15 @@
         },
         "slavePlacement": {
           "$ref": "SlavePlacement",
-          "description": "Strategy for determining where to place new tasks. Can be SEPARATE, OPTIMISTIC, GREEDY, SEPARATE_BY_DEPLOY, or SEPARATE_BY_REQUEST"
+          "description": "Strategy for determining where to place new tasks. Can be SEPARATE, OPTIMISTIC, GREEDY, SEPARATE_BY_DEPLOY, or SEPARATE_BY_REQUEST",
+          "enum": [
+            "SEPARATE",
+            "OPTIMISTIC",
+            "GREEDY",
+            "SEPARATE_BY_DEPLOY",
+            "SEPARATE_BY_REQUEST",
+            "SPREAD_ALL_SLAVES"
+          ]
         },
         "requiredSlaveAttributes": {
           "$ref": "Map[string,string]",
@@ -1856,11 +1875,11 @@
           "description": "Custom Mesos executor source."
         },
         "customExecutorResources": {
-          "$ref": "com.hubspot.mesos.Resources",
+          "$ref": "Resources",
           "description": "Resources to allocate for custom mesos executor"
         },
         "resources": {
-          "$ref": "com.hubspot.mesos.Resources",
+          "$ref": "Resources",
           "description": "Resources required for this deploy."
         },
         "command": {
@@ -1932,8 +1951,12 @@
           "description": "Perform healthcheck on this dynamically allocated port (e.g. 0 for first port), defaults to first port"
         },
         "healthcheckProtocol": {
-          "$ref": "com.hubspot.singularity.HealthcheckProtocol",
-          "description": "Healthcheck protocol - HTTP or HTTPS"
+          "$ref": "HealthcheckProtocol",
+          "description": "Healthcheck protocol - HTTP or HTTPS",
+          "enum": [
+            "http",
+            "https"
+          ]
         },
         "healthcheckMaxRetries": {
           "type": "integer",
@@ -2264,7 +2287,11 @@
         },
         "protocol": {
           "$ref": "HealthcheckProtocol",
-          "description": "Healthcheck protocol - HTTP or HTTPS"
+          "description": "Healthcheck protocol - HTTP or HTTPS",
+          "enum": [
+            "http",
+            "https"
+          ]
         },
         "startupTimeoutSeconds": {
           "type": "integer",
@@ -2350,14 +2377,28 @@
           "format": "int32"
         },
         "instanceSequentialFailureTimestamps": {
-          "$ref": "com.google.common.collect.ListMultimap<java.lang.Integer, java.lang.Long>"
+          "$ref": "Map[int,List[int]]"
         },
         "lastFinishAt": {
           "type": "integer",
           "format": "int64"
         },
         "lastTaskState": {
-          "$ref": "ExtendedTaskState"
+          "$ref": "ExtendedTaskState",
+          "enum": [
+            "TASK_LAUNCHED",
+            "TASK_STAGING",
+            "TASK_STARTING",
+            "TASK_RUNNING",
+            "TASK_CLEANING",
+            "TASK_KILLING",
+            "TASK_FINISHED",
+            "TASK_FAILED",
+            "TASK_KILLED",
+            "TASK_LOST",
+            "TASK_LOST_WHILE_DOWN",
+            "TASK_ERROR"
+          ]
         },
         "averageRuntimeMillis": {
           "type": "integer",
@@ -2476,7 +2517,21 @@
           "format": "int64"
         },
         "lastTaskState": {
-          "$ref": "ExtendedTaskState"
+          "$ref": "ExtendedTaskState",
+          "enum": [
+            "TASK_LAUNCHED",
+            "TASK_STAGING",
+            "TASK_STARTING",
+            "TASK_RUNNING",
+            "TASK_CLEANING",
+            "TASK_KILLING",
+            "TASK_FINISHED",
+            "TASK_FAILED",
+            "TASK_KILLED",
+            "TASK_LOST",
+            "TASK_LOST_WHILE_DOWN",
+            "TASK_ERROR"
+          ]
         },
         "runId": {
           "type": "string"

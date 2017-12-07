@@ -16,7 +16,9 @@ type S3ArtifactSignature struct {
 
 	IsArtifactList bool `json:"isArtifactList"`
 
-	Md5sum string `json:"md5sum,omitempty"`
+	TargetFolderRelativeToTask string `json:"targetFolderRelativeToTask,omitempty"`
+
+	Name string `json:"name,omitempty"`
 
 	ArtifactFilename string `json:"artifactFilename,omitempty"`
 
@@ -24,9 +26,7 @@ type S3ArtifactSignature struct {
 
 	Filename string `json:"filename,omitempty"`
 
-	TargetFolderRelativeToTask string `json:"targetFolderRelativeToTask,omitempty"`
-
-	Name string `json:"name,omitempty"`
+	Md5sum string `json:"md5sum,omitempty"`
 }
 
 func (self *S3ArtifactSignature) Populate(jsonReader io.ReadCloser) (err error) {
@@ -95,14 +95,14 @@ func (self *S3ArtifactSignature) SetField(name string, value interface{}) error 
 			return fmt.Errorf("Field isArtifactList/IsArtifactList: value %v(%T) couldn't be cast to type bool", value, value)
 		}
 
-	case "md5sum", "Md5sum":
+	case "targetFolderRelativeToTask", "TargetFolderRelativeToTask":
 		v, ok := value.(string)
 		if ok {
-			self.Md5sum = v
-			self.present["md5sum"] = true
+			self.TargetFolderRelativeToTask = v
+			self.present["targetFolderRelativeToTask"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field md5sum/Md5sum: value %v(%T) couldn't be cast to type string", value, value)
+			return fmt.Errorf("Field targetFolderRelativeToTask/TargetFolderRelativeToTask: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "artifactFilename", "ArtifactFilename":
@@ -115,14 +115,14 @@ func (self *S3ArtifactSignature) SetField(name string, value interface{}) error 
 			return fmt.Errorf("Field artifactFilename/ArtifactFilename: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
-	case "s3ObjectKey", "S3ObjectKey":
+	case "artifactFilename", "ArtifactFilename":
 		v, ok := value.(string)
 		if ok {
-			self.S3ObjectKey = v
-			self.present["s3ObjectKey"] = true
+			self.ArtifactFilename = v
+			self.present["artifactFilename"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field s3ObjectKey/S3ObjectKey: value %v(%T) couldn't be cast to type string", value, value)
+			return fmt.Errorf("Field artifactFilename/ArtifactFilename: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "filename", "Filename":
@@ -135,14 +135,24 @@ func (self *S3ArtifactSignature) SetField(name string, value interface{}) error 
 			return fmt.Errorf("Field filename/Filename: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
-	case "targetFolderRelativeToTask", "TargetFolderRelativeToTask":
+	case "filename", "Filename":
 		v, ok := value.(string)
 		if ok {
-			self.TargetFolderRelativeToTask = v
-			self.present["targetFolderRelativeToTask"] = true
+			self.Filename = v
+			self.present["filename"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field targetFolderRelativeToTask/TargetFolderRelativeToTask: value %v(%T) couldn't be cast to type string", value, value)
+			return fmt.Errorf("Field filename/Filename: value %v(%T) couldn't be cast to type string", value, value)
+		}
+
+	case "md5sum", "Md5sum":
+		v, ok := value.(string)
+		if ok {
+			self.Md5sum = v
+			self.present["md5sum"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field md5sum/Md5sum: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
 	case "name", "Name":
@@ -187,13 +197,21 @@ func (self *S3ArtifactSignature) GetField(name string) (interface{}, error) {
 		}
 		return nil, fmt.Errorf("Field IsArtifactList no set on IsArtifactList %+v", self)
 
-	case "md5sum", "Md5sum":
+	case "targetFolderRelativeToTask", "TargetFolderRelativeToTask":
 		if self.present != nil {
-			if _, ok := self.present["md5sum"]; ok {
-				return self.Md5sum, nil
+			if _, ok := self.present["targetFolderRelativeToTask"]; ok {
+				return self.TargetFolderRelativeToTask, nil
 			}
 		}
-		return nil, fmt.Errorf("Field Md5sum no set on Md5sum %+v", self)
+		return nil, fmt.Errorf("Field TargetFolderRelativeToTask no set on TargetFolderRelativeToTask %+v", self)
+
+	case "name", "Name":
+		if self.present != nil {
+			if _, ok := self.present["name"]; ok {
+				return self.Name, nil
+			}
+		}
+		return nil, fmt.Errorf("Field Name no set on Name %+v", self)
 
 	case "artifactFilename", "ArtifactFilename":
 		if self.present != nil {
@@ -219,13 +237,13 @@ func (self *S3ArtifactSignature) GetField(name string) (interface{}, error) {
 		}
 		return nil, fmt.Errorf("Field Filename no set on Filename %+v", self)
 
-	case "targetFolderRelativeToTask", "TargetFolderRelativeToTask":
+	case "md5sum", "Md5sum":
 		if self.present != nil {
-			if _, ok := self.present["targetFolderRelativeToTask"]; ok {
-				return self.TargetFolderRelativeToTask, nil
+			if _, ok := self.present["md5sum"]; ok {
+				return self.Md5sum, nil
 			}
 		}
-		return nil, fmt.Errorf("Field TargetFolderRelativeToTask no set on TargetFolderRelativeToTask %+v", self)
+		return nil, fmt.Errorf("Field Md5sum no set on Md5sum %+v", self)
 
 	case "name", "Name":
 		if self.present != nil {
@@ -255,8 +273,11 @@ func (self *S3ArtifactSignature) ClearField(name string) error {
 	case "isArtifactList", "IsArtifactList":
 		self.present["isArtifactList"] = false
 
-	case "md5sum", "Md5sum":
-		self.present["md5sum"] = false
+	case "targetFolderRelativeToTask", "TargetFolderRelativeToTask":
+		self.present["targetFolderRelativeToTask"] = false
+
+	case "name", "Name":
+		self.present["name"] = false
 
 	case "artifactFilename", "ArtifactFilename":
 		self.present["artifactFilename"] = false
@@ -267,8 +288,8 @@ func (self *S3ArtifactSignature) ClearField(name string) error {
 	case "filename", "Filename":
 		self.present["filename"] = false
 
-	case "targetFolderRelativeToTask", "TargetFolderRelativeToTask":
-		self.present["targetFolderRelativeToTask"] = false
+	case "md5sum", "Md5sum":
+		self.present["md5sum"] = false
 
 	case "name", "Name":
 		self.present["name"] = false

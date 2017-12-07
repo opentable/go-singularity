@@ -37,6 +37,8 @@ type SingularityRequestHistory struct {
 	EventType SingularityRequestHistoryRequestHistoryType `json:"eventType"`
 
 	Request *SingularityRequest `json:"request"`
+
+	Message string `json:"message,omitempty"`
 }
 
 func (self *SingularityRequestHistory) Populate(jsonReader io.ReadCloser) (err error) {
@@ -125,6 +127,16 @@ func (self *SingularityRequestHistory) SetField(name string, value interface{}) 
 			return fmt.Errorf("Field request/Request: value %v(%T) couldn't be cast to type *SingularityRequest", value, value)
 		}
 
+	case "message", "Message":
+		v, ok := value.(string)
+		if ok {
+			self.Message = v
+			self.present["message"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field message/Message: value %v(%T) couldn't be cast to type string", value, value)
+		}
+
 	}
 }
 
@@ -173,6 +185,14 @@ func (self *SingularityRequestHistory) GetField(name string) (interface{}, error
 		}
 		return nil, fmt.Errorf("Field Request no set on Request %+v", self)
 
+	case "message", "Message":
+		if self.present != nil {
+			if _, ok := self.present["message"]; ok {
+				return self.Message, nil
+			}
+		}
+		return nil, fmt.Errorf("Field Message no set on Message %+v", self)
+
 	}
 }
 
@@ -198,6 +218,9 @@ func (self *SingularityRequestHistory) ClearField(name string) error {
 
 	case "request", "Request":
 		self.present["request"] = false
+
+	case "message", "Message":
+		self.present["message"] = false
 
 	}
 

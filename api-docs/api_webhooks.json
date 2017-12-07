@@ -664,7 +664,12 @@
         },
         "scheduleType": {
           "$ref": "ScheduleType",
-          "description": "The type of schedule associated with the scheduled field. Can be CRON, QUARTZ, or RFC5545"
+          "description": "The type of schedule associated with the scheduled field. Can be CRON, QUARTZ, or RFC5545",
+          "enum": [
+            "CRON",
+            "QUARTZ",
+            "RFC5545"
+          ]
         },
         "scheduleTimeZone": {
           "type": "string",
@@ -712,7 +717,15 @@
         },
         "slavePlacement": {
           "$ref": "SlavePlacement",
-          "description": "Strategy for determining where to place new tasks. Can be SEPARATE, OPTIMISTIC, GREEDY, SEPARATE_BY_DEPLOY, or SEPARATE_BY_REQUEST"
+          "description": "Strategy for determining where to place new tasks. Can be SEPARATE, OPTIMISTIC, GREEDY, SEPARATE_BY_DEPLOY, or SEPARATE_BY_REQUEST",
+          "enum": [
+            "SEPARATE",
+            "OPTIMISTIC",
+            "GREEDY",
+            "SEPARATE_BY_DEPLOY",
+            "SEPARATE_BY_REQUEST",
+            "SPREAD_ALL_SLAVES"
+          ]
         },
         "requiredSlaveAttributes": {
           "$ref": "Map[string,string]",
@@ -918,7 +931,7 @@
           "description": "Custom Mesos executor source."
         },
         "customExecutorResources": {
-          "$ref": "com.hubspot.mesos.Resources",
+          "$ref": "Resources",
           "description": "Resources to allocate for custom mesos executor"
         },
         "resources": {
@@ -994,8 +1007,12 @@
           "description": "Perform healthcheck on this dynamically allocated port (e.g. 0 for first port), defaults to first port"
         },
         "healthcheckProtocol": {
-          "$ref": "com.hubspot.singularity.HealthcheckProtocol",
-          "description": "Healthcheck protocol - HTTP or HTTPS"
+          "$ref": "HealthcheckProtocol",
+          "description": "Healthcheck protocol - HTTP or HTTPS",
+          "enum": [
+            "http",
+            "https"
+          ]
         },
         "healthcheckMaxRetries": {
           "type": "integer",
@@ -1236,7 +1253,11 @@
         },
         "protocol": {
           "$ref": "HealthcheckProtocol",
-          "description": "Healthcheck protocol - HTTP or HTTPS"
+          "description": "Healthcheck protocol - HTTP or HTTPS",
+          "enum": [
+            "http",
+            "https"
+          ]
         },
         "startupTimeoutSeconds": {
           "type": "integer",

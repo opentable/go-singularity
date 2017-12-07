@@ -12,8 +12,6 @@ type SingularityTaskHealthcheckResult struct {
 
 	StatusCode int32 `json:"statusCode"`
 
-	DurationMillis int64 `json:"durationMillis"`
-
 	ResponseBody string `json:"responseBody,omitempty"`
 
 	ErrorMessage string `json:"errorMessage,omitempty"`
@@ -23,6 +21,8 @@ type SingularityTaskHealthcheckResult struct {
 	Timestamp int64 `json:"timestamp"`
 
 	TaskId *SingularityTaskId `json:"taskId"`
+
+	StatusCode int32 `json:"statusCode"`
 }
 
 func (self *SingularityTaskHealthcheckResult) Populate(jsonReader io.ReadCloser) (err error) {
@@ -131,6 +131,16 @@ func (self *SingularityTaskHealthcheckResult) SetField(name string, value interf
 			return fmt.Errorf("Field taskId/TaskId: value %v(%T) couldn't be cast to type *SingularityTaskId", value, value)
 		}
 
+	case "statusCode", "StatusCode":
+		v, ok := value.(int32)
+		if ok {
+			self.StatusCode = v
+			self.present["statusCode"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field statusCode/StatusCode: value %v(%T) couldn't be cast to type int32", value, value)
+		}
+
 	}
 }
 
@@ -146,14 +156,6 @@ func (self *SingularityTaskHealthcheckResult) GetField(name string) (interface{}
 			}
 		}
 		return nil, fmt.Errorf("Field StatusCode no set on StatusCode %+v", self)
-
-	case "durationMillis", "DurationMillis":
-		if self.present != nil {
-			if _, ok := self.present["durationMillis"]; ok {
-				return self.DurationMillis, nil
-			}
-		}
-		return nil, fmt.Errorf("Field DurationMillis no set on DurationMillis %+v", self)
 
 	case "responseBody", "ResponseBody":
 		if self.present != nil {
@@ -195,6 +197,14 @@ func (self *SingularityTaskHealthcheckResult) GetField(name string) (interface{}
 		}
 		return nil, fmt.Errorf("Field TaskId no set on TaskId %+v", self)
 
+	case "statusCode", "StatusCode":
+		if self.present != nil {
+			if _, ok := self.present["statusCode"]; ok {
+				return self.StatusCode, nil
+			}
+		}
+		return nil, fmt.Errorf("Field StatusCode no set on StatusCode %+v", self)
+
 	}
 }
 
@@ -226,6 +236,9 @@ func (self *SingularityTaskHealthcheckResult) ClearField(name string) error {
 
 	case "taskId", "TaskId":
 		self.present["taskId"] = false
+
+	case "statusCode", "StatusCode":
+		self.present["statusCode"] = false
 
 	}
 
