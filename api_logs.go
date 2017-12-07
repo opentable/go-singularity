@@ -12,7 +12,7 @@ func (client *Client) GetS3LogsForTask(taskId string, start int64, end int64, ex
 	}
 
 	response = make(dtos.SingularityS3LogList, 0)
-	err = client.DTORequest(&response, "GET", "/api/logs/task/{taskId}", pathParamMap, queryParamMap)
+	err = client.DTORequest("singularity-gets3logsfortask", &response, "GET", "/api/logs/task/{taskId}", pathParamMap, queryParamMap)
 
 	return
 }
@@ -26,7 +26,7 @@ func (client *Client) GetS3LogsForRequest(requestId string, start int64, end int
 	}
 
 	response = make(dtos.SingularityS3LogList, 0)
-	err = client.DTORequest(&response, "GET", "/api/logs/request/{requestId}", pathParamMap, queryParamMap)
+	err = client.DTORequest("singularity-gets3logsforrequest", &response, "GET", "/api/logs/request/{requestId}", pathParamMap, queryParamMap)
 
 	return
 }
@@ -40,7 +40,7 @@ func (client *Client) GetS3LogsForDeploy(requestId string, deployId string, star
 	}
 
 	response = make(dtos.SingularityS3LogList, 0)
-	err = client.DTORequest(&response, "GET", "/api/logs/request/{requestId}/deploy/{deployId}", pathParamMap, queryParamMap)
+	err = client.DTORequest("singularity-gets3logsfordeploy", &response, "GET", "/api/logs/request/{requestId}/deploy/{deployId}", pathParamMap, queryParamMap)
 
 	return
 }
@@ -50,7 +50,7 @@ func (client *Client) GetPaginatedS3Logs(body *dtos.SingularityS3SearchRequest) 
 	queryParamMap := map[string]interface{}{}
 
 	response = make(dtos.SingularityS3LogList, 0)
-	err = client.DTORequest(&response, "POST", "/api/logs/search", pathParamMap, queryParamMap, body)
+	err = client.DTORequest("singularity-getpaginateds3logs", &response, "POST", "/api/logs/search", pathParamMap, queryParamMap, body)
 
 	return
 }

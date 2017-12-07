@@ -10,7 +10,7 @@ func (client *Client) GetScheduledTaskIds(useWebCache bool) (response dtos.Singu
 	}
 
 	response = make(dtos.SingularityPendingTaskIdList, 0)
-	err = client.DTORequest(&response, "GET", "/api/tasks/scheduled/ids", pathParamMap, queryParamMap)
+	err = client.DTORequest("singularity-getscheduledtaskids", &response, "GET", "/api/tasks/scheduled/ids", pathParamMap, queryParamMap)
 
 	return
 }
@@ -22,7 +22,7 @@ func (client *Client) GetScheduledTasks(useWebCache bool) (response dtos.Singula
 	}
 
 	response = make(dtos.SingularityTaskRequestList, 0)
-	err = client.DTORequest(&response, "GET", "/api/tasks/scheduled", pathParamMap, queryParamMap)
+	err = client.DTORequest("singularity-getscheduledtasks", &response, "GET", "/api/tasks/scheduled", pathParamMap, queryParamMap)
 
 	return
 }
@@ -34,7 +34,7 @@ func (client *Client) GetTaskCleanup(taskId string) (response *dtos.SingularityT
 	queryParamMap := map[string]interface{}{}
 
 	response = new(dtos.SingularityTaskCleanup)
-	err = client.DTORequest(response, "GET", "/api/tasks/task/{taskId}/cleanup", pathParamMap, queryParamMap)
+	err = client.DTORequest("singularity-gettaskcleanup", response, "GET", "/api/tasks/task/{taskId}/cleanup", pathParamMap, queryParamMap)
 
 	return
 }
@@ -46,7 +46,7 @@ func (client *Client) KillTask(taskId string, body *dtos.SingularityKillTaskRequ
 	queryParamMap := map[string]interface{}{}
 
 	response = new(dtos.SingularityTaskCleanup)
-	err = client.DTORequest(response, "DELETE", "/api/tasks/task/{taskId}", pathParamMap, queryParamMap, body)
+	err = client.DTORequest("singularity-killtask", response, "DELETE", "/api/tasks/task/{taskId}", pathParamMap, queryParamMap, body)
 
 	return
 }
@@ -58,7 +58,7 @@ func (client *Client) GetActiveTask(taskId string) (response *dtos.SingularityTa
 	queryParamMap := map[string]interface{}{}
 
 	response = new(dtos.SingularityTask)
-	err = client.DTORequest(response, "GET", "/api/tasks/task/{taskId}", pathParamMap, queryParamMap)
+	err = client.DTORequest("singularity-getactivetask", response, "GET", "/api/tasks/task/{taskId}", pathParamMap, queryParamMap)
 
 	return
 }
@@ -72,7 +72,7 @@ func (client *Client) RunShellCommand(taskId string, body *dtos.SingularityShell
 	queryParamMap := map[string]interface{}{}
 
 	response = new(dtos.SingularityTaskShellCommandRequest)
-	err = client.DTORequest(response, "POST", "/api/tasks/task/{taskId}/command", pathParamMap, queryParamMap, body)
+	err = client.DTORequest("singularity-runshellcommand", response, "POST", "/api/tasks/task/{taskId}/command", pathParamMap, queryParamMap, body)
 
 	return
 }
@@ -84,7 +84,7 @@ func (client *Client) GetPendingTask(pendingTaskId string) (response *dtos.Singu
 	queryParamMap := map[string]interface{}{}
 
 	response = new(dtos.SingularityTaskRequest)
-	err = client.DTORequest(response, "GET", "/api/tasks/scheduled/task/{pendingTaskId}", pathParamMap, queryParamMap)
+	err = client.DTORequest("singularity-getpendingtask", response, "GET", "/api/tasks/scheduled/task/{pendingTaskId}", pathParamMap, queryParamMap)
 
 	return
 }
@@ -98,7 +98,7 @@ func (client *Client) GetScheduledTasksForRequest(requestId string, useWebCache 
 	}
 
 	response = make(dtos.SingularityTaskRequestList, 0)
-	err = client.DTORequest(&response, "GET", "/api/tasks/scheduled/request/{requestId}", pathParamMap, queryParamMap)
+	err = client.DTORequest("singularity-getscheduledtasksforrequest", &response, "GET", "/api/tasks/scheduled/request/{requestId}", pathParamMap, queryParamMap)
 
 	return
 }
@@ -112,7 +112,7 @@ func (client *Client) GetTasksForSlave(slaveId string, useWebCache bool) (respon
 	}
 
 	response = make(dtos.SingularityTaskList, 0)
-	err = client.DTORequest(&response, "GET", "/api/tasks/active/slave/{slaveId}", pathParamMap, queryParamMap)
+	err = client.DTORequest("singularity-gettasksforslave", &response, "GET", "/api/tasks/active/slave/{slaveId}", pathParamMap, queryParamMap)
 
 	return
 }
@@ -124,7 +124,7 @@ func (client *Client) GetActiveTasks(useWebCache bool) (response dtos.Singularit
 	}
 
 	response = make(dtos.SingularityTaskList, 0)
-	err = client.DTORequest(&response, "GET", "/api/tasks/active", pathParamMap, queryParamMap)
+	err = client.DTORequest("singularity-getactivetasks", &response, "GET", "/api/tasks/active", pathParamMap, queryParamMap)
 
 	return
 }
@@ -136,7 +136,7 @@ func (client *Client) GetCleaningTasks(useWebCache bool) (response dtos.Singular
 	}
 
 	response = make(dtos.SingularityTaskCleanupList, 0)
-	err = client.DTORequest(&response, "GET", "/api/tasks/cleaning", pathParamMap, queryParamMap)
+	err = client.DTORequest("singularity-getcleaningtasks", &response, "GET", "/api/tasks/cleaning", pathParamMap, queryParamMap)
 
 	return
 }
@@ -146,7 +146,7 @@ func (client *Client) GetKilledTasks() (response dtos.SingularityKilledTaskIdRec
 	queryParamMap := map[string]interface{}{}
 
 	response = make(dtos.SingularityKilledTaskIdRecordList, 0)
-	err = client.DTORequest(&response, "GET", "/api/tasks/killed", pathParamMap, queryParamMap)
+	err = client.DTORequest("singularity-getkilledtasks", &response, "GET", "/api/tasks/killed", pathParamMap, queryParamMap)
 
 	return
 }
@@ -156,7 +156,7 @@ func (client *Client) GetLbCleanupTasks() (response dtos.SingularityTaskIdList, 
 	queryParamMap := map[string]interface{}{}
 
 	response = make(dtos.SingularityTaskIdList, 0)
-	err = client.DTORequest(&response, "GET", "/api/tasks/lbcleanup", pathParamMap, queryParamMap)
+	err = client.DTORequest("singularity-getlbcleanuptasks", &response, "GET", "/api/tasks/lbcleanup", pathParamMap, queryParamMap)
 
 	return
 }
@@ -168,7 +168,7 @@ func (client *Client) GetTaskStatistics(taskId string) (response *dtos.MesosTask
 	queryParamMap := map[string]interface{}{}
 
 	response = new(dtos.MesosTaskStatisticsObject)
-	err = client.DTORequest(response, "GET", "/api/tasks/task/{taskId}/statistics", pathParamMap, queryParamMap)
+	err = client.DTORequest("singularity-gettaskstatistics", response, "GET", "/api/tasks/task/{taskId}/statistics", pathParamMap, queryParamMap)
 
 	return
 }

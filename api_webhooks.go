@@ -12,7 +12,7 @@ func (client *Client) GetActiveWebhooks() (response dtos.SingularityWebhookList,
 	queryParamMap := map[string]interface{}{}
 
 	response = make(dtos.SingularityWebhookList, 0)
-	err = client.DTORequest(&response, "GET", "/api/webhooks", pathParamMap, queryParamMap)
+	err = client.DTORequest("singularity-getactivewebhooks", &response, "GET", "/api/webhooks", pathParamMap, queryParamMap)
 
 	return
 }
@@ -21,7 +21,7 @@ func (client *Client) AddWebhook(body *dtos.SingularityWebhook) (response string
 
 	queryParamMap := map[string]interface{}{}
 
-	resBody, err := client.Request("POST", "/api/webhooks", pathParamMap, queryParamMap, body)
+	resBody, err := client.Request("singularity-addwebhook", "POST", "/api/webhooks", pathParamMap, queryParamMap, body)
 	readBuf := bytes.Buffer{}
 	readBuf.ReadFrom(resBody)
 	response = string(readBuf.Bytes())
@@ -34,7 +34,7 @@ func (client *Client) DeleteWebhook(webhookId string) (response string, err erro
 		"webhookId": webhookId,
 	}
 
-	resBody, err := client.Request("DELETE", "/api/webhooks", pathParamMap, queryParamMap)
+	resBody, err := client.Request("singularity-deletewebhook", "DELETE", "/api/webhooks", pathParamMap, queryParamMap)
 	readBuf := bytes.Buffer{}
 	readBuf.ReadFrom(resBody)
 	response = string(readBuf.Bytes())
@@ -46,7 +46,7 @@ func (client *Client) GetWebhooksWithQueueSize() (response dtos.SingularityWebho
 	queryParamMap := map[string]interface{}{}
 
 	response = make(dtos.SingularityWebhookSummaryList, 0)
-	err = client.DTORequest(&response, "GET", "/api/webhooks/summary", pathParamMap, queryParamMap)
+	err = client.DTORequest("singularity-getwebhookswithqueuesize", &response, "GET", "/api/webhooks/summary", pathParamMap, queryParamMap)
 
 	return
 }
@@ -57,7 +57,7 @@ func (client *Client) DeleteWebhookDeprecated(webhookId string) (response string
 
 	queryParamMap := map[string]interface{}{}
 
-	resBody, err := client.Request("DELETE", "/api/webhooks/{webhookId}", pathParamMap, queryParamMap)
+	resBody, err := client.Request("singularity-deletewebhookdeprecated", "DELETE", "/api/webhooks/{webhookId}", pathParamMap, queryParamMap)
 	readBuf := bytes.Buffer{}
 	readBuf.ReadFrom(resBody)
 	response = string(readBuf.Bytes())
@@ -71,7 +71,7 @@ func (client *Client) GetQueuedDeployUpdatesDeprecated(webhookId string) (respon
 	queryParamMap := map[string]interface{}{}
 
 	response = make(dtos.SingularityDeployUpdateList, 0)
-	err = client.DTORequest(&response, "GET", "/api/webhooks/deploy/{webhookId}", pathParamMap, queryParamMap)
+	err = client.DTORequest("singularity-getqueueddeployupdatesdeprecated", &response, "GET", "/api/webhooks/deploy/{webhookId}", pathParamMap, queryParamMap)
 
 	return
 }
@@ -83,7 +83,7 @@ func (client *Client) GetQueuedRequestUpdatesDeprecated(webhookId string) (respo
 	queryParamMap := map[string]interface{}{}
 
 	response = make(dtos.SingularityRequestHistoryList, 0)
-	err = client.DTORequest(&response, "GET", "/api/webhooks/request/{webhookId}", pathParamMap, queryParamMap)
+	err = client.DTORequest("singularity-getqueuedrequestupdatesdeprecated", &response, "GET", "/api/webhooks/request/{webhookId}", pathParamMap, queryParamMap)
 
 	return
 }
@@ -95,7 +95,7 @@ func (client *Client) GetQueuedTaskUpdatesDeprecated(webhookId string) (response
 	queryParamMap := map[string]interface{}{}
 
 	response = make(dtos.SingularityTaskHistoryUpdateList, 0)
-	err = client.DTORequest(&response, "GET", "/api/webhooks/task/{webhookId}", pathParamMap, queryParamMap)
+	err = client.DTORequest("singularity-getqueuedtaskupdatesdeprecated", &response, "GET", "/api/webhooks/task/{webhookId}", pathParamMap, queryParamMap)
 
 	return
 }
@@ -107,7 +107,7 @@ func (client *Client) GetQueuedDeployUpdates(webhookId string) (response dtos.Si
 	}
 
 	response = make(dtos.SingularityDeployUpdateList, 0)
-	err = client.DTORequest(&response, "GET", "/api/webhooks/deploy", pathParamMap, queryParamMap)
+	err = client.DTORequest("singularity-getqueueddeployupdates", &response, "GET", "/api/webhooks/deploy", pathParamMap, queryParamMap)
 
 	return
 }
@@ -119,7 +119,7 @@ func (client *Client) GetQueuedRequestUpdates(webhookId string) (response dtos.S
 	}
 
 	response = make(dtos.SingularityRequestHistoryList, 0)
-	err = client.DTORequest(&response, "GET", "/api/webhooks/request", pathParamMap, queryParamMap)
+	err = client.DTORequest("singularity-getqueuedrequestupdates", &response, "GET", "/api/webhooks/request", pathParamMap, queryParamMap)
 
 	return
 }
@@ -131,7 +131,7 @@ func (client *Client) GetQueuedTaskUpdates(webhookId string) (response dtos.Sing
 	}
 
 	response = make(dtos.SingularityTaskHistoryUpdateList, 0)
-	err = client.DTORequest(&response, "GET", "/api/webhooks/task", pathParamMap, queryParamMap)
+	err = client.DTORequest("singularity-getqueuedtaskupdates", &response, "GET", "/api/webhooks/task", pathParamMap, queryParamMap)
 
 	return
 }

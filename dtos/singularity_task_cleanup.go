@@ -37,6 +37,10 @@ const (
 type SingularityTaskCleanup struct {
 	present map[string]bool
 
+	User string `json:"user,omitempty"`
+
+	CleanupType SingularityTaskCleanupTaskCleanupType `json:"cleanupType"`
+
 	Timestamp int64 `json:"timestamp"`
 
 	TaskId *SingularityTaskId `json:"taskId"`
@@ -46,10 +50,6 @@ type SingularityTaskCleanup struct {
 	ActionId string `json:"actionId,omitempty"`
 
 	RunBeforeKillId *SingularityTaskShellCommandRequestId `json:"runBeforeKillId"`
-
-	User string `json:"user,omitempty"`
-
-	CleanupType SingularityTaskCleanupTaskCleanupType `json:"cleanupType"`
 }
 
 func (self *SingularityTaskCleanup) Populate(jsonReader io.ReadCloser) (err error) {
@@ -87,6 +87,26 @@ func (self *SingularityTaskCleanup) SetField(name string, value interface{}) err
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on SingularityTaskCleanup", name)
+
+	case "user", "User":
+		v, ok := value.(string)
+		if ok {
+			self.User = v
+			self.present["user"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field user/User: value %v(%T) couldn't be cast to type string", value, value)
+		}
+
+	case "cleanupType", "CleanupType":
+		v, ok := value.(SingularityTaskCleanupTaskCleanupType)
+		if ok {
+			self.CleanupType = v
+			self.present["cleanupType"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field cleanupType/CleanupType: value %v(%T) couldn't be cast to type SingularityTaskCleanupTaskCleanupType", value, value)
+		}
 
 	case "timestamp", "Timestamp":
 		v, ok := value.(int64)
@@ -138,26 +158,6 @@ func (self *SingularityTaskCleanup) SetField(name string, value interface{}) err
 			return fmt.Errorf("Field runBeforeKillId/RunBeforeKillId: value %v(%T) couldn't be cast to type *SingularityTaskShellCommandRequestId", value, value)
 		}
 
-	case "user", "User":
-		v, ok := value.(string)
-		if ok {
-			self.User = v
-			self.present["user"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field user/User: value %v(%T) couldn't be cast to type string", value, value)
-		}
-
-	case "cleanupType", "CleanupType":
-		v, ok := value.(SingularityTaskCleanupTaskCleanupType)
-		if ok {
-			self.CleanupType = v
-			self.present["cleanupType"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field cleanupType/CleanupType: value %v(%T) couldn't be cast to type SingularityTaskCleanupTaskCleanupType", value, value)
-		}
-
 	}
 }
 
@@ -165,6 +165,22 @@ func (self *SingularityTaskCleanup) GetField(name string) (interface{}, error) {
 	switch name {
 	default:
 		return nil, fmt.Errorf("No such field %s on SingularityTaskCleanup", name)
+
+	case "user", "User":
+		if self.present != nil {
+			if _, ok := self.present["user"]; ok {
+				return self.User, nil
+			}
+		}
+		return nil, fmt.Errorf("Field User no set on User %+v", self)
+
+	case "cleanupType", "CleanupType":
+		if self.present != nil {
+			if _, ok := self.present["cleanupType"]; ok {
+				return self.CleanupType, nil
+			}
+		}
+		return nil, fmt.Errorf("Field CleanupType no set on CleanupType %+v", self)
 
 	case "timestamp", "Timestamp":
 		if self.present != nil {
@@ -206,22 +222,6 @@ func (self *SingularityTaskCleanup) GetField(name string) (interface{}, error) {
 		}
 		return nil, fmt.Errorf("Field RunBeforeKillId no set on RunBeforeKillId %+v", self)
 
-	case "user", "User":
-		if self.present != nil {
-			if _, ok := self.present["user"]; ok {
-				return self.User, nil
-			}
-		}
-		return nil, fmt.Errorf("Field User no set on User %+v", self)
-
-	case "cleanupType", "CleanupType":
-		if self.present != nil {
-			if _, ok := self.present["cleanupType"]; ok {
-				return self.CleanupType, nil
-			}
-		}
-		return nil, fmt.Errorf("Field CleanupType no set on CleanupType %+v", self)
-
 	}
 }
 
@@ -232,6 +232,12 @@ func (self *SingularityTaskCleanup) ClearField(name string) error {
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on SingularityTaskCleanup", name)
+
+	case "user", "User":
+		self.present["user"] = false
+
+	case "cleanupType", "CleanupType":
+		self.present["cleanupType"] = false
 
 	case "timestamp", "Timestamp":
 		self.present["timestamp"] = false
@@ -247,12 +253,6 @@ func (self *SingularityTaskCleanup) ClearField(name string) error {
 
 	case "runBeforeKillId", "RunBeforeKillId":
 		self.present["runBeforeKillId"] = false
-
-	case "user", "User":
-		self.present["user"] = false
-
-	case "cleanupType", "CleanupType":
-		self.present["cleanupType"] = false
 
 	}
 

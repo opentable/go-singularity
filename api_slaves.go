@@ -11,7 +11,7 @@ func (client *Client) GetSlaves(state string) (response dtos.SingularitySlaveLis
 	}
 
 	response = make(dtos.SingularitySlaveList, 0)
-	err = client.DTORequest(&response, "GET", "/api/slaves/", pathParamMap, queryParamMap)
+	err = client.DTORequest("singularity-getslaves", &response, "GET", "/api/slaves/", pathParamMap, queryParamMap)
 
 	return
 }
@@ -23,7 +23,7 @@ func (client *Client) GetSlaveHistory(slaveId string) (response dtos.Singularity
 	queryParamMap := map[string]interface{}{}
 
 	response = make(dtos.SingularityMachineStateHistoryUpdateList, 0)
-	err = client.DTORequest(&response, "GET", "/api/slaves/slave/{slaveId}", pathParamMap, queryParamMap)
+	err = client.DTORequest("singularity-getslavehistory", &response, "GET", "/api/slaves/slave/{slaveId}", pathParamMap, queryParamMap)
 
 	return
 }
@@ -37,7 +37,7 @@ func (client *Client) GetSlave(slaveId string) (response *dtos.SingularitySlave,
 	queryParamMap := map[string]interface{}{}
 
 	response = new(dtos.SingularitySlave)
-	err = client.DTORequest(response, "GET", "/api/slaves/slave/{slaveId}/details", pathParamMap, queryParamMap)
+	err = client.DTORequest("singularity-getslave", response, "GET", "/api/slaves/slave/{slaveId}/details", pathParamMap, queryParamMap)
 
 	return
 }
@@ -51,7 +51,7 @@ func (client *Client) GetExpiringSlaveStateChanges() (response dtos.SingularityE
 	queryParamMap := map[string]interface{}{}
 
 	response = make(dtos.SingularityExpiringMachineStateList, 0)
-	err = client.DTORequest(&response, "GET", "/api/slaves/expiring", pathParamMap, queryParamMap)
+	err = client.DTORequest("singularity-getexpiringslavestatechanges", &response, "GET", "/api/slaves/expiring", pathParamMap, queryParamMap)
 
 	return
 }

@@ -10,10 +10,6 @@ import (
 type SingularityPendingTask struct {
 	present map[string]bool
 
-	Message string `json:"message,omitempty"`
-
-	Resources *Resources `json:"resources"`
-
 	ActionId string `json:"actionId,omitempty"`
 
 	PendingTaskId *SingularityPendingTaskId `json:"pendingTaskId"`
@@ -25,6 +21,10 @@ type SingularityPendingTask struct {
 	RunId string `json:"runId,omitempty"`
 
 	SkipHealthchecks bool `json:"skipHealthchecks"`
+
+	Message string `json:"message,omitempty"`
+
+	Resources *Resources `json:"resources"`
 }
 
 func (self *SingularityPendingTask) Populate(jsonReader io.ReadCloser) (err error) {
@@ -62,26 +62,6 @@ func (self *SingularityPendingTask) SetField(name string, value interface{}) err
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on SingularityPendingTask", name)
-
-	case "message", "Message":
-		v, ok := value.(string)
-		if ok {
-			self.Message = v
-			self.present["message"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field message/Message: value %v(%T) couldn't be cast to type string", value, value)
-		}
-
-	case "resources", "Resources":
-		v, ok := value.(*Resources)
-		if ok {
-			self.Resources = v
-			self.present["resources"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field resources/Resources: value %v(%T) couldn't be cast to type *Resources", value, value)
-		}
 
 	case "actionId", "ActionId":
 		v, ok := value.(string)
@@ -143,6 +123,26 @@ func (self *SingularityPendingTask) SetField(name string, value interface{}) err
 			return fmt.Errorf("Field skipHealthchecks/SkipHealthchecks: value %v(%T) couldn't be cast to type bool", value, value)
 		}
 
+	case "message", "Message":
+		v, ok := value.(string)
+		if ok {
+			self.Message = v
+			self.present["message"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field message/Message: value %v(%T) couldn't be cast to type string", value, value)
+		}
+
+	case "resources", "Resources":
+		v, ok := value.(*Resources)
+		if ok {
+			self.Resources = v
+			self.present["resources"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field resources/Resources: value %v(%T) couldn't be cast to type *Resources", value, value)
+		}
+
 	}
 }
 
@@ -150,22 +150,6 @@ func (self *SingularityPendingTask) GetField(name string) (interface{}, error) {
 	switch name {
 	default:
 		return nil, fmt.Errorf("No such field %s on SingularityPendingTask", name)
-
-	case "message", "Message":
-		if self.present != nil {
-			if _, ok := self.present["message"]; ok {
-				return self.Message, nil
-			}
-		}
-		return nil, fmt.Errorf("Field Message no set on Message %+v", self)
-
-	case "resources", "Resources":
-		if self.present != nil {
-			if _, ok := self.present["resources"]; ok {
-				return self.Resources, nil
-			}
-		}
-		return nil, fmt.Errorf("Field Resources no set on Resources %+v", self)
 
 	case "actionId", "ActionId":
 		if self.present != nil {
@@ -215,6 +199,22 @@ func (self *SingularityPendingTask) GetField(name string) (interface{}, error) {
 		}
 		return nil, fmt.Errorf("Field SkipHealthchecks no set on SkipHealthchecks %+v", self)
 
+	case "message", "Message":
+		if self.present != nil {
+			if _, ok := self.present["message"]; ok {
+				return self.Message, nil
+			}
+		}
+		return nil, fmt.Errorf("Field Message no set on Message %+v", self)
+
+	case "resources", "Resources":
+		if self.present != nil {
+			if _, ok := self.present["resources"]; ok {
+				return self.Resources, nil
+			}
+		}
+		return nil, fmt.Errorf("Field Resources no set on Resources %+v", self)
+
 	}
 }
 
@@ -225,12 +225,6 @@ func (self *SingularityPendingTask) ClearField(name string) error {
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on SingularityPendingTask", name)
-
-	case "message", "Message":
-		self.present["message"] = false
-
-	case "resources", "Resources":
-		self.present["resources"] = false
 
 	case "actionId", "ActionId":
 		self.present["actionId"] = false
@@ -249,6 +243,12 @@ func (self *SingularityPendingTask) ClearField(name string) error {
 
 	case "skipHealthchecks", "SkipHealthchecks":
 		self.present["skipHealthchecks"] = false
+
+	case "message", "Message":
+		self.present["message"] = false
+
+	case "resources", "Resources":
+		self.present["resources"] = false
 
 	}
 

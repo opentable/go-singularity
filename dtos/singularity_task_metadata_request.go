@@ -18,13 +18,13 @@ const (
 type SingularityTaskMetadataRequest struct {
 	present map[string]bool
 
-	Message string `json:"message,omitempty"`
-
-	Level SingularityTaskMetadataRequestMetadataLevel `json:"level"`
-
 	Type string `json:"type,omitempty"`
 
 	Title string `json:"title,omitempty"`
+
+	Message string `json:"message,omitempty"`
+
+	Level SingularityTaskMetadataRequestMetadataLevel `json:"level"`
 }
 
 func (self *SingularityTaskMetadataRequest) Populate(jsonReader io.ReadCloser) (err error) {
@@ -63,26 +63,6 @@ func (self *SingularityTaskMetadataRequest) SetField(name string, value interfac
 	default:
 		return fmt.Errorf("No such field %s on SingularityTaskMetadataRequest", name)
 
-	case "message", "Message":
-		v, ok := value.(string)
-		if ok {
-			self.Message = v
-			self.present["message"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field message/Message: value %v(%T) couldn't be cast to type string", value, value)
-		}
-
-	case "level", "Level":
-		v, ok := value.(SingularityTaskMetadataRequestMetadataLevel)
-		if ok {
-			self.Level = v
-			self.present["level"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field level/Level: value %v(%T) couldn't be cast to type SingularityTaskMetadataRequestMetadataLevel", value, value)
-		}
-
 	case "type", "Type":
 		v, ok := value.(string)
 		if ok {
@@ -103,6 +83,26 @@ func (self *SingularityTaskMetadataRequest) SetField(name string, value interfac
 			return fmt.Errorf("Field title/Title: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
+	case "message", "Message":
+		v, ok := value.(string)
+		if ok {
+			self.Message = v
+			self.present["message"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field message/Message: value %v(%T) couldn't be cast to type string", value, value)
+		}
+
+	case "level", "Level":
+		v, ok := value.(SingularityTaskMetadataRequestMetadataLevel)
+		if ok {
+			self.Level = v
+			self.present["level"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field level/Level: value %v(%T) couldn't be cast to type SingularityTaskMetadataRequestMetadataLevel", value, value)
+		}
+
 	}
 }
 
@@ -110,22 +110,6 @@ func (self *SingularityTaskMetadataRequest) GetField(name string) (interface{}, 
 	switch name {
 	default:
 		return nil, fmt.Errorf("No such field %s on SingularityTaskMetadataRequest", name)
-
-	case "message", "Message":
-		if self.present != nil {
-			if _, ok := self.present["message"]; ok {
-				return self.Message, nil
-			}
-		}
-		return nil, fmt.Errorf("Field Message no set on Message %+v", self)
-
-	case "level", "Level":
-		if self.present != nil {
-			if _, ok := self.present["level"]; ok {
-				return self.Level, nil
-			}
-		}
-		return nil, fmt.Errorf("Field Level no set on Level %+v", self)
 
 	case "type", "Type":
 		if self.present != nil {
@@ -143,6 +127,22 @@ func (self *SingularityTaskMetadataRequest) GetField(name string) (interface{}, 
 		}
 		return nil, fmt.Errorf("Field Title no set on Title %+v", self)
 
+	case "message", "Message":
+		if self.present != nil {
+			if _, ok := self.present["message"]; ok {
+				return self.Message, nil
+			}
+		}
+		return nil, fmt.Errorf("Field Message no set on Message %+v", self)
+
+	case "level", "Level":
+		if self.present != nil {
+			if _, ok := self.present["level"]; ok {
+				return self.Level, nil
+			}
+		}
+		return nil, fmt.Errorf("Field Level no set on Level %+v", self)
+
 	}
 }
 
@@ -154,17 +154,17 @@ func (self *SingularityTaskMetadataRequest) ClearField(name string) error {
 	default:
 		return fmt.Errorf("No such field %s on SingularityTaskMetadataRequest", name)
 
-	case "message", "Message":
-		self.present["message"] = false
-
-	case "level", "Level":
-		self.present["level"] = false
-
 	case "type", "Type":
 		self.present["type"] = false
 
 	case "title", "Title":
 		self.present["title"] = false
+
+	case "message", "Message":
+		self.present["message"] = false
+
+	case "level", "Level":
+		self.present["level"] = false
 
 	}
 

@@ -10,11 +10,11 @@ import (
 type SingularityRequestGroup struct {
 	present map[string]bool
 
+	Metadata map[string]string `json:"metadata"`
+
 	Id string `json:"id,omitempty"`
 
 	RequestIds swaggering.StringList `json:"requestIds"`
-
-	Metadata map[string]string `json:"metadata"`
 }
 
 func (self *SingularityRequestGroup) Populate(jsonReader io.ReadCloser) (err error) {
@@ -53,6 +53,16 @@ func (self *SingularityRequestGroup) SetField(name string, value interface{}) er
 	default:
 		return fmt.Errorf("No such field %s on SingularityRequestGroup", name)
 
+	case "metadata", "Metadata":
+		v, ok := value.(map[string]string)
+		if ok {
+			self.Metadata = v
+			self.present["metadata"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field metadata/Metadata: value %v(%T) couldn't be cast to type map[string]string", value, value)
+		}
+
 	case "id", "Id":
 		v, ok := value.(string)
 		if ok {
@@ -73,16 +83,6 @@ func (self *SingularityRequestGroup) SetField(name string, value interface{}) er
 			return fmt.Errorf("Field requestIds/RequestIds: value %v(%T) couldn't be cast to type swaggering.StringList", value, value)
 		}
 
-	case "metadata", "Metadata":
-		v, ok := value.(map[string]string)
-		if ok {
-			self.Metadata = v
-			self.present["metadata"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field metadata/Metadata: value %v(%T) couldn't be cast to type map[string]string", value, value)
-		}
-
 	}
 }
 
@@ -90,6 +90,14 @@ func (self *SingularityRequestGroup) GetField(name string) (interface{}, error) 
 	switch name {
 	default:
 		return nil, fmt.Errorf("No such field %s on SingularityRequestGroup", name)
+
+	case "metadata", "Metadata":
+		if self.present != nil {
+			if _, ok := self.present["metadata"]; ok {
+				return self.Metadata, nil
+			}
+		}
+		return nil, fmt.Errorf("Field Metadata no set on Metadata %+v", self)
 
 	case "id", "Id":
 		if self.present != nil {
@@ -107,14 +115,6 @@ func (self *SingularityRequestGroup) GetField(name string) (interface{}, error) 
 		}
 		return nil, fmt.Errorf("Field RequestIds no set on RequestIds %+v", self)
 
-	case "metadata", "Metadata":
-		if self.present != nil {
-			if _, ok := self.present["metadata"]; ok {
-				return self.Metadata, nil
-			}
-		}
-		return nil, fmt.Errorf("Field Metadata no set on Metadata %+v", self)
-
 	}
 }
 
@@ -126,14 +126,14 @@ func (self *SingularityRequestGroup) ClearField(name string) error {
 	default:
 		return fmt.Errorf("No such field %s on SingularityRequestGroup", name)
 
+	case "metadata", "Metadata":
+		self.present["metadata"] = false
+
 	case "id", "Id":
 		self.present["id"] = false
 
 	case "requestIds", "RequestIds":
 		self.present["requestIds"] = false
-
-	case "metadata", "Metadata":
-		self.present["metadata"] = false
 
 	}
 

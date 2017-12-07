@@ -30,10 +30,6 @@ const (
 type SingularityPendingTaskId struct {
 	present map[string]bool
 
-	CreatedAt int64 `json:"createdAt"`
-
-	InstanceNo int32 `json:"instanceNo"`
-
 	PendingType SingularityPendingTaskIdPendingType `json:"pendingType"`
 
 	Id string `json:"id,omitempty"`
@@ -43,6 +39,10 @@ type SingularityPendingTaskId struct {
 	DeployId string `json:"deployId,omitempty"`
 
 	NextRunAt int64 `json:"nextRunAt"`
+
+	CreatedAt int64 `json:"createdAt"`
+
+	InstanceNo int32 `json:"instanceNo"`
 }
 
 func (self *SingularityPendingTaskId) Populate(jsonReader io.ReadCloser) (err error) {
@@ -80,26 +80,6 @@ func (self *SingularityPendingTaskId) SetField(name string, value interface{}) e
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on SingularityPendingTaskId", name)
-
-	case "createdAt", "CreatedAt":
-		v, ok := value.(int64)
-		if ok {
-			self.CreatedAt = v
-			self.present["createdAt"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field createdAt/CreatedAt: value %v(%T) couldn't be cast to type int64", value, value)
-		}
-
-	case "instanceNo", "InstanceNo":
-		v, ok := value.(int32)
-		if ok {
-			self.InstanceNo = v
-			self.present["instanceNo"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field instanceNo/InstanceNo: value %v(%T) couldn't be cast to type int32", value, value)
-		}
 
 	case "pendingType", "PendingType":
 		v, ok := value.(SingularityPendingTaskIdPendingType)
@@ -151,6 +131,26 @@ func (self *SingularityPendingTaskId) SetField(name string, value interface{}) e
 			return fmt.Errorf("Field nextRunAt/NextRunAt: value %v(%T) couldn't be cast to type int64", value, value)
 		}
 
+	case "createdAt", "CreatedAt":
+		v, ok := value.(int64)
+		if ok {
+			self.CreatedAt = v
+			self.present["createdAt"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field createdAt/CreatedAt: value %v(%T) couldn't be cast to type int64", value, value)
+		}
+
+	case "instanceNo", "InstanceNo":
+		v, ok := value.(int32)
+		if ok {
+			self.InstanceNo = v
+			self.present["instanceNo"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field instanceNo/InstanceNo: value %v(%T) couldn't be cast to type int32", value, value)
+		}
+
 	}
 }
 
@@ -158,22 +158,6 @@ func (self *SingularityPendingTaskId) GetField(name string) (interface{}, error)
 	switch name {
 	default:
 		return nil, fmt.Errorf("No such field %s on SingularityPendingTaskId", name)
-
-	case "createdAt", "CreatedAt":
-		if self.present != nil {
-			if _, ok := self.present["createdAt"]; ok {
-				return self.CreatedAt, nil
-			}
-		}
-		return nil, fmt.Errorf("Field CreatedAt no set on CreatedAt %+v", self)
-
-	case "instanceNo", "InstanceNo":
-		if self.present != nil {
-			if _, ok := self.present["instanceNo"]; ok {
-				return self.InstanceNo, nil
-			}
-		}
-		return nil, fmt.Errorf("Field InstanceNo no set on InstanceNo %+v", self)
 
 	case "pendingType", "PendingType":
 		if self.present != nil {
@@ -215,6 +199,22 @@ func (self *SingularityPendingTaskId) GetField(name string) (interface{}, error)
 		}
 		return nil, fmt.Errorf("Field NextRunAt no set on NextRunAt %+v", self)
 
+	case "createdAt", "CreatedAt":
+		if self.present != nil {
+			if _, ok := self.present["createdAt"]; ok {
+				return self.CreatedAt, nil
+			}
+		}
+		return nil, fmt.Errorf("Field CreatedAt no set on CreatedAt %+v", self)
+
+	case "instanceNo", "InstanceNo":
+		if self.present != nil {
+			if _, ok := self.present["instanceNo"]; ok {
+				return self.InstanceNo, nil
+			}
+		}
+		return nil, fmt.Errorf("Field InstanceNo no set on InstanceNo %+v", self)
+
 	}
 }
 
@@ -225,12 +225,6 @@ func (self *SingularityPendingTaskId) ClearField(name string) error {
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on SingularityPendingTaskId", name)
-
-	case "createdAt", "CreatedAt":
-		self.present["createdAt"] = false
-
-	case "instanceNo", "InstanceNo":
-		self.present["instanceNo"] = false
 
 	case "pendingType", "PendingType":
 		self.present["pendingType"] = false
@@ -246,6 +240,12 @@ func (self *SingularityPendingTaskId) ClearField(name string) error {
 
 	case "nextRunAt", "NextRunAt":
 		self.present["nextRunAt"] = false
+
+	case "createdAt", "CreatedAt":
+		self.present["createdAt"] = false
+
+	case "instanceNo", "InstanceNo":
+		self.present["instanceNo"] = false
 
 	}
 

@@ -12,7 +12,7 @@ func (client *Client) Browse(taskId string, path string) (response *dtos.Singula
 	}
 
 	response = new(dtos.SingularitySandbox)
-	err = client.DTORequest(response, "GET", "/api/sandbox/{taskId}/browse", pathParamMap, queryParamMap)
+	err = client.DTORequest("singularity-browse", response, "GET", "/api/sandbox/{taskId}/browse", pathParamMap, queryParamMap)
 
 	return
 }
@@ -26,7 +26,7 @@ func (client *Client) Read(taskId string, path string, grep string, offset int64
 	}
 
 	response = new(dtos.MesosFileChunkObject)
-	err = client.DTORequest(response, "GET", "/api/sandbox/{taskId}/read", pathParamMap, queryParamMap)
+	err = client.DTORequest("singularity-read", response, "GET", "/api/sandbox/{taskId}/read", pathParamMap, queryParamMap)
 
 	return
 }

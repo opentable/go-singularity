@@ -10,13 +10,13 @@ import (
 type SingularityDeployRequest struct {
 	present map[string]bool
 
-	UnpauseOnSuccessfulDeploy bool `json:"unpauseOnSuccessfulDeploy"`
-
 	Deploy *SingularityDeploy `json:"deploy"`
 
 	Message string `json:"message,omitempty"`
 
 	UpdatedRequest *SingularityRequest `json:"updatedRequest"`
+
+	UnpauseOnSuccessfulDeploy bool `json:"unpauseOnSuccessfulDeploy"`
 }
 
 func (self *SingularityDeployRequest) Populate(jsonReader io.ReadCloser) (err error) {
@@ -55,16 +55,6 @@ func (self *SingularityDeployRequest) SetField(name string, value interface{}) e
 	default:
 		return fmt.Errorf("No such field %s on SingularityDeployRequest", name)
 
-	case "unpauseOnSuccessfulDeploy", "UnpauseOnSuccessfulDeploy":
-		v, ok := value.(bool)
-		if ok {
-			self.UnpauseOnSuccessfulDeploy = v
-			self.present["unpauseOnSuccessfulDeploy"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field unpauseOnSuccessfulDeploy/UnpauseOnSuccessfulDeploy: value %v(%T) couldn't be cast to type bool", value, value)
-		}
-
 	case "deploy", "Deploy":
 		v, ok := value.(*SingularityDeploy)
 		if ok {
@@ -95,6 +85,16 @@ func (self *SingularityDeployRequest) SetField(name string, value interface{}) e
 			return fmt.Errorf("Field updatedRequest/UpdatedRequest: value %v(%T) couldn't be cast to type *SingularityRequest", value, value)
 		}
 
+	case "unpauseOnSuccessfulDeploy", "UnpauseOnSuccessfulDeploy":
+		v, ok := value.(bool)
+		if ok {
+			self.UnpauseOnSuccessfulDeploy = v
+			self.present["unpauseOnSuccessfulDeploy"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field unpauseOnSuccessfulDeploy/UnpauseOnSuccessfulDeploy: value %v(%T) couldn't be cast to type bool", value, value)
+		}
+
 	}
 }
 
@@ -102,14 +102,6 @@ func (self *SingularityDeployRequest) GetField(name string) (interface{}, error)
 	switch name {
 	default:
 		return nil, fmt.Errorf("No such field %s on SingularityDeployRequest", name)
-
-	case "unpauseOnSuccessfulDeploy", "UnpauseOnSuccessfulDeploy":
-		if self.present != nil {
-			if _, ok := self.present["unpauseOnSuccessfulDeploy"]; ok {
-				return self.UnpauseOnSuccessfulDeploy, nil
-			}
-		}
-		return nil, fmt.Errorf("Field UnpauseOnSuccessfulDeploy no set on UnpauseOnSuccessfulDeploy %+v", self)
 
 	case "deploy", "Deploy":
 		if self.present != nil {
@@ -135,6 +127,14 @@ func (self *SingularityDeployRequest) GetField(name string) (interface{}, error)
 		}
 		return nil, fmt.Errorf("Field UpdatedRequest no set on UpdatedRequest %+v", self)
 
+	case "unpauseOnSuccessfulDeploy", "UnpauseOnSuccessfulDeploy":
+		if self.present != nil {
+			if _, ok := self.present["unpauseOnSuccessfulDeploy"]; ok {
+				return self.UnpauseOnSuccessfulDeploy, nil
+			}
+		}
+		return nil, fmt.Errorf("Field UnpauseOnSuccessfulDeploy no set on UnpauseOnSuccessfulDeploy %+v", self)
+
 	}
 }
 
@@ -146,9 +146,6 @@ func (self *SingularityDeployRequest) ClearField(name string) error {
 	default:
 		return fmt.Errorf("No such field %s on SingularityDeployRequest", name)
 
-	case "unpauseOnSuccessfulDeploy", "UnpauseOnSuccessfulDeploy":
-		self.present["unpauseOnSuccessfulDeploy"] = false
-
 	case "deploy", "Deploy":
 		self.present["deploy"] = false
 
@@ -157,6 +154,9 @@ func (self *SingularityDeployRequest) ClearField(name string) error {
 
 	case "updatedRequest", "UpdatedRequest":
 		self.present["updatedRequest"] = false
+
+	case "unpauseOnSuccessfulDeploy", "UnpauseOnSuccessfulDeploy":
+		self.present["unpauseOnSuccessfulDeploy"] = false
 
 	}
 

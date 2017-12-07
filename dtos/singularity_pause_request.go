@@ -10,8 +10,6 @@ import (
 type SingularityPauseRequest struct {
 	present map[string]bool
 
-	Message string `json:"message,omitempty"`
-
 	KillTasks bool `json:"killTasks"`
 
 	RunShellCommandBeforeKill *SingularityShellCommand `json:"runShellCommandBeforeKill"`
@@ -19,6 +17,8 @@ type SingularityPauseRequest struct {
 	DurationMillis int64 `json:"durationMillis"`
 
 	ActionId string `json:"actionId,omitempty"`
+
+	Message string `json:"message,omitempty"`
 }
 
 func (self *SingularityPauseRequest) Populate(jsonReader io.ReadCloser) (err error) {
@@ -56,16 +56,6 @@ func (self *SingularityPauseRequest) SetField(name string, value interface{}) er
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on SingularityPauseRequest", name)
-
-	case "message", "Message":
-		v, ok := value.(string)
-		if ok {
-			self.Message = v
-			self.present["message"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field message/Message: value %v(%T) couldn't be cast to type string", value, value)
-		}
 
 	case "killTasks", "KillTasks":
 		v, ok := value.(bool)
@@ -107,6 +97,16 @@ func (self *SingularityPauseRequest) SetField(name string, value interface{}) er
 			return fmt.Errorf("Field actionId/ActionId: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
+	case "message", "Message":
+		v, ok := value.(string)
+		if ok {
+			self.Message = v
+			self.present["message"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field message/Message: value %v(%T) couldn't be cast to type string", value, value)
+		}
+
 	}
 }
 
@@ -114,14 +114,6 @@ func (self *SingularityPauseRequest) GetField(name string) (interface{}, error) 
 	switch name {
 	default:
 		return nil, fmt.Errorf("No such field %s on SingularityPauseRequest", name)
-
-	case "message", "Message":
-		if self.present != nil {
-			if _, ok := self.present["message"]; ok {
-				return self.Message, nil
-			}
-		}
-		return nil, fmt.Errorf("Field Message no set on Message %+v", self)
 
 	case "killTasks", "KillTasks":
 		if self.present != nil {
@@ -155,6 +147,14 @@ func (self *SingularityPauseRequest) GetField(name string) (interface{}, error) 
 		}
 		return nil, fmt.Errorf("Field ActionId no set on ActionId %+v", self)
 
+	case "message", "Message":
+		if self.present != nil {
+			if _, ok := self.present["message"]; ok {
+				return self.Message, nil
+			}
+		}
+		return nil, fmt.Errorf("Field Message no set on Message %+v", self)
+
 	}
 }
 
@@ -165,9 +165,6 @@ func (self *SingularityPauseRequest) ClearField(name string) error {
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on SingularityPauseRequest", name)
-
-	case "message", "Message":
-		self.present["message"] = false
 
 	case "killTasks", "KillTasks":
 		self.present["killTasks"] = false
@@ -180,6 +177,9 @@ func (self *SingularityPauseRequest) ClearField(name string) error {
 
 	case "actionId", "ActionId":
 		self.present["actionId"] = false
+
+	case "message", "Message":
+		self.present["message"] = false
 
 	}
 

@@ -27,13 +27,13 @@ const (
 type SingularityTaskIdHistory struct {
 	present map[string]bool
 
+	UpdatedAt int64 `json:"updatedAt"`
+
 	LastTaskState SingularityTaskIdHistoryExtendedTaskState `json:"lastTaskState"`
 
 	RunId string `json:"runId,omitempty"`
 
 	TaskId *SingularityTaskId `json:"taskId"`
-
-	UpdatedAt int64 `json:"updatedAt"`
 }
 
 func (self *SingularityTaskIdHistory) Populate(jsonReader io.ReadCloser) (err error) {
@@ -72,6 +72,16 @@ func (self *SingularityTaskIdHistory) SetField(name string, value interface{}) e
 	default:
 		return fmt.Errorf("No such field %s on SingularityTaskIdHistory", name)
 
+	case "updatedAt", "UpdatedAt":
+		v, ok := value.(int64)
+		if ok {
+			self.UpdatedAt = v
+			self.present["updatedAt"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field updatedAt/UpdatedAt: value %v(%T) couldn't be cast to type int64", value, value)
+		}
+
 	case "lastTaskState", "LastTaskState":
 		v, ok := value.(SingularityTaskIdHistoryExtendedTaskState)
 		if ok {
@@ -102,16 +112,6 @@ func (self *SingularityTaskIdHistory) SetField(name string, value interface{}) e
 			return fmt.Errorf("Field taskId/TaskId: value %v(%T) couldn't be cast to type *SingularityTaskId", value, value)
 		}
 
-	case "updatedAt", "UpdatedAt":
-		v, ok := value.(int64)
-		if ok {
-			self.UpdatedAt = v
-			self.present["updatedAt"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field updatedAt/UpdatedAt: value %v(%T) couldn't be cast to type int64", value, value)
-		}
-
 	}
 }
 
@@ -119,6 +119,14 @@ func (self *SingularityTaskIdHistory) GetField(name string) (interface{}, error)
 	switch name {
 	default:
 		return nil, fmt.Errorf("No such field %s on SingularityTaskIdHistory", name)
+
+	case "updatedAt", "UpdatedAt":
+		if self.present != nil {
+			if _, ok := self.present["updatedAt"]; ok {
+				return self.UpdatedAt, nil
+			}
+		}
+		return nil, fmt.Errorf("Field UpdatedAt no set on UpdatedAt %+v", self)
 
 	case "lastTaskState", "LastTaskState":
 		if self.present != nil {
@@ -144,14 +152,6 @@ func (self *SingularityTaskIdHistory) GetField(name string) (interface{}, error)
 		}
 		return nil, fmt.Errorf("Field TaskId no set on TaskId %+v", self)
 
-	case "updatedAt", "UpdatedAt":
-		if self.present != nil {
-			if _, ok := self.present["updatedAt"]; ok {
-				return self.UpdatedAt, nil
-			}
-		}
-		return nil, fmt.Errorf("Field UpdatedAt no set on UpdatedAt %+v", self)
-
 	}
 }
 
@@ -163,6 +163,9 @@ func (self *SingularityTaskIdHistory) ClearField(name string) error {
 	default:
 		return fmt.Errorf("No such field %s on SingularityTaskIdHistory", name)
 
+	case "updatedAt", "UpdatedAt":
+		self.present["updatedAt"] = false
+
 	case "lastTaskState", "LastTaskState":
 		self.present["lastTaskState"] = false
 
@@ -171,9 +174,6 @@ func (self *SingularityTaskIdHistory) ClearField(name string) error {
 
 	case "taskId", "TaskId":
 		self.present["taskId"] = false
-
-	case "updatedAt", "UpdatedAt":
-		self.present["updatedAt"] = false
 
 	}
 

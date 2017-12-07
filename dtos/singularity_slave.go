@@ -10,6 +10,8 @@ import (
 type SingularitySlave struct {
 	present map[string]bool
 
+	Host string `json:"host,omitempty"`
+
 	RackId string `json:"rackId,omitempty"`
 
 	Attributes map[string]string `json:"attributes"`
@@ -21,8 +23,6 @@ type SingularitySlave struct {
 	FirstSeenAt int64 `json:"firstSeenAt"`
 
 	Id string `json:"id,omitempty"`
-
-	Host string `json:"host,omitempty"`
 }
 
 func (self *SingularitySlave) Populate(jsonReader io.ReadCloser) (err error) {
@@ -60,6 +60,16 @@ func (self *SingularitySlave) SetField(name string, value interface{}) error {
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on SingularitySlave", name)
+
+	case "host", "Host":
+		v, ok := value.(string)
+		if ok {
+			self.Host = v
+			self.present["host"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field host/Host: value %v(%T) couldn't be cast to type string", value, value)
+		}
 
 	case "rackId", "RackId":
 		v, ok := value.(string)
@@ -121,16 +131,6 @@ func (self *SingularitySlave) SetField(name string, value interface{}) error {
 			return fmt.Errorf("Field id/Id: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
-	case "host", "Host":
-		v, ok := value.(string)
-		if ok {
-			self.Host = v
-			self.present["host"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field host/Host: value %v(%T) couldn't be cast to type string", value, value)
-		}
-
 	}
 }
 
@@ -138,6 +138,14 @@ func (self *SingularitySlave) GetField(name string) (interface{}, error) {
 	switch name {
 	default:
 		return nil, fmt.Errorf("No such field %s on SingularitySlave", name)
+
+	case "host", "Host":
+		if self.present != nil {
+			if _, ok := self.present["host"]; ok {
+				return self.Host, nil
+			}
+		}
+		return nil, fmt.Errorf("Field Host no set on Host %+v", self)
 
 	case "rackId", "RackId":
 		if self.present != nil {
@@ -187,14 +195,6 @@ func (self *SingularitySlave) GetField(name string) (interface{}, error) {
 		}
 		return nil, fmt.Errorf("Field Id no set on Id %+v", self)
 
-	case "host", "Host":
-		if self.present != nil {
-			if _, ok := self.present["host"]; ok {
-				return self.Host, nil
-			}
-		}
-		return nil, fmt.Errorf("Field Host no set on Host %+v", self)
-
 	}
 }
 
@@ -205,6 +205,9 @@ func (self *SingularitySlave) ClearField(name string) error {
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on SingularitySlave", name)
+
+	case "host", "Host":
+		self.present["host"] = false
 
 	case "rackId", "RackId":
 		self.present["rackId"] = false
@@ -223,9 +226,6 @@ func (self *SingularitySlave) ClearField(name string) error {
 
 	case "id", "Id":
 		self.present["id"] = false
-
-	case "host", "Host":
-		self.present["host"] = false
 
 	}
 

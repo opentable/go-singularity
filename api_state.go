@@ -13,7 +13,7 @@ func (client *Client) GetUnderProvisionedRequestIds(skipCache bool) (response sw
 	}
 
 	response = make(swaggering.StringList, 0)
-	err = client.DTORequest(&response, "GET", "/api/state/requests/under-provisioned", pathParamMap, queryParamMap)
+	err = client.DTORequest("singularity-getunderprovisionedrequestids", &response, "GET", "/api/state/requests/under-provisioned", pathParamMap, queryParamMap)
 
 	return
 }
@@ -25,7 +25,7 @@ func (client *Client) GetOverProvisionedRequestIds(skipCache bool) (response swa
 	}
 
 	response = make(swaggering.StringList, 0)
-	err = client.DTORequest(&response, "GET", "/api/state/requests/over-provisioned", pathParamMap, queryParamMap)
+	err = client.DTORequest("singularity-getoverprovisionedrequestids", &response, "GET", "/api/state/requests/over-provisioned", pathParamMap, queryParamMap)
 
 	return
 }
@@ -35,7 +35,7 @@ func (client *Client) GetTaskReconciliationStatistics() (response *dtos.Singular
 	queryParamMap := map[string]interface{}{}
 
 	response = new(dtos.SingularityTaskReconciliationStatistics)
-	err = client.DTORequest(response, "GET", "/api/state/task-reconciliation", pathParamMap, queryParamMap)
+	err = client.DTORequest("singularity-gettaskreconciliationstatistics", response, "GET", "/api/state/task-reconciliation", pathParamMap, queryParamMap)
 
 	return
 }
@@ -47,7 +47,7 @@ func (client *Client) GetState(skipCache bool, includeRequestIds bool) (response
 	}
 
 	response = new(dtos.SingularityState)
-	err = client.DTORequest(response, "GET", "/api/state", pathParamMap, queryParamMap)
+	err = client.DTORequest("singularity-getstate", response, "GET", "/api/state", pathParamMap, queryParamMap)
 
 	return
 }

@@ -10,10 +10,6 @@ import (
 type SingularityExpiringBounce struct {
 	present map[string]bool
 
-	// Invalid field: ExpiringAPIRequestObject *notfound.T `json:"expiringAPIRequestObject"`
-
-	DeployId string `json:"deployId,omitempty"`
-
 	RequestId string `json:"requestId,omitempty"`
 
 	StartMillis int64 `json:"startMillis"`
@@ -21,6 +17,10 @@ type SingularityExpiringBounce struct {
 	ActionId string `json:"actionId,omitempty"`
 
 	User string `json:"user,omitempty"`
+
+	// Invalid field: ExpiringAPIRequestObject *notfound.T `json:"expiringAPIRequestObject"`
+
+	DeployId string `json:"deployId,omitempty"`
 }
 
 func (self *SingularityExpiringBounce) Populate(jsonReader io.ReadCloser) (err error) {
@@ -58,16 +58,6 @@ func (self *SingularityExpiringBounce) SetField(name string, value interface{}) 
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on SingularityExpiringBounce", name)
-
-	case "deployId", "DeployId":
-		v, ok := value.(string)
-		if ok {
-			self.DeployId = v
-			self.present["deployId"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field deployId/DeployId: value %v(%T) couldn't be cast to type string", value, value)
-		}
 
 	case "requestId", "RequestId":
 		v, ok := value.(string)
@@ -109,6 +99,16 @@ func (self *SingularityExpiringBounce) SetField(name string, value interface{}) 
 			return fmt.Errorf("Field user/User: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
+	case "deployId", "DeployId":
+		v, ok := value.(string)
+		if ok {
+			self.DeployId = v
+			self.present["deployId"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field deployId/DeployId: value %v(%T) couldn't be cast to type string", value, value)
+		}
+
 	}
 }
 
@@ -116,14 +116,6 @@ func (self *SingularityExpiringBounce) GetField(name string) (interface{}, error
 	switch name {
 	default:
 		return nil, fmt.Errorf("No such field %s on SingularityExpiringBounce", name)
-
-	case "deployId", "DeployId":
-		if self.present != nil {
-			if _, ok := self.present["deployId"]; ok {
-				return self.DeployId, nil
-			}
-		}
-		return nil, fmt.Errorf("Field DeployId no set on DeployId %+v", self)
 
 	case "requestId", "RequestId":
 		if self.present != nil {
@@ -157,6 +149,14 @@ func (self *SingularityExpiringBounce) GetField(name string) (interface{}, error
 		}
 		return nil, fmt.Errorf("Field User no set on User %+v", self)
 
+	case "deployId", "DeployId":
+		if self.present != nil {
+			if _, ok := self.present["deployId"]; ok {
+				return self.DeployId, nil
+			}
+		}
+		return nil, fmt.Errorf("Field DeployId no set on DeployId %+v", self)
+
 	}
 }
 
@@ -167,9 +167,6 @@ func (self *SingularityExpiringBounce) ClearField(name string) error {
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on SingularityExpiringBounce", name)
-
-	case "deployId", "DeployId":
-		self.present["deployId"] = false
 
 	case "requestId", "RequestId":
 		self.present["requestId"] = false
@@ -182,6 +179,9 @@ func (self *SingularityExpiringBounce) ClearField(name string) error {
 
 	case "user", "User":
 		self.present["user"] = false
+
+	case "deployId", "DeployId":
+		self.present["deployId"] = false
 
 	}
 

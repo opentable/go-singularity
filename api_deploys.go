@@ -8,7 +8,7 @@ func (client *Client) Deploy(body *dtos.SingularityDeployRequest) (response *dto
 	queryParamMap := map[string]interface{}{}
 
 	response = new(dtos.SingularityRequestParent)
-	err = client.DTORequest(response, "POST", "/api/deploys", pathParamMap, queryParamMap, body)
+	err = client.DTORequest("singularity-deploy", response, "POST", "/api/deploys", pathParamMap, queryParamMap, body)
 
 	return
 }
@@ -18,7 +18,7 @@ func (client *Client) GetPendingDeploys() (response dtos.SingularityPendingDeplo
 	queryParamMap := map[string]interface{}{}
 
 	response = make(dtos.SingularityPendingDeployList, 0)
-	err = client.DTORequest(&response, "GET", "/api/deploys/pending", pathParamMap, queryParamMap)
+	err = client.DTORequest("singularity-getpendingdeploys", &response, "GET", "/api/deploys/pending", pathParamMap, queryParamMap)
 
 	return
 }
@@ -30,7 +30,7 @@ func (client *Client) CancelDeploy(requestId string, deployId string) (response 
 	queryParamMap := map[string]interface{}{}
 
 	response = new(dtos.SingularityRequestParent)
-	err = client.DTORequest(response, "DELETE", "/api/deploys/deploy/{deployId}/request/{requestId}", pathParamMap, queryParamMap)
+	err = client.DTORequest("singularity-canceldeploy", response, "DELETE", "/api/deploys/deploy/{deployId}/request/{requestId}", pathParamMap, queryParamMap)
 
 	return
 }
@@ -40,7 +40,7 @@ func (client *Client) UpdatePendingDeploy(body *dtos.SingularityUpdatePendingDep
 	queryParamMap := map[string]interface{}{}
 
 	response = new(dtos.SingularityRequestParent)
-	err = client.DTORequest(response, "POST", "/api/deploys/update", pathParamMap, queryParamMap, body)
+	err = client.DTORequest("singularity-updatependingdeploy", response, "POST", "/api/deploys/update", pathParamMap, queryParamMap, body)
 
 	return
 }

@@ -10,11 +10,11 @@ import (
 type SingularityUnpauseRequest struct {
 	present map[string]bool
 
+	SkipHealthchecks bool `json:"skipHealthchecks"`
+
 	Message string `json:"message,omitempty"`
 
 	ActionId string `json:"actionId,omitempty"`
-
-	SkipHealthchecks bool `json:"skipHealthchecks"`
 }
 
 func (self *SingularityUnpauseRequest) Populate(jsonReader io.ReadCloser) (err error) {
@@ -53,6 +53,16 @@ func (self *SingularityUnpauseRequest) SetField(name string, value interface{}) 
 	default:
 		return fmt.Errorf("No such field %s on SingularityUnpauseRequest", name)
 
+	case "skipHealthchecks", "SkipHealthchecks":
+		v, ok := value.(bool)
+		if ok {
+			self.SkipHealthchecks = v
+			self.present["skipHealthchecks"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field skipHealthchecks/SkipHealthchecks: value %v(%T) couldn't be cast to type bool", value, value)
+		}
+
 	case "message", "Message":
 		v, ok := value.(string)
 		if ok {
@@ -73,16 +83,6 @@ func (self *SingularityUnpauseRequest) SetField(name string, value interface{}) 
 			return fmt.Errorf("Field actionId/ActionId: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
-	case "skipHealthchecks", "SkipHealthchecks":
-		v, ok := value.(bool)
-		if ok {
-			self.SkipHealthchecks = v
-			self.present["skipHealthchecks"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field skipHealthchecks/SkipHealthchecks: value %v(%T) couldn't be cast to type bool", value, value)
-		}
-
 	}
 }
 
@@ -90,6 +90,14 @@ func (self *SingularityUnpauseRequest) GetField(name string) (interface{}, error
 	switch name {
 	default:
 		return nil, fmt.Errorf("No such field %s on SingularityUnpauseRequest", name)
+
+	case "skipHealthchecks", "SkipHealthchecks":
+		if self.present != nil {
+			if _, ok := self.present["skipHealthchecks"]; ok {
+				return self.SkipHealthchecks, nil
+			}
+		}
+		return nil, fmt.Errorf("Field SkipHealthchecks no set on SkipHealthchecks %+v", self)
 
 	case "message", "Message":
 		if self.present != nil {
@@ -107,14 +115,6 @@ func (self *SingularityUnpauseRequest) GetField(name string) (interface{}, error
 		}
 		return nil, fmt.Errorf("Field ActionId no set on ActionId %+v", self)
 
-	case "skipHealthchecks", "SkipHealthchecks":
-		if self.present != nil {
-			if _, ok := self.present["skipHealthchecks"]; ok {
-				return self.SkipHealthchecks, nil
-			}
-		}
-		return nil, fmt.Errorf("Field SkipHealthchecks no set on SkipHealthchecks %+v", self)
-
 	}
 }
 
@@ -126,14 +126,14 @@ func (self *SingularityUnpauseRequest) ClearField(name string) error {
 	default:
 		return fmt.Errorf("No such field %s on SingularityUnpauseRequest", name)
 
+	case "skipHealthchecks", "SkipHealthchecks":
+		self.present["skipHealthchecks"] = false
+
 	case "message", "Message":
 		self.present["message"] = false
 
 	case "actionId", "ActionId":
 		self.present["actionId"] = false
-
-	case "skipHealthchecks", "SkipHealthchecks":
-		self.present["skipHealthchecks"] = false
 
 	}
 

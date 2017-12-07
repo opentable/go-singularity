@@ -10,13 +10,13 @@ import (
 type SingularityMesosArtifact struct {
 	present map[string]bool
 
+	Extract bool `json:"extract"`
+
 	Uri string `json:"uri,omitempty"`
 
 	Cache bool `json:"cache"`
 
 	Executable bool `json:"executable"`
-
-	Extract bool `json:"extract"`
 }
 
 func (self *SingularityMesosArtifact) Populate(jsonReader io.ReadCloser) (err error) {
@@ -55,6 +55,16 @@ func (self *SingularityMesosArtifact) SetField(name string, value interface{}) e
 	default:
 		return fmt.Errorf("No such field %s on SingularityMesosArtifact", name)
 
+	case "extract", "Extract":
+		v, ok := value.(bool)
+		if ok {
+			self.Extract = v
+			self.present["extract"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field extract/Extract: value %v(%T) couldn't be cast to type bool", value, value)
+		}
+
 	case "uri", "Uri":
 		v, ok := value.(string)
 		if ok {
@@ -85,16 +95,6 @@ func (self *SingularityMesosArtifact) SetField(name string, value interface{}) e
 			return fmt.Errorf("Field executable/Executable: value %v(%T) couldn't be cast to type bool", value, value)
 		}
 
-	case "extract", "Extract":
-		v, ok := value.(bool)
-		if ok {
-			self.Extract = v
-			self.present["extract"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field extract/Extract: value %v(%T) couldn't be cast to type bool", value, value)
-		}
-
 	}
 }
 
@@ -102,6 +102,14 @@ func (self *SingularityMesosArtifact) GetField(name string) (interface{}, error)
 	switch name {
 	default:
 		return nil, fmt.Errorf("No such field %s on SingularityMesosArtifact", name)
+
+	case "extract", "Extract":
+		if self.present != nil {
+			if _, ok := self.present["extract"]; ok {
+				return self.Extract, nil
+			}
+		}
+		return nil, fmt.Errorf("Field Extract no set on Extract %+v", self)
 
 	case "uri", "Uri":
 		if self.present != nil {
@@ -127,14 +135,6 @@ func (self *SingularityMesosArtifact) GetField(name string) (interface{}, error)
 		}
 		return nil, fmt.Errorf("Field Executable no set on Executable %+v", self)
 
-	case "extract", "Extract":
-		if self.present != nil {
-			if _, ok := self.present["extract"]; ok {
-				return self.Extract, nil
-			}
-		}
-		return nil, fmt.Errorf("Field Extract no set on Extract %+v", self)
-
 	}
 }
 
@@ -146,6 +146,9 @@ func (self *SingularityMesosArtifact) ClearField(name string) error {
 	default:
 		return fmt.Errorf("No such field %s on SingularityMesosArtifact", name)
 
+	case "extract", "Extract":
+		self.present["extract"] = false
+
 	case "uri", "Uri":
 		self.present["uri"] = false
 
@@ -154,9 +157,6 @@ func (self *SingularityMesosArtifact) ClearField(name string) error {
 
 	case "executable", "Executable":
 		self.present["executable"] = false
-
-	case "extract", "Extract":
-		self.present["extract"] = false
 
 	}
 

@@ -15,7 +15,7 @@ func (client *Client) GetRequest(requestId string, useWebCache bool) (response *
 	}
 
 	response = new(dtos.SingularityRequestParent)
-	err = client.DTORequest(response, "GET", "/api/requests/request/{requestId}", pathParamMap, queryParamMap)
+	err = client.DTORequest("singularity-getrequest", response, "GET", "/api/requests/request/{requestId}", pathParamMap, queryParamMap)
 
 	return
 }
@@ -27,7 +27,7 @@ func (client *Client) DeleteRequest(requestId string, body *dtos.SingularityDele
 	queryParamMap := map[string]interface{}{}
 
 	response = new(dtos.SingularityRequest)
-	err = client.DTORequest(response, "DELETE", "/api/requests/request/{requestId}", pathParamMap, queryParamMap, body)
+	err = client.DTORequest("singularity-deleterequest", response, "DELETE", "/api/requests/request/{requestId}", pathParamMap, queryParamMap, body)
 
 	return
 }
@@ -39,7 +39,7 @@ func (client *Client) GetRequests(useWebCache bool) (response dtos.SingularityRe
 	}
 
 	response = make(dtos.SingularityRequestParentList, 0)
-	err = client.DTORequest(&response, "GET", "/api/requests", pathParamMap, queryParamMap)
+	err = client.DTORequest("singularity-getrequests", &response, "GET", "/api/requests", pathParamMap, queryParamMap)
 
 	return
 }
@@ -49,7 +49,7 @@ func (client *Client) PostRequest(body *dtos.SingularityRequest) (response *dtos
 	queryParamMap := map[string]interface{}{}
 
 	response = new(dtos.SingularityRequestParent)
-	err = client.DTORequest(response, "POST", "/api/requests", pathParamMap, queryParamMap, body)
+	err = client.DTORequest("singularity-postrequest", response, "POST", "/api/requests", pathParamMap, queryParamMap, body)
 
 	return
 }
@@ -61,7 +61,7 @@ func (client *Client) Bounce(requestId string, body *dtos.SingularityBounceReque
 	queryParamMap := map[string]interface{}{}
 
 	response = new(dtos.SingularityRequestParent)
-	err = client.DTORequest(response, "POST", "/api/requests/request/{requestId}/bounce", pathParamMap, queryParamMap, body)
+	err = client.DTORequest("singularity-bounce", response, "POST", "/api/requests/request/{requestId}/bounce", pathParamMap, queryParamMap, body)
 
 	return
 }
@@ -73,7 +73,7 @@ func (client *Client) DeleteExpiringBounce(requestId string) (response *dtos.Sin
 	queryParamMap := map[string]interface{}{}
 
 	response = new(dtos.SingularityRequestParent)
-	err = client.DTORequest(response, "DELETE", "/api/requests/request/{requestId}/bounce", pathParamMap, queryParamMap)
+	err = client.DTORequest("singularity-deleteexpiringbounce", response, "DELETE", "/api/requests/request/{requestId}/bounce", pathParamMap, queryParamMap)
 
 	return
 }
@@ -85,7 +85,7 @@ func (client *Client) ScheduleImmediately(requestId string, body *dtos.Singulari
 	queryParamMap := map[string]interface{}{}
 
 	response = new(dtos.SingularityRequestParent)
-	err = client.DTORequest(response, "POST", "/api/requests/request/{requestId}/run", pathParamMap, queryParamMap, body)
+	err = client.DTORequest("singularity-scheduleimmediately", response, "POST", "/api/requests/request/{requestId}/run", pathParamMap, queryParamMap, body)
 
 	return
 }
@@ -97,7 +97,7 @@ func (client *Client) GetTaskByRunId(requestId string, runId string) (response *
 	queryParamMap := map[string]interface{}{}
 
 	response = new(dtos.SingularityTaskId)
-	err = client.DTORequest(response, "GET", "/api/requests/request/{requestId}/run/{runId}", pathParamMap, queryParamMap)
+	err = client.DTORequest("singularity-gettaskbyrunid", response, "GET", "/api/requests/request/{requestId}/run/{runId}", pathParamMap, queryParamMap)
 
 	return
 }
@@ -109,7 +109,7 @@ func (client *Client) Pause(requestId string, body *dtos.SingularityPauseRequest
 	queryParamMap := map[string]interface{}{}
 
 	response = new(dtos.SingularityRequestParent)
-	err = client.DTORequest(response, "POST", "/api/requests/request/{requestId}/pause", pathParamMap, queryParamMap, body)
+	err = client.DTORequest("singularity-pause", response, "POST", "/api/requests/request/{requestId}/pause", pathParamMap, queryParamMap, body)
 
 	return
 }
@@ -121,7 +121,7 @@ func (client *Client) DeleteExpiringPause(requestId string) (response *dtos.Sing
 	queryParamMap := map[string]interface{}{}
 
 	response = new(dtos.SingularityRequestParent)
-	err = client.DTORequest(response, "DELETE", "/api/requests/request/{requestId}/pause", pathParamMap, queryParamMap)
+	err = client.DTORequest("singularity-deleteexpiringpause", response, "DELETE", "/api/requests/request/{requestId}/pause", pathParamMap, queryParamMap)
 
 	return
 }
@@ -133,7 +133,7 @@ func (client *Client) SkipHealthchecks(requestId string, body *dtos.SingularityS
 	queryParamMap := map[string]interface{}{}
 
 	response = new(dtos.SingularityRequestParent)
-	err = client.DTORequest(response, "PUT", "/api/requests/request/{requestId}/skip-healthchecks", pathParamMap, queryParamMap, body)
+	err = client.DTORequest("singularity-skiphealthchecks", response, "PUT", "/api/requests/request/{requestId}/skip-healthchecks", pathParamMap, queryParamMap, body)
 
 	return
 }
@@ -145,7 +145,7 @@ func (client *Client) DeleteExpiringSkipHealthchecks(requestId string) (response
 	queryParamMap := map[string]interface{}{}
 
 	response = new(dtos.SingularityRequestParent)
-	err = client.DTORequest(response, "DELETE", "/api/requests/request/{requestId}/skip-healthchecks", pathParamMap, queryParamMap)
+	err = client.DTORequest("singularity-deleteexpiringskiphealthchecks", response, "DELETE", "/api/requests/request/{requestId}/skip-healthchecks", pathParamMap, queryParamMap)
 
 	return
 }
@@ -157,7 +157,7 @@ func (client *Client) Unpause(requestId string, body *dtos.SingularityUnpauseReq
 	queryParamMap := map[string]interface{}{}
 
 	response = new(dtos.SingularityRequestParent)
-	err = client.DTORequest(response, "POST", "/api/requests/request/{requestId}/unpause", pathParamMap, queryParamMap, body)
+	err = client.DTORequest("singularity-unpause", response, "POST", "/api/requests/request/{requestId}/unpause", pathParamMap, queryParamMap, body)
 
 	return
 }
@@ -169,7 +169,7 @@ func (client *Client) ExitCooldown(requestId string, body *dtos.SingularityExitC
 	queryParamMap := map[string]interface{}{}
 
 	response = new(dtos.SingularityRequestParent)
-	err = client.DTORequest(response, "POST", "/api/requests/request/{requestId}/exit-cooldown", pathParamMap, queryParamMap, body)
+	err = client.DTORequest("singularity-exitcooldown", response, "POST", "/api/requests/request/{requestId}/exit-cooldown", pathParamMap, queryParamMap, body)
 
 	return
 }
@@ -181,7 +181,7 @@ func (client *Client) GetActiveRequests(useWebCache bool) (response dtos.Singula
 	}
 
 	response = make(dtos.SingularityRequestParentList, 0)
-	err = client.DTORequest(&response, "GET", "/api/requests/active", pathParamMap, queryParamMap)
+	err = client.DTORequest("singularity-getactiverequests", &response, "GET", "/api/requests/active", pathParamMap, queryParamMap)
 
 	return
 }
@@ -193,7 +193,7 @@ func (client *Client) GetPausedRequests(useWebCache bool) (response dtos.Singula
 	}
 
 	response = make(dtos.SingularityRequestParentList, 0)
-	err = client.DTORequest(&response, "GET", "/api/requests/paused", pathParamMap, queryParamMap)
+	err = client.DTORequest("singularity-getpausedrequests", &response, "GET", "/api/requests/paused", pathParamMap, queryParamMap)
 
 	return
 }
@@ -205,7 +205,7 @@ func (client *Client) GetCooldownRequests(useWebCache bool) (response dtos.Singu
 	}
 
 	response = make(dtos.SingularityRequestParentList, 0)
-	err = client.DTORequest(&response, "GET", "/api/requests/cooldown", pathParamMap, queryParamMap)
+	err = client.DTORequest("singularity-getcooldownrequests", &response, "GET", "/api/requests/cooldown", pathParamMap, queryParamMap)
 
 	return
 }
@@ -217,7 +217,7 @@ func (client *Client) GetFinishedRequests(useWebCache bool) (response dtos.Singu
 	}
 
 	response = make(dtos.SingularityRequestParentList, 0)
-	err = client.DTORequest(&response, "GET", "/api/requests/finished", pathParamMap, queryParamMap)
+	err = client.DTORequest("singularity-getfinishedrequests", &response, "GET", "/api/requests/finished", pathParamMap, queryParamMap)
 
 	return
 }
@@ -227,7 +227,7 @@ func (client *Client) GetPendingRequests() (response dtos.SingularityPendingRequ
 	queryParamMap := map[string]interface{}{}
 
 	response = make(dtos.SingularityPendingRequestList, 0)
-	err = client.DTORequest(&response, "GET", "/api/requests/queued/pending", pathParamMap, queryParamMap)
+	err = client.DTORequest("singularity-getpendingrequests", &response, "GET", "/api/requests/queued/pending", pathParamMap, queryParamMap)
 
 	return
 }
@@ -237,7 +237,7 @@ func (client *Client) GetCleanupRequests() (response dtos.SingularityRequestClea
 	queryParamMap := map[string]interface{}{}
 
 	response = make(dtos.SingularityRequestCleanupList, 0)
-	err = client.DTORequest(&response, "GET", "/api/requests/queued/cleanup", pathParamMap, queryParamMap)
+	err = client.DTORequest("singularity-getcleanuprequests", &response, "GET", "/api/requests/queued/cleanup", pathParamMap, queryParamMap)
 
 	return
 }
@@ -249,7 +249,7 @@ func (client *Client) DeleteExpiringScale(requestId string) (response *dtos.Sing
 	queryParamMap := map[string]interface{}{}
 
 	response = new(dtos.SingularityRequestParent)
-	err = client.DTORequest(response, "DELETE", "/api/requests/request/{requestId}/scale", pathParamMap, queryParamMap)
+	err = client.DTORequest("singularity-deleteexpiringscale", response, "DELETE", "/api/requests/request/{requestId}/scale", pathParamMap, queryParamMap)
 
 	return
 }
@@ -261,7 +261,7 @@ func (client *Client) Scale(requestId string, body *dtos.SingularityScaleRequest
 	queryParamMap := map[string]interface{}{}
 
 	response = new(dtos.SingularityRequestParent)
-	err = client.DTORequest(response, "PUT", "/api/requests/request/{requestId}/scale", pathParamMap, queryParamMap, body)
+	err = client.DTORequest("singularity-scale", response, "PUT", "/api/requests/request/{requestId}/scale", pathParamMap, queryParamMap, body)
 
 	return
 }
@@ -273,7 +273,7 @@ func (client *Client) DeleteExpiringSkipHealthchecksDeprecated(requestId string)
 	queryParamMap := map[string]interface{}{}
 
 	response = new(dtos.SingularityRequestParent)
-	err = client.DTORequest(response, "DELETE", "/api/requests/request/{requestId}/skipHealthchecks", pathParamMap, queryParamMap)
+	err = client.DTORequest("singularity-deleteexpiringskiphealthchecksdeprecated", response, "DELETE", "/api/requests/request/{requestId}/skipHealthchecks", pathParamMap, queryParamMap)
 
 	return
 }
@@ -285,7 +285,7 @@ func (client *Client) SkipHealthchecksDeprecated(requestId string, body *dtos.Si
 	queryParamMap := map[string]interface{}{}
 
 	response = new(dtos.SingularityRequestParent)
-	err = client.DTORequest(response, "PUT", "/api/requests/request/{requestId}/skipHealthchecks", pathParamMap, queryParamMap, body)
+	err = client.DTORequest("singularity-skiphealthchecksdeprecated", response, "PUT", "/api/requests/request/{requestId}/skipHealthchecks", pathParamMap, queryParamMap, body)
 
 	return
 }
@@ -297,7 +297,7 @@ func (client *Client) GetLbCleanupRequests(useWebCache bool) (response swaggerin
 	}
 
 	response = make(swaggering.StringList, 0)
-	err = client.DTORequest(&response, "GET", "/api/requests/lbcleanup", pathParamMap, queryParamMap)
+	err = client.DTORequest("singularity-getlbcleanuprequests", &response, "GET", "/api/requests/lbcleanup", pathParamMap, queryParamMap)
 
 	return
 }

@@ -10,7 +10,7 @@ func (client *Client) GetRequestGroup(requestGroupId string) (response *dtos.Sin
 	queryParamMap := map[string]interface{}{}
 
 	response = new(dtos.SingularityRequestGroup)
-	err = client.DTORequest(response, "GET", "/api/groups/group/{requestGroupId}", pathParamMap, queryParamMap)
+	err = client.DTORequest("singularity-getrequestgroup", response, "GET", "/api/groups/group/{requestGroupId}", pathParamMap, queryParamMap)
 
 	return
 }
@@ -24,7 +24,7 @@ func (client *Client) GetRequestGroupIds(useWebCache bool) (response dtos.Singul
 	}
 
 	response = make(dtos.SingularityRequestGroupList, 0)
-	err = client.DTORequest(&response, "GET", "/api/groups", pathParamMap, queryParamMap)
+	err = client.DTORequest("singularity-getrequestgroupids", &response, "GET", "/api/groups", pathParamMap, queryParamMap)
 
 	return
 }
@@ -34,7 +34,7 @@ func (client *Client) SaveRequestGroup(body *dtos.SingularityRequestGroup) (resp
 	queryParamMap := map[string]interface{}{}
 
 	response = new(dtos.SingularityRequestGroup)
-	err = client.DTORequest(response, "POST", "/api/groups", pathParamMap, queryParamMap, body)
+	err = client.DTORequest("singularity-saverequestgroup", response, "POST", "/api/groups", pathParamMap, queryParamMap, body)
 
 	return
 }
