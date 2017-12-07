@@ -10,12 +10,6 @@ import (
 type SingularitySlave struct {
 	present map[string]bool
 
-	Resources *MesosResourcesObject `json:"resources"`
-
-	CurrentState *SingularityMachineStateHistoryUpdate `json:"currentState"`
-
-	FirstSeenAt int64 `json:"firstSeenAt"`
-
 	Id string `json:"id,omitempty"`
 
 	Host string `json:"host,omitempty"`
@@ -23,6 +17,12 @@ type SingularitySlave struct {
 	RackId string `json:"rackId,omitempty"`
 
 	Attributes map[string]string `json:"attributes"`
+
+	Resources *MesosResourcesObject `json:"resources"`
+
+	CurrentState *SingularityMachineStateHistoryUpdate `json:"currentState"`
+
+	FirstSeenAt int64 `json:"firstSeenAt"`
 }
 
 func (self *SingularitySlave) Populate(jsonReader io.ReadCloser) (err error) {
@@ -60,36 +60,6 @@ func (self *SingularitySlave) SetField(name string, value interface{}) error {
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on SingularitySlave", name)
-
-	case "resources", "Resources":
-		v, ok := value.(*MesosResourcesObject)
-		if ok {
-			self.Resources = v
-			self.present["resources"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field resources/Resources: value %v(%T) couldn't be cast to type *MesosResourcesObject", value, value)
-		}
-
-	case "currentState", "CurrentState":
-		v, ok := value.(*SingularityMachineStateHistoryUpdate)
-		if ok {
-			self.CurrentState = v
-			self.present["currentState"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field currentState/CurrentState: value %v(%T) couldn't be cast to type *SingularityMachineStateHistoryUpdate", value, value)
-		}
-
-	case "firstSeenAt", "FirstSeenAt":
-		v, ok := value.(int64)
-		if ok {
-			self.FirstSeenAt = v
-			self.present["firstSeenAt"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field firstSeenAt/FirstSeenAt: value %v(%T) couldn't be cast to type int64", value, value)
-		}
 
 	case "id", "Id":
 		v, ok := value.(string)
@@ -131,6 +101,36 @@ func (self *SingularitySlave) SetField(name string, value interface{}) error {
 			return fmt.Errorf("Field attributes/Attributes: value %v(%T) couldn't be cast to type map[string]string", value, value)
 		}
 
+	case "resources", "Resources":
+		v, ok := value.(*MesosResourcesObject)
+		if ok {
+			self.Resources = v
+			self.present["resources"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field resources/Resources: value %v(%T) couldn't be cast to type *MesosResourcesObject", value, value)
+		}
+
+	case "currentState", "CurrentState":
+		v, ok := value.(*SingularityMachineStateHistoryUpdate)
+		if ok {
+			self.CurrentState = v
+			self.present["currentState"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field currentState/CurrentState: value %v(%T) couldn't be cast to type *SingularityMachineStateHistoryUpdate", value, value)
+		}
+
+	case "firstSeenAt", "FirstSeenAt":
+		v, ok := value.(int64)
+		if ok {
+			self.FirstSeenAt = v
+			self.present["firstSeenAt"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field firstSeenAt/FirstSeenAt: value %v(%T) couldn't be cast to type int64", value, value)
+		}
+
 	}
 }
 
@@ -138,30 +138,6 @@ func (self *SingularitySlave) GetField(name string) (interface{}, error) {
 	switch name {
 	default:
 		return nil, fmt.Errorf("No such field %s on SingularitySlave", name)
-
-	case "resources", "Resources":
-		if self.present != nil {
-			if _, ok := self.present["resources"]; ok {
-				return self.Resources, nil
-			}
-		}
-		return nil, fmt.Errorf("Field Resources no set on Resources %+v", self)
-
-	case "currentState", "CurrentState":
-		if self.present != nil {
-			if _, ok := self.present["currentState"]; ok {
-				return self.CurrentState, nil
-			}
-		}
-		return nil, fmt.Errorf("Field CurrentState no set on CurrentState %+v", self)
-
-	case "firstSeenAt", "FirstSeenAt":
-		if self.present != nil {
-			if _, ok := self.present["firstSeenAt"]; ok {
-				return self.FirstSeenAt, nil
-			}
-		}
-		return nil, fmt.Errorf("Field FirstSeenAt no set on FirstSeenAt %+v", self)
 
 	case "id", "Id":
 		if self.present != nil {
@@ -195,6 +171,30 @@ func (self *SingularitySlave) GetField(name string) (interface{}, error) {
 		}
 		return nil, fmt.Errorf("Field Attributes no set on Attributes %+v", self)
 
+	case "resources", "Resources":
+		if self.present != nil {
+			if _, ok := self.present["resources"]; ok {
+				return self.Resources, nil
+			}
+		}
+		return nil, fmt.Errorf("Field Resources no set on Resources %+v", self)
+
+	case "currentState", "CurrentState":
+		if self.present != nil {
+			if _, ok := self.present["currentState"]; ok {
+				return self.CurrentState, nil
+			}
+		}
+		return nil, fmt.Errorf("Field CurrentState no set on CurrentState %+v", self)
+
+	case "firstSeenAt", "FirstSeenAt":
+		if self.present != nil {
+			if _, ok := self.present["firstSeenAt"]; ok {
+				return self.FirstSeenAt, nil
+			}
+		}
+		return nil, fmt.Errorf("Field FirstSeenAt no set on FirstSeenAt %+v", self)
+
 	}
 }
 
@@ -205,15 +205,6 @@ func (self *SingularitySlave) ClearField(name string) error {
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on SingularitySlave", name)
-
-	case "resources", "Resources":
-		self.present["resources"] = false
-
-	case "currentState", "CurrentState":
-		self.present["currentState"] = false
-
-	case "firstSeenAt", "FirstSeenAt":
-		self.present["firstSeenAt"] = false
 
 	case "id", "Id":
 		self.present["id"] = false
@@ -226,6 +217,15 @@ func (self *SingularitySlave) ClearField(name string) error {
 
 	case "attributes", "Attributes":
 		self.present["attributes"] = false
+
+	case "resources", "Resources":
+		self.present["resources"] = false
+
+	case "currentState", "CurrentState":
+		self.present["currentState"] = false
+
+	case "firstSeenAt", "FirstSeenAt":
+		self.present["firstSeenAt"] = false
 
 	}
 

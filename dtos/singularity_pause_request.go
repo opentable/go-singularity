@@ -10,8 +10,6 @@ import (
 type SingularityPauseRequest struct {
 	present map[string]bool
 
-	RunShellCommandBeforeKill *SingularityShellCommand `json:"runShellCommandBeforeKill"`
-
 	DurationMillis int64 `json:"durationMillis"`
 
 	ActionId string `json:"actionId,omitempty"`
@@ -19,6 +17,8 @@ type SingularityPauseRequest struct {
 	Message string `json:"message,omitempty"`
 
 	KillTasks bool `json:"killTasks"`
+
+	RunShellCommandBeforeKill *SingularityShellCommand `json:"runShellCommandBeforeKill"`
 }
 
 func (self *SingularityPauseRequest) Populate(jsonReader io.ReadCloser) (err error) {
@@ -56,16 +56,6 @@ func (self *SingularityPauseRequest) SetField(name string, value interface{}) er
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on SingularityPauseRequest", name)
-
-	case "runShellCommandBeforeKill", "RunShellCommandBeforeKill":
-		v, ok := value.(*SingularityShellCommand)
-		if ok {
-			self.RunShellCommandBeforeKill = v
-			self.present["runShellCommandBeforeKill"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field runShellCommandBeforeKill/RunShellCommandBeforeKill: value %v(%T) couldn't be cast to type *SingularityShellCommand", value, value)
-		}
 
 	case "durationMillis", "DurationMillis":
 		v, ok := value.(int64)
@@ -107,6 +97,16 @@ func (self *SingularityPauseRequest) SetField(name string, value interface{}) er
 			return fmt.Errorf("Field killTasks/KillTasks: value %v(%T) couldn't be cast to type bool", value, value)
 		}
 
+	case "runShellCommandBeforeKill", "RunShellCommandBeforeKill":
+		v, ok := value.(*SingularityShellCommand)
+		if ok {
+			self.RunShellCommandBeforeKill = v
+			self.present["runShellCommandBeforeKill"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field runShellCommandBeforeKill/RunShellCommandBeforeKill: value %v(%T) couldn't be cast to type *SingularityShellCommand", value, value)
+		}
+
 	}
 }
 
@@ -114,14 +114,6 @@ func (self *SingularityPauseRequest) GetField(name string) (interface{}, error) 
 	switch name {
 	default:
 		return nil, fmt.Errorf("No such field %s on SingularityPauseRequest", name)
-
-	case "runShellCommandBeforeKill", "RunShellCommandBeforeKill":
-		if self.present != nil {
-			if _, ok := self.present["runShellCommandBeforeKill"]; ok {
-				return self.RunShellCommandBeforeKill, nil
-			}
-		}
-		return nil, fmt.Errorf("Field RunShellCommandBeforeKill no set on RunShellCommandBeforeKill %+v", self)
 
 	case "durationMillis", "DurationMillis":
 		if self.present != nil {
@@ -155,6 +147,14 @@ func (self *SingularityPauseRequest) GetField(name string) (interface{}, error) 
 		}
 		return nil, fmt.Errorf("Field KillTasks no set on KillTasks %+v", self)
 
+	case "runShellCommandBeforeKill", "RunShellCommandBeforeKill":
+		if self.present != nil {
+			if _, ok := self.present["runShellCommandBeforeKill"]; ok {
+				return self.RunShellCommandBeforeKill, nil
+			}
+		}
+		return nil, fmt.Errorf("Field RunShellCommandBeforeKill no set on RunShellCommandBeforeKill %+v", self)
+
 	}
 }
 
@@ -165,9 +165,6 @@ func (self *SingularityPauseRequest) ClearField(name string) error {
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on SingularityPauseRequest", name)
-
-	case "runShellCommandBeforeKill", "RunShellCommandBeforeKill":
-		self.present["runShellCommandBeforeKill"] = false
 
 	case "durationMillis", "DurationMillis":
 		self.present["durationMillis"] = false
@@ -180,6 +177,9 @@ func (self *SingularityPauseRequest) ClearField(name string) error {
 
 	case "killTasks", "KillTasks":
 		self.present["killTasks"] = false
+
+	case "runShellCommandBeforeKill", "RunShellCommandBeforeKill":
+		self.present["runShellCommandBeforeKill"] = false
 
 	}
 

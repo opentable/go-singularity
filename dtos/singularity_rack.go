@@ -10,11 +10,11 @@ import (
 type SingularityRack struct {
 	present map[string]bool
 
+	Id string `json:"id,omitempty"`
+
 	CurrentState *SingularityMachineStateHistoryUpdate `json:"currentState"`
 
 	FirstSeenAt int64 `json:"firstSeenAt"`
-
-	Id string `json:"id,omitempty"`
 }
 
 func (self *SingularityRack) Populate(jsonReader io.ReadCloser) (err error) {
@@ -53,6 +53,16 @@ func (self *SingularityRack) SetField(name string, value interface{}) error {
 	default:
 		return fmt.Errorf("No such field %s on SingularityRack", name)
 
+	case "id", "Id":
+		v, ok := value.(string)
+		if ok {
+			self.Id = v
+			self.present["id"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field id/Id: value %v(%T) couldn't be cast to type string", value, value)
+		}
+
 	case "currentState", "CurrentState":
 		v, ok := value.(*SingularityMachineStateHistoryUpdate)
 		if ok {
@@ -73,16 +83,6 @@ func (self *SingularityRack) SetField(name string, value interface{}) error {
 			return fmt.Errorf("Field firstSeenAt/FirstSeenAt: value %v(%T) couldn't be cast to type int64", value, value)
 		}
 
-	case "id", "Id":
-		v, ok := value.(string)
-		if ok {
-			self.Id = v
-			self.present["id"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field id/Id: value %v(%T) couldn't be cast to type string", value, value)
-		}
-
 	}
 }
 
@@ -90,6 +90,14 @@ func (self *SingularityRack) GetField(name string) (interface{}, error) {
 	switch name {
 	default:
 		return nil, fmt.Errorf("No such field %s on SingularityRack", name)
+
+	case "id", "Id":
+		if self.present != nil {
+			if _, ok := self.present["id"]; ok {
+				return self.Id, nil
+			}
+		}
+		return nil, fmt.Errorf("Field Id no set on Id %+v", self)
 
 	case "currentState", "CurrentState":
 		if self.present != nil {
@@ -107,14 +115,6 @@ func (self *SingularityRack) GetField(name string) (interface{}, error) {
 		}
 		return nil, fmt.Errorf("Field FirstSeenAt no set on FirstSeenAt %+v", self)
 
-	case "id", "Id":
-		if self.present != nil {
-			if _, ok := self.present["id"]; ok {
-				return self.Id, nil
-			}
-		}
-		return nil, fmt.Errorf("Field Id no set on Id %+v", self)
-
 	}
 }
 
@@ -126,14 +126,14 @@ func (self *SingularityRack) ClearField(name string) error {
 	default:
 		return fmt.Errorf("No such field %s on SingularityRack", name)
 
+	case "id", "Id":
+		self.present["id"] = false
+
 	case "currentState", "CurrentState":
 		self.present["currentState"] = false
 
 	case "firstSeenAt", "FirstSeenAt":
 		self.present["firstSeenAt"] = false
-
-	case "id", "Id":
-		self.present["id"] = false
 
 	}
 

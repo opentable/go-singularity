@@ -18,10 +18,6 @@ const (
 type SingularityTaskMetadata struct {
 	present map[string]bool
 
-	Timestamp int64 `json:"timestamp"`
-
-	Type string `json:"type,omitempty"`
-
 	Title string `json:"title,omitempty"`
 
 	Level SingularityTaskMetadataMetadataLevel `json:"level"`
@@ -31,6 +27,10 @@ type SingularityTaskMetadata struct {
 	User string `json:"user,omitempty"`
 
 	TaskId *SingularityTaskId `json:"taskId"`
+
+	Timestamp int64 `json:"timestamp"`
+
+	Type string `json:"type,omitempty"`
 }
 
 func (self *SingularityTaskMetadata) Populate(jsonReader io.ReadCloser) (err error) {
@@ -68,26 +68,6 @@ func (self *SingularityTaskMetadata) SetField(name string, value interface{}) er
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on SingularityTaskMetadata", name)
-
-	case "timestamp", "Timestamp":
-		v, ok := value.(int64)
-		if ok {
-			self.Timestamp = v
-			self.present["timestamp"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field timestamp/Timestamp: value %v(%T) couldn't be cast to type int64", value, value)
-		}
-
-	case "type", "Type":
-		v, ok := value.(string)
-		if ok {
-			self.Type = v
-			self.present["type"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field type/Type: value %v(%T) couldn't be cast to type string", value, value)
-		}
 
 	case "title", "Title":
 		v, ok := value.(string)
@@ -139,6 +119,26 @@ func (self *SingularityTaskMetadata) SetField(name string, value interface{}) er
 			return fmt.Errorf("Field taskId/TaskId: value %v(%T) couldn't be cast to type *SingularityTaskId", value, value)
 		}
 
+	case "timestamp", "Timestamp":
+		v, ok := value.(int64)
+		if ok {
+			self.Timestamp = v
+			self.present["timestamp"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field timestamp/Timestamp: value %v(%T) couldn't be cast to type int64", value, value)
+		}
+
+	case "type", "Type":
+		v, ok := value.(string)
+		if ok {
+			self.Type = v
+			self.present["type"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field type/Type: value %v(%T) couldn't be cast to type string", value, value)
+		}
+
 	}
 }
 
@@ -146,22 +146,6 @@ func (self *SingularityTaskMetadata) GetField(name string) (interface{}, error) 
 	switch name {
 	default:
 		return nil, fmt.Errorf("No such field %s on SingularityTaskMetadata", name)
-
-	case "timestamp", "Timestamp":
-		if self.present != nil {
-			if _, ok := self.present["timestamp"]; ok {
-				return self.Timestamp, nil
-			}
-		}
-		return nil, fmt.Errorf("Field Timestamp no set on Timestamp %+v", self)
-
-	case "type", "Type":
-		if self.present != nil {
-			if _, ok := self.present["type"]; ok {
-				return self.Type, nil
-			}
-		}
-		return nil, fmt.Errorf("Field Type no set on Type %+v", self)
 
 	case "title", "Title":
 		if self.present != nil {
@@ -203,6 +187,22 @@ func (self *SingularityTaskMetadata) GetField(name string) (interface{}, error) 
 		}
 		return nil, fmt.Errorf("Field TaskId no set on TaskId %+v", self)
 
+	case "timestamp", "Timestamp":
+		if self.present != nil {
+			if _, ok := self.present["timestamp"]; ok {
+				return self.Timestamp, nil
+			}
+		}
+		return nil, fmt.Errorf("Field Timestamp no set on Timestamp %+v", self)
+
+	case "type", "Type":
+		if self.present != nil {
+			if _, ok := self.present["type"]; ok {
+				return self.Type, nil
+			}
+		}
+		return nil, fmt.Errorf("Field Type no set on Type %+v", self)
+
 	}
 }
 
@@ -213,12 +213,6 @@ func (self *SingularityTaskMetadata) ClearField(name string) error {
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on SingularityTaskMetadata", name)
-
-	case "timestamp", "Timestamp":
-		self.present["timestamp"] = false
-
-	case "type", "Type":
-		self.present["type"] = false
 
 	case "title", "Title":
 		self.present["title"] = false
@@ -234,6 +228,12 @@ func (self *SingularityTaskMetadata) ClearField(name string) error {
 
 	case "taskId", "TaskId":
 		self.present["taskId"] = false
+
+	case "timestamp", "Timestamp":
+		self.present["timestamp"] = false
+
+	case "type", "Type":
+		self.present["type"] = false
 
 	}
 

@@ -10,12 +10,6 @@ import (
 type SingularityExpiringScale struct {
 	present map[string]bool
 
-	RevertToInstances int32 `json:"revertToInstances"`
-
-	Bounce bool `json:"bounce"`
-
-	RequestId string `json:"requestId,omitempty"`
-
 	StartMillis int64 `json:"startMillis"`
 
 	ActionId string `json:"actionId,omitempty"`
@@ -24,6 +18,11 @@ type SingularityExpiringScale struct {
 
 	// Invalid field: ExpiringAPIRequestObject *notfound.T `json:"expiringAPIRequestObject"`
 
+	RevertToInstances int32 `json:"revertToInstances"`
+
+	Bounce bool `json:"bounce"`
+
+	RequestId string `json:"requestId,omitempty"`
 }
 
 func (self *SingularityExpiringScale) Populate(jsonReader io.ReadCloser) (err error) {
@@ -62,36 +61,6 @@ func (self *SingularityExpiringScale) SetField(name string, value interface{}) e
 	default:
 		return fmt.Errorf("No such field %s on SingularityExpiringScale", name)
 
-	case "revertToInstances", "RevertToInstances":
-		v, ok := value.(int32)
-		if ok {
-			self.RevertToInstances = v
-			self.present["revertToInstances"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field revertToInstances/RevertToInstances: value %v(%T) couldn't be cast to type int32", value, value)
-		}
-
-	case "bounce", "Bounce":
-		v, ok := value.(bool)
-		if ok {
-			self.Bounce = v
-			self.present["bounce"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field bounce/Bounce: value %v(%T) couldn't be cast to type bool", value, value)
-		}
-
-	case "requestId", "RequestId":
-		v, ok := value.(string)
-		if ok {
-			self.RequestId = v
-			self.present["requestId"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field requestId/RequestId: value %v(%T) couldn't be cast to type string", value, value)
-		}
-
 	case "startMillis", "StartMillis":
 		v, ok := value.(int64)
 		if ok {
@@ -122,6 +91,36 @@ func (self *SingularityExpiringScale) SetField(name string, value interface{}) e
 			return fmt.Errorf("Field user/User: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
+	case "revertToInstances", "RevertToInstances":
+		v, ok := value.(int32)
+		if ok {
+			self.RevertToInstances = v
+			self.present["revertToInstances"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field revertToInstances/RevertToInstances: value %v(%T) couldn't be cast to type int32", value, value)
+		}
+
+	case "bounce", "Bounce":
+		v, ok := value.(bool)
+		if ok {
+			self.Bounce = v
+			self.present["bounce"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field bounce/Bounce: value %v(%T) couldn't be cast to type bool", value, value)
+		}
+
+	case "requestId", "RequestId":
+		v, ok := value.(string)
+		if ok {
+			self.RequestId = v
+			self.present["requestId"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field requestId/RequestId: value %v(%T) couldn't be cast to type string", value, value)
+		}
+
 	}
 }
 
@@ -129,30 +128,6 @@ func (self *SingularityExpiringScale) GetField(name string) (interface{}, error)
 	switch name {
 	default:
 		return nil, fmt.Errorf("No such field %s on SingularityExpiringScale", name)
-
-	case "revertToInstances", "RevertToInstances":
-		if self.present != nil {
-			if _, ok := self.present["revertToInstances"]; ok {
-				return self.RevertToInstances, nil
-			}
-		}
-		return nil, fmt.Errorf("Field RevertToInstances no set on RevertToInstances %+v", self)
-
-	case "bounce", "Bounce":
-		if self.present != nil {
-			if _, ok := self.present["bounce"]; ok {
-				return self.Bounce, nil
-			}
-		}
-		return nil, fmt.Errorf("Field Bounce no set on Bounce %+v", self)
-
-	case "requestId", "RequestId":
-		if self.present != nil {
-			if _, ok := self.present["requestId"]; ok {
-				return self.RequestId, nil
-			}
-		}
-		return nil, fmt.Errorf("Field RequestId no set on RequestId %+v", self)
 
 	case "startMillis", "StartMillis":
 		if self.present != nil {
@@ -178,6 +153,30 @@ func (self *SingularityExpiringScale) GetField(name string) (interface{}, error)
 		}
 		return nil, fmt.Errorf("Field User no set on User %+v", self)
 
+	case "revertToInstances", "RevertToInstances":
+		if self.present != nil {
+			if _, ok := self.present["revertToInstances"]; ok {
+				return self.RevertToInstances, nil
+			}
+		}
+		return nil, fmt.Errorf("Field RevertToInstances no set on RevertToInstances %+v", self)
+
+	case "bounce", "Bounce":
+		if self.present != nil {
+			if _, ok := self.present["bounce"]; ok {
+				return self.Bounce, nil
+			}
+		}
+		return nil, fmt.Errorf("Field Bounce no set on Bounce %+v", self)
+
+	case "requestId", "RequestId":
+		if self.present != nil {
+			if _, ok := self.present["requestId"]; ok {
+				return self.RequestId, nil
+			}
+		}
+		return nil, fmt.Errorf("Field RequestId no set on RequestId %+v", self)
+
 	}
 }
 
@@ -189,15 +188,6 @@ func (self *SingularityExpiringScale) ClearField(name string) error {
 	default:
 		return fmt.Errorf("No such field %s on SingularityExpiringScale", name)
 
-	case "revertToInstances", "RevertToInstances":
-		self.present["revertToInstances"] = false
-
-	case "bounce", "Bounce":
-		self.present["bounce"] = false
-
-	case "requestId", "RequestId":
-		self.present["requestId"] = false
-
 	case "startMillis", "StartMillis":
 		self.present["startMillis"] = false
 
@@ -206,6 +196,15 @@ func (self *SingularityExpiringScale) ClearField(name string) error {
 
 	case "user", "User":
 		self.present["user"] = false
+
+	case "revertToInstances", "RevertToInstances":
+		self.present["revertToInstances"] = false
+
+	case "bounce", "Bounce":
+		self.present["bounce"] = false
+
+	case "requestId", "RequestId":
+		self.present["requestId"] = false
 
 	}
 

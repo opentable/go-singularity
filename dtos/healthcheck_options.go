@@ -10,15 +10,15 @@ import (
 type HealthcheckOptions struct {
 	present map[string]bool
 
+	MaxRetries int32 `json:"maxRetries"`
+
 	FailureStatusCodes []int32 `json:"failureStatusCodes"`
 
-	PortNumber int64 `json:"portNumber"`
+	PortIndex int32 `json:"portIndex"`
 
 	// Invalid field: Protocol *notfound.HealthcheckProtocol `json:"protocol"`
 
-	StartupTimeoutSeconds int32 `json:"startupTimeoutSeconds"`
-
-	MaxRetries int32 `json:"maxRetries"`
+	StartupDelaySeconds int32 `json:"startupDelaySeconds"`
 
 	IntervalSeconds int32 `json:"intervalSeconds"`
 
@@ -26,9 +26,9 @@ type HealthcheckOptions struct {
 
 	Uri string `json:"uri,omitempty"`
 
-	PortIndex int32 `json:"portIndex"`
+	PortNumber int64 `json:"portNumber"`
 
-	StartupDelaySeconds int32 `json:"startupDelaySeconds"`
+	StartupTimeoutSeconds int32 `json:"startupTimeoutSeconds"`
 
 	StartupIntervalSeconds int32 `json:"startupIntervalSeconds"`
 }
@@ -69,6 +69,16 @@ func (self *HealthcheckOptions) SetField(name string, value interface{}) error {
 	default:
 		return fmt.Errorf("No such field %s on HealthcheckOptions", name)
 
+	case "maxRetries", "MaxRetries":
+		v, ok := value.(int32)
+		if ok {
+			self.MaxRetries = v
+			self.present["maxRetries"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field maxRetries/MaxRetries: value %v(%T) couldn't be cast to type int32", value, value)
+		}
+
 	case "failureStatusCodes", "FailureStatusCodes":
 		v, ok := value.([]int32)
 		if ok {
@@ -79,34 +89,24 @@ func (self *HealthcheckOptions) SetField(name string, value interface{}) error {
 			return fmt.Errorf("Field failureStatusCodes/FailureStatusCodes: value %v(%T) couldn't be cast to type []int32", value, value)
 		}
 
-	case "portNumber", "PortNumber":
-		v, ok := value.(int64)
-		if ok {
-			self.PortNumber = v
-			self.present["portNumber"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field portNumber/PortNumber: value %v(%T) couldn't be cast to type int64", value, value)
-		}
-
-	case "startupTimeoutSeconds", "StartupTimeoutSeconds":
+	case "portIndex", "PortIndex":
 		v, ok := value.(int32)
 		if ok {
-			self.StartupTimeoutSeconds = v
-			self.present["startupTimeoutSeconds"] = true
+			self.PortIndex = v
+			self.present["portIndex"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field startupTimeoutSeconds/StartupTimeoutSeconds: value %v(%T) couldn't be cast to type int32", value, value)
+			return fmt.Errorf("Field portIndex/PortIndex: value %v(%T) couldn't be cast to type int32", value, value)
 		}
 
-	case "maxRetries", "MaxRetries":
+	case "startupDelaySeconds", "StartupDelaySeconds":
 		v, ok := value.(int32)
 		if ok {
-			self.MaxRetries = v
-			self.present["maxRetries"] = true
+			self.StartupDelaySeconds = v
+			self.present["startupDelaySeconds"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field maxRetries/MaxRetries: value %v(%T) couldn't be cast to type int32", value, value)
+			return fmt.Errorf("Field startupDelaySeconds/StartupDelaySeconds: value %v(%T) couldn't be cast to type int32", value, value)
 		}
 
 	case "intervalSeconds", "IntervalSeconds":
@@ -139,24 +139,24 @@ func (self *HealthcheckOptions) SetField(name string, value interface{}) error {
 			return fmt.Errorf("Field uri/Uri: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
-	case "portIndex", "PortIndex":
-		v, ok := value.(int32)
+	case "portNumber", "PortNumber":
+		v, ok := value.(int64)
 		if ok {
-			self.PortIndex = v
-			self.present["portIndex"] = true
+			self.PortNumber = v
+			self.present["portNumber"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field portIndex/PortIndex: value %v(%T) couldn't be cast to type int32", value, value)
+			return fmt.Errorf("Field portNumber/PortNumber: value %v(%T) couldn't be cast to type int64", value, value)
 		}
 
-	case "startupDelaySeconds", "StartupDelaySeconds":
+	case "startupTimeoutSeconds", "StartupTimeoutSeconds":
 		v, ok := value.(int32)
 		if ok {
-			self.StartupDelaySeconds = v
-			self.present["startupDelaySeconds"] = true
+			self.StartupTimeoutSeconds = v
+			self.present["startupTimeoutSeconds"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field startupDelaySeconds/StartupDelaySeconds: value %v(%T) couldn't be cast to type int32", value, value)
+			return fmt.Errorf("Field startupTimeoutSeconds/StartupTimeoutSeconds: value %v(%T) couldn't be cast to type int32", value, value)
 		}
 
 	case "startupIntervalSeconds", "StartupIntervalSeconds":
@@ -177,6 +177,14 @@ func (self *HealthcheckOptions) GetField(name string) (interface{}, error) {
 	default:
 		return nil, fmt.Errorf("No such field %s on HealthcheckOptions", name)
 
+	case "maxRetries", "MaxRetries":
+		if self.present != nil {
+			if _, ok := self.present["maxRetries"]; ok {
+				return self.MaxRetries, nil
+			}
+		}
+		return nil, fmt.Errorf("Field MaxRetries no set on MaxRetries %+v", self)
+
 	case "failureStatusCodes", "FailureStatusCodes":
 		if self.present != nil {
 			if _, ok := self.present["failureStatusCodes"]; ok {
@@ -185,29 +193,21 @@ func (self *HealthcheckOptions) GetField(name string) (interface{}, error) {
 		}
 		return nil, fmt.Errorf("Field FailureStatusCodes no set on FailureStatusCodes %+v", self)
 
-	case "portNumber", "PortNumber":
+	case "portIndex", "PortIndex":
 		if self.present != nil {
-			if _, ok := self.present["portNumber"]; ok {
-				return self.PortNumber, nil
+			if _, ok := self.present["portIndex"]; ok {
+				return self.PortIndex, nil
 			}
 		}
-		return nil, fmt.Errorf("Field PortNumber no set on PortNumber %+v", self)
+		return nil, fmt.Errorf("Field PortIndex no set on PortIndex %+v", self)
 
-	case "startupTimeoutSeconds", "StartupTimeoutSeconds":
+	case "startupDelaySeconds", "StartupDelaySeconds":
 		if self.present != nil {
-			if _, ok := self.present["startupTimeoutSeconds"]; ok {
-				return self.StartupTimeoutSeconds, nil
+			if _, ok := self.present["startupDelaySeconds"]; ok {
+				return self.StartupDelaySeconds, nil
 			}
 		}
-		return nil, fmt.Errorf("Field StartupTimeoutSeconds no set on StartupTimeoutSeconds %+v", self)
-
-	case "maxRetries", "MaxRetries":
-		if self.present != nil {
-			if _, ok := self.present["maxRetries"]; ok {
-				return self.MaxRetries, nil
-			}
-		}
-		return nil, fmt.Errorf("Field MaxRetries no set on MaxRetries %+v", self)
+		return nil, fmt.Errorf("Field StartupDelaySeconds no set on StartupDelaySeconds %+v", self)
 
 	case "intervalSeconds", "IntervalSeconds":
 		if self.present != nil {
@@ -233,21 +233,21 @@ func (self *HealthcheckOptions) GetField(name string) (interface{}, error) {
 		}
 		return nil, fmt.Errorf("Field Uri no set on Uri %+v", self)
 
-	case "portIndex", "PortIndex":
+	case "portNumber", "PortNumber":
 		if self.present != nil {
-			if _, ok := self.present["portIndex"]; ok {
-				return self.PortIndex, nil
+			if _, ok := self.present["portNumber"]; ok {
+				return self.PortNumber, nil
 			}
 		}
-		return nil, fmt.Errorf("Field PortIndex no set on PortIndex %+v", self)
+		return nil, fmt.Errorf("Field PortNumber no set on PortNumber %+v", self)
 
-	case "startupDelaySeconds", "StartupDelaySeconds":
+	case "startupTimeoutSeconds", "StartupTimeoutSeconds":
 		if self.present != nil {
-			if _, ok := self.present["startupDelaySeconds"]; ok {
-				return self.StartupDelaySeconds, nil
+			if _, ok := self.present["startupTimeoutSeconds"]; ok {
+				return self.StartupTimeoutSeconds, nil
 			}
 		}
-		return nil, fmt.Errorf("Field StartupDelaySeconds no set on StartupDelaySeconds %+v", self)
+		return nil, fmt.Errorf("Field StartupTimeoutSeconds no set on StartupTimeoutSeconds %+v", self)
 
 	case "startupIntervalSeconds", "StartupIntervalSeconds":
 		if self.present != nil {
@@ -268,17 +268,17 @@ func (self *HealthcheckOptions) ClearField(name string) error {
 	default:
 		return fmt.Errorf("No such field %s on HealthcheckOptions", name)
 
+	case "maxRetries", "MaxRetries":
+		self.present["maxRetries"] = false
+
 	case "failureStatusCodes", "FailureStatusCodes":
 		self.present["failureStatusCodes"] = false
 
-	case "portNumber", "PortNumber":
-		self.present["portNumber"] = false
+	case "portIndex", "PortIndex":
+		self.present["portIndex"] = false
 
-	case "startupTimeoutSeconds", "StartupTimeoutSeconds":
-		self.present["startupTimeoutSeconds"] = false
-
-	case "maxRetries", "MaxRetries":
-		self.present["maxRetries"] = false
+	case "startupDelaySeconds", "StartupDelaySeconds":
+		self.present["startupDelaySeconds"] = false
 
 	case "intervalSeconds", "IntervalSeconds":
 		self.present["intervalSeconds"] = false
@@ -289,11 +289,11 @@ func (self *HealthcheckOptions) ClearField(name string) error {
 	case "uri", "Uri":
 		self.present["uri"] = false
 
-	case "portIndex", "PortIndex":
-		self.present["portIndex"] = false
+	case "portNumber", "PortNumber":
+		self.present["portNumber"] = false
 
-	case "startupDelaySeconds", "StartupDelaySeconds":
-		self.present["startupDelaySeconds"] = false
+	case "startupTimeoutSeconds", "StartupTimeoutSeconds":
+		self.present["startupTimeoutSeconds"] = false
 
 	case "startupIntervalSeconds", "StartupIntervalSeconds":
 		self.present["startupIntervalSeconds"] = false

@@ -10,33 +10,33 @@ import (
 type SingularityTaskReconciliationStatistics struct {
 	present map[string]bool
 
-	TaskReconciliationResponseMax int64 `json:"taskReconciliationResponseMax"`
-
-	TaskReconciliationResponseP98 float64 `json:"taskReconciliationResponseP98"`
-
-	TaskReconciliationResponseMean float64 `json:"taskReconciliationResponseMean"`
-
-	TaskReconciliationResponseP75 float64 `json:"taskReconciliationResponseP75"`
-
-	TaskReconciliationResponseP95 float64 `json:"taskReconciliationResponseP95"`
-
-	TaskReconciliationResponseStddev float64 `json:"taskReconciliationResponseStddev"`
-
-	TaskReconciliationResponseMin int64 `json:"taskReconciliationResponseMin"`
+	TaskReconciliationIterations int32 `json:"taskReconciliationIterations"`
 
 	TaskReconciliationResponseP50 float64 `json:"taskReconciliationResponseP50"`
 
-	TaskReconciliationResponseP99 float64 `json:"taskReconciliationResponseP99"`
+	TaskReconciliationResponseP98 float64 `json:"taskReconciliationResponseP98"`
 
 	TaskReconciliationResponseP999 float64 `json:"taskReconciliationResponseP999"`
 
 	TaskReconciliationStartedAt int64 `json:"taskReconciliationStartedAt"`
 
+	TaskReconciliationResponseCount int64 `json:"taskReconciliationResponseCount"`
+
+	TaskReconciliationResponseMin int64 `json:"taskReconciliationResponseMin"`
+
+	TaskReconciliationResponseP75 float64 `json:"taskReconciliationResponseP75"`
+
 	TaskReconciliationDurationMillis int64 `json:"taskReconciliationDurationMillis"`
 
-	TaskReconciliationIterations int32 `json:"taskReconciliationIterations"`
+	TaskReconciliationResponseP95 float64 `json:"taskReconciliationResponseP95"`
 
-	TaskReconciliationResponseCount int64 `json:"taskReconciliationResponseCount"`
+	TaskReconciliationResponseMean float64 `json:"taskReconciliationResponseMean"`
+
+	TaskReconciliationResponseP99 float64 `json:"taskReconciliationResponseP99"`
+
+	TaskReconciliationResponseStddev float64 `json:"taskReconciliationResponseStddev"`
+
+	TaskReconciliationResponseMax int64 `json:"taskReconciliationResponseMax"`
 }
 
 func (self *SingularityTaskReconciliationStatistics) Populate(jsonReader io.ReadCloser) (err error) {
@@ -75,74 +75,14 @@ func (self *SingularityTaskReconciliationStatistics) SetField(name string, value
 	default:
 		return fmt.Errorf("No such field %s on SingularityTaskReconciliationStatistics", name)
 
-	case "taskReconciliationResponseMax", "TaskReconciliationResponseMax":
-		v, ok := value.(int64)
+	case "taskReconciliationIterations", "TaskReconciliationIterations":
+		v, ok := value.(int32)
 		if ok {
-			self.TaskReconciliationResponseMax = v
-			self.present["taskReconciliationResponseMax"] = true
+			self.TaskReconciliationIterations = v
+			self.present["taskReconciliationIterations"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field taskReconciliationResponseMax/TaskReconciliationResponseMax: value %v(%T) couldn't be cast to type int64", value, value)
-		}
-
-	case "taskReconciliationResponseP98", "TaskReconciliationResponseP98":
-		v, ok := value.(float64)
-		if ok {
-			self.TaskReconciliationResponseP98 = v
-			self.present["taskReconciliationResponseP98"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field taskReconciliationResponseP98/TaskReconciliationResponseP98: value %v(%T) couldn't be cast to type float64", value, value)
-		}
-
-	case "taskReconciliationResponseMean", "TaskReconciliationResponseMean":
-		v, ok := value.(float64)
-		if ok {
-			self.TaskReconciliationResponseMean = v
-			self.present["taskReconciliationResponseMean"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field taskReconciliationResponseMean/TaskReconciliationResponseMean: value %v(%T) couldn't be cast to type float64", value, value)
-		}
-
-	case "taskReconciliationResponseP75", "TaskReconciliationResponseP75":
-		v, ok := value.(float64)
-		if ok {
-			self.TaskReconciliationResponseP75 = v
-			self.present["taskReconciliationResponseP75"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field taskReconciliationResponseP75/TaskReconciliationResponseP75: value %v(%T) couldn't be cast to type float64", value, value)
-		}
-
-	case "taskReconciliationResponseP95", "TaskReconciliationResponseP95":
-		v, ok := value.(float64)
-		if ok {
-			self.TaskReconciliationResponseP95 = v
-			self.present["taskReconciliationResponseP95"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field taskReconciliationResponseP95/TaskReconciliationResponseP95: value %v(%T) couldn't be cast to type float64", value, value)
-		}
-
-	case "taskReconciliationResponseStddev", "TaskReconciliationResponseStddev":
-		v, ok := value.(float64)
-		if ok {
-			self.TaskReconciliationResponseStddev = v
-			self.present["taskReconciliationResponseStddev"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field taskReconciliationResponseStddev/TaskReconciliationResponseStddev: value %v(%T) couldn't be cast to type float64", value, value)
-		}
-
-	case "taskReconciliationResponseMin", "TaskReconciliationResponseMin":
-		v, ok := value.(int64)
-		if ok {
-			self.TaskReconciliationResponseMin = v
-			self.present["taskReconciliationResponseMin"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field taskReconciliationResponseMin/TaskReconciliationResponseMin: value %v(%T) couldn't be cast to type int64", value, value)
+			return fmt.Errorf("Field taskReconciliationIterations/TaskReconciliationIterations: value %v(%T) couldn't be cast to type int32", value, value)
 		}
 
 	case "taskReconciliationResponseP50", "TaskReconciliationResponseP50":
@@ -155,14 +95,14 @@ func (self *SingularityTaskReconciliationStatistics) SetField(name string, value
 			return fmt.Errorf("Field taskReconciliationResponseP50/TaskReconciliationResponseP50: value %v(%T) couldn't be cast to type float64", value, value)
 		}
 
-	case "taskReconciliationResponseP99", "TaskReconciliationResponseP99":
+	case "taskReconciliationResponseP98", "TaskReconciliationResponseP98":
 		v, ok := value.(float64)
 		if ok {
-			self.TaskReconciliationResponseP99 = v
-			self.present["taskReconciliationResponseP99"] = true
+			self.TaskReconciliationResponseP98 = v
+			self.present["taskReconciliationResponseP98"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field taskReconciliationResponseP99/TaskReconciliationResponseP99: value %v(%T) couldn't be cast to type float64", value, value)
+			return fmt.Errorf("Field taskReconciliationResponseP98/TaskReconciliationResponseP98: value %v(%T) couldn't be cast to type float64", value, value)
 		}
 
 	case "taskReconciliationResponseP999", "TaskReconciliationResponseP999":
@@ -185,26 +125,6 @@ func (self *SingularityTaskReconciliationStatistics) SetField(name string, value
 			return fmt.Errorf("Field taskReconciliationStartedAt/TaskReconciliationStartedAt: value %v(%T) couldn't be cast to type int64", value, value)
 		}
 
-	case "taskReconciliationDurationMillis", "TaskReconciliationDurationMillis":
-		v, ok := value.(int64)
-		if ok {
-			self.TaskReconciliationDurationMillis = v
-			self.present["taskReconciliationDurationMillis"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field taskReconciliationDurationMillis/TaskReconciliationDurationMillis: value %v(%T) couldn't be cast to type int64", value, value)
-		}
-
-	case "taskReconciliationIterations", "TaskReconciliationIterations":
-		v, ok := value.(int32)
-		if ok {
-			self.TaskReconciliationIterations = v
-			self.present["taskReconciliationIterations"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field taskReconciliationIterations/TaskReconciliationIterations: value %v(%T) couldn't be cast to type int32", value, value)
-		}
-
 	case "taskReconciliationResponseCount", "TaskReconciliationResponseCount":
 		v, ok := value.(int64)
 		if ok {
@@ -215,6 +135,86 @@ func (self *SingularityTaskReconciliationStatistics) SetField(name string, value
 			return fmt.Errorf("Field taskReconciliationResponseCount/TaskReconciliationResponseCount: value %v(%T) couldn't be cast to type int64", value, value)
 		}
 
+	case "taskReconciliationResponseMin", "TaskReconciliationResponseMin":
+		v, ok := value.(int64)
+		if ok {
+			self.TaskReconciliationResponseMin = v
+			self.present["taskReconciliationResponseMin"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field taskReconciliationResponseMin/TaskReconciliationResponseMin: value %v(%T) couldn't be cast to type int64", value, value)
+		}
+
+	case "taskReconciliationResponseP75", "TaskReconciliationResponseP75":
+		v, ok := value.(float64)
+		if ok {
+			self.TaskReconciliationResponseP75 = v
+			self.present["taskReconciliationResponseP75"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field taskReconciliationResponseP75/TaskReconciliationResponseP75: value %v(%T) couldn't be cast to type float64", value, value)
+		}
+
+	case "taskReconciliationDurationMillis", "TaskReconciliationDurationMillis":
+		v, ok := value.(int64)
+		if ok {
+			self.TaskReconciliationDurationMillis = v
+			self.present["taskReconciliationDurationMillis"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field taskReconciliationDurationMillis/TaskReconciliationDurationMillis: value %v(%T) couldn't be cast to type int64", value, value)
+		}
+
+	case "taskReconciliationResponseP95", "TaskReconciliationResponseP95":
+		v, ok := value.(float64)
+		if ok {
+			self.TaskReconciliationResponseP95 = v
+			self.present["taskReconciliationResponseP95"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field taskReconciliationResponseP95/TaskReconciliationResponseP95: value %v(%T) couldn't be cast to type float64", value, value)
+		}
+
+	case "taskReconciliationResponseMean", "TaskReconciliationResponseMean":
+		v, ok := value.(float64)
+		if ok {
+			self.TaskReconciliationResponseMean = v
+			self.present["taskReconciliationResponseMean"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field taskReconciliationResponseMean/TaskReconciliationResponseMean: value %v(%T) couldn't be cast to type float64", value, value)
+		}
+
+	case "taskReconciliationResponseP99", "TaskReconciliationResponseP99":
+		v, ok := value.(float64)
+		if ok {
+			self.TaskReconciliationResponseP99 = v
+			self.present["taskReconciliationResponseP99"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field taskReconciliationResponseP99/TaskReconciliationResponseP99: value %v(%T) couldn't be cast to type float64", value, value)
+		}
+
+	case "taskReconciliationResponseStddev", "TaskReconciliationResponseStddev":
+		v, ok := value.(float64)
+		if ok {
+			self.TaskReconciliationResponseStddev = v
+			self.present["taskReconciliationResponseStddev"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field taskReconciliationResponseStddev/TaskReconciliationResponseStddev: value %v(%T) couldn't be cast to type float64", value, value)
+		}
+
+	case "taskReconciliationResponseMax", "TaskReconciliationResponseMax":
+		v, ok := value.(int64)
+		if ok {
+			self.TaskReconciliationResponseMax = v
+			self.present["taskReconciliationResponseMax"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field taskReconciliationResponseMax/TaskReconciliationResponseMax: value %v(%T) couldn't be cast to type int64", value, value)
+		}
+
 	}
 }
 
@@ -223,61 +223,13 @@ func (self *SingularityTaskReconciliationStatistics) GetField(name string) (inte
 	default:
 		return nil, fmt.Errorf("No such field %s on SingularityTaskReconciliationStatistics", name)
 
-	case "taskReconciliationResponseMax", "TaskReconciliationResponseMax":
+	case "taskReconciliationIterations", "TaskReconciliationIterations":
 		if self.present != nil {
-			if _, ok := self.present["taskReconciliationResponseMax"]; ok {
-				return self.TaskReconciliationResponseMax, nil
+			if _, ok := self.present["taskReconciliationIterations"]; ok {
+				return self.TaskReconciliationIterations, nil
 			}
 		}
-		return nil, fmt.Errorf("Field TaskReconciliationResponseMax no set on TaskReconciliationResponseMax %+v", self)
-
-	case "taskReconciliationResponseP98", "TaskReconciliationResponseP98":
-		if self.present != nil {
-			if _, ok := self.present["taskReconciliationResponseP98"]; ok {
-				return self.TaskReconciliationResponseP98, nil
-			}
-		}
-		return nil, fmt.Errorf("Field TaskReconciliationResponseP98 no set on TaskReconciliationResponseP98 %+v", self)
-
-	case "taskReconciliationResponseMean", "TaskReconciliationResponseMean":
-		if self.present != nil {
-			if _, ok := self.present["taskReconciliationResponseMean"]; ok {
-				return self.TaskReconciliationResponseMean, nil
-			}
-		}
-		return nil, fmt.Errorf("Field TaskReconciliationResponseMean no set on TaskReconciliationResponseMean %+v", self)
-
-	case "taskReconciliationResponseP75", "TaskReconciliationResponseP75":
-		if self.present != nil {
-			if _, ok := self.present["taskReconciliationResponseP75"]; ok {
-				return self.TaskReconciliationResponseP75, nil
-			}
-		}
-		return nil, fmt.Errorf("Field TaskReconciliationResponseP75 no set on TaskReconciliationResponseP75 %+v", self)
-
-	case "taskReconciliationResponseP95", "TaskReconciliationResponseP95":
-		if self.present != nil {
-			if _, ok := self.present["taskReconciliationResponseP95"]; ok {
-				return self.TaskReconciliationResponseP95, nil
-			}
-		}
-		return nil, fmt.Errorf("Field TaskReconciliationResponseP95 no set on TaskReconciliationResponseP95 %+v", self)
-
-	case "taskReconciliationResponseStddev", "TaskReconciliationResponseStddev":
-		if self.present != nil {
-			if _, ok := self.present["taskReconciliationResponseStddev"]; ok {
-				return self.TaskReconciliationResponseStddev, nil
-			}
-		}
-		return nil, fmt.Errorf("Field TaskReconciliationResponseStddev no set on TaskReconciliationResponseStddev %+v", self)
-
-	case "taskReconciliationResponseMin", "TaskReconciliationResponseMin":
-		if self.present != nil {
-			if _, ok := self.present["taskReconciliationResponseMin"]; ok {
-				return self.TaskReconciliationResponseMin, nil
-			}
-		}
-		return nil, fmt.Errorf("Field TaskReconciliationResponseMin no set on TaskReconciliationResponseMin %+v", self)
+		return nil, fmt.Errorf("Field TaskReconciliationIterations no set on TaskReconciliationIterations %+v", self)
 
 	case "taskReconciliationResponseP50", "TaskReconciliationResponseP50":
 		if self.present != nil {
@@ -287,13 +239,13 @@ func (self *SingularityTaskReconciliationStatistics) GetField(name string) (inte
 		}
 		return nil, fmt.Errorf("Field TaskReconciliationResponseP50 no set on TaskReconciliationResponseP50 %+v", self)
 
-	case "taskReconciliationResponseP99", "TaskReconciliationResponseP99":
+	case "taskReconciliationResponseP98", "TaskReconciliationResponseP98":
 		if self.present != nil {
-			if _, ok := self.present["taskReconciliationResponseP99"]; ok {
-				return self.TaskReconciliationResponseP99, nil
+			if _, ok := self.present["taskReconciliationResponseP98"]; ok {
+				return self.TaskReconciliationResponseP98, nil
 			}
 		}
-		return nil, fmt.Errorf("Field TaskReconciliationResponseP99 no set on TaskReconciliationResponseP99 %+v", self)
+		return nil, fmt.Errorf("Field TaskReconciliationResponseP98 no set on TaskReconciliationResponseP98 %+v", self)
 
 	case "taskReconciliationResponseP999", "TaskReconciliationResponseP999":
 		if self.present != nil {
@@ -311,6 +263,30 @@ func (self *SingularityTaskReconciliationStatistics) GetField(name string) (inte
 		}
 		return nil, fmt.Errorf("Field TaskReconciliationStartedAt no set on TaskReconciliationStartedAt %+v", self)
 
+	case "taskReconciliationResponseCount", "TaskReconciliationResponseCount":
+		if self.present != nil {
+			if _, ok := self.present["taskReconciliationResponseCount"]; ok {
+				return self.TaskReconciliationResponseCount, nil
+			}
+		}
+		return nil, fmt.Errorf("Field TaskReconciliationResponseCount no set on TaskReconciliationResponseCount %+v", self)
+
+	case "taskReconciliationResponseMin", "TaskReconciliationResponseMin":
+		if self.present != nil {
+			if _, ok := self.present["taskReconciliationResponseMin"]; ok {
+				return self.TaskReconciliationResponseMin, nil
+			}
+		}
+		return nil, fmt.Errorf("Field TaskReconciliationResponseMin no set on TaskReconciliationResponseMin %+v", self)
+
+	case "taskReconciliationResponseP75", "TaskReconciliationResponseP75":
+		if self.present != nil {
+			if _, ok := self.present["taskReconciliationResponseP75"]; ok {
+				return self.TaskReconciliationResponseP75, nil
+			}
+		}
+		return nil, fmt.Errorf("Field TaskReconciliationResponseP75 no set on TaskReconciliationResponseP75 %+v", self)
+
 	case "taskReconciliationDurationMillis", "TaskReconciliationDurationMillis":
 		if self.present != nil {
 			if _, ok := self.present["taskReconciliationDurationMillis"]; ok {
@@ -319,21 +295,45 @@ func (self *SingularityTaskReconciliationStatistics) GetField(name string) (inte
 		}
 		return nil, fmt.Errorf("Field TaskReconciliationDurationMillis no set on TaskReconciliationDurationMillis %+v", self)
 
-	case "taskReconciliationIterations", "TaskReconciliationIterations":
+	case "taskReconciliationResponseP95", "TaskReconciliationResponseP95":
 		if self.present != nil {
-			if _, ok := self.present["taskReconciliationIterations"]; ok {
-				return self.TaskReconciliationIterations, nil
+			if _, ok := self.present["taskReconciliationResponseP95"]; ok {
+				return self.TaskReconciliationResponseP95, nil
 			}
 		}
-		return nil, fmt.Errorf("Field TaskReconciliationIterations no set on TaskReconciliationIterations %+v", self)
+		return nil, fmt.Errorf("Field TaskReconciliationResponseP95 no set on TaskReconciliationResponseP95 %+v", self)
 
-	case "taskReconciliationResponseCount", "TaskReconciliationResponseCount":
+	case "taskReconciliationResponseMean", "TaskReconciliationResponseMean":
 		if self.present != nil {
-			if _, ok := self.present["taskReconciliationResponseCount"]; ok {
-				return self.TaskReconciliationResponseCount, nil
+			if _, ok := self.present["taskReconciliationResponseMean"]; ok {
+				return self.TaskReconciliationResponseMean, nil
 			}
 		}
-		return nil, fmt.Errorf("Field TaskReconciliationResponseCount no set on TaskReconciliationResponseCount %+v", self)
+		return nil, fmt.Errorf("Field TaskReconciliationResponseMean no set on TaskReconciliationResponseMean %+v", self)
+
+	case "taskReconciliationResponseP99", "TaskReconciliationResponseP99":
+		if self.present != nil {
+			if _, ok := self.present["taskReconciliationResponseP99"]; ok {
+				return self.TaskReconciliationResponseP99, nil
+			}
+		}
+		return nil, fmt.Errorf("Field TaskReconciliationResponseP99 no set on TaskReconciliationResponseP99 %+v", self)
+
+	case "taskReconciliationResponseStddev", "TaskReconciliationResponseStddev":
+		if self.present != nil {
+			if _, ok := self.present["taskReconciliationResponseStddev"]; ok {
+				return self.TaskReconciliationResponseStddev, nil
+			}
+		}
+		return nil, fmt.Errorf("Field TaskReconciliationResponseStddev no set on TaskReconciliationResponseStddev %+v", self)
+
+	case "taskReconciliationResponseMax", "TaskReconciliationResponseMax":
+		if self.present != nil {
+			if _, ok := self.present["taskReconciliationResponseMax"]; ok {
+				return self.TaskReconciliationResponseMax, nil
+			}
+		}
+		return nil, fmt.Errorf("Field TaskReconciliationResponseMax no set on TaskReconciliationResponseMax %+v", self)
 
 	}
 }
@@ -346,32 +346,14 @@ func (self *SingularityTaskReconciliationStatistics) ClearField(name string) err
 	default:
 		return fmt.Errorf("No such field %s on SingularityTaskReconciliationStatistics", name)
 
-	case "taskReconciliationResponseMax", "TaskReconciliationResponseMax":
-		self.present["taskReconciliationResponseMax"] = false
-
-	case "taskReconciliationResponseP98", "TaskReconciliationResponseP98":
-		self.present["taskReconciliationResponseP98"] = false
-
-	case "taskReconciliationResponseMean", "TaskReconciliationResponseMean":
-		self.present["taskReconciliationResponseMean"] = false
-
-	case "taskReconciliationResponseP75", "TaskReconciliationResponseP75":
-		self.present["taskReconciliationResponseP75"] = false
-
-	case "taskReconciliationResponseP95", "TaskReconciliationResponseP95":
-		self.present["taskReconciliationResponseP95"] = false
-
-	case "taskReconciliationResponseStddev", "TaskReconciliationResponseStddev":
-		self.present["taskReconciliationResponseStddev"] = false
-
-	case "taskReconciliationResponseMin", "TaskReconciliationResponseMin":
-		self.present["taskReconciliationResponseMin"] = false
+	case "taskReconciliationIterations", "TaskReconciliationIterations":
+		self.present["taskReconciliationIterations"] = false
 
 	case "taskReconciliationResponseP50", "TaskReconciliationResponseP50":
 		self.present["taskReconciliationResponseP50"] = false
 
-	case "taskReconciliationResponseP99", "TaskReconciliationResponseP99":
-		self.present["taskReconciliationResponseP99"] = false
+	case "taskReconciliationResponseP98", "TaskReconciliationResponseP98":
+		self.present["taskReconciliationResponseP98"] = false
 
 	case "taskReconciliationResponseP999", "TaskReconciliationResponseP999":
 		self.present["taskReconciliationResponseP999"] = false
@@ -379,14 +361,32 @@ func (self *SingularityTaskReconciliationStatistics) ClearField(name string) err
 	case "taskReconciliationStartedAt", "TaskReconciliationStartedAt":
 		self.present["taskReconciliationStartedAt"] = false
 
+	case "taskReconciliationResponseCount", "TaskReconciliationResponseCount":
+		self.present["taskReconciliationResponseCount"] = false
+
+	case "taskReconciliationResponseMin", "TaskReconciliationResponseMin":
+		self.present["taskReconciliationResponseMin"] = false
+
+	case "taskReconciliationResponseP75", "TaskReconciliationResponseP75":
+		self.present["taskReconciliationResponseP75"] = false
+
 	case "taskReconciliationDurationMillis", "TaskReconciliationDurationMillis":
 		self.present["taskReconciliationDurationMillis"] = false
 
-	case "taskReconciliationIterations", "TaskReconciliationIterations":
-		self.present["taskReconciliationIterations"] = false
+	case "taskReconciliationResponseP95", "TaskReconciliationResponseP95":
+		self.present["taskReconciliationResponseP95"] = false
 
-	case "taskReconciliationResponseCount", "TaskReconciliationResponseCount":
-		self.present["taskReconciliationResponseCount"] = false
+	case "taskReconciliationResponseMean", "TaskReconciliationResponseMean":
+		self.present["taskReconciliationResponseMean"] = false
+
+	case "taskReconciliationResponseP99", "TaskReconciliationResponseP99":
+		self.present["taskReconciliationResponseP99"] = false
+
+	case "taskReconciliationResponseStddev", "TaskReconciliationResponseStddev":
+		self.present["taskReconciliationResponseStddev"] = false
+
+	case "taskReconciliationResponseMax", "TaskReconciliationResponseMax":
+		self.present["taskReconciliationResponseMax"] = false
 
 	}
 

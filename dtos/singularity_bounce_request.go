@@ -10,6 +10,8 @@ import (
 type SingularityBounceRequest struct {
 	present map[string]bool
 
+	ActionId string `json:"actionId,omitempty"`
+
 	Message string `json:"message,omitempty"`
 
 	Incremental bool `json:"incremental"`
@@ -19,8 +21,6 @@ type SingularityBounceRequest struct {
 	RunShellCommandBeforeKill *SingularityShellCommand `json:"runShellCommandBeforeKill"`
 
 	DurationMillis int64 `json:"durationMillis"`
-
-	ActionId string `json:"actionId,omitempty"`
 }
 
 func (self *SingularityBounceRequest) Populate(jsonReader io.ReadCloser) (err error) {
@@ -58,6 +58,16 @@ func (self *SingularityBounceRequest) SetField(name string, value interface{}) e
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on SingularityBounceRequest", name)
+
+	case "actionId", "ActionId":
+		v, ok := value.(string)
+		if ok {
+			self.ActionId = v
+			self.present["actionId"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field actionId/ActionId: value %v(%T) couldn't be cast to type string", value, value)
+		}
 
 	case "message", "Message":
 		v, ok := value.(string)
@@ -109,16 +119,6 @@ func (self *SingularityBounceRequest) SetField(name string, value interface{}) e
 			return fmt.Errorf("Field durationMillis/DurationMillis: value %v(%T) couldn't be cast to type int64", value, value)
 		}
 
-	case "actionId", "ActionId":
-		v, ok := value.(string)
-		if ok {
-			self.ActionId = v
-			self.present["actionId"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field actionId/ActionId: value %v(%T) couldn't be cast to type string", value, value)
-		}
-
 	}
 }
 
@@ -126,6 +126,14 @@ func (self *SingularityBounceRequest) GetField(name string) (interface{}, error)
 	switch name {
 	default:
 		return nil, fmt.Errorf("No such field %s on SingularityBounceRequest", name)
+
+	case "actionId", "ActionId":
+		if self.present != nil {
+			if _, ok := self.present["actionId"]; ok {
+				return self.ActionId, nil
+			}
+		}
+		return nil, fmt.Errorf("Field ActionId no set on ActionId %+v", self)
 
 	case "message", "Message":
 		if self.present != nil {
@@ -167,14 +175,6 @@ func (self *SingularityBounceRequest) GetField(name string) (interface{}, error)
 		}
 		return nil, fmt.Errorf("Field DurationMillis no set on DurationMillis %+v", self)
 
-	case "actionId", "ActionId":
-		if self.present != nil {
-			if _, ok := self.present["actionId"]; ok {
-				return self.ActionId, nil
-			}
-		}
-		return nil, fmt.Errorf("Field ActionId no set on ActionId %+v", self)
-
 	}
 }
 
@@ -185,6 +185,9 @@ func (self *SingularityBounceRequest) ClearField(name string) error {
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on SingularityBounceRequest", name)
+
+	case "actionId", "ActionId":
+		self.present["actionId"] = false
 
 	case "message", "Message":
 		self.present["message"] = false
@@ -200,9 +203,6 @@ func (self *SingularityBounceRequest) ClearField(name string) error {
 
 	case "durationMillis", "DurationMillis":
 		self.present["durationMillis"] = false
-
-	case "actionId", "ActionId":
-		self.present["actionId"] = false
 
 	}
 

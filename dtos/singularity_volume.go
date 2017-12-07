@@ -17,11 +17,11 @@ const (
 type SingularityVolume struct {
 	present map[string]bool
 
+	ContainerPath string `json:"containerPath,omitempty"`
+
 	HostPath string `json:"hostPath,omitempty"`
 
 	Mode SingularityVolumeSingularityDockerVolumeMode `json:"mode"`
-
-	ContainerPath string `json:"containerPath,omitempty"`
 }
 
 func (self *SingularityVolume) Populate(jsonReader io.ReadCloser) (err error) {
@@ -60,6 +60,16 @@ func (self *SingularityVolume) SetField(name string, value interface{}) error {
 	default:
 		return fmt.Errorf("No such field %s on SingularityVolume", name)
 
+	case "containerPath", "ContainerPath":
+		v, ok := value.(string)
+		if ok {
+			self.ContainerPath = v
+			self.present["containerPath"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field containerPath/ContainerPath: value %v(%T) couldn't be cast to type string", value, value)
+		}
+
 	case "hostPath", "HostPath":
 		v, ok := value.(string)
 		if ok {
@@ -80,16 +90,6 @@ func (self *SingularityVolume) SetField(name string, value interface{}) error {
 			return fmt.Errorf("Field mode/Mode: value %v(%T) couldn't be cast to type SingularityVolumeSingularityDockerVolumeMode", value, value)
 		}
 
-	case "containerPath", "ContainerPath":
-		v, ok := value.(string)
-		if ok {
-			self.ContainerPath = v
-			self.present["containerPath"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field containerPath/ContainerPath: value %v(%T) couldn't be cast to type string", value, value)
-		}
-
 	}
 }
 
@@ -97,6 +97,14 @@ func (self *SingularityVolume) GetField(name string) (interface{}, error) {
 	switch name {
 	default:
 		return nil, fmt.Errorf("No such field %s on SingularityVolume", name)
+
+	case "containerPath", "ContainerPath":
+		if self.present != nil {
+			if _, ok := self.present["containerPath"]; ok {
+				return self.ContainerPath, nil
+			}
+		}
+		return nil, fmt.Errorf("Field ContainerPath no set on ContainerPath %+v", self)
 
 	case "hostPath", "HostPath":
 		if self.present != nil {
@@ -114,14 +122,6 @@ func (self *SingularityVolume) GetField(name string) (interface{}, error) {
 		}
 		return nil, fmt.Errorf("Field Mode no set on Mode %+v", self)
 
-	case "containerPath", "ContainerPath":
-		if self.present != nil {
-			if _, ok := self.present["containerPath"]; ok {
-				return self.ContainerPath, nil
-			}
-		}
-		return nil, fmt.Errorf("Field ContainerPath no set on ContainerPath %+v", self)
-
 	}
 }
 
@@ -133,14 +133,14 @@ func (self *SingularityVolume) ClearField(name string) error {
 	default:
 		return fmt.Errorf("No such field %s on SingularityVolume", name)
 
+	case "containerPath", "ContainerPath":
+		self.present["containerPath"] = false
+
 	case "hostPath", "HostPath":
 		self.present["hostPath"] = false
 
 	case "mode", "Mode":
 		self.present["mode"] = false
-
-	case "containerPath", "ContainerPath":
-		self.present["containerPath"] = false
 
 	}
 

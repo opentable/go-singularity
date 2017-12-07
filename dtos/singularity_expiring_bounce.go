@@ -10,8 +10,6 @@ import (
 type SingularityExpiringBounce struct {
 	present map[string]bool
 
-	// Invalid field: ExpiringAPIRequestObject *notfound.T `json:"expiringAPIRequestObject"`
-
 	DeployId string `json:"deployId,omitempty"`
 
 	RequestId string `json:"requestId,omitempty"`
@@ -21,6 +19,9 @@ type SingularityExpiringBounce struct {
 	ActionId string `json:"actionId,omitempty"`
 
 	User string `json:"user,omitempty"`
+
+	// Invalid field: ExpiringAPIRequestObject *notfound.T `json:"expiringAPIRequestObject"`
+
 }
 
 func (self *SingularityExpiringBounce) Populate(jsonReader io.ReadCloser) (err error) {

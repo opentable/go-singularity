@@ -10,8 +10,6 @@ import (
 type SingularityDeployMarker struct {
 	present map[string]bool
 
-	Message string `json:"message,omitempty"`
-
 	RequestId string `json:"requestId,omitempty"`
 
 	DeployId string `json:"deployId,omitempty"`
@@ -19,6 +17,8 @@ type SingularityDeployMarker struct {
 	Timestamp int64 `json:"timestamp"`
 
 	User string `json:"user,omitempty"`
+
+	Message string `json:"message,omitempty"`
 }
 
 func (self *SingularityDeployMarker) Populate(jsonReader io.ReadCloser) (err error) {
@@ -56,16 +56,6 @@ func (self *SingularityDeployMarker) SetField(name string, value interface{}) er
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on SingularityDeployMarker", name)
-
-	case "message", "Message":
-		v, ok := value.(string)
-		if ok {
-			self.Message = v
-			self.present["message"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field message/Message: value %v(%T) couldn't be cast to type string", value, value)
-		}
 
 	case "requestId", "RequestId":
 		v, ok := value.(string)
@@ -107,6 +97,16 @@ func (self *SingularityDeployMarker) SetField(name string, value interface{}) er
 			return fmt.Errorf("Field user/User: value %v(%T) couldn't be cast to type string", value, value)
 		}
 
+	case "message", "Message":
+		v, ok := value.(string)
+		if ok {
+			self.Message = v
+			self.present["message"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field message/Message: value %v(%T) couldn't be cast to type string", value, value)
+		}
+
 	}
 }
 
@@ -114,14 +114,6 @@ func (self *SingularityDeployMarker) GetField(name string) (interface{}, error) 
 	switch name {
 	default:
 		return nil, fmt.Errorf("No such field %s on SingularityDeployMarker", name)
-
-	case "message", "Message":
-		if self.present != nil {
-			if _, ok := self.present["message"]; ok {
-				return self.Message, nil
-			}
-		}
-		return nil, fmt.Errorf("Field Message no set on Message %+v", self)
 
 	case "requestId", "RequestId":
 		if self.present != nil {
@@ -155,6 +147,14 @@ func (self *SingularityDeployMarker) GetField(name string) (interface{}, error) 
 		}
 		return nil, fmt.Errorf("Field User no set on User %+v", self)
 
+	case "message", "Message":
+		if self.present != nil {
+			if _, ok := self.present["message"]; ok {
+				return self.Message, nil
+			}
+		}
+		return nil, fmt.Errorf("Field Message no set on Message %+v", self)
+
 	}
 }
 
@@ -165,9 +165,6 @@ func (self *SingularityDeployMarker) ClearField(name string) error {
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on SingularityDeployMarker", name)
-
-	case "message", "Message":
-		self.present["message"] = false
 
 	case "requestId", "RequestId":
 		self.present["requestId"] = false
@@ -180,6 +177,9 @@ func (self *SingularityDeployMarker) ClearField(name string) error {
 
 	case "user", "User":
 		self.present["user"] = false
+
+	case "message", "Message":
+		self.present["message"] = false
 
 	}
 

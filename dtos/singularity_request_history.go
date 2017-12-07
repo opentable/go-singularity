@@ -28,6 +28,8 @@ const (
 type SingularityRequestHistory struct {
 	present map[string]bool
 
+	Message string `json:"message,omitempty"`
+
 	CreatedAt int64 `json:"createdAt"`
 
 	User string `json:"user,omitempty"`
@@ -35,8 +37,6 @@ type SingularityRequestHistory struct {
 	EventType SingularityRequestHistoryRequestHistoryType `json:"eventType"`
 
 	Request *SingularityRequest `json:"request"`
-
-	Message string `json:"message,omitempty"`
 }
 
 func (self *SingularityRequestHistory) Populate(jsonReader io.ReadCloser) (err error) {
@@ -74,6 +74,16 @@ func (self *SingularityRequestHistory) SetField(name string, value interface{}) 
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on SingularityRequestHistory", name)
+
+	case "message", "Message":
+		v, ok := value.(string)
+		if ok {
+			self.Message = v
+			self.present["message"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field message/Message: value %v(%T) couldn't be cast to type string", value, value)
+		}
 
 	case "createdAt", "CreatedAt":
 		v, ok := value.(int64)
@@ -115,16 +125,6 @@ func (self *SingularityRequestHistory) SetField(name string, value interface{}) 
 			return fmt.Errorf("Field request/Request: value %v(%T) couldn't be cast to type *SingularityRequest", value, value)
 		}
 
-	case "message", "Message":
-		v, ok := value.(string)
-		if ok {
-			self.Message = v
-			self.present["message"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field message/Message: value %v(%T) couldn't be cast to type string", value, value)
-		}
-
 	}
 }
 
@@ -132,6 +132,14 @@ func (self *SingularityRequestHistory) GetField(name string) (interface{}, error
 	switch name {
 	default:
 		return nil, fmt.Errorf("No such field %s on SingularityRequestHistory", name)
+
+	case "message", "Message":
+		if self.present != nil {
+			if _, ok := self.present["message"]; ok {
+				return self.Message, nil
+			}
+		}
+		return nil, fmt.Errorf("Field Message no set on Message %+v", self)
 
 	case "createdAt", "CreatedAt":
 		if self.present != nil {
@@ -165,14 +173,6 @@ func (self *SingularityRequestHistory) GetField(name string) (interface{}, error
 		}
 		return nil, fmt.Errorf("Field Request no set on Request %+v", self)
 
-	case "message", "Message":
-		if self.present != nil {
-			if _, ok := self.present["message"]; ok {
-				return self.Message, nil
-			}
-		}
-		return nil, fmt.Errorf("Field Message no set on Message %+v", self)
-
 	}
 }
 
@@ -183,6 +183,9 @@ func (self *SingularityRequestHistory) ClearField(name string) error {
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on SingularityRequestHistory", name)
+
+	case "message", "Message":
+		self.present["message"] = false
 
 	case "createdAt", "CreatedAt":
 		self.present["createdAt"] = false
@@ -195,9 +198,6 @@ func (self *SingularityRequestHistory) ClearField(name string) error {
 
 	case "request", "Request":
 		self.present["request"] = false
-
-	case "message", "Message":
-		self.present["message"] = false
 
 	}
 

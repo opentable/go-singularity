@@ -14,14 +14,6 @@ type SingularityDeployStatistics struct {
 
 	NumSuccess int32 `json:"numSuccess"`
 
-	AverageRuntimeMillis int64 `json:"averageRuntimeMillis"`
-
-	RequestId string `json:"requestId,omitempty"`
-
-	NumTasks int32 `json:"numTasks"`
-
-	NumFailures int32 `json:"numFailures"`
-
 	NumSequentialRetries int32 `json:"numSequentialRetries"`
 
 	// Invalid field: InstanceSequentialFailureTimestamps *notfound.com.google.common.collect.ListMultimap<java.lang.Integer, java.lang.Long> `json:"instanceSequentialFailureTimestamps"`
@@ -30,6 +22,13 @@ type SingularityDeployStatistics struct {
 
 	// Invalid field: LastTaskState *notfound.ExtendedTaskState `json:"lastTaskState"`
 
+	RequestId string `json:"requestId,omitempty"`
+
+	NumTasks int32 `json:"numTasks"`
+
+	NumFailures int32 `json:"numFailures"`
+
+	AverageRuntimeMillis int64 `json:"averageRuntimeMillis"`
 }
 
 func (self *SingularityDeployStatistics) Populate(jsonReader io.ReadCloser) (err error) {
@@ -88,14 +87,24 @@ func (self *SingularityDeployStatistics) SetField(name string, value interface{}
 			return fmt.Errorf("Field numSuccess/NumSuccess: value %v(%T) couldn't be cast to type int32", value, value)
 		}
 
-	case "averageRuntimeMillis", "AverageRuntimeMillis":
-		v, ok := value.(int64)
+	case "numSequentialRetries", "NumSequentialRetries":
+		v, ok := value.(int32)
 		if ok {
-			self.AverageRuntimeMillis = v
-			self.present["averageRuntimeMillis"] = true
+			self.NumSequentialRetries = v
+			self.present["numSequentialRetries"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field averageRuntimeMillis/AverageRuntimeMillis: value %v(%T) couldn't be cast to type int64", value, value)
+			return fmt.Errorf("Field numSequentialRetries/NumSequentialRetries: value %v(%T) couldn't be cast to type int32", value, value)
+		}
+
+	case "lastFinishAt", "LastFinishAt":
+		v, ok := value.(int64)
+		if ok {
+			self.LastFinishAt = v
+			self.present["lastFinishAt"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field lastFinishAt/LastFinishAt: value %v(%T) couldn't be cast to type int64", value, value)
 		}
 
 	case "requestId", "RequestId":
@@ -128,24 +137,14 @@ func (self *SingularityDeployStatistics) SetField(name string, value interface{}
 			return fmt.Errorf("Field numFailures/NumFailures: value %v(%T) couldn't be cast to type int32", value, value)
 		}
 
-	case "numSequentialRetries", "NumSequentialRetries":
-		v, ok := value.(int32)
-		if ok {
-			self.NumSequentialRetries = v
-			self.present["numSequentialRetries"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field numSequentialRetries/NumSequentialRetries: value %v(%T) couldn't be cast to type int32", value, value)
-		}
-
-	case "lastFinishAt", "LastFinishAt":
+	case "averageRuntimeMillis", "AverageRuntimeMillis":
 		v, ok := value.(int64)
 		if ok {
-			self.LastFinishAt = v
-			self.present["lastFinishAt"] = true
+			self.AverageRuntimeMillis = v
+			self.present["averageRuntimeMillis"] = true
 			return nil
 		} else {
-			return fmt.Errorf("Field lastFinishAt/LastFinishAt: value %v(%T) couldn't be cast to type int64", value, value)
+			return fmt.Errorf("Field averageRuntimeMillis/AverageRuntimeMillis: value %v(%T) couldn't be cast to type int64", value, value)
 		}
 
 	}
@@ -172,13 +171,21 @@ func (self *SingularityDeployStatistics) GetField(name string) (interface{}, err
 		}
 		return nil, fmt.Errorf("Field NumSuccess no set on NumSuccess %+v", self)
 
-	case "averageRuntimeMillis", "AverageRuntimeMillis":
+	case "numSequentialRetries", "NumSequentialRetries":
 		if self.present != nil {
-			if _, ok := self.present["averageRuntimeMillis"]; ok {
-				return self.AverageRuntimeMillis, nil
+			if _, ok := self.present["numSequentialRetries"]; ok {
+				return self.NumSequentialRetries, nil
 			}
 		}
-		return nil, fmt.Errorf("Field AverageRuntimeMillis no set on AverageRuntimeMillis %+v", self)
+		return nil, fmt.Errorf("Field NumSequentialRetries no set on NumSequentialRetries %+v", self)
+
+	case "lastFinishAt", "LastFinishAt":
+		if self.present != nil {
+			if _, ok := self.present["lastFinishAt"]; ok {
+				return self.LastFinishAt, nil
+			}
+		}
+		return nil, fmt.Errorf("Field LastFinishAt no set on LastFinishAt %+v", self)
 
 	case "requestId", "RequestId":
 		if self.present != nil {
@@ -204,21 +211,13 @@ func (self *SingularityDeployStatistics) GetField(name string) (interface{}, err
 		}
 		return nil, fmt.Errorf("Field NumFailures no set on NumFailures %+v", self)
 
-	case "numSequentialRetries", "NumSequentialRetries":
+	case "averageRuntimeMillis", "AverageRuntimeMillis":
 		if self.present != nil {
-			if _, ok := self.present["numSequentialRetries"]; ok {
-				return self.NumSequentialRetries, nil
+			if _, ok := self.present["averageRuntimeMillis"]; ok {
+				return self.AverageRuntimeMillis, nil
 			}
 		}
-		return nil, fmt.Errorf("Field NumSequentialRetries no set on NumSequentialRetries %+v", self)
-
-	case "lastFinishAt", "LastFinishAt":
-		if self.present != nil {
-			if _, ok := self.present["lastFinishAt"]; ok {
-				return self.LastFinishAt, nil
-			}
-		}
-		return nil, fmt.Errorf("Field LastFinishAt no set on LastFinishAt %+v", self)
+		return nil, fmt.Errorf("Field AverageRuntimeMillis no set on AverageRuntimeMillis %+v", self)
 
 	}
 }
@@ -237,8 +236,11 @@ func (self *SingularityDeployStatistics) ClearField(name string) error {
 	case "numSuccess", "NumSuccess":
 		self.present["numSuccess"] = false
 
-	case "averageRuntimeMillis", "AverageRuntimeMillis":
-		self.present["averageRuntimeMillis"] = false
+	case "numSequentialRetries", "NumSequentialRetries":
+		self.present["numSequentialRetries"] = false
+
+	case "lastFinishAt", "LastFinishAt":
+		self.present["lastFinishAt"] = false
 
 	case "requestId", "RequestId":
 		self.present["requestId"] = false
@@ -249,11 +251,8 @@ func (self *SingularityDeployStatistics) ClearField(name string) error {
 	case "numFailures", "NumFailures":
 		self.present["numFailures"] = false
 
-	case "numSequentialRetries", "NumSequentialRetries":
-		self.present["numSequentialRetries"] = false
-
-	case "lastFinishAt", "LastFinishAt":
-		self.present["lastFinishAt"] = false
+	case "averageRuntimeMillis", "AverageRuntimeMillis":
+		self.present["averageRuntimeMillis"] = false
 
 	}
 

@@ -18,6 +18,8 @@ const (
 type SingularityWebhook struct {
 	present map[string]bool
 
+	User string `json:"user,omitempty"`
+
 	Timestamp int64 `json:"timestamp"`
 
 	Id string `json:"id,omitempty"`
@@ -25,8 +27,6 @@ type SingularityWebhook struct {
 	Uri string `json:"uri,omitempty"`
 
 	Type SingularityWebhookWebhookType `json:"type"`
-
-	User string `json:"user,omitempty"`
 }
 
 func (self *SingularityWebhook) Populate(jsonReader io.ReadCloser) (err error) {
@@ -64,6 +64,16 @@ func (self *SingularityWebhook) SetField(name string, value interface{}) error {
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on SingularityWebhook", name)
+
+	case "user", "User":
+		v, ok := value.(string)
+		if ok {
+			self.User = v
+			self.present["user"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field user/User: value %v(%T) couldn't be cast to type string", value, value)
+		}
 
 	case "timestamp", "Timestamp":
 		v, ok := value.(int64)
@@ -105,16 +115,6 @@ func (self *SingularityWebhook) SetField(name string, value interface{}) error {
 			return fmt.Errorf("Field type/Type: value %v(%T) couldn't be cast to type SingularityWebhookWebhookType", value, value)
 		}
 
-	case "user", "User":
-		v, ok := value.(string)
-		if ok {
-			self.User = v
-			self.present["user"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field user/User: value %v(%T) couldn't be cast to type string", value, value)
-		}
-
 	}
 }
 
@@ -122,6 +122,14 @@ func (self *SingularityWebhook) GetField(name string) (interface{}, error) {
 	switch name {
 	default:
 		return nil, fmt.Errorf("No such field %s on SingularityWebhook", name)
+
+	case "user", "User":
+		if self.present != nil {
+			if _, ok := self.present["user"]; ok {
+				return self.User, nil
+			}
+		}
+		return nil, fmt.Errorf("Field User no set on User %+v", self)
 
 	case "timestamp", "Timestamp":
 		if self.present != nil {
@@ -155,14 +163,6 @@ func (self *SingularityWebhook) GetField(name string) (interface{}, error) {
 		}
 		return nil, fmt.Errorf("Field Type no set on Type %+v", self)
 
-	case "user", "User":
-		if self.present != nil {
-			if _, ok := self.present["user"]; ok {
-				return self.User, nil
-			}
-		}
-		return nil, fmt.Errorf("Field User no set on User %+v", self)
-
 	}
 }
 
@@ -173,6 +173,9 @@ func (self *SingularityWebhook) ClearField(name string) error {
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on SingularityWebhook", name)
+
+	case "user", "User":
+		self.present["user"] = false
 
 	case "timestamp", "Timestamp":
 		self.present["timestamp"] = false
@@ -185,9 +188,6 @@ func (self *SingularityWebhook) ClearField(name string) error {
 
 	case "type", "Type":
 		self.present["type"] = false
-
-	case "user", "User":
-		self.present["user"] = false
 
 	}
 

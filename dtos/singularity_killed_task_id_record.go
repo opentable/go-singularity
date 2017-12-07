@@ -10,17 +10,17 @@ import (
 type SingularityKilledTaskIdRecord struct {
 	present map[string]bool
 
-	TaskId *SingularityTaskId `json:"taskId"`
-
-	OriginalTimestamp int64 `json:"originalTimestamp"`
-
-	Timestamp int64 `json:"timestamp"`
-
 	// Invalid field: RequestCleanupType *notfound.RequestCleanupType `json:"requestCleanupType"`
 
 	// Invalid field: TaskCleanupType *notfound.TaskCleanupType `json:"taskCleanupType"`
 
 	Retries int32 `json:"retries"`
+
+	TaskId *SingularityTaskId `json:"taskId"`
+
+	OriginalTimestamp int64 `json:"originalTimestamp"`
+
+	Timestamp int64 `json:"timestamp"`
 }
 
 func (self *SingularityKilledTaskIdRecord) Populate(jsonReader io.ReadCloser) (err error) {
@@ -59,6 +59,16 @@ func (self *SingularityKilledTaskIdRecord) SetField(name string, value interface
 	default:
 		return fmt.Errorf("No such field %s on SingularityKilledTaskIdRecord", name)
 
+	case "retries", "Retries":
+		v, ok := value.(int32)
+		if ok {
+			self.Retries = v
+			self.present["retries"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field retries/Retries: value %v(%T) couldn't be cast to type int32", value, value)
+		}
+
 	case "taskId", "TaskId":
 		v, ok := value.(*SingularityTaskId)
 		if ok {
@@ -89,16 +99,6 @@ func (self *SingularityKilledTaskIdRecord) SetField(name string, value interface
 			return fmt.Errorf("Field timestamp/Timestamp: value %v(%T) couldn't be cast to type int64", value, value)
 		}
 
-	case "retries", "Retries":
-		v, ok := value.(int32)
-		if ok {
-			self.Retries = v
-			self.present["retries"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field retries/Retries: value %v(%T) couldn't be cast to type int32", value, value)
-		}
-
 	}
 }
 
@@ -106,6 +106,14 @@ func (self *SingularityKilledTaskIdRecord) GetField(name string) (interface{}, e
 	switch name {
 	default:
 		return nil, fmt.Errorf("No such field %s on SingularityKilledTaskIdRecord", name)
+
+	case "retries", "Retries":
+		if self.present != nil {
+			if _, ok := self.present["retries"]; ok {
+				return self.Retries, nil
+			}
+		}
+		return nil, fmt.Errorf("Field Retries no set on Retries %+v", self)
 
 	case "taskId", "TaskId":
 		if self.present != nil {
@@ -131,14 +139,6 @@ func (self *SingularityKilledTaskIdRecord) GetField(name string) (interface{}, e
 		}
 		return nil, fmt.Errorf("Field Timestamp no set on Timestamp %+v", self)
 
-	case "retries", "Retries":
-		if self.present != nil {
-			if _, ok := self.present["retries"]; ok {
-				return self.Retries, nil
-			}
-		}
-		return nil, fmt.Errorf("Field Retries no set on Retries %+v", self)
-
 	}
 }
 
@@ -150,6 +150,9 @@ func (self *SingularityKilledTaskIdRecord) ClearField(name string) error {
 	default:
 		return fmt.Errorf("No such field %s on SingularityKilledTaskIdRecord", name)
 
+	case "retries", "Retries":
+		self.present["retries"] = false
+
 	case "taskId", "TaskId":
 		self.present["taskId"] = false
 
@@ -158,9 +161,6 @@ func (self *SingularityKilledTaskIdRecord) ClearField(name string) error {
 
 	case "timestamp", "Timestamp":
 		self.present["timestamp"] = false
-
-	case "retries", "Retries":
-		self.present["retries"] = false
 
 	}
 

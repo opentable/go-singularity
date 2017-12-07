@@ -17,11 +17,11 @@ const (
 type SingularityContainerInfo struct {
 	present map[string]bool
 
+	Docker *SingularityDockerInfo `json:"docker"`
+
 	Type SingularityContainerInfoSingularityContainerType `json:"type"`
 
 	Volumes SingularityVolumeList `json:"volumes"`
-
-	Docker *SingularityDockerInfo `json:"docker"`
 }
 
 func (self *SingularityContainerInfo) Populate(jsonReader io.ReadCloser) (err error) {
@@ -60,6 +60,16 @@ func (self *SingularityContainerInfo) SetField(name string, value interface{}) e
 	default:
 		return fmt.Errorf("No such field %s on SingularityContainerInfo", name)
 
+	case "docker", "Docker":
+		v, ok := value.(*SingularityDockerInfo)
+		if ok {
+			self.Docker = v
+			self.present["docker"] = true
+			return nil
+		} else {
+			return fmt.Errorf("Field docker/Docker: value %v(%T) couldn't be cast to type *SingularityDockerInfo", value, value)
+		}
+
 	case "type", "Type":
 		v, ok := value.(SingularityContainerInfoSingularityContainerType)
 		if ok {
@@ -80,16 +90,6 @@ func (self *SingularityContainerInfo) SetField(name string, value interface{}) e
 			return fmt.Errorf("Field volumes/Volumes: value %v(%T) couldn't be cast to type SingularityVolumeList", value, value)
 		}
 
-	case "docker", "Docker":
-		v, ok := value.(*SingularityDockerInfo)
-		if ok {
-			self.Docker = v
-			self.present["docker"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field docker/Docker: value %v(%T) couldn't be cast to type *SingularityDockerInfo", value, value)
-		}
-
 	}
 }
 
@@ -97,6 +97,14 @@ func (self *SingularityContainerInfo) GetField(name string) (interface{}, error)
 	switch name {
 	default:
 		return nil, fmt.Errorf("No such field %s on SingularityContainerInfo", name)
+
+	case "docker", "Docker":
+		if self.present != nil {
+			if _, ok := self.present["docker"]; ok {
+				return self.Docker, nil
+			}
+		}
+		return nil, fmt.Errorf("Field Docker no set on Docker %+v", self)
 
 	case "type", "Type":
 		if self.present != nil {
@@ -114,14 +122,6 @@ func (self *SingularityContainerInfo) GetField(name string) (interface{}, error)
 		}
 		return nil, fmt.Errorf("Field Volumes no set on Volumes %+v", self)
 
-	case "docker", "Docker":
-		if self.present != nil {
-			if _, ok := self.present["docker"]; ok {
-				return self.Docker, nil
-			}
-		}
-		return nil, fmt.Errorf("Field Docker no set on Docker %+v", self)
-
 	}
 }
 
@@ -133,14 +133,14 @@ func (self *SingularityContainerInfo) ClearField(name string) error {
 	default:
 		return fmt.Errorf("No such field %s on SingularityContainerInfo", name)
 
+	case "docker", "Docker":
+		self.present["docker"] = false
+
 	case "type", "Type":
 		self.present["type"] = false
 
 	case "volumes", "Volumes":
 		self.present["volumes"] = false
-
-	case "docker", "Docker":
-		self.present["docker"] = false
 
 	}
 
