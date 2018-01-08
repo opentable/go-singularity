@@ -5,6 +5,9 @@
     "path" : "/api_racks.{format}",
     "description" : "Manages Singularity racks."
   }, {
+    "path" : "/api_cluster.{format}",
+    "description" : "Provides information about the complete state of requests and deploys."
+  }, {
     "path" : "/api_state.{format}",
     "description" : "Provides information about the current state of Singularity."
   }, {
