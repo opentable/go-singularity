@@ -3,7 +3,6 @@ package singularity
 import (
 	"net/http"
 
-	"github.com/opentable/sous/util/logging"
 	"github.com/opentable/swaggering"
 )
 
@@ -16,12 +15,12 @@ type Client struct {
 }
 
 // NewClient builds a new Client
-func NewClient(apiBase string, loggerOpt ...logging.LogSink) (client *Client) {
-	var logger logging.LogSink
+func NewClient(apiBase string, loggerOpt ...swaggering.LogSink) (client *Client) {
+	var logger swaggering.LogSink
 	if len(loggerOpt) > 0 {
 		logger = loggerOpt[0]
 	} else {
-		logger = logging.SilentLogSet()
+		logger = func(map[string]interface{}) {}
 	}
 
 	return &Client{&swaggering.GenericClient{
