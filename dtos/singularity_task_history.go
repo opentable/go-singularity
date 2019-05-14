@@ -8,23 +8,14 @@ import (
 )
 
 type SingularityTaskHistory struct {
-	present map[string]bool
-
-	TaskMetadata SingularityTaskMetadataList `json:"taskMetadata"`
-
-	TaskUpdates SingularityTaskHistoryUpdateList `json:"taskUpdates"`
-
-	Directory string `json:"directory,omitempty"`
-
-	ContainerId string `json:"containerId,omitempty"`
-
-	Task *SingularityTask `json:"task"`
-
-	HealthcheckResults SingularityTaskHealthcheckResultList `json:"healthcheckResults"`
-
-	LoadBalancerUpdates SingularityLoadBalancerUpdateList `json:"loadBalancerUpdates"`
-
-	ShellCommandHistory SingularityTaskShellCommandHistoryList `json:"shellCommandHistory"`
+	ShellCommandHistory *SingularityTaskShellCommandHistoryList `json:"shellCommandHistory,omitempty"`
+	TaskMetadata        *SingularityTaskMetadataList            `json:"taskMetadata,omitempty"`
+	TaskUpdates         *SingularityTaskHistoryUpdateList       `json:"taskUpdates,omitempty"`
+	Directory           *string                                 `json:"directory,omitempty"`
+	ContainerId         *string                                 `json:"containerId,omitempty"`
+	Task                *SingularityTask                        `json:"task,omitempty"`
+	HealthcheckResults  *SingularityTaskHealthcheckResultList   `json:"healthcheckResults,omitempty"`
+	LoadBalancerUpdates *SingularityLoadBalancerUpdateList      `json:"loadBalancerUpdates,omitempty"`
 }
 
 func (self *SingularityTaskHistory) Populate(jsonReader io.ReadCloser) (err error) {
@@ -39,10 +30,6 @@ func (self *SingularityTaskHistory) Absorb(other swaggering.DTO) error {
 	return fmt.Errorf("A SingularityTaskHistory cannot copy the values from %#v", other)
 }
 
-func (self *SingularityTaskHistory) MarshalJSON() ([]byte, error) {
-	return swaggering.MarshalJSON(self)
-}
-
 func (self *SingularityTaskHistory) FormatText() string {
 	return swaggering.FormatText(self)
 }
@@ -51,97 +38,74 @@ func (self *SingularityTaskHistory) FormatJSON() string {
 	return swaggering.FormatJSON(self)
 }
 
-func (self *SingularityTaskHistory) FieldsPresent() []string {
-	return swaggering.PresenceFromMap(self.present)
-}
-
 func (self *SingularityTaskHistory) SetField(name string, value interface{}) error {
-	if self.present == nil {
-		self.present = make(map[string]bool)
-	}
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on SingularityTaskHistory", name)
 
+	case "shellCommandHistory", "ShellCommandHistory":
+		v, ok := value.(SingularityTaskShellCommandHistoryList)
+		if ok {
+			self.ShellCommandHistory = &v
+			return nil
+		}
+		return fmt.Errorf("Field shellCommandHistory/ShellCommandHistory: value %v(%T) couldn't be cast to type SingularityTaskShellCommandHistoryList", value, value)
+
 	case "taskMetadata", "TaskMetadata":
 		v, ok := value.(SingularityTaskMetadataList)
 		if ok {
-			self.TaskMetadata = v
-			self.present["taskMetadata"] = true
+			self.TaskMetadata = &v
 			return nil
-		} else {
-			return fmt.Errorf("Field taskMetadata/TaskMetadata: value %v(%T) couldn't be cast to type SingularityTaskMetadataList", value, value)
 		}
+		return fmt.Errorf("Field taskMetadata/TaskMetadata: value %v(%T) couldn't be cast to type SingularityTaskMetadataList", value, value)
 
 	case "taskUpdates", "TaskUpdates":
 		v, ok := value.(SingularityTaskHistoryUpdateList)
 		if ok {
-			self.TaskUpdates = v
-			self.present["taskUpdates"] = true
+			self.TaskUpdates = &v
 			return nil
-		} else {
-			return fmt.Errorf("Field taskUpdates/TaskUpdates: value %v(%T) couldn't be cast to type SingularityTaskHistoryUpdateList", value, value)
 		}
+		return fmt.Errorf("Field taskUpdates/TaskUpdates: value %v(%T) couldn't be cast to type SingularityTaskHistoryUpdateList", value, value)
 
 	case "directory", "Directory":
 		v, ok := value.(string)
 		if ok {
-			self.Directory = v
-			self.present["directory"] = true
+			self.Directory = &v
 			return nil
-		} else {
-			return fmt.Errorf("Field directory/Directory: value %v(%T) couldn't be cast to type string", value, value)
 		}
+		return fmt.Errorf("Field directory/Directory: value %v(%T) couldn't be cast to type string", value, value)
 
 	case "containerId", "ContainerId":
 		v, ok := value.(string)
 		if ok {
-			self.ContainerId = v
-			self.present["containerId"] = true
+			self.ContainerId = &v
 			return nil
-		} else {
-			return fmt.Errorf("Field containerId/ContainerId: value %v(%T) couldn't be cast to type string", value, value)
 		}
+		return fmt.Errorf("Field containerId/ContainerId: value %v(%T) couldn't be cast to type string", value, value)
 
 	case "task", "Task":
 		v, ok := value.(*SingularityTask)
 		if ok {
 			self.Task = v
-			self.present["task"] = true
 			return nil
-		} else {
-			return fmt.Errorf("Field task/Task: value %v(%T) couldn't be cast to type *SingularityTask", value, value)
 		}
+		return fmt.Errorf("Field task/Task: value %v(%T) couldn't be cast to type *SingularityTask", value, value)
 
 	case "healthcheckResults", "HealthcheckResults":
 		v, ok := value.(SingularityTaskHealthcheckResultList)
 		if ok {
-			self.HealthcheckResults = v
-			self.present["healthcheckResults"] = true
+			self.HealthcheckResults = &v
 			return nil
-		} else {
-			return fmt.Errorf("Field healthcheckResults/HealthcheckResults: value %v(%T) couldn't be cast to type SingularityTaskHealthcheckResultList", value, value)
 		}
+		return fmt.Errorf("Field healthcheckResults/HealthcheckResults: value %v(%T) couldn't be cast to type SingularityTaskHealthcheckResultList", value, value)
 
 	case "loadBalancerUpdates", "LoadBalancerUpdates":
 		v, ok := value.(SingularityLoadBalancerUpdateList)
 		if ok {
-			self.LoadBalancerUpdates = v
-			self.present["loadBalancerUpdates"] = true
+			self.LoadBalancerUpdates = &v
 			return nil
-		} else {
-			return fmt.Errorf("Field loadBalancerUpdates/LoadBalancerUpdates: value %v(%T) couldn't be cast to type SingularityLoadBalancerUpdateList", value, value)
 		}
-
-	case "shellCommandHistory", "ShellCommandHistory":
-		v, ok := value.(SingularityTaskShellCommandHistoryList)
-		if ok {
-			self.ShellCommandHistory = v
-			self.present["shellCommandHistory"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field shellCommandHistory/ShellCommandHistory: value %v(%T) couldn't be cast to type SingularityTaskShellCommandHistoryList", value, value)
-		}
+		return fmt.Errorf("Field loadBalancerUpdates/LoadBalancerUpdates: value %v(%T) couldn't be cast to type SingularityLoadBalancerUpdateList", value, value)
 
 	}
 }
@@ -151,104 +115,69 @@ func (self *SingularityTaskHistory) GetField(name string) (interface{}, error) {
 	default:
 		return nil, fmt.Errorf("No such field %s on SingularityTaskHistory", name)
 
+	case "shellCommandHistory", "ShellCommandHistory":
+		return *self.ShellCommandHistory, nil
+		return nil, fmt.Errorf("Field ShellCommandHistory no set on ShellCommandHistory %+v", self)
+
 	case "taskMetadata", "TaskMetadata":
-		if self.present != nil {
-			if _, ok := self.present["taskMetadata"]; ok {
-				return self.TaskMetadata, nil
-			}
-		}
+		return *self.TaskMetadata, nil
 		return nil, fmt.Errorf("Field TaskMetadata no set on TaskMetadata %+v", self)
 
 	case "taskUpdates", "TaskUpdates":
-		if self.present != nil {
-			if _, ok := self.present["taskUpdates"]; ok {
-				return self.TaskUpdates, nil
-			}
-		}
+		return *self.TaskUpdates, nil
 		return nil, fmt.Errorf("Field TaskUpdates no set on TaskUpdates %+v", self)
 
 	case "directory", "Directory":
-		if self.present != nil {
-			if _, ok := self.present["directory"]; ok {
-				return self.Directory, nil
-			}
-		}
+		return *self.Directory, nil
 		return nil, fmt.Errorf("Field Directory no set on Directory %+v", self)
 
 	case "containerId", "ContainerId":
-		if self.present != nil {
-			if _, ok := self.present["containerId"]; ok {
-				return self.ContainerId, nil
-			}
-		}
+		return *self.ContainerId, nil
 		return nil, fmt.Errorf("Field ContainerId no set on ContainerId %+v", self)
 
 	case "task", "Task":
-		if self.present != nil {
-			if _, ok := self.present["task"]; ok {
-				return self.Task, nil
-			}
-		}
+		return self.Task, nil
 		return nil, fmt.Errorf("Field Task no set on Task %+v", self)
 
 	case "healthcheckResults", "HealthcheckResults":
-		if self.present != nil {
-			if _, ok := self.present["healthcheckResults"]; ok {
-				return self.HealthcheckResults, nil
-			}
-		}
+		return *self.HealthcheckResults, nil
 		return nil, fmt.Errorf("Field HealthcheckResults no set on HealthcheckResults %+v", self)
 
 	case "loadBalancerUpdates", "LoadBalancerUpdates":
-		if self.present != nil {
-			if _, ok := self.present["loadBalancerUpdates"]; ok {
-				return self.LoadBalancerUpdates, nil
-			}
-		}
+		return *self.LoadBalancerUpdates, nil
 		return nil, fmt.Errorf("Field LoadBalancerUpdates no set on LoadBalancerUpdates %+v", self)
-
-	case "shellCommandHistory", "ShellCommandHistory":
-		if self.present != nil {
-			if _, ok := self.present["shellCommandHistory"]; ok {
-				return self.ShellCommandHistory, nil
-			}
-		}
-		return nil, fmt.Errorf("Field ShellCommandHistory no set on ShellCommandHistory %+v", self)
 
 	}
 }
 
 func (self *SingularityTaskHistory) ClearField(name string) error {
-	if self.present == nil {
-		self.present = make(map[string]bool)
-	}
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on SingularityTaskHistory", name)
 
+	case "shellCommandHistory", "ShellCommandHistory":
+		self.ShellCommandHistory = nil
+
 	case "taskMetadata", "TaskMetadata":
-		self.present["taskMetadata"] = false
+		self.TaskMetadata = nil
 
 	case "taskUpdates", "TaskUpdates":
-		self.present["taskUpdates"] = false
+		self.TaskUpdates = nil
 
 	case "directory", "Directory":
-		self.present["directory"] = false
+		self.Directory = nil
 
 	case "containerId", "ContainerId":
-		self.present["containerId"] = false
+		self.ContainerId = nil
 
 	case "task", "Task":
-		self.present["task"] = false
+		self.Task = nil
 
 	case "healthcheckResults", "HealthcheckResults":
-		self.present["healthcheckResults"] = false
+		self.HealthcheckResults = nil
 
 	case "loadBalancerUpdates", "LoadBalancerUpdates":
-		self.present["loadBalancerUpdates"] = false
-
-	case "shellCommandHistory", "ShellCommandHistory":
-		self.present["shellCommandHistory"] = false
+		self.LoadBalancerUpdates = nil
 
 	}
 

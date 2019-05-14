@@ -8,13 +8,9 @@ import (
 )
 
 type SingularityTaskShellCommandRequestId struct {
-	present map[string]bool
-
-	Timestamp int64 `json:"timestamp"`
-
-	TaskId *SingularityTaskId `json:"taskId"`
-
-	Name string `json:"name,omitempty"`
+	TaskId    *SingularityTaskId `json:"taskId,omitempty"`
+	Name      *string            `json:"name,omitempty"`
+	Timestamp *int64             `json:"timestamp,omitempty"`
 }
 
 func (self *SingularityTaskShellCommandRequestId) Populate(jsonReader io.ReadCloser) (err error) {
@@ -29,10 +25,6 @@ func (self *SingularityTaskShellCommandRequestId) Absorb(other swaggering.DTO) e
 	return fmt.Errorf("A SingularityTaskShellCommandRequestId cannot copy the values from %#v", other)
 }
 
-func (self *SingularityTaskShellCommandRequestId) MarshalJSON() ([]byte, error) {
-	return swaggering.MarshalJSON(self)
-}
-
 func (self *SingularityTaskShellCommandRequestId) FormatText() string {
 	return swaggering.FormatText(self)
 }
@@ -41,47 +33,34 @@ func (self *SingularityTaskShellCommandRequestId) FormatJSON() string {
 	return swaggering.FormatJSON(self)
 }
 
-func (self *SingularityTaskShellCommandRequestId) FieldsPresent() []string {
-	return swaggering.PresenceFromMap(self.present)
-}
-
 func (self *SingularityTaskShellCommandRequestId) SetField(name string, value interface{}) error {
-	if self.present == nil {
-		self.present = make(map[string]bool)
-	}
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on SingularityTaskShellCommandRequestId", name)
-
-	case "timestamp", "Timestamp":
-		v, ok := value.(int64)
-		if ok {
-			self.Timestamp = v
-			self.present["timestamp"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field timestamp/Timestamp: value %v(%T) couldn't be cast to type int64", value, value)
-		}
 
 	case "taskId", "TaskId":
 		v, ok := value.(*SingularityTaskId)
 		if ok {
 			self.TaskId = v
-			self.present["taskId"] = true
 			return nil
-		} else {
-			return fmt.Errorf("Field taskId/TaskId: value %v(%T) couldn't be cast to type *SingularityTaskId", value, value)
 		}
+		return fmt.Errorf("Field taskId/TaskId: value %v(%T) couldn't be cast to type *SingularityTaskId", value, value)
 
 	case "name", "Name":
 		v, ok := value.(string)
 		if ok {
-			self.Name = v
-			self.present["name"] = true
+			self.Name = &v
 			return nil
-		} else {
-			return fmt.Errorf("Field name/Name: value %v(%T) couldn't be cast to type string", value, value)
 		}
+		return fmt.Errorf("Field name/Name: value %v(%T) couldn't be cast to type string", value, value)
+
+	case "timestamp", "Timestamp":
+		v, ok := value.(int64)
+		if ok {
+			self.Timestamp = &v
+			return nil
+		}
+		return fmt.Errorf("Field timestamp/Timestamp: value %v(%T) couldn't be cast to type int64", value, value)
 
 	}
 }
@@ -91,49 +70,34 @@ func (self *SingularityTaskShellCommandRequestId) GetField(name string) (interfa
 	default:
 		return nil, fmt.Errorf("No such field %s on SingularityTaskShellCommandRequestId", name)
 
-	case "timestamp", "Timestamp":
-		if self.present != nil {
-			if _, ok := self.present["timestamp"]; ok {
-				return self.Timestamp, nil
-			}
-		}
-		return nil, fmt.Errorf("Field Timestamp no set on Timestamp %+v", self)
-
 	case "taskId", "TaskId":
-		if self.present != nil {
-			if _, ok := self.present["taskId"]; ok {
-				return self.TaskId, nil
-			}
-		}
+		return self.TaskId, nil
 		return nil, fmt.Errorf("Field TaskId no set on TaskId %+v", self)
 
 	case "name", "Name":
-		if self.present != nil {
-			if _, ok := self.present["name"]; ok {
-				return self.Name, nil
-			}
-		}
+		return *self.Name, nil
 		return nil, fmt.Errorf("Field Name no set on Name %+v", self)
+
+	case "timestamp", "Timestamp":
+		return *self.Timestamp, nil
+		return nil, fmt.Errorf("Field Timestamp no set on Timestamp %+v", self)
 
 	}
 }
 
 func (self *SingularityTaskShellCommandRequestId) ClearField(name string) error {
-	if self.present == nil {
-		self.present = make(map[string]bool)
-	}
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on SingularityTaskShellCommandRequestId", name)
 
-	case "timestamp", "Timestamp":
-		self.present["timestamp"] = false
-
 	case "taskId", "TaskId":
-		self.present["taskId"] = false
+		self.TaskId = nil
 
 	case "name", "Name":
-		self.present["name"] = false
+		self.Name = nil
+
+	case "timestamp", "Timestamp":
+		self.Timestamp = nil
 
 	}
 

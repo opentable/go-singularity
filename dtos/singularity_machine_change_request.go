@@ -8,18 +8,11 @@ import (
 )
 
 type SingularityMachineChangeRequest struct {
-	present map[string]bool
-
-	KillTasksOnDecommissionTimeout bool `json:"killTasksOnDecommissionTimeout"`
-
-	DurationMillis int64 `json:"durationMillis"`
-
-	ActionId string `json:"actionId,omitempty"`
-
-	Message string `json:"message,omitempty"`
-
-	// Invalid field: RevertToState *notfound.MachineState `json:"revertToState"`
-
+	// Invalid field: RevertToState *notfound.MachineState `json:"revertToState,omitempty"`
+	KillTasksOnDecommissionTimeout *bool   `json:"killTasksOnDecommissionTimeout,omitempty"`
+	DurationMillis                 *int64  `json:"durationMillis,omitempty"`
+	ActionId                       *string `json:"actionId,omitempty"`
+	Message                        *string `json:"message,omitempty"`
 }
 
 func (self *SingularityMachineChangeRequest) Populate(jsonReader io.ReadCloser) (err error) {
@@ -34,10 +27,6 @@ func (self *SingularityMachineChangeRequest) Absorb(other swaggering.DTO) error 
 	return fmt.Errorf("A SingularityMachineChangeRequest cannot copy the values from %#v", other)
 }
 
-func (self *SingularityMachineChangeRequest) MarshalJSON() ([]byte, error) {
-	return swaggering.MarshalJSON(self)
-}
-
 func (self *SingularityMachineChangeRequest) FormatText() string {
 	return swaggering.FormatText(self)
 }
@@ -46,14 +35,7 @@ func (self *SingularityMachineChangeRequest) FormatJSON() string {
 	return swaggering.FormatJSON(self)
 }
 
-func (self *SingularityMachineChangeRequest) FieldsPresent() []string {
-	return swaggering.PresenceFromMap(self.present)
-}
-
 func (self *SingularityMachineChangeRequest) SetField(name string, value interface{}) error {
-	if self.present == nil {
-		self.present = make(map[string]bool)
-	}
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on SingularityMachineChangeRequest", name)
@@ -61,42 +43,34 @@ func (self *SingularityMachineChangeRequest) SetField(name string, value interfa
 	case "killTasksOnDecommissionTimeout", "KillTasksOnDecommissionTimeout":
 		v, ok := value.(bool)
 		if ok {
-			self.KillTasksOnDecommissionTimeout = v
-			self.present["killTasksOnDecommissionTimeout"] = true
+			self.KillTasksOnDecommissionTimeout = &v
 			return nil
-		} else {
-			return fmt.Errorf("Field killTasksOnDecommissionTimeout/KillTasksOnDecommissionTimeout: value %v(%T) couldn't be cast to type bool", value, value)
 		}
+		return fmt.Errorf("Field killTasksOnDecommissionTimeout/KillTasksOnDecommissionTimeout: value %v(%T) couldn't be cast to type bool", value, value)
 
 	case "durationMillis", "DurationMillis":
 		v, ok := value.(int64)
 		if ok {
-			self.DurationMillis = v
-			self.present["durationMillis"] = true
+			self.DurationMillis = &v
 			return nil
-		} else {
-			return fmt.Errorf("Field durationMillis/DurationMillis: value %v(%T) couldn't be cast to type int64", value, value)
 		}
+		return fmt.Errorf("Field durationMillis/DurationMillis: value %v(%T) couldn't be cast to type int64", value, value)
 
 	case "actionId", "ActionId":
 		v, ok := value.(string)
 		if ok {
-			self.ActionId = v
-			self.present["actionId"] = true
+			self.ActionId = &v
 			return nil
-		} else {
-			return fmt.Errorf("Field actionId/ActionId: value %v(%T) couldn't be cast to type string", value, value)
 		}
+		return fmt.Errorf("Field actionId/ActionId: value %v(%T) couldn't be cast to type string", value, value)
 
 	case "message", "Message":
 		v, ok := value.(string)
 		if ok {
-			self.Message = v
-			self.present["message"] = true
+			self.Message = &v
 			return nil
-		} else {
-			return fmt.Errorf("Field message/Message: value %v(%T) couldn't be cast to type string", value, value)
 		}
+		return fmt.Errorf("Field message/Message: value %v(%T) couldn't be cast to type string", value, value)
 
 	}
 }
@@ -107,59 +81,40 @@ func (self *SingularityMachineChangeRequest) GetField(name string) (interface{},
 		return nil, fmt.Errorf("No such field %s on SingularityMachineChangeRequest", name)
 
 	case "killTasksOnDecommissionTimeout", "KillTasksOnDecommissionTimeout":
-		if self.present != nil {
-			if _, ok := self.present["killTasksOnDecommissionTimeout"]; ok {
-				return self.KillTasksOnDecommissionTimeout, nil
-			}
-		}
+		return *self.KillTasksOnDecommissionTimeout, nil
 		return nil, fmt.Errorf("Field KillTasksOnDecommissionTimeout no set on KillTasksOnDecommissionTimeout %+v", self)
 
 	case "durationMillis", "DurationMillis":
-		if self.present != nil {
-			if _, ok := self.present["durationMillis"]; ok {
-				return self.DurationMillis, nil
-			}
-		}
+		return *self.DurationMillis, nil
 		return nil, fmt.Errorf("Field DurationMillis no set on DurationMillis %+v", self)
 
 	case "actionId", "ActionId":
-		if self.present != nil {
-			if _, ok := self.present["actionId"]; ok {
-				return self.ActionId, nil
-			}
-		}
+		return *self.ActionId, nil
 		return nil, fmt.Errorf("Field ActionId no set on ActionId %+v", self)
 
 	case "message", "Message":
-		if self.present != nil {
-			if _, ok := self.present["message"]; ok {
-				return self.Message, nil
-			}
-		}
+		return *self.Message, nil
 		return nil, fmt.Errorf("Field Message no set on Message %+v", self)
 
 	}
 }
 
 func (self *SingularityMachineChangeRequest) ClearField(name string) error {
-	if self.present == nil {
-		self.present = make(map[string]bool)
-	}
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on SingularityMachineChangeRequest", name)
 
 	case "killTasksOnDecommissionTimeout", "KillTasksOnDecommissionTimeout":
-		self.present["killTasksOnDecommissionTimeout"] = false
+		self.KillTasksOnDecommissionTimeout = nil
 
 	case "durationMillis", "DurationMillis":
-		self.present["durationMillis"] = false
+		self.DurationMillis = nil
 
 	case "actionId", "ActionId":
-		self.present["actionId"] = false
+		self.ActionId = nil
 
 	case "message", "Message":
-		self.present["message"] = false
+		self.Message = nil
 
 	}
 

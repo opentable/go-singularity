@@ -23,13 +23,9 @@ const (
 )
 
 type SingularityDeployFailure struct {
-	present map[string]bool
-
-	Reason SingularityDeployFailureSingularityDeployFailureReason `json:"reason"`
-
-	TaskId *SingularityTaskId `json:"taskId"`
-
-	Message string `json:"message,omitempty"`
+	Reason  *SingularityDeployFailureSingularityDeployFailureReason `json:"reason,omitempty"`
+	TaskId  *SingularityTaskId                                      `json:"taskId,omitempty"`
+	Message *string                                                 `json:"message,omitempty"`
 }
 
 func (self *SingularityDeployFailure) Populate(jsonReader io.ReadCloser) (err error) {
@@ -44,10 +40,6 @@ func (self *SingularityDeployFailure) Absorb(other swaggering.DTO) error {
 	return fmt.Errorf("A SingularityDeployFailure cannot copy the values from %#v", other)
 }
 
-func (self *SingularityDeployFailure) MarshalJSON() ([]byte, error) {
-	return swaggering.MarshalJSON(self)
-}
-
 func (self *SingularityDeployFailure) FormatText() string {
 	return swaggering.FormatText(self)
 }
@@ -56,14 +48,7 @@ func (self *SingularityDeployFailure) FormatJSON() string {
 	return swaggering.FormatJSON(self)
 }
 
-func (self *SingularityDeployFailure) FieldsPresent() []string {
-	return swaggering.PresenceFromMap(self.present)
-}
-
 func (self *SingularityDeployFailure) SetField(name string, value interface{}) error {
-	if self.present == nil {
-		self.present = make(map[string]bool)
-	}
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on SingularityDeployFailure", name)
@@ -71,32 +56,26 @@ func (self *SingularityDeployFailure) SetField(name string, value interface{}) e
 	case "reason", "Reason":
 		v, ok := value.(SingularityDeployFailureSingularityDeployFailureReason)
 		if ok {
-			self.Reason = v
-			self.present["reason"] = true
+			self.Reason = &v
 			return nil
-		} else {
-			return fmt.Errorf("Field reason/Reason: value %v(%T) couldn't be cast to type SingularityDeployFailureSingularityDeployFailureReason", value, value)
 		}
+		return fmt.Errorf("Field reason/Reason: value %v(%T) couldn't be cast to type SingularityDeployFailureSingularityDeployFailureReason", value, value)
 
 	case "taskId", "TaskId":
 		v, ok := value.(*SingularityTaskId)
 		if ok {
 			self.TaskId = v
-			self.present["taskId"] = true
 			return nil
-		} else {
-			return fmt.Errorf("Field taskId/TaskId: value %v(%T) couldn't be cast to type *SingularityTaskId", value, value)
 		}
+		return fmt.Errorf("Field taskId/TaskId: value %v(%T) couldn't be cast to type *SingularityTaskId", value, value)
 
 	case "message", "Message":
 		v, ok := value.(string)
 		if ok {
-			self.Message = v
-			self.present["message"] = true
+			self.Message = &v
 			return nil
-		} else {
-			return fmt.Errorf("Field message/Message: value %v(%T) couldn't be cast to type string", value, value)
 		}
+		return fmt.Errorf("Field message/Message: value %v(%T) couldn't be cast to type string", value, value)
 
 	}
 }
@@ -107,48 +86,33 @@ func (self *SingularityDeployFailure) GetField(name string) (interface{}, error)
 		return nil, fmt.Errorf("No such field %s on SingularityDeployFailure", name)
 
 	case "reason", "Reason":
-		if self.present != nil {
-			if _, ok := self.present["reason"]; ok {
-				return self.Reason, nil
-			}
-		}
+		return *self.Reason, nil
 		return nil, fmt.Errorf("Field Reason no set on Reason %+v", self)
 
 	case "taskId", "TaskId":
-		if self.present != nil {
-			if _, ok := self.present["taskId"]; ok {
-				return self.TaskId, nil
-			}
-		}
+		return self.TaskId, nil
 		return nil, fmt.Errorf("Field TaskId no set on TaskId %+v", self)
 
 	case "message", "Message":
-		if self.present != nil {
-			if _, ok := self.present["message"]; ok {
-				return self.Message, nil
-			}
-		}
+		return *self.Message, nil
 		return nil, fmt.Errorf("Field Message no set on Message %+v", self)
 
 	}
 }
 
 func (self *SingularityDeployFailure) ClearField(name string) error {
-	if self.present == nil {
-		self.present = make(map[string]bool)
-	}
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on SingularityDeployFailure", name)
 
 	case "reason", "Reason":
-		self.present["reason"] = false
+		self.Reason = nil
 
 	case "taskId", "TaskId":
-		self.present["taskId"] = false
+		self.TaskId = nil
 
 	case "message", "Message":
-		self.present["message"] = false
+		self.Message = nil
 
 	}
 

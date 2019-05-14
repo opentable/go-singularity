@@ -8,23 +8,15 @@ import (
 )
 
 type SingularityS3SearchRequest struct {
-	present map[string]bool
+	RequestsAndDeploys *map[string]swaggering.StringList `json:"requestsAndDeploys,omitempty"`
+	TaskIds            *swaggering.StringList            `json:"taskIds,omitempty"`
+	Start              *int64                            `json:"start,omitempty"`
+	End                *int64                            `json:"end,omitempty"`
+	ExcludeMetadata    *bool                             `json:"excludeMetadata,omitempty"`
+	ListOnly           *bool                             `json:"listOnly,omitempty"`
+	MaxPerPage         *int32                            `json:"maxPerPage,omitempty"`
+	// Invalid field: ContinuationTokens *notfound.Map[string,ContinuationToken] `json:"continuationTokens,omitempty"`
 
-	ListOnly bool `json:"listOnly"`
-
-	MaxPerPage int32 `json:"maxPerPage"`
-
-	// Invalid field: ContinuationTokens *notfound.Map[string,ContinuationToken] `json:"continuationTokens"`
-
-	RequestsAndDeploys map[string]swaggering.StringList `json:"requestsAndDeploys"`
-
-	TaskIds swaggering.StringList `json:"taskIds"`
-
-	Start int64 `json:"start"`
-
-	End int64 `json:"end"`
-
-	ExcludeMetadata bool `json:"excludeMetadata"`
 }
 
 func (self *SingularityS3SearchRequest) Populate(jsonReader io.ReadCloser) (err error) {
@@ -39,10 +31,6 @@ func (self *SingularityS3SearchRequest) Absorb(other swaggering.DTO) error {
 	return fmt.Errorf("A SingularityS3SearchRequest cannot copy the values from %#v", other)
 }
 
-func (self *SingularityS3SearchRequest) MarshalJSON() ([]byte, error) {
-	return swaggering.MarshalJSON(self)
-}
-
 func (self *SingularityS3SearchRequest) FormatText() string {
 	return swaggering.FormatText(self)
 }
@@ -51,87 +39,66 @@ func (self *SingularityS3SearchRequest) FormatJSON() string {
 	return swaggering.FormatJSON(self)
 }
 
-func (self *SingularityS3SearchRequest) FieldsPresent() []string {
-	return swaggering.PresenceFromMap(self.present)
-}
-
 func (self *SingularityS3SearchRequest) SetField(name string, value interface{}) error {
-	if self.present == nil {
-		self.present = make(map[string]bool)
-	}
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on SingularityS3SearchRequest", name)
 
-	case "listOnly", "ListOnly":
-		v, ok := value.(bool)
-		if ok {
-			self.ListOnly = v
-			self.present["listOnly"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field listOnly/ListOnly: value %v(%T) couldn't be cast to type bool", value, value)
-		}
-
-	case "maxPerPage", "MaxPerPage":
-		v, ok := value.(int32)
-		if ok {
-			self.MaxPerPage = v
-			self.present["maxPerPage"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field maxPerPage/MaxPerPage: value %v(%T) couldn't be cast to type int32", value, value)
-		}
-
 	case "requestsAndDeploys", "RequestsAndDeploys":
 		v, ok := value.(map[string]swaggering.StringList)
 		if ok {
-			self.RequestsAndDeploys = v
-			self.present["requestsAndDeploys"] = true
+			self.RequestsAndDeploys = &v
 			return nil
-		} else {
-			return fmt.Errorf("Field requestsAndDeploys/RequestsAndDeploys: value %v(%T) couldn't be cast to type map[string]swaggering.StringList", value, value)
 		}
+		return fmt.Errorf("Field requestsAndDeploys/RequestsAndDeploys: value %v(%T) couldn't be cast to type map[string]swaggering.StringList", value, value)
 
 	case "taskIds", "TaskIds":
 		v, ok := value.(swaggering.StringList)
 		if ok {
-			self.TaskIds = v
-			self.present["taskIds"] = true
+			self.TaskIds = &v
 			return nil
-		} else {
-			return fmt.Errorf("Field taskIds/TaskIds: value %v(%T) couldn't be cast to type swaggering.StringList", value, value)
 		}
+		return fmt.Errorf("Field taskIds/TaskIds: value %v(%T) couldn't be cast to type swaggering.StringList", value, value)
 
 	case "start", "Start":
 		v, ok := value.(int64)
 		if ok {
-			self.Start = v
-			self.present["start"] = true
+			self.Start = &v
 			return nil
-		} else {
-			return fmt.Errorf("Field start/Start: value %v(%T) couldn't be cast to type int64", value, value)
 		}
+		return fmt.Errorf("Field start/Start: value %v(%T) couldn't be cast to type int64", value, value)
 
 	case "end", "End":
 		v, ok := value.(int64)
 		if ok {
-			self.End = v
-			self.present["end"] = true
+			self.End = &v
 			return nil
-		} else {
-			return fmt.Errorf("Field end/End: value %v(%T) couldn't be cast to type int64", value, value)
 		}
+		return fmt.Errorf("Field end/End: value %v(%T) couldn't be cast to type int64", value, value)
 
 	case "excludeMetadata", "ExcludeMetadata":
 		v, ok := value.(bool)
 		if ok {
-			self.ExcludeMetadata = v
-			self.present["excludeMetadata"] = true
+			self.ExcludeMetadata = &v
 			return nil
-		} else {
-			return fmt.Errorf("Field excludeMetadata/ExcludeMetadata: value %v(%T) couldn't be cast to type bool", value, value)
 		}
+		return fmt.Errorf("Field excludeMetadata/ExcludeMetadata: value %v(%T) couldn't be cast to type bool", value, value)
+
+	case "listOnly", "ListOnly":
+		v, ok := value.(bool)
+		if ok {
+			self.ListOnly = &v
+			return nil
+		}
+		return fmt.Errorf("Field listOnly/ListOnly: value %v(%T) couldn't be cast to type bool", value, value)
+
+	case "maxPerPage", "MaxPerPage":
+		v, ok := value.(int32)
+		if ok {
+			self.MaxPerPage = &v
+			return nil
+		}
+		return fmt.Errorf("Field maxPerPage/MaxPerPage: value %v(%T) couldn't be cast to type int32", value, value)
 
 	}
 }
@@ -141,93 +108,62 @@ func (self *SingularityS3SearchRequest) GetField(name string) (interface{}, erro
 	default:
 		return nil, fmt.Errorf("No such field %s on SingularityS3SearchRequest", name)
 
-	case "listOnly", "ListOnly":
-		if self.present != nil {
-			if _, ok := self.present["listOnly"]; ok {
-				return self.ListOnly, nil
-			}
-		}
-		return nil, fmt.Errorf("Field ListOnly no set on ListOnly %+v", self)
-
-	case "maxPerPage", "MaxPerPage":
-		if self.present != nil {
-			if _, ok := self.present["maxPerPage"]; ok {
-				return self.MaxPerPage, nil
-			}
-		}
-		return nil, fmt.Errorf("Field MaxPerPage no set on MaxPerPage %+v", self)
-
 	case "requestsAndDeploys", "RequestsAndDeploys":
-		if self.present != nil {
-			if _, ok := self.present["requestsAndDeploys"]; ok {
-				return self.RequestsAndDeploys, nil
-			}
-		}
+		return *self.RequestsAndDeploys, nil
 		return nil, fmt.Errorf("Field RequestsAndDeploys no set on RequestsAndDeploys %+v", self)
 
 	case "taskIds", "TaskIds":
-		if self.present != nil {
-			if _, ok := self.present["taskIds"]; ok {
-				return self.TaskIds, nil
-			}
-		}
+		return *self.TaskIds, nil
 		return nil, fmt.Errorf("Field TaskIds no set on TaskIds %+v", self)
 
 	case "start", "Start":
-		if self.present != nil {
-			if _, ok := self.present["start"]; ok {
-				return self.Start, nil
-			}
-		}
+		return *self.Start, nil
 		return nil, fmt.Errorf("Field Start no set on Start %+v", self)
 
 	case "end", "End":
-		if self.present != nil {
-			if _, ok := self.present["end"]; ok {
-				return self.End, nil
-			}
-		}
+		return *self.End, nil
 		return nil, fmt.Errorf("Field End no set on End %+v", self)
 
 	case "excludeMetadata", "ExcludeMetadata":
-		if self.present != nil {
-			if _, ok := self.present["excludeMetadata"]; ok {
-				return self.ExcludeMetadata, nil
-			}
-		}
+		return *self.ExcludeMetadata, nil
 		return nil, fmt.Errorf("Field ExcludeMetadata no set on ExcludeMetadata %+v", self)
+
+	case "listOnly", "ListOnly":
+		return *self.ListOnly, nil
+		return nil, fmt.Errorf("Field ListOnly no set on ListOnly %+v", self)
+
+	case "maxPerPage", "MaxPerPage":
+		return *self.MaxPerPage, nil
+		return nil, fmt.Errorf("Field MaxPerPage no set on MaxPerPage %+v", self)
 
 	}
 }
 
 func (self *SingularityS3SearchRequest) ClearField(name string) error {
-	if self.present == nil {
-		self.present = make(map[string]bool)
-	}
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on SingularityS3SearchRequest", name)
 
-	case "listOnly", "ListOnly":
-		self.present["listOnly"] = false
-
-	case "maxPerPage", "MaxPerPage":
-		self.present["maxPerPage"] = false
-
 	case "requestsAndDeploys", "RequestsAndDeploys":
-		self.present["requestsAndDeploys"] = false
+		self.RequestsAndDeploys = nil
 
 	case "taskIds", "TaskIds":
-		self.present["taskIds"] = false
+		self.TaskIds = nil
 
 	case "start", "Start":
-		self.present["start"] = false
+		self.Start = nil
 
 	case "end", "End":
-		self.present["end"] = false
+		self.End = nil
 
 	case "excludeMetadata", "ExcludeMetadata":
-		self.present["excludeMetadata"] = false
+		self.ExcludeMetadata = nil
+
+	case "listOnly", "ListOnly":
+		self.ListOnly = nil
+
+	case "maxPerPage", "MaxPerPage":
+		self.MaxPerPage = nil
 
 	}
 

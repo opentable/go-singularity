@@ -8,13 +8,9 @@ import (
 )
 
 type MesosFileChunkObject struct {
-	present map[string]bool
-
-	Data string `json:"data,omitempty"`
-
-	Offset int64 `json:"offset"`
-
-	NextOffset int64 `json:"nextOffset"`
+	Data       *string `json:"data,omitempty"`
+	Offset     *int64  `json:"offset,omitempty"`
+	NextOffset *int64  `json:"nextOffset,omitempty"`
 }
 
 func (self *MesosFileChunkObject) Populate(jsonReader io.ReadCloser) (err error) {
@@ -29,10 +25,6 @@ func (self *MesosFileChunkObject) Absorb(other swaggering.DTO) error {
 	return fmt.Errorf("A MesosFileChunkObject cannot copy the values from %#v", other)
 }
 
-func (self *MesosFileChunkObject) MarshalJSON() ([]byte, error) {
-	return swaggering.MarshalJSON(self)
-}
-
 func (self *MesosFileChunkObject) FormatText() string {
 	return swaggering.FormatText(self)
 }
@@ -41,14 +33,7 @@ func (self *MesosFileChunkObject) FormatJSON() string {
 	return swaggering.FormatJSON(self)
 }
 
-func (self *MesosFileChunkObject) FieldsPresent() []string {
-	return swaggering.PresenceFromMap(self.present)
-}
-
 func (self *MesosFileChunkObject) SetField(name string, value interface{}) error {
-	if self.present == nil {
-		self.present = make(map[string]bool)
-	}
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on MesosFileChunkObject", name)
@@ -56,32 +41,26 @@ func (self *MesosFileChunkObject) SetField(name string, value interface{}) error
 	case "data", "Data":
 		v, ok := value.(string)
 		if ok {
-			self.Data = v
-			self.present["data"] = true
+			self.Data = &v
 			return nil
-		} else {
-			return fmt.Errorf("Field data/Data: value %v(%T) couldn't be cast to type string", value, value)
 		}
+		return fmt.Errorf("Field data/Data: value %v(%T) couldn't be cast to type string", value, value)
 
 	case "offset", "Offset":
 		v, ok := value.(int64)
 		if ok {
-			self.Offset = v
-			self.present["offset"] = true
+			self.Offset = &v
 			return nil
-		} else {
-			return fmt.Errorf("Field offset/Offset: value %v(%T) couldn't be cast to type int64", value, value)
 		}
+		return fmt.Errorf("Field offset/Offset: value %v(%T) couldn't be cast to type int64", value, value)
 
 	case "nextOffset", "NextOffset":
 		v, ok := value.(int64)
 		if ok {
-			self.NextOffset = v
-			self.present["nextOffset"] = true
+			self.NextOffset = &v
 			return nil
-		} else {
-			return fmt.Errorf("Field nextOffset/NextOffset: value %v(%T) couldn't be cast to type int64", value, value)
 		}
+		return fmt.Errorf("Field nextOffset/NextOffset: value %v(%T) couldn't be cast to type int64", value, value)
 
 	}
 }
@@ -92,48 +71,33 @@ func (self *MesosFileChunkObject) GetField(name string) (interface{}, error) {
 		return nil, fmt.Errorf("No such field %s on MesosFileChunkObject", name)
 
 	case "data", "Data":
-		if self.present != nil {
-			if _, ok := self.present["data"]; ok {
-				return self.Data, nil
-			}
-		}
+		return *self.Data, nil
 		return nil, fmt.Errorf("Field Data no set on Data %+v", self)
 
 	case "offset", "Offset":
-		if self.present != nil {
-			if _, ok := self.present["offset"]; ok {
-				return self.Offset, nil
-			}
-		}
+		return *self.Offset, nil
 		return nil, fmt.Errorf("Field Offset no set on Offset %+v", self)
 
 	case "nextOffset", "NextOffset":
-		if self.present != nil {
-			if _, ok := self.present["nextOffset"]; ok {
-				return self.NextOffset, nil
-			}
-		}
+		return *self.NextOffset, nil
 		return nil, fmt.Errorf("Field NextOffset no set on NextOffset %+v", self)
 
 	}
 }
 
 func (self *MesosFileChunkObject) ClearField(name string) error {
-	if self.present == nil {
-		self.present = make(map[string]bool)
-	}
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on MesosFileChunkObject", name)
 
 	case "data", "Data":
-		self.present["data"] = false
+		self.Data = nil
 
 	case "offset", "Offset":
-		self.present["offset"] = false
+		self.Offset = nil
 
 	case "nextOffset", "NextOffset":
-		self.present["nextOffset"] = false
+		self.NextOffset = nil
 
 	}
 

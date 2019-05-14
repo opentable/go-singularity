@@ -8,11 +8,8 @@ import (
 )
 
 type SingularityTaskShellCommandHistory struct {
-	present map[string]bool
-
-	ShellRequest *SingularityTaskShellCommandRequest `json:"shellRequest"`
-
-	ShellUpdates SingularityTaskShellCommandUpdateList `json:"shellUpdates"`
+	ShellRequest *SingularityTaskShellCommandRequest    `json:"shellRequest,omitempty"`
+	ShellUpdates *SingularityTaskShellCommandUpdateList `json:"shellUpdates,omitempty"`
 }
 
 func (self *SingularityTaskShellCommandHistory) Populate(jsonReader io.ReadCloser) (err error) {
@@ -27,10 +24,6 @@ func (self *SingularityTaskShellCommandHistory) Absorb(other swaggering.DTO) err
 	return fmt.Errorf("A SingularityTaskShellCommandHistory cannot copy the values from %#v", other)
 }
 
-func (self *SingularityTaskShellCommandHistory) MarshalJSON() ([]byte, error) {
-	return swaggering.MarshalJSON(self)
-}
-
 func (self *SingularityTaskShellCommandHistory) FormatText() string {
 	return swaggering.FormatText(self)
 }
@@ -39,14 +32,7 @@ func (self *SingularityTaskShellCommandHistory) FormatJSON() string {
 	return swaggering.FormatJSON(self)
 }
 
-func (self *SingularityTaskShellCommandHistory) FieldsPresent() []string {
-	return swaggering.PresenceFromMap(self.present)
-}
-
 func (self *SingularityTaskShellCommandHistory) SetField(name string, value interface{}) error {
-	if self.present == nil {
-		self.present = make(map[string]bool)
-	}
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on SingularityTaskShellCommandHistory", name)
@@ -55,21 +41,17 @@ func (self *SingularityTaskShellCommandHistory) SetField(name string, value inte
 		v, ok := value.(*SingularityTaskShellCommandRequest)
 		if ok {
 			self.ShellRequest = v
-			self.present["shellRequest"] = true
 			return nil
-		} else {
-			return fmt.Errorf("Field shellRequest/ShellRequest: value %v(%T) couldn't be cast to type *SingularityTaskShellCommandRequest", value, value)
 		}
+		return fmt.Errorf("Field shellRequest/ShellRequest: value %v(%T) couldn't be cast to type *SingularityTaskShellCommandRequest", value, value)
 
 	case "shellUpdates", "ShellUpdates":
 		v, ok := value.(SingularityTaskShellCommandUpdateList)
 		if ok {
-			self.ShellUpdates = v
-			self.present["shellUpdates"] = true
+			self.ShellUpdates = &v
 			return nil
-		} else {
-			return fmt.Errorf("Field shellUpdates/ShellUpdates: value %v(%T) couldn't be cast to type SingularityTaskShellCommandUpdateList", value, value)
 		}
+		return fmt.Errorf("Field shellUpdates/ShellUpdates: value %v(%T) couldn't be cast to type SingularityTaskShellCommandUpdateList", value, value)
 
 	}
 }
@@ -80,37 +62,26 @@ func (self *SingularityTaskShellCommandHistory) GetField(name string) (interface
 		return nil, fmt.Errorf("No such field %s on SingularityTaskShellCommandHistory", name)
 
 	case "shellRequest", "ShellRequest":
-		if self.present != nil {
-			if _, ok := self.present["shellRequest"]; ok {
-				return self.ShellRequest, nil
-			}
-		}
+		return self.ShellRequest, nil
 		return nil, fmt.Errorf("Field ShellRequest no set on ShellRequest %+v", self)
 
 	case "shellUpdates", "ShellUpdates":
-		if self.present != nil {
-			if _, ok := self.present["shellUpdates"]; ok {
-				return self.ShellUpdates, nil
-			}
-		}
+		return *self.ShellUpdates, nil
 		return nil, fmt.Errorf("Field ShellUpdates no set on ShellUpdates %+v", self)
 
 	}
 }
 
 func (self *SingularityTaskShellCommandHistory) ClearField(name string) error {
-	if self.present == nil {
-		self.present = make(map[string]bool)
-	}
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on SingularityTaskShellCommandHistory", name)
 
 	case "shellRequest", "ShellRequest":
-		self.present["shellRequest"] = false
+		self.ShellRequest = nil
 
 	case "shellUpdates", "ShellUpdates":
-		self.present["shellUpdates"] = false
+		self.ShellUpdates = nil
 
 	}
 

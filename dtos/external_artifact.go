@@ -8,21 +8,13 @@ import (
 )
 
 type ExternalArtifact struct {
-	present map[string]bool
-
-	TargetFolderRelativeToTask string `json:"targetFolderRelativeToTask,omitempty"`
-
-	Name string `json:"name,omitempty"`
-
-	Url string `json:"url,omitempty"`
-
-	Filesize int64 `json:"filesize"`
-
-	IsArtifactList bool `json:"isArtifactList"`
-
-	Filename string `json:"filename,omitempty"`
-
-	Md5sum string `json:"md5sum,omitempty"`
+	Name                       *string `json:"name,omitempty"`
+	Url                        *string `json:"url,omitempty"`
+	Filesize                   *int64  `json:"filesize,omitempty"`
+	IsArtifactList             *bool   `json:"isArtifactList,omitempty"`
+	Filename                   *string `json:"filename,omitempty"`
+	Md5sum                     *string `json:"md5sum,omitempty"`
+	TargetFolderRelativeToTask *string `json:"targetFolderRelativeToTask,omitempty"`
 }
 
 func (self *ExternalArtifact) Populate(jsonReader io.ReadCloser) (err error) {
@@ -37,10 +29,6 @@ func (self *ExternalArtifact) Absorb(other swaggering.DTO) error {
 	return fmt.Errorf("A ExternalArtifact cannot copy the values from %#v", other)
 }
 
-func (self *ExternalArtifact) MarshalJSON() ([]byte, error) {
-	return swaggering.MarshalJSON(self)
-}
-
 func (self *ExternalArtifact) FormatText() string {
 	return swaggering.FormatText(self)
 }
@@ -49,87 +37,66 @@ func (self *ExternalArtifact) FormatJSON() string {
 	return swaggering.FormatJSON(self)
 }
 
-func (self *ExternalArtifact) FieldsPresent() []string {
-	return swaggering.PresenceFromMap(self.present)
-}
-
 func (self *ExternalArtifact) SetField(name string, value interface{}) error {
-	if self.present == nil {
-		self.present = make(map[string]bool)
-	}
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on ExternalArtifact", name)
 
-	case "targetFolderRelativeToTask", "TargetFolderRelativeToTask":
-		v, ok := value.(string)
-		if ok {
-			self.TargetFolderRelativeToTask = v
-			self.present["targetFolderRelativeToTask"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field targetFolderRelativeToTask/TargetFolderRelativeToTask: value %v(%T) couldn't be cast to type string", value, value)
-		}
-
 	case "name", "Name":
 		v, ok := value.(string)
 		if ok {
-			self.Name = v
-			self.present["name"] = true
+			self.Name = &v
 			return nil
-		} else {
-			return fmt.Errorf("Field name/Name: value %v(%T) couldn't be cast to type string", value, value)
 		}
+		return fmt.Errorf("Field name/Name: value %v(%T) couldn't be cast to type string", value, value)
 
 	case "url", "Url":
 		v, ok := value.(string)
 		if ok {
-			self.Url = v
-			self.present["url"] = true
+			self.Url = &v
 			return nil
-		} else {
-			return fmt.Errorf("Field url/Url: value %v(%T) couldn't be cast to type string", value, value)
 		}
+		return fmt.Errorf("Field url/Url: value %v(%T) couldn't be cast to type string", value, value)
 
 	case "filesize", "Filesize":
 		v, ok := value.(int64)
 		if ok {
-			self.Filesize = v
-			self.present["filesize"] = true
+			self.Filesize = &v
 			return nil
-		} else {
-			return fmt.Errorf("Field filesize/Filesize: value %v(%T) couldn't be cast to type int64", value, value)
 		}
+		return fmt.Errorf("Field filesize/Filesize: value %v(%T) couldn't be cast to type int64", value, value)
 
 	case "isArtifactList", "IsArtifactList":
 		v, ok := value.(bool)
 		if ok {
-			self.IsArtifactList = v
-			self.present["isArtifactList"] = true
+			self.IsArtifactList = &v
 			return nil
-		} else {
-			return fmt.Errorf("Field isArtifactList/IsArtifactList: value %v(%T) couldn't be cast to type bool", value, value)
 		}
+		return fmt.Errorf("Field isArtifactList/IsArtifactList: value %v(%T) couldn't be cast to type bool", value, value)
 
 	case "filename", "Filename":
 		v, ok := value.(string)
 		if ok {
-			self.Filename = v
-			self.present["filename"] = true
+			self.Filename = &v
 			return nil
-		} else {
-			return fmt.Errorf("Field filename/Filename: value %v(%T) couldn't be cast to type string", value, value)
 		}
+		return fmt.Errorf("Field filename/Filename: value %v(%T) couldn't be cast to type string", value, value)
 
 	case "md5sum", "Md5sum":
 		v, ok := value.(string)
 		if ok {
-			self.Md5sum = v
-			self.present["md5sum"] = true
+			self.Md5sum = &v
 			return nil
-		} else {
-			return fmt.Errorf("Field md5sum/Md5sum: value %v(%T) couldn't be cast to type string", value, value)
 		}
+		return fmt.Errorf("Field md5sum/Md5sum: value %v(%T) couldn't be cast to type string", value, value)
+
+	case "targetFolderRelativeToTask", "TargetFolderRelativeToTask":
+		v, ok := value.(string)
+		if ok {
+			self.TargetFolderRelativeToTask = &v
+			return nil
+		}
+		return fmt.Errorf("Field targetFolderRelativeToTask/TargetFolderRelativeToTask: value %v(%T) couldn't be cast to type string", value, value)
 
 	}
 }
@@ -139,93 +106,62 @@ func (self *ExternalArtifact) GetField(name string) (interface{}, error) {
 	default:
 		return nil, fmt.Errorf("No such field %s on ExternalArtifact", name)
 
-	case "targetFolderRelativeToTask", "TargetFolderRelativeToTask":
-		if self.present != nil {
-			if _, ok := self.present["targetFolderRelativeToTask"]; ok {
-				return self.TargetFolderRelativeToTask, nil
-			}
-		}
-		return nil, fmt.Errorf("Field TargetFolderRelativeToTask no set on TargetFolderRelativeToTask %+v", self)
-
 	case "name", "Name":
-		if self.present != nil {
-			if _, ok := self.present["name"]; ok {
-				return self.Name, nil
-			}
-		}
+		return *self.Name, nil
 		return nil, fmt.Errorf("Field Name no set on Name %+v", self)
 
 	case "url", "Url":
-		if self.present != nil {
-			if _, ok := self.present["url"]; ok {
-				return self.Url, nil
-			}
-		}
+		return *self.Url, nil
 		return nil, fmt.Errorf("Field Url no set on Url %+v", self)
 
 	case "filesize", "Filesize":
-		if self.present != nil {
-			if _, ok := self.present["filesize"]; ok {
-				return self.Filesize, nil
-			}
-		}
+		return *self.Filesize, nil
 		return nil, fmt.Errorf("Field Filesize no set on Filesize %+v", self)
 
 	case "isArtifactList", "IsArtifactList":
-		if self.present != nil {
-			if _, ok := self.present["isArtifactList"]; ok {
-				return self.IsArtifactList, nil
-			}
-		}
+		return *self.IsArtifactList, nil
 		return nil, fmt.Errorf("Field IsArtifactList no set on IsArtifactList %+v", self)
 
 	case "filename", "Filename":
-		if self.present != nil {
-			if _, ok := self.present["filename"]; ok {
-				return self.Filename, nil
-			}
-		}
+		return *self.Filename, nil
 		return nil, fmt.Errorf("Field Filename no set on Filename %+v", self)
 
 	case "md5sum", "Md5sum":
-		if self.present != nil {
-			if _, ok := self.present["md5sum"]; ok {
-				return self.Md5sum, nil
-			}
-		}
+		return *self.Md5sum, nil
 		return nil, fmt.Errorf("Field Md5sum no set on Md5sum %+v", self)
+
+	case "targetFolderRelativeToTask", "TargetFolderRelativeToTask":
+		return *self.TargetFolderRelativeToTask, nil
+		return nil, fmt.Errorf("Field TargetFolderRelativeToTask no set on TargetFolderRelativeToTask %+v", self)
 
 	}
 }
 
 func (self *ExternalArtifact) ClearField(name string) error {
-	if self.present == nil {
-		self.present = make(map[string]bool)
-	}
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on ExternalArtifact", name)
 
-	case "targetFolderRelativeToTask", "TargetFolderRelativeToTask":
-		self.present["targetFolderRelativeToTask"] = false
-
 	case "name", "Name":
-		self.present["name"] = false
+		self.Name = nil
 
 	case "url", "Url":
-		self.present["url"] = false
+		self.Url = nil
 
 	case "filesize", "Filesize":
-		self.present["filesize"] = false
+		self.Filesize = nil
 
 	case "isArtifactList", "IsArtifactList":
-		self.present["isArtifactList"] = false
+		self.IsArtifactList = nil
 
 	case "filename", "Filename":
-		self.present["filename"] = false
+		self.Filename = nil
 
 	case "md5sum", "Md5sum":
-		self.present["md5sum"] = false
+		self.Md5sum = nil
+
+	case "targetFolderRelativeToTask", "TargetFolderRelativeToTask":
+		self.TargetFolderRelativeToTask = nil
 
 	}
 

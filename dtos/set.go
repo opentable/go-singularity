@@ -8,9 +8,7 @@ import (
 )
 
 type Set struct {
-	present map[string]bool
-
-	Empty bool `json:"empty"`
+	Empty *bool `json:"empty,omitempty"`
 }
 
 func (self *Set) Populate(jsonReader io.ReadCloser) (err error) {
@@ -25,10 +23,6 @@ func (self *Set) Absorb(other swaggering.DTO) error {
 	return fmt.Errorf("A Set cannot copy the values from %#v", other)
 }
 
-func (self *Set) MarshalJSON() ([]byte, error) {
-	return swaggering.MarshalJSON(self)
-}
-
 func (self *Set) FormatText() string {
 	return swaggering.FormatText(self)
 }
@@ -37,14 +31,7 @@ func (self *Set) FormatJSON() string {
 	return swaggering.FormatJSON(self)
 }
 
-func (self *Set) FieldsPresent() []string {
-	return swaggering.PresenceFromMap(self.present)
-}
-
 func (self *Set) SetField(name string, value interface{}) error {
-	if self.present == nil {
-		self.present = make(map[string]bool)
-	}
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on Set", name)
@@ -52,12 +39,10 @@ func (self *Set) SetField(name string, value interface{}) error {
 	case "empty", "Empty":
 		v, ok := value.(bool)
 		if ok {
-			self.Empty = v
-			self.present["empty"] = true
+			self.Empty = &v
 			return nil
-		} else {
-			return fmt.Errorf("Field empty/Empty: value %v(%T) couldn't be cast to type bool", value, value)
 		}
+		return fmt.Errorf("Field empty/Empty: value %v(%T) couldn't be cast to type bool", value, value)
 
 	}
 }
@@ -68,26 +53,19 @@ func (self *Set) GetField(name string) (interface{}, error) {
 		return nil, fmt.Errorf("No such field %s on Set", name)
 
 	case "empty", "Empty":
-		if self.present != nil {
-			if _, ok := self.present["empty"]; ok {
-				return self.Empty, nil
-			}
-		}
+		return *self.Empty, nil
 		return nil, fmt.Errorf("Field Empty no set on Empty %+v", self)
 
 	}
 }
 
 func (self *Set) ClearField(name string) error {
-	if self.present == nil {
-		self.present = make(map[string]bool)
-	}
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on Set", name)
 
 	case "empty", "Empty":
-		self.present["empty"] = false
+		self.Empty = nil
 
 	}
 

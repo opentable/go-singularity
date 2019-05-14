@@ -8,25 +8,15 @@ import (
 )
 
 type SingularityTaskId struct {
-	present map[string]bool
-
-	StartedAt int64 `json:"startedAt"`
-
-	InstanceNo int32 `json:"instanceNo"`
-
-	Host string `json:"host,omitempty"`
-
-	DeployId string `json:"deployId,omitempty"`
-
-	SanitizedHost string `json:"sanitizedHost,omitempty"`
-
-	SanitizedRackId string `json:"sanitizedRackId,omitempty"`
-
-	RackId string `json:"rackId,omitempty"`
-
-	Id string `json:"id,omitempty"`
-
-	RequestId string `json:"requestId,omitempty"`
+	RequestId       *string `json:"requestId,omitempty"`
+	StartedAt       *int64  `json:"startedAt,omitempty"`
+	InstanceNo      *int32  `json:"instanceNo,omitempty"`
+	SanitizedHost   *string `json:"sanitizedHost,omitempty"`
+	RackId          *string `json:"rackId,omitempty"`
+	DeployId        *string `json:"deployId,omitempty"`
+	SanitizedRackId *string `json:"sanitizedRackId,omitempty"`
+	Host            *string `json:"host,omitempty"`
+	Id              *string `json:"id,omitempty"`
 }
 
 func (self *SingularityTaskId) Populate(jsonReader io.ReadCloser) (err error) {
@@ -41,10 +31,6 @@ func (self *SingularityTaskId) Absorb(other swaggering.DTO) error {
 	return fmt.Errorf("A SingularityTaskId cannot copy the values from %#v", other)
 }
 
-func (self *SingularityTaskId) MarshalJSON() ([]byte, error) {
-	return swaggering.MarshalJSON(self)
-}
-
 func (self *SingularityTaskId) FormatText() string {
 	return swaggering.FormatText(self)
 }
@@ -53,107 +39,82 @@ func (self *SingularityTaskId) FormatJSON() string {
 	return swaggering.FormatJSON(self)
 }
 
-func (self *SingularityTaskId) FieldsPresent() []string {
-	return swaggering.PresenceFromMap(self.present)
-}
-
 func (self *SingularityTaskId) SetField(name string, value interface{}) error {
-	if self.present == nil {
-		self.present = make(map[string]bool)
-	}
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on SingularityTaskId", name)
 
+	case "requestId", "RequestId":
+		v, ok := value.(string)
+		if ok {
+			self.RequestId = &v
+			return nil
+		}
+		return fmt.Errorf("Field requestId/RequestId: value %v(%T) couldn't be cast to type string", value, value)
+
 	case "startedAt", "StartedAt":
 		v, ok := value.(int64)
 		if ok {
-			self.StartedAt = v
-			self.present["startedAt"] = true
+			self.StartedAt = &v
 			return nil
-		} else {
-			return fmt.Errorf("Field startedAt/StartedAt: value %v(%T) couldn't be cast to type int64", value, value)
 		}
+		return fmt.Errorf("Field startedAt/StartedAt: value %v(%T) couldn't be cast to type int64", value, value)
 
 	case "instanceNo", "InstanceNo":
 		v, ok := value.(int32)
 		if ok {
-			self.InstanceNo = v
-			self.present["instanceNo"] = true
+			self.InstanceNo = &v
 			return nil
-		} else {
-			return fmt.Errorf("Field instanceNo/InstanceNo: value %v(%T) couldn't be cast to type int32", value, value)
 		}
-
-	case "host", "Host":
-		v, ok := value.(string)
-		if ok {
-			self.Host = v
-			self.present["host"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field host/Host: value %v(%T) couldn't be cast to type string", value, value)
-		}
-
-	case "deployId", "DeployId":
-		v, ok := value.(string)
-		if ok {
-			self.DeployId = v
-			self.present["deployId"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field deployId/DeployId: value %v(%T) couldn't be cast to type string", value, value)
-		}
+		return fmt.Errorf("Field instanceNo/InstanceNo: value %v(%T) couldn't be cast to type int32", value, value)
 
 	case "sanitizedHost", "SanitizedHost":
 		v, ok := value.(string)
 		if ok {
-			self.SanitizedHost = v
-			self.present["sanitizedHost"] = true
+			self.SanitizedHost = &v
 			return nil
-		} else {
-			return fmt.Errorf("Field sanitizedHost/SanitizedHost: value %v(%T) couldn't be cast to type string", value, value)
 		}
-
-	case "sanitizedRackId", "SanitizedRackId":
-		v, ok := value.(string)
-		if ok {
-			self.SanitizedRackId = v
-			self.present["sanitizedRackId"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field sanitizedRackId/SanitizedRackId: value %v(%T) couldn't be cast to type string", value, value)
-		}
+		return fmt.Errorf("Field sanitizedHost/SanitizedHost: value %v(%T) couldn't be cast to type string", value, value)
 
 	case "rackId", "RackId":
 		v, ok := value.(string)
 		if ok {
-			self.RackId = v
-			self.present["rackId"] = true
+			self.RackId = &v
 			return nil
-		} else {
-			return fmt.Errorf("Field rackId/RackId: value %v(%T) couldn't be cast to type string", value, value)
 		}
+		return fmt.Errorf("Field rackId/RackId: value %v(%T) couldn't be cast to type string", value, value)
+
+	case "deployId", "DeployId":
+		v, ok := value.(string)
+		if ok {
+			self.DeployId = &v
+			return nil
+		}
+		return fmt.Errorf("Field deployId/DeployId: value %v(%T) couldn't be cast to type string", value, value)
+
+	case "sanitizedRackId", "SanitizedRackId":
+		v, ok := value.(string)
+		if ok {
+			self.SanitizedRackId = &v
+			return nil
+		}
+		return fmt.Errorf("Field sanitizedRackId/SanitizedRackId: value %v(%T) couldn't be cast to type string", value, value)
+
+	case "host", "Host":
+		v, ok := value.(string)
+		if ok {
+			self.Host = &v
+			return nil
+		}
+		return fmt.Errorf("Field host/Host: value %v(%T) couldn't be cast to type string", value, value)
 
 	case "id", "Id":
 		v, ok := value.(string)
 		if ok {
-			self.Id = v
-			self.present["id"] = true
+			self.Id = &v
 			return nil
-		} else {
-			return fmt.Errorf("Field id/Id: value %v(%T) couldn't be cast to type string", value, value)
 		}
-
-	case "requestId", "RequestId":
-		v, ok := value.(string)
-		if ok {
-			self.RequestId = v
-			self.present["requestId"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field requestId/RequestId: value %v(%T) couldn't be cast to type string", value, value)
-		}
+		return fmt.Errorf("Field id/Id: value %v(%T) couldn't be cast to type string", value, value)
 
 	}
 }
@@ -163,115 +124,76 @@ func (self *SingularityTaskId) GetField(name string) (interface{}, error) {
 	default:
 		return nil, fmt.Errorf("No such field %s on SingularityTaskId", name)
 
+	case "requestId", "RequestId":
+		return *self.RequestId, nil
+		return nil, fmt.Errorf("Field RequestId no set on RequestId %+v", self)
+
 	case "startedAt", "StartedAt":
-		if self.present != nil {
-			if _, ok := self.present["startedAt"]; ok {
-				return self.StartedAt, nil
-			}
-		}
+		return *self.StartedAt, nil
 		return nil, fmt.Errorf("Field StartedAt no set on StartedAt %+v", self)
 
 	case "instanceNo", "InstanceNo":
-		if self.present != nil {
-			if _, ok := self.present["instanceNo"]; ok {
-				return self.InstanceNo, nil
-			}
-		}
+		return *self.InstanceNo, nil
 		return nil, fmt.Errorf("Field InstanceNo no set on InstanceNo %+v", self)
 
-	case "host", "Host":
-		if self.present != nil {
-			if _, ok := self.present["host"]; ok {
-				return self.Host, nil
-			}
-		}
-		return nil, fmt.Errorf("Field Host no set on Host %+v", self)
-
-	case "deployId", "DeployId":
-		if self.present != nil {
-			if _, ok := self.present["deployId"]; ok {
-				return self.DeployId, nil
-			}
-		}
-		return nil, fmt.Errorf("Field DeployId no set on DeployId %+v", self)
-
 	case "sanitizedHost", "SanitizedHost":
-		if self.present != nil {
-			if _, ok := self.present["sanitizedHost"]; ok {
-				return self.SanitizedHost, nil
-			}
-		}
+		return *self.SanitizedHost, nil
 		return nil, fmt.Errorf("Field SanitizedHost no set on SanitizedHost %+v", self)
 
-	case "sanitizedRackId", "SanitizedRackId":
-		if self.present != nil {
-			if _, ok := self.present["sanitizedRackId"]; ok {
-				return self.SanitizedRackId, nil
-			}
-		}
-		return nil, fmt.Errorf("Field SanitizedRackId no set on SanitizedRackId %+v", self)
-
 	case "rackId", "RackId":
-		if self.present != nil {
-			if _, ok := self.present["rackId"]; ok {
-				return self.RackId, nil
-			}
-		}
+		return *self.RackId, nil
 		return nil, fmt.Errorf("Field RackId no set on RackId %+v", self)
 
-	case "id", "Id":
-		if self.present != nil {
-			if _, ok := self.present["id"]; ok {
-				return self.Id, nil
-			}
-		}
-		return nil, fmt.Errorf("Field Id no set on Id %+v", self)
+	case "deployId", "DeployId":
+		return *self.DeployId, nil
+		return nil, fmt.Errorf("Field DeployId no set on DeployId %+v", self)
 
-	case "requestId", "RequestId":
-		if self.present != nil {
-			if _, ok := self.present["requestId"]; ok {
-				return self.RequestId, nil
-			}
-		}
-		return nil, fmt.Errorf("Field RequestId no set on RequestId %+v", self)
+	case "sanitizedRackId", "SanitizedRackId":
+		return *self.SanitizedRackId, nil
+		return nil, fmt.Errorf("Field SanitizedRackId no set on SanitizedRackId %+v", self)
+
+	case "host", "Host":
+		return *self.Host, nil
+		return nil, fmt.Errorf("Field Host no set on Host %+v", self)
+
+	case "id", "Id":
+		return *self.Id, nil
+		return nil, fmt.Errorf("Field Id no set on Id %+v", self)
 
 	}
 }
 
 func (self *SingularityTaskId) ClearField(name string) error {
-	if self.present == nil {
-		self.present = make(map[string]bool)
-	}
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on SingularityTaskId", name)
 
+	case "requestId", "RequestId":
+		self.RequestId = nil
+
 	case "startedAt", "StartedAt":
-		self.present["startedAt"] = false
+		self.StartedAt = nil
 
 	case "instanceNo", "InstanceNo":
-		self.present["instanceNo"] = false
-
-	case "host", "Host":
-		self.present["host"] = false
-
-	case "deployId", "DeployId":
-		self.present["deployId"] = false
+		self.InstanceNo = nil
 
 	case "sanitizedHost", "SanitizedHost":
-		self.present["sanitizedHost"] = false
-
-	case "sanitizedRackId", "SanitizedRackId":
-		self.present["sanitizedRackId"] = false
+		self.SanitizedHost = nil
 
 	case "rackId", "RackId":
-		self.present["rackId"] = false
+		self.RackId = nil
+
+	case "deployId", "DeployId":
+		self.DeployId = nil
+
+	case "sanitizedRackId", "SanitizedRackId":
+		self.SanitizedRackId = nil
+
+	case "host", "Host":
+		self.Host = nil
 
 	case "id", "Id":
-		self.present["id"] = false
-
-	case "requestId", "RequestId":
-		self.present["requestId"] = false
+		self.Id = nil
 
 	}
 

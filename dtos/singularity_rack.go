@@ -8,13 +8,9 @@ import (
 )
 
 type SingularityRack struct {
-	present map[string]bool
-
-	CurrentState *SingularityMachineStateHistoryUpdate `json:"currentState"`
-
-	FirstSeenAt int64 `json:"firstSeenAt"`
-
-	Id string `json:"id,omitempty"`
+	CurrentState *SingularityMachineStateHistoryUpdate `json:"currentState,omitempty"`
+	FirstSeenAt  *int64                                `json:"firstSeenAt,omitempty"`
+	Id           *string                               `json:"id,omitempty"`
 }
 
 func (self *SingularityRack) Populate(jsonReader io.ReadCloser) (err error) {
@@ -29,10 +25,6 @@ func (self *SingularityRack) Absorb(other swaggering.DTO) error {
 	return fmt.Errorf("A SingularityRack cannot copy the values from %#v", other)
 }
 
-func (self *SingularityRack) MarshalJSON() ([]byte, error) {
-	return swaggering.MarshalJSON(self)
-}
-
 func (self *SingularityRack) FormatText() string {
 	return swaggering.FormatText(self)
 }
@@ -41,14 +33,7 @@ func (self *SingularityRack) FormatJSON() string {
 	return swaggering.FormatJSON(self)
 }
 
-func (self *SingularityRack) FieldsPresent() []string {
-	return swaggering.PresenceFromMap(self.present)
-}
-
 func (self *SingularityRack) SetField(name string, value interface{}) error {
-	if self.present == nil {
-		self.present = make(map[string]bool)
-	}
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on SingularityRack", name)
@@ -57,31 +42,25 @@ func (self *SingularityRack) SetField(name string, value interface{}) error {
 		v, ok := value.(*SingularityMachineStateHistoryUpdate)
 		if ok {
 			self.CurrentState = v
-			self.present["currentState"] = true
 			return nil
-		} else {
-			return fmt.Errorf("Field currentState/CurrentState: value %v(%T) couldn't be cast to type *SingularityMachineStateHistoryUpdate", value, value)
 		}
+		return fmt.Errorf("Field currentState/CurrentState: value %v(%T) couldn't be cast to type *SingularityMachineStateHistoryUpdate", value, value)
 
 	case "firstSeenAt", "FirstSeenAt":
 		v, ok := value.(int64)
 		if ok {
-			self.FirstSeenAt = v
-			self.present["firstSeenAt"] = true
+			self.FirstSeenAt = &v
 			return nil
-		} else {
-			return fmt.Errorf("Field firstSeenAt/FirstSeenAt: value %v(%T) couldn't be cast to type int64", value, value)
 		}
+		return fmt.Errorf("Field firstSeenAt/FirstSeenAt: value %v(%T) couldn't be cast to type int64", value, value)
 
 	case "id", "Id":
 		v, ok := value.(string)
 		if ok {
-			self.Id = v
-			self.present["id"] = true
+			self.Id = &v
 			return nil
-		} else {
-			return fmt.Errorf("Field id/Id: value %v(%T) couldn't be cast to type string", value, value)
 		}
+		return fmt.Errorf("Field id/Id: value %v(%T) couldn't be cast to type string", value, value)
 
 	}
 }
@@ -92,48 +71,33 @@ func (self *SingularityRack) GetField(name string) (interface{}, error) {
 		return nil, fmt.Errorf("No such field %s on SingularityRack", name)
 
 	case "currentState", "CurrentState":
-		if self.present != nil {
-			if _, ok := self.present["currentState"]; ok {
-				return self.CurrentState, nil
-			}
-		}
+		return self.CurrentState, nil
 		return nil, fmt.Errorf("Field CurrentState no set on CurrentState %+v", self)
 
 	case "firstSeenAt", "FirstSeenAt":
-		if self.present != nil {
-			if _, ok := self.present["firstSeenAt"]; ok {
-				return self.FirstSeenAt, nil
-			}
-		}
+		return *self.FirstSeenAt, nil
 		return nil, fmt.Errorf("Field FirstSeenAt no set on FirstSeenAt %+v", self)
 
 	case "id", "Id":
-		if self.present != nil {
-			if _, ok := self.present["id"]; ok {
-				return self.Id, nil
-			}
-		}
+		return *self.Id, nil
 		return nil, fmt.Errorf("Field Id no set on Id %+v", self)
 
 	}
 }
 
 func (self *SingularityRack) ClearField(name string) error {
-	if self.present == nil {
-		self.present = make(map[string]bool)
-	}
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on SingularityRack", name)
 
 	case "currentState", "CurrentState":
-		self.present["currentState"] = false
+		self.CurrentState = nil
 
 	case "firstSeenAt", "FirstSeenAt":
-		self.present["firstSeenAt"] = false
+		self.FirstSeenAt = nil
 
 	case "id", "Id":
-		self.present["id"] = false
+		self.Id = nil
 
 	}
 

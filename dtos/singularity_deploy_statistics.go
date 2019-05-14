@@ -25,27 +25,16 @@ const (
 )
 
 type SingularityDeployStatistics struct {
-	present map[string]bool
-
-	DeployId string `json:"deployId,omitempty"`
-
-	NumFailures int32 `json:"numFailures"`
-
-	NumSequentialRetries int32 `json:"numSequentialRetries"`
-
-	InstanceSequentialFailureTimestamps map[int64][]int64 `json:"instanceSequentialFailureTimestamps"`
-
-	RequestId string `json:"requestId,omitempty"`
-
-	NumTasks int32 `json:"numTasks"`
-
-	NumSuccess int32 `json:"numSuccess"`
-
-	LastFinishAt int64 `json:"lastFinishAt"`
-
-	LastTaskState SingularityDeployStatisticsExtendedTaskState `json:"lastTaskState"`
-
-	AverageRuntimeMillis int64 `json:"averageRuntimeMillis"`
+	DeployId                            *string                                       `json:"deployId,omitempty"`
+	NumTasks                            *int32                                        `json:"numTasks,omitempty"`
+	NumSuccess                          *int32                                        `json:"numSuccess,omitempty"`
+	NumFailures                         *int32                                        `json:"numFailures,omitempty"`
+	InstanceSequentialFailureTimestamps *map[int64][]int64                            `json:"instanceSequentialFailureTimestamps,omitempty"`
+	LastTaskState                       *SingularityDeployStatisticsExtendedTaskState `json:"lastTaskState,omitempty"`
+	RequestId                           *string                                       `json:"requestId,omitempty"`
+	NumSequentialRetries                *int32                                        `json:"numSequentialRetries,omitempty"`
+	LastFinishAt                        *int64                                        `json:"lastFinishAt,omitempty"`
+	AverageRuntimeMillis                *int64                                        `json:"averageRuntimeMillis,omitempty"`
 }
 
 func (self *SingularityDeployStatistics) Populate(jsonReader io.ReadCloser) (err error) {
@@ -60,10 +49,6 @@ func (self *SingularityDeployStatistics) Absorb(other swaggering.DTO) error {
 	return fmt.Errorf("A SingularityDeployStatistics cannot copy the values from %#v", other)
 }
 
-func (self *SingularityDeployStatistics) MarshalJSON() ([]byte, error) {
-	return swaggering.MarshalJSON(self)
-}
-
 func (self *SingularityDeployStatistics) FormatText() string {
 	return swaggering.FormatText(self)
 }
@@ -72,14 +57,7 @@ func (self *SingularityDeployStatistics) FormatJSON() string {
 	return swaggering.FormatJSON(self)
 }
 
-func (self *SingularityDeployStatistics) FieldsPresent() []string {
-	return swaggering.PresenceFromMap(self.present)
-}
-
 func (self *SingularityDeployStatistics) SetField(name string, value interface{}) error {
-	if self.present == nil {
-		self.present = make(map[string]bool)
-	}
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on SingularityDeployStatistics", name)
@@ -87,102 +65,82 @@ func (self *SingularityDeployStatistics) SetField(name string, value interface{}
 	case "deployId", "DeployId":
 		v, ok := value.(string)
 		if ok {
-			self.DeployId = v
-			self.present["deployId"] = true
+			self.DeployId = &v
 			return nil
-		} else {
-			return fmt.Errorf("Field deployId/DeployId: value %v(%T) couldn't be cast to type string", value, value)
 		}
-
-	case "numFailures", "NumFailures":
-		v, ok := value.(int32)
-		if ok {
-			self.NumFailures = v
-			self.present["numFailures"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field numFailures/NumFailures: value %v(%T) couldn't be cast to type int32", value, value)
-		}
-
-	case "numSequentialRetries", "NumSequentialRetries":
-		v, ok := value.(int32)
-		if ok {
-			self.NumSequentialRetries = v
-			self.present["numSequentialRetries"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field numSequentialRetries/NumSequentialRetries: value %v(%T) couldn't be cast to type int32", value, value)
-		}
-
-	case "instanceSequentialFailureTimestamps", "InstanceSequentialFailureTimestamps":
-		v, ok := value.(map[int64][]int64)
-		if ok {
-			self.InstanceSequentialFailureTimestamps = v
-			self.present["instanceSequentialFailureTimestamps"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field instanceSequentialFailureTimestamps/InstanceSequentialFailureTimestamps: value %v(%T) couldn't be cast to type map[int64][]int64", value, value)
-		}
-
-	case "requestId", "RequestId":
-		v, ok := value.(string)
-		if ok {
-			self.RequestId = v
-			self.present["requestId"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field requestId/RequestId: value %v(%T) couldn't be cast to type string", value, value)
-		}
+		return fmt.Errorf("Field deployId/DeployId: value %v(%T) couldn't be cast to type string", value, value)
 
 	case "numTasks", "NumTasks":
 		v, ok := value.(int32)
 		if ok {
-			self.NumTasks = v
-			self.present["numTasks"] = true
+			self.NumTasks = &v
 			return nil
-		} else {
-			return fmt.Errorf("Field numTasks/NumTasks: value %v(%T) couldn't be cast to type int32", value, value)
 		}
+		return fmt.Errorf("Field numTasks/NumTasks: value %v(%T) couldn't be cast to type int32", value, value)
 
 	case "numSuccess", "NumSuccess":
 		v, ok := value.(int32)
 		if ok {
-			self.NumSuccess = v
-			self.present["numSuccess"] = true
+			self.NumSuccess = &v
 			return nil
-		} else {
-			return fmt.Errorf("Field numSuccess/NumSuccess: value %v(%T) couldn't be cast to type int32", value, value)
 		}
+		return fmt.Errorf("Field numSuccess/NumSuccess: value %v(%T) couldn't be cast to type int32", value, value)
 
-	case "lastFinishAt", "LastFinishAt":
-		v, ok := value.(int64)
+	case "numFailures", "NumFailures":
+		v, ok := value.(int32)
 		if ok {
-			self.LastFinishAt = v
-			self.present["lastFinishAt"] = true
+			self.NumFailures = &v
 			return nil
-		} else {
-			return fmt.Errorf("Field lastFinishAt/LastFinishAt: value %v(%T) couldn't be cast to type int64", value, value)
 		}
+		return fmt.Errorf("Field numFailures/NumFailures: value %v(%T) couldn't be cast to type int32", value, value)
+
+	case "instanceSequentialFailureTimestamps", "InstanceSequentialFailureTimestamps":
+		v, ok := value.(map[int64][]int64)
+		if ok {
+			self.InstanceSequentialFailureTimestamps = &v
+			return nil
+		}
+		return fmt.Errorf("Field instanceSequentialFailureTimestamps/InstanceSequentialFailureTimestamps: value %v(%T) couldn't be cast to type map[int64][]int64", value, value)
 
 	case "lastTaskState", "LastTaskState":
 		v, ok := value.(SingularityDeployStatisticsExtendedTaskState)
 		if ok {
-			self.LastTaskState = v
-			self.present["lastTaskState"] = true
+			self.LastTaskState = &v
 			return nil
-		} else {
-			return fmt.Errorf("Field lastTaskState/LastTaskState: value %v(%T) couldn't be cast to type SingularityDeployStatisticsExtendedTaskState", value, value)
 		}
+		return fmt.Errorf("Field lastTaskState/LastTaskState: value %v(%T) couldn't be cast to type SingularityDeployStatisticsExtendedTaskState", value, value)
+
+	case "requestId", "RequestId":
+		v, ok := value.(string)
+		if ok {
+			self.RequestId = &v
+			return nil
+		}
+		return fmt.Errorf("Field requestId/RequestId: value %v(%T) couldn't be cast to type string", value, value)
+
+	case "numSequentialRetries", "NumSequentialRetries":
+		v, ok := value.(int32)
+		if ok {
+			self.NumSequentialRetries = &v
+			return nil
+		}
+		return fmt.Errorf("Field numSequentialRetries/NumSequentialRetries: value %v(%T) couldn't be cast to type int32", value, value)
+
+	case "lastFinishAt", "LastFinishAt":
+		v, ok := value.(int64)
+		if ok {
+			self.LastFinishAt = &v
+			return nil
+		}
+		return fmt.Errorf("Field lastFinishAt/LastFinishAt: value %v(%T) couldn't be cast to type int64", value, value)
 
 	case "averageRuntimeMillis", "AverageRuntimeMillis":
 		v, ok := value.(int64)
 		if ok {
-			self.AverageRuntimeMillis = v
-			self.present["averageRuntimeMillis"] = true
+			self.AverageRuntimeMillis = &v
 			return nil
-		} else {
-			return fmt.Errorf("Field averageRuntimeMillis/AverageRuntimeMillis: value %v(%T) couldn't be cast to type int64", value, value)
 		}
+		return fmt.Errorf("Field averageRuntimeMillis/AverageRuntimeMillis: value %v(%T) couldn't be cast to type int64", value, value)
 
 	}
 }
@@ -193,125 +151,82 @@ func (self *SingularityDeployStatistics) GetField(name string) (interface{}, err
 		return nil, fmt.Errorf("No such field %s on SingularityDeployStatistics", name)
 
 	case "deployId", "DeployId":
-		if self.present != nil {
-			if _, ok := self.present["deployId"]; ok {
-				return self.DeployId, nil
-			}
-		}
+		return *self.DeployId, nil
 		return nil, fmt.Errorf("Field DeployId no set on DeployId %+v", self)
 
-	case "numFailures", "NumFailures":
-		if self.present != nil {
-			if _, ok := self.present["numFailures"]; ok {
-				return self.NumFailures, nil
-			}
-		}
-		return nil, fmt.Errorf("Field NumFailures no set on NumFailures %+v", self)
-
-	case "numSequentialRetries", "NumSequentialRetries":
-		if self.present != nil {
-			if _, ok := self.present["numSequentialRetries"]; ok {
-				return self.NumSequentialRetries, nil
-			}
-		}
-		return nil, fmt.Errorf("Field NumSequentialRetries no set on NumSequentialRetries %+v", self)
-
-	case "instanceSequentialFailureTimestamps", "InstanceSequentialFailureTimestamps":
-		if self.present != nil {
-			if _, ok := self.present["instanceSequentialFailureTimestamps"]; ok {
-				return self.InstanceSequentialFailureTimestamps, nil
-			}
-		}
-		return nil, fmt.Errorf("Field InstanceSequentialFailureTimestamps no set on InstanceSequentialFailureTimestamps %+v", self)
-
-	case "requestId", "RequestId":
-		if self.present != nil {
-			if _, ok := self.present["requestId"]; ok {
-				return self.RequestId, nil
-			}
-		}
-		return nil, fmt.Errorf("Field RequestId no set on RequestId %+v", self)
-
 	case "numTasks", "NumTasks":
-		if self.present != nil {
-			if _, ok := self.present["numTasks"]; ok {
-				return self.NumTasks, nil
-			}
-		}
+		return *self.NumTasks, nil
 		return nil, fmt.Errorf("Field NumTasks no set on NumTasks %+v", self)
 
 	case "numSuccess", "NumSuccess":
-		if self.present != nil {
-			if _, ok := self.present["numSuccess"]; ok {
-				return self.NumSuccess, nil
-			}
-		}
+		return *self.NumSuccess, nil
 		return nil, fmt.Errorf("Field NumSuccess no set on NumSuccess %+v", self)
 
-	case "lastFinishAt", "LastFinishAt":
-		if self.present != nil {
-			if _, ok := self.present["lastFinishAt"]; ok {
-				return self.LastFinishAt, nil
-			}
-		}
-		return nil, fmt.Errorf("Field LastFinishAt no set on LastFinishAt %+v", self)
+	case "numFailures", "NumFailures":
+		return *self.NumFailures, nil
+		return nil, fmt.Errorf("Field NumFailures no set on NumFailures %+v", self)
+
+	case "instanceSequentialFailureTimestamps", "InstanceSequentialFailureTimestamps":
+		return *self.InstanceSequentialFailureTimestamps, nil
+		return nil, fmt.Errorf("Field InstanceSequentialFailureTimestamps no set on InstanceSequentialFailureTimestamps %+v", self)
 
 	case "lastTaskState", "LastTaskState":
-		if self.present != nil {
-			if _, ok := self.present["lastTaskState"]; ok {
-				return self.LastTaskState, nil
-			}
-		}
+		return *self.LastTaskState, nil
 		return nil, fmt.Errorf("Field LastTaskState no set on LastTaskState %+v", self)
 
+	case "requestId", "RequestId":
+		return *self.RequestId, nil
+		return nil, fmt.Errorf("Field RequestId no set on RequestId %+v", self)
+
+	case "numSequentialRetries", "NumSequentialRetries":
+		return *self.NumSequentialRetries, nil
+		return nil, fmt.Errorf("Field NumSequentialRetries no set on NumSequentialRetries %+v", self)
+
+	case "lastFinishAt", "LastFinishAt":
+		return *self.LastFinishAt, nil
+		return nil, fmt.Errorf("Field LastFinishAt no set on LastFinishAt %+v", self)
+
 	case "averageRuntimeMillis", "AverageRuntimeMillis":
-		if self.present != nil {
-			if _, ok := self.present["averageRuntimeMillis"]; ok {
-				return self.AverageRuntimeMillis, nil
-			}
-		}
+		return *self.AverageRuntimeMillis, nil
 		return nil, fmt.Errorf("Field AverageRuntimeMillis no set on AverageRuntimeMillis %+v", self)
 
 	}
 }
 
 func (self *SingularityDeployStatistics) ClearField(name string) error {
-	if self.present == nil {
-		self.present = make(map[string]bool)
-	}
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on SingularityDeployStatistics", name)
 
 	case "deployId", "DeployId":
-		self.present["deployId"] = false
-
-	case "numFailures", "NumFailures":
-		self.present["numFailures"] = false
-
-	case "numSequentialRetries", "NumSequentialRetries":
-		self.present["numSequentialRetries"] = false
-
-	case "instanceSequentialFailureTimestamps", "InstanceSequentialFailureTimestamps":
-		self.present["instanceSequentialFailureTimestamps"] = false
-
-	case "requestId", "RequestId":
-		self.present["requestId"] = false
+		self.DeployId = nil
 
 	case "numTasks", "NumTasks":
-		self.present["numTasks"] = false
+		self.NumTasks = nil
 
 	case "numSuccess", "NumSuccess":
-		self.present["numSuccess"] = false
+		self.NumSuccess = nil
 
-	case "lastFinishAt", "LastFinishAt":
-		self.present["lastFinishAt"] = false
+	case "numFailures", "NumFailures":
+		self.NumFailures = nil
+
+	case "instanceSequentialFailureTimestamps", "InstanceSequentialFailureTimestamps":
+		self.InstanceSequentialFailureTimestamps = nil
 
 	case "lastTaskState", "LastTaskState":
-		self.present["lastTaskState"] = false
+		self.LastTaskState = nil
+
+	case "requestId", "RequestId":
+		self.RequestId = nil
+
+	case "numSequentialRetries", "NumSequentialRetries":
+		self.NumSequentialRetries = nil
+
+	case "lastFinishAt", "LastFinishAt":
+		self.LastFinishAt = nil
 
 	case "averageRuntimeMillis", "AverageRuntimeMillis":
-		self.present["averageRuntimeMillis"] = false
+		self.AverageRuntimeMillis = nil
 
 	}
 

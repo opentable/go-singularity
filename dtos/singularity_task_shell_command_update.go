@@ -18,17 +18,11 @@ const (
 )
 
 type SingularityTaskShellCommandUpdate struct {
-	present map[string]bool
-
-	ShellRequestId *SingularityTaskShellCommandRequestId `json:"shellRequestId"`
-
-	Timestamp int64 `json:"timestamp"`
-
-	Message string `json:"message,omitempty"`
-
-	OutputFilename string `json:"outputFilename,omitempty"`
-
-	UpdateType SingularityTaskShellCommandUpdateUpdateType `json:"updateType"`
+	ShellRequestId *SingularityTaskShellCommandRequestId        `json:"shellRequestId,omitempty"`
+	Timestamp      *int64                                       `json:"timestamp,omitempty"`
+	Message        *string                                      `json:"message,omitempty"`
+	OutputFilename *string                                      `json:"outputFilename,omitempty"`
+	UpdateType     *SingularityTaskShellCommandUpdateUpdateType `json:"updateType,omitempty"`
 }
 
 func (self *SingularityTaskShellCommandUpdate) Populate(jsonReader io.ReadCloser) (err error) {
@@ -43,10 +37,6 @@ func (self *SingularityTaskShellCommandUpdate) Absorb(other swaggering.DTO) erro
 	return fmt.Errorf("A SingularityTaskShellCommandUpdate cannot copy the values from %#v", other)
 }
 
-func (self *SingularityTaskShellCommandUpdate) MarshalJSON() ([]byte, error) {
-	return swaggering.MarshalJSON(self)
-}
-
 func (self *SingularityTaskShellCommandUpdate) FormatText() string {
 	return swaggering.FormatText(self)
 }
@@ -55,14 +45,7 @@ func (self *SingularityTaskShellCommandUpdate) FormatJSON() string {
 	return swaggering.FormatJSON(self)
 }
 
-func (self *SingularityTaskShellCommandUpdate) FieldsPresent() []string {
-	return swaggering.PresenceFromMap(self.present)
-}
-
 func (self *SingularityTaskShellCommandUpdate) SetField(name string, value interface{}) error {
-	if self.present == nil {
-		self.present = make(map[string]bool)
-	}
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on SingularityTaskShellCommandUpdate", name)
@@ -71,51 +54,41 @@ func (self *SingularityTaskShellCommandUpdate) SetField(name string, value inter
 		v, ok := value.(*SingularityTaskShellCommandRequestId)
 		if ok {
 			self.ShellRequestId = v
-			self.present["shellRequestId"] = true
 			return nil
-		} else {
-			return fmt.Errorf("Field shellRequestId/ShellRequestId: value %v(%T) couldn't be cast to type *SingularityTaskShellCommandRequestId", value, value)
 		}
+		return fmt.Errorf("Field shellRequestId/ShellRequestId: value %v(%T) couldn't be cast to type *SingularityTaskShellCommandRequestId", value, value)
 
 	case "timestamp", "Timestamp":
 		v, ok := value.(int64)
 		if ok {
-			self.Timestamp = v
-			self.present["timestamp"] = true
+			self.Timestamp = &v
 			return nil
-		} else {
-			return fmt.Errorf("Field timestamp/Timestamp: value %v(%T) couldn't be cast to type int64", value, value)
 		}
+		return fmt.Errorf("Field timestamp/Timestamp: value %v(%T) couldn't be cast to type int64", value, value)
 
 	case "message", "Message":
 		v, ok := value.(string)
 		if ok {
-			self.Message = v
-			self.present["message"] = true
+			self.Message = &v
 			return nil
-		} else {
-			return fmt.Errorf("Field message/Message: value %v(%T) couldn't be cast to type string", value, value)
 		}
+		return fmt.Errorf("Field message/Message: value %v(%T) couldn't be cast to type string", value, value)
 
 	case "outputFilename", "OutputFilename":
 		v, ok := value.(string)
 		if ok {
-			self.OutputFilename = v
-			self.present["outputFilename"] = true
+			self.OutputFilename = &v
 			return nil
-		} else {
-			return fmt.Errorf("Field outputFilename/OutputFilename: value %v(%T) couldn't be cast to type string", value, value)
 		}
+		return fmt.Errorf("Field outputFilename/OutputFilename: value %v(%T) couldn't be cast to type string", value, value)
 
 	case "updateType", "UpdateType":
 		v, ok := value.(SingularityTaskShellCommandUpdateUpdateType)
 		if ok {
-			self.UpdateType = v
-			self.present["updateType"] = true
+			self.UpdateType = &v
 			return nil
-		} else {
-			return fmt.Errorf("Field updateType/UpdateType: value %v(%T) couldn't be cast to type SingularityTaskShellCommandUpdateUpdateType", value, value)
 		}
+		return fmt.Errorf("Field updateType/UpdateType: value %v(%T) couldn't be cast to type SingularityTaskShellCommandUpdateUpdateType", value, value)
 
 	}
 }
@@ -126,70 +99,47 @@ func (self *SingularityTaskShellCommandUpdate) GetField(name string) (interface{
 		return nil, fmt.Errorf("No such field %s on SingularityTaskShellCommandUpdate", name)
 
 	case "shellRequestId", "ShellRequestId":
-		if self.present != nil {
-			if _, ok := self.present["shellRequestId"]; ok {
-				return self.ShellRequestId, nil
-			}
-		}
+		return self.ShellRequestId, nil
 		return nil, fmt.Errorf("Field ShellRequestId no set on ShellRequestId %+v", self)
 
 	case "timestamp", "Timestamp":
-		if self.present != nil {
-			if _, ok := self.present["timestamp"]; ok {
-				return self.Timestamp, nil
-			}
-		}
+		return *self.Timestamp, nil
 		return nil, fmt.Errorf("Field Timestamp no set on Timestamp %+v", self)
 
 	case "message", "Message":
-		if self.present != nil {
-			if _, ok := self.present["message"]; ok {
-				return self.Message, nil
-			}
-		}
+		return *self.Message, nil
 		return nil, fmt.Errorf("Field Message no set on Message %+v", self)
 
 	case "outputFilename", "OutputFilename":
-		if self.present != nil {
-			if _, ok := self.present["outputFilename"]; ok {
-				return self.OutputFilename, nil
-			}
-		}
+		return *self.OutputFilename, nil
 		return nil, fmt.Errorf("Field OutputFilename no set on OutputFilename %+v", self)
 
 	case "updateType", "UpdateType":
-		if self.present != nil {
-			if _, ok := self.present["updateType"]; ok {
-				return self.UpdateType, nil
-			}
-		}
+		return *self.UpdateType, nil
 		return nil, fmt.Errorf("Field UpdateType no set on UpdateType %+v", self)
 
 	}
 }
 
 func (self *SingularityTaskShellCommandUpdate) ClearField(name string) error {
-	if self.present == nil {
-		self.present = make(map[string]bool)
-	}
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on SingularityTaskShellCommandUpdate", name)
 
 	case "shellRequestId", "ShellRequestId":
-		self.present["shellRequestId"] = false
+		self.ShellRequestId = nil
 
 	case "timestamp", "Timestamp":
-		self.present["timestamp"] = false
+		self.Timestamp = nil
 
 	case "message", "Message":
-		self.present["message"] = false
+		self.Message = nil
 
 	case "outputFilename", "OutputFilename":
-		self.present["outputFilename"] = false
+		self.OutputFilename = nil
 
 	case "updateType", "UpdateType":
-		self.present["updateType"] = false
+		self.UpdateType = nil
 
 	}
 

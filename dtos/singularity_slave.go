@@ -8,21 +8,13 @@ import (
 )
 
 type SingularitySlave struct {
-	present map[string]bool
-
-	Host string `json:"host,omitempty"`
-
-	RackId string `json:"rackId,omitempty"`
-
-	Attributes map[string]string `json:"attributes"`
-
-	Resources *MesosResourcesObject `json:"resources"`
-
-	CurrentState *SingularityMachineStateHistoryUpdate `json:"currentState"`
-
-	FirstSeenAt int64 `json:"firstSeenAt"`
-
-	Id string `json:"id,omitempty"`
+	Host         *string                               `json:"host,omitempty"`
+	RackId       *string                               `json:"rackId,omitempty"`
+	Attributes   *map[string]string                    `json:"attributes,omitempty"`
+	Resources    *MesosResourcesObject                 `json:"resources,omitempty"`
+	CurrentState *SingularityMachineStateHistoryUpdate `json:"currentState,omitempty"`
+	FirstSeenAt  *int64                                `json:"firstSeenAt,omitempty"`
+	Id           *string                               `json:"id,omitempty"`
 }
 
 func (self *SingularitySlave) Populate(jsonReader io.ReadCloser) (err error) {
@@ -37,10 +29,6 @@ func (self *SingularitySlave) Absorb(other swaggering.DTO) error {
 	return fmt.Errorf("A SingularitySlave cannot copy the values from %#v", other)
 }
 
-func (self *SingularitySlave) MarshalJSON() ([]byte, error) {
-	return swaggering.MarshalJSON(self)
-}
-
 func (self *SingularitySlave) FormatText() string {
 	return swaggering.FormatText(self)
 }
@@ -49,14 +37,7 @@ func (self *SingularitySlave) FormatJSON() string {
 	return swaggering.FormatJSON(self)
 }
 
-func (self *SingularitySlave) FieldsPresent() []string {
-	return swaggering.PresenceFromMap(self.present)
-}
-
 func (self *SingularitySlave) SetField(name string, value interface{}) error {
-	if self.present == nil {
-		self.present = make(map[string]bool)
-	}
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on SingularitySlave", name)
@@ -64,72 +45,58 @@ func (self *SingularitySlave) SetField(name string, value interface{}) error {
 	case "host", "Host":
 		v, ok := value.(string)
 		if ok {
-			self.Host = v
-			self.present["host"] = true
+			self.Host = &v
 			return nil
-		} else {
-			return fmt.Errorf("Field host/Host: value %v(%T) couldn't be cast to type string", value, value)
 		}
+		return fmt.Errorf("Field host/Host: value %v(%T) couldn't be cast to type string", value, value)
 
 	case "rackId", "RackId":
 		v, ok := value.(string)
 		if ok {
-			self.RackId = v
-			self.present["rackId"] = true
+			self.RackId = &v
 			return nil
-		} else {
-			return fmt.Errorf("Field rackId/RackId: value %v(%T) couldn't be cast to type string", value, value)
 		}
+		return fmt.Errorf("Field rackId/RackId: value %v(%T) couldn't be cast to type string", value, value)
 
 	case "attributes", "Attributes":
 		v, ok := value.(map[string]string)
 		if ok {
-			self.Attributes = v
-			self.present["attributes"] = true
+			self.Attributes = &v
 			return nil
-		} else {
-			return fmt.Errorf("Field attributes/Attributes: value %v(%T) couldn't be cast to type map[string]string", value, value)
 		}
+		return fmt.Errorf("Field attributes/Attributes: value %v(%T) couldn't be cast to type map[string]string", value, value)
 
 	case "resources", "Resources":
 		v, ok := value.(*MesosResourcesObject)
 		if ok {
 			self.Resources = v
-			self.present["resources"] = true
 			return nil
-		} else {
-			return fmt.Errorf("Field resources/Resources: value %v(%T) couldn't be cast to type *MesosResourcesObject", value, value)
 		}
+		return fmt.Errorf("Field resources/Resources: value %v(%T) couldn't be cast to type *MesosResourcesObject", value, value)
 
 	case "currentState", "CurrentState":
 		v, ok := value.(*SingularityMachineStateHistoryUpdate)
 		if ok {
 			self.CurrentState = v
-			self.present["currentState"] = true
 			return nil
-		} else {
-			return fmt.Errorf("Field currentState/CurrentState: value %v(%T) couldn't be cast to type *SingularityMachineStateHistoryUpdate", value, value)
 		}
+		return fmt.Errorf("Field currentState/CurrentState: value %v(%T) couldn't be cast to type *SingularityMachineStateHistoryUpdate", value, value)
 
 	case "firstSeenAt", "FirstSeenAt":
 		v, ok := value.(int64)
 		if ok {
-			self.FirstSeenAt = v
-			self.present["firstSeenAt"] = true
+			self.FirstSeenAt = &v
 			return nil
-		} else {
-			return fmt.Errorf("Field firstSeenAt/FirstSeenAt: value %v(%T) couldn't be cast to type int64", value, value)
 		}
+		return fmt.Errorf("Field firstSeenAt/FirstSeenAt: value %v(%T) couldn't be cast to type int64", value, value)
 
 	case "id", "Id":
 		v, ok := value.(string)
 		if ok {
-			self.Id = v
-			self.present["id"] = true
+			self.Id = &v
 			return nil
-		} else {
-			return fmt.Errorf("Field id/Id: value %v(%T) couldn't be cast to type string", value, value)
 		}
+		return fmt.Errorf("Field id/Id: value %v(%T) couldn't be cast to type string", value, value)
 
 	}
 }
@@ -140,92 +107,61 @@ func (self *SingularitySlave) GetField(name string) (interface{}, error) {
 		return nil, fmt.Errorf("No such field %s on SingularitySlave", name)
 
 	case "host", "Host":
-		if self.present != nil {
-			if _, ok := self.present["host"]; ok {
-				return self.Host, nil
-			}
-		}
+		return *self.Host, nil
 		return nil, fmt.Errorf("Field Host no set on Host %+v", self)
 
 	case "rackId", "RackId":
-		if self.present != nil {
-			if _, ok := self.present["rackId"]; ok {
-				return self.RackId, nil
-			}
-		}
+		return *self.RackId, nil
 		return nil, fmt.Errorf("Field RackId no set on RackId %+v", self)
 
 	case "attributes", "Attributes":
-		if self.present != nil {
-			if _, ok := self.present["attributes"]; ok {
-				return self.Attributes, nil
-			}
-		}
+		return *self.Attributes, nil
 		return nil, fmt.Errorf("Field Attributes no set on Attributes %+v", self)
 
 	case "resources", "Resources":
-		if self.present != nil {
-			if _, ok := self.present["resources"]; ok {
-				return self.Resources, nil
-			}
-		}
+		return self.Resources, nil
 		return nil, fmt.Errorf("Field Resources no set on Resources %+v", self)
 
 	case "currentState", "CurrentState":
-		if self.present != nil {
-			if _, ok := self.present["currentState"]; ok {
-				return self.CurrentState, nil
-			}
-		}
+		return self.CurrentState, nil
 		return nil, fmt.Errorf("Field CurrentState no set on CurrentState %+v", self)
 
 	case "firstSeenAt", "FirstSeenAt":
-		if self.present != nil {
-			if _, ok := self.present["firstSeenAt"]; ok {
-				return self.FirstSeenAt, nil
-			}
-		}
+		return *self.FirstSeenAt, nil
 		return nil, fmt.Errorf("Field FirstSeenAt no set on FirstSeenAt %+v", self)
 
 	case "id", "Id":
-		if self.present != nil {
-			if _, ok := self.present["id"]; ok {
-				return self.Id, nil
-			}
-		}
+		return *self.Id, nil
 		return nil, fmt.Errorf("Field Id no set on Id %+v", self)
 
 	}
 }
 
 func (self *SingularitySlave) ClearField(name string) error {
-	if self.present == nil {
-		self.present = make(map[string]bool)
-	}
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on SingularitySlave", name)
 
 	case "host", "Host":
-		self.present["host"] = false
+		self.Host = nil
 
 	case "rackId", "RackId":
-		self.present["rackId"] = false
+		self.RackId = nil
 
 	case "attributes", "Attributes":
-		self.present["attributes"] = false
+		self.Attributes = nil
 
 	case "resources", "Resources":
-		self.present["resources"] = false
+		self.Resources = nil
 
 	case "currentState", "CurrentState":
-		self.present["currentState"] = false
+		self.CurrentState = nil
 
 	case "firstSeenAt", "FirstSeenAt":
-		self.present["firstSeenAt"] = false
+		self.FirstSeenAt = nil
 
 	case "id", "Id":
-		self.present["id"] = false
+		self.Id = nil
 
 	}
 

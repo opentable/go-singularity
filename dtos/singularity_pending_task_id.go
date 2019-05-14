@@ -28,21 +28,13 @@ const (
 )
 
 type SingularityPendingTaskId struct {
-	present map[string]bool
-
-	PendingType SingularityPendingTaskIdPendingType `json:"pendingType"`
-
-	Id string `json:"id,omitempty"`
-
-	RequestId string `json:"requestId,omitempty"`
-
-	DeployId string `json:"deployId,omitempty"`
-
-	NextRunAt int64 `json:"nextRunAt"`
-
-	CreatedAt int64 `json:"createdAt"`
-
-	InstanceNo int32 `json:"instanceNo"`
+	InstanceNo  *int32                               `json:"instanceNo,omitempty"`
+	PendingType *SingularityPendingTaskIdPendingType `json:"pendingType,omitempty"`
+	Id          *string                              `json:"id,omitempty"`
+	RequestId   *string                              `json:"requestId,omitempty"`
+	DeployId    *string                              `json:"deployId,omitempty"`
+	NextRunAt   *int64                               `json:"nextRunAt,omitempty"`
+	CreatedAt   *int64                               `json:"createdAt,omitempty"`
 }
 
 func (self *SingularityPendingTaskId) Populate(jsonReader io.ReadCloser) (err error) {
@@ -57,10 +49,6 @@ func (self *SingularityPendingTaskId) Absorb(other swaggering.DTO) error {
 	return fmt.Errorf("A SingularityPendingTaskId cannot copy the values from %#v", other)
 }
 
-func (self *SingularityPendingTaskId) MarshalJSON() ([]byte, error) {
-	return swaggering.MarshalJSON(self)
-}
-
 func (self *SingularityPendingTaskId) FormatText() string {
 	return swaggering.FormatText(self)
 }
@@ -69,87 +57,66 @@ func (self *SingularityPendingTaskId) FormatJSON() string {
 	return swaggering.FormatJSON(self)
 }
 
-func (self *SingularityPendingTaskId) FieldsPresent() []string {
-	return swaggering.PresenceFromMap(self.present)
-}
-
 func (self *SingularityPendingTaskId) SetField(name string, value interface{}) error {
-	if self.present == nil {
-		self.present = make(map[string]bool)
-	}
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on SingularityPendingTaskId", name)
 
+	case "instanceNo", "InstanceNo":
+		v, ok := value.(int32)
+		if ok {
+			self.InstanceNo = &v
+			return nil
+		}
+		return fmt.Errorf("Field instanceNo/InstanceNo: value %v(%T) couldn't be cast to type int32", value, value)
+
 	case "pendingType", "PendingType":
 		v, ok := value.(SingularityPendingTaskIdPendingType)
 		if ok {
-			self.PendingType = v
-			self.present["pendingType"] = true
+			self.PendingType = &v
 			return nil
-		} else {
-			return fmt.Errorf("Field pendingType/PendingType: value %v(%T) couldn't be cast to type SingularityPendingTaskIdPendingType", value, value)
 		}
+		return fmt.Errorf("Field pendingType/PendingType: value %v(%T) couldn't be cast to type SingularityPendingTaskIdPendingType", value, value)
 
 	case "id", "Id":
 		v, ok := value.(string)
 		if ok {
-			self.Id = v
-			self.present["id"] = true
+			self.Id = &v
 			return nil
-		} else {
-			return fmt.Errorf("Field id/Id: value %v(%T) couldn't be cast to type string", value, value)
 		}
+		return fmt.Errorf("Field id/Id: value %v(%T) couldn't be cast to type string", value, value)
 
 	case "requestId", "RequestId":
 		v, ok := value.(string)
 		if ok {
-			self.RequestId = v
-			self.present["requestId"] = true
+			self.RequestId = &v
 			return nil
-		} else {
-			return fmt.Errorf("Field requestId/RequestId: value %v(%T) couldn't be cast to type string", value, value)
 		}
+		return fmt.Errorf("Field requestId/RequestId: value %v(%T) couldn't be cast to type string", value, value)
 
 	case "deployId", "DeployId":
 		v, ok := value.(string)
 		if ok {
-			self.DeployId = v
-			self.present["deployId"] = true
+			self.DeployId = &v
 			return nil
-		} else {
-			return fmt.Errorf("Field deployId/DeployId: value %v(%T) couldn't be cast to type string", value, value)
 		}
+		return fmt.Errorf("Field deployId/DeployId: value %v(%T) couldn't be cast to type string", value, value)
 
 	case "nextRunAt", "NextRunAt":
 		v, ok := value.(int64)
 		if ok {
-			self.NextRunAt = v
-			self.present["nextRunAt"] = true
+			self.NextRunAt = &v
 			return nil
-		} else {
-			return fmt.Errorf("Field nextRunAt/NextRunAt: value %v(%T) couldn't be cast to type int64", value, value)
 		}
+		return fmt.Errorf("Field nextRunAt/NextRunAt: value %v(%T) couldn't be cast to type int64", value, value)
 
 	case "createdAt", "CreatedAt":
 		v, ok := value.(int64)
 		if ok {
-			self.CreatedAt = v
-			self.present["createdAt"] = true
+			self.CreatedAt = &v
 			return nil
-		} else {
-			return fmt.Errorf("Field createdAt/CreatedAt: value %v(%T) couldn't be cast to type int64", value, value)
 		}
-
-	case "instanceNo", "InstanceNo":
-		v, ok := value.(int32)
-		if ok {
-			self.InstanceNo = v
-			self.present["instanceNo"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field instanceNo/InstanceNo: value %v(%T) couldn't be cast to type int32", value, value)
-		}
+		return fmt.Errorf("Field createdAt/CreatedAt: value %v(%T) couldn't be cast to type int64", value, value)
 
 	}
 }
@@ -159,93 +126,62 @@ func (self *SingularityPendingTaskId) GetField(name string) (interface{}, error)
 	default:
 		return nil, fmt.Errorf("No such field %s on SingularityPendingTaskId", name)
 
+	case "instanceNo", "InstanceNo":
+		return *self.InstanceNo, nil
+		return nil, fmt.Errorf("Field InstanceNo no set on InstanceNo %+v", self)
+
 	case "pendingType", "PendingType":
-		if self.present != nil {
-			if _, ok := self.present["pendingType"]; ok {
-				return self.PendingType, nil
-			}
-		}
+		return *self.PendingType, nil
 		return nil, fmt.Errorf("Field PendingType no set on PendingType %+v", self)
 
 	case "id", "Id":
-		if self.present != nil {
-			if _, ok := self.present["id"]; ok {
-				return self.Id, nil
-			}
-		}
+		return *self.Id, nil
 		return nil, fmt.Errorf("Field Id no set on Id %+v", self)
 
 	case "requestId", "RequestId":
-		if self.present != nil {
-			if _, ok := self.present["requestId"]; ok {
-				return self.RequestId, nil
-			}
-		}
+		return *self.RequestId, nil
 		return nil, fmt.Errorf("Field RequestId no set on RequestId %+v", self)
 
 	case "deployId", "DeployId":
-		if self.present != nil {
-			if _, ok := self.present["deployId"]; ok {
-				return self.DeployId, nil
-			}
-		}
+		return *self.DeployId, nil
 		return nil, fmt.Errorf("Field DeployId no set on DeployId %+v", self)
 
 	case "nextRunAt", "NextRunAt":
-		if self.present != nil {
-			if _, ok := self.present["nextRunAt"]; ok {
-				return self.NextRunAt, nil
-			}
-		}
+		return *self.NextRunAt, nil
 		return nil, fmt.Errorf("Field NextRunAt no set on NextRunAt %+v", self)
 
 	case "createdAt", "CreatedAt":
-		if self.present != nil {
-			if _, ok := self.present["createdAt"]; ok {
-				return self.CreatedAt, nil
-			}
-		}
+		return *self.CreatedAt, nil
 		return nil, fmt.Errorf("Field CreatedAt no set on CreatedAt %+v", self)
-
-	case "instanceNo", "InstanceNo":
-		if self.present != nil {
-			if _, ok := self.present["instanceNo"]; ok {
-				return self.InstanceNo, nil
-			}
-		}
-		return nil, fmt.Errorf("Field InstanceNo no set on InstanceNo %+v", self)
 
 	}
 }
 
 func (self *SingularityPendingTaskId) ClearField(name string) error {
-	if self.present == nil {
-		self.present = make(map[string]bool)
-	}
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on SingularityPendingTaskId", name)
 
+	case "instanceNo", "InstanceNo":
+		self.InstanceNo = nil
+
 	case "pendingType", "PendingType":
-		self.present["pendingType"] = false
+		self.PendingType = nil
 
 	case "id", "Id":
-		self.present["id"] = false
+		self.Id = nil
 
 	case "requestId", "RequestId":
-		self.present["requestId"] = false
+		self.RequestId = nil
 
 	case "deployId", "DeployId":
-		self.present["deployId"] = false
+		self.DeployId = nil
 
 	case "nextRunAt", "NextRunAt":
-		self.present["nextRunAt"] = false
+		self.NextRunAt = nil
 
 	case "createdAt", "CreatedAt":
-		self.present["createdAt"] = false
-
-	case "instanceNo", "InstanceNo":
-		self.present["instanceNo"] = false
+		self.CreatedAt = nil
 
 	}
 

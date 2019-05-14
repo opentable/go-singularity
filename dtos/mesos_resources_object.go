@@ -8,9 +8,7 @@ import (
 )
 
 type MesosResourcesObject struct {
-	present map[string]bool
-
-	Properties map[string]interface{} `json:"properties"`
+	Properties *map[string]interface{} `json:"properties,omitempty"`
 }
 
 func (self *MesosResourcesObject) Populate(jsonReader io.ReadCloser) (err error) {
@@ -25,10 +23,6 @@ func (self *MesosResourcesObject) Absorb(other swaggering.DTO) error {
 	return fmt.Errorf("A MesosResourcesObject cannot copy the values from %#v", other)
 }
 
-func (self *MesosResourcesObject) MarshalJSON() ([]byte, error) {
-	return swaggering.MarshalJSON(self)
-}
-
 func (self *MesosResourcesObject) FormatText() string {
 	return swaggering.FormatText(self)
 }
@@ -37,14 +31,7 @@ func (self *MesosResourcesObject) FormatJSON() string {
 	return swaggering.FormatJSON(self)
 }
 
-func (self *MesosResourcesObject) FieldsPresent() []string {
-	return swaggering.PresenceFromMap(self.present)
-}
-
 func (self *MesosResourcesObject) SetField(name string, value interface{}) error {
-	if self.present == nil {
-		self.present = make(map[string]bool)
-	}
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on MesosResourcesObject", name)
@@ -52,12 +39,10 @@ func (self *MesosResourcesObject) SetField(name string, value interface{}) error
 	case "properties", "Properties":
 		v, ok := value.(map[string]interface{})
 		if ok {
-			self.Properties = v
-			self.present["properties"] = true
+			self.Properties = &v
 			return nil
-		} else {
-			return fmt.Errorf("Field properties/Properties: value %v(%T) couldn't be cast to type map[string]interface{}", value, value)
 		}
+		return fmt.Errorf("Field properties/Properties: value %v(%T) couldn't be cast to type map[string]interface{}", value, value)
 
 	}
 }
@@ -68,26 +53,19 @@ func (self *MesosResourcesObject) GetField(name string) (interface{}, error) {
 		return nil, fmt.Errorf("No such field %s on MesosResourcesObject", name)
 
 	case "properties", "Properties":
-		if self.present != nil {
-			if _, ok := self.present["properties"]; ok {
-				return self.Properties, nil
-			}
-		}
+		return *self.Properties, nil
 		return nil, fmt.Errorf("Field Properties no set on Properties %+v", self)
 
 	}
 }
 
 func (self *MesosResourcesObject) ClearField(name string) error {
-	if self.present == nil {
-		self.present = make(map[string]bool)
-	}
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on MesosResourcesObject", name)
 
 	case "properties", "Properties":
-		self.present["properties"] = false
+		self.Properties = nil
 
 	}
 

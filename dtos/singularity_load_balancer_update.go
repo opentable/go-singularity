@@ -30,19 +30,12 @@ const (
 )
 
 type SingularityLoadBalancerUpdate struct {
-	present map[string]bool
-
-	LoadBalancerRequestId *LoadBalancerRequestId `json:"loadBalancerRequestId"`
-
-	LoadBalancerState SingularityLoadBalancerUpdateBaragonRequestState `json:"loadBalancerState"`
-
-	Message string `json:"message,omitempty"`
-
-	Timestamp int64 `json:"timestamp"`
-
-	Uri string `json:"uri,omitempty"`
-
-	Method SingularityLoadBalancerUpdateLoadBalancerMethod `json:"method"`
+	LoadBalancerState     *SingularityLoadBalancerUpdateBaragonRequestState `json:"loadBalancerState,omitempty"`
+	Message               *string                                           `json:"message,omitempty"`
+	Timestamp             *int64                                            `json:"timestamp,omitempty"`
+	Uri                   *string                                           `json:"uri,omitempty"`
+	Method                *SingularityLoadBalancerUpdateLoadBalancerMethod  `json:"method,omitempty"`
+	LoadBalancerRequestId *LoadBalancerRequestId                            `json:"loadBalancerRequestId,omitempty"`
 }
 
 func (self *SingularityLoadBalancerUpdate) Populate(jsonReader io.ReadCloser) (err error) {
@@ -57,10 +50,6 @@ func (self *SingularityLoadBalancerUpdate) Absorb(other swaggering.DTO) error {
 	return fmt.Errorf("A SingularityLoadBalancerUpdate cannot copy the values from %#v", other)
 }
 
-func (self *SingularityLoadBalancerUpdate) MarshalJSON() ([]byte, error) {
-	return swaggering.MarshalJSON(self)
-}
-
 func (self *SingularityLoadBalancerUpdate) FormatText() string {
 	return swaggering.FormatText(self)
 }
@@ -69,77 +58,58 @@ func (self *SingularityLoadBalancerUpdate) FormatJSON() string {
 	return swaggering.FormatJSON(self)
 }
 
-func (self *SingularityLoadBalancerUpdate) FieldsPresent() []string {
-	return swaggering.PresenceFromMap(self.present)
-}
-
 func (self *SingularityLoadBalancerUpdate) SetField(name string, value interface{}) error {
-	if self.present == nil {
-		self.present = make(map[string]bool)
-	}
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on SingularityLoadBalancerUpdate", name)
+
+	case "loadBalancerState", "LoadBalancerState":
+		v, ok := value.(SingularityLoadBalancerUpdateBaragonRequestState)
+		if ok {
+			self.LoadBalancerState = &v
+			return nil
+		}
+		return fmt.Errorf("Field loadBalancerState/LoadBalancerState: value %v(%T) couldn't be cast to type SingularityLoadBalancerUpdateBaragonRequestState", value, value)
+
+	case "message", "Message":
+		v, ok := value.(string)
+		if ok {
+			self.Message = &v
+			return nil
+		}
+		return fmt.Errorf("Field message/Message: value %v(%T) couldn't be cast to type string", value, value)
+
+	case "timestamp", "Timestamp":
+		v, ok := value.(int64)
+		if ok {
+			self.Timestamp = &v
+			return nil
+		}
+		return fmt.Errorf("Field timestamp/Timestamp: value %v(%T) couldn't be cast to type int64", value, value)
+
+	case "uri", "Uri":
+		v, ok := value.(string)
+		if ok {
+			self.Uri = &v
+			return nil
+		}
+		return fmt.Errorf("Field uri/Uri: value %v(%T) couldn't be cast to type string", value, value)
+
+	case "method", "Method":
+		v, ok := value.(SingularityLoadBalancerUpdateLoadBalancerMethod)
+		if ok {
+			self.Method = &v
+			return nil
+		}
+		return fmt.Errorf("Field method/Method: value %v(%T) couldn't be cast to type SingularityLoadBalancerUpdateLoadBalancerMethod", value, value)
 
 	case "loadBalancerRequestId", "LoadBalancerRequestId":
 		v, ok := value.(*LoadBalancerRequestId)
 		if ok {
 			self.LoadBalancerRequestId = v
-			self.present["loadBalancerRequestId"] = true
 			return nil
-		} else {
-			return fmt.Errorf("Field loadBalancerRequestId/LoadBalancerRequestId: value %v(%T) couldn't be cast to type *LoadBalancerRequestId", value, value)
 		}
-
-	case "loadBalancerState", "LoadBalancerState":
-		v, ok := value.(SingularityLoadBalancerUpdateBaragonRequestState)
-		if ok {
-			self.LoadBalancerState = v
-			self.present["loadBalancerState"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field loadBalancerState/LoadBalancerState: value %v(%T) couldn't be cast to type SingularityLoadBalancerUpdateBaragonRequestState", value, value)
-		}
-
-	case "message", "Message":
-		v, ok := value.(string)
-		if ok {
-			self.Message = v
-			self.present["message"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field message/Message: value %v(%T) couldn't be cast to type string", value, value)
-		}
-
-	case "timestamp", "Timestamp":
-		v, ok := value.(int64)
-		if ok {
-			self.Timestamp = v
-			self.present["timestamp"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field timestamp/Timestamp: value %v(%T) couldn't be cast to type int64", value, value)
-		}
-
-	case "uri", "Uri":
-		v, ok := value.(string)
-		if ok {
-			self.Uri = v
-			self.present["uri"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field uri/Uri: value %v(%T) couldn't be cast to type string", value, value)
-		}
-
-	case "method", "Method":
-		v, ok := value.(SingularityLoadBalancerUpdateLoadBalancerMethod)
-		if ok {
-			self.Method = v
-			self.present["method"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field method/Method: value %v(%T) couldn't be cast to type SingularityLoadBalancerUpdateLoadBalancerMethod", value, value)
-		}
+		return fmt.Errorf("Field loadBalancerRequestId/LoadBalancerRequestId: value %v(%T) couldn't be cast to type *LoadBalancerRequestId", value, value)
 
 	}
 }
@@ -149,82 +119,55 @@ func (self *SingularityLoadBalancerUpdate) GetField(name string) (interface{}, e
 	default:
 		return nil, fmt.Errorf("No such field %s on SingularityLoadBalancerUpdate", name)
 
-	case "loadBalancerRequestId", "LoadBalancerRequestId":
-		if self.present != nil {
-			if _, ok := self.present["loadBalancerRequestId"]; ok {
-				return self.LoadBalancerRequestId, nil
-			}
-		}
-		return nil, fmt.Errorf("Field LoadBalancerRequestId no set on LoadBalancerRequestId %+v", self)
-
 	case "loadBalancerState", "LoadBalancerState":
-		if self.present != nil {
-			if _, ok := self.present["loadBalancerState"]; ok {
-				return self.LoadBalancerState, nil
-			}
-		}
+		return *self.LoadBalancerState, nil
 		return nil, fmt.Errorf("Field LoadBalancerState no set on LoadBalancerState %+v", self)
 
 	case "message", "Message":
-		if self.present != nil {
-			if _, ok := self.present["message"]; ok {
-				return self.Message, nil
-			}
-		}
+		return *self.Message, nil
 		return nil, fmt.Errorf("Field Message no set on Message %+v", self)
 
 	case "timestamp", "Timestamp":
-		if self.present != nil {
-			if _, ok := self.present["timestamp"]; ok {
-				return self.Timestamp, nil
-			}
-		}
+		return *self.Timestamp, nil
 		return nil, fmt.Errorf("Field Timestamp no set on Timestamp %+v", self)
 
 	case "uri", "Uri":
-		if self.present != nil {
-			if _, ok := self.present["uri"]; ok {
-				return self.Uri, nil
-			}
-		}
+		return *self.Uri, nil
 		return nil, fmt.Errorf("Field Uri no set on Uri %+v", self)
 
 	case "method", "Method":
-		if self.present != nil {
-			if _, ok := self.present["method"]; ok {
-				return self.Method, nil
-			}
-		}
+		return *self.Method, nil
 		return nil, fmt.Errorf("Field Method no set on Method %+v", self)
+
+	case "loadBalancerRequestId", "LoadBalancerRequestId":
+		return self.LoadBalancerRequestId, nil
+		return nil, fmt.Errorf("Field LoadBalancerRequestId no set on LoadBalancerRequestId %+v", self)
 
 	}
 }
 
 func (self *SingularityLoadBalancerUpdate) ClearField(name string) error {
-	if self.present == nil {
-		self.present = make(map[string]bool)
-	}
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on SingularityLoadBalancerUpdate", name)
 
-	case "loadBalancerRequestId", "LoadBalancerRequestId":
-		self.present["loadBalancerRequestId"] = false
-
 	case "loadBalancerState", "LoadBalancerState":
-		self.present["loadBalancerState"] = false
+		self.LoadBalancerState = nil
 
 	case "message", "Message":
-		self.present["message"] = false
+		self.Message = nil
 
 	case "timestamp", "Timestamp":
-		self.present["timestamp"] = false
+		self.Timestamp = nil
 
 	case "uri", "Uri":
-		self.present["uri"] = false
+		self.Uri = nil
 
 	case "method", "Method":
-		self.present["method"] = false
+		self.Method = nil
+
+	case "loadBalancerRequestId", "LoadBalancerRequestId":
+		self.LoadBalancerRequestId = nil
 
 	}
 

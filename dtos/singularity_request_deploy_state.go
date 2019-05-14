@@ -8,13 +8,9 @@ import (
 )
 
 type SingularityRequestDeployState struct {
-	present map[string]bool
-
-	RequestId string `json:"requestId,omitempty"`
-
-	ActiveDeploy *SingularityDeployMarker `json:"activeDeploy"`
-
-	PendingDeploy *SingularityDeployMarker `json:"pendingDeploy"`
+	RequestId     *string                  `json:"requestId,omitempty"`
+	ActiveDeploy  *SingularityDeployMarker `json:"activeDeploy,omitempty"`
+	PendingDeploy *SingularityDeployMarker `json:"pendingDeploy,omitempty"`
 }
 
 func (self *SingularityRequestDeployState) Populate(jsonReader io.ReadCloser) (err error) {
@@ -29,10 +25,6 @@ func (self *SingularityRequestDeployState) Absorb(other swaggering.DTO) error {
 	return fmt.Errorf("A SingularityRequestDeployState cannot copy the values from %#v", other)
 }
 
-func (self *SingularityRequestDeployState) MarshalJSON() ([]byte, error) {
-	return swaggering.MarshalJSON(self)
-}
-
 func (self *SingularityRequestDeployState) FormatText() string {
 	return swaggering.FormatText(self)
 }
@@ -41,14 +33,7 @@ func (self *SingularityRequestDeployState) FormatJSON() string {
 	return swaggering.FormatJSON(self)
 }
 
-func (self *SingularityRequestDeployState) FieldsPresent() []string {
-	return swaggering.PresenceFromMap(self.present)
-}
-
 func (self *SingularityRequestDeployState) SetField(name string, value interface{}) error {
-	if self.present == nil {
-		self.present = make(map[string]bool)
-	}
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on SingularityRequestDeployState", name)
@@ -56,32 +41,26 @@ func (self *SingularityRequestDeployState) SetField(name string, value interface
 	case "requestId", "RequestId":
 		v, ok := value.(string)
 		if ok {
-			self.RequestId = v
-			self.present["requestId"] = true
+			self.RequestId = &v
 			return nil
-		} else {
-			return fmt.Errorf("Field requestId/RequestId: value %v(%T) couldn't be cast to type string", value, value)
 		}
+		return fmt.Errorf("Field requestId/RequestId: value %v(%T) couldn't be cast to type string", value, value)
 
 	case "activeDeploy", "ActiveDeploy":
 		v, ok := value.(*SingularityDeployMarker)
 		if ok {
 			self.ActiveDeploy = v
-			self.present["activeDeploy"] = true
 			return nil
-		} else {
-			return fmt.Errorf("Field activeDeploy/ActiveDeploy: value %v(%T) couldn't be cast to type *SingularityDeployMarker", value, value)
 		}
+		return fmt.Errorf("Field activeDeploy/ActiveDeploy: value %v(%T) couldn't be cast to type *SingularityDeployMarker", value, value)
 
 	case "pendingDeploy", "PendingDeploy":
 		v, ok := value.(*SingularityDeployMarker)
 		if ok {
 			self.PendingDeploy = v
-			self.present["pendingDeploy"] = true
 			return nil
-		} else {
-			return fmt.Errorf("Field pendingDeploy/PendingDeploy: value %v(%T) couldn't be cast to type *SingularityDeployMarker", value, value)
 		}
+		return fmt.Errorf("Field pendingDeploy/PendingDeploy: value %v(%T) couldn't be cast to type *SingularityDeployMarker", value, value)
 
 	}
 }
@@ -92,48 +71,33 @@ func (self *SingularityRequestDeployState) GetField(name string) (interface{}, e
 		return nil, fmt.Errorf("No such field %s on SingularityRequestDeployState", name)
 
 	case "requestId", "RequestId":
-		if self.present != nil {
-			if _, ok := self.present["requestId"]; ok {
-				return self.RequestId, nil
-			}
-		}
+		return *self.RequestId, nil
 		return nil, fmt.Errorf("Field RequestId no set on RequestId %+v", self)
 
 	case "activeDeploy", "ActiveDeploy":
-		if self.present != nil {
-			if _, ok := self.present["activeDeploy"]; ok {
-				return self.ActiveDeploy, nil
-			}
-		}
+		return self.ActiveDeploy, nil
 		return nil, fmt.Errorf("Field ActiveDeploy no set on ActiveDeploy %+v", self)
 
 	case "pendingDeploy", "PendingDeploy":
-		if self.present != nil {
-			if _, ok := self.present["pendingDeploy"]; ok {
-				return self.PendingDeploy, nil
-			}
-		}
+		return self.PendingDeploy, nil
 		return nil, fmt.Errorf("Field PendingDeploy no set on PendingDeploy %+v", self)
 
 	}
 }
 
 func (self *SingularityRequestDeployState) ClearField(name string) error {
-	if self.present == nil {
-		self.present = make(map[string]bool)
-	}
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on SingularityRequestDeployState", name)
 
 	case "requestId", "RequestId":
-		self.present["requestId"] = false
+		self.RequestId = nil
 
 	case "activeDeploy", "ActiveDeploy":
-		self.present["activeDeploy"] = false
+		self.ActiveDeploy = nil
 
 	case "pendingDeploy", "PendingDeploy":
-		self.present["pendingDeploy"] = false
+		self.PendingDeploy = nil
 
 	}
 

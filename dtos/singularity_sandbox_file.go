@@ -8,15 +8,10 @@ import (
 )
 
 type SingularitySandboxFile struct {
-	present map[string]bool
-
-	Size int64 `json:"size"`
-
-	Mode string `json:"mode,omitempty"`
-
-	Name string `json:"name,omitempty"`
-
-	Mtime int64 `json:"mtime"`
+	Size  *int64  `json:"size,omitempty"`
+	Mode  *string `json:"mode,omitempty"`
+	Name  *string `json:"name,omitempty"`
+	Mtime *int64  `json:"mtime,omitempty"`
 }
 
 func (self *SingularitySandboxFile) Populate(jsonReader io.ReadCloser) (err error) {
@@ -31,10 +26,6 @@ func (self *SingularitySandboxFile) Absorb(other swaggering.DTO) error {
 	return fmt.Errorf("A SingularitySandboxFile cannot copy the values from %#v", other)
 }
 
-func (self *SingularitySandboxFile) MarshalJSON() ([]byte, error) {
-	return swaggering.MarshalJSON(self)
-}
-
 func (self *SingularitySandboxFile) FormatText() string {
 	return swaggering.FormatText(self)
 }
@@ -43,14 +34,7 @@ func (self *SingularitySandboxFile) FormatJSON() string {
 	return swaggering.FormatJSON(self)
 }
 
-func (self *SingularitySandboxFile) FieldsPresent() []string {
-	return swaggering.PresenceFromMap(self.present)
-}
-
 func (self *SingularitySandboxFile) SetField(name string, value interface{}) error {
-	if self.present == nil {
-		self.present = make(map[string]bool)
-	}
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on SingularitySandboxFile", name)
@@ -58,42 +42,34 @@ func (self *SingularitySandboxFile) SetField(name string, value interface{}) err
 	case "size", "Size":
 		v, ok := value.(int64)
 		if ok {
-			self.Size = v
-			self.present["size"] = true
+			self.Size = &v
 			return nil
-		} else {
-			return fmt.Errorf("Field size/Size: value %v(%T) couldn't be cast to type int64", value, value)
 		}
+		return fmt.Errorf("Field size/Size: value %v(%T) couldn't be cast to type int64", value, value)
 
 	case "mode", "Mode":
 		v, ok := value.(string)
 		if ok {
-			self.Mode = v
-			self.present["mode"] = true
+			self.Mode = &v
 			return nil
-		} else {
-			return fmt.Errorf("Field mode/Mode: value %v(%T) couldn't be cast to type string", value, value)
 		}
+		return fmt.Errorf("Field mode/Mode: value %v(%T) couldn't be cast to type string", value, value)
 
 	case "name", "Name":
 		v, ok := value.(string)
 		if ok {
-			self.Name = v
-			self.present["name"] = true
+			self.Name = &v
 			return nil
-		} else {
-			return fmt.Errorf("Field name/Name: value %v(%T) couldn't be cast to type string", value, value)
 		}
+		return fmt.Errorf("Field name/Name: value %v(%T) couldn't be cast to type string", value, value)
 
 	case "mtime", "Mtime":
 		v, ok := value.(int64)
 		if ok {
-			self.Mtime = v
-			self.present["mtime"] = true
+			self.Mtime = &v
 			return nil
-		} else {
-			return fmt.Errorf("Field mtime/Mtime: value %v(%T) couldn't be cast to type int64", value, value)
 		}
+		return fmt.Errorf("Field mtime/Mtime: value %v(%T) couldn't be cast to type int64", value, value)
 
 	}
 }
@@ -104,59 +80,40 @@ func (self *SingularitySandboxFile) GetField(name string) (interface{}, error) {
 		return nil, fmt.Errorf("No such field %s on SingularitySandboxFile", name)
 
 	case "size", "Size":
-		if self.present != nil {
-			if _, ok := self.present["size"]; ok {
-				return self.Size, nil
-			}
-		}
+		return *self.Size, nil
 		return nil, fmt.Errorf("Field Size no set on Size %+v", self)
 
 	case "mode", "Mode":
-		if self.present != nil {
-			if _, ok := self.present["mode"]; ok {
-				return self.Mode, nil
-			}
-		}
+		return *self.Mode, nil
 		return nil, fmt.Errorf("Field Mode no set on Mode %+v", self)
 
 	case "name", "Name":
-		if self.present != nil {
-			if _, ok := self.present["name"]; ok {
-				return self.Name, nil
-			}
-		}
+		return *self.Name, nil
 		return nil, fmt.Errorf("Field Name no set on Name %+v", self)
 
 	case "mtime", "Mtime":
-		if self.present != nil {
-			if _, ok := self.present["mtime"]; ok {
-				return self.Mtime, nil
-			}
-		}
+		return *self.Mtime, nil
 		return nil, fmt.Errorf("Field Mtime no set on Mtime %+v", self)
 
 	}
 }
 
 func (self *SingularitySandboxFile) ClearField(name string) error {
-	if self.present == nil {
-		self.present = make(map[string]bool)
-	}
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on SingularitySandboxFile", name)
 
 	case "size", "Size":
-		self.present["size"] = false
+		self.Size = nil
 
 	case "mode", "Mode":
-		self.present["mode"] = false
+		self.Mode = nil
 
 	case "name", "Name":
-		self.present["name"] = false
+		self.Name = nil
 
 	case "mtime", "Mtime":
-		self.present["mtime"] = false
+		self.Mtime = nil
 
 	}
 

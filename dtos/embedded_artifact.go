@@ -8,17 +8,11 @@ import (
 )
 
 type EmbeddedArtifact struct {
-	present map[string]bool
-
-	Name string `json:"name,omitempty"`
-
-	Content swaggering.StringList `json:"content"`
-
-	Filename string `json:"filename,omitempty"`
-
-	Md5sum string `json:"md5sum,omitempty"`
-
-	TargetFolderRelativeToTask string `json:"targetFolderRelativeToTask,omitempty"`
+	Filename                   *string                `json:"filename,omitempty"`
+	Md5sum                     *string                `json:"md5sum,omitempty"`
+	TargetFolderRelativeToTask *string                `json:"targetFolderRelativeToTask,omitempty"`
+	Name                       *string                `json:"name,omitempty"`
+	Content                    *swaggering.StringList `json:"content,omitempty"`
 }
 
 func (self *EmbeddedArtifact) Populate(jsonReader io.ReadCloser) (err error) {
@@ -33,10 +27,6 @@ func (self *EmbeddedArtifact) Absorb(other swaggering.DTO) error {
 	return fmt.Errorf("A EmbeddedArtifact cannot copy the values from %#v", other)
 }
 
-func (self *EmbeddedArtifact) MarshalJSON() ([]byte, error) {
-	return swaggering.MarshalJSON(self)
-}
-
 func (self *EmbeddedArtifact) FormatText() string {
 	return swaggering.FormatText(self)
 }
@@ -45,67 +35,50 @@ func (self *EmbeddedArtifact) FormatJSON() string {
 	return swaggering.FormatJSON(self)
 }
 
-func (self *EmbeddedArtifact) FieldsPresent() []string {
-	return swaggering.PresenceFromMap(self.present)
-}
-
 func (self *EmbeddedArtifact) SetField(name string, value interface{}) error {
-	if self.present == nil {
-		self.present = make(map[string]bool)
-	}
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on EmbeddedArtifact", name)
 
-	case "name", "Name":
-		v, ok := value.(string)
-		if ok {
-			self.Name = v
-			self.present["name"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field name/Name: value %v(%T) couldn't be cast to type string", value, value)
-		}
-
-	case "content", "Content":
-		v, ok := value.(swaggering.StringList)
-		if ok {
-			self.Content = v
-			self.present["content"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field content/Content: value %v(%T) couldn't be cast to type swaggering.StringList", value, value)
-		}
-
 	case "filename", "Filename":
 		v, ok := value.(string)
 		if ok {
-			self.Filename = v
-			self.present["filename"] = true
+			self.Filename = &v
 			return nil
-		} else {
-			return fmt.Errorf("Field filename/Filename: value %v(%T) couldn't be cast to type string", value, value)
 		}
+		return fmt.Errorf("Field filename/Filename: value %v(%T) couldn't be cast to type string", value, value)
 
 	case "md5sum", "Md5sum":
 		v, ok := value.(string)
 		if ok {
-			self.Md5sum = v
-			self.present["md5sum"] = true
+			self.Md5sum = &v
 			return nil
-		} else {
-			return fmt.Errorf("Field md5sum/Md5sum: value %v(%T) couldn't be cast to type string", value, value)
 		}
+		return fmt.Errorf("Field md5sum/Md5sum: value %v(%T) couldn't be cast to type string", value, value)
 
 	case "targetFolderRelativeToTask", "TargetFolderRelativeToTask":
 		v, ok := value.(string)
 		if ok {
-			self.TargetFolderRelativeToTask = v
-			self.present["targetFolderRelativeToTask"] = true
+			self.TargetFolderRelativeToTask = &v
 			return nil
-		} else {
-			return fmt.Errorf("Field targetFolderRelativeToTask/TargetFolderRelativeToTask: value %v(%T) couldn't be cast to type string", value, value)
 		}
+		return fmt.Errorf("Field targetFolderRelativeToTask/TargetFolderRelativeToTask: value %v(%T) couldn't be cast to type string", value, value)
+
+	case "name", "Name":
+		v, ok := value.(string)
+		if ok {
+			self.Name = &v
+			return nil
+		}
+		return fmt.Errorf("Field name/Name: value %v(%T) couldn't be cast to type string", value, value)
+
+	case "content", "Content":
+		v, ok := value.(swaggering.StringList)
+		if ok {
+			self.Content = &v
+			return nil
+		}
+		return fmt.Errorf("Field content/Content: value %v(%T) couldn't be cast to type swaggering.StringList", value, value)
 
 	}
 }
@@ -115,71 +88,48 @@ func (self *EmbeddedArtifact) GetField(name string) (interface{}, error) {
 	default:
 		return nil, fmt.Errorf("No such field %s on EmbeddedArtifact", name)
 
-	case "name", "Name":
-		if self.present != nil {
-			if _, ok := self.present["name"]; ok {
-				return self.Name, nil
-			}
-		}
-		return nil, fmt.Errorf("Field Name no set on Name %+v", self)
-
-	case "content", "Content":
-		if self.present != nil {
-			if _, ok := self.present["content"]; ok {
-				return self.Content, nil
-			}
-		}
-		return nil, fmt.Errorf("Field Content no set on Content %+v", self)
-
 	case "filename", "Filename":
-		if self.present != nil {
-			if _, ok := self.present["filename"]; ok {
-				return self.Filename, nil
-			}
-		}
+		return *self.Filename, nil
 		return nil, fmt.Errorf("Field Filename no set on Filename %+v", self)
 
 	case "md5sum", "Md5sum":
-		if self.present != nil {
-			if _, ok := self.present["md5sum"]; ok {
-				return self.Md5sum, nil
-			}
-		}
+		return *self.Md5sum, nil
 		return nil, fmt.Errorf("Field Md5sum no set on Md5sum %+v", self)
 
 	case "targetFolderRelativeToTask", "TargetFolderRelativeToTask":
-		if self.present != nil {
-			if _, ok := self.present["targetFolderRelativeToTask"]; ok {
-				return self.TargetFolderRelativeToTask, nil
-			}
-		}
+		return *self.TargetFolderRelativeToTask, nil
 		return nil, fmt.Errorf("Field TargetFolderRelativeToTask no set on TargetFolderRelativeToTask %+v", self)
+
+	case "name", "Name":
+		return *self.Name, nil
+		return nil, fmt.Errorf("Field Name no set on Name %+v", self)
+
+	case "content", "Content":
+		return *self.Content, nil
+		return nil, fmt.Errorf("Field Content no set on Content %+v", self)
 
 	}
 }
 
 func (self *EmbeddedArtifact) ClearField(name string) error {
-	if self.present == nil {
-		self.present = make(map[string]bool)
-	}
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on EmbeddedArtifact", name)
 
-	case "name", "Name":
-		self.present["name"] = false
-
-	case "content", "Content":
-		self.present["content"] = false
-
 	case "filename", "Filename":
-		self.present["filename"] = false
+		self.Filename = nil
 
 	case "md5sum", "Md5sum":
-		self.present["md5sum"] = false
+		self.Md5sum = nil
 
 	case "targetFolderRelativeToTask", "TargetFolderRelativeToTask":
-		self.present["targetFolderRelativeToTask"] = false
+		self.TargetFolderRelativeToTask = nil
+
+	case "name", "Name":
+		self.Name = nil
+
+	case "content", "Content":
+		self.Content = nil
 
 	}
 

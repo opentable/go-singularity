@@ -15,13 +15,9 @@ const (
 )
 
 type SingularityContainerInfo struct {
-	present map[string]bool
-
-	Type SingularityContainerInfoSingularityContainerType `json:"type"`
-
-	Volumes SingularityVolumeList `json:"volumes"`
-
-	Docker *SingularityDockerInfo `json:"docker"`
+	Type    *SingularityContainerInfoSingularityContainerType `json:"type,omitempty"`
+	Volumes *SingularityVolumeList                            `json:"volumes,omitempty"`
+	Docker  *SingularityDockerInfo                            `json:"docker,omitempty"`
 }
 
 func (self *SingularityContainerInfo) Populate(jsonReader io.ReadCloser) (err error) {
@@ -36,10 +32,6 @@ func (self *SingularityContainerInfo) Absorb(other swaggering.DTO) error {
 	return fmt.Errorf("A SingularityContainerInfo cannot copy the values from %#v", other)
 }
 
-func (self *SingularityContainerInfo) MarshalJSON() ([]byte, error) {
-	return swaggering.MarshalJSON(self)
-}
-
 func (self *SingularityContainerInfo) FormatText() string {
 	return swaggering.FormatText(self)
 }
@@ -48,14 +40,7 @@ func (self *SingularityContainerInfo) FormatJSON() string {
 	return swaggering.FormatJSON(self)
 }
 
-func (self *SingularityContainerInfo) FieldsPresent() []string {
-	return swaggering.PresenceFromMap(self.present)
-}
-
 func (self *SingularityContainerInfo) SetField(name string, value interface{}) error {
-	if self.present == nil {
-		self.present = make(map[string]bool)
-	}
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on SingularityContainerInfo", name)
@@ -63,32 +48,26 @@ func (self *SingularityContainerInfo) SetField(name string, value interface{}) e
 	case "type", "Type":
 		v, ok := value.(SingularityContainerInfoSingularityContainerType)
 		if ok {
-			self.Type = v
-			self.present["type"] = true
+			self.Type = &v
 			return nil
-		} else {
-			return fmt.Errorf("Field type/Type: value %v(%T) couldn't be cast to type SingularityContainerInfoSingularityContainerType", value, value)
 		}
+		return fmt.Errorf("Field type/Type: value %v(%T) couldn't be cast to type SingularityContainerInfoSingularityContainerType", value, value)
 
 	case "volumes", "Volumes":
 		v, ok := value.(SingularityVolumeList)
 		if ok {
-			self.Volumes = v
-			self.present["volumes"] = true
+			self.Volumes = &v
 			return nil
-		} else {
-			return fmt.Errorf("Field volumes/Volumes: value %v(%T) couldn't be cast to type SingularityVolumeList", value, value)
 		}
+		return fmt.Errorf("Field volumes/Volumes: value %v(%T) couldn't be cast to type SingularityVolumeList", value, value)
 
 	case "docker", "Docker":
 		v, ok := value.(*SingularityDockerInfo)
 		if ok {
 			self.Docker = v
-			self.present["docker"] = true
 			return nil
-		} else {
-			return fmt.Errorf("Field docker/Docker: value %v(%T) couldn't be cast to type *SingularityDockerInfo", value, value)
 		}
+		return fmt.Errorf("Field docker/Docker: value %v(%T) couldn't be cast to type *SingularityDockerInfo", value, value)
 
 	}
 }
@@ -99,48 +78,33 @@ func (self *SingularityContainerInfo) GetField(name string) (interface{}, error)
 		return nil, fmt.Errorf("No such field %s on SingularityContainerInfo", name)
 
 	case "type", "Type":
-		if self.present != nil {
-			if _, ok := self.present["type"]; ok {
-				return self.Type, nil
-			}
-		}
+		return *self.Type, nil
 		return nil, fmt.Errorf("Field Type no set on Type %+v", self)
 
 	case "volumes", "Volumes":
-		if self.present != nil {
-			if _, ok := self.present["volumes"]; ok {
-				return self.Volumes, nil
-			}
-		}
+		return *self.Volumes, nil
 		return nil, fmt.Errorf("Field Volumes no set on Volumes %+v", self)
 
 	case "docker", "Docker":
-		if self.present != nil {
-			if _, ok := self.present["docker"]; ok {
-				return self.Docker, nil
-			}
-		}
+		return self.Docker, nil
 		return nil, fmt.Errorf("Field Docker no set on Docker %+v", self)
 
 	}
 }
 
 func (self *SingularityContainerInfo) ClearField(name string) error {
-	if self.present == nil {
-		self.present = make(map[string]bool)
-	}
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on SingularityContainerInfo", name)
 
 	case "type", "Type":
-		self.present["type"] = false
+		self.Type = nil
 
 	case "volumes", "Volumes":
-		self.present["volumes"] = false
+		self.Volumes = nil
 
 	case "docker", "Docker":
-		self.present["docker"] = false
+		self.Docker = nil
 
 	}
 

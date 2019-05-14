@@ -20,17 +20,11 @@ const (
 )
 
 type SingularityDeployResult struct {
-	present map[string]bool
-
-	DeployState SingularityDeployResultDeployState `json:"deployState"`
-
-	LbUpdate *SingularityLoadBalancerUpdate `json:"lbUpdate"`
-
-	Message string `json:"message,omitempty"`
-
-	DeployFailures SingularityDeployFailureList `json:"deployFailures"`
-
-	Timestamp int64 `json:"timestamp"`
+	DeployState    *SingularityDeployResultDeployState `json:"deployState,omitempty"`
+	LbUpdate       *SingularityLoadBalancerUpdate      `json:"lbUpdate,omitempty"`
+	Message        *string                             `json:"message,omitempty"`
+	DeployFailures *SingularityDeployFailureList       `json:"deployFailures,omitempty"`
+	Timestamp      *int64                              `json:"timestamp,omitempty"`
 }
 
 func (self *SingularityDeployResult) Populate(jsonReader io.ReadCloser) (err error) {
@@ -45,10 +39,6 @@ func (self *SingularityDeployResult) Absorb(other swaggering.DTO) error {
 	return fmt.Errorf("A SingularityDeployResult cannot copy the values from %#v", other)
 }
 
-func (self *SingularityDeployResult) MarshalJSON() ([]byte, error) {
-	return swaggering.MarshalJSON(self)
-}
-
 func (self *SingularityDeployResult) FormatText() string {
 	return swaggering.FormatText(self)
 }
@@ -57,14 +47,7 @@ func (self *SingularityDeployResult) FormatJSON() string {
 	return swaggering.FormatJSON(self)
 }
 
-func (self *SingularityDeployResult) FieldsPresent() []string {
-	return swaggering.PresenceFromMap(self.present)
-}
-
 func (self *SingularityDeployResult) SetField(name string, value interface{}) error {
-	if self.present == nil {
-		self.present = make(map[string]bool)
-	}
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on SingularityDeployResult", name)
@@ -72,52 +55,42 @@ func (self *SingularityDeployResult) SetField(name string, value interface{}) er
 	case "deployState", "DeployState":
 		v, ok := value.(SingularityDeployResultDeployState)
 		if ok {
-			self.DeployState = v
-			self.present["deployState"] = true
+			self.DeployState = &v
 			return nil
-		} else {
-			return fmt.Errorf("Field deployState/DeployState: value %v(%T) couldn't be cast to type SingularityDeployResultDeployState", value, value)
 		}
+		return fmt.Errorf("Field deployState/DeployState: value %v(%T) couldn't be cast to type SingularityDeployResultDeployState", value, value)
 
 	case "lbUpdate", "LbUpdate":
 		v, ok := value.(*SingularityLoadBalancerUpdate)
 		if ok {
 			self.LbUpdate = v
-			self.present["lbUpdate"] = true
 			return nil
-		} else {
-			return fmt.Errorf("Field lbUpdate/LbUpdate: value %v(%T) couldn't be cast to type *SingularityLoadBalancerUpdate", value, value)
 		}
+		return fmt.Errorf("Field lbUpdate/LbUpdate: value %v(%T) couldn't be cast to type *SingularityLoadBalancerUpdate", value, value)
 
 	case "message", "Message":
 		v, ok := value.(string)
 		if ok {
-			self.Message = v
-			self.present["message"] = true
+			self.Message = &v
 			return nil
-		} else {
-			return fmt.Errorf("Field message/Message: value %v(%T) couldn't be cast to type string", value, value)
 		}
+		return fmt.Errorf("Field message/Message: value %v(%T) couldn't be cast to type string", value, value)
 
 	case "deployFailures", "DeployFailures":
 		v, ok := value.(SingularityDeployFailureList)
 		if ok {
-			self.DeployFailures = v
-			self.present["deployFailures"] = true
+			self.DeployFailures = &v
 			return nil
-		} else {
-			return fmt.Errorf("Field deployFailures/DeployFailures: value %v(%T) couldn't be cast to type SingularityDeployFailureList", value, value)
 		}
+		return fmt.Errorf("Field deployFailures/DeployFailures: value %v(%T) couldn't be cast to type SingularityDeployFailureList", value, value)
 
 	case "timestamp", "Timestamp":
 		v, ok := value.(int64)
 		if ok {
-			self.Timestamp = v
-			self.present["timestamp"] = true
+			self.Timestamp = &v
 			return nil
-		} else {
-			return fmt.Errorf("Field timestamp/Timestamp: value %v(%T) couldn't be cast to type int64", value, value)
 		}
+		return fmt.Errorf("Field timestamp/Timestamp: value %v(%T) couldn't be cast to type int64", value, value)
 
 	}
 }
@@ -128,70 +101,47 @@ func (self *SingularityDeployResult) GetField(name string) (interface{}, error) 
 		return nil, fmt.Errorf("No such field %s on SingularityDeployResult", name)
 
 	case "deployState", "DeployState":
-		if self.present != nil {
-			if _, ok := self.present["deployState"]; ok {
-				return self.DeployState, nil
-			}
-		}
+		return *self.DeployState, nil
 		return nil, fmt.Errorf("Field DeployState no set on DeployState %+v", self)
 
 	case "lbUpdate", "LbUpdate":
-		if self.present != nil {
-			if _, ok := self.present["lbUpdate"]; ok {
-				return self.LbUpdate, nil
-			}
-		}
+		return self.LbUpdate, nil
 		return nil, fmt.Errorf("Field LbUpdate no set on LbUpdate %+v", self)
 
 	case "message", "Message":
-		if self.present != nil {
-			if _, ok := self.present["message"]; ok {
-				return self.Message, nil
-			}
-		}
+		return *self.Message, nil
 		return nil, fmt.Errorf("Field Message no set on Message %+v", self)
 
 	case "deployFailures", "DeployFailures":
-		if self.present != nil {
-			if _, ok := self.present["deployFailures"]; ok {
-				return self.DeployFailures, nil
-			}
-		}
+		return *self.DeployFailures, nil
 		return nil, fmt.Errorf("Field DeployFailures no set on DeployFailures %+v", self)
 
 	case "timestamp", "Timestamp":
-		if self.present != nil {
-			if _, ok := self.present["timestamp"]; ok {
-				return self.Timestamp, nil
-			}
-		}
+		return *self.Timestamp, nil
 		return nil, fmt.Errorf("Field Timestamp no set on Timestamp %+v", self)
 
 	}
 }
 
 func (self *SingularityDeployResult) ClearField(name string) error {
-	if self.present == nil {
-		self.present = make(map[string]bool)
-	}
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on SingularityDeployResult", name)
 
 	case "deployState", "DeployState":
-		self.present["deployState"] = false
+		self.DeployState = nil
 
 	case "lbUpdate", "LbUpdate":
-		self.present["lbUpdate"] = false
+		self.LbUpdate = nil
 
 	case "message", "Message":
-		self.present["message"] = false
+		self.Message = nil
 
 	case "deployFailures", "DeployFailures":
-		self.present["deployFailures"] = false
+		self.DeployFailures = nil
 
 	case "timestamp", "Timestamp":
-		self.present["timestamp"] = false
+		self.Timestamp = nil
 
 	}
 

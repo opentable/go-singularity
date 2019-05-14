@@ -8,11 +8,8 @@ import (
 )
 
 type SingularityWebhookSummary struct {
-	present map[string]bool
-
-	Webhook *SingularityWebhook `json:"webhook"`
-
-	QueueSize int32 `json:"queueSize"`
+	QueueSize *int32              `json:"queueSize,omitempty"`
+	Webhook   *SingularityWebhook `json:"webhook,omitempty"`
 }
 
 func (self *SingularityWebhookSummary) Populate(jsonReader io.ReadCloser) (err error) {
@@ -27,10 +24,6 @@ func (self *SingularityWebhookSummary) Absorb(other swaggering.DTO) error {
 	return fmt.Errorf("A SingularityWebhookSummary cannot copy the values from %#v", other)
 }
 
-func (self *SingularityWebhookSummary) MarshalJSON() ([]byte, error) {
-	return swaggering.MarshalJSON(self)
-}
-
 func (self *SingularityWebhookSummary) FormatText() string {
 	return swaggering.FormatText(self)
 }
@@ -39,37 +32,26 @@ func (self *SingularityWebhookSummary) FormatJSON() string {
 	return swaggering.FormatJSON(self)
 }
 
-func (self *SingularityWebhookSummary) FieldsPresent() []string {
-	return swaggering.PresenceFromMap(self.present)
-}
-
 func (self *SingularityWebhookSummary) SetField(name string, value interface{}) error {
-	if self.present == nil {
-		self.present = make(map[string]bool)
-	}
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on SingularityWebhookSummary", name)
+
+	case "queueSize", "QueueSize":
+		v, ok := value.(int32)
+		if ok {
+			self.QueueSize = &v
+			return nil
+		}
+		return fmt.Errorf("Field queueSize/QueueSize: value %v(%T) couldn't be cast to type int32", value, value)
 
 	case "webhook", "Webhook":
 		v, ok := value.(*SingularityWebhook)
 		if ok {
 			self.Webhook = v
-			self.present["webhook"] = true
 			return nil
-		} else {
-			return fmt.Errorf("Field webhook/Webhook: value %v(%T) couldn't be cast to type *SingularityWebhook", value, value)
 		}
-
-	case "queueSize", "QueueSize":
-		v, ok := value.(int32)
-		if ok {
-			self.QueueSize = v
-			self.present["queueSize"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field queueSize/QueueSize: value %v(%T) couldn't be cast to type int32", value, value)
-		}
+		return fmt.Errorf("Field webhook/Webhook: value %v(%T) couldn't be cast to type *SingularityWebhook", value, value)
 
 	}
 }
@@ -79,38 +61,27 @@ func (self *SingularityWebhookSummary) GetField(name string) (interface{}, error
 	default:
 		return nil, fmt.Errorf("No such field %s on SingularityWebhookSummary", name)
 
-	case "webhook", "Webhook":
-		if self.present != nil {
-			if _, ok := self.present["webhook"]; ok {
-				return self.Webhook, nil
-			}
-		}
-		return nil, fmt.Errorf("Field Webhook no set on Webhook %+v", self)
-
 	case "queueSize", "QueueSize":
-		if self.present != nil {
-			if _, ok := self.present["queueSize"]; ok {
-				return self.QueueSize, nil
-			}
-		}
+		return *self.QueueSize, nil
 		return nil, fmt.Errorf("Field QueueSize no set on QueueSize %+v", self)
+
+	case "webhook", "Webhook":
+		return self.Webhook, nil
+		return nil, fmt.Errorf("Field Webhook no set on Webhook %+v", self)
 
 	}
 }
 
 func (self *SingularityWebhookSummary) ClearField(name string) error {
-	if self.present == nil {
-		self.present = make(map[string]bool)
-	}
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on SingularityWebhookSummary", name)
 
-	case "webhook", "Webhook":
-		self.present["webhook"] = false
-
 	case "queueSize", "QueueSize":
-		self.present["queueSize"] = false
+		self.QueueSize = nil
+
+	case "webhook", "Webhook":
+		self.Webhook = nil
 
 	}
 

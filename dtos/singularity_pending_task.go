@@ -8,23 +8,14 @@ import (
 )
 
 type SingularityPendingTask struct {
-	present map[string]bool
-
-	ActionId string `json:"actionId,omitempty"`
-
-	PendingTaskId *SingularityPendingTaskId `json:"pendingTaskId"`
-
-	CmdLineArgsList swaggering.StringList `json:"cmdLineArgsList"`
-
-	User string `json:"user,omitempty"`
-
-	RunId string `json:"runId,omitempty"`
-
-	SkipHealthchecks bool `json:"skipHealthchecks"`
-
-	Message string `json:"message,omitempty"`
-
-	Resources *Resources `json:"resources"`
+	Resources        *Resources                `json:"resources,omitempty"`
+	ActionId         *string                   `json:"actionId,omitempty"`
+	PendingTaskId    *SingularityPendingTaskId `json:"pendingTaskId,omitempty"`
+	CmdLineArgsList  *swaggering.StringList    `json:"cmdLineArgsList,omitempty"`
+	User             *string                   `json:"user,omitempty"`
+	RunId            *string                   `json:"runId,omitempty"`
+	SkipHealthchecks *bool                     `json:"skipHealthchecks,omitempty"`
+	Message          *string                   `json:"message,omitempty"`
 }
 
 func (self *SingularityPendingTask) Populate(jsonReader io.ReadCloser) (err error) {
@@ -39,10 +30,6 @@ func (self *SingularityPendingTask) Absorb(other swaggering.DTO) error {
 	return fmt.Errorf("A SingularityPendingTask cannot copy the values from %#v", other)
 }
 
-func (self *SingularityPendingTask) MarshalJSON() ([]byte, error) {
-	return swaggering.MarshalJSON(self)
-}
-
 func (self *SingularityPendingTask) FormatText() string {
 	return swaggering.FormatText(self)
 }
@@ -51,97 +38,74 @@ func (self *SingularityPendingTask) FormatJSON() string {
 	return swaggering.FormatJSON(self)
 }
 
-func (self *SingularityPendingTask) FieldsPresent() []string {
-	return swaggering.PresenceFromMap(self.present)
-}
-
 func (self *SingularityPendingTask) SetField(name string, value interface{}) error {
-	if self.present == nil {
-		self.present = make(map[string]bool)
-	}
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on SingularityPendingTask", name)
-
-	case "actionId", "ActionId":
-		v, ok := value.(string)
-		if ok {
-			self.ActionId = v
-			self.present["actionId"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field actionId/ActionId: value %v(%T) couldn't be cast to type string", value, value)
-		}
-
-	case "pendingTaskId", "PendingTaskId":
-		v, ok := value.(*SingularityPendingTaskId)
-		if ok {
-			self.PendingTaskId = v
-			self.present["pendingTaskId"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field pendingTaskId/PendingTaskId: value %v(%T) couldn't be cast to type *SingularityPendingTaskId", value, value)
-		}
-
-	case "cmdLineArgsList", "CmdLineArgsList":
-		v, ok := value.(swaggering.StringList)
-		if ok {
-			self.CmdLineArgsList = v
-			self.present["cmdLineArgsList"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field cmdLineArgsList/CmdLineArgsList: value %v(%T) couldn't be cast to type swaggering.StringList", value, value)
-		}
-
-	case "user", "User":
-		v, ok := value.(string)
-		if ok {
-			self.User = v
-			self.present["user"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field user/User: value %v(%T) couldn't be cast to type string", value, value)
-		}
-
-	case "runId", "RunId":
-		v, ok := value.(string)
-		if ok {
-			self.RunId = v
-			self.present["runId"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field runId/RunId: value %v(%T) couldn't be cast to type string", value, value)
-		}
-
-	case "skipHealthchecks", "SkipHealthchecks":
-		v, ok := value.(bool)
-		if ok {
-			self.SkipHealthchecks = v
-			self.present["skipHealthchecks"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field skipHealthchecks/SkipHealthchecks: value %v(%T) couldn't be cast to type bool", value, value)
-		}
-
-	case "message", "Message":
-		v, ok := value.(string)
-		if ok {
-			self.Message = v
-			self.present["message"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field message/Message: value %v(%T) couldn't be cast to type string", value, value)
-		}
 
 	case "resources", "Resources":
 		v, ok := value.(*Resources)
 		if ok {
 			self.Resources = v
-			self.present["resources"] = true
 			return nil
-		} else {
-			return fmt.Errorf("Field resources/Resources: value %v(%T) couldn't be cast to type *Resources", value, value)
 		}
+		return fmt.Errorf("Field resources/Resources: value %v(%T) couldn't be cast to type *Resources", value, value)
+
+	case "actionId", "ActionId":
+		v, ok := value.(string)
+		if ok {
+			self.ActionId = &v
+			return nil
+		}
+		return fmt.Errorf("Field actionId/ActionId: value %v(%T) couldn't be cast to type string", value, value)
+
+	case "pendingTaskId", "PendingTaskId":
+		v, ok := value.(*SingularityPendingTaskId)
+		if ok {
+			self.PendingTaskId = v
+			return nil
+		}
+		return fmt.Errorf("Field pendingTaskId/PendingTaskId: value %v(%T) couldn't be cast to type *SingularityPendingTaskId", value, value)
+
+	case "cmdLineArgsList", "CmdLineArgsList":
+		v, ok := value.(swaggering.StringList)
+		if ok {
+			self.CmdLineArgsList = &v
+			return nil
+		}
+		return fmt.Errorf("Field cmdLineArgsList/CmdLineArgsList: value %v(%T) couldn't be cast to type swaggering.StringList", value, value)
+
+	case "user", "User":
+		v, ok := value.(string)
+		if ok {
+			self.User = &v
+			return nil
+		}
+		return fmt.Errorf("Field user/User: value %v(%T) couldn't be cast to type string", value, value)
+
+	case "runId", "RunId":
+		v, ok := value.(string)
+		if ok {
+			self.RunId = &v
+			return nil
+		}
+		return fmt.Errorf("Field runId/RunId: value %v(%T) couldn't be cast to type string", value, value)
+
+	case "skipHealthchecks", "SkipHealthchecks":
+		v, ok := value.(bool)
+		if ok {
+			self.SkipHealthchecks = &v
+			return nil
+		}
+		return fmt.Errorf("Field skipHealthchecks/SkipHealthchecks: value %v(%T) couldn't be cast to type bool", value, value)
+
+	case "message", "Message":
+		v, ok := value.(string)
+		if ok {
+			self.Message = &v
+			return nil
+		}
+		return fmt.Errorf("Field message/Message: value %v(%T) couldn't be cast to type string", value, value)
 
 	}
 }
@@ -151,104 +115,69 @@ func (self *SingularityPendingTask) GetField(name string) (interface{}, error) {
 	default:
 		return nil, fmt.Errorf("No such field %s on SingularityPendingTask", name)
 
+	case "resources", "Resources":
+		return self.Resources, nil
+		return nil, fmt.Errorf("Field Resources no set on Resources %+v", self)
+
 	case "actionId", "ActionId":
-		if self.present != nil {
-			if _, ok := self.present["actionId"]; ok {
-				return self.ActionId, nil
-			}
-		}
+		return *self.ActionId, nil
 		return nil, fmt.Errorf("Field ActionId no set on ActionId %+v", self)
 
 	case "pendingTaskId", "PendingTaskId":
-		if self.present != nil {
-			if _, ok := self.present["pendingTaskId"]; ok {
-				return self.PendingTaskId, nil
-			}
-		}
+		return self.PendingTaskId, nil
 		return nil, fmt.Errorf("Field PendingTaskId no set on PendingTaskId %+v", self)
 
 	case "cmdLineArgsList", "CmdLineArgsList":
-		if self.present != nil {
-			if _, ok := self.present["cmdLineArgsList"]; ok {
-				return self.CmdLineArgsList, nil
-			}
-		}
+		return *self.CmdLineArgsList, nil
 		return nil, fmt.Errorf("Field CmdLineArgsList no set on CmdLineArgsList %+v", self)
 
 	case "user", "User":
-		if self.present != nil {
-			if _, ok := self.present["user"]; ok {
-				return self.User, nil
-			}
-		}
+		return *self.User, nil
 		return nil, fmt.Errorf("Field User no set on User %+v", self)
 
 	case "runId", "RunId":
-		if self.present != nil {
-			if _, ok := self.present["runId"]; ok {
-				return self.RunId, nil
-			}
-		}
+		return *self.RunId, nil
 		return nil, fmt.Errorf("Field RunId no set on RunId %+v", self)
 
 	case "skipHealthchecks", "SkipHealthchecks":
-		if self.present != nil {
-			if _, ok := self.present["skipHealthchecks"]; ok {
-				return self.SkipHealthchecks, nil
-			}
-		}
+		return *self.SkipHealthchecks, nil
 		return nil, fmt.Errorf("Field SkipHealthchecks no set on SkipHealthchecks %+v", self)
 
 	case "message", "Message":
-		if self.present != nil {
-			if _, ok := self.present["message"]; ok {
-				return self.Message, nil
-			}
-		}
+		return *self.Message, nil
 		return nil, fmt.Errorf("Field Message no set on Message %+v", self)
-
-	case "resources", "Resources":
-		if self.present != nil {
-			if _, ok := self.present["resources"]; ok {
-				return self.Resources, nil
-			}
-		}
-		return nil, fmt.Errorf("Field Resources no set on Resources %+v", self)
 
 	}
 }
 
 func (self *SingularityPendingTask) ClearField(name string) error {
-	if self.present == nil {
-		self.present = make(map[string]bool)
-	}
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on SingularityPendingTask", name)
 
+	case "resources", "Resources":
+		self.Resources = nil
+
 	case "actionId", "ActionId":
-		self.present["actionId"] = false
+		self.ActionId = nil
 
 	case "pendingTaskId", "PendingTaskId":
-		self.present["pendingTaskId"] = false
+		self.PendingTaskId = nil
 
 	case "cmdLineArgsList", "CmdLineArgsList":
-		self.present["cmdLineArgsList"] = false
+		self.CmdLineArgsList = nil
 
 	case "user", "User":
-		self.present["user"] = false
+		self.User = nil
 
 	case "runId", "RunId":
-		self.present["runId"] = false
+		self.RunId = nil
 
 	case "skipHealthchecks", "SkipHealthchecks":
-		self.present["skipHealthchecks"] = false
+		self.SkipHealthchecks = nil
 
 	case "message", "Message":
-		self.present["message"] = false
-
-	case "resources", "Resources":
-		self.present["resources"] = false
+		self.Message = nil
 
 	}
 

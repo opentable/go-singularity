@@ -8,19 +8,12 @@ import (
 )
 
 type SingularityExpiringSkipHealthchecks struct {
-	present map[string]bool
-
-	// Invalid field: ExpiringAPIRequestObject *notfound.T `json:"expiringAPIRequestObject"`
-
-	RevertToSkipHealthchecks bool `json:"revertToSkipHealthchecks"`
-
-	RequestId string `json:"requestId,omitempty"`
-
-	StartMillis int64 `json:"startMillis"`
-
-	ActionId string `json:"actionId,omitempty"`
-
-	User string `json:"user,omitempty"`
+	User *string `json:"user,omitempty"`
+	// Invalid field: ExpiringAPIRequestObject *notfound.T `json:"expiringAPIRequestObject,omitempty"`
+	RevertToSkipHealthchecks *bool   `json:"revertToSkipHealthchecks,omitempty"`
+	RequestId                *string `json:"requestId,omitempty"`
+	StartMillis              *int64  `json:"startMillis,omitempty"`
+	ActionId                 *string `json:"actionId,omitempty"`
 }
 
 func (self *SingularityExpiringSkipHealthchecks) Populate(jsonReader io.ReadCloser) (err error) {
@@ -35,10 +28,6 @@ func (self *SingularityExpiringSkipHealthchecks) Absorb(other swaggering.DTO) er
 	return fmt.Errorf("A SingularityExpiringSkipHealthchecks cannot copy the values from %#v", other)
 }
 
-func (self *SingularityExpiringSkipHealthchecks) MarshalJSON() ([]byte, error) {
-	return swaggering.MarshalJSON(self)
-}
-
 func (self *SingularityExpiringSkipHealthchecks) FormatText() string {
 	return swaggering.FormatText(self)
 }
@@ -47,67 +36,50 @@ func (self *SingularityExpiringSkipHealthchecks) FormatJSON() string {
 	return swaggering.FormatJSON(self)
 }
 
-func (self *SingularityExpiringSkipHealthchecks) FieldsPresent() []string {
-	return swaggering.PresenceFromMap(self.present)
-}
-
 func (self *SingularityExpiringSkipHealthchecks) SetField(name string, value interface{}) error {
-	if self.present == nil {
-		self.present = make(map[string]bool)
-	}
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on SingularityExpiringSkipHealthchecks", name)
 
+	case "user", "User":
+		v, ok := value.(string)
+		if ok {
+			self.User = &v
+			return nil
+		}
+		return fmt.Errorf("Field user/User: value %v(%T) couldn't be cast to type string", value, value)
+
 	case "revertToSkipHealthchecks", "RevertToSkipHealthchecks":
 		v, ok := value.(bool)
 		if ok {
-			self.RevertToSkipHealthchecks = v
-			self.present["revertToSkipHealthchecks"] = true
+			self.RevertToSkipHealthchecks = &v
 			return nil
-		} else {
-			return fmt.Errorf("Field revertToSkipHealthchecks/RevertToSkipHealthchecks: value %v(%T) couldn't be cast to type bool", value, value)
 		}
+		return fmt.Errorf("Field revertToSkipHealthchecks/RevertToSkipHealthchecks: value %v(%T) couldn't be cast to type bool", value, value)
 
 	case "requestId", "RequestId":
 		v, ok := value.(string)
 		if ok {
-			self.RequestId = v
-			self.present["requestId"] = true
+			self.RequestId = &v
 			return nil
-		} else {
-			return fmt.Errorf("Field requestId/RequestId: value %v(%T) couldn't be cast to type string", value, value)
 		}
+		return fmt.Errorf("Field requestId/RequestId: value %v(%T) couldn't be cast to type string", value, value)
 
 	case "startMillis", "StartMillis":
 		v, ok := value.(int64)
 		if ok {
-			self.StartMillis = v
-			self.present["startMillis"] = true
+			self.StartMillis = &v
 			return nil
-		} else {
-			return fmt.Errorf("Field startMillis/StartMillis: value %v(%T) couldn't be cast to type int64", value, value)
 		}
+		return fmt.Errorf("Field startMillis/StartMillis: value %v(%T) couldn't be cast to type int64", value, value)
 
 	case "actionId", "ActionId":
 		v, ok := value.(string)
 		if ok {
-			self.ActionId = v
-			self.present["actionId"] = true
+			self.ActionId = &v
 			return nil
-		} else {
-			return fmt.Errorf("Field actionId/ActionId: value %v(%T) couldn't be cast to type string", value, value)
 		}
-
-	case "user", "User":
-		v, ok := value.(string)
-		if ok {
-			self.User = v
-			self.present["user"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field user/User: value %v(%T) couldn't be cast to type string", value, value)
-		}
+		return fmt.Errorf("Field actionId/ActionId: value %v(%T) couldn't be cast to type string", value, value)
 
 	}
 }
@@ -117,71 +89,48 @@ func (self *SingularityExpiringSkipHealthchecks) GetField(name string) (interfac
 	default:
 		return nil, fmt.Errorf("No such field %s on SingularityExpiringSkipHealthchecks", name)
 
+	case "user", "User":
+		return *self.User, nil
+		return nil, fmt.Errorf("Field User no set on User %+v", self)
+
 	case "revertToSkipHealthchecks", "RevertToSkipHealthchecks":
-		if self.present != nil {
-			if _, ok := self.present["revertToSkipHealthchecks"]; ok {
-				return self.RevertToSkipHealthchecks, nil
-			}
-		}
+		return *self.RevertToSkipHealthchecks, nil
 		return nil, fmt.Errorf("Field RevertToSkipHealthchecks no set on RevertToSkipHealthchecks %+v", self)
 
 	case "requestId", "RequestId":
-		if self.present != nil {
-			if _, ok := self.present["requestId"]; ok {
-				return self.RequestId, nil
-			}
-		}
+		return *self.RequestId, nil
 		return nil, fmt.Errorf("Field RequestId no set on RequestId %+v", self)
 
 	case "startMillis", "StartMillis":
-		if self.present != nil {
-			if _, ok := self.present["startMillis"]; ok {
-				return self.StartMillis, nil
-			}
-		}
+		return *self.StartMillis, nil
 		return nil, fmt.Errorf("Field StartMillis no set on StartMillis %+v", self)
 
 	case "actionId", "ActionId":
-		if self.present != nil {
-			if _, ok := self.present["actionId"]; ok {
-				return self.ActionId, nil
-			}
-		}
+		return *self.ActionId, nil
 		return nil, fmt.Errorf("Field ActionId no set on ActionId %+v", self)
-
-	case "user", "User":
-		if self.present != nil {
-			if _, ok := self.present["user"]; ok {
-				return self.User, nil
-			}
-		}
-		return nil, fmt.Errorf("Field User no set on User %+v", self)
 
 	}
 }
 
 func (self *SingularityExpiringSkipHealthchecks) ClearField(name string) error {
-	if self.present == nil {
-		self.present = make(map[string]bool)
-	}
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on SingularityExpiringSkipHealthchecks", name)
 
+	case "user", "User":
+		self.User = nil
+
 	case "revertToSkipHealthchecks", "RevertToSkipHealthchecks":
-		self.present["revertToSkipHealthchecks"] = false
+		self.RevertToSkipHealthchecks = nil
 
 	case "requestId", "RequestId":
-		self.present["requestId"] = false
+		self.RequestId = nil
 
 	case "startMillis", "StartMillis":
-		self.present["startMillis"] = false
+		self.StartMillis = nil
 
 	case "actionId", "ActionId":
-		self.present["actionId"] = false
-
-	case "user", "User":
-		self.present["user"] = false
+		self.ActionId = nil
 
 	}
 

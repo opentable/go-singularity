@@ -8,23 +8,14 @@ import (
 )
 
 type SingularityDeployProgress struct {
-	present map[string]bool
-
-	DeployInstanceCountPerStep int32 `json:"deployInstanceCountPerStep"`
-
-	DeployStepWaitTimeMs int64 `json:"deployStepWaitTimeMs"`
-
-	StepComplete bool `json:"stepComplete"`
-
-	AutoAdvanceDeploySteps bool `json:"autoAdvanceDeploySteps"`
-
-	FailedDeployTasks SingularityTaskIdList `json:"failedDeployTasks"`
-
-	Timestamp int64 `json:"timestamp"`
-
-	TargetActiveInstances int32 `json:"targetActiveInstances"`
-
-	CurrentActiveInstances int32 `json:"currentActiveInstances"`
+	TargetActiveInstances      *int32                 `json:"targetActiveInstances,omitempty"`
+	CurrentActiveInstances     *int32                 `json:"currentActiveInstances,omitempty"`
+	DeployInstanceCountPerStep *int32                 `json:"deployInstanceCountPerStep,omitempty"`
+	DeployStepWaitTimeMs       *int64                 `json:"deployStepWaitTimeMs,omitempty"`
+	StepComplete               *bool                  `json:"stepComplete,omitempty"`
+	AutoAdvanceDeploySteps     *bool                  `json:"autoAdvanceDeploySteps,omitempty"`
+	FailedDeployTasks          *SingularityTaskIdList `json:"failedDeployTasks,omitempty"`
+	Timestamp                  *int64                 `json:"timestamp,omitempty"`
 }
 
 func (self *SingularityDeployProgress) Populate(jsonReader io.ReadCloser) (err error) {
@@ -39,10 +30,6 @@ func (self *SingularityDeployProgress) Absorb(other swaggering.DTO) error {
 	return fmt.Errorf("A SingularityDeployProgress cannot copy the values from %#v", other)
 }
 
-func (self *SingularityDeployProgress) MarshalJSON() ([]byte, error) {
-	return swaggering.MarshalJSON(self)
-}
-
 func (self *SingularityDeployProgress) FormatText() string {
 	return swaggering.FormatText(self)
 }
@@ -51,97 +38,74 @@ func (self *SingularityDeployProgress) FormatJSON() string {
 	return swaggering.FormatJSON(self)
 }
 
-func (self *SingularityDeployProgress) FieldsPresent() []string {
-	return swaggering.PresenceFromMap(self.present)
-}
-
 func (self *SingularityDeployProgress) SetField(name string, value interface{}) error {
-	if self.present == nil {
-		self.present = make(map[string]bool)
-	}
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on SingularityDeployProgress", name)
 
-	case "deployInstanceCountPerStep", "DeployInstanceCountPerStep":
-		v, ok := value.(int32)
-		if ok {
-			self.DeployInstanceCountPerStep = v
-			self.present["deployInstanceCountPerStep"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field deployInstanceCountPerStep/DeployInstanceCountPerStep: value %v(%T) couldn't be cast to type int32", value, value)
-		}
-
-	case "deployStepWaitTimeMs", "DeployStepWaitTimeMs":
-		v, ok := value.(int64)
-		if ok {
-			self.DeployStepWaitTimeMs = v
-			self.present["deployStepWaitTimeMs"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field deployStepWaitTimeMs/DeployStepWaitTimeMs: value %v(%T) couldn't be cast to type int64", value, value)
-		}
-
-	case "stepComplete", "StepComplete":
-		v, ok := value.(bool)
-		if ok {
-			self.StepComplete = v
-			self.present["stepComplete"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field stepComplete/StepComplete: value %v(%T) couldn't be cast to type bool", value, value)
-		}
-
-	case "autoAdvanceDeploySteps", "AutoAdvanceDeploySteps":
-		v, ok := value.(bool)
-		if ok {
-			self.AutoAdvanceDeploySteps = v
-			self.present["autoAdvanceDeploySteps"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field autoAdvanceDeploySteps/AutoAdvanceDeploySteps: value %v(%T) couldn't be cast to type bool", value, value)
-		}
-
-	case "failedDeployTasks", "FailedDeployTasks":
-		v, ok := value.(SingularityTaskIdList)
-		if ok {
-			self.FailedDeployTasks = v
-			self.present["failedDeployTasks"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field failedDeployTasks/FailedDeployTasks: value %v(%T) couldn't be cast to type SingularityTaskIdList", value, value)
-		}
-
-	case "timestamp", "Timestamp":
-		v, ok := value.(int64)
-		if ok {
-			self.Timestamp = v
-			self.present["timestamp"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field timestamp/Timestamp: value %v(%T) couldn't be cast to type int64", value, value)
-		}
-
 	case "targetActiveInstances", "TargetActiveInstances":
 		v, ok := value.(int32)
 		if ok {
-			self.TargetActiveInstances = v
-			self.present["targetActiveInstances"] = true
+			self.TargetActiveInstances = &v
 			return nil
-		} else {
-			return fmt.Errorf("Field targetActiveInstances/TargetActiveInstances: value %v(%T) couldn't be cast to type int32", value, value)
 		}
+		return fmt.Errorf("Field targetActiveInstances/TargetActiveInstances: value %v(%T) couldn't be cast to type int32", value, value)
 
 	case "currentActiveInstances", "CurrentActiveInstances":
 		v, ok := value.(int32)
 		if ok {
-			self.CurrentActiveInstances = v
-			self.present["currentActiveInstances"] = true
+			self.CurrentActiveInstances = &v
 			return nil
-		} else {
-			return fmt.Errorf("Field currentActiveInstances/CurrentActiveInstances: value %v(%T) couldn't be cast to type int32", value, value)
 		}
+		return fmt.Errorf("Field currentActiveInstances/CurrentActiveInstances: value %v(%T) couldn't be cast to type int32", value, value)
+
+	case "deployInstanceCountPerStep", "DeployInstanceCountPerStep":
+		v, ok := value.(int32)
+		if ok {
+			self.DeployInstanceCountPerStep = &v
+			return nil
+		}
+		return fmt.Errorf("Field deployInstanceCountPerStep/DeployInstanceCountPerStep: value %v(%T) couldn't be cast to type int32", value, value)
+
+	case "deployStepWaitTimeMs", "DeployStepWaitTimeMs":
+		v, ok := value.(int64)
+		if ok {
+			self.DeployStepWaitTimeMs = &v
+			return nil
+		}
+		return fmt.Errorf("Field deployStepWaitTimeMs/DeployStepWaitTimeMs: value %v(%T) couldn't be cast to type int64", value, value)
+
+	case "stepComplete", "StepComplete":
+		v, ok := value.(bool)
+		if ok {
+			self.StepComplete = &v
+			return nil
+		}
+		return fmt.Errorf("Field stepComplete/StepComplete: value %v(%T) couldn't be cast to type bool", value, value)
+
+	case "autoAdvanceDeploySteps", "AutoAdvanceDeploySteps":
+		v, ok := value.(bool)
+		if ok {
+			self.AutoAdvanceDeploySteps = &v
+			return nil
+		}
+		return fmt.Errorf("Field autoAdvanceDeploySteps/AutoAdvanceDeploySteps: value %v(%T) couldn't be cast to type bool", value, value)
+
+	case "failedDeployTasks", "FailedDeployTasks":
+		v, ok := value.(SingularityTaskIdList)
+		if ok {
+			self.FailedDeployTasks = &v
+			return nil
+		}
+		return fmt.Errorf("Field failedDeployTasks/FailedDeployTasks: value %v(%T) couldn't be cast to type SingularityTaskIdList", value, value)
+
+	case "timestamp", "Timestamp":
+		v, ok := value.(int64)
+		if ok {
+			self.Timestamp = &v
+			return nil
+		}
+		return fmt.Errorf("Field timestamp/Timestamp: value %v(%T) couldn't be cast to type int64", value, value)
 
 	}
 }
@@ -151,104 +115,69 @@ func (self *SingularityDeployProgress) GetField(name string) (interface{}, error
 	default:
 		return nil, fmt.Errorf("No such field %s on SingularityDeployProgress", name)
 
-	case "deployInstanceCountPerStep", "DeployInstanceCountPerStep":
-		if self.present != nil {
-			if _, ok := self.present["deployInstanceCountPerStep"]; ok {
-				return self.DeployInstanceCountPerStep, nil
-			}
-		}
-		return nil, fmt.Errorf("Field DeployInstanceCountPerStep no set on DeployInstanceCountPerStep %+v", self)
-
-	case "deployStepWaitTimeMs", "DeployStepWaitTimeMs":
-		if self.present != nil {
-			if _, ok := self.present["deployStepWaitTimeMs"]; ok {
-				return self.DeployStepWaitTimeMs, nil
-			}
-		}
-		return nil, fmt.Errorf("Field DeployStepWaitTimeMs no set on DeployStepWaitTimeMs %+v", self)
-
-	case "stepComplete", "StepComplete":
-		if self.present != nil {
-			if _, ok := self.present["stepComplete"]; ok {
-				return self.StepComplete, nil
-			}
-		}
-		return nil, fmt.Errorf("Field StepComplete no set on StepComplete %+v", self)
-
-	case "autoAdvanceDeploySteps", "AutoAdvanceDeploySteps":
-		if self.present != nil {
-			if _, ok := self.present["autoAdvanceDeploySteps"]; ok {
-				return self.AutoAdvanceDeploySteps, nil
-			}
-		}
-		return nil, fmt.Errorf("Field AutoAdvanceDeploySteps no set on AutoAdvanceDeploySteps %+v", self)
-
-	case "failedDeployTasks", "FailedDeployTasks":
-		if self.present != nil {
-			if _, ok := self.present["failedDeployTasks"]; ok {
-				return self.FailedDeployTasks, nil
-			}
-		}
-		return nil, fmt.Errorf("Field FailedDeployTasks no set on FailedDeployTasks %+v", self)
-
-	case "timestamp", "Timestamp":
-		if self.present != nil {
-			if _, ok := self.present["timestamp"]; ok {
-				return self.Timestamp, nil
-			}
-		}
-		return nil, fmt.Errorf("Field Timestamp no set on Timestamp %+v", self)
-
 	case "targetActiveInstances", "TargetActiveInstances":
-		if self.present != nil {
-			if _, ok := self.present["targetActiveInstances"]; ok {
-				return self.TargetActiveInstances, nil
-			}
-		}
+		return *self.TargetActiveInstances, nil
 		return nil, fmt.Errorf("Field TargetActiveInstances no set on TargetActiveInstances %+v", self)
 
 	case "currentActiveInstances", "CurrentActiveInstances":
-		if self.present != nil {
-			if _, ok := self.present["currentActiveInstances"]; ok {
-				return self.CurrentActiveInstances, nil
-			}
-		}
+		return *self.CurrentActiveInstances, nil
 		return nil, fmt.Errorf("Field CurrentActiveInstances no set on CurrentActiveInstances %+v", self)
+
+	case "deployInstanceCountPerStep", "DeployInstanceCountPerStep":
+		return *self.DeployInstanceCountPerStep, nil
+		return nil, fmt.Errorf("Field DeployInstanceCountPerStep no set on DeployInstanceCountPerStep %+v", self)
+
+	case "deployStepWaitTimeMs", "DeployStepWaitTimeMs":
+		return *self.DeployStepWaitTimeMs, nil
+		return nil, fmt.Errorf("Field DeployStepWaitTimeMs no set on DeployStepWaitTimeMs %+v", self)
+
+	case "stepComplete", "StepComplete":
+		return *self.StepComplete, nil
+		return nil, fmt.Errorf("Field StepComplete no set on StepComplete %+v", self)
+
+	case "autoAdvanceDeploySteps", "AutoAdvanceDeploySteps":
+		return *self.AutoAdvanceDeploySteps, nil
+		return nil, fmt.Errorf("Field AutoAdvanceDeploySteps no set on AutoAdvanceDeploySteps %+v", self)
+
+	case "failedDeployTasks", "FailedDeployTasks":
+		return *self.FailedDeployTasks, nil
+		return nil, fmt.Errorf("Field FailedDeployTasks no set on FailedDeployTasks %+v", self)
+
+	case "timestamp", "Timestamp":
+		return *self.Timestamp, nil
+		return nil, fmt.Errorf("Field Timestamp no set on Timestamp %+v", self)
 
 	}
 }
 
 func (self *SingularityDeployProgress) ClearField(name string) error {
-	if self.present == nil {
-		self.present = make(map[string]bool)
-	}
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on SingularityDeployProgress", name)
 
-	case "deployInstanceCountPerStep", "DeployInstanceCountPerStep":
-		self.present["deployInstanceCountPerStep"] = false
-
-	case "deployStepWaitTimeMs", "DeployStepWaitTimeMs":
-		self.present["deployStepWaitTimeMs"] = false
-
-	case "stepComplete", "StepComplete":
-		self.present["stepComplete"] = false
-
-	case "autoAdvanceDeploySteps", "AutoAdvanceDeploySteps":
-		self.present["autoAdvanceDeploySteps"] = false
-
-	case "failedDeployTasks", "FailedDeployTasks":
-		self.present["failedDeployTasks"] = false
-
-	case "timestamp", "Timestamp":
-		self.present["timestamp"] = false
-
 	case "targetActiveInstances", "TargetActiveInstances":
-		self.present["targetActiveInstances"] = false
+		self.TargetActiveInstances = nil
 
 	case "currentActiveInstances", "CurrentActiveInstances":
-		self.present["currentActiveInstances"] = false
+		self.CurrentActiveInstances = nil
+
+	case "deployInstanceCountPerStep", "DeployInstanceCountPerStep":
+		self.DeployInstanceCountPerStep = nil
+
+	case "deployStepWaitTimeMs", "DeployStepWaitTimeMs":
+		self.DeployStepWaitTimeMs = nil
+
+	case "stepComplete", "StepComplete":
+		self.StepComplete = nil
+
+	case "autoAdvanceDeploySteps", "AutoAdvanceDeploySteps":
+		self.AutoAdvanceDeploySteps = nil
+
+	case "failedDeployTasks", "FailedDeployTasks":
+		self.FailedDeployTasks = nil
+
+	case "timestamp", "Timestamp":
+		self.Timestamp = nil
 
 	}
 

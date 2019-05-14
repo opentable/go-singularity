@@ -8,13 +8,9 @@ import (
 )
 
 type SingularityPriorityFreezeParent struct {
-	present map[string]bool
-
-	Timestamp int64 `json:"timestamp"`
-
-	User string `json:"user,omitempty"`
-
-	PriorityFreeze *SingularityPriorityFreeze `json:"priorityFreeze"`
+	PriorityFreeze *SingularityPriorityFreeze `json:"priorityFreeze,omitempty"`
+	Timestamp      *int64                     `json:"timestamp,omitempty"`
+	User           *string                    `json:"user,omitempty"`
 }
 
 func (self *SingularityPriorityFreezeParent) Populate(jsonReader io.ReadCloser) (err error) {
@@ -29,10 +25,6 @@ func (self *SingularityPriorityFreezeParent) Absorb(other swaggering.DTO) error 
 	return fmt.Errorf("A SingularityPriorityFreezeParent cannot copy the values from %#v", other)
 }
 
-func (self *SingularityPriorityFreezeParent) MarshalJSON() ([]byte, error) {
-	return swaggering.MarshalJSON(self)
-}
-
 func (self *SingularityPriorityFreezeParent) FormatText() string {
 	return swaggering.FormatText(self)
 }
@@ -41,47 +33,34 @@ func (self *SingularityPriorityFreezeParent) FormatJSON() string {
 	return swaggering.FormatJSON(self)
 }
 
-func (self *SingularityPriorityFreezeParent) FieldsPresent() []string {
-	return swaggering.PresenceFromMap(self.present)
-}
-
 func (self *SingularityPriorityFreezeParent) SetField(name string, value interface{}) error {
-	if self.present == nil {
-		self.present = make(map[string]bool)
-	}
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on SingularityPriorityFreezeParent", name)
-
-	case "timestamp", "Timestamp":
-		v, ok := value.(int64)
-		if ok {
-			self.Timestamp = v
-			self.present["timestamp"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field timestamp/Timestamp: value %v(%T) couldn't be cast to type int64", value, value)
-		}
-
-	case "user", "User":
-		v, ok := value.(string)
-		if ok {
-			self.User = v
-			self.present["user"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field user/User: value %v(%T) couldn't be cast to type string", value, value)
-		}
 
 	case "priorityFreeze", "PriorityFreeze":
 		v, ok := value.(*SingularityPriorityFreeze)
 		if ok {
 			self.PriorityFreeze = v
-			self.present["priorityFreeze"] = true
 			return nil
-		} else {
-			return fmt.Errorf("Field priorityFreeze/PriorityFreeze: value %v(%T) couldn't be cast to type *SingularityPriorityFreeze", value, value)
 		}
+		return fmt.Errorf("Field priorityFreeze/PriorityFreeze: value %v(%T) couldn't be cast to type *SingularityPriorityFreeze", value, value)
+
+	case "timestamp", "Timestamp":
+		v, ok := value.(int64)
+		if ok {
+			self.Timestamp = &v
+			return nil
+		}
+		return fmt.Errorf("Field timestamp/Timestamp: value %v(%T) couldn't be cast to type int64", value, value)
+
+	case "user", "User":
+		v, ok := value.(string)
+		if ok {
+			self.User = &v
+			return nil
+		}
+		return fmt.Errorf("Field user/User: value %v(%T) couldn't be cast to type string", value, value)
 
 	}
 }
@@ -91,49 +70,34 @@ func (self *SingularityPriorityFreezeParent) GetField(name string) (interface{},
 	default:
 		return nil, fmt.Errorf("No such field %s on SingularityPriorityFreezeParent", name)
 
+	case "priorityFreeze", "PriorityFreeze":
+		return self.PriorityFreeze, nil
+		return nil, fmt.Errorf("Field PriorityFreeze no set on PriorityFreeze %+v", self)
+
 	case "timestamp", "Timestamp":
-		if self.present != nil {
-			if _, ok := self.present["timestamp"]; ok {
-				return self.Timestamp, nil
-			}
-		}
+		return *self.Timestamp, nil
 		return nil, fmt.Errorf("Field Timestamp no set on Timestamp %+v", self)
 
 	case "user", "User":
-		if self.present != nil {
-			if _, ok := self.present["user"]; ok {
-				return self.User, nil
-			}
-		}
+		return *self.User, nil
 		return nil, fmt.Errorf("Field User no set on User %+v", self)
-
-	case "priorityFreeze", "PriorityFreeze":
-		if self.present != nil {
-			if _, ok := self.present["priorityFreeze"]; ok {
-				return self.PriorityFreeze, nil
-			}
-		}
-		return nil, fmt.Errorf("Field PriorityFreeze no set on PriorityFreeze %+v", self)
 
 	}
 }
 
 func (self *SingularityPriorityFreezeParent) ClearField(name string) error {
-	if self.present == nil {
-		self.present = make(map[string]bool)
-	}
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on SingularityPriorityFreezeParent", name)
 
+	case "priorityFreeze", "PriorityFreeze":
+		self.PriorityFreeze = nil
+
 	case "timestamp", "Timestamp":
-		self.present["timestamp"] = false
+		self.Timestamp = nil
 
 	case "user", "User":
-		self.present["user"] = false
-
-	case "priorityFreeze", "PriorityFreeze":
-		self.present["priorityFreeze"] = false
+		self.User = nil
 
 	}
 

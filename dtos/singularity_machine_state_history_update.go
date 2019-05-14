@@ -20,17 +20,11 @@ const (
 )
 
 type SingularityMachineStateHistoryUpdate struct {
-	present map[string]bool
-
-	Timestamp int64 `json:"timestamp"`
-
-	ObjectId string `json:"objectId,omitempty"`
-
-	State SingularityMachineStateHistoryUpdateMachineState `json:"state"`
-
-	User string `json:"user,omitempty"`
-
-	Message string `json:"message,omitempty"`
+	ObjectId  *string                                           `json:"objectId,omitempty"`
+	State     *SingularityMachineStateHistoryUpdateMachineState `json:"state,omitempty"`
+	User      *string                                           `json:"user,omitempty"`
+	Message   *string                                           `json:"message,omitempty"`
+	Timestamp *int64                                            `json:"timestamp,omitempty"`
 }
 
 func (self *SingularityMachineStateHistoryUpdate) Populate(jsonReader io.ReadCloser) (err error) {
@@ -45,10 +39,6 @@ func (self *SingularityMachineStateHistoryUpdate) Absorb(other swaggering.DTO) e
 	return fmt.Errorf("A SingularityMachineStateHistoryUpdate cannot copy the values from %#v", other)
 }
 
-func (self *SingularityMachineStateHistoryUpdate) MarshalJSON() ([]byte, error) {
-	return swaggering.MarshalJSON(self)
-}
-
 func (self *SingularityMachineStateHistoryUpdate) FormatText() string {
 	return swaggering.FormatText(self)
 }
@@ -57,67 +47,50 @@ func (self *SingularityMachineStateHistoryUpdate) FormatJSON() string {
 	return swaggering.FormatJSON(self)
 }
 
-func (self *SingularityMachineStateHistoryUpdate) FieldsPresent() []string {
-	return swaggering.PresenceFromMap(self.present)
-}
-
 func (self *SingularityMachineStateHistoryUpdate) SetField(name string, value interface{}) error {
-	if self.present == nil {
-		self.present = make(map[string]bool)
-	}
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on SingularityMachineStateHistoryUpdate", name)
 
-	case "timestamp", "Timestamp":
-		v, ok := value.(int64)
-		if ok {
-			self.Timestamp = v
-			self.present["timestamp"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field timestamp/Timestamp: value %v(%T) couldn't be cast to type int64", value, value)
-		}
-
 	case "objectId", "ObjectId":
 		v, ok := value.(string)
 		if ok {
-			self.ObjectId = v
-			self.present["objectId"] = true
+			self.ObjectId = &v
 			return nil
-		} else {
-			return fmt.Errorf("Field objectId/ObjectId: value %v(%T) couldn't be cast to type string", value, value)
 		}
+		return fmt.Errorf("Field objectId/ObjectId: value %v(%T) couldn't be cast to type string", value, value)
 
 	case "state", "State":
 		v, ok := value.(SingularityMachineStateHistoryUpdateMachineState)
 		if ok {
-			self.State = v
-			self.present["state"] = true
+			self.State = &v
 			return nil
-		} else {
-			return fmt.Errorf("Field state/State: value %v(%T) couldn't be cast to type SingularityMachineStateHistoryUpdateMachineState", value, value)
 		}
+		return fmt.Errorf("Field state/State: value %v(%T) couldn't be cast to type SingularityMachineStateHistoryUpdateMachineState", value, value)
 
 	case "user", "User":
 		v, ok := value.(string)
 		if ok {
-			self.User = v
-			self.present["user"] = true
+			self.User = &v
 			return nil
-		} else {
-			return fmt.Errorf("Field user/User: value %v(%T) couldn't be cast to type string", value, value)
 		}
+		return fmt.Errorf("Field user/User: value %v(%T) couldn't be cast to type string", value, value)
 
 	case "message", "Message":
 		v, ok := value.(string)
 		if ok {
-			self.Message = v
-			self.present["message"] = true
+			self.Message = &v
 			return nil
-		} else {
-			return fmt.Errorf("Field message/Message: value %v(%T) couldn't be cast to type string", value, value)
 		}
+		return fmt.Errorf("Field message/Message: value %v(%T) couldn't be cast to type string", value, value)
+
+	case "timestamp", "Timestamp":
+		v, ok := value.(int64)
+		if ok {
+			self.Timestamp = &v
+			return nil
+		}
+		return fmt.Errorf("Field timestamp/Timestamp: value %v(%T) couldn't be cast to type int64", value, value)
 
 	}
 }
@@ -127,71 +100,48 @@ func (self *SingularityMachineStateHistoryUpdate) GetField(name string) (interfa
 	default:
 		return nil, fmt.Errorf("No such field %s on SingularityMachineStateHistoryUpdate", name)
 
-	case "timestamp", "Timestamp":
-		if self.present != nil {
-			if _, ok := self.present["timestamp"]; ok {
-				return self.Timestamp, nil
-			}
-		}
-		return nil, fmt.Errorf("Field Timestamp no set on Timestamp %+v", self)
-
 	case "objectId", "ObjectId":
-		if self.present != nil {
-			if _, ok := self.present["objectId"]; ok {
-				return self.ObjectId, nil
-			}
-		}
+		return *self.ObjectId, nil
 		return nil, fmt.Errorf("Field ObjectId no set on ObjectId %+v", self)
 
 	case "state", "State":
-		if self.present != nil {
-			if _, ok := self.present["state"]; ok {
-				return self.State, nil
-			}
-		}
+		return *self.State, nil
 		return nil, fmt.Errorf("Field State no set on State %+v", self)
 
 	case "user", "User":
-		if self.present != nil {
-			if _, ok := self.present["user"]; ok {
-				return self.User, nil
-			}
-		}
+		return *self.User, nil
 		return nil, fmt.Errorf("Field User no set on User %+v", self)
 
 	case "message", "Message":
-		if self.present != nil {
-			if _, ok := self.present["message"]; ok {
-				return self.Message, nil
-			}
-		}
+		return *self.Message, nil
 		return nil, fmt.Errorf("Field Message no set on Message %+v", self)
+
+	case "timestamp", "Timestamp":
+		return *self.Timestamp, nil
+		return nil, fmt.Errorf("Field Timestamp no set on Timestamp %+v", self)
 
 	}
 }
 
 func (self *SingularityMachineStateHistoryUpdate) ClearField(name string) error {
-	if self.present == nil {
-		self.present = make(map[string]bool)
-	}
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on SingularityMachineStateHistoryUpdate", name)
 
-	case "timestamp", "Timestamp":
-		self.present["timestamp"] = false
-
 	case "objectId", "ObjectId":
-		self.present["objectId"] = false
+		self.ObjectId = nil
 
 	case "state", "State":
-		self.present["state"] = false
+		self.State = nil
 
 	case "user", "User":
-		self.present["user"] = false
+		self.User = nil
 
 	case "message", "Message":
-		self.present["message"] = false
+		self.Message = nil
+
+	case "timestamp", "Timestamp":
+		self.Timestamp = nil
 
 	}
 

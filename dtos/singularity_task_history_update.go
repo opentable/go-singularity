@@ -25,19 +25,12 @@ const (
 )
 
 type SingularityTaskHistoryUpdate struct {
-	present map[string]bool
-
-	TaskId *SingularityTaskId `json:"taskId"`
-
-	Timestamp int64 `json:"timestamp"`
-
-	TaskState SingularityTaskHistoryUpdateExtendedTaskState `json:"taskState"`
-
-	StatusMessage string `json:"statusMessage,omitempty"`
-
-	StatusReason string `json:"statusReason,omitempty"`
-
-	Previous SingularityTaskHistoryUpdateList `json:"previous"`
+	Previous      *SingularityTaskHistoryUpdateList              `json:"previous,omitempty"`
+	TaskId        *SingularityTaskId                             `json:"taskId,omitempty"`
+	Timestamp     *int64                                         `json:"timestamp,omitempty"`
+	TaskState     *SingularityTaskHistoryUpdateExtendedTaskState `json:"taskState,omitempty"`
+	StatusMessage *string                                        `json:"statusMessage,omitempty"`
+	StatusReason  *string                                        `json:"statusReason,omitempty"`
 }
 
 func (self *SingularityTaskHistoryUpdate) Populate(jsonReader io.ReadCloser) (err error) {
@@ -52,10 +45,6 @@ func (self *SingularityTaskHistoryUpdate) Absorb(other swaggering.DTO) error {
 	return fmt.Errorf("A SingularityTaskHistoryUpdate cannot copy the values from %#v", other)
 }
 
-func (self *SingularityTaskHistoryUpdate) MarshalJSON() ([]byte, error) {
-	return swaggering.MarshalJSON(self)
-}
-
 func (self *SingularityTaskHistoryUpdate) FormatText() string {
 	return swaggering.FormatText(self)
 }
@@ -64,77 +53,58 @@ func (self *SingularityTaskHistoryUpdate) FormatJSON() string {
 	return swaggering.FormatJSON(self)
 }
 
-func (self *SingularityTaskHistoryUpdate) FieldsPresent() []string {
-	return swaggering.PresenceFromMap(self.present)
-}
-
 func (self *SingularityTaskHistoryUpdate) SetField(name string, value interface{}) error {
-	if self.present == nil {
-		self.present = make(map[string]bool)
-	}
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on SingularityTaskHistoryUpdate", name)
+
+	case "previous", "Previous":
+		v, ok := value.(SingularityTaskHistoryUpdateList)
+		if ok {
+			self.Previous = &v
+			return nil
+		}
+		return fmt.Errorf("Field previous/Previous: value %v(%T) couldn't be cast to type SingularityTaskHistoryUpdateList", value, value)
 
 	case "taskId", "TaskId":
 		v, ok := value.(*SingularityTaskId)
 		if ok {
 			self.TaskId = v
-			self.present["taskId"] = true
 			return nil
-		} else {
-			return fmt.Errorf("Field taskId/TaskId: value %v(%T) couldn't be cast to type *SingularityTaskId", value, value)
 		}
+		return fmt.Errorf("Field taskId/TaskId: value %v(%T) couldn't be cast to type *SingularityTaskId", value, value)
 
 	case "timestamp", "Timestamp":
 		v, ok := value.(int64)
 		if ok {
-			self.Timestamp = v
-			self.present["timestamp"] = true
+			self.Timestamp = &v
 			return nil
-		} else {
-			return fmt.Errorf("Field timestamp/Timestamp: value %v(%T) couldn't be cast to type int64", value, value)
 		}
+		return fmt.Errorf("Field timestamp/Timestamp: value %v(%T) couldn't be cast to type int64", value, value)
 
 	case "taskState", "TaskState":
 		v, ok := value.(SingularityTaskHistoryUpdateExtendedTaskState)
 		if ok {
-			self.TaskState = v
-			self.present["taskState"] = true
+			self.TaskState = &v
 			return nil
-		} else {
-			return fmt.Errorf("Field taskState/TaskState: value %v(%T) couldn't be cast to type SingularityTaskHistoryUpdateExtendedTaskState", value, value)
 		}
+		return fmt.Errorf("Field taskState/TaskState: value %v(%T) couldn't be cast to type SingularityTaskHistoryUpdateExtendedTaskState", value, value)
 
 	case "statusMessage", "StatusMessage":
 		v, ok := value.(string)
 		if ok {
-			self.StatusMessage = v
-			self.present["statusMessage"] = true
+			self.StatusMessage = &v
 			return nil
-		} else {
-			return fmt.Errorf("Field statusMessage/StatusMessage: value %v(%T) couldn't be cast to type string", value, value)
 		}
+		return fmt.Errorf("Field statusMessage/StatusMessage: value %v(%T) couldn't be cast to type string", value, value)
 
 	case "statusReason", "StatusReason":
 		v, ok := value.(string)
 		if ok {
-			self.StatusReason = v
-			self.present["statusReason"] = true
+			self.StatusReason = &v
 			return nil
-		} else {
-			return fmt.Errorf("Field statusReason/StatusReason: value %v(%T) couldn't be cast to type string", value, value)
 		}
-
-	case "previous", "Previous":
-		v, ok := value.(SingularityTaskHistoryUpdateList)
-		if ok {
-			self.Previous = v
-			self.present["previous"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field previous/Previous: value %v(%T) couldn't be cast to type SingularityTaskHistoryUpdateList", value, value)
-		}
+		return fmt.Errorf("Field statusReason/StatusReason: value %v(%T) couldn't be cast to type string", value, value)
 
 	}
 }
@@ -144,82 +114,55 @@ func (self *SingularityTaskHistoryUpdate) GetField(name string) (interface{}, er
 	default:
 		return nil, fmt.Errorf("No such field %s on SingularityTaskHistoryUpdate", name)
 
+	case "previous", "Previous":
+		return *self.Previous, nil
+		return nil, fmt.Errorf("Field Previous no set on Previous %+v", self)
+
 	case "taskId", "TaskId":
-		if self.present != nil {
-			if _, ok := self.present["taskId"]; ok {
-				return self.TaskId, nil
-			}
-		}
+		return self.TaskId, nil
 		return nil, fmt.Errorf("Field TaskId no set on TaskId %+v", self)
 
 	case "timestamp", "Timestamp":
-		if self.present != nil {
-			if _, ok := self.present["timestamp"]; ok {
-				return self.Timestamp, nil
-			}
-		}
+		return *self.Timestamp, nil
 		return nil, fmt.Errorf("Field Timestamp no set on Timestamp %+v", self)
 
 	case "taskState", "TaskState":
-		if self.present != nil {
-			if _, ok := self.present["taskState"]; ok {
-				return self.TaskState, nil
-			}
-		}
+		return *self.TaskState, nil
 		return nil, fmt.Errorf("Field TaskState no set on TaskState %+v", self)
 
 	case "statusMessage", "StatusMessage":
-		if self.present != nil {
-			if _, ok := self.present["statusMessage"]; ok {
-				return self.StatusMessage, nil
-			}
-		}
+		return *self.StatusMessage, nil
 		return nil, fmt.Errorf("Field StatusMessage no set on StatusMessage %+v", self)
 
 	case "statusReason", "StatusReason":
-		if self.present != nil {
-			if _, ok := self.present["statusReason"]; ok {
-				return self.StatusReason, nil
-			}
-		}
+		return *self.StatusReason, nil
 		return nil, fmt.Errorf("Field StatusReason no set on StatusReason %+v", self)
-
-	case "previous", "Previous":
-		if self.present != nil {
-			if _, ok := self.present["previous"]; ok {
-				return self.Previous, nil
-			}
-		}
-		return nil, fmt.Errorf("Field Previous no set on Previous %+v", self)
 
 	}
 }
 
 func (self *SingularityTaskHistoryUpdate) ClearField(name string) error {
-	if self.present == nil {
-		self.present = make(map[string]bool)
-	}
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on SingularityTaskHistoryUpdate", name)
 
+	case "previous", "Previous":
+		self.Previous = nil
+
 	case "taskId", "TaskId":
-		self.present["taskId"] = false
+		self.TaskId = nil
 
 	case "timestamp", "Timestamp":
-		self.present["timestamp"] = false
+		self.Timestamp = nil
 
 	case "taskState", "TaskState":
-		self.present["taskState"] = false
+		self.TaskState = nil
 
 	case "statusMessage", "StatusMessage":
-		self.present["statusMessage"] = false
+		self.StatusMessage = nil
 
 	case "statusReason", "StatusReason":
-		self.present["statusReason"] = false
-
-	case "previous", "Previous":
-		self.present["previous"] = false
+		self.StatusReason = nil
 
 	}
 

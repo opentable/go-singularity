@@ -8,11 +8,8 @@ import (
 )
 
 type SingularityDockerParameter struct {
-	present map[string]bool
-
-	Key string `json:"key,omitempty"`
-
-	Value string `json:"value,omitempty"`
+	Key   *string `json:"key,omitempty"`
+	Value *string `json:"value,omitempty"`
 }
 
 func (self *SingularityDockerParameter) Populate(jsonReader io.ReadCloser) (err error) {
@@ -27,10 +24,6 @@ func (self *SingularityDockerParameter) Absorb(other swaggering.DTO) error {
 	return fmt.Errorf("A SingularityDockerParameter cannot copy the values from %#v", other)
 }
 
-func (self *SingularityDockerParameter) MarshalJSON() ([]byte, error) {
-	return swaggering.MarshalJSON(self)
-}
-
 func (self *SingularityDockerParameter) FormatText() string {
 	return swaggering.FormatText(self)
 }
@@ -39,14 +32,7 @@ func (self *SingularityDockerParameter) FormatJSON() string {
 	return swaggering.FormatJSON(self)
 }
 
-func (self *SingularityDockerParameter) FieldsPresent() []string {
-	return swaggering.PresenceFromMap(self.present)
-}
-
 func (self *SingularityDockerParameter) SetField(name string, value interface{}) error {
-	if self.present == nil {
-		self.present = make(map[string]bool)
-	}
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on SingularityDockerParameter", name)
@@ -54,22 +40,18 @@ func (self *SingularityDockerParameter) SetField(name string, value interface{})
 	case "key", "Key":
 		v, ok := value.(string)
 		if ok {
-			self.Key = v
-			self.present["key"] = true
+			self.Key = &v
 			return nil
-		} else {
-			return fmt.Errorf("Field key/Key: value %v(%T) couldn't be cast to type string", value, value)
 		}
+		return fmt.Errorf("Field key/Key: value %v(%T) couldn't be cast to type string", value, value)
 
 	case "value", "Value":
 		v, ok := value.(string)
 		if ok {
-			self.Value = v
-			self.present["value"] = true
+			self.Value = &v
 			return nil
-		} else {
-			return fmt.Errorf("Field value/Value: value %v(%T) couldn't be cast to type string", value, value)
 		}
+		return fmt.Errorf("Field value/Value: value %v(%T) couldn't be cast to type string", value, value)
 
 	}
 }
@@ -80,37 +62,26 @@ func (self *SingularityDockerParameter) GetField(name string) (interface{}, erro
 		return nil, fmt.Errorf("No such field %s on SingularityDockerParameter", name)
 
 	case "key", "Key":
-		if self.present != nil {
-			if _, ok := self.present["key"]; ok {
-				return self.Key, nil
-			}
-		}
+		return *self.Key, nil
 		return nil, fmt.Errorf("Field Key no set on Key %+v", self)
 
 	case "value", "Value":
-		if self.present != nil {
-			if _, ok := self.present["value"]; ok {
-				return self.Value, nil
-			}
-		}
+		return *self.Value, nil
 		return nil, fmt.Errorf("Field Value no set on Value %+v", self)
 
 	}
 }
 
 func (self *SingularityDockerParameter) ClearField(name string) error {
-	if self.present == nil {
-		self.present = make(map[string]bool)
-	}
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on SingularityDockerParameter", name)
 
 	case "key", "Key":
-		self.present["key"] = false
+		self.Key = nil
 
 	case "value", "Value":
-		self.present["value"] = false
+		self.Value = nil
 
 	}
 

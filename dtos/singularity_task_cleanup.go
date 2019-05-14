@@ -35,21 +35,13 @@ const (
 )
 
 type SingularityTaskCleanup struct {
-	present map[string]bool
-
-	User string `json:"user,omitempty"`
-
-	CleanupType SingularityTaskCleanupTaskCleanupType `json:"cleanupType"`
-
-	Timestamp int64 `json:"timestamp"`
-
-	TaskId *SingularityTaskId `json:"taskId"`
-
-	Message string `json:"message,omitempty"`
-
-	ActionId string `json:"actionId,omitempty"`
-
-	RunBeforeKillId *SingularityTaskShellCommandRequestId `json:"runBeforeKillId"`
+	Message         *string                                `json:"message,omitempty"`
+	ActionId        *string                                `json:"actionId,omitempty"`
+	RunBeforeKillId *SingularityTaskShellCommandRequestId  `json:"runBeforeKillId,omitempty"`
+	User            *string                                `json:"user,omitempty"`
+	CleanupType     *SingularityTaskCleanupTaskCleanupType `json:"cleanupType,omitempty"`
+	Timestamp       *int64                                 `json:"timestamp,omitempty"`
+	TaskId          *SingularityTaskId                     `json:"taskId,omitempty"`
 }
 
 func (self *SingularityTaskCleanup) Populate(jsonReader io.ReadCloser) (err error) {
@@ -64,10 +56,6 @@ func (self *SingularityTaskCleanup) Absorb(other swaggering.DTO) error {
 	return fmt.Errorf("A SingularityTaskCleanup cannot copy the values from %#v", other)
 }
 
-func (self *SingularityTaskCleanup) MarshalJSON() ([]byte, error) {
-	return swaggering.MarshalJSON(self)
-}
-
 func (self *SingularityTaskCleanup) FormatText() string {
 	return swaggering.FormatText(self)
 }
@@ -76,87 +64,66 @@ func (self *SingularityTaskCleanup) FormatJSON() string {
 	return swaggering.FormatJSON(self)
 }
 
-func (self *SingularityTaskCleanup) FieldsPresent() []string {
-	return swaggering.PresenceFromMap(self.present)
-}
-
 func (self *SingularityTaskCleanup) SetField(name string, value interface{}) error {
-	if self.present == nil {
-		self.present = make(map[string]bool)
-	}
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on SingularityTaskCleanup", name)
 
-	case "user", "User":
-		v, ok := value.(string)
-		if ok {
-			self.User = v
-			self.present["user"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field user/User: value %v(%T) couldn't be cast to type string", value, value)
-		}
-
-	case "cleanupType", "CleanupType":
-		v, ok := value.(SingularityTaskCleanupTaskCleanupType)
-		if ok {
-			self.CleanupType = v
-			self.present["cleanupType"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field cleanupType/CleanupType: value %v(%T) couldn't be cast to type SingularityTaskCleanupTaskCleanupType", value, value)
-		}
-
-	case "timestamp", "Timestamp":
-		v, ok := value.(int64)
-		if ok {
-			self.Timestamp = v
-			self.present["timestamp"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field timestamp/Timestamp: value %v(%T) couldn't be cast to type int64", value, value)
-		}
-
-	case "taskId", "TaskId":
-		v, ok := value.(*SingularityTaskId)
-		if ok {
-			self.TaskId = v
-			self.present["taskId"] = true
-			return nil
-		} else {
-			return fmt.Errorf("Field taskId/TaskId: value %v(%T) couldn't be cast to type *SingularityTaskId", value, value)
-		}
-
 	case "message", "Message":
 		v, ok := value.(string)
 		if ok {
-			self.Message = v
-			self.present["message"] = true
+			self.Message = &v
 			return nil
-		} else {
-			return fmt.Errorf("Field message/Message: value %v(%T) couldn't be cast to type string", value, value)
 		}
+		return fmt.Errorf("Field message/Message: value %v(%T) couldn't be cast to type string", value, value)
 
 	case "actionId", "ActionId":
 		v, ok := value.(string)
 		if ok {
-			self.ActionId = v
-			self.present["actionId"] = true
+			self.ActionId = &v
 			return nil
-		} else {
-			return fmt.Errorf("Field actionId/ActionId: value %v(%T) couldn't be cast to type string", value, value)
 		}
+		return fmt.Errorf("Field actionId/ActionId: value %v(%T) couldn't be cast to type string", value, value)
 
 	case "runBeforeKillId", "RunBeforeKillId":
 		v, ok := value.(*SingularityTaskShellCommandRequestId)
 		if ok {
 			self.RunBeforeKillId = v
-			self.present["runBeforeKillId"] = true
 			return nil
-		} else {
-			return fmt.Errorf("Field runBeforeKillId/RunBeforeKillId: value %v(%T) couldn't be cast to type *SingularityTaskShellCommandRequestId", value, value)
 		}
+		return fmt.Errorf("Field runBeforeKillId/RunBeforeKillId: value %v(%T) couldn't be cast to type *SingularityTaskShellCommandRequestId", value, value)
+
+	case "user", "User":
+		v, ok := value.(string)
+		if ok {
+			self.User = &v
+			return nil
+		}
+		return fmt.Errorf("Field user/User: value %v(%T) couldn't be cast to type string", value, value)
+
+	case "cleanupType", "CleanupType":
+		v, ok := value.(SingularityTaskCleanupTaskCleanupType)
+		if ok {
+			self.CleanupType = &v
+			return nil
+		}
+		return fmt.Errorf("Field cleanupType/CleanupType: value %v(%T) couldn't be cast to type SingularityTaskCleanupTaskCleanupType", value, value)
+
+	case "timestamp", "Timestamp":
+		v, ok := value.(int64)
+		if ok {
+			self.Timestamp = &v
+			return nil
+		}
+		return fmt.Errorf("Field timestamp/Timestamp: value %v(%T) couldn't be cast to type int64", value, value)
+
+	case "taskId", "TaskId":
+		v, ok := value.(*SingularityTaskId)
+		if ok {
+			self.TaskId = v
+			return nil
+		}
+		return fmt.Errorf("Field taskId/TaskId: value %v(%T) couldn't be cast to type *SingularityTaskId", value, value)
 
 	}
 }
@@ -166,93 +133,62 @@ func (self *SingularityTaskCleanup) GetField(name string) (interface{}, error) {
 	default:
 		return nil, fmt.Errorf("No such field %s on SingularityTaskCleanup", name)
 
-	case "user", "User":
-		if self.present != nil {
-			if _, ok := self.present["user"]; ok {
-				return self.User, nil
-			}
-		}
-		return nil, fmt.Errorf("Field User no set on User %+v", self)
-
-	case "cleanupType", "CleanupType":
-		if self.present != nil {
-			if _, ok := self.present["cleanupType"]; ok {
-				return self.CleanupType, nil
-			}
-		}
-		return nil, fmt.Errorf("Field CleanupType no set on CleanupType %+v", self)
-
-	case "timestamp", "Timestamp":
-		if self.present != nil {
-			if _, ok := self.present["timestamp"]; ok {
-				return self.Timestamp, nil
-			}
-		}
-		return nil, fmt.Errorf("Field Timestamp no set on Timestamp %+v", self)
-
-	case "taskId", "TaskId":
-		if self.present != nil {
-			if _, ok := self.present["taskId"]; ok {
-				return self.TaskId, nil
-			}
-		}
-		return nil, fmt.Errorf("Field TaskId no set on TaskId %+v", self)
-
 	case "message", "Message":
-		if self.present != nil {
-			if _, ok := self.present["message"]; ok {
-				return self.Message, nil
-			}
-		}
+		return *self.Message, nil
 		return nil, fmt.Errorf("Field Message no set on Message %+v", self)
 
 	case "actionId", "ActionId":
-		if self.present != nil {
-			if _, ok := self.present["actionId"]; ok {
-				return self.ActionId, nil
-			}
-		}
+		return *self.ActionId, nil
 		return nil, fmt.Errorf("Field ActionId no set on ActionId %+v", self)
 
 	case "runBeforeKillId", "RunBeforeKillId":
-		if self.present != nil {
-			if _, ok := self.present["runBeforeKillId"]; ok {
-				return self.RunBeforeKillId, nil
-			}
-		}
+		return self.RunBeforeKillId, nil
 		return nil, fmt.Errorf("Field RunBeforeKillId no set on RunBeforeKillId %+v", self)
+
+	case "user", "User":
+		return *self.User, nil
+		return nil, fmt.Errorf("Field User no set on User %+v", self)
+
+	case "cleanupType", "CleanupType":
+		return *self.CleanupType, nil
+		return nil, fmt.Errorf("Field CleanupType no set on CleanupType %+v", self)
+
+	case "timestamp", "Timestamp":
+		return *self.Timestamp, nil
+		return nil, fmt.Errorf("Field Timestamp no set on Timestamp %+v", self)
+
+	case "taskId", "TaskId":
+		return self.TaskId, nil
+		return nil, fmt.Errorf("Field TaskId no set on TaskId %+v", self)
 
 	}
 }
 
 func (self *SingularityTaskCleanup) ClearField(name string) error {
-	if self.present == nil {
-		self.present = make(map[string]bool)
-	}
 	switch name {
 	default:
 		return fmt.Errorf("No such field %s on SingularityTaskCleanup", name)
 
-	case "user", "User":
-		self.present["user"] = false
-
-	case "cleanupType", "CleanupType":
-		self.present["cleanupType"] = false
-
-	case "timestamp", "Timestamp":
-		self.present["timestamp"] = false
-
-	case "taskId", "TaskId":
-		self.present["taskId"] = false
-
 	case "message", "Message":
-		self.present["message"] = false
+		self.Message = nil
 
 	case "actionId", "ActionId":
-		self.present["actionId"] = false
+		self.ActionId = nil
 
 	case "runBeforeKillId", "RunBeforeKillId":
-		self.present["runBeforeKillId"] = false
+		self.RunBeforeKillId = nil
+
+	case "user", "User":
+		self.User = nil
+
+	case "cleanupType", "CleanupType":
+		self.CleanupType = nil
+
+	case "timestamp", "Timestamp":
+		self.Timestamp = nil
+
+	case "taskId", "TaskId":
+		self.TaskId = nil
 
 	}
 
